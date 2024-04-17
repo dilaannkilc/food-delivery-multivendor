@@ -22,11 +22,8 @@ function Reorder(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions(screenOptions(currentTheme.headerText))
   }, [props.navigation])
-  useEffect(() => {
-    async function Track() {
-      await analytics.track(analytics.events.NAVIGATE_TO_REORDER)
-    }
-    Track()
+  useEffect(async() => {
+    await analytics.track(analytics.events.NAVIGATE_TO_REORDER)
   }, [])
   const onSelect = index => {
     if (selectedItems.includes(index)) {

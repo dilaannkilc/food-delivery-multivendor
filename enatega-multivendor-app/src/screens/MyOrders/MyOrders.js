@@ -39,11 +39,8 @@ function MyOrders(props) {
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const inset = useSafeAreaInsets()
-  useEffect(() => {
-    async function Track() {
-      await analytics.track(analytics.events.NAVIGATE_TO_MYORDERS)
-    }
-    Track()
+  useEffect(async() => {
+    await analytics.track(analytics.events.NAVIGATE_TO_MYORDERS)
   }, [])
   useFocusEffect(() => {
     if (Platform.OS === 'android') {

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, StatusBar, TouchableOpacity, Linking,Text } from 'react-native'
+import { View, StatusBar, TouchableOpacity, Linking } from 'react-native'
 import { useLocation } from '../../ui/hooks'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import { useNavigation } from '@react-navigation/native'
@@ -21,11 +21,8 @@ export default function CurrentLocation() {
   const currentTheme = theme[themeContext.ThemeValue]
   const { getCurrentLocation, getLocationPermission } = useLocation()
 
-  useEffect(() => {
-    async function Track() {
-      await Analytics.track(Analytics.events.NAVIGATE_TO_CURRENTLOCATION)
-    }
-    Track()
+  useEffect(async() => {
+    await Analytics.track(Analytics.events.NAVIGATE_TO_CURRENTLOCATION)
   }, [])
 
   const setCurrentLocation = async() => {
