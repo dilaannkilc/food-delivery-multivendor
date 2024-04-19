@@ -44,11 +44,8 @@ function SelectVoucher(props) {
       }
     }
   }
-  useEffect(() => {
-    async function Track() {
-      await analytics.track(analytics.events.NAVIGATE_TO_COUPON)
-    }
-    Track()
+  useEffect(async() => {
+    await analytics.track(analytics.events.NAVIGATE_TO_COUPON)
   }, [])
   // eslint-disable-next-line handle-callback-err
   function onError(error) {

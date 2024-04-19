@@ -62,13 +62,13 @@ function Drawer() {
     <SideDrawer.Navigator drawerContent={props => <SideBar {...props} />}>
       <SideDrawer.Screen
         options={{ headerShown: false }}
-        name="NoDrawer"
-        component={NoDrawer}
+        name="noDrawer"
+        component={noDrawer}
       />
     </SideDrawer.Navigator>
   )
 }
-function NoDrawer() {
+function noDrawer() {
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   return (
@@ -87,7 +87,7 @@ function NoDrawer() {
         component={Restaurant}
         options={{ header: () => null }}
       />
-      { <NavigationStack.Screen name="ItemDetail" component={ItemDetail} /> }
+      <NavigationStack.Screen name="ItemDetail" component={ItemDetail} />
       <NavigationStack.Screen name="Cart" component={Cart} />
       <NavigationStack.Screen name="Profile" component={Profile} />
       <NavigationStack.Screen name="Addresses" component={Addresses} />
@@ -167,8 +167,8 @@ function LocationStack() {
         name="CurrentLocation"
         component={CurrentLocation}
         options={{ header: () => null }}
-      /> 
-       <Location.Screen name="SelectLocation" component={SelectLocation} />
+      />
+      <Location.Screen name="SelectLocation" component={SelectLocation} />
     </Location.Navigator>
   )
 }
@@ -239,7 +239,6 @@ function AppContainer() {
         )}
       </NavigationContainer>
     </SafeAreaProvider>
-
   )
 }
 

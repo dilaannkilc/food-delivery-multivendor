@@ -11,8 +11,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
-  StatusBar,
-  Text
+  StatusBar
 } from 'react-native'
 import { useMutation } from '@apollo/client'
 import gql from 'graphql-tag'
@@ -60,11 +59,8 @@ function Profile(props) {
     }
     StatusBar.setBarStyle('light-content')
   })
-  useEffect(() => {
-    async function Track() {
-      await Analytics.track(Analytics.events.NAVIGATE_TO_PROFILE)
-    }
-    Track()
+  useEffect(async() => {
+    await Analytics.track(Analytics.events.NAVIGATE_TO_PROFILE)
   }, [])
   useLayoutEffect(() => {
     props.navigation.setOptions(
@@ -174,12 +170,12 @@ function Profile(props) {
   }
   return (
     <>
-      {/* <ChangePassword
+      <ChangePassword
         modalVisible={modelVisible}
         hideModal={() => {
           setModalVisible(false)
         }}
-      /> */}
+      />
       <View style={styles(currentTheme).formContainer}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : null}
@@ -333,8 +329,8 @@ function Profile(props) {
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
-       </View>
-           </>
+      </View>
+    </>
   )
 }
 
