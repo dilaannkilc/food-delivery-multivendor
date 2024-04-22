@@ -1,5 +1,4 @@
-// import  * as Amplitude  from 'expo-analytics-amplitude'
-import * as amplitude from '@amplitude/analytics-react-native'
+import * as Amplitude from 'expo-analytics-amplitude'
 import { getTrackingPermissions } from './useAppTrackingTrasparency'
 import getEnvVars from '../../environment'
 const { AMPLITUDE_API_KEY } = getEnvVars()
@@ -47,8 +46,8 @@ export async function initialize() {
   if (isInitialized || !apiKey || trackingStatus !== 'granted') {
     return
   }
-  // await Amplitude.initializeAsync(AMPLITUDE_API_KEY)
-  await amplitude.init(apiKey)
+
+  await Amplitude.initializeAsync(apiKey)
   isInitialized = true
 }
 
@@ -60,17 +59,12 @@ export async function identify(options, userId) {
 
   if (!apiKey) return
   if (userId) {
-    // await Amplitude.setUserIdAsync(userId)
-    amplitude.setUserId(userId)
+    await Amplitude.setUserIdAsync(userId)
   }
   if (properties) {
-    amplitude.Identify(properties)
-    // await Amplitude.setUserPropertiesAsync(properties)
+    await Amplitude.setUserPropertiesAsync(properties)
   } else {
-    // await Amplitude.clearUserPropertiesAsync()
-    const identifyObj = new amplitude.Identify()
-    identifyObj.remove(properties)
-    amplitude.Identify(identifyObj)
+    await Amplitude.clearUserPropertiesAsync()
   }
 }
 export async function track(event, options) {
@@ -81,11 +75,9 @@ export async function track(event, options) {
   if (!apiKey) return
 
   if (properties) {
-    // await Amplitude.logEventWithPropertiesAsync(event, properties)
-    await amplitude.track(event, properties)
+    await Amplitude.logEventWithPropertiesAsync(event, properties)
   } else {
-    // await Amplitude.logEventAsync(event)
-    await amplitude.track(event)
+    await Amplitude.logEventAsync(event)
   }
 }
 

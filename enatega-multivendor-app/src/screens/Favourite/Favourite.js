@@ -43,11 +43,8 @@ function Favourite() {
       fetchPolicy: 'network-only'
     }
   )
-  useEffect(() => {
-    async function Track() {
-      await analytics.track(analytics.events.NAVIGATE_TO_FAVOURITES)
-    }
-    Track()
+  useEffect(async() => {
+    await analytics.track(analytics.events.NAVIGATE_TO_FAVOURITES)
   }, [])
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
