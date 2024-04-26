@@ -42,16 +42,13 @@ const Provider = props => {
     subscribeToMoreOrders()
   }, [])
 
-  useEffect(() => {
-    async function GetToken() {
-      const result = await SecureStore.getItemAsync('notification-token')
-      if (result) {
-        setNotificationToken(JSON.parse(result))
-      } else {
-        setNotificationToken(null)
-      }
+  useEffect(async () => {
+    const result = await SecureStore.getItemAsync('notification-token')
+    if (result) {
+      setNotificationToken(JSON.parse(result))
+    } else {
+      setNotificationToken(null)
     }
-    GetToken()
   }, [])
 
   const subscribeToMoreOrders = async () => {

@@ -60,16 +60,13 @@ function ItemDetail(props) {
     }
     StatusBar.setBarStyle('light-content')
   })
-  useEffect(() => {
-    async function Track() {
-      await Analytics.track(Analytics.events.OPENED_RESTAURANT_ITEM, {
-        restaurantID: restaurant,
-        foodID: food._id,
-        foodName: food.title,
-        foodRestaurantName: food.restaurantName
-      })
-    }
-    Track()
+  useEffect(async() => {
+    await Analytics.track(Analytics.events.OPENED_RESTAURANT_ITEM, {
+      restaurantID: restaurant,
+      foodID: food._id,
+      foodName: food.title,
+      foodRestaurantName: food.restaurantName
+    })
   })
   useLayoutEffect(() => {
     navigation.setOptions({

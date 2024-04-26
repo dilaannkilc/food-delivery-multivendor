@@ -59,11 +59,8 @@ function Profile(props) {
     }
     StatusBar.setBarStyle('light-content')
   })
-  useEffect(() => {
-    async function Track() {
-      await Analytics.track(Analytics.events.NAVIGATE_TO_PROFILE)
-    }
-    Track()
+  useEffect(async() => {
+    await Analytics.track(Analytics.events.NAVIGATE_TO_PROFILE)
   }, [])
   useLayoutEffect(() => {
     props.navigation.setOptions(

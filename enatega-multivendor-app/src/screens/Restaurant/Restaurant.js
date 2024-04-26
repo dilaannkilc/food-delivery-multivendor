@@ -94,11 +94,8 @@ function Restaurant(props) {
       themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
     )
   })
-  useEffect(() => {
-    async function Track() {
-      await Analytics.track(Analytics.events.NAVIGATE_TO_RESTAURANTS)
-    }
-    Track()
+  useEffect(async() => {
+    await Analytics.track(Analytics.events.NAVIGATE_TO_RESTAURANTS)
   }, [])
   useEffect(() => {
     if (

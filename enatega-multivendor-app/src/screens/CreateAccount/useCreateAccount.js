@@ -26,7 +26,6 @@ const {
 const LOGIN = gql`
   ${login}
 `
-
 export const useCreateAccount = () => {
   const navigation = useNavigation()
   const [mutate] = useMutation(LOGIN, { onCompleted, onError })
@@ -36,6 +35,7 @@ export const useCreateAccount = () => {
   const { setTokenAsync } = useContext(AuthContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
+
   const [
     googleRequest,
     googleResponse,

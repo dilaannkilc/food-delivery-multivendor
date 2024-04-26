@@ -37,11 +37,8 @@ export default function SelectLocation(props) {
     latitudeDelta: latitude ? 0.003 : LATITUDE_DELTA,
     longitudeDelta: longitude ? 0.003 : LONGITUDE_DELTA
   })
-  useEffect(() => {
-    async function Track() {
-      await Analytics.track(Analytics.events.NAVIGATE_TO_SELECTLOCATION)
-    }
-    Track()
+  useEffect(async() => {
+    await Analytics.track(Analytics.events.NAVIGATE_TO_SELECTLOCATION)
   }, [])
   let mapRef = null
   useLayoutEffect(() => {
@@ -111,7 +108,7 @@ export default function SelectLocation(props) {
             mapRef = ref
           }}
           initialRegion={coordinates}
-          region={coordinates}
+          // region={coordinates}
           style={{ height: '92%' }}
           provider={PROVIDER_GOOGLE}
           showsTraffic={false}
