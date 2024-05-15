@@ -1,22 +1,3 @@
-<div align="right">
-<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/Ninjas-Code-official/Enatega-Multivendor-Food-Delivery-Solution" style="text-decoration:none">
-  <img src="https://img.shields.io/badge/-0d1117?logo=facebook"  width="40" height="30">
-</a>
-<a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https://github.com/Ninjas-Code-official/Enatega-Multivendor-Food-Delivery-Solution" style="text-decoration:none">
-  <img src="https://img.shields.io/badge/-0d1117?logo=linkedin"  width="40" height="30">
-</a>
-<a target="_blank" href="https://twitter.com/intent/tweet?&url=https://github.com/Ninjas-Code-official/Enatega-Multivendor-Food-Delivery-Solution&via=TWITTER-HANDLE" style="text-decoration:none">
-  <img src="https://img.shields.io/badge/-0d1117?logo=twitter" width="40" height="30">
-</a>
-
-</div>
-
-<div align="center">
-  <i>A modern and customizable platform for managing online ordering and logistics across industries.</i>
- <br/>
-<br />
-</div>
-
 <div align="center">
 
 
@@ -69,7 +50,6 @@ The required credentials and keys have been set already. You can setup your own 
 
 The version of nodejs should be between 18 to 20 (with 16 as minor version and 0 as patch)
 
-[
 
 ## :information_source: Prerequisites: <a id="heading-4"></a>
 
@@ -108,28 +88,6 @@ Set credentials in Admin Dashboard in file src/index.js
 
 NOTE: Email provider has been only been tested for gmail accounts
 
-
-## :framed_picture: Screenshots: <a id="heading-6"></a>
-
-|          Rider App           |
-| :--------------------------: |
-| ![](./assets/RiderApp.webp) |
-
-|               Store APP               |
-| :----------------------------------------: |
-| ![](./assets/StoreApps.webp) |
-
-|          Customer App           |
-| :-----------------------------: |
-| ![](./assets/CustomerApp.webp) |
-
-|           Customer Web            |
-| :-------------------------------: |
-| ![](./assets/customerWeb.webp) |
-
-|             Dashboard              |
-| :--------------------------------: |
-| ![](./assets/AdminDashboard.webp) |
 
 ## :wrench: High Level Architecture: <a id="heading-7"></a>
 
