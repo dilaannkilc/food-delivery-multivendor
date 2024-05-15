@@ -1,27 +1,3 @@
-<div align="center">
-
-
-</div>
-
-<div align="center">
-
-[![Static Badge](https://img.shields.io/badge/facebook-blue?logo=facebook&logoColor=Blue&color=%23fbfbfb)](https://www.facebook.com/enatega)
-[![Static Badge](https://img.shields.io/badge/Instagram-blue?logo=instagram&logoColor=D815BE&color=%23fcfcfc)](https://www.instagram.com/enatega.nb/)
-[![Static Badge](https://img.shields.io/badge/Twitter-blue?logo=Twitter&logoColor=blue&color=%23fcfcfc)](https://twitter.com/EnategaA)
-[![Static Badge](https://img.shields.io/badge/LinkedIn-blue?logo=LinkedIn&logoColor=darkblue&color=%23fcfcfc)](https://www.linkedin.com/company/14583783/)
-
-</div>
-
-<div align="center">
-
-  <a href="https://www.youtube.com/watch?v=00voqzkFpHU">
-    <img src="./assets/Multi Service Solution.webp" alt="Demo video" style="border-radius: 6px; width: auto;">
-  </a>
-
-</div>
-
-<br>
-
 ## :fire: Features: <a id="heading-2"></a>
 
 - Authentication using Google, Apple, and Facebook
