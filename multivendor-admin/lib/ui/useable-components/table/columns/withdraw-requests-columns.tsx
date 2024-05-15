@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useMemo, useContext, useState, useCallback } from 'react';
 import { Dropdown } from 'primereact/dropdown';
 import { Tag } from 'primereact/tag';
@@ -33,11 +33,10 @@ export const WITHDRAW_REQUESTS_TABLE_COLUMNS = ({
   search: string;
   selectedActions: string[];
 }) => {
-  // Hooks
+
   const { showToast } = useContext(ToastContext);
   const t = useTranslations();
 
-  // States
   const [isChangingStatus, setIsChangingStatus] = useState({
     _id: '',
     bool: false,
@@ -59,7 +58,7 @@ export const WITHDRAW_REQUESTS_TABLE_COLUMNS = ({
         setIsChangingStatus({ _id: '', bool: false });
       },
       onCompleted: (res) => {
-        // console.log('Withdraw Request Status Updated', res);
+
         if (!res.updateWithdrawReqStatus.success) {
           showToast({
             type: 'error',
@@ -94,11 +93,10 @@ export const WITHDRAW_REQUESTS_TABLE_COLUMNS = ({
               });
           }
 
-          //   showToast({
-          //   type: 'success',
-          //   title: 'Updated',
-          //   message: 'The withdraw request has been updated successfully.....',
-          // });
+
+
+
+
 
           setIsChangingStatus({ _id: '', bool: false });
         }
@@ -117,9 +115,7 @@ export const WITHDRAW_REQUESTS_TABLE_COLUMNS = ({
       ],
     });
 
-  // console.log("withDraw Data",{ data });
 
-  // Handlers
   const handleDropDownChange = useCallback(
     async (e: any, rowData: IWithDrawRequest) => {
       try {
@@ -142,7 +138,6 @@ export const WITHDRAW_REQUESTS_TABLE_COLUMNS = ({
     [updateWithdrawReqStatus]
   );
 
-  // Options
   const options = useMemo(
     () => [
       {
@@ -161,24 +156,23 @@ export const WITHDRAW_REQUESTS_TABLE_COLUMNS = ({
     []
   );
 
-  // const itemTemplate = (option: any) => (
-  //   <div className="flex gap-2">
-  //     <FontAwesomeIcon
-  //       icon={
-  //         option.code === 'CANCELLED'
-  //           ? faCircleXmark
-  //           : option.code === 'TRANSFERRED'
-  //             ? faArrowsRotate
-  //             : option.code === 'REQUESTED'
-  //               ? faPaperPlane
-  //               : faDashboard
-  //       }
-  //       color={option.code === 'CANCELLED' ? 'red' : 'black'}
-  //       className="h-4 w-4"
-  //     />
-  //      <span className="inline-flex items-center">{option.label}</span>
-  //   </div>
-  // );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const itemTemplate = (option: any) => (
     <div className="flex h-6 items-center gap-2">
@@ -203,7 +197,6 @@ export const WITHDRAW_REQUESTS_TABLE_COLUMNS = ({
     </div>
   );
 
-  // Templates
   const valueTemplate = (option: any) => {
     const findSeverity = (code: string | undefined) => {
       switch (code) {
@@ -285,12 +278,12 @@ export const WITHDRAW_REQUESTS_TABLE_COLUMNS = ({
           />
         ),
       },
-      // {
-      //   propertyName: 'actions',
-      //   body: (rowData: IWithDrawRequest) => (
-      //     <ActionMenu items={menuItems} data={rowData} menuRef={menuRef} />
-      //   ),
-      // },
+
+
+
+
+
+
     ],
     [
       handleDropDownChange,

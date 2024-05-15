@@ -22,8 +22,7 @@ export default function getEnv(env: "DEV" | "STAGE" | "PROD") {
         SERVER_URL: "https://enatega-multivendor.up.railway.app/",
         WS_SERVER_URL: "wss://enatega-multivendor.up.railway.app/",
 
-        // SERVER_URL: "http://localhost:8001/",
-        // WS_SERVER_URL: "ws://localhost:8001/",
+
       };
   }
 }

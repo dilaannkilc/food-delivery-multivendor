@@ -33,7 +33,7 @@ import { useMutation } from '@apollo/client'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import Spinner from '../../components/Spinner/Spinner'
 import CustomApartmentIcon from '../../assets/SVG/imageComponents/CustomApartmentIcon'
-// import UserContext from '../../context/User'
+
 
 const CREATE_ADDRESS = gql`
   ${createAddress}
@@ -51,8 +51,8 @@ function SaveAddress(props) {
   const currentTheme = {isRTL : i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue]}
   const [selectedLabel, setSelectedLabel] = useState('')
   const inset = useSafeAreaInsets()
-  // const [selectedLabelExist, setselectedLabelExist] = useState('')
-  // const { profile, refetchProfile, networkStatus } = useContext(UserContext)
+
+
 
 
   const [mutate, { loading }] = useMutation(locationData?.id ? EDIT_ADDRESS : CREATE_ADDRESS, {
@@ -77,7 +77,7 @@ function SaveAddress(props) {
       navigation.navigate(locationData.prevScreen)
     } else {
       navigation.navigate('Main')
-      // navigation.dispatch(StackActions.popToTop())
+
     }
   }
 

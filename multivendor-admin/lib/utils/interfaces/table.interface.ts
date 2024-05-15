@@ -36,12 +36,10 @@ export interface IDataTableProps<T> extends IGlobalComponentProps {
   moduleName?: string;
   globalFilterFields?: string[];
 
-  // Server-side pagination props (optional)
   totalRecords?: number;
   onPageChange?: (page: number, rows: number) => void;
   currentPage?: number;
 
-  // Legacy/unused props
   onPage?: (e: DataTableStateEvent) => void;
   scrollable?: boolean;
   scrollHeight?: string;

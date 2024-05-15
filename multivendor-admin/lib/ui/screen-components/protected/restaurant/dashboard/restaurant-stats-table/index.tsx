@@ -1,8 +1,7 @@
-// React and third-party imports
+
 import React, { useContext, useMemo } from 'react';
 import { Divider } from 'primereact/divider';
 
-// API and context imports
 import { GET_DASHBOARD_ORDER_SALES_DETAILS_BY_PAYMENT_METHOD } from '@/lib/api/graphql/queries/dashboard';
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
@@ -12,29 +11,24 @@ import {
   IQueryResult,
 } from '@/lib/utils/interfaces';
 
-// Component imports
 import DashboardRestaurantStatsTable from '@/lib/ui/useable-components/dashboard-restaurant-stats-table';
 import HeaderText from '@/lib/ui/useable-components/header-text';
 
-// Constants
 import { DASHBOARD_PAYMENT_METHOD } from '@/lib/utils/constants';
 import DashboardStatsTableSkeleton from '@/lib/ui/useable-components/custom-skeletons/dashboard.stats.table.skeleton';
 
-// Hooks
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 import { useTranslations } from 'next-intl';
 
 export default function RestaurantStatesTable({
   dateFilter,
 }: IDashboardRestaurantStatesTableComponentsProps) {
-  // Hooks
+
   const t = useTranslations();
   const { CURRENCY_CODE } = useConfiguration();
 
-  // Context
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
 
-  // API
   const { data: salesDetailsData, loading: salesDetailsLoading } = useQueryGQL(
     GET_DASHBOARD_ORDER_SALES_DETAILS_BY_PAYMENT_METHOD,
     {
@@ -53,7 +47,6 @@ export default function RestaurantStatesTable({
     undefined
   >;
 
-  // Memo
   const dashboardOrderSalesDetailsByPaymentMethod = useMemo(() => {
     if (!salesDetailsData) return null;
     return (
@@ -61,7 +54,6 @@ export default function RestaurantStatesTable({
     );
   }, [salesDetailsData]);
 
-  // Constants
   const paymentMethod = Object.keys(
     dashboardOrderSalesDetailsByPaymentMethod ?? {}
   );

@@ -1,6 +1,5 @@
 import { IDropdownSelectItem } from '../global.interface';
 
-// Errors
 export interface IUpdateProfileFormErrors {
   name: string[];
   username: string[];

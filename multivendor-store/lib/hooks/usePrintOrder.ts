@@ -2,16 +2,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext, useState } from "react";
 import { PermissionsAndroid, Platform } from "react-native";
 
-// Hooks
 import useOrders from "./useOrders";
 
-// Interface
 import { IOrder } from "../utils/interfaces/order.interface";
 
-// Methods
 import { printAsync, selectPrinterAsync } from "../utils/methods/print";
 
-// Context
 import { ConfigurationContext } from "../context/global/configuration.context";
 import Restaurant from "../context/global/restaurant";
 import ThermalPrinterModule from "react-native-thermal-printer";
@@ -23,7 +19,6 @@ export default function usePrintOrder() {
   const { printer, setPrinter } = useContext(Restaurant.Context);
   const { loading, error, data } = useOrders();
 
-  // States
   const [status, setStatus] = useState("Idle");
 
   const requestBluetoothPermissions = async (): Promise<boolean> => {
@@ -58,9 +53,8 @@ export default function usePrintOrder() {
       await ThermalPrinterModule.printBluetooth({
         payload: text,
 
-        // printerName, // required
-        // cut: false,
-        // beep: false,
+
+
       });
       setStatus(`Printed successfully`);
     } catch (err: any) {
@@ -91,7 +85,7 @@ export default function usePrintOrder() {
         const devices = await ThermalPrinterModule.getBluetoothDeviceList();
 
         if (devices?.length === 0) {
-          // alert("No printer found. Please connect to the thermal printer by pairing using Bluetooth.")
+
           FlashMessageComponent({
             message:
               "No printer found. Please connect to the thermal printer by pairing using Bluetooth.",
@@ -99,10 +93,7 @@ export default function usePrintOrder() {
           return false;
         }
 
-        /**
-         * Please use some kind of get-by-id API to fetch the order details
-         * Current approach is very unoptmized and will down drastically if store order exceeds certain number.
-         */
+        
         const order = data.restaurantOrders.find(
           (order: IOrder) => order._id === id
         );

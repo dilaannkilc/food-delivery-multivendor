@@ -4,7 +4,7 @@ import { Platform, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function OrderDetailLayour() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const {top} = useSafeAreaInsets()
   return (
@@ -24,8 +24,8 @@ export default function OrderDetailLayour() {
               position: "absolute",
               backgroundColor: appTheme.themeBackground,
 
-              elevation: 0, // Shadow for Android
-              shadowColor: "white", // Shadow for iOS
+              elevation: 0, 
+              shadowColor: "white", 
               shadowOpacity: 0,
               shadowRadius: 0,
             },

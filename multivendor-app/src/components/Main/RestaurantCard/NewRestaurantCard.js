@@ -129,12 +129,11 @@ function NewRestaurantCard(props) {
               backgroundColor: 'white',
               borderRadius: 8,
 
-              // iOS shadow
               shadowColor: '#000',
               shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.05,
               shadowRadius: 8,
-              // Android shadow
+
               elevation: 2,
               marginBottom: 5
             }

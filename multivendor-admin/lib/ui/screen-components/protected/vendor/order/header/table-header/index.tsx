@@ -15,10 +15,10 @@ const OrderTableHeader: React.FC<IOrderVendorHeaderProps> = ({
   selectedActions,
   onSearch,
 }) => {
-  // Hooks
+
   const t = useTranslations();
   const {theme } = useTheme()
-  // States
+
   const [searchValue, setSearchValue] = useState<string>('');
   const overlayPanelRef = useRef<OverlayPanel>(null);
 

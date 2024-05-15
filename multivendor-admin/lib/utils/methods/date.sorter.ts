@@ -1,4 +1,4 @@
-// Date sorter
+
 export default function sortDate(
   state: string,
   startDate?: string,
@@ -26,7 +26,7 @@ export default function sortDate(
       endDate: endOfWeek,
     };
   } else if (state == 'Month') {
-    const startOfMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1); // previous month
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1); 
     const endOfMonth = new Date(
       today.getFullYear(),
       today.getMonth(),

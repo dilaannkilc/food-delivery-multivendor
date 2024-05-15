@@ -9,10 +9,6 @@ export const onErrorMessageMatcher = <T extends string>(
   return errorMessages[type]?.some((emessage) => emessage === message) ?? false;
 };
 
-
-
-
-// Update input type to allow 'Error'
 export const getGraphQLErrorMessage = (
   error: ApolloError | Error | undefined | null
 ): string | null => {

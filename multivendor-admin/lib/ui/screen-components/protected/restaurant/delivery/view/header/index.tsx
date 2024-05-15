@@ -1,4 +1,4 @@
-// Components
+
 import HeaderText from '@/lib/ui/useable-components/header-text';
 
 const DeliveryHeader = () => {

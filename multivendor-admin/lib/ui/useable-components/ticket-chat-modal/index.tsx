@@ -35,12 +35,10 @@ export default function TicketChatModal({
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState<string>('');
   const [isSending, setIsSending] = useState<boolean>(false);
-  // const [initialMessageSent, setInitialMessageSent] = useState<boolean>(false);
 
-  // Create a polling interval reference
+
   const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Fetch single ticket details
   const { data: ticketData, loading: ticketLoading } = useQuery(
     GET_SINGLE_SUPPORT_TICKET,
     {
@@ -52,7 +50,6 @@ export default function TicketChatModal({
 
   const t = useTranslations();
 
-  // Fetch ticket messages with polling
   const { data, loading, error, refetch, startPolling, stopPolling } = useQuery(
     GET_TICKET_MESSAGES,
     {
@@ -65,7 +62,7 @@ export default function TicketChatModal({
       },
       skip: !visible || !ticketId,
       fetchPolicy: 'network-only',
-      pollInterval: 0, // We'll manually control polling
+      pollInterval: 0, 
       onError: (error) => {
         showToast({
           type: 'error',
@@ -76,12 +73,11 @@ export default function TicketChatModal({
     }
   );
 
-  // Send message mutation (only used when custom onSendMessage not provided)
   const [sendMessage] = useMutation(CREATE_TICKET_MESSAGE, {
     onCompleted: () => {
       setMessage('');
       setIsSending(false);
-      refetch(); // Immediately refetch messages after sending
+      refetch(); 
     },
     onError: (error) => {
       setIsSending(false);
@@ -93,7 +89,6 @@ export default function TicketChatModal({
     },
   });
 
-  // Update ticket status mutation
   const [updateTicketStatus] = useMutation(UPDATE_TICKET_STATUS, {
     onCompleted: () => {
       refetch();
@@ -112,18 +107,16 @@ export default function TicketChatModal({
     },
   });
 
-  // Start polling when modal is visible
   useEffect(() => {
     if (visible && ticketId) {
-      // Start polling for messages every 3 seconds
+
       startPolling(3000);
 
-      // Custom manual polling implementation as backup
       pollingIntervalRef.current = setInterval(() => {
         refetch();
-      }, 5000); // Every 5 seconds as backup
+      }, 5000); 
     } else {
-      // Stop polling when modal is closed
+
       stopPolling();
 
       if (pollingIntervalRef.current) {
@@ -132,7 +125,6 @@ export default function TicketChatModal({
       }
     }
 
-    // Cleanup on unmount
     return () => {
       stopPolling();
       if (pollingIntervalRef.current) {
@@ -142,14 +134,12 @@ export default function TicketChatModal({
     };
   }, [visible, ticketId, startPolling, stopPolling, refetch]);
 
-  // Auto scroll to bottom when new messages arrive
   useEffect(() => {
     if (messagesEndRef.current && visible) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [data, visible]);
 
-  // Format timestamp
   const formatTimestamp = (timestamp: string) => {
     try {
       const date = new Date(parseInt(timestamp));
@@ -163,24 +153,22 @@ export default function TicketChatModal({
     }
   };
 
-  // Handle sending a message
   const handleSendMessage = () => {
     if (!message.trim() || isSending) return;
 
     setIsSending(true);
 
     if (onSendMessage) {
-      // Use the custom handler if provided
+
       onSendMessage(message.trim());
       setMessage('');
       setIsSending(false);
 
-      // Force refetch after a small delay to get the updated messages
       setTimeout(() => {
         refetch();
       }, 500);
     } else {
-      // Use the default mutation
+
       sendMessage({
         variables: {
           messageInput: {
@@ -192,7 +180,6 @@ export default function TicketChatModal({
     }
   };
 
-  // Handle enter key for sending message
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -200,7 +187,6 @@ export default function TicketChatModal({
     }
   };
 
-  // Handle status change
   const handleStatusChange = (newStatus: string) => {
     if (onStatusChange) {
       onStatusChange(ticketId, newStatus);
@@ -223,14 +209,12 @@ export default function TicketChatModal({
     ticketData?.getSingleSupportTicket?.description || '';
   const isClosed = ticket?.status === 'closed';
 
-  // Status options for dropdown
   const statusOptions = [
     { label: t('Open'), value: 'open' },
     { label: t('in_progress'), value: 'inProgress' },
     { label: t('closed'), value: 'closed' },
   ];
 
-  // Get ticket title
   const getTicketTitle = () => {
     if (!ticket) return t('Support Chat');
 
@@ -245,7 +229,7 @@ export default function TicketChatModal({
     <Dialog
       visible={visible}
       onHide={() => {
-        // Stop polling before closing
+
         stopPolling();
         if (pollingIntervalRef.current) {
           clearInterval(pollingIntervalRef.current);
@@ -264,7 +248,7 @@ export default function TicketChatModal({
       closeOnEscape
     >
       <div className="flex flex-col md:h-[600px] h-[500px]">
-        {/* Header */}
+        {}
         <div className="flex justify-between items-center bg-[#1a1a1a] text-white p-4">
           <div className="flex-1">
             <h3 className="font-medium">{getTicketTitle()}</h3>
@@ -296,7 +280,7 @@ export default function TicketChatModal({
           </div>
           <button
             onClick={() => {
-              // Stop polling before closing
+
               stopPolling();
               if (pollingIntervalRef.current) {
                 clearInterval(pollingIntervalRef.current);
@@ -310,7 +294,7 @@ export default function TicketChatModal({
           </button>
         </div>
 
-        {/* Fixed Ticket Description Section (non-scrollable) */}
+        {}
         {ticketDescription && (
           <div className="border-b dark:border-dark-600 border-gray-200 p-3 bg-gray-50 dark:bg-dark-950">
             <div className="text-xs font-medium text-gray-500 dark:text-white mb-1">
@@ -323,7 +307,7 @@ export default function TicketChatModal({
           </div>
         )}
 
-        {/* Messages Area (scrollable) */}
+        {}
         <div className="flex-1 p-4 overflow-y-auto bg-white dark:bg-dark-950">
           {loading || ticketLoading ? (
             <ChatSkeleton />
@@ -333,14 +317,13 @@ export default function TicketChatModal({
             </div>
           ) : messages.length > 0 ? (
             <div className="space-y-4">
-              {/* Messages in chronological order (oldest first) */}
+              {}
               {[...messages].reverse().map((msg) => {
-                // Skip messages that contain the ticket description
+
                 if (msg.content.trim() === ticketDescription.trim()) {
                   return null;
                 }
 
-                // Normal message styling based on senderType
                 const isAdminMessage = msg.senderType === 'admin';
                 return (
                   <div
@@ -366,7 +349,7 @@ export default function TicketChatModal({
           )}
         </div>
 
-        {/* Input Area - Only shown if the ticket is not closed */}
+        {}
         {isClosed ? (
           <div className="p-4 border-t border-gray-200 bg-gray-50 dark:bg-dark-900 text-center">
             <p className="text-gray-500 dark:text-white">

@@ -7,13 +7,11 @@ import { useTranslations } from "next-intl";
 
 export default function ComingSoonScreen() {
 
-  //  // API
-  //   const { loading, error, data, refetch } = useQuery(GET_ZONES);
 
-  //   console.log("Zones",{loading, error, data});
-  // trnaslations
+
+
   const t = useTranslations();
-  // handle click
+
   const handleClick = () => {
     onUseLocalStorage(
       "save",
@@ -28,12 +26,12 @@ export default function ComingSoonScreen() {
         deliveryAddress: "Islamabad, Pakistan",
       })
     );
-    // reload window
+
     window.location.reload(); 
   };  
   return (
     <div onClick={handleClick} className=" cursor-pointer relative flex flex-col rounded-lg items-center justify-center py-8  overflow-hidden  mt-10 text-center bg-gradient-to-b from-primary-color to-primary-dark hover:from-primary-dark hover:to-primary-color  text-white">
-      {/* Floating Food Emojis */}
+      {}
       <span
         aria-hidden="true"
         className="absolute top-10 left-10 text-4xl opacity-20 animate-bounce"
@@ -71,25 +69,25 @@ export default function ComingSoonScreen() {
         🌮
       </span>
 
-      {/* Main Illustration */}
+      {}
       <div className="w-40 h-40 md:w-56 md:h-56 rounded-full flex items-center justify-center bg-white/20 mb-8">
         <span className="text-5xl md:text-7xl">🍴</span>
       </div>
 
-      {/* Heading */}
+      {}
       <h1 className="text-3xl md:text-5xl font-extrabold mb-3 drop-shadow-lg">
         {t("coming_soon_in_your_area_label")}
       </h1>
 
-      {/* Sub Text */}
+      {}
       <p className="text-lg md:text-xl text-white/90 max-w-xl mb-8">
         {t("coming_soon_in_your_area_message")}
       </p>
 
-      {/* Explore Another Region Button */}
+      {}
       <CustomButton
         label={"Click anywhere on this screen to explore restaurants."}
-        // onClick={handleClick}
+
         className="px-8 py-3 rounded-full font-semibold bg-white text-primary-color shadow-lg 
                    hover:bg-white/90 hover:scale-105 transition-transform duration-200"
       />

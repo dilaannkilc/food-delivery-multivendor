@@ -3,10 +3,10 @@ export default function ProfileDetailsSkeleton() {
     return (
         <div className="p-6 w-full bg-white rounded-lg border border-gray-200 shadow-sm animate-pulse">
           <div className="flex items-center gap-4 mb-6">
-            {/* Avatar Skeleton */}
+            {}
             <div className="h-16 w-16 bg-gray-300 rounded-full"></div>
             
-            {/* Name Skeleton */}
+            {}
             <div className="h-6 w-40 bg-gray-300 rounded"></div>
           </div>
     

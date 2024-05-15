@@ -20,10 +20,8 @@ const useLogin = () => {
   const [creds, setCreds] = useState({ username: "", password: "" });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Context
   const { setTokenAsync } = useContext(AuthContext);
 
-  // API
   const [login, { data: storeLoginData }] = useMutation(STORE_LOGIN, {
     onCompleted,
     onError,
@@ -31,7 +29,6 @@ const useLogin = () => {
 
   useQuery(DEFAULT_STORE_CREDS, { onCompleted, onError });
 
-  // Handlers
   async function onCompleted({
     restaurantLogin,
     lastOrderCreds,
@@ -74,17 +71,14 @@ const useLogin = () => {
     try {
       setIsLoading(true);
 
-      // Validate inputs
       if (!username || !password) {
         throw new Error("Username and password are required");
       }
 
-      // Get notification permissions
       const settings = await Notifications.getPermissionsAsync();
       let notificationPermissions = { ...settings };
       console.log("🚀 ~ Notification permissions:", { notificationPermissions, isDevice: Device.isDevice });
 
-      // Request notification permissions if not granted or not provisional on iOS
       if (
         settings?.status !== "granted" ||
         (settings.ios && settings.ios?.status !== Notifications.IosAuthorizationStatus.PROVISIONAL)
@@ -102,8 +96,7 @@ const useLogin = () => {
       }
 
       let notificationToken = null;
-      
-      // Get notification token if permissions are granted and it's a device
+
       if (
         (notificationPermissions?.status === "granted" ||
           (notificationPermissions.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL)) &&
@@ -115,9 +108,9 @@ const useLogin = () => {
           console.log("🚀 ~ Project ID:", projectId);
           
           if (projectId) {
-            // const tokenResult = await Notifications.getExpoPushTokenAsync({
-            //   projectId: projectId,
-            // });
+
+
+
             const tokenResult =  (await Notifications.getDevicePushTokenAsync());
             notificationToken = tokenResult.data;
             console.log("🚀 ~ Got push token:", notificationToken);
@@ -126,13 +119,12 @@ const useLogin = () => {
           }
         } catch (tokenError) {
           console.warn("🚀 ~ Failed to get push token:", tokenError);
-          // Continue without token - don't fail the login
+
         }
       }
 
       console.log("🚀 ~ Performing login mutation...");
-      
-      // Perform mutation with the obtained data
+
       const { data } = await login({
         variables: {
           username: username,
@@ -143,7 +135,6 @@ const useLogin = () => {
 
       console.log("🚀 ~ Login mutation result:", data);
 
-      // FIX: Check data first, then storeLoginData
       const restaurantId = data?.restaurantLogin?.restaurantId || storeLoginData?.restaurantLogin?.restaurantId;
       
       if (restaurantId) {

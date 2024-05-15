@@ -1,16 +1,15 @@
-// Interfaces
+
 import { useApptheme } from "@/lib/context/theme.context";
 import { IStoreEarningsOrderProps } from "@/lib/utils/interfaces/rider-earnings.interface";
 import { useTranslation } from "react-i18next";
 
-// Core
 import { Text, View } from "react-native";
 
 export default function OrderStack({
   orderId,
   amount,
 }: IStoreEarningsOrderProps) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 

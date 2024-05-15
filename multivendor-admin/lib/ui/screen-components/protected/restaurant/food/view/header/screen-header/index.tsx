@@ -1,20 +1,17 @@
-// Interface and Types
 
-// Components
+
 import { FoodsContext } from '@/lib/context/restaurant/foods.context';
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 
-// Icons
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 const FoodHeader = () => {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const { onFoodFormVisible } = useContext(FoodsContext);
 
   return (

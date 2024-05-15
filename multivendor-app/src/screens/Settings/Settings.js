@@ -205,7 +205,7 @@ function Settings(props) {
 
   async function onSelectedLanguage() {
     try {
-      // Display loading indicator
+
       setLoadingLang(true)
       const languageInd = activeRadio
       await AsyncStorage.setItem(
@@ -434,7 +434,7 @@ function Settings(props) {
         </View>
       </View>
 
-      {/* Modal for language Changes */}
+      {}
 
       <Modal
         isVisible={modalVisible}

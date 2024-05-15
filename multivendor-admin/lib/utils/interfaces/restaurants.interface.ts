@@ -39,7 +39,6 @@ export interface IRestaurantsAddFormComponentProps
 export interface IRestaurantsMainComponentsProps
   extends IGlobalComponentProps {}
 
-// Components
 export interface IRestaurantsVendorDetailsComponentProps
   extends IGlobalComponentProps {
   stepperProps?: IStepperFormProps;
@@ -65,7 +64,6 @@ export interface IRestaurantsRestaurantTimingComponentProps
   stepperProps?: IStepperFormProps;
 }
 
-// Duplicate Dialog
 export interface IRestaurantDuplicateDialogComponentProps
   extends IGlobalComponentProps {
   restaurantId: string;

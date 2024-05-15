@@ -1,6 +1,5 @@
 "use client";
 
-// Core
 import { Sidebar } from "primereact/sidebar";
 import { Menu } from "primereact/menu";
 import { useRouter } from "next/navigation";
@@ -14,13 +13,11 @@ import {
   useTransition,
 } from "react";
 
-// Components
 import Cart from "@/lib/ui/useable-components/cart";
 import UserAddressComponent from "@/lib/ui/useable-components/address";
 import { PaddingContainer } from "@/lib/ui/useable-components/containers";
 import MainSection from "@/lib/ui/useable-components/restaurant-main-section";
 
-// Hook
 import { useUserAddress } from "@/lib/context/address/address.context";
 import { useAuth } from "@/lib/context/auth/auth.context";
 import { useConfig } from "@/lib/context/configuration/configuration.context";
@@ -34,7 +31,6 @@ import Logo from "@/lib/utils/assets/svg/Logo";
 
 import { AnimatePresence, motion } from "framer-motion";
 
-// Icons
 import {
   CartSvg,
   CircleCrossSvg,
@@ -42,22 +38,21 @@ import {
   LocationSvg,
   SearchSvg,
 } from "@/lib/utils/assets/svg";
-// import AnimatedLogo from "@/lib/assets/gif/logo.gif";
+
 import { faChevronDown, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
-// Interface
+
 import { IAppBarProps } from "@/lib/utils/interfaces";
 import { ToastContext } from "@/lib/context/global/toast.context";
-// Methods
+
 import { onUseLocalStorage } from "@/lib/utils/methods/local-storage";
 import {
   deleteSearchedKeywords,
   getSearchedKeywords,
 } from "@/lib/utils/methods";
 
-// Constnats
 import {
   languageTypes,
   USER_CURRENT_LOCATION_LS_KEY,
@@ -71,7 +66,7 @@ import { Dialog } from "primereact/dialog";
 import CustomButton from "@/lib/ui/useable-components/button";
 
 const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
-  // State for cart sidebar
+
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isUserAddressModalOpen, setIsUserAddressModalOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -81,11 +76,9 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
   const [, startTransition] = useTransition();
   const currentLocale = useLocale();
 
-  // REf
   const menuRef = useRef<Menu>(null);
   const languageMenuRef = useRef<Menu>(null);
 
-  //Theme Provider
   const { theme, toggleTheme } = useTheme();
 
   const [position, setPosition] = useState<"left" | "right">("right");
@@ -95,7 +88,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
       setPosition(dir === "rtl" ? "left" : "right");
     }
   }, []);
-  // Hooks
+
   const router = useRouter();
   const { GOOGLE_MAPS_KEY, CURRENCY_SYMBOL } = useConfig();
   const {
@@ -127,13 +120,11 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
     setSearchedKeywords,
   } = useSearchUI();
 
-  // Format subtotal for display
   const formattedSubtotal =
     cartCount > 0
       ? `${CURRENCY_SYMBOL}${calculateSubtotal()}`
       : `${CURRENCY_SYMBOL}0`;
 
-  // Handlers
   const onInit = () => {
     const current_location_ls = onUseLocalStorage(
       "get",
@@ -151,18 +142,17 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
     const selectedAddress = profile?.addresses.find(
       (address) => address.selected
     );
-    // ✅ If there's a selected address, use that
+
     if (selectedAddress) {
       setUserAddress(selectedAddress);
     } else {
-      // Otherwise, get current location if profile is loaded and maps key exists
+
       if (!loadingProfile && GOOGLE_MAPS_KEY) {
         getCurrentLocation(onSetUserLocation);
       }
     }
   };
 
-  //Locale Configuration
   function onLocaleChange(value: string) {
     const locale = value as TLocale;
     startTransition(() => {
@@ -195,7 +185,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
     setAuthToken("");
     localStorage.removeItem("userToken");
     localStorage.removeItem("token");
-    //Give Toast Alert You Logout Successfully
+
     showToast({
       type: "success",
       title: t("logoutSuccessToastTitle"),
@@ -204,7 +194,6 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
     setLogoutConfirmationVisible(false);
   };
 
-  // Logo click handler
   const logoClickHandler = () => {
     if (isLogin) {
       router.push("/");
@@ -213,33 +202,29 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
     }
   };
 
-  //Language DropDoDowm
-  // const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
 
-  // const handleLanguageChange = (lang: string) => {
-  //   localStorage.setItem("language", lang);
-  //   setShowLanguageDropdown(false);
-  //   showToast({
-  //     type: "success",
-  //     title: "Language Changed",
-  //     message: `Language switched to ${lang.toUpperCase()}`,
-  //   });
-  // };
 
-  // UseEffects
+
+
+
+
+
+
+
+
+
   useEffect(() => {
     onInit();
   }, [GOOGLE_MAPS_KEY, profile]);
 
   useEffect(() => {
     if (refetchProfileData) {
-      fetchProfile(); // this one is not working when a refetch is required, kindly check this whoever is working on this module
+      fetchProfile(); 
       onInit();
       setRefetchProfileData(false);
     }
   }, [refetchProfileData]);
 
-  // filters search results
   let searchedKeywords = getSearchedKeywords();
 
   const filteredResults = useMemo(() => {
@@ -257,30 +242,26 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
     });
   }, [filter, queryData]);
 
-  //Language Dropdown UseEffect
   useEffect(() => {
     const closeDropdown = () => {
-      // setShowLanguageDropdown(false);
+
     };
     window.addEventListener("click", closeDropdown);
     return () => window.removeEventListener("click", closeDropdown);
   }, []);
 
-  // Update searchedData in context whenever filter changes
   useEffect(() => {
     setSearchedData(filteredResults);
   }, [filter]);
 
-  // Handle search input change
   const handleSearchInputChange = (e) => {
     setFilter(e.target.value);
   };
 
-  // Search results rendered
   const renderSearchResults = () => {
-    // Case 1: Input is empty
+
     if (filter.length < 1) {
-      // Subcase: No search history
+
       if (searchedKeywords.length === 0) {
         return (
           <div className="text-center py-4 text-gray-500 dark:text-gray-400">
@@ -289,7 +270,6 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
         );
       }
 
-      // Subcase: Display recent history
       return (
         <div className="p-3">
           <div className="flex flex-row justify-between">
@@ -322,7 +302,6 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
       );
     }
 
-    // Case 2: User searched something
     if (filteredResults.length > 0) {
       return (
         <MainSection
@@ -335,7 +314,6 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
       );
     }
 
-    // Case 3: No results found for the searched keyword
     return (
       <div className="text-center py-6 text-gray-500 dark:text-gray-400 flex flex-col items-center justify-center">
         <EmptySearch />
@@ -354,7 +332,6 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
     return "";
   }
 
-  // Language Modal
   const model = languageTypes.map((lang) => ({
     label: lang.value.toUpperCase(),
     template(item: any) {
@@ -380,7 +357,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
         <div className="w-full">
           <PaddingContainer>
             <div className="flex items-center justify-between w-full h-20 sm:h-16 flex-wrap md:flex-nowrap">
-              {/* Left Section */}
+              {}
               <div className="flex items-center gap-2 flex-shrink-0 cursor-pointer">
                 {!isSearchFocused && (
                   <div
@@ -395,7 +372,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                     className={`flex items-center ${isSearchFocused && "hidden"} hidden lg:flex`}
                     onClick={onHandleAddressModelVisibility}
                   >
-                    {/* Show on large screens only */}
+                    {}
                     <div className="hidden md:block p-[4px] m-2 rounded-full">
                       <LocationSvg width={22} height={22} />
                     </div>
@@ -416,7 +393,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                 )}
               </div>
 
-              {/* Center Section */}
+              {}
               <div
                 className={`flex-grow transition-all duration-500 ease-in-out ${isSearchFocused ? "max-w-full" : "max-w-md"} px-2`}
               >
@@ -445,7 +422,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                 </div>
               </div>
 
-              {/* Right Section */}
+              {}
               <div className="flex items-center justify-end gap-2 flex-shrink-0">
                 {!isSearchFocused && (
                   <div className="sm:hidden flex justify-end items-center w-full">
@@ -550,7 +527,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                     />
                   </div>
                 )}
-                {/* Language Dropdown */}{" "}
+                {}{" "}
                 {!isSearchFocused && (
                   <div
                     className="relative flex items-center gap-x-2"
@@ -575,7 +552,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                       />{" "}
                     </button>{" "}
                     <Menu
-                      // className="dark:bg-gray-800 dark:text-white mt-5"
+
                       model={model}
                       popup
                       ref={languageMenuRef}
@@ -591,16 +568,16 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                     />
                   </div>
                 )}
-                {/* Cart Button */}
+                {}
                 <div className="p-1 cursor-pointer">
                   {cartCount > 0 && !isSearchFocused && (
                     <div
                       className="hidden lg:flex items-center justify-between bg-primary-color rounded-lg px-4 py-3 w-64 cursor-pointer"
                       onClick={() => {
                         if (!authToken) {
-                          setIsAuthModalVisible(true); // ⬅️ Show login/signup modal
+                          setIsAuthModalVisible(true); 
                         } else {
-                          setIsCartOpen(true); // ⬅️ Open cart drawer
+                          setIsCartOpen(true); 
                         }
                       }}
                     >
@@ -649,7 +626,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
               </div>
             </div>
 
-            {/* Search Results */}
+            {}
             <div className="flex items-center justify-center">
               <div className="w-full md:w-7/12 pr-5">
                 <AnimatePresence>
@@ -700,7 +677,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
           </PaddingContainer>
         </div>
       </nav>
-      {/* Preventing everything at the background from being clickable when searchbar is open  */}
+      {}
       {isSearchFocused && (
         <div
           className="fixed inset-0 z-40"
@@ -708,9 +685,9 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
         />
       )}
 
-      {/* Cart Sidebar */}
+      {}
       <Sidebar
-        position={position} // ✅ dynamic position
+        position={position} 
         visible={isCartOpen}
         onHide={() => {
           setIsCartOpen(false);
@@ -736,7 +713,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
         />
       </Sidebar>
 
-      {/* Logout Confirmation Dialog */}
+      {}
       <Dialog
         contentClassName="dark:bg-gray-800"
         maskClassName="bg-black/80"
@@ -755,7 +732,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
         dismissableMask
       >
         <div className="flex flex-col items-center text-center space-y-4 dark:bg-gray-800 dark:text-white">
-          {/* Action buttons */}
+          {}
           <div className="flex justify-center gap-3 w-full ">
             <CustomButton
               label={t("cancel_address")}

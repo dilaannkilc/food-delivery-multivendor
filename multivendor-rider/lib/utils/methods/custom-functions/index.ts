@@ -1,25 +1,24 @@
 import { ORDER_STATUS_ENUM } from "../../enums";
 import { IRestaurantProfile, IReview } from "../../interfaces";
 import { IOrder } from "../../interfaces/order.interface";
-// function calculateDistance(
-//   latS: number,
-//   lonS: number,
-//   latD: number,
-//   lonD: number,
-// ) {
-//   const R = 6371; // km
-//   const dLat = toRad(latD - latS);
-//   const dLon = toRad(lonD - lonS);
-//   const lat1 = toRad(latS);
-//   const lat2 = toRad(latD);
 
-//   const a =
-//     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-//     Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-//   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-//   const d = R * c;
-//   return d;
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function calculateDistance(
   latS: number,
@@ -28,7 +27,7 @@ function calculateDistance(
   lonD: number,
   unit: "km" | "miles" = "km"
 ) {
-  const R = unit === "km" ? 6371 : 3958.8; // Radius of Earth in km or miles
+  const R = unit === "km" ? 6371 : 3958.8; 
   const toRad = (angle: number) => (angle * Math.PI) / 180;
 
   const dLat = toRad(latD - latS);
@@ -44,9 +43,8 @@ function calculateDistance(
   return R * c;
 }
 
-// function toRad(Value: number) {
-//   return (Value * Math.PI) / 180;
-// }
+
+
 const calulateRemainingTime = (order: IOrder) => {
   const expectedTime =
     (
@@ -124,25 +122,23 @@ const isOpen = (restaurant: IRestaurantProfile) => {
   );
   if (!todaysTimings) return false;
 
-  // Check all time slots for today's timings
   return todaysTimings.times.some((t) => {
     const startHour = Number(t.startTime[0]);
     const startMinute = Number(t.startTime[1]);
     const endHour = Number(t.endTime[0]);
     const endMinute = Number(t.endTime[1]);
-    const startTime = startHour * 60 + startMinute; // Convert to minutes
-    const endTime = endHour * 60 + endMinute; // Convert to minutes
-    const currentTime = hours * 60 + minutes; // Convert to minutes
+    const startTime = startHour * 60 + startMinute; 
+    const endTime = endHour * 60 + endMinute; 
+    const currentTime = hours * 60 + minutes; 
     return currentTime >= startTime && currentTime <= endTime;
   });
 };
 
-// Function to sort restaurants based on their open status
 const sortRestaurantsByOpenStatus = (restaurants: IRestaurantProfile[]) => {
   return [...restaurants].sort((a, b) => {
-    const isOpenA = isOpen(a) ? 1 : 0; // 1 if open, 0 if closed
-    const isOpenB = isOpen(b) ? 1 : 0; // 1 if open, 0 if closed
-    return isOpenB - isOpenA; // Sort open restaurants to the top
+    const isOpenA = isOpen(a) ? 1 : 0; 
+    const isOpenB = isOpen(b) ? 1 : 0; 
+    return isOpenB - isOpenA; 
   });
 };
 

@@ -1,15 +1,14 @@
 import * as Yup from 'yup';
-// import { PasswordErrors } from '../constants';
+
 import { IDropdownSelectItem } from '../interfaces';
 
 export const VendorSchema = Yup.object().shape({
-  // name: Yup.string()
-  //   .max(35)
-  //   .trim()
-  //   .matches(/\S/, 'Name cannot be only spaces')
-  //   .required('Required'),
 
-  // Why there are more than one name fields?, in some place its asking for only name and in some it is asking for both first and last names... (please choose one either 'name' or 'firstName & lastName')
+
+
+
+
+
   firstName: Yup.string()
     .max(35)
     .trim()
@@ -41,7 +40,6 @@ export const VendorSchema = Yup.object().shape({
     .min(5, 'Minimum 5 Numbers are Required'),
 });
 
-// Creating separate schema for store vendor form
 export const VendorSchemaForStoreForm = Yup.object().shape({
   name: Yup.string()
     .max(35)
@@ -93,11 +91,11 @@ export const RestaurantsVendorDetails = Yup.object().shape({
 });
 
 export const VendorSchemaOnStoreCreate = Yup.object().shape({
-  // name: Yup.string()
-  // .max(35)
-  // .trim()
-  // .matches(/\S/, 'Name cannot be only spaces')
-  // .required('Required'),
+
+
+
+
+
   firstName: Yup.string()
     .max(35)
     .trim()

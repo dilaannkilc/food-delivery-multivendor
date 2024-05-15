@@ -4,7 +4,6 @@ import { CSSProperties, HTMLInputAutoCompleteAttribute } from "react";
 import { NumerTypes } from "../types/number";
 import { IGlobalComponentProps } from "./global.interface";
 
-// Global
 interface IGlobalTextFieldProps extends IGlobalComponentProps {
   type: string;
   placeholder?: string;
@@ -15,13 +14,13 @@ interface IGlobalTextFieldProps extends IGlobalComponentProps {
   style?: CSSProperties;
   isLoading?: boolean;
 }
-// Extra
+
 interface IIconProperties {
   position: "left" | "right";
   icon: IconDefinition;
   style?: CSSProperties;
 }
-// Fields
+
 export interface ITextFieldProps extends IGlobalTextFieldProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
@@ -35,7 +34,7 @@ export interface IPhoneTextFieldProps extends IGlobalTextFieldProps {
   showLabel: boolean;
   page?: string;
   onChange?: (value: string) => void;
-  // onChange: (event: InputMaskChangeEvent) => void;
+
 }
 export interface INumberTextFieldProps
   extends Omit<IGlobalTextFieldProps, "value" | "type" | "maxLength"> {
@@ -72,9 +71,9 @@ export interface ICustomRadiusInputFieldComponentProps
 }
 
 export interface ITimeTextField {
-  value: string | null; // Changed from Date to string
+  value: string | null; 
   placeholder?: string;
-  onChange: (value: string) => void; // Changed to string
+  onChange: (value: string) => void; 
   showLabel?: boolean;
   isLoading?: boolean;
   className?: string;
@@ -83,9 +82,9 @@ export interface ITimeTextField {
 }
 
 export interface IDateTextField {
-  value: string | null; // Changed from Date to string
+  value: string | null; 
   placeholder?: string;
-  onChange: (value: string) => void; // Changed to string
+  onChange: (value: string) => void; 
   showLabel?: boolean;
   isLoading?: boolean;
   className?: string;

@@ -7,7 +7,7 @@ function calculateDistance(
   latD: number,
   lonD: number,
 ) {
-  const R = 6371; // km
+  const R = 6371; 
   const dLat = toRad(latD - latS);
   const dLon = toRad(lonD - lonS);
   const lat1 = toRad(latS);
@@ -98,25 +98,23 @@ const isOpen = (restaurant: IRestaurantProfile) => {
   );
   if (!todaysTimings) return false;
 
-  // Check all time slots for today's timings
   return todaysTimings.times.some((t) => {
     const startHour = Number(t.startTime[0]);
     const startMinute = Number(t.startTime[1]);
     const endHour = Number(t.endTime[0]);
     const endMinute = Number(t.endTime[1]);
-    const startTime = startHour * 60 + startMinute; // Convert to minutes
-    const endTime = endHour * 60 + endMinute; // Convert to minutes
-    const currentTime = hours * 60 + minutes; // Convert to minutes
+    const startTime = startHour * 60 + startMinute; 
+    const endTime = endHour * 60 + endMinute; 
+    const currentTime = hours * 60 + minutes; 
     return currentTime >= startTime && currentTime <= endTime;
   });
 };
 
-// Function to sort restaurants based on their open status
 const sortRestaurantsByOpenStatus = (restaurants: IRestaurantProfile[]) => {
   return [...restaurants].sort((a, b) => {
-    const isOpenA = isOpen(a) ? 1 : 0; // 1 if open, 0 if closed
-    const isOpenB = isOpen(b) ? 1 : 0; // 1 if open, 0 if closed
-    return isOpenB - isOpenA; // Sort open restaurants to the top
+    const isOpenA = isOpen(a) ? 1 : 0; 
+    const isOpenB = isOpen(b) ? 1 : 0; 
+    return isOpenB - isOpenA; 
   });
 };
 

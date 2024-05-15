@@ -1,4 +1,4 @@
-/* eslint-disable max-lines */
+
 import { FC } from "react";
 import { Svg, Path } from "react-native-svg";
 

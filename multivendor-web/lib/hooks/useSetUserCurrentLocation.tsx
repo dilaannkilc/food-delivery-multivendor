@@ -1,19 +1,16 @@
 import { useState } from "react";
 
-// Hooks
 import useGeocoding from "./useGeocoding";
 import useToast from "./useToast";
 
-// Context
 import { useUserAddress } from "../context/address/address.context";
 
-// Types
 import { LocationNameSpace } from "../utils/types/location";
 import { onUseLocalStorage } from "../utils/methods/local-storage";
 import { USER_CURRENT_LOCATION_LS_KEY } from "../utils/constants";
 
 export default function useSetUserCurrentLocation() {
-  // States
+
   const [isLocationFetching, setIsLocationFetching] = useState(false);
 
   const { showToast } = useToast();
@@ -45,7 +42,6 @@ export default function useSetUserCurrentLocation() {
         return;
       }
 
-      // Fetch the address using the geocoding hook
       const { formattedAddress } = await getAddress(
         currrent_location.latitude,
         currrent_location.longitude
@@ -53,9 +49,8 @@ export default function useSetUserCurrentLocation() {
 
       let address = formattedAddress || "Unknown Address";
 
-      // if (address.length > 21) {
-      //   address = address.substring(0, 21) + "...";
-      // }
+
+
 
       if (error) {
         showToast({
@@ -63,7 +58,7 @@ export default function useSetUserCurrentLocation() {
           title: "Current Location",
           message: `Error fetching current location - ${error}`,
         });
-        // navigation.navigate("SelectLocation");
+
         setIsLocationFetching(false);
       } else {
         setIsLocationFetching(false);

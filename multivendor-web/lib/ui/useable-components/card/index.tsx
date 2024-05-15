@@ -1,19 +1,15 @@
 "use client";
 
-// core
 import Image from "next/image";
 import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 
-// Assets
 import { FiClock } from "react-icons/fi";
 import { CycleSvg, FaceSvg } from "@/lib/utils/assets/svg";
 import IconWithTitle from "../icon-with-title";
 
-// Hooks
 import { useSearchUI } from "@/lib/context/search/search.context";
 
-// Interface
 import { ICardProps, IOpeningTime } from "@/lib/utils/interfaces";
 import { saveSearchedKeyword } from "@/lib/utils/methods";
 import CustomDialog from "../custom-dialog";
@@ -39,7 +35,7 @@ const Card: React.FC<ICardProps> = ({
     const now = new Date();
     const currentDay = now
       .toLocaleString("en-US", { weekday: "short" })
-      .toUpperCase(); // e.g., "MON", "TUE", ...
+      .toUpperCase(); 
     const currentHour = now.getHours();
     const currentMinute = now.getMinutes();
 
@@ -84,7 +80,7 @@ const Card: React.FC<ICardProps> = ({
         saveSearchedKeyword(filter);
       }}
     >
-      {/* Image Container */}
+      {}
       <div
         className={`relative w-full ${isSearchFocused ? "h-[160px]" : "h-[160px]"}`}
       >
@@ -97,7 +93,7 @@ const Card: React.FC<ICardProps> = ({
         />
       </div>
 
-      {/* Overlay if closed */}
+      {}
       {(!item?.isAvailable ||
         !item?.isActive ||
         !isWithinOpeningTime(item?.openingTimes)) && (
@@ -109,9 +105,9 @@ const Card: React.FC<ICardProps> = ({
         </div>
       )}
 
-      {/* Content Section */}
+      {}
       <div className="p-2 flex flex-col justify-between flex-shrink">
-        {/* Name & Cuisines */}
+        {}
         <div className="flex flex-row justify-between items-center relative border-b border-dashed pb-1 dark:border-gray-700">
           <div className="w-[70%]">
             <p
@@ -125,7 +121,7 @@ const Card: React.FC<ICardProps> = ({
             </p>
           </div>
 
-          {/* Delivery Time */}
+          {}
           <div className="bg-primary-light dark:bg-gray-700 rounded-md flex items-center justify-center px-2 py-2 h-[40px] gap-1">
             <FiClock className="text-sm text-primary-color" />
             <p className="text-xs text-primary-color font-light lg:font-normal text-center flex justify-center items-center dark:text-primary-color">
@@ -134,7 +130,7 @@ const Card: React.FC<ICardProps> = ({
           </div>
         </div>
 
-        {/* Icons Section */}
+        {}
         <div className="flex flex-row justify-between w-[80%] sm:w-[100%] lg:w-[75%] pt-1">
           <div className="flex items-center justify-center gap-1 text-blue-400">
             <span>{CURRENCY_SYMBOL}</span>
@@ -147,7 +143,7 @@ const Card: React.FC<ICardProps> = ({
         </div>
       </div>
 
-      {/* Closed Modal */}
+      {}
       <CustomDialog
         className="max-w-[300px]"
         visible={isModalOpen.value && isModalOpen.id === item._id}

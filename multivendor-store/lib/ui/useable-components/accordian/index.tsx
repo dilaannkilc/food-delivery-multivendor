@@ -12,10 +12,9 @@ export default function AccordionItem({
   children,
   title,
 }: AccordionItemPros): JSX.Element {
-  // Hooks
+
   const { appTheme } = useApptheme();
 
-  // States
   const [expanded, setExpanded] = useState(false);
 
   function toggleItem() {

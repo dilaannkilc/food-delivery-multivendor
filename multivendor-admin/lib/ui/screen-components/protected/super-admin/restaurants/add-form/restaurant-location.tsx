@@ -1,16 +1,13 @@
 'use client';
 
-// Core
 import { Form, Formik } from 'formik';
 import { useContext, useState } from 'react';
 
-// Interface and Types
 import {
   IRestaurantsRestaurantLocationComponentProps,
   IVendorForm,
 } from '@/lib/utils/interfaces';
 
-// Icons
 import CustomGoogleMapsLocationBounds from '@/lib/ui/useable-components/google-maps/location-bounds-restaurants';
 import { GoogleMapsContext } from '@/lib/context/global/google-maps.context';
 
@@ -28,10 +25,8 @@ export default function RestaurantLocation({
     onStepChange: () => {},
   };
 
-  // Contexts
   const { isLoaded } = useContext(GoogleMapsContext);
 
-  // States
   const [formInitialValues] = useState<IVendorForm>({
     ...initialValues,
   });

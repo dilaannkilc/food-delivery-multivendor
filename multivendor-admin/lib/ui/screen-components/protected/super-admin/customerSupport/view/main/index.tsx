@@ -12,7 +12,6 @@ import UserTicketSkeleton from '@/lib/ui/useable-components/custom-skeletons/use
 import TicketCardSkeleton from '@/lib/ui/useable-components/custom-skeletons/ticket-card.skeleton';
 import { Chip } from 'primereact/chip';
 
-// Interface
 export interface ICustomerSupportMainProps {
   activeTab?: 'tickets' | 'chats';
 }
@@ -38,19 +37,17 @@ export interface ITicket {
   lastMessageAt?: string;
 }
 
-// Type for user with their latest ticket
 interface UserWithLatestTicket {
   user: IUser;
   latestTicket: ITicket | null;
-  lastUpdated: number; // Timestamp to track the most recent update
+  lastUpdated: number; 
 }
 
 export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomerSupportMainProps) {
-  // Hooks
+
   const t = useTranslations();
   const client = useApolloClient();
 
-  // States
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [selectedTicketId, setSelectedTicketId] = useState<string | null>(null);
   const [isChatModalVisible, setIsChatModalVisible] = useState<boolean>(false);
@@ -60,12 +57,10 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
   const [showTicketSkeleton, setShowTicketSkeleton] = useState<boolean>(false);
   const [sortedTickets, setSortedTickets] = useState<ITicket[]>([]);
 
-  // Refs
   const initialDataLoaded = useRef<boolean>(false);
   const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastPolledAt = useRef<number>(Date.now());
 
-  // Fetch list of users who have created tickets
   const { data: usersData, loading: usersLoading, error: usersError, refetch: refetchUsers } = useQuery(
     GET_TICKET_USERS,
     {
@@ -80,7 +75,6 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     }
   );
 
-  // Fetch tickets for the selected user
   const { data: ticketsData, loading: ticketsLoading, error: ticketsError, refetch: refetchTickets } = useQuery(
     GET_USER_SUPPORT_TICKETS,
     {
@@ -102,13 +96,12 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     }
   );
 
-  // Send message mutation
   const [createMessage, { loading: isSendingMessage }] = useMutation(CREATE_TICKET_MESSAGE, {
     onCompleted: () => {
       if (selectedTicketId) {
-        // After sending a message, refresh tickets
+
         refetchTickets();
-        // Update the latest ticket information without showing loading states
+
         if (selectedUserId) {
           fetchLatestUserTickets([selectedUserId]);
         }
@@ -116,28 +109,24 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     }
   });
 
-  // Update ticket status mutation
   const [updateTicketStatus, { loading: isUpdatingStatus }] = useMutation(UPDATE_TICKET_STATUS, {
     onCompleted: () => {
       refetchTickets();
-      // Update the latest ticket information without showing loading states
+
       if (selectedUserId) {
         fetchLatestUserTickets([selectedUserId]);
       }
     }
   });
 
-  // Extract data from queries
   const users: IUser[] = usersData?.getTicketUsers?.users || [];
 
-  // Consistent sorting function for users with tickets
   const sortUsersByLatestActivity = (users: UserWithLatestTicket[]): UserWithLatestTicket[] => {
     return [...users].sort((a, b) => {
-      // Get the timestamp for the latest activity (message or update)
+
       const getLatestTimestamp = (user: UserWithLatestTicket): number => {
         if (!user.latestTicket) return 0;
 
-        // Use lastMessageAt if available, otherwise fall back to updatedAt
         const timestamp = user.latestTicket.lastMessageAt || user.latestTicket.updatedAt;
         try {
           return parseInt(timestamp);
@@ -146,25 +135,21 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
         }
       };
 
-      // Sort by timestamp (most recent first)
       return getLatestTimestamp(b) - getLatestTimestamp(a);
     });
   };
 
-  // Update search when value changes
   useEffect(() => {
     if (initialDataLoaded.current) {
       refetchUsers();
     }
   }, [refetchUsers]);
 
-  // Update ticket sorting when ticket data changes
   useEffect(() => {
     if (ticketsData && !ticketsLoading) {
-      // Extract tickets from the query result
+
       const userTickets: ITicket[] = ticketsData?.getSingleUserSupportTickets?.tickets || [];
 
-      // Sort the tickets by latest activity time (newest first)
       const sorted = [...userTickets].sort((a, b) => {
         const getTimestamp = (ticket: ITicket): number => {
           const timestamp = ticket.lastMessageAt || ticket.updatedAt;
@@ -182,7 +167,6 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     }
   }, [ticketsData, ticketsLoading]);
 
-  // Format date for display
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(parseInt(dateString));
@@ -196,10 +180,9 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     }
   };
 
-  // Fetch latest ticket for a specific user
   const fetchUserLatestTicket = async (userId: string): Promise<UserWithLatestTicket | null> => {
     try {
-      // Fetch this user's tickets
+
       const { data } = await client.query({
         query: GET_USER_SUPPORT_TICKETS,
         variables: {
@@ -214,16 +197,14 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
         fetchPolicy: "network-only"
       });
 
-      // Find the user object
       const user = users.find(u => u._id === userId);
       if (!user) return null;
 
-      // Get all tickets sorted by updatedAt time (newest first)
       const userTickets = data?.getSingleUserSupportTickets?.tickets || [];
       let latestTicket: ITicket | null = null;
 
       if (userTickets.length > 0) {
-        // Sort by lastMessageAt or updatedAt timestamp (newest first)
+
         const sortedTickets = [...userTickets].sort((a, b) => {
           const getTimestamp = (ticket: ITicket): number => {
             const timestamp = ticket.lastMessageAt || ticket.updatedAt;
@@ -240,7 +221,6 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
         if (sortedTickets.length > 0) {
           latestTicket = sortedTickets[0];
 
-          // For the latest ticket, also check for its last message time
           if (latestTicket) {
             try {
               const { data: messageData } = await client.query({
@@ -249,16 +229,15 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
                   input: {
                     ticket: latestTicket._id,
                     page: 1,
-                    limit: 1, // Just get the most recent message
+                    limit: 1, 
                   }
                 },
                 fetchPolicy: "network-only"
               });
 
-              // If messages exist, update the lastMessageAt time
               const messages = messageData?.getTicketMessages?.messages || [];
               if (messages.length > 0) {
-                // Messages are already sorted newest first
+
                 latestTicket = {
                   ...latestTicket,
                   lastMessageAt: messages[0].createdAt
@@ -282,7 +261,6 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     }
   };
 
-  // Fetch latest tickets for specific users
   const fetchLatestUserTickets = async (userIds: string[] = []) => {
     if (userIds.length === 0) return;
 
@@ -290,10 +268,8 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
       const promises = userIds.map(userId => fetchUserLatestTicket(userId));
       const results = await Promise.all(promises);
 
-      // Filter out null results
       const validResults = results.filter(Boolean) as UserWithLatestTicket[];
 
-      // Update the users with tickets array, replacing only the updated users
       setUsersWithTickets(prevUsers => {
         const updatedUsers = [...prevUsers];
 
@@ -301,15 +277,14 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
           const existingIndex = updatedUsers.findIndex(u => u.user._id === newUserData.user._id);
 
           if (existingIndex >= 0) {
-            // Replace existing user data
+
             updatedUsers[existingIndex] = newUserData;
           } else {
-            // Add new user data
+
             updatedUsers.push(newUserData);
           }
         });
 
-        // Apply consistent sorting
         return sortUsersByLatestActivity(updatedUsers);
       });
     } catch (error) {
@@ -317,33 +292,27 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     }
   };
 
-  // Initial fetch for all users' latest tickets
   const fetchAllUsersLatestTickets = useCallback(async (firstLoad: boolean = false) => {
     if (usersLoading || !users.length) return;
 
     try {
-      // For each user, fetch their tickets to find the most recent one
+
       const userTicketsPromises = users.map(async (user: IUser) => {
         return fetchUserLatestTicket(user._id);
       });
 
-      // Wait for all requests to complete
       const results = await Promise.all(userTicketsPromises);
 
-      // Filter out null results
       const validResults = results.filter(Boolean) as UserWithLatestTicket[];
 
-      // Apply consistent sorting
       const sortedResults = sortUsersByLatestActivity(validResults);
 
       setUsersWithTickets(sortedResults);
 
-      // Auto-select the first user if none is selected
       if (!selectedUserId && sortedResults.length > 0) {
         setSelectedUserId(sortedResults[0].user._id);
       }
 
-      // On first load, mark as loaded
       if (firstLoad && !initialDataLoaded.current) {
         initialDataLoaded.current = true;
       }
@@ -352,32 +321,26 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     }
   }, [users, usersLoading, selectedUserId, client]);
 
-  // Load initial data
   useEffect(() => {
     if (!usersLoading && users.length > 0 && !initialDataLoaded.current) {
       fetchAllUsersLatestTickets(true);
     }
   }, [usersLoading, users, fetchAllUsersLatestTickets]);
 
-  // Setup polling for updates
   useEffect(() => {
-    // Define the polling function
+
     const pollForUpdates = async () => {
-      // Only poll if we have initial data and the component is mounted
+
       if (initialDataLoaded.current && users.length > 0) {
         const now = Date.now();
 
-        // Only poll if it's been at least 15 seconds since the last poll
         if (now - lastPolledAt.current >= 15000) {
           lastPolledAt.current = now;
 
-          // Poll for fresh users
           await refetchUsers();
 
-          // Fetch latest tickets for all users but don't show loading state
           fetchAllUsersLatestTickets();
 
-          // If a user is selected, also refresh their tickets
           if (selectedUserId) {
             refetchTickets();
           }
@@ -385,10 +348,8 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
       }
     };
 
-    // Set up the polling interval (every 30 seconds)
     pollingIntervalRef.current = setInterval(pollForUpdates, 30000);
 
-    // Cleanup the interval when the component unmounts
     return () => {
       if (pollingIntervalRef.current) {
         clearInterval(pollingIntervalRef.current);
@@ -396,7 +357,6 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     };
   }, [refetchUsers, users, selectedUserId, refetchTickets, fetchAllUsersLatestTickets]);
 
-  // Handle user selection - show skeleton when changing user
   const handleUserSelect = (userId: string) => {
     if (userId !== selectedUserId) {
       setShowTicketSkeleton(true);
@@ -405,17 +365,14 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     }
   };
 
-  // Handle ticket selection
   const handleTicketSelect = (ticketId: string) => {
     setSelectedTicketId(ticketId);
     setIsChatModalVisible(true);
   };
 
-  // Handle chat modal close
   const handleChatModalClose = () => {
     setIsChatModalVisible(false);
 
-    // Refresh tickets and user data without showing loading state
     setTimeout(() => {
       refetchTickets();
       if (selectedUserId) {
@@ -424,7 +381,6 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     }, 300);
   };
 
-  // Handle send message
   const handleSendMessage = (message: string) => {
     if (!selectedTicketId || isSendingMessage) return;
 
@@ -438,7 +394,6 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     });
   };
 
-  // Handle status change
   const handleStatusChange = (ticketId: string, newStatus: string) => {
     if (isUpdatingStatus) return;
 
@@ -452,24 +407,23 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
     });
   };
 
-  // Determine if we're loading - only show loading state on first load
   const isLoading = usersLoading && !initialDataLoaded.current;
 
   return (
     <div className="flex flex-grow flex-col overflow-hidden sm:flex-row">
-      {/* Left panel - Users list */}
+      {}
       <div
         className={`w-full overflow-y-auto border-gray-200 border dark:border-dark-600 bg-white dark:bg-dark-950 sm:w-1/3 ${activeTab === 'tickets' ? '' : 'hidden sm:block'
           }`}
       >
-        {/* Mobile-only header for Users section */}
+        {}
         <div className="mt-3 border-b dark:border-dark-600 p-3 sm:hidden">
           <div className="mb-4 flex items-center justify-between">
             <HeaderText text={t('Support Users')} />
           </div>
         </div>
 
-        {/* Users list */}
+        {}
         <div className="pb-16">
           {isLoading ? (
             <UserTicketSkeleton count={5} />
@@ -492,12 +446,12 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
         </div>
       </div>
 
-      {/* Right panel - Tickets list */}
+      {}
       <div
         className={`flex-1 overflow-y-auto border-l border-gray-200 dark:border-dark-600 px-2 ${activeTab === 'chats' ? '' : 'hidden sm:block'
           }`}
       >
-        {/* Header for Tickets section */}
+        {}
         <div className="border-b dark:border-dark-600  pb-2 pt-3">
           <div className="mb-4 flex items-center justify-between">
             <div className="hidden sm:block">
@@ -515,7 +469,7 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
           </div>
         </div>
 
-        {/* Tickets list */}
+        {}
         <div className="pb-16">
           {!selectedUserId ? (
             <div className="flex items-center justify-center p-8">
@@ -541,7 +495,7 @@ export default function CustomerSupportMain({ activeTab = 'tickets' }: ICustomer
         </div>
       </div>
 
-      {/* Chat modal */}
+      {}
       {selectedTicketId && (
         <TicketChatModal
           visible={isChatModalVisible}

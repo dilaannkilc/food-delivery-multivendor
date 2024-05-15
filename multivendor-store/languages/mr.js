@@ -1,12 +1,11 @@
 export const mr = {
-  // Navigation
+
   continue: "सुरू ठेवा",
   Wallet: "वॉलेट",
   Home: "होम",
   Earnings: "कमाई",
   Profile: "प्रोफाइल",
 
-  // FAQs
   faq1: "मी ऑर्डर कशी देऊ?",
   faq1Description:
     "ऑर्डर देण्यासाठी, आमच्या मेनूमधून ब्राउझ करा, तुम्हाला हवी असलेली आयटम्स निवडा आणि चेकआउटवर जा. तुमची ऑर्डर निश्चित करण्यापूर्वी तुम्ही तुमची पसंतीची पेमेंट पद्धत आणि डिलिव्हरी पत्ता निवडू शकता.",
@@ -29,7 +28,6 @@ export const mr = {
   faq7Description:
     "दुर्दैवाने, तुम्ही एकाच ऑर्डरमध्ये एकापेक्षा जास्त रेस्टॉरंटमधून निवडू शकत नाही. तथापि, तुम्ही एकाच वेळी वेगवेगळ्या रेस्टॉरंटमधून स्वतंत्र ऑर्डर देऊ शकता.",
 
-  // Earnings
   "Earnings Summary": "कमाईचा सारांश",
   Deliveries: "डिलिव्हरी",
   "Total Earnings": "एकूण कमाई",
@@ -39,13 +37,11 @@ export const mr = {
   "Order Date": "ऑर्डर तारीख",
   "Earnings Order Details": "कमाई ऑर्डर तपशील",
 
-  // Flash messages
   "Order placed successfully": "ऑर्डर यशस्वीरित्या दिली",
   "Order cancelled successfully": "ऑर्डर यशस्वीरित्या रद्द केली",
   "Error while placing order": "ऑर्डर देताना त्रुटी",
   "Error while cancelling order": "ऑर्डर रद्द करताना त्रुटी",
 
-  // Other messages
   "Please enter your name": "कृपया तुमचे नाव प्रविष्ट करा",
   "Please enter your email": "कृपया तुमचा ईमेल प्रविष्ट करा",
   "Please enter your password": "कृपया तुमचा पासवर्ड प्रविष्ट करा",

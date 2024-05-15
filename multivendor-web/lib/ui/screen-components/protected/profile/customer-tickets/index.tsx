@@ -11,7 +11,6 @@ import useToast from "@/lib/hooks/useToast";
 import TicketChatModal from "@/lib/ui/useable-components/ticket-chat-modal";
 import { useTranslations } from "next-intl";
 
-// Defined types for tickets
 interface ITicket {
   _id: string;
   title: string;
@@ -33,8 +32,7 @@ export default function CustomerTicketsMain() {
   const { showToast } = useToast();
   const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
   const [isChatModalVisible, setIsChatModalVisible] = useState<boolean>(false);
-  
-  // Get user profile data
+
   const { data: profileData, loading: profileLoading } = useQuery(GET_USER_PROFILE, {
     fetchPolicy: "cache-and-network",
   });
@@ -42,7 +40,6 @@ export default function CustomerTicketsMain() {
   const userName = profileData?.profile?.name || "User";
   const userId = profileData?.profile?._id;
 
-  // Fetch user's support tickets
   const { data: ticketsData, loading: isTicketsLoading, error: ticketsError, refetch: refetchTickets } = useQuery(
     GET_USER_SUPPORT_TICKETS,
     {
@@ -55,8 +52,8 @@ export default function CustomerTicketsMain() {
           }
         }
       },
-      skip: !userId, // Skip the query if userId is not available yet
-      fetchPolicy: "network-only", // Don't use cache to ensure we get fresh data
+      skip: !userId, 
+      fetchPolicy: "network-only", 
       onError: (error) => {
         showToast({
           type: "error",
@@ -66,18 +63,15 @@ export default function CustomerTicketsMain() {
       }
     }
   );
-  
-  // Get tickets from query result or default to empty array
+
   const tickets: ITicket[] = ticketsData?.getSingleUserSupportTickets?.tickets || [];
-  
-  // Sort tickets by creation date (newest first)
+
   const sortedTickets = [...tickets].sort((a, b) => {
     const dateA = new Date(parseInt(a.updatedAt)).getTime();
     const dateB = new Date(parseInt(b.updatedAt)).getTime();
-    return dateB - dateA; // Newest first
+    return dateB - dateA; 
   });
-  
-  // Format date for display
+
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(parseInt(dateString));
@@ -90,8 +84,7 @@ export default function CustomerTicketsMain() {
       return "unknown date";
     }
   };
-  
-  // Get status color based on ticket status
+
   const getStatusColor = (status: string) => {
     switch(status.toLowerCase()) {
       case 'open':
@@ -104,42 +97,36 @@ export default function CustomerTicketsMain() {
         return 'text-gray-600 bg-gray-100';
     }
   };
-  
-  // Handle opening the chat modal
+
   const handleOpenChat = (ticketId: string) => {
     setSelectedTicket(ticketId);
     setIsChatModalVisible(true);
   };
-  
-  // Handle closing the chat modal
+
   const handleCloseChat = () => {
-    // Refetch tickets to get any updates when modal closes
+
     refetchTickets();
     setIsChatModalVisible(false);
   };
-  
-  // Handle creating a new ticket
+
   const handleCreateTicket = () => {
     router.push('/profile/getHelp');
   };
 
-  // Effect to refresh tickets periodically while viewing them
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (!isChatModalVisible) {
         refetchTickets();
       }
-    }, 30000); // Refresh every 30 seconds when not in chat
+    }, 30000); 
     
     return () => clearInterval(intervalId);
   }, [refetchTickets, isChatModalVisible]);
 
-  // Show loading state
   if (isTicketsLoading || profileLoading) {
     return <TicketSkeleton count={3} />;
   }
-  
-  // Show error state
+
   if (ticketsError) {
     return (
       <div className="bg-white p-6 rounded-lg shadow-sm text-center">
@@ -206,7 +193,7 @@ export default function CustomerTicketsMain() {
         </div>
       )}
       
-      {/* Chat Modal */}
+      {}
       {selectedTicket && (
         <TicketChatModal
           visible={isChatModalVisible}

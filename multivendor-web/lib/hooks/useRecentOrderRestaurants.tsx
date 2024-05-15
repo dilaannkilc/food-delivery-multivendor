@@ -1,8 +1,8 @@
-// useQuery
+
 import { useQuery } from "@apollo/client";
-// queries
+
 import { RECENT_ORDER_RESTAURANTS } from "@/lib/api/graphql";
-// interfaces
+
 import {
   IRecentOrderedRestaurantsData,
   IRestaurant,

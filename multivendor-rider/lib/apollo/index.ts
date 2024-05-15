@@ -77,13 +77,13 @@ const setupApollo = () => {
             },
           },
           freeDelivery: {
-            read(/* _existing: IRestaurantLocation */) {
+            read() {
               const randomValue = Math.random() * 10;
               return randomValue > 5;
             },
           },
           acceptVouchers: {
-            read(/* _existing: IRestaurantLocation */) {
+            read() {
               const randomValue = Math.random() * 10;
               return randomValue < 5;
             },
@@ -132,7 +132,6 @@ const setupApollo = () => {
     WebSocket
   );
 
-  // Add event listeners for debugging (can be removed in production)
   wsClient.onConnected(() => {
     console.log("✅ WebSocket connected");
   });
@@ -146,7 +145,6 @@ const setupApollo = () => {
   const request = async (operation: Operation) => {
     const token = await AsyncStorage.getItem(RIDER_TOKEN);
 
-    // Try to get public token, but don't fail if it's not available yet
     const publicToken = await getValidPublicToken(
       GRAPHQL_URL ?? "https://aws-server-v2.enatega.com/graphql"
     ).catch((err) => {
@@ -156,11 +154,9 @@ const setupApollo = () => {
 
     const nonce = await getOrCreateNonce();
 
-    // Get platform-specific information for fingerprinting
     const platform = Platform.OS;
     const locale = (await AsyncStorage.getItem("lang")) || "en";
 
-    // Build headers object
     const headers: Record<string, string> = {
       authorization: token ? `Bearer ${token}` : "",
       nonce: nonce,
@@ -169,7 +165,6 @@ const setupApollo = () => {
       "user-agent": `Yalla-Rider-App/${platform}`,
     };
 
-    // Add bop-auth if we have a public token
     if (publicToken) {
       headers["bop-auth"] = `Bearer ${publicToken}`;
     }
@@ -203,15 +198,14 @@ const setupApollo = () => {
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       graphQLErrors.forEach(({ message, locations, path }) => {
-        // IMPORTANT: Only remove user token for actual user auth failures
-        // Do NOT remove token for public auth failures (bop-auth related)
+
+
         const isPublicAuthError =
           message.toLowerCase().includes("fingerprint mismatch") ||
           message.toLowerCase().includes("token expired") ||
           message.toLowerCase().includes("invalid token") ||
           message.toLowerCase().includes("token missing");
 
-        // Only remove rider token if it's a user auth error (not public auth error)
         if (
           !isPublicAuthError &&
           (message.toLowerCase().includes("unauthenticate") ||

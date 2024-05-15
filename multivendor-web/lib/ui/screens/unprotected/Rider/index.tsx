@@ -1,15 +1,13 @@
-// import libraries
+
 import React from 'react';
 import { useTranslations } from 'next-intl';
 
-// import components
 import EmailForm from '@/lib/ui/useable-components/RiderandRestaurantsInfos/Form';
 import Heading from '@/lib/ui/useable-components/RiderandRestaurantsInfos/Heading/Heading';
 import WhyCardsList from '@/lib/ui/useable-components/RiderandRestaurantsInfos/WhyCards/WhyCardsList';
 import WhyChoose from '@/lib/ui/useable-components/RiderandRestaurantsInfos/WhyChoose';
 import StartingImage from '@/lib/ui/useable-components/RiderandRestaurantsInfos/StartingImage/StartingImage';
 
-// import images
 import growth from "@/public/assets/images/png/Growth.png";
 import getMoreOrders from "@/public/assets/images/png/GetMoreOrders.png";
 import deliverMoreCustomers from "@/public/assets/images/png/deliverToCustomer.png";

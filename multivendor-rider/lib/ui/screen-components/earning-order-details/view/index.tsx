@@ -1,12 +1,9 @@
-// Contexts
+
 import { useUserContext } from "@/lib/context/global/user.context";
 
-// Interfaces
 import { IRiderEarningsArray } from "@/lib/utils/interfaces/rider-earnings.interface";
 
-// Core
 
-// Components
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { NoRecordFound } from "@/lib/ui/useable-components";
 import { useEffect, useState } from "react";
@@ -14,16 +11,14 @@ import { FlatList, View } from "react-native";
 import OrderStack from "../order-stack";
 
 export default function EarningsOrderDetailsMain() {
-  // States
+
   const [recentOrderEarnings, setRecentOrderEarnings] = useState<
     IRiderEarningsArray[]
   >([] as IRiderEarningsArray[]);
 
-  // Hooks
   const { appTheme } = useApptheme();
   const { riderOrderEarnings } = useUserContext();
 
-  // UseEffects
   useEffect(() => {
     if (riderOrderEarnings?.length) {
       const sortedOrderEarnings = [...riderOrderEarnings].sort(

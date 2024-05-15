@@ -1,7 +1,6 @@
-// library
+
 import React from 'react'
 
-// Rider Page
 import Rider from '@/lib/ui/screens/unprotected/Rider'
 
 

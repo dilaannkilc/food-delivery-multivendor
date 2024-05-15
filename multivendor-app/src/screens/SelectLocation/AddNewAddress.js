@@ -28,7 +28,6 @@ import UserContext from '../../context/User'
 import useGeocoding from '../../ui/hooks/useGeocoding'
 import blackmarker from '../../assets/images/user.png'
 
-// Default location if current location can't be retrieved
 const DEFAULT_LATITUDE = 33.95
 const DEFAULT_LONGITUDE = 73.56
 const LATITUDE_DELTA = 0.035
@@ -71,15 +70,14 @@ export default function AddNewAddress(props) {
     try {
       const { coords, error } = await getCurrentLocation()
       if (!error && coords) {
-        // Update initial location and map view
+
         const newLocation = {
           latitude: coords.latitude,
           longitude: coords.longitude
         }
         
         setInitialLocation(newLocation)
-        
-        // Update selected value with geocoded address
+
         const response = await getAddress(coords.latitude, coords.longitude)
         setSelectedValue({
           city: response.city,
@@ -88,7 +86,6 @@ export default function AddNewAddress(props) {
           longitude: coords.longitude
         })
 
-        // Animate map to current location
         if (mapRef.current) {
           mapRef.current.animateToRegion({
             latitude: coords.latitude,
@@ -98,7 +95,7 @@ export default function AddNewAddress(props) {
           }, 1000)
         }
       } else {
-        // Handle error getting location
+
         Alert.alert(
           t('locationError'),
           t('unableToGetLocation'),
@@ -129,7 +126,6 @@ export default function AddNewAddress(props) {
     )
   }, [prevScreen])
 
-  // Fetch current location on component mount
   useEffect(() => {
     setCurrentLocation()
   }, [])
@@ -138,7 +134,7 @@ export default function AddNewAddress(props) {
     setCoordinates({
       latitude: +item.latitude,
       longitude: +item.longitude
-    }, false)  // Don't tilt when selecting city
+    }, false)  
     setCityModalVisible(false)
   }
 
@@ -161,16 +157,16 @@ export default function AddNewAddress(props) {
 
   const setCoordinates = useCallback((location, shouldTilt = false) => {
     if (mapRef.current) {
-      // Regular position change without tilt
+
       if (!shouldTilt) {
         mapRef.current.animateToRegion({
           latitude: location.latitude,
           longitude: location.longitude,
-          latitudeDelta: 0.01, // Closer zoom, but not too close
+          latitudeDelta: 0.01, 
           longitudeDelta: 0.01
         }, 500)
       } 
-      // Optional 3D view with tilt
+
       else {
         mapRef.current.animateCamera({
           center: {
@@ -251,7 +247,7 @@ export default function AddNewAddress(props) {
             onMapReady={() => setMapReady(true)}
           />
           
-          {/* Marker overlay with pointer events disabled */}
+          {}
           <View style={styles().mainContainer} pointerEvents='none'>
             <Image
               source={blackmarker}
@@ -264,19 +260,19 @@ export default function AddNewAddress(props) {
             />
           </View>
           
-          {/* Zoom buttons for easier control */}
+          {}
           <View style={styles().zoomButtonsContainer}>
             <TouchableOpacity
               style={styles(currentTheme).zoomButton}
               onPress={() => {
                 if (mapRef.current) {
-                  // Toggle between top-down and 3D tilted view
+
                   mapRef.current.animateCamera({
                     center: {
                       latitude: selectedValue.latitude,
                       longitude: selectedValue.longitude
                     },
-                    pitch: 45, // Tilted view
+                    pitch: 45, 
                     zoom: 18,
                     heading: 0
                   }, { duration: 1000 })
@@ -290,13 +286,13 @@ export default function AddNewAddress(props) {
               style={styles(currentTheme).zoomButton}
               onPress={() => {
                 if (mapRef.current) {
-                  // Return to top-down view
+
                   mapRef.current.animateCamera({
                     center: {
                       latitude: selectedValue.latitude,
                       longitude: selectedValue.longitude
                     },
-                    pitch: 0, // Top-down view
+                    pitch: 0, 
                     zoom: 17,
                     heading: 0
                   }, { duration: 1000 })
@@ -352,7 +348,7 @@ export default function AddNewAddress(props) {
               setCoordinates({
                 latitude: coords.lat,
                 longitude: coords.lng
-              }, false) // Don't tilt when searching
+              }, false) 
             }}
           />
         </View>

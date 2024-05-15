@@ -18,16 +18,16 @@ const ItemCard = ({ item, onPressItem, restaurant, tagCart }) => {
   const configuration = useContext(ConfigurationContext)
 
   const handleAddToCart = () => {
-    // if (item.isOutOfStock) {
-    //   // Display an alert if the item is out of stock
-    //   Alert.alert('Currently Unavailable', 'Item Out of Stock')
-    // } else {
-    //   onPressItem({
-    //     ...item,
-    //     restaurant: restaurant._id,
-    //     restaurantName: restaurant.name
-    //   })
-    // }
+
+
+
+
+
+
+
+
+
+
     onPressItem({
       ...item,
       restaurant: restaurant._id,
@@ -41,9 +41,9 @@ const ItemCard = ({ item, onPressItem, restaurant, tagCart }) => {
   return (
     <TouchableOpacity
       onPress={handleAddToCart}
-      // Set opacity to 0.5 if item is out of stock, otherwise 1
-      // style={{ opacity: item.isOutOfStock ? 0.5 : 1 }}
-      // disabled={item.isOutOfStock}
+
+
+
     >
       <LinearGradient
         style={styles(currentTheme).card}

@@ -1,17 +1,15 @@
-// Hooks
+
 import { useContext, useState } from 'react';
 
-// Components
 import CategoryAddForm from '@/lib/ui/screen-components/protected/restaurant/category/add-form';
 import CategoryHeader from '@/lib/ui/screen-components/protected/restaurant/category/view/header/screen-header';
 import CategoryMain from '@/lib/ui/screen-components/protected/restaurant/category/view/main';
 import SubCategoriesAddForm from '@/lib/ui/screen-components/protected/restaurant/category/add-subcategories';
 
-// Contexts
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 
 export default function CategoryScreen() {
-  // Contexts
+
   const {
     isAddSubCategoriesVisible,
     setIsAddSubCategoriesVisible,
@@ -21,7 +19,6 @@ export default function CategoryScreen() {
     setSubCategories,
   } = useContext(RestaurantLayoutContext);
 
-  // State
   const [isAddCategoryVisible, setIsAddCategoryVisible] = useState(false);
 
   return (
@@ -34,7 +31,7 @@ export default function CategoryScreen() {
         setCategory={setCategory}
         setSubCategories={setSubCategories}
       />
-      {/* Sub Categories Form  */}
+      {}
       <SubCategoriesAddForm
         onHide={() => {
           setIsAddSubCategoriesVisible({
@@ -47,7 +44,7 @@ export default function CategoryScreen() {
         isAddSubCategoriesVisible={isAddSubCategoriesVisible}
         category={category}
       />
-      {/* Parent Categories Forms  */}
+      {}
       <CategoryAddForm
         category={category}
         subCategories={subCategories}

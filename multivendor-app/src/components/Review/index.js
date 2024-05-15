@@ -97,18 +97,7 @@ function Review({ onOverlayPress, theme, orderId, rating }, ref) {
 
         {(showSection || rating>0) && <View>
           <TextDefault textColor={theme.gray900} H4 bolder style={{ marginVertical: scale(8) }} isRTL >{t('tellAboutExp')} {order?.restaurant?.name}</TextDefault>
-          {/* <OutlinedTextField
-            label={t('review')}
-            placeholder={t('typeHere')}
-            fontSize={scale(12)}
-            maxLength={200}
-            textAlignVertical="top"
-            baseColor={theme.verticalLine}
-            multiline={true}
-            onChangeText={setDescription}
-            placeholderTextColor={theme.newFontcolor}
-            textColor={theme.newFontcolor}
-          /> */}
+          {}
           <TextInput
             label={t('review')}
             placeholder={t('typeHere')}

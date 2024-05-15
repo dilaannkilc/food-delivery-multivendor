@@ -55,9 +55,8 @@ const SearchScreen = () => {
   }
   const newheaderColor = currentTheme.backgroundColor
   const [recentSearches, setRecentSearches] = useState([])
-  const [hasAnimated, setHasAnimated] = useState(false) // Track first render
+  const [hasAnimated, setHasAnimated] = useState(false) 
 
-  // CustomItem component to handle animation
   const CustomItem = ({ index, children }) => {
     const scaleValue = new Animated.Value(0)
 
@@ -66,10 +65,10 @@ const SearchScreen = () => {
         Animated.timing(scaleValue, {
           toValue: 1,
           delay: index * 40,
-          duration: 300, // Set duration for the animation
+          duration: 300, 
           useNativeDriver: true
         }).start(() => {
-          // Update hasAnimated to true after the first animation
+
           if (index === restaurants.length - 1) {
             setHasAnimated(true)
           }
@@ -149,7 +148,7 @@ const SearchScreen = () => {
     getRecentSearches().then((searches) => setRecentSearches(searches))
   }, [search])
 
-  const { onScroll /* Event handler */, containerPaddingTop /* number */, scrollIndicatorInsetTop /* number */ } = useCollapsibleSubHeader()
+  const { onScroll , containerPaddingTop , scrollIndicatorInsetTop  } = useCollapsibleSubHeader()
 
   const nearbyRestaurants = data?.nearByRestaurantsPreview?.restaurants || []
   const topRatedRestaurants = topRatedData?.topRatedVendorsPreview || []
@@ -157,7 +156,6 @@ const SearchScreen = () => {
   const mostOrderedRestaurants = mostOrderedData?.mostOrderedRestaurantsPreview || []
   const { restaurantData: nearByGroceryStores } = useRestaurantQueries('grocery', location, 'grocery')
 
-  // Combine all restaurants and remove duplicates
   const allRestaurants = [
     ...nearbyRestaurants,
     ...topRatedRestaurants,
@@ -194,7 +192,7 @@ const SearchScreen = () => {
     restaurants?.forEach((restaurant) => {
       restaurant?.tags.forEach((tag) => allTags.add(tag))
     })
-    return Array.from(allTags) // Convert Set back to an array
+    return Array.from(allTags) 
   }
 
   const uniqueTags = getUniqueTags(restaurants)
@@ -212,7 +210,7 @@ const SearchScreen = () => {
         </View>
       </View>
     )
-    // }
+
   }
 
   const handleTagPress = (tag) => {
@@ -222,7 +220,7 @@ const SearchScreen = () => {
   const handleClearRecentSearches = async () => {
     try {
       await clearRecentSearches()
-      setRecentSearches([]) // Update state with empty array
+      setRecentSearches([]) 
     } catch (error) {
       console.log('Error clearing searches:', error)
     }
@@ -291,7 +289,7 @@ const SearchScreen = () => {
 
           <View style={styles().line} />
 
-          {/* recent seareches list */}
+          {}
 
           {recentSearches.map((recentSearch, index) => (
             <React.Fragment key={index}>

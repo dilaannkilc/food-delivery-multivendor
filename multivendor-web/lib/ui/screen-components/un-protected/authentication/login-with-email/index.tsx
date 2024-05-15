@@ -1,21 +1,17 @@
-// Components
+
 import CustomButton from "@/lib/ui/useable-components/button";
 import CustomTextField from "@/lib/ui/useable-components/input-field";
 
-// Interfaces
 import { ILoginWithEmailProps } from "@/lib/utils/interfaces";
 
-// Icons
 import EmailIcon from "@/public/assets/images/svgs/email";
 
-// Hooks
 import { useAuth } from "@/lib/context/auth/auth.context";
 import useToast from "@/lib/hooks/useToast";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FiMail } from "react-icons/fi";
 
-//Import Googlr Icons from react-icons colored
 
 import { FcGoogle } from "react-icons/fc";
 
@@ -24,12 +20,11 @@ export default function LoginWithEmail({
   formData,
   handleFormChange,
 }: ILoginWithEmailProps) {
-  // Hooks
+
   const t = useTranslations();
   const { setUser, checkEmailExists, isLoading } = useAuth();
   const { showToast } = useToast();
 
-  // Inside component
   const [isValid, setIsValid] = useState(true);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -37,10 +32,9 @@ export default function LoginWithEmail({
     handleFormChange("email", email);
     setUser((prev) => ({ ...prev, email }));
 
-    // Real-time email validation
     setIsValid(emailRegex.test(email));
   };
-  // Handlers
+
   const handleSubmit = async () => {
     const email = formData?.email ?? "";
     const valid = emailRegex.test(email);
@@ -54,21 +48,20 @@ export default function LoginWithEmail({
       });
     }
 
-    // Proceed only if valid
     const emailExists = await checkEmailExists(email);
-    //User Exists with non-default auth - go to password
+
     if (emailExists._id && emailExists.userType !== "default") {
       showToast({
         type: "success",
         title: t("Login"),
         message: t("Got_your_account_please_enter_your_password"),
-        //User exists with default auth - go to password
+
       });
-      return handleChangePanel(7); // go to password
+      return handleChangePanel(7); 
     } else if (emailExists.userType === "default") {
-      return handleChangePanel(7); // go to password
+      return handleChangePanel(7); 
     } else {
-      handleChangePanel(2); // go to registration
+      handleChangePanel(2); 
     }
   };
 
@@ -86,7 +79,7 @@ export default function LoginWithEmail({
       </div>
 
       <div className="flex flex-col gap-y-2 mt-6 w-full">
-        {/* Email Input Field with Icon */}
+        {}
         <div className="relative w-full">
           <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
           <CustomTextField
@@ -102,7 +95,7 @@ export default function LoginWithEmail({
           />
         </div>
 
-        {/* Validation message */}
+        {}
         <div className="h-[20px]">
           {!isValid && (
             <p className="text-red-500 text-sm">
@@ -111,7 +104,7 @@ export default function LoginWithEmail({
           )}
         </div>
 
-        {/* Continue with Google */}
+        {}
         <button
           type="button"
           onClick={() => handleChangePanel(0)}
@@ -122,7 +115,7 @@ export default function LoginWithEmail({
         </button>
       </div>
 
-      {/* Submit Email */}
+      {}
       <CustomButton
         label={t("Continue_with_mail")}
         loading={isLoading}

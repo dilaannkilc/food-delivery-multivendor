@@ -58,7 +58,6 @@ const ForceUpdate = () => {
       if (data?.getVersions && currentVersion) {
         const { customerAppVersion } = data.getVersions
 
-        // New Version
         const new_version =
           Platform.OS === 'ios'
             ? customerAppVersion.ios

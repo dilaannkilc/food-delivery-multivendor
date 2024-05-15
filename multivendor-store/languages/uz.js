@@ -1,12 +1,11 @@
 export const uz = {
-  // Navigation
+
   continue: "Davom etish",
   Wallet: "Hamyon",
   Home: "Bosh sahifa",
   Earnings: "Daromad",
   Profile: "Profil",
 
-  // FAQs
   faq1: "Buyurtmani qanday berish mumkin?",
   faq1Description:
     "Buyurtma berish uchun menyuni ko'rib chiqing, buyurtma bermoqchi bo'lgan mahsulotlarni tanlang va to'lovga o'ting. Buyurtmani tasdiqlashdan oldin o'zingizning to'lov usulingiz va yetkazib berish manzilingizni tanlashingiz mumkin.",
@@ -29,7 +28,6 @@ export const uz = {
   faq7Description:
     "Afsuski, bir xil buyurtma ichida bir nechta restorandan tanlay olmaysiz. Biroq, bir vaqtning o'zida turli restoranlardan alohida buyurtma berishingiz mumkin.",
 
-  // Earnings
   "Earnings Summary": "Daromadlar xulosasi",
   Deliveries: "Yetkazib berishlar",
   "Total Earnings": "Jami daromad",
@@ -39,13 +37,11 @@ export const uz = {
   "Order Date": "Buyurtma sanasi",
   "Earnings Order Details": "Daromad buyurtma tafsilotlari",
 
-  // Flash messages
   "Order placed successfully": "Buyurtma muvaffaqiyatli berildi",
   "Order cancelled successfully": "Buyurtma muvaffaqiyatli bekor qilindi",
   "Error while placing order": "Buyurtma berishda xatolik",
   "Error while cancelling order": "Buyurtmani bekor qilishda xatolik",
 
-  // Other messages
   "Please enter your name": "Iltimos, ismingizni kiriting",
   "Please enter your email": "Iltimos, elektron pochtangizni kiriting",
   "Please enter your password": "Iltimos, parolingizni kiriting",

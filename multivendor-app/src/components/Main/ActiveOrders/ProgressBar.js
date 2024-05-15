@@ -69,20 +69,18 @@ export const ProgressBar = ({ currentTheme, item, customWidth, isPicked }) => {
   const defaultWidth = scale(50)
   const width = customWidth !== undefined ? customWidth : defaultWidth
 
-  // Filter statuses if isPicked is true
   const filteredStatuses = isPicked
     ? orderStatuses.filter((s) => s.key !== 'ASSIGNED' && s.key !== 'PICKED')
     : orderStatuses;
 
   const currentStatus = filteredStatuses.find((x) => x.key === item.orderStatus) || { status: 0 };
 
-  // Set the total number of filled bars based on the isPicked prop
   const totalBars = isPicked ? 3 : 4;
 
   return (
     <View style={{ marginTop: scale(10) }}>
       <View style={{ flexDirection: currentTheme?.isRTL ? 'row-reverse' : 'row' }}>
-        {Array(Math.min(currentStatus.status, totalBars)) // Active bars
+        {Array(Math.min(currentStatus.status, totalBars)) 
           .fill(0)
           .map((_, index) => (
             <View
@@ -95,7 +93,7 @@ export const ProgressBar = ({ currentTheme, item, customWidth, isPicked }) => {
               }}
             />
           ))}
-        {Array(totalBars - Math.min(currentStatus.status, totalBars)) // Inactive bars
+        {Array(totalBars - Math.min(currentStatus.status, totalBars)) 
           .fill(0)
           .map((_, index) => (
             <View

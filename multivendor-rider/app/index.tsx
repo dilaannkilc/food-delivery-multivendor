@@ -1,25 +1,19 @@
-// Expo
+
 import * as Notifications from "expo-notifications";
 import { Href, useRouter } from "expo-router";
 
-// Core
 import { useCallback, useEffect } from "react";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Context
 import { useLocationContext } from "@/lib/context/global/location.context";
 
-// API
 import { RIDER_ORDERS } from "@/lib/apollo/queries";
 
-// Constant
 import { RIDER_TOKEN, ROUTES } from "@/lib/utils/constants";
 
-// Service
 import setupApollo from "@/lib/apollo";
 
-// Interfaces
 import { IOrder } from "@/lib/utils/interfaces/order.interface";
 import { useUserContext } from "@/lib/context/global/user.context";
 
@@ -28,7 +22,7 @@ function App() {
   const router = useRouter();
   const { locationPermission } = useLocationContext();
   const { dataProfile } = useUserContext();
-  // Handler
+
 
   const init = async () => {
     const token = await AsyncStorage.getItem(RIDER_TOKEN);
@@ -39,7 +33,6 @@ function App() {
     router.replace(ROUTES.login as Href);
   };
 
-  // Notification Handler
   const registerForPushNotification = async () => {
     const { status: existingStatus } =
       await Notifications.getPermissionsAsync();
@@ -54,7 +47,7 @@ function App() {
       Notifications.setNotificationHandler({
         handleNotification: async () => {
           return {
-            shouldShowAlert: false, // Prevent the app from closing
+            shouldShowAlert: false, 
             shouldPlaySound: false,
             shouldSetBadge: false,
           };
@@ -91,7 +84,6 @@ function App() {
     []
   );
 
-  // Use Effect
   useEffect(() => {
     const subscription =
       Notifications.addNotificationResponseReceivedListener(handleNotification);
@@ -102,11 +94,10 @@ function App() {
   useEffect(() => {
     registerForPushNotification();
 
-    // Register a notification handler that will be called when a notification is received.
     Notifications.setNotificationHandler({
       handleNotification: async () => {
         return {
-          shouldShowAlert: false, // Prevent the app from closing
+          shouldShowAlert: false, 
           shouldPlaySound: false,
           shouldSetBadge: false,
         };
@@ -118,8 +109,7 @@ function App() {
     init();
   }, [locationPermission, router, dataProfile]);
 
-  // return <Redirect href="/(tabs)/home/orders" />;
-  // return <Redirect href="/login" />;
+
   return <></>;
 }
 

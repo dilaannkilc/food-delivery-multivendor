@@ -1,32 +1,24 @@
-// Core
+
 import { Text, TouchableOpacity, View } from "react-native";
 
-// Contexts
 import { useUserContext } from "@/lib/context/global/user.context";
 
-// Interfaces
 import {
   IStoreEarnings,
   IStoreEarningsResponse,
 } from "@/lib/utils/interfaces/rider-earnings.interface";
 
-// Charts
 import { barDataItem } from "react-native-gifted-charts";
 
-// GraphQL
 import { STORE_EARNINGS_GRAPH } from "@/lib/apollo/queries/earnings.query";
 
-// Hooks
 import { useLazyQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 
-// Expo
 import { router } from "expo-router";
 
-// Skeletons
 import { EarningScreenMainLoading } from "@/lib/ui/skeletons";
 
-// Components
 import { useApptheme } from "@/lib/context/theme.context";
 import formatNumber from "@/lib/utils/methods/num-formatter";
 import { useEffect, useState } from "react";
@@ -36,38 +28,32 @@ import EarningsBarChart from "../../bar-chart";
 import EarningStack from "../earnings-stack";
 
 export default function EarningsMain() {
-  // Set dates for the query
+
   const getQueryDates = () => {
-    const endDate = new Date(); // Today
+    const endDate = new Date(); 
     const startDate = new Date();
     startDate.setDate(endDate.getDate() - 6);
 
-    // Set start date to beginning of day
     startDate.setHours(0, 0, 0, 0);
 
-    // Set end date to end of day
     endDate.setHours(23, 59, 59, 999);
 
     return { startDate, endDate };
   };
 
-  // Constants
   const queryPayload = {
     page: 1,
     limit: 5,
     ...getQueryDates(),
   };
 
-  // States
   const [recentTransaction, setRecentTransaction] =
     useState<IStoreEarnings[]>();
 
-  // Hooks
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const { userId, setModalVisible } = useUserContext();
 
-  // Queries
   const [
     fetchEarningsGraph,
     { loading: isStoreEarningsLoading, data: storeEarningsData },
@@ -95,7 +81,6 @@ export default function EarningsMain() {
     fetchPolicy: "cache-and-network",
   });
 
-  // Fetch data on component mount
   useEffect(() => {
     if (userId) {
       const { startDate, endDate } = getQueryDates();
@@ -104,7 +89,7 @@ export default function EarningsMain() {
         variables: {
           storeId: userId,
           startDate: startDate.toISOString(),
-          endDate: endDate.toISOString(), // End of today
+          endDate: endDate.toISOString(), 
           page: queryPayload.page,
           limit: queryPayload.limit,
         },
@@ -137,7 +122,6 @@ export default function EarningsMain() {
         },
       })) ?? ([] as barDataItem[]);
 
-  // UseEffects
   useEffect(() => {
     if (storeEarningsData?.storeEarningsGraph?.earnings?.length) {
       const sortedTransactions = [
@@ -147,7 +131,6 @@ export default function EarningsMain() {
     }
   }, [storeEarningsData?.storeEarningsGraph?.earnings?.length]);
 
-  // If loading
   if (isStoreEarningsLoading) return <EarningScreenMainLoading />;
   return (
     <GestureHandlerRootView

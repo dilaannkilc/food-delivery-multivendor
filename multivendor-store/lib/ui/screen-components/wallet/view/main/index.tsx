@@ -1,4 +1,4 @@
-// Interfaces
+
 import { ILazyQueryResult } from "@/lib/utils/interfaces";
 import {
   IStoreByIdResponse,
@@ -7,7 +7,6 @@ import {
   IStoreTransactionHistoryResponse,
 } from "@/lib/utils/interfaces/rider.interface";
 
-// Components
 import {
   CustomContinueButton,
   NoRecordFound,
@@ -15,13 +14,11 @@ import {
 import WithdrawModal from "../form";
 import RecentTransaction from "../recent-transactions";
 
-// Hooks
 import { useUserContext } from "@/lib/context/global/user.context";
 import { useLazyQueryQL } from "@/lib/hooks/useLazyQueryQL";
 import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
 
-// GraphQL
 import { CREATE_WITHDRAW_REQUEST } from "@/lib/apollo/mutations/withdraw-request.mutation";
 import {
   STORE_BY_ID,
@@ -32,29 +29,24 @@ import {
 } from "@/lib/apollo/queries/store.query";
 import { GraphQLError } from "graphql";
 
-// Expo
 import { router } from "expo-router";
 
-// Core
 import { Alert, FlatList, Text, View } from "react-native";
 
-// Skeletons
 import { useApptheme } from "@/lib/context/theme.context";
 import { WalletScreenMainLoading } from "@/lib/ui/skeletons";
 import { useTranslation } from "react-i18next";
 import { showMessage } from "react-native-flash-message";
 
 export default function WalletMain() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const { userId } = useUserContext();
 
-  // States
   const [isBottomModalOpen, setIsBottomModalOpen] = useState(false);
   const [amountErrMsg, setAmountErrMsg] = useState("");
 
-  // Queries
   const { fetch: fetchStoreEarnings, loading: isStoreEarningsLoading } =
     useLazyQueryQL(STORE_EARNINGS) as ILazyQueryResult<
       IStoreEarningsResponse | undefined,
@@ -108,7 +100,6 @@ export default function WalletMain() {
     }
   >;
 
-  // Mutaions
   const [createWithDrawRequest, { loading: createWithDrawRequestLoading }] =
     useMutation(CREATE_WITHDRAW_REQUEST, {
       onCompleted: () => {
@@ -160,7 +151,6 @@ export default function WalletMain() {
       ],
     });
 
-  // Handlers
   async function handleFormSubmission(withdrawAmount: number) {
     const currentAmount =
       storeProfileData?.restaurant?.currentWalletAmount || 0;
@@ -187,7 +177,7 @@ export default function WalletMain() {
       console.log(err);
     }
   }
-  // Loading state
+
   const isLoading =
     createWithDrawRequestLoading ||
     isStoreEarningsLoading ||
@@ -195,7 +185,6 @@ export default function WalletMain() {
     isStoreTransactionLoading ||
     isStoreCurrentWithdrawRequestLoading;
 
-  // UseEffects
   useEffect(() => {
     if (userId) {
       fetchStoreProfile({
@@ -220,12 +209,12 @@ export default function WalletMain() {
     return (
       <View
         className="flex flex-col justify-between items-center -top-8  w-full h-[110%] "
-        // style={{ backgroundColor: appTheme.themeBackground }}
+
       >
         {storeProfileData?.restaurant ? (
           <View
             className="flex-1 w-full flex flex-column gap-2 items-center top-0"
-            // style={{ backgroundColor: appTheme.themeBackground }}
+
           >
             <Text
               className="text-[18px] font-[600] mt-12"

@@ -1,55 +1,44 @@
 'use client';
 
-// Interface and Types
 import {
   IQueryResult,
   ITippingResponse,
   ITippingsForm,
 } from '@/lib/utils/interfaces';
 
-// Schema
 import { TippingSchema } from '@/lib/utils/schema/tipping';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomNumberTextField from '@/lib/ui/useable-components/custom-input';
 
-// Formik
 import { ErrorMessage, Form, Formik, FormikHelpers } from 'formik';
 
-//Toast
 import useToast from '@/lib/hooks/useToast';
 
-// GraphQL
 import { CREATE_TIPPING, EDIT_TIPPING, GET_TIPPING } from '@/lib/api/graphql';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { useMutation } from '@apollo/client';
 import { useTranslations } from 'next-intl';
 
 const TippingAddForm = () => {
-  // Query
+
   const { loading, data } = useQueryGQL(GET_TIPPING, {
     fetchPolicy: 'cache-and-network',
   }) as IQueryResult<ITippingResponse | undefined, undefined>;
 
-  // Hooks
   const t = useTranslations();
 
-  // State
   const initialValues: ITippingsForm = {
     tip1: data?.tips?.tipVariations[0] ?? 1,
     tip2: data?.tips?.tipVariations[1] ?? 2,
     tip3: data?.tips?.tipVariations[2] ?? 3,
   };
 
-  // Hooks
   const { showToast } = useToast();
 
-  // Mutation
   const mutation = data && data.tips._id ? EDIT_TIPPING : CREATE_TIPPING;
   const [mutate, { loading: mutationLoading }] = useMutation(mutation);
 
-  //Form Submission
   const handleSubmit = (
     values: ITippingsForm,
     { resetForm }: FormikHelpers<ITippingsForm>

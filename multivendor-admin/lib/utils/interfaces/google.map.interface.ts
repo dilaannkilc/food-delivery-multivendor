@@ -25,7 +25,7 @@ export interface IGoogleMapsProviderProps {
   children: ReactNode;
 }
 
-/* Shape */
+
 export interface ICustomShapeComponentProps extends IGlobalComponentProps {
   selected: string;
   onClick: (value: string) => void;

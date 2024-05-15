@@ -1,7 +1,6 @@
-// Core
+
 import { useEffect, useMemo, useState } from 'react';
 
-// Prime React
 import { Chart } from 'primereact/chart';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { GET_DASHBOARD_USERS_BY_YEAR } from '@/lib/api/graphql';
@@ -12,17 +11,14 @@ import {
 import DashboardUsersByYearStatsSkeleton from '@/lib/ui/useable-components/custom-skeletons/dasboard.user.year.stats.skeleton';
 import { useTranslations } from 'next-intl';
 
-// Dummy
 
 export default function GrowthOverView() {
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
 
-  // Query
   const { data, loading } = useQueryGQL(
     GET_DASHBOARD_USERS_BY_YEAR,
     {
@@ -47,14 +43,13 @@ export default function GrowthOverView() {
     };
   }, [data]);
 
-  // Handlers
   const onChartDataChange = () => {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue(
       '--text-color-secondary'
     );
-    const surfaceBorder = '#4b5563'; // tailwind gray-600
+    const surfaceBorder = '#4b5563'; 
     const data = {
       labels: [
         t('January'),
@@ -144,7 +139,7 @@ export default function GrowthOverView() {
     setChartData(data);
     setChartOptions(options);
   };
-  // Use Effect
+
   useEffect(() => {
     onChartDataChange();
   }, [dashboardUsersByYear]);

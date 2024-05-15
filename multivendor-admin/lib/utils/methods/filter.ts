@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export const onFilterObjects = <T>(
   list: T[],
   searchString: string,
@@ -27,4 +27,4 @@ export const onFilterObjects = <T>(
       }
     });
 };
-/* eslint-enable @typescript-eslint/no-explicit-any */
+

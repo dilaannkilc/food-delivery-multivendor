@@ -1,7 +1,6 @@
-// Interface
+
 import { IMultiSelectComponentProps } from '@/lib/utils/interfaces';
 
-// Prime React
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
@@ -71,7 +70,7 @@ const CustomMultiSelectComponent = ({
         options={options}
         onChange={(e: MultiSelectChangeEvent) => {
           if (onChange) {
-            // for custom cases: i.e conditional selecting
+
             onChange(e.value);
           } else setSelectedItems(name, e.value);
         }}

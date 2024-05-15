@@ -1,8 +1,7 @@
-// Providers
+
 import { SoundProvider } from "@/lib/context/global/sound.context";
 import { UserProvider } from "@/lib/context/global/user.context";
 
-// Expo
 import { Stack } from "expo-router";
 export default function UnProtectedLayout() {
   return (

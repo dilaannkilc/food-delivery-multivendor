@@ -1,41 +1,33 @@
 'use client';
-// Core
+
 import { Form, Formik } from 'formik';
 
-// Components
 import ConfigCard from '../../view/card';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import CustomNumberField from '@/lib/ui/useable-components/number-input-field';
 
-// Toast
 import useToast from '@/lib/hooks/useToast';
 
-// Hooks
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Interfaces and Types
 import { IAppConfigForm } from '@/lib/utils/interfaces/configurations.interface';
 
-// Utils and Constants
 import { AppConfigValidationSchema } from '@/lib/utils/schema';
 
-// GraphQL
 import { GET_CONFIGURATION, SAVE_APP_CONFIGURATION } from '@/lib/api/graphql';
 import { useMutation } from '@apollo/client';
 
 const AppConfigAddForm = () => {
-  // Hooks
+
   const { APP_TERMS, APP_PRIVACY, APP_TEST_OTP } = useConfiguration();
   const { showToast } = useToast();
 
-  // Set initial values using the useConfiguration hook
   const initialValues = {
     termsAndConditions: APP_TERMS ?? '',
     privacyPolicy: APP_PRIVACY ?? '',
     testOtp: APP_TEST_OTP ? +APP_TEST_OTP : null,
   };
 
-  // Mutation for saving the app configuration
   const [mutate, { loading: mutationLoading }] = useMutation(
     SAVE_APP_CONFIGURATION,
     {
@@ -43,7 +35,6 @@ const AppConfigAddForm = () => {
     }
   );
 
-  // Handle form submission
   const handleSubmit = (values: IAppConfigForm) => {
     mutate({
       variables: {
@@ -101,7 +92,7 @@ const AppConfigAddForm = () => {
                 buttonLoading={mutationLoading}
               >
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {/* Terms and Conditions Field */}
+                  {}
                   <CustomTextField
                     type="text"
                     placeholder="Terms and Conditions"
@@ -118,7 +109,7 @@ const AppConfigAddForm = () => {
                     }}
                   />
 
-                  {/* Privacy Policy Field */}
+                  {}
                   <CustomTextField
                     type="text"
                     placeholder="Privacy Policy"
@@ -135,7 +126,7 @@ const AppConfigAddForm = () => {
                     }}
                   />
 
-                  {/* Test OTP Field */}
+                  {}
                   <CustomNumberField
                     min={0}
                     placeholder="Test OTP"

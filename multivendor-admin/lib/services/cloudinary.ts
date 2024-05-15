@@ -59,7 +59,7 @@ export const uploadImageToCloudinary: IUploadImageToCloudinary = async (
     const originalUrl = videoData.secure_url;
     const transformedUrl = originalUrl.replace(
       '/upload/',
-      '/upload/f_auto,q_auto:eco,w_1080/' // for video
+      '/upload/f_auto,q_auto:eco,w_1080/' 
     );
     console.log({ transformedUrl });
     return transformedUrl;

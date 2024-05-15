@@ -56,7 +56,7 @@ const styles = (props = null) =>
       alignItems: 'center',
       borderRadius: scale(10)
     },
-    // New styles for quantity
+
     actionContainer: {
       width: '30%',
       flexDirection: 'row',

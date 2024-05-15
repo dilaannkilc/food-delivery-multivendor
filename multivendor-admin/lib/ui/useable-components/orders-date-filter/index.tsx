@@ -11,14 +11,13 @@ export default function OrdersDashboardDateFilter({
   setDateFilter,
   className,
 }: IDashboardDateFilterComponentsProps) {
-  // State
+
   const [localDateFilter, setLocalDateFilter] = useState({
     startDate: dateFilter.startDate,
     endDate: dateFilter.endDate,
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  // Handlers
   const onApply = () => {
     if (
       dateFilter.startDate === localDateFilter.startDate &&
@@ -39,7 +38,7 @@ export default function OrdersDashboardDateFilter({
         endDate: endDate.toDateString(),
       });
       setIsLoading(false);
-    }, 1000); // 1 second delay
+    }, 1000); 
   };
 
   return (

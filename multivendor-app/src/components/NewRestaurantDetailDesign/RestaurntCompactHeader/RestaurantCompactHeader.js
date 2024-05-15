@@ -1,4 +1,4 @@
-// components/SmallHeader/SmallHeader.js
+
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'

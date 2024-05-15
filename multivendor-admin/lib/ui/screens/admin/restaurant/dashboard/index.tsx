@@ -1,6 +1,5 @@
 'use client';
 
-// Component
 import GrowthOverView from '@/lib/ui/screen-components/protected/restaurant/dashboard/growth-overview';
 import OrderStats from '@/lib/ui/screen-components/protected/restaurant/dashboard/order-stats';
 import RestaurantStatesTable from '@/lib/ui/screen-components/protected/restaurant/dashboard/restaurant-stats-table';
@@ -13,8 +12,8 @@ import { useState } from 'react';
 export default function AdminRestaurantDashboard() {
   const [dateFilter, setDateFilter] = useState<IDateFilter>({
     dateKeyword: 'All',
-    startDate: `${new Date().getFullYear()}-01-01`, // Current year, January 1st
-    endDate: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate()).padStart(2, '0')}`, // Last day of the current month
+    startDate: `${new Date().getFullYear()}-01-01`, 
+    endDate: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate()).padStart(2, '0')}`, 
   });
 
   const handleDateFilter = (dateFilter: IDateFilter) => {

@@ -11,30 +11,30 @@ export const retryQuery = async <
   T extends DocumentNode,
   V extends OperationVariables | LazyQueryHookOptions,
 >(
-  queryFn: () => Promise<QueryResult<T, V> | ApolloQueryResult<T>>, // Function to execute the query
-  retries: number, // Number of retries
-  delayMs: number, // Delay between retries
+  queryFn: () => Promise<QueryResult<T, V> | ApolloQueryResult<T>>, 
+  retries: number, 
+  delayMs: number, 
 ): Promise<QueryResult<T, V> | ApolloQueryResult<T>> => {
   let attempt = 0;
 
   const retry = async (): Promise<QueryResult<T, V> | ApolloQueryResult<T>> => {
     try {
-      return await queryFn(); // Try executing the query
+      return await queryFn(); 
     } catch (error) {
       if (attempt < retries) {
         attempt++;
-        await new Promise((resolve) => setTimeout(resolve, delayMs)); // Wait before retry
-        return retry(); // Retry the query
+        await new Promise((resolve) => setTimeout(resolve, delayMs)); 
+        return retry(); 
       } else {
-        throw error; // Throw error if retries exhausted
+        throw error; 
       }
     }
   };
 
-  return retry(); // Initial call to retry function
+  return retry(); 
 };
 
 export const getIsAcceptButtonVisible = (orderDate: string) => {
-  const mockCurrentTime = moment().add(5, "minutes"); // Add 5 minutes as a grace period
+  const mockCurrentTime = moment().add(5, "minutes"); 
   return !mockCurrentTime.isBefore(orderDate);
 };

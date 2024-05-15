@@ -73,13 +73,13 @@ const CartItem = (props) => {
 
   const animateQuantityChange = () => {
     animatedQuantity.value = withSpring(1.9, {
-      damping: 2, // Adjust for desired bounciness
-      stiffness: 20 // Adjust for desired spring effect
+      damping: 2, 
+      stiffness: 20 
     })
 
     setTimeout(() => {
-      animatedQuantity.value = withSpring(1) // Reset scale to 1
-    }, 200) // Match this duration with the spring duration
+      animatedQuantity.value = withSpring(1) 
+    }, 200) 
   }
 
   const animatedStyle = useAnimatedStyle(() => {

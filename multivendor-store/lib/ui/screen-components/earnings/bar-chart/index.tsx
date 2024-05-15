@@ -1,7 +1,6 @@
-// Core
+
 import { Platform, View } from "react-native";
 
-// Chart
 import { BarChart, BarChartPropsType } from "react-native-gifted-charts";
 export default function EarningsBarChart(props: BarChartPropsType) {
   return (

@@ -1,12 +1,11 @@
-// Moti
+
 import { MotiView, Text } from "moti";
 
-// Hooks
 import { useApptheme } from "@/lib/context/theme.context";
 import { useTranslation } from "react-i18next";
 
 export default function WalletHeadingSkeleton() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   return (

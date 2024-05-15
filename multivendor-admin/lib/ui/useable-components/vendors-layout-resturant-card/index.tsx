@@ -1,37 +1,30 @@
-// Core
+
 import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-// Third-party libraries
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ApolloError, useMutation } from '@apollo/client';
 import { Avatar } from 'primereact/avatar';
 
-// Icons
 import {
   faLocationDot,
   faStore,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 
-// Interfaces
 import { IRestaurantCardProps } from '@/lib/utils/interfaces';
 
-// Methods
 import { onUseLocalStorage } from '@/lib/utils/methods';
 
-// GraphQL
 import {
   DELETE_RESTAURANT,
   GET_RESTAURANTS_BY_OWNER,
   HARD_DELETE_RESTAURANT,
 } from '@/lib/api/graphql';
 
-// Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Components
 import CustomButton from '../button';
 import CustomInputSwitch from '../custom-input-switch';
 import TextComponent from '../text-field';
@@ -45,7 +38,7 @@ import { useTranslations } from 'next-intl';
 export default function VendorsLayoutRestaurantCard({
   restaurant,
 }: IRestaurantCardProps) {
-  // Props
+
   const {
     _id,
     name,
@@ -56,7 +49,6 @@ export default function VendorsLayoutRestaurantCard({
     unique_restaurant_id,
   } = restaurant;
 
-  // Hooks
   const t = useTranslations();
   const { showToast } = useContext(ToastContext);
 
@@ -71,10 +63,9 @@ export default function VendorsLayoutRestaurantCard({
   }
 
   const { deliveryRate } = configuration;
-  // Hooks
+
   const router = useRouter();
 
-  // API
   const [hardDeleteRestaurant, { loading: isHardDeleting }] = useMutation(
     HARD_DELETE_RESTAURANT,
     {
@@ -136,7 +127,6 @@ export default function VendorsLayoutRestaurantCard({
     },
   });
 
-  // Handle checkbox change
   const handleCheckboxChange = async () => {
     try {
       await deleteRestaurant({ variables: { id: _id } });
@@ -212,7 +202,7 @@ export default function VendorsLayoutRestaurantCard({
       </div>
 
       <div className="mb-4 flex flex-wrap items-center gap-x-2 px-2 sm:grid sm:grid-cols-2 sm:gap-4 lg:flex">
-        {/* Delivery Time */}
+        {}
         <div className="flex items-center gap-2 rounded-lg border border-gray-300 dark:border-dark-600 p-2 mb-2 text-sm">
           <FrameSVG width="24" height="24" />
           <span>
@@ -220,7 +210,7 @@ export default function VendorsLayoutRestaurantCard({
           </span>
         </div>
 
-        {/* Delivery Fee */}
+        {}
         <div className="flex items-center gap-2 rounded-lg border border-gray-300 dark:border-dark-600 p-2 mb-2 text-sm">
           <CarSVG width="24" height="24" />
           <span>
@@ -228,7 +218,7 @@ export default function VendorsLayoutRestaurantCard({
           </span>
         </div>
 
-        {/* Minimum Order */}
+        {}
         <div className="flex items-center gap-1 rounded-lg border border-gray-300 dark:border-dark-600 p-2 mb-2 text-sm">
           <span>{t('Min Order')}</span>
           <span>
@@ -244,14 +234,13 @@ export default function VendorsLayoutRestaurantCard({
           onClick={() => {
             onUseLocalStorage('save', 'shopType', shopType )
             onUseLocalStorage('save', 'restaurantId', _id);
-            // Get the existing route stack from local storage
+
             const existingRouteStack = JSON.parse(
               onUseLocalStorage('get', 'routeStack') || '[]'
             );
 
-            // Add 'vendor' to the existing route stack
             const updatedRouteStack = [...existingRouteStack, 'Vendor'];
-            // Save the updated route stack
+
             onUseLocalStorage(
               'save',
               'routeStack',

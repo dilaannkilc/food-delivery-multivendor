@@ -1,16 +1,13 @@
-// Core
+
 import { ApolloError, useMutation } from '@apollo/client';
 import { Form, Formik } from 'formik';
 import { useContext, useEffect, useState } from 'react';
 
-// Prime React
 import { Sidebar } from 'primereact/sidebar';
 
-// Context
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { VendorContext } from '@/lib/context/super-admin/vendor.context';
 
-// Interface and Types
 import {
   IGetVendorResponseGraphQL,
   ILazyQueryResult,
@@ -18,35 +15,30 @@ import {
 } from '@/lib/utils/interfaces';
 import { IVendorForm } from '@/lib/utils/interfaces/forms';
 
-// Constants and Methods
 import { MAX_SQUARE_FILE_SIZE, VendorErrors } from '@/lib/utils/constants';
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import CustomIconTextField from '@/lib/ui/useable-components/input-icon-field';
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/upload-image';
 
-// Schema
 import { VendorEditSchema, VendorSchema } from '@/lib/utils/schema';
 
-// GraphQL
 import {
   CREATE_VENDOR,
   EDIT_VENDOR,
   GET_VENDOR_BY_ID,
 } from '@/lib/api/graphql';
 
-// Icons
 import { useLazyQueryQL } from '@/lib/hooks/useLazyQueryQL';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import CustomPhoneTextField from '@/lib/ui/useable-components/phone-input-field';
 import { useTranslations } from 'next-intl';
 
 const initialValues: IVendorForm = {
-  // name: '',
+
   email: '',
   password: '',
   confirmPassword: '',
@@ -59,10 +51,9 @@ const initialValues: IVendorForm = {
 export default function VendorAddForm({
   position = 'right',
 }: IVendorAddFormComponentProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const {
     vendorFormVisible,
     onSetVendorFormVisible,
@@ -72,16 +63,14 @@ export default function VendorAddForm({
   } = useContext(VendorContext);
   const { showToast } = useContext(ToastContext);
 
-  // States
   const [formInitialValues, setFormValues] = useState<IVendorForm>({
     ...initialValues,
   });
 
-  // Mutations
   const [createVendor] = useMutation(
     isEditingVendor && vendorId ? EDIT_VENDOR : CREATE_VENDOR,
     {
-      //  refetchQueries: [{ query: GET_VENDORS, fetchPolicy: 'network-only' }],
+
       onError,
       onCompleted: () => {
         showToast({
@@ -106,7 +95,6 @@ export default function VendorAddForm({
     debounceMs: 300,
   }) as ILazyQueryResult<IGetVendorResponseGraphQL | undefined, { id: string }>;
 
-  // Handlers
   const onVendorCreate = async (data: IVendorForm) => {
     try {
       await createVendor({
@@ -164,7 +152,7 @@ export default function VendorAddForm({
       image: data?.getVendor?.image ?? '',
     }));
   };
-  // Use Effects
+
   useEffect(() => {
     onFetchVendorById();
   }, [isEditingVendor, vendorId]);
@@ -284,7 +272,7 @@ export default function VendorAddForm({
                           value={values.phoneNumber}
                           onChange={(e) => {
                             setFieldValue('phoneNumber', e);
-                            // setCountryCode(code);
+
                           }}
                           type="text"
                           style={{

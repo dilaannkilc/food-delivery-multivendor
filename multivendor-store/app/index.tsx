@@ -3,7 +3,6 @@ import * as SecureStore from "expo-secure-store";
 import { useEffect, useRef } from "react";
 import Constants from "expo-constants";
 
-// Constant
 import useNotification from "@/lib/hooks/useNotification";
 import { ROUTES, STORE_TOKEN } from "@/lib/utils/constants";
 import SpinnerComponent from "@/lib/ui/useable-components/spinner";
@@ -16,7 +15,7 @@ function App() {
     getPermission,
     getExpoPushToken,
     getDevicePushToken,
-    // requestPermission,
+
     sendTokenToBackend,
   } = useNotification();
 
@@ -44,11 +43,7 @@ function App() {
         ) {
           const permissionStatus = await getPermission();
           if (permissionStatus.granted) {
-            /*  const token = (
-              await getExpoPushToken({
-                projectId: Constants?.expoConfig?.extra?.eas.projectId,
-              })
-            ).data; */
+            
 
             const token = (await getDevicePushToken()).data;
 

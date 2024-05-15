@@ -1,6 +1,5 @@
 'use client';
 
-// Core imports
 import React, {
   useCallback,
   useContext,
@@ -12,21 +11,18 @@ import { GoogleMap, Polygon } from '@react-google-maps/api';
 import parse from 'autosuggest-highlight/parse';
 import { throttle } from 'lodash';
 
-// Interfaces
 import {
   ILocationPoint,
   IPlaceSelectedOption,
   IZoneCustomGoogleMapsBoundComponentProps,
 } from '@/lib/utils/interfaces';
 
-// Utilities
 import {
   calculatePolygonCentroid,
   transformPath,
   transformPolygon,
 } from '@/lib/utils/methods';
 
-// Third-party libraries
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronDown,
@@ -34,7 +30,6 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 
-// Prime React
 import { AutoComplete, AutoCompleteSelectEvent } from 'primereact/autocomplete';
 import { GoogleMapsContext } from '@/lib/context/global/google-maps.context';
 import CustomShape from '../shapes';
@@ -50,21 +45,17 @@ const autocompleteService: {
 const CustomGoogleMapsLocationZoneBounds: React.FC<
   IZoneCustomGoogleMapsBoundComponentProps
 > = ({ _path, onSetZoneCoordinates }) => {
-  // Hooks
+
   const t = useTranslations();
   const { theme } = useTheme();
 
-
-  // Context
   const googleMapsContext = useContext(GoogleMapsContext);
 
-  // States
   const [isMounted, setIsMounted] = useState(false);
   const [deliveryZoneType, setDeliveryZoneType] = useState('polygon');
   const [center, setCenter] = useState(DEFAULT_CENTER);
   const [path, setPath] = useState<ILocationPoint[]>(DEFAULT_POLYGON);
 
-  // Auto complete
   const [options, setOptions] = useState<IPlaceSelectedOption[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [selectedPlaceObject, setSelectedPlaceObject] =
@@ -75,7 +66,6 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
     lng: number;
   } | null>(null);
 
-  // Ref
   const polygonRef = useRef<google.maps.Polygon | null>(null);
   const listenersRef = useRef<google.maps.MapsEventListener[]>([]);
   const mapRef = useRef<google.maps.Map | null>(null);
@@ -88,7 +78,6 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
     []
   );
 
-  // Helper to create a polygon around a point
   const createPolygonAroundPoint = (
     center: { lat: number; lng: number },
     sizeMeters = 100
@@ -105,7 +94,6 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
     ];
   };
 
-  // Handlers
   const handleInputChange = (value: string) => {
     setInputValue(value);
   };
@@ -197,7 +185,6 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
 
       setPath(nextPath);
 
-      // Calculate new center based on polygon vertices
       const newCenter = nextPath.reduce(
         (acc, point) => ({
           lat: acc.lat + point.lat / nextPath.length,
@@ -232,7 +219,6 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
     polygonRef.current = null;
   }, [deliveryZoneType]);
 
-  // Use Effects
   useEffect(() => {
     if (!isMounted) return;
     onSetZoneCoordinates(transformPath(path ?? []));

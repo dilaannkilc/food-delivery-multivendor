@@ -1,19 +1,14 @@
-// Core
+
 import { FlatList, View } from "react-native";
 
-// Interfaces
 import { IStoreEarningsDetailProps } from "@/lib/utils/interfaces/earning.interface";
 import { IStoreEarnings } from "@/lib/utils/interfaces/rider-earnings.interface";
 
-// Components
 import NoRecordFound from "@/lib/ui/useable-components/no-record-found";
 import EarningStack from "../../../earnings/view/earnings-stack";
 
-// Apollo
 
-// React Native Flash Message
 
-// Hooks
 import { useApptheme } from "@/lib/context/theme.context";
 
 export default function EarningsDetailStacks({
@@ -21,7 +16,7 @@ export default function EarningsDetailStacks({
   storeEarnings,
   isLoading,
 }: IStoreEarningsDetailProps) {
-  // Hooks
+
   const { appTheme } = useApptheme();
 
   const renderItem = ({
@@ -43,7 +38,6 @@ export default function EarningsDetailStacks({
     />
   );
 
-  // Empty Component
   const ListEmptyComponent = () => {
     if (isLoading) return null;
     return <NoRecordFound />;

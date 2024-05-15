@@ -11,7 +11,6 @@ import { isOpen } from '../../../utils/customFunctions'
 
 const CARD_SPACING = scale(10)
 
-// Skeleton Placeholder Component
 const SkeletonPlaceholder = ({ style, currentTheme }) => {
   const animatedOpacity = React.useRef(new Animated.Value(0.5)).current
 
@@ -50,7 +49,6 @@ const SkeletonPlaceholder = ({ style, currentTheme }) => {
   )
 }
 
-// Skeleton for Popular Items
 const PopularItemsSkeleton = ({ currentTheme }) => {
   return (
     <View style={styles(currentTheme).section}>
@@ -69,7 +67,7 @@ const PopularItemsSkeleton = ({ currentTheme }) => {
         data={[1, 2, 3, 4]}
         renderItem={() => (
           <View style={styles(currentTheme).popularItemCard}>
-            {/* Plus button skeleton */}
+            {}
             <View style={styles(currentTheme).plusButton}>
               <SkeletonPlaceholder
                 currentTheme={currentTheme}
@@ -121,7 +119,6 @@ const PopularItemsSkeleton = ({ currentTheme }) => {
   )
 }
 
-// Skeleton for Categories
 const CategoriesSkeleton = ({ currentTheme }) => {
   return (
     <View style={styles(currentTheme).section}>
@@ -171,7 +168,6 @@ const CategoriesSkeleton = ({ currentTheme }) => {
   )
 }
 
-// AnimatedItem component that matches browse categories exactly
 const AnimatedItem = ({ index, children }) => {
   const scaleValue = useRef(new Animated.Value(0)).current
 
@@ -200,17 +196,16 @@ const RestaurantSections = ({
   configuration,
   navigation,
   currentTheme,
-  restaurant // Restaurant details including isOpen, isAvailable
+  restaurant 
 }) => {
   const { t } = useTranslation()
   const { popularItems, categories } = useRestaurantQueries(restaurantId)
-  // let popularItems={}
-  // let categories={}
-  // Animation states
+
+
+
   const [hasPopularAnimated, setHasPopularAnimated] = useState(false)
   const [hasCategoriesAnimated, setHasCategoriesAnimated] = useState(false)
 
-  // Reset animations when new data arrives
   useEffect(() => {
     if (!popularItems.loading && popularItems.data) {
       setHasPopularAnimated(false)
@@ -223,14 +218,13 @@ const RestaurantSections = ({
     }
   }, [categories.data])
 
-  // Check if restaurant is closed
-  // const isRestaurantOpen = restaurant?.isOpe
+
   const isAvailable = restaurant?.isAvailable
   const isRestaurantClosed = !isAvailable || !isOpen(restaurant)
 
   const handleItemClick = (item) => {
     if (isRestaurantClosed) {
-      // Show alert if restaurant is closed
+
       Alert.alert(
         '',
         t('restaurantClosed'),
@@ -248,7 +242,7 @@ const RestaurantSections = ({
         { cancelable: true }
       )
     } else {
-      // Navigate directly if restaurant is open
+
       navigation.navigate('ItemDetail', {
         food: {
           ...item,
@@ -264,7 +258,7 @@ const RestaurantSections = ({
 
   const handleCategoryClick = (category) => {
     if (isRestaurantClosed) {
-      // Show alert if restaurant is closed
+
       Alert.alert(
         '',
         t('restaurantClosed'),
@@ -282,7 +276,7 @@ const RestaurantSections = ({
         { cancelable: true }
       )
     } else {
-      // Navigate directly if restaurant is open
+
       navigation.navigate('CategoryPage', {
         category: category,
         restaurantId: restaurantId,
@@ -297,7 +291,6 @@ const RestaurantSections = ({
     const price = variation?.price || 0
     const discountedPrice = variation?.discounted
 
-    // Use discounted price only if it exists and is greater than 0, otherwise use base price
     const displayPrice = discountedPrice && discountedPrice > 0 ? discountedPrice : price
 
     const content = (
@@ -325,46 +318,43 @@ const RestaurantSections = ({
     return content
   }
 
-  // const renderCategoryItem = ({ item, index }) => {
-  //   const content = (
-  //     // update beautifull shadow to category card
-  //     <TouchableOpacity style={styles(currentTheme).categoryCard} onPress={() => handleCategoryClick(item)}> 
-  //     <ShimmerImage imageUrl={item.url} style={styles(currentTheme).categoryImage} resizeMode='cover' />
-  //       <TextDefault numberOfLines={1} style={styles(currentTheme).categoryTitle}>
-  //         {item.category_name}
-  //       </TextDefault>
-  //     </TouchableOpacity>
-  //   )
 
-  //   if (!hasCategoriesAnimated) {
-  //     return <AnimatedItem index={index}>{content}</AnimatedItem>
-  //   }
 
-  //   return content
-  // }
+
+
+
+
+
+
+
+
+
+
+
+
 
   const renderCategoryItem = ({ item, index }) => {
     const content = (
       <TouchableOpacity 
         style={[
           styles(currentTheme).categoryCard,
-          // Cross-platform shadow with subtle appearance
+
           {
-            // iOS shadow - subtle and professional
+
             shadowColor: '#000000',
             shadowOffset: {
               width: 0,
-              height: 2, // Reduced for subtlety
+              height: 2, 
             },
-            shadowOpacity: 0.08, // Much lighter opacity
-            shadowRadius: 3, // Smaller radius for crisp shadow
-            // Android shadow
-            elevation: 3, // Reduced elevation for consistency
-            // Ensure the shadow container has proper background
+            shadowOpacity: 0.08, 
+            shadowRadius: 3, 
+
+            elevation: 3, 
+
             backgroundColor: currentTheme.themeBackground || '#FFFFFF',
-            // Add these for iOS shadow fix
-            borderRadius: scale(16), // Make sure border radius is here
-            overflow: 'visible', // Important for shadow visibility
+
+            borderRadius: scale(16), 
+            overflow: 'visible', 
           }
         ]} 
         onPress={() => handleCategoryClick(item)}
@@ -388,7 +378,7 @@ const RestaurantSections = ({
   }
   return (
     <View style={styles(currentTheme).container}>
-      {/* Popular Section */}
+      {}
       {popularItems.loading ? (
         <PopularItemsSkeleton currentTheme={currentTheme} />
       ) : (
@@ -418,7 +408,7 @@ const RestaurantSections = ({
         )
       )}
 
-      {/* Categories Section */}
+      {}
       {categories.loading ? (
         <CategoriesSkeleton currentTheme={currentTheme} />
       ) : (
@@ -429,15 +419,15 @@ const RestaurantSections = ({
 
           <View style={styles(currentTheme).categoriesGrid}>
             {categories.data?.map((category, index) => {
-              // Set animation complete after the last category is processed
+
               if (index === categories.data.length - 1 && !hasCategoriesAnimated) {
-                // Use timeout to delay setting the state to allow animation to be visible
+
                 setTimeout(
                   () => {
                     setHasCategoriesAnimated(true)
                   },
                   (index + 1) * 40 + 500
-                ) // Delay based on index plus animation duration
+                ) 
               }
 
               return (

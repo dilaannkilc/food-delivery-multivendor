@@ -1,6 +1,5 @@
 import { IDropdownSelectItem } from '../global.interface';
 
-// Errors
 export interface IVendorErrors {
   _id: string[];
   name: string[];

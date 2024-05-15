@@ -1,12 +1,11 @@
 export const he = {
-  // ניווט
+
   continue: "המשך",
   Wallet: "ארנק",
   Home: "דף הבית",
   Earnings: "הכנסות",
   Profile: "פרופיל",
 
-  // שאלות נפוצות
   faq1: "איך אני מבצע הזמנה?",
   faq1Description:
     "כדי לבצע הזמנה, פשוט דפדף בתפריט, בחר את הפריטים שברצונך להזמין והמשך לתשלום. תוכל לבחור את אמצעי התשלום וכתובת המשלוח לפני אישור ההזמנה.",
@@ -29,7 +28,6 @@ export const he = {
   faq7Description:
     "לצערנו, לא ניתן לבחור ממספר מסעדות באותה הזמנה. עם זאת, ניתן לבצע הזמנות נפרדות ממסעדות שונות בו זמנית.",
 
-  // הכנסות
   "Earnings Summary": "סיכום הכנסות",
   Deliveries: "משלוחים",
   "Total Earnings": 'סה"כ הכנסות',
@@ -39,13 +37,11 @@ export const he = {
   "Order Date": "תאריך הזמנה",
   "Earnings Order Details": "פרטי הזמנה והכנסות",
 
-  // הודעות פלאש
   "Order placed successfully": "ההזמנה בוצעה בהצלחה",
   "Order cancelled successfully": "ההזמנה בוטלה בהצלחה",
   "Error while placing order": "שגיאה בעת ביצוע ההזמנה",
   "Error while cancelling order": "שגיאה בעת ביטול ההזמנה",
 
-  // הודעות אחרות
   "Please enter your name": "אנא הזן את שמך",
   "Please enter your email": "אנא הזן את כתובת האימייל שלך",
   "Please enter your password": "אנא הזן את הסיסמה שלך",

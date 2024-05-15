@@ -1,22 +1,17 @@
-// Icons
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-// Hooks
 import { useContext, useState } from 'react';
 import { ApolloError, useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 
-// Context
 import { VendorContext } from '@/lib/context/super-admin/vendor.context';
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Interface
 import { IVendorCardProps } from '@/lib/utils/interfaces';
 
-// Methods
 import { onUseLocalStorage } from '@/lib/utils/methods';
 
-// Icons
 import {
   faEdit,
   faEllipsisVertical,
@@ -25,19 +20,15 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 
-// GraphQL
 import { DELETE_VENDOR, GET_VENDORS } from '@/lib/api/graphql';
 
-// Components
 import Image from 'next/image';
 import CustomDialog from '../delete-dialog';
 import CustomPopupMenu from '../popup-menu';
 import TextComponent from '../text-field';
 
-// Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Utils & Constants
 import { SELECTED_VENDOR_EMAIL } from '@/lib/utils/constants';
 import { useTranslations } from 'next-intl';
 
@@ -50,24 +41,21 @@ export default function VendorCard({
   image,
   isLast = false,
 }: IVendorCardProps) {
-  // Hooks
+
   const t = useTranslations();
   console.log("isLast...", isLast)
 
-  // Context
   const { vendorId, onSetVendorId, vendorResponse, onResetVendor } =
     useContext(VendorContext);
   const { onSetVendorFormVisible } = useContext(VendorContext);
   const { showToast } = useContext(ToastContext);
   const { ISPAID_VERSION } = useConfiguration();
 
-  // States
   const [isPopupOpen, setPopupOpen] = useState<boolean>(false);
   const [isDeletePopupOpen, setDeletePopupOpen] = useState<boolean>(false);
 
   const router = useRouter();
 
-  // API
   const [deleteVendor, { loading }] = useMutation(DELETE_VENDOR, {
     refetchQueries: [{ query: GET_VENDORS }],
     onCompleted: () => {
@@ -77,7 +65,7 @@ export default function VendorCard({
         message: t('Vendor has been deleted successfully'),
       });
 
-      onResetVendor(true); // so after refetching is vendor can be selected.
+      onResetVendor(true); 
       vendorResponse.refetch();
     },
     onError: ({ networkError, graphQLErrors }: ApolloError) => {
@@ -93,7 +81,6 @@ export default function VendorCard({
     },
   });
 
-  // Handlers
   const onVendorCardClicked = (_vendorId: string) => {
     onSetVendorId(_vendorId);
     onUseLocalStorage('save', 'vendorId', _vendorId.toString());
@@ -104,7 +91,6 @@ export default function VendorCard({
     onSetVendorFormVisible(true, true);
   };
 
-  // API Hanlders
   const onHandleConfirmDeleteVendor = async () => {
     try {
       if (ISPAID_VERSION) {

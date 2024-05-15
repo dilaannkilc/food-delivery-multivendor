@@ -1,4 +1,4 @@
-// Components
+
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import { IWithdrawRequestsTableHeaderProps } from '@/lib/utils/interfaces/withdraw-request.interface';
 

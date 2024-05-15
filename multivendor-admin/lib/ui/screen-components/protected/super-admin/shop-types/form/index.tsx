@@ -2,38 +2,30 @@
 import { ChangeEvent, useContext } from 'react';
 import { useTranslations } from 'next-intl';
 import { useMutation } from '@apollo/client';
-// GraphQL
+
 import {
   CREATE_SHOP_TYPE,
   GET_SHOP_TYPES,
   UPDATE_SHOP_TYPE,
 } from '@/lib/api/graphql';
 
-// Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Components
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/upload-image';
 import CustomInputSwitch from '@/lib/ui/useable-components/custom-input-switch';
 
-// Interfaces
 import { IAddShopTypeProps } from '@/lib/utils/interfaces';
 
-// Schema
 import { ShopTypeFormSchema } from '@/lib/utils/schema';
 
-// Formik
 import { Form, Formik } from 'formik';
 
-// Prime react
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Sidebar } from 'primereact/sidebar';
 
-// Methods
 import { onErrorMessageMatcher } from '@/lib/utils/methods';
 
-// Constants
 import { MAX_SQUARE_FILE_SIZE, ShopTypeErrors } from '@/lib/utils/constants';
 
 export default function ShopTypesForm({
@@ -42,11 +34,10 @@ export default function ShopTypesForm({
   visible,
   setIsEditing,
 }: IAddShopTypeProps) {
-  // Hooks
+
   const { showToast } = useContext(ToastContext);
   const t = useTranslations();
 
-  // Initial values
   const initialValues = {
     _id: isEditing.bool ? isEditing?.data?._id : '',
     name: isEditing.bool ? isEditing?.data?.name : '',
@@ -54,7 +45,6 @@ export default function ShopTypesForm({
     isActive: isEditing.bool ? isEditing?.data?.isActive : true,
   };
 
-  // Mutations
   const [createShopType, { loading: createShopTypeLoading }] = useMutation(
     CREATE_SHOP_TYPE,
     {

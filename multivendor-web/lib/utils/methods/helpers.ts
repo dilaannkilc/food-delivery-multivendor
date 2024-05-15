@@ -91,12 +91,12 @@ export function getStatusColor(
 export function loadGoogleMapsScript(key: string): Promise<void>{
   return new Promise((resolve, reject) => {
     if (typeof window.google === 'object' && window.google.maps) {
-      resolve(); // already loaded
+      resolve(); 
       return;
     }
     const scriptId = 'google-maps-script';
     if (document.getElementById(scriptId)) {
-      resolve(); // already injected
+      resolve(); 
       return;
     }
 
@@ -111,37 +111,30 @@ export function loadGoogleMapsScript(key: string): Promise<void>{
   });
 }
 
-// Format date from timestamp
 export const formatDateForCreatedAt = (timestamp: string) => {
   try {
     const date = new Date(Number.parseInt(timestamp));
     const now = new Date();
     const diffTime = Math.abs(now.getTime() - date.getTime());
 
-    // Calculate minutes and hours
     const diffMinutes = Math.floor(diffTime / (1000 * 60));
     const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    // Minutes (if less than an hour)
     if (diffMinutes < 1) return "Just now";
     if (diffMinutes === 1) return "1 Minute ago";
     if (diffMinutes < 60) return `${diffMinutes} Minutes ago`;
 
-    // Hours (if less than a day)
     if (diffHours === 1) return "1 Hour ago";
     if (diffHours < 24) return `${diffHours} Hours ago`;
 
-    // Days (if less than a month)
     if (diffDays === 1) return "1 Day ago";
     if (diffDays < 30) return `${diffDays} Days ago`;
 
-    // Months (if less than a year)
     const diffMonths = Math.floor(diffDays / 30);
     if (diffMonths === 1) return "1 Month ago";
     if (diffMonths < 12) return `${diffMonths} Months ago`;
 
-    // Years
     const diffYears = Math.floor(diffDays / 365);
     if (diffYears === 1) return "1 Year ago";
     return `${diffYears} Years ago`;
@@ -159,13 +152,12 @@ export function checkPaymentMethod(currency: string, paymentMethod: string) {
   }
   return true;
 }
-// Format time from [hours, minutes] to HH:MM format
+
 export const formatTimeForHoursMins = (time: [string, string]) => {
   return `${time[0].padStart(2, "0")}:${time[1].padStart(2, "0")}`;
 };
 
-// Get the current day in a readable format
-//Example "MON" => "Monday"
+
 export const getCurrentDay = (day: string) => {
   switch (day) {
     case "MON":
@@ -193,7 +185,7 @@ export const getDistanceFromLatLonInKm = (
   lat2: number,
   lon2: number
 ): number => {
-  const R = 6371; // Radius of Earth in km
+  const R = 6371; 
   const dLat = (lat2 - lat1) * (Math.PI / 180);
   const dLon = (lon2 - lon1) * (Math.PI / 180);
 
@@ -206,7 +198,7 @@ export const getDistanceFromLatLonInKm = (
 
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  return R * c; // distance in km
+  return R * c; 
 }
 
 
@@ -229,7 +221,6 @@ export const saveSearchedKeyword = (keyword: string) => {
     const stored = onUseLocalStorage("get", LOCAL_STORAGE_KEY);
     let keywords = stored ? JSON.parse(stored) : [];
 
-    // Avoid duplicates
     if (!keywords.includes(keyword)) {
       keywords.push(keyword);
       onUseLocalStorage("save", LOCAL_STORAGE_KEY, JSON.stringify(keywords));
@@ -252,17 +243,17 @@ export const deleteSearchedKeywords = () => {
   try {
     onUseLocalStorage("delete", LOCAL_STORAGE_KEY);
   } catch {
-    // Do nothing or log if necessary
+
   }
 };
 
 
 export const toFloatIfNeeded = (value: string | number) => {
-  if (typeof value === "number") return value;        // already float/number
+  if (typeof value === "number") return value;        
 
   if (typeof value === "string") {
     const num = parseFloat(value);
-    return isNaN(num) ? null : num;                   // convert if valid
+    return isNaN(num) ? null : num;                   
   }
-  return null;                                        // fallback
+  return null;                                        
 }

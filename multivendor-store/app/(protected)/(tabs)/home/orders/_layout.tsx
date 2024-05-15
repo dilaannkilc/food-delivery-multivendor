@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Platform, Pressable, Text, View } from "react-native";
 
 export default function Layout() {
-  // Hooks
+
   const { t } = useTranslation();
   const { appTheme } = useApptheme();
 

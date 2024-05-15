@@ -30,7 +30,7 @@ export default function FilterModal({
   handleFilterApply,
   clearFilters,
 }: Props) {
-   const t = useTranslations(); // ✅ move inside component
+   const t = useTranslations(); 
 
   const ratingData = [{ name: "1" }, { name: "2" }, { name: "3" }, { name: "4" }];
   const sortByData = [

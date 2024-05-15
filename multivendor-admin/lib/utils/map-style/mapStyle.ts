@@ -1,4 +1,4 @@
-// lib/utils/mapStyles.ts
+
 
 export const darkMapStyle = [
     { elementType: "geometry", stylers: [{ color: "#1F2937" }] },
@@ -8,10 +8,10 @@ export const darkMapStyle = [
       featureType: "landscape.natural",
       elementType: "geometry",
       stylers: [
-        { color: "#165E3A" }, // Tailwind green-900 for darker natural areas
+        { color: "#165E3A" }, 
       ],
     },
-  // Tailwind green-800 or #165E3A
+
     {
       featureType: "administrative",
       elementType: "geometry",

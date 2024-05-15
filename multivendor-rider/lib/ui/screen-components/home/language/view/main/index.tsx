@@ -1,4 +1,4 @@
-// Constants
+
 import { useApptheme } from "@/lib/context/global/theme.context";
 import {
   CustomContinueButton,
@@ -10,19 +10,16 @@ import i18next, { changeLanguage } from "i18next";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-// Core
 import { Image, ScrollView, Text, View } from "react-native";
 
 export default function LanguageMain() {
-  // States
+
   const [isSelected, setIsSelected] = useState(i18next.language);
   const [isChangingLang, setIsChangingLang] = useState(false);
 
-  // Hooks
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
-  // Handlers
   const handleLanguageSelection = async (selectedLanguage: string) => {
     setIsSelected(selectedLanguage);
     await AsyncStorage.setItem("enatega-language", selectedLanguage);
@@ -48,7 +45,6 @@ export default function LanguageMain() {
     }
   };
 
-  // UseEffects
   useEffect(() => {
     handleSetCurrentLanguage();
   }, [isSelected]);
@@ -58,11 +54,11 @@ export default function LanguageMain() {
       className="flex-1 w-full items-center"
       style={{ backgroundColor: appTheme.screenBackground }}
     >
-      {/* ---------- SCROLLABLE LIST ---------- */}
+      {}
       <ScrollView
         className="w-[90%] flex-1 mt-4"
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 20 }} // space before button
+        contentContainerStyle={{ paddingBottom: 20 }} 
       >
         {LANGUAGES.map((lng, index) => (
           <View
@@ -91,7 +87,7 @@ export default function LanguageMain() {
         ))}
       </ScrollView>
 
-      {/* ---------- FIXED BUTTON ---------- */}
+      {}
       <View className="w-[90%] mb-16">
         <CustomContinueButton
           title={isChangingLang ? t("Please wait") : t("Update Language")}

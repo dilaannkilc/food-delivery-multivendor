@@ -1,4 +1,4 @@
-// Core
+
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
@@ -6,13 +6,10 @@ import {
 import { useContext } from "react";
 import { Linking, Text, TouchableOpacity, View } from "react-native";
 
-// Context
 import { AuthContext } from "@/lib/context/global/auth.context";
 
-// Drawer
 import CustomDrawerHeader from "@/lib/ui/screen-components/home/drawer/drawer-header";
 
-// UI-Componetns
 import { useApptheme } from "@/lib/context/theme.context";
 import {
   AboutIcon,
@@ -29,7 +26,7 @@ import { ScrollView } from "react-native-gesture-handler";
 export default function CustomDrawerContent(
   props: DrawerContentComponentProps,
 ) {
-  // Hooks
+
   const { appTheme, currentTheme } = useApptheme();
   const { t } = useTranslation();
   const { logout } = useContext(AuthContext);
@@ -38,7 +35,7 @@ export default function CustomDrawerContent(
     <DrawerContentScrollView
       key={currentTheme?.concat("Drawer_Content")}
       {...props}
-      // scrollEnabled={false}
+
       style={{ backgroundColor: appTheme.themeBackground }}
       contentContainerStyle={{
         backgroundColor: appTheme.themeBackground,
@@ -49,7 +46,7 @@ export default function CustomDrawerContent(
       }}
     >
       <CustomDrawerHeader />
-      {/* Drawer Items with Right Arrow */}
+      {}
       <ScrollView
         key={currentTheme?.concat("Drawer_Content").concat("Scroll_View")}
         style={{
@@ -109,7 +106,7 @@ export default function CustomDrawerContent(
                   borderColor: appTheme.borderLineColor,
                 }}
               >
-                {/* Left Icon and Label */}
+                {}
                 <View className="flex-row items-center gap-3">
                   <View
                     className="h-[40px] w-[40px] rounded-full items-center justify-center"
@@ -140,7 +137,7 @@ export default function CustomDrawerContent(
                   </Text>
                 </View>
 
-                {/* Right Arrow Icon */}
+                {}
                 <RightArrowIcon
                   color={isFocused ? appTheme.primary : appTheme.fontMainColor}
                   height={20}
@@ -150,7 +147,7 @@ export default function CustomDrawerContent(
             );
         })}
 
-        {/* EXTERNAL LINKS  */}
+        {}
         <TouchableOpacity
           onPress={() => {
             Linking.openURL("https://enatega.com/");
@@ -223,7 +220,7 @@ export default function CustomDrawerContent(
             </Text>
           </View>
         </TouchableOpacity>
-        {/* Logout Button */}
+        {}
 
         <TouchableOpacity
           onPress={() => {

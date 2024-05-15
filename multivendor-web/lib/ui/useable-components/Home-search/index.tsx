@@ -1,10 +1,8 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
 
-// Context
 import { GoogleMapsContext } from "@/lib/context/global/google-maps.context";
 
-// Hook
 import useDebounce from "@/lib/hooks/useDebounce";
 import { useUserAddress } from "@/lib/context/address/address.context";
 import { USER_CURRENT_LOCATION_LS_KEY } from "@/lib/utils/constants";
@@ -12,25 +10,21 @@ import { onUseLocalStorage } from "@/lib/utils/methods/local-storage";
 import { useTranslations } from "next-intl";
 
 const CitySearch: React.FC = () => {
-  // Ref
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null); // Added containerRef
 
-  // Hook
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null); 
+
   const router = useRouter();
   const { setUserAddress } = useUserAddress();
 
-  // Context
   const { isLoaded } = useContext(GoogleMapsContext);
 
-  // States
   const [cityName, setCityName] = useState<string>("");
   const [suggestions, setSuggestions] = useState<
     google.maps.places.AutocompletePrediction[]
   >([]);
   const debouncedCityName = useDebounce(cityName, 500);
 
-  // Handlers
   const handleSelect = (placeId: string, description: string) => {
     if (!window.google || !isLoaded) return;
 
@@ -80,7 +74,6 @@ const CitySearch: React.FC = () => {
 
   const t = useTranslations();
 
-  // USe Effects
 useEffect(() => {
 if (!isLoaded || !window.google || debouncedCityName.length < 2) {
   setSuggestions([]);
@@ -106,7 +99,6 @@ if (!isLoaded || !window.google || debouncedCityName.length < 2) {
   );
 }, [debouncedCityName, isLoaded]);
 
-  // Added effect for outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (

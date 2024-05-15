@@ -24,7 +24,7 @@ const GoogleMapComponent: FC<GoogleMapComponentProps> = ({ apiKey, data }) => {
       const [lng, lat] = data[0].location.coordinates;
       return { lat : Number(lat), lng : Number(lng) };
     }
-    return { lat: 33.6844, lng: 73.0479 }; // Default to Islamabad
+    return { lat: 33.6844, lng: 73.0479 }; 
   }, [data]);
 
 

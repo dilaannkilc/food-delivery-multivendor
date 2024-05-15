@@ -1,7 +1,7 @@
 'use client';
-// HOC
+
 import RESTAURANT_GUARD from '@/lib/hoc/RESTAURANT_GUARD';
-// Layout
+
 import { RestaurantLayoutProvider } from '@/lib/context/restaurant/layout-restaurant.context';
 import RestaurantLayout from '@/lib/ui/layouts/protected/restaurant';
 import { ProfileProvider } from '@/lib/context/restaurant/profile.context';

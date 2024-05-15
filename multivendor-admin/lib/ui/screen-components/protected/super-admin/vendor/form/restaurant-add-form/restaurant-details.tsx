@@ -1,11 +1,9 @@
-// Core
+
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { Form, Formik } from 'formik';
 import { useContext, useMemo, useState } from 'react';
 
-// Prime React
 
-// Interface and Types
 import {
   IAddRestaurantComponentProps,
   ICreateRestaurant,
@@ -15,11 +13,9 @@ import {
   IRestaurantsByOwnerResponseGraphQL,
 } from '@/lib/utils/interfaces';
 
-// Core
 import { RestaurantContext } from '@/lib/context/super-admin/restaurant.context';
 import { IEditState, IShopType } from '@/lib/utils/interfaces';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomDropdownComponent from '@/lib/ui/useable-components/custom-dropdown';
 import CustomMultiSelectComponent from '@/lib/ui/useable-components/custom-multi-select';
@@ -31,24 +27,20 @@ import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/uploa
 import ShopTypesForm from '@/lib/ui/screen-components/protected/super-admin/shop-types/form';
 import CuisineForm from '@/lib/ui/screen-components/protected/super-admin/cuisines/form';
 
-// Constants
 import {
   MAX_LANSDCAPE_FILE_SIZE,
   MAX_SQUARE_FILE_SIZE,
   RestaurantErrors,
 } from '@/lib/utils/constants';
 
-// Interface
 import { IRestaurantForm } from '@/lib/utils/interfaces';
 import {
   ICuisine,
   IGetCuisinesData,
 } from '@/lib/utils/interfaces/cuisine.interface';
 
-// Methods
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 
-// Schemas
 import {
   CREATE_RESTAURANT,
   GET_CUISINES,
@@ -95,18 +87,15 @@ export default function RestaurantDetails({
     order: -1,
   };
 
-  // Hooks
   const t = useTranslations();
 
-  // Context
   const { showToast } = useContext(ToastContext);
   const { vendorId, onSetRestaurantContextData } =
     useContext(RestaurantContext);
 
-  // API
   const { data: restaurantData } = useQuery(GET_RESTAURANTS);
   console.log('restaurant data ==> ', restaurantData);
-  // Mutation
+
   const [createRestaurant] = useMutation(CREATE_RESTAURANT, {
     onError,
     onCompleted: ({
@@ -154,7 +143,6 @@ export default function RestaurantDetails({
     },
   });
 
-  // call GET_RESTAURANTS query
 
   const { dropdownList, loading } = useShopTypes({
     invoke_now: true,
@@ -166,7 +154,6 @@ export default function RestaurantDetails({
   }) as IQueryResult<IGetCuisinesData | undefined, undefined>;
   cuisineResponse.data?.cuisines;
 
-  // Memoized Constants
   const cuisinesDropdown = useMemo(
     () =>
       cuisineResponse.data?.cuisines?.map((cuisin: ICuisine) => {
@@ -175,7 +162,6 @@ export default function RestaurantDetails({
     [cuisineResponse.data?.cuisines]
   );
 
-  // Handlers
   const onCreateRestaurant = async (data: IRestaurantForm) => {
     try {
       if (!vendorId) {
@@ -188,9 +174,8 @@ export default function RestaurantDetails({
         return;
       }
 
-      // check if values.name is present in restaurantData and show error toast
       const existingRestaurant = restaurantData?.restaurants.find(
-        // @ts-ignore
+
         (restaurant) =>
           restaurant.name.toLowerCase() === data.name.toLowerCase()
       );
@@ -400,14 +385,14 @@ export default function RestaurantDetails({
                           mask="999-999-9999"
                           name="phoneNumber"
                           showLabel={true}
-                          // placeholder="Phone Number"
+
                           onChange={(e) => {
-                            // console.log("phone number format ==> ", e, code);
+
                             setFieldValue('phoneNumber', e);
-                            // setCountryCode(code);
+
                           }}
                           value={values.phoneNumber}
-                          // value={values.phoneNumber?.toString().match(/\(\+(\d+)\)\s(.+)/)?.[2]}
+
                           type="text"
                           className="rounded-[6px] border-[#D1D5DB]"
                           style={{

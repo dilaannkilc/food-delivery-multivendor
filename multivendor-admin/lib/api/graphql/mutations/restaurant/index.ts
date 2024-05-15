@@ -33,7 +33,6 @@ export const CREATE_RESTAURANT = gql`
   }
 `;
 
-// Delete
 export const DELETE_RESTAURANT = gql`
   mutation DeleteRestaurant($id: String!) {
     deleteRestaurant(id: $id) {

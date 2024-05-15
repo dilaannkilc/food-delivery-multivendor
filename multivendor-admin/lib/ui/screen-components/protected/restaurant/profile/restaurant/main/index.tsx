@@ -11,18 +11,17 @@ import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
 const RestaurantMain: React.FC = () => {
-  // Hooks
+
   const t = useTranslations();
   const { CURRENT_SYMBOL } = useConfiguration();
 
-  // Context
   const { restaurantProfileResponse } = useContext(ProfileContext);
   const restaurant = restaurantProfileResponse?.data?.restaurant;
 
   if (restaurantProfileResponse.loading) return <RestaurantProfileSkeleton />;
 
   const InfoItem: React.FC<IInfoItemProps> = ({ label, value }) => {
-    // Conditionally render icons based on label
+
     let icon = null;
     if (label === t('Delivery Time')) {
       icon = <FontAwesomeIcon icon={faClock} className="mr-1" />;

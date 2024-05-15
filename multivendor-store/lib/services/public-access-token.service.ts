@@ -19,7 +19,6 @@ const METRICS_GENERAL = gql`
   }
 `;
 
-// Obfuscated storage keys
 const KEYS = {
   TOKEN: "usr_prf_cache",
   NONCE: "dev_meta_id",

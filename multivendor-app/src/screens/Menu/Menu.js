@@ -1,4 +1,4 @@
-/* eslint-disable react/display-name */
+
 import React, { useRef, useContext, useLayoutEffect, useState, useEffect } from 'react'
 import { View, TouchableOpacity, Animated, StatusBar, Platform, RefreshControl, FlatList, Image, ScrollView, Dimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -130,7 +130,6 @@ function Menu({ route, props }) {
 
   const { data: cuisinesData, refetch: refetchCuisines, error: cuisinesError } = useQuery(isShopType ? GET_RESTAURANTS_CUISINES : GET_CUISINES, { variables: restaurantsCuisinsVariables })
 
-  // const allCuisines = useRef(isShopType ? { cuisines: cuisinesData?.nearByRestaurantsCuisines } : cuisinesData).current
 
   const allCuisines = useMemo(() => {
     if (isShopType) {
@@ -141,7 +140,7 @@ function Menu({ route, props }) {
 
   console.log('allCuisines::restaurants cuisins', cuisinesData?.nearByRestaurantsCuisines, allCuisines, cuisinesError)
 
-  const { onScroll /* Event handler */, containerPaddingTop /* number */, scrollIndicatorInsetTop /* number */ } = useCollapsibleSubHeader()
+  const { onScroll , containerPaddingTop , scrollIndicatorInsetTop  } = useCollapsibleSubHeader()
 
   const emptyViewDesc = selectedType === 'restaurant' ? t('noRestaurant') : t('noGrocery')
 
@@ -255,21 +254,20 @@ function Menu({ route, props }) {
     }
   }
 
-  // const collectionData = useMemo(() => {
-  //   if (routeData?.name === 'Restaurants') {
-  //     return allCuisines?.cuisines?.filter(
-  //       (cuisine) => cuisine?.shopType === 'Restaurant'
-  //     )
-  //   } else if (routeData?.name === 'Store') {
-  //     let rtc= allCuisines?.cuisines?.filter(
-  //       (cuisine) => cuisine?.shopType === 'Grocery'
-  //     )
-  //     console.log(rtc)
-  //     return rtc
-  //   } else {
-  //     return filterCusinies() ?? []
-  //   }
-  // }, [routeData, allCuisines])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const collectionData = useMemo(() => {
     console.log('allCuisines collection', allCuisines?.cuisines,isShopType)
@@ -300,10 +298,10 @@ function Menu({ route, props }) {
       setBusy(false)
       return
     }
-    // Get the address function from the hook
+
 
     try {
-      // Fetch the address using the geocoding hook
+
       const { formattedAddress, city } = await getAddress(coords.latitude, coords.longitude)
 
       let address = formattedAddress || 'Unknown Address'
@@ -328,40 +326,38 @@ function Menu({ route, props }) {
       console.error('Error fetching address using Google Maps API:', fetchError.message)
     }
   }
-  // const setCurrentLocation = async () => {
-  //   setBusy(true)
-  //   const { error, coords } = await getCurrentLocation()
 
-  //   const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coords.latitude}&lon=${coords.longitude}`
-  //   fetch(apiUrl)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.error) {
-  //         console.log('Reverse geocoding request failed:', data.error)
-  //       } else {
-  //         let address = data.display_name
-  //         if (address.length > 21) {
-  //           address = address.substring(0, 21) + '...'
-  //         }
 
-  //         if (error) navigation.navigate('SelectLocation')
-  //         else {
-  //           modalRef.current.close()
-  //           setLocation({
-  //             label: 'currentLocation',
-  //             latitude: coords.latitude,
-  //             longitude: coords.longitude,
-  //             deliveryAddress: address
-  //           })
-  //           setBusy(false)
-  //         }
-  //         console.log(address)
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       // console.error('Error fetching reverse geocoding data:', error)
-  //     })
-  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const modalHeader = () => (
     <View style={[styles().addNewAddressbtn]}>
@@ -456,54 +452,51 @@ function Menu({ route, props }) {
 
   if (loading || mutationLoading || loadingOrders) return loadingScreen()
 
-  // const searchRestaurants = (searchText) => {
-  //   const data = []
-  //   const regex = new RegExp(searchText, 'i')
-  //   restaurantData?.forEach((restaurant) => {
-  //     const resultCatFoods = restaurant.keywords.some((keyword) => {
-  //       const result = keyword.search(regex)
-  //       return result > -1
-  //     })
-  //     if (resultCatFoods) data.push(restaurant)
-  //   })
-  //   return data
-  // }
 
-  // commented sections for now
-  // Flatten the array. That is important for data sequence
-  // const restaurantSections = sectionData?.map((sec) => ({
-  //   ...sec,
-  //   restaurants: sec?.restaurants
-  //     ?.map((id) => restaurantData?.filter((res) => res._id === id))
-  //     .flat()
-  // }))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const extractRating = (ratingString) => parseInt(ratingString)
 
-  // const onPressCollection = (collection) => {
-  //   if (activeCollection === collection.name) {
-  //     // If the same collection is clicked again, deselect it
-  //     setActiveCollection(null)
-  //     setRestaurantData(allData) // Reset to show all data
-  //   } else {
-  //     // Select the new collection
-  //     setActiveCollection(collection.name)
-  //     const tempData = [...allData]
-  //     const filteredData = tempData?.filter((item) =>
-  //       item?.cuisines?.includes(collection.name)
-  //     )
-  //     setRestaurantData(filteredData)
-  //   }
-  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const onPressCollection = (collection, index) => {
     flatListRef.current.scrollToIndex({
       index: index,
       animated: true
     })
     if (activeCollection === collection.name) {
-      // If the same collection is clicked again, deselect it
+
       setActiveCollection(null)
-      setRestaurantData(allData) // Reset to show all data
+      setRestaurantData(allData) 
       setfilterApplied(false)
     } else {
       setActiveCollection(collection.name)
@@ -534,14 +527,12 @@ function Menu({ route, props }) {
     const offers = filters.Offers
     const cuisines = filters.Cuisines
 
-    // Apply filters incrementally
-    // Ratings filter
+
     if (ratings?.selected?.length > 0) {
       const numericRatings = ratings.selected?.map(extractRating)
       filteredData = filteredData.filter((item) => item?.reviewAverage >= Math.min(...numericRatings))
     }
 
-    // Sort filter
     if (sort?.selected?.length > 0) {
       if (sort.selected[0] === 'Fast Delivery') {
         filteredData.sort((a, b) => a.deliveryTime - b.deliveryTime)
@@ -550,7 +541,6 @@ function Menu({ route, props }) {
       }
     }
 
-    // Offers filter
     if (offers?.selected?.length > 0) {
       if (offers.selected.includes('Free Delivery')) {
         filteredData = filteredData.filter((item) => item?.freeDelivery)
@@ -560,19 +550,15 @@ function Menu({ route, props }) {
       }
     }
 
-    // Cuisine filter
     if (cuisines?.selected?.length > 0) {
       filteredData = filteredData.filter((item) => item.cuisines.some((cuisine) => cuisines?.selected?.includes(cuisine)))
     }
 
-    // Set filtered data
     setRestaurantData(filteredData)
     filtersModalRef.current.close()
 
-    // Update applied filters state
     setAppliedFilters(filters)
 
-    // **Check if any filters are applied**
     const anyFilterSelected = ratings?.selected?.length > 0 || sort?.selected?.length > 0 || offers?.selected?.length > 0 || cuisines?.selected?.length > 0
 
     setfilterApplied(anyFilterSelected)
@@ -580,7 +566,7 @@ function Menu({ route, props }) {
   }
 
   const resetFilters = () => {
-    setFilters(appliedFilters) // Reset filters to the last applied state
+    setFilters(appliedFilters) 
   }
 
   return (
@@ -641,7 +627,7 @@ function Menu({ route, props }) {
             initialScrollIndex={0}
             keyExtractor={(item) => item?._id}
             contentContainerStyle={styles().collectionContainer}
-            // showsVerticalScrollIndicator={false}
+
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             inverted={currentTheme?.isRTL ? true : false}
@@ -709,7 +695,7 @@ function Menu({ route, props }) {
           setFilters={setFilters}
           applyFilters={applyFilters}
           onClose={() => {
-            resetFilters() // Reset filters when modal is closed
+            resetFilters() 
             filtersModalRef.current.close()
           }}
         />

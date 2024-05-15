@@ -1,26 +1,20 @@
 'use client';
 
-// Core
 import { useContext } from 'react';
 
-// Formik
 import { Form, Formik } from 'formik';
 
-// Prime React
 import { Card } from 'primereact/card';
 
-// Interface
 import {
   IOwnerLoginDataResponse,
   ISignInForm,
 } from '@/lib/utils/interfaces/forms';
 
-// Component
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomIconTextField from '@/lib/ui/useable-components/input-icon-field';
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 
-// Constants
 import {
   APP_NAME,
   SELECTED_RESTAURANT,
@@ -30,18 +24,14 @@ import {
   SignInErrors,
 } from '@/lib/utils/constants';
 
-// Methods
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 
-// Icons
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
-// GraphQL
 import { OWNER_LOGIN } from '@/lib/api/graphql';
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { ApolloError, useMutation } from '@apollo/client';
 
-// Schema
 import { onUseLocalStorage } from '@/lib/utils/methods';
 import { SignInSchema } from '@/lib/utils/schema';
 import { useRouter } from 'next/navigation';
@@ -54,20 +44,17 @@ const initialValues: ISignInForm = {
 };
 
 export default function LoginEmailPasswordMain() {
-  // Context
+
   const { showToast } = useContext(ToastContext);
 
-  // Hooks
   const router = useRouter();
   const { setUser } = useUserContext();
 
-  // API
   const [onLogin, { loading }] = useMutation(OWNER_LOGIN, {
     onError,
     onCompleted,
   });
 
-  // API Handlers
   function onCompleted({ ownerLogin }: IOwnerLoginDataResponse) {
     onUseLocalStorage('save', `user-${APP_NAME}`, JSON.stringify(ownerLogin));
     setUser(ownerLogin);
@@ -102,7 +89,6 @@ export default function LoginEmailPasswordMain() {
     });
   }
 
-  // Handler
   const onSubmitHandler = async (data: ISignInForm) => {
     try {
       await onLogin({

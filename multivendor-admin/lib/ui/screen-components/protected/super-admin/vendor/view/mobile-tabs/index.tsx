@@ -1,4 +1,4 @@
-// Interface
+
 import { IVendorMobileTabsComponentProps } from '@/lib/utils/interfaces';
 import { useTranslations } from 'next-intl';
 
@@ -6,7 +6,7 @@ export default function VendorMobilesTabs({
   activeTab,
   setActiveTab,
 }: IVendorMobileTabsComponentProps) {
-  // Hooks
+
   const t = useTranslations();
   return (
     <div className="flex border-b bg-gray-100 dark:bg-dark-950 dark:text-white sm:hidden">

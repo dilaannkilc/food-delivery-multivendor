@@ -1,20 +1,15 @@
 "use client";
 
-// Core
 import React, { createContext, useContext, useEffect } from "react";
 
-// Third-party libraries
 import { useJsApiLoader } from "@react-google-maps/api";
 
-// Components
 
-// Interfaces
 import {
   IGoogleMapsContext,
   IGoogleMapsProviderProps,
 } from "../../utils/interfaces";
 
-// Context
 import { ToastContext } from "@/lib/context/global/toast.context";
 
 export const GoogleMapsContext = createContext<IGoogleMapsContext>(
@@ -45,7 +40,7 @@ export const GoogleMapsProvider: React.FC<IGoogleMapsProviderProps> = ({
           script.onerror = reject;
           document.head.appendChild(script);
         } else {
-          resolve(); // Google Maps already loaded
+          resolve(); 
         }
       });
     };
@@ -59,9 +54,8 @@ export const GoogleMapsProvider: React.FC<IGoogleMapsProviderProps> = ({
       }
     };
 
-    // Reinitialize Google Maps if API key changes
     if (apiKey) {
-      unloadGoogleMapsScript(); // Unload the previous script if any
+      unloadGoogleMapsScript(); 
       loadGoogleMapsScript(apiKey)
         .then(() => {})
         .catch((err) => {

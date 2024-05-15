@@ -1,12 +1,11 @@
 export const hi = {
-  // Navigation
+
   continue: "जारी रखें",
   Wallet: "वॉलेट",
   Home: "होम",
   Earnings: "कमाई",
   Profile: "प्रोफाइल",
 
-  // FAQs
   faq1: "मैं ऑर्डर कैसे दूं?",
   faq1Description:
     "ऑर्डर देने के लिए, बस हमारे मेनू को ब्राउज़ करें, वे आइटम्स चुनें जिन्हें आप ऑर्डर करना चाहते हैं, और चेकआउट पर जाएं। अपना ऑर्डर कन्फर्म करने से पहले आप अपनी पसंदीदा भुगतान विधि और डिलीवरी एड्रेस चुन सकते हैं।",
@@ -29,7 +28,6 @@ export const hi = {
   faq7Description:
     "दुर्भाग्य से, आप एक ही ऑर्डर के within कई रेस्तरां से नहीं चुन सकते। हालांकि, आप एक ही समय पर अलग-अलग रेस्तरां से अलग-अलग ऑर्डर दे सकते हैं।",
 
-  // Earnings
   "Earnings Summary": "कमाई का सारांश",
   Deliveries: "डिलीवरी",
   "Total Earnings": "कुल कमाई",
@@ -39,13 +37,11 @@ export const hi = {
   "Order Date": "ऑर्डर तिथि",
   "Earnings Order Details": "कमाई ऑर्डर विवरण",
 
-  // Flash messages
   "Order placed successfully": "ऑर्डर सफलतापूर्वक दिया गया",
   "Order cancelled successfully": "ऑर्डर सफलतापूर्वक रद्द किया गया",
   "Error while placing order": "ऑर्डर देते समय त्रुटि",
   "Error while cancelling order": "ऑर्डर रद्द करते समय त्रुटि",
 
-  // Other messages
   "Please enter your name": "कृपया अपना नाम दर्ज करें",
   "Please enter your email": "कृपया अपना ईमेल दर्ज करें",
   "Please enter your password": "कृपया अपना पासवर्ड दर्ज करें",

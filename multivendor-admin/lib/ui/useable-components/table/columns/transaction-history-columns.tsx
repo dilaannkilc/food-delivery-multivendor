@@ -5,17 +5,16 @@ import { useTranslations } from 'next-intl';
 
 export const TRANSACTION_HISTORY_COLUMNS = ({
   menuItems,
-  openMenuId, // NEW: Track which menu is open
-  setOpenMenuId, // NEW: Function to set the open menu
+  openMenuId, 
+  setOpenMenuId, 
 }: {
   menuItems: IActionMenuProps<ITransactionHistory>['items'];
   openMenuId: string;
   setOpenMenuId: (id: string) => void;
 }) => {
-  // Hooks
+
   const t = useTranslations();
 
-  // Columns
   return [
     {
       headerName: t('Transaction ID'),
@@ -49,7 +48,7 @@ export const TRANSACTION_HISTORY_COLUMNS = ({
       propertyName: 'createdAt',
       body: (transaction: ITransactionHistory) => {
         const date = new Date(transaction.createdAt);
-        const formattedDate = date?.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        const formattedDate = date?.toISOString().split('T')[0]; 
         return <div>{formattedDate}</div>;
       },
     },
@@ -74,7 +73,7 @@ export const TRANSACTION_HISTORY_COLUMNS = ({
         <ActionMenu
           items={menuItems}
           data={transaction}
-          isOpen={openMenuId === transaction._id} // CHANGE 3: Simplified menu open state check
+          isOpen={openMenuId === transaction._id} 
           onToggle={() =>
             setOpenMenuId(openMenuId === transaction._id ? '' : transaction._id)
           }

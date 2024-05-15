@@ -1,7 +1,6 @@
-// GrpphQL
+
 import { DELETE_CUISINE, GET_CUISINES } from '@/lib/api/graphql';
 
-// Interfaces
 import {
   IActionMenuItem,
   IEditState,
@@ -14,15 +13,12 @@ import {
 } from '@/lib/utils/interfaces/cuisine.interface';
 import { FilterMatchMode } from 'primereact/api';
 
-//  Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Hooks
 import { useLazyQueryQL } from '@/lib/hooks/useLazyQueryQL';
 import { useMutation } from '@apollo/client';
 import { useContext, useEffect, useState } from 'react';
 
-// Components
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
 import Table from '@/lib/ui/useable-components/table';
 import CuisineTableHeader from '../header/table-header';
@@ -35,7 +31,7 @@ export default function CuisinesMain({
   isEditing,
   setIsEditing,
 }: ICuisineMainProps) {
-  // Mutations
+
   const [deleteCuisine, { loading: deleteCuisineLoading }] = useMutation(
     DELETE_CUISINE,
     {
@@ -44,16 +40,13 @@ export default function CuisinesMain({
     }
   );
 
-  // Queries
   const { data, fetch } = useLazyQueryQL(GET_CUISINES, {
     onCompleted: () => setIsLoading(false),
   }) as ILazyQueryResult<IGetCuisinesData | undefined, undefined>;
 
-  // Hooks
   const t = useTranslations();
   const { showToast } = useContext(ToastContext);
 
-  // States
   const [selectedData, setSelectedData] = useState<ICuisine[]>([]);
   const [isDeleting, setIsDeleting] = useState<IEditState<ICuisine>>({
     bool: false,
@@ -70,19 +63,17 @@ export default function CuisinesMain({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [globalFilterValue, setGlobalFilterValue] = useState('');
 
-  // Filters
   const filters = {
     global: { value: globalFilterValue, matchMode: FilterMatchMode.CONTAINS },
     shopType: {
       value:
         selectedActions.length === 0 || selectedActions.length === 2
-          ? null // No filter when none or both are selected
+          ? null 
           : selectedActions,
-      matchMode: FilterMatchMode.CONTAINS, // Use "IN" to filter based on multiple values
+      matchMode: FilterMatchMode.CONTAINS, 
     },
   };
 
-  // Menu Items
   const menuItems: IActionMenuItem<ICuisine>[] = [
     {
       label: t('Edit'),
@@ -130,7 +121,6 @@ export default function CuisinesMain({
     },
   ];
 
-  // Handlers
   async function deleteItem() {
     try {
       await deleteCuisine({ variables: { id: isDeleting?.data?._id } });
@@ -156,7 +146,6 @@ export default function CuisinesMain({
     fetch();
   };
 
-  // UseEffects
   useEffect(() => {
     setVisible(isEditing.bool);
   }, [data, isEditing.bool]);

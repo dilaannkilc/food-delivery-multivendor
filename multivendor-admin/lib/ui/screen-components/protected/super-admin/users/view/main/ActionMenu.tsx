@@ -16,7 +16,6 @@ import useToast from '@/lib/hooks/useToast';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-// TODO: Setup useTranslation hook to get t function for i18n
 
 type ModalType =
   | 'block'
@@ -46,10 +45,9 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({
 
   const { showToast } = useToast();
 
-  // Close menu when another menu is opened
   useEffect(() => {
     if (openMenuId !== rowData._id && menuRef.current) {
-      // Create a synthetic event for the hide method
+
       const syntheticEvent = new Event(
         'hide'
       ) as unknown as React.SyntheticEvent;
@@ -57,7 +55,6 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({
     }
   }, [openMenuId, rowData._id]);
 
-  // Validation schema for reason field
   const reasonValidationSchema = Yup.object({
     reason: Yup.string()
       .required(t('Reason is required'))
@@ -106,7 +103,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({
           message: error.message || 'Failed to update user notes',
         });
       },
-      refetchQueries: ['users'], // Refetch users after notes update
+      refetchQueries: ['users'], 
     }
   );
 
@@ -128,7 +125,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({
           message: error.message || 'Failed to delete user',
         });
       },
-      refetchQueries: ['users'], // Refetch users after deletion
+      refetchQueries: ['users'], 
     }
   );
 
@@ -187,11 +184,11 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({
     });
   } else {
     items.push(
-      //     {
-      //     label: t('deactivate_account'),
-      //     icon: 'pi pi-user-minus',
-      //     command: () => setActiveModal('deactivate'),
-      // },
+
+
+
+
+
       {
         label: t('block_user'),
         icon: 'pi pi-ban',
@@ -236,7 +233,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({
         aria-label="Actions"
         className="p-2 rounded-md border dark:border-dark-600 hover:bg-muted/30 transition-all"
         onClick={(event) => {
-          // Toggle menu and update open state
+
           if (setOpenMenuId) {
             setOpenMenuId(openMenuId === rowData._id ? null : rowData._id);
           }
@@ -244,7 +241,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({
         }}
       />
 
-      {/* Dialogs for actions */}
+      {}
       <Formik
         initialValues={{ reason: '' }}
         validationSchema={reasonValidationSchema}
@@ -461,7 +458,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({
         message={t(
           'Are you sure you want to log this user out from all devices?'
         )}
-        loading={resetUserSessionLoading} // No mutation yet
+        loading={resetUserSessionLoading} 
         buttonConfig={{
           primaryButtonProp: {
             label: t('Yes, reset'),

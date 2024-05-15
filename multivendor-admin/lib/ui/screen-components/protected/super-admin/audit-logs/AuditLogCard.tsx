@@ -41,10 +41,10 @@ const AuditLogCard: React.FC<AuditLogCardProps> = ({ log, isLast }) => {
 
     return (
         <div className="relative pl-12 py-4">
-            {/* Timeline line */}
+            {}
             {!isLast && <div className="absolute left-6 top-10 bottom-0 w-0.5 bg-gray-200 dark:bg-dark-600"></div>}
 
-            {/* Timeline icon */}
+            {}
             <div className={`absolute left-0 top-6 w-12 h-12 flex items-center justify-center rounded-full ${bgColor}`}>
                 <FontAwesomeIcon icon={icon} className={`h-5 w-5 ${color}`} />
             </div>

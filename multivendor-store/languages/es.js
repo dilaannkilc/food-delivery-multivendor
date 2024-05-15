@@ -1,12 +1,11 @@
 export const es = {
-  // Navigation
+
   continue: "Continuar",
   Wallet: "Cartera",
   Home: "Inicio",
   Earnings: "Ganancias",
   Profile: "Perfil",
 
-  // FAQs
   faq1: "¿Cómo realizo un pedido?",
   faq1Description:
     "Para realizar un pedido, simplemente navegue por nuestro menú, seleccione los artículos que desea ordenar y proceda al checkout. Puede elegir su método de pago preferido y dirección de entrega antes de confirmar su pedido.",
@@ -29,7 +28,6 @@ export const es = {
   faq7Description:
     "Lamentablemente, no puede elegir de múltiples restaurantes dentro del mismo pedido. Sin embargo, puede realizar pedidos separados de diferentes restaurantes al mismo tiempo.",
 
-  // Earnings
   "Earnings Summary": "Resumen de Ganancias",
   Deliveries: "Entregas",
   "Total Earnings": "Ganancias Totales",
@@ -39,13 +37,11 @@ export const es = {
   "Order Date": "Fecha del Pedido",
   "Earnings Order Details": "Detalles del Pedido de Ganancias",
 
-  // Flash messages
   "Order placed successfully": "Pedido realizado exitosamente",
   "Order cancelled successfully": "Pedido cancelado exitosamente",
   "Error while placing order": "Error al realizar el pedido",
   "Error while cancelling order": "Error al cancelar el pedido",
 
-  // Other messages
   "Please enter your name": "Por favor ingrese su nombre",
   "Please enter your email": "Por favor ingrese su email",
   "Please enter your password": "Por favor ingrese su contraseña",

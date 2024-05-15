@@ -1,47 +1,39 @@
-// Interfaces
+
 import {
   IEarningDetailsMainProps,
   IRiderEarningsResponse,
 } from "@/lib/utils/interfaces/rider-earnings.interface";
 
-// Hooks
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { useUserContext } from "@/lib/context/global/user.context";
 import { QueryResult, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-// GraphQL
 import { RIDER_EARNINGS_GRAPH } from "@/lib/apollo/queries/earnings.query";
 
-// Components
 import EarningDetailsDateFilter from "../date-filter";
 import EarningDetailsHeader from "../header";
 import EarningsDetailStacks from "./earnings";
 
-// Skeletons
 import { EarningsSummaryMainLoading } from "@/lib/ui/skeletons";
 import { showMessage } from "react-native-flash-message";
 
-// React Native Gesture
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function EarningDetailsMain({
   dateFilter,
   setDateFilter,
 }: IEarningDetailsMainProps) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
-  // States
   const [isFiltering, setIsFiltering] = useState(false);
   const [isDateFilterVisible, setIsDateFilterVisible] = useState(false);
 
-  // Contexts
   const { setModalVisible, userId } = useUserContext();
 
-  // Queries
   const {
     loading: isRiderEarningsLoading,
     data: riderEarningsData,
@@ -66,11 +58,10 @@ export default function EarningDetailsMain({
     { riderId: string; startDate?: string; endDate?: string }
   >;
 
-  // Handlers
   async function handleDateFilterSubmit() {
     try {
       setIsFiltering(true);
-      // Validation
+
       if (!dateFilter.startDate && !dateFilter.endDate) {
         setIsFiltering(false);
         return showMessage({
@@ -111,7 +102,6 @@ export default function EarningDetailsMain({
         });
       }
 
-      // Fetch with filters
       await fetchRiderEarnings({
         riderId: userId,
         startDate: dateFilter.startDate,
@@ -127,7 +117,7 @@ export default function EarningDetailsMain({
       setIsFiltering(false);
     }
   }
-  // If loading
+
   if (isRiderEarningsLoading || isFiltering)
     return <EarningsSummaryMainLoading />;
   return (

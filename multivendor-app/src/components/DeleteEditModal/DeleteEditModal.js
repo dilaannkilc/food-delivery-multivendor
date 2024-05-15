@@ -31,7 +31,7 @@ const DeleteEditModal = ({
                     <View style={styles(currentTheme).modalView}>
                         <View style={[styles(currentTheme).modalHead]}>
                             <TextDefault Bold H4 textColor={currentTheme.fontMainColor} isRTL>
-                                {/* {selectedAddress?.deliveryAddress} */}
+                                {}
                                 {selectedAddress ? selectedAddress?.deliveryAddress : t('deleteAddressesTitle')}
                             </TextDefault>
                             <Feather

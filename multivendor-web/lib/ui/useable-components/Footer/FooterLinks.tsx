@@ -9,7 +9,7 @@ const FooterLinks: React.FC<FooterLinksProps> = ({ section }) => {
     const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
     return (
         <div className="w-full">
-            {/* Grid for medium and up */}
+            {}
             <div className="hidden md:grid ">
                 <FooterSection
                     key={section.title}
@@ -18,7 +18,7 @@ const FooterLinks: React.FC<FooterLinksProps> = ({ section }) => {
                 />
             </div>
 
-            {/* Accordion for small screens */}
+            {}
             <div className="md:hidden">
                 <Accordion
                     activeIndex={activeIndex}

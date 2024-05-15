@@ -5,10 +5,10 @@ import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function UnavailableStatus() {
-  // Hooks
+
   const pathName = usePathname();
   const { dataProfile } = useUserContext();
-  const insets = useSafeAreaInsets(); // Get Safe Area Insets
+  const insets = useSafeAreaInsets(); 
 
   if (pathName && pathName === "/login") return null;
   if (!isBoolean(dataProfile?.available)) return null;
@@ -18,7 +18,7 @@ export default function UnavailableStatus() {
     <View
       style={{
         backgroundColor: "rgba(0, 0, 0, 0.7)",
-        paddingTop: insets.top - 9, // Ensures it stays below the notch
+        paddingTop: insets.top - 9, 
         paddingHorizontal: 16,
         paddingBottom: 2,
         position: "absolute",

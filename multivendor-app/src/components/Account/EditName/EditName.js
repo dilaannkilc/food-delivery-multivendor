@@ -36,13 +36,12 @@ const EditName = (props) => {
   const [nameError, setNameError] = useState('')
   const [isNameChanged, setIsNameChanged] = useState(false)
 
-  // Handle back button press with unsaved changes
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
         if (isNameChanged) {
-          // Could add an alert here asking if user wants to discard changes
-          return false // Allow navigation
+
+          return false 
         }
         return false
       }
@@ -85,7 +84,7 @@ const EditName = (props) => {
           )}
           onPress={() => {
             if (isNameChanged) {
-              // Reset to original name if there are unsaved changes
+
               setName(initialName)
               setIsNameChanged(false)
             }
@@ -133,18 +132,17 @@ const EditName = (props) => {
     return true
   }
 
-  // const updateName = async () => {
-  //   console.log('Calling validateName:', name);
-  //   const isValid = await validateName()
-  //   if (isValid) {
-  //     await mutate({
-  //       variables: {
-  //         name: name.trim(),
-  //         phone: profile?.phone
-  //       }
-  //     })
-  //   }
-  // }
+
+
+
+
+
+
+
+
+
+
+
 
   const updateName = async () => {
     const isValid = await validateName()

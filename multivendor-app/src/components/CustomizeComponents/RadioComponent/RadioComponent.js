@@ -33,7 +33,7 @@ function RadioComponent(props) {
           onPress={onPress.bind(this, option)}
           key={option._id}
           style={styles(currentTheme).mainContainer}
-          // disabled={option.isOutOfStock}
+
         >
           <View style={styles(currentTheme).leftContainer}>
             <RadioButton

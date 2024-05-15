@@ -41,14 +41,12 @@ function HypCheckout(props) {
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
 
-  // Mutations
   const [mutateOrderCreatedAndPaid] = useMutation(ORDER_CREATED_AND_PAID)
   const [createActivityMutation] = useMutation(CREATE_ACTIVITY)
 
-  // Handlers
   const onNotifiyUsers = async () => {
     try {
-      // Notification
+
       await mutateOrderCreatedAndPaid({
         variables: {
           orderId: _id,
@@ -112,7 +110,6 @@ function HypCheckout(props) {
     }
     Track()
 
-    //  onNotifiyUsers()
   }, [])
 
   async function handleResponse(data) {

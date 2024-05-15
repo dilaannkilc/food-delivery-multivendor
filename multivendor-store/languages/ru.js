@@ -1,12 +1,11 @@
 export const ru = {
-  // Navigation
+
   continue: "Продолжить",
   Wallet: "Кошелек",
   Home: "Главная",
   Earnings: "Заработок",
   Profile: "Профиль",
 
-  // FAQs
   faq1: "Как сделать заказ?",
   faq1Description:
     "Чтобы сделать заказ, просто просмотрите наше меню, выберите товары, которые хотите заказать, и перейдите к оплате. Вы можете выбрать предпочтительный способ оплаты и адрес доставки перед подтверждением заказа.",
@@ -29,7 +28,6 @@ export const ru = {
   faq7Description:
     "К сожалению, вы не можете выбрать из нескольких ресторанов в одном заказе. Однако вы можете сделать отдельные заказы из разных ресторанов одновременно.",
 
-  // Earnings
   "Earnings Summary": "Сводка заработка",
   Deliveries: "Доставки",
   "Total Earnings": "Общий заработок",
@@ -39,13 +37,11 @@ export const ru = {
   "Order Date": "Дата заказа",
   "Earnings Order Details": "Детали заработка с заказа",
 
-  // Flash messages
   "Order placed successfully": "Заказ успешно размещен",
   "Order cancelled successfully": "Заказ успешно отменен",
   "Error while placing order": "Ошибка при размещении заказа",
   "Error while cancelling order": "Ошибка при отмене заказа",
 
-  // Other messages
   "Please enter your name": "Пожалуйста, введите ваше имя",
   "Please enter your email": "Пожалуйста, введите ваш email",
   "Please enter your password": "Пожалуйста, введите ваш пароль",

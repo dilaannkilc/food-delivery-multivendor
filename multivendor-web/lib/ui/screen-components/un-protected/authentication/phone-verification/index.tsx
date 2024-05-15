@@ -1,7 +1,6 @@
-// Components
+
 import CustomButton from "@/lib/ui/useable-components/button";
 
-// Interfaces
 import {
   IPhoneVerificationProps,
   IUpdateUserPhoneArguments,
@@ -9,7 +8,6 @@ import {
 } from "@/lib/utils/interfaces";
 import { ApolloError, useMutation } from "@apollo/client";
 
-// Hooks
 import { useAuth } from "@/lib/context/auth/auth.context";
 import { useConfig } from "@/lib/context/configuration/configuration.context";
 import useToast from "@/lib/hooks/useToast";
@@ -18,7 +16,6 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import useVerifyOtp from "@/lib/hooks/useVerifyOtp";
 
-// GQL
 import { UPDATE_USER } from "@/lib/api/graphql";
 import PhoneIcon from "@/lib/utils/assets/svg/phone";
 
@@ -28,12 +25,11 @@ export default function PhoneVerification({
   setPhoneOtp,
   handleChangePanel,
 }: IPhoneVerificationProps) {
-  // States
-  // const [isResendingOtp, setIsResendingOtp] = useState(false);
+
+
   const [userotp, setuserOtp] = useState<string[]>(Array(6).fill(""));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  // Hooks
   const { SKIP_MOBILE_VERIFICATION, TEST_OTP } = useConfig();
   const t = useTranslations();
   const {
@@ -51,7 +47,6 @@ export default function PhoneVerification({
   const { profile } = useUser();
   const { verifyOTP, error } = useVerifyOtp();
 
-  // Mutations
   const [updateUser] = useMutation<
     IUpdateUserResponse,
     undefined | IUpdateUserPhoneArguments
@@ -66,7 +61,6 @@ export default function PhoneVerification({
     },
   });
 
-  // Handlers
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
@@ -111,7 +105,7 @@ export default function PhoneVerification({
           showToast({
             type: "success",
             title: t("register_label"),
-            message: t("successfully_registered_your_account_message"), // put an exclamation mark at the end of this sentence in the translations
+            message: t("successfully_registered_your_account_message"), 
           });
 
           setIsRegistering(false);
@@ -172,14 +166,14 @@ export default function PhoneVerification({
 
   const handleResendPhoneOtp = async () => {
     if (user?.phone || formData.phone) {
-      // setIsResendingOtp(true);
+
       await sendOtpToPhoneNumber(user?.phone || formData.phone);
       showToast({
         type: "success",
         title: t("otp_resent_label"),
         message: t("resent_otp_code_to_your_phone_message"),
       });
-      // setIsResendingOtp(false);
+
     } else {
       showToast({
         type: "error",
@@ -190,7 +184,6 @@ export default function PhoneVerification({
     }
   };
 
-  // UseEffects
   useEffect(() => {
     if (SKIP_MOBILE_VERIFICATION) {
       setOtp(TEST_OTP);
@@ -211,14 +204,12 @@ export default function PhoneVerification({
   useEffect(() => {
     inputRefs.current = inputRefs.current.slice(0, 6);
 
-    // Set initial values from phoneOtp if it exists
     if (phoneOtp) {
       const otpArray = phoneOtp.split("").slice(0, 6);
       setuserOtp(otpArray.concat(Array(6 - otpArray.length).fill("")));
     }
   }, []);
 
-  // useEffect for displaying otp verification error
   useEffect(() => {
     if (error) {
       showToast({
@@ -262,23 +253,21 @@ export default function PhoneVerification({
               aria-label={`OTP digit ${index + 1}`}
               value={userotp[index]}
               onChange={(e) => {
-                const value = e.target.value.replace(/\D/, ""); // Only digits
+                const value = e.target.value.replace(/\D/, ""); 
                 const updatedOtp = [...userotp];
 
-                // Handle both new input and overwriting
                 if (value.length === 0) {
                   updatedOtp[index] = "";
                 } else if (value.length === 1) {
                   updatedOtp[index] = value;
                 } else {
-                  // If multiple characters (e.g., from paste), take the last one
+
                   updatedOtp[index] = value.slice(-1);
                 }
 
                 setuserOtp(updatedOtp);
                 setPhoneOtp(updatedOtp.join(""));
 
-                // Move focus to next box
                 if (index < 5 && inputRefs.current[index + 1]) {
                   if (value && index < 5 && inputRefs.current[index + 1]) {
                     inputRefs.current[index + 1]?.focus();
@@ -302,9 +291,8 @@ export default function PhoneVerification({
           ))}
         </div>
       </div>
-      {/* Button Spacer */}
-      {/* <span className="mt-4" />
-        {/* Continue Button */}
+      {}
+      {}
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 text-center w-full">
         {t("otp_valid_for_10_minutes_label")}
       </p>

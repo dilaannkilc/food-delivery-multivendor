@@ -18,7 +18,7 @@ const styles = (props = null) =>
       display: 'flex',
       flexDirection: props?.isRTL ? 'row-reverse' : 'row',
       justifyContent: 'space-between',
-      // marginVertical: scale(10)
+
     },
     linkContainer: {
       flex: 1,
@@ -32,7 +32,7 @@ const styles = (props = null) =>
       alignItems: 'center',
     },
     verifyView: {
-      // alignItems: 'flex-end'
+
       ...props?.isRTL ? {alignItems: 'flex-start'} : {alignItems: 'flex-end'}
     },
     padding: {

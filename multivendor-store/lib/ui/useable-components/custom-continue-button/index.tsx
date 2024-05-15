@@ -8,7 +8,7 @@ export default function CustomContinueButton({
   isLoading,
   ...props
 }: { title: string; isLoading?: boolean } & TouchableOpacityProps) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   return (
     <TouchableOpacity

@@ -8,14 +8,14 @@ import navigationService from '../../routes/navigationService'
 import styles from './styles'
 
 const navigationOptions = headerText => {
-  const { t } = useTranslation() // Initializing the useTranslation hook
+  const { t } = useTranslation() 
 
   return {
-    title: t('titleFavourite'), // Using translation function to get the title
+    title: t('titleFavourite'), 
     headerTitleAlign: 'center',
     headerRight: null,
     headerTitleContainerStyle: {
-      // marginBottom: 10,
+
       paddingLeft: 20,
       paddingRight: 20,
       backgroundColor: 'black',

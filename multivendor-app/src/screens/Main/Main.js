@@ -1,4 +1,4 @@
-/* eslint-disable react/display-name */
+
 import React, { useRef, useContext, useLayoutEffect, useState, useEffect, useCallback, useMemo } from 'react'
 import { View, SafeAreaView, TouchableOpacity, StatusBar, Platform, ScrollView, FlatList, Image, RefreshControl, ActivityIndicator } from 'react-native'
 import { AntDesign, SimpleLineIcons } from '@expo/vector-icons'
@@ -197,7 +197,7 @@ function Main(props) {
     }
 
     try {
-      // Fetch the address using the geocoding hook
+
       const { formattedAddress, city } = await getAddress(coords.latitude, coords.longitude)
 
       console.log('Formatted address:', formattedAddress)
@@ -228,7 +228,7 @@ function Main(props) {
 
   const handleMarkerPress = async (coordinates) => {
     setCitiesModalVisible(false)
-    // setIsCheckingZone(true)
+
     const response = await getAddress(coordinates.latitude, coordinates.longitude)
     setLocation({
       label: 'Location',
@@ -238,13 +238,12 @@ function Main(props) {
       city: response.city
     })
     setTimeout(() => {
-      // setIsCheckingZone(false)
+
       reloadScreen()
-      // navigation.navigate('Main')
+
     }, 100)
   }
 
-  // Function to reload screen
   const reloadScreen = () => {
     navigation.navigate('Discovery', {
       refresh: Date.now()
@@ -308,26 +307,22 @@ function Main(props) {
   )
 
 
-  // const filterCusinies = () => {
-  //   if (data !== undefined) {
-  //     const cuisineShopTypeMap = new Map()
 
-  //     for (let restaurant of data?.nearByRestaurantsPreview?.restaurants) {
-  //       for (let cuisine of restaurant.cuisines) {
-  //         const key = `${cuisine.name}-${restaurant.shopType}`
-  //         if (!cuisineShopTypeMap.has(key)) {
-  //           cuisineShopTypeMap.set(key, {
-  //             ...cuisine,
-  //             shopType: restaurant.shopType
-  //           })
-  //         }
-  //       }
-  //     }
 
-  //     return Array.from(cuisineShopTypeMap.values())
-  //   }
-  //   return []
-  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const useCuisinesData = (shopType, allCuisines) => {
     const cuisinesData = useMemo(() => {
@@ -491,11 +486,7 @@ function Main(props) {
                       </TextDefault>
                       <TextDefault style={{ textAlign: 'center', marginBottom: 10 }}>{t('Please check back later or try a different location.')}</TextDefault>
 
-                      {/* <TouchableOpacity style={styles(currentTheme).buttonContainer} onPress={() => setCitiesModalVisible(true)}>
-                        <TextDefault textColor={currentTheme.color4} style={styles().checkoutBtn} bold H4>
-                          {t('Select Different Location')}
-                        </TextDefault>
-                      </TouchableOpacity> */}
+                      {}
 
                       <TouchableOpacity activeOpacity={0.7} onPress={() => setCitiesModalVisible(true)} style={[styles(currentTheme).button, { opacity: 1 }]}>
                         <TextDefault textColor={currentTheme.color4} style={{ paddingHorizontal: 10 }} bold H7>

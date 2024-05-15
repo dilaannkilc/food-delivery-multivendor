@@ -1,15 +1,13 @@
-// Expo
+
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { Stack } from "expo-router";
 
-// Hooks
 import { useTranslation } from "react-i18next";
 
-// Core
 import { Platform } from "react-native";
 
 export default function LoginLayour() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   return (
@@ -23,8 +21,8 @@ export default function LoginLayour() {
           default: {
             position: "absolute",
             backgroundColor: appTheme.white,
-            elevation: 0, // Shadow for Android
-            shadowColor: "white", // Shadow for iOS
+            elevation: 0, 
+            shadowColor: "white", 
             shadowOpacity: 0,
             shadowRadius: 0,
           },

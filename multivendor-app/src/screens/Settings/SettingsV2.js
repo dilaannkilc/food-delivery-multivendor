@@ -231,10 +231,10 @@ function Settings(props) {
 
   async function onSelectedLanguage() {
     try {
-      // Display loading indicator
+
       setLoadingLang(true)
       const languageInd = activeRadio
-      // if (Platform.OS === 'android') {
+
       await AsyncStorage.setItem(
         'enatega-language',
         languageTypes[languageInd].code
@@ -248,12 +248,12 @@ function Settings(props) {
       }
       i18next.changeLanguage(lang)
       modalVisibleSetter(false)
-      //Updates.reloadAsync()
-      // }
+
+
     } catch (error) {
       console.error('Error during language selection:', error)
     } finally {
-      setLoadingLang(false) // Hide loading indicator
+      setLoadingLang(false) 
     }
   }
 
@@ -313,7 +313,7 @@ function Settings(props) {
       edges={['bottom', 'left', 'right']}
       style={[styles().flex, styles(currentTheme).mainContainer]}>
       <View style={styles().flex}>
-        {/* {Platform.OS === 'android' && ( */}
+        {}
         <View style={[styles(currentTheme).languageContainer, styles().shadow]}>
           <View style={styles().changeLanguage}>
             <View style={styles().width85}>
@@ -338,8 +338,7 @@ function Settings(props) {
             {languageName}
           </TextDefault>
         </View>
-        {/* )
-        } */}
+        {}
         <View style={styles(currentTheme).mainContainerArea}>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -471,7 +470,7 @@ function Settings(props) {
         </View>
       </View>
 
-      {/* Modal for language Changes */}
+      {}
 
       <Modal
         isVisible={modalVisible}

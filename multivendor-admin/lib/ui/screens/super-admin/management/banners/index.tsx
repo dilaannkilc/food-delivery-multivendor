@@ -1,10 +1,9 @@
 'use client';
-//Components
+
 import BannersAddForm from '@/lib/ui/screen-components/protected/super-admin/banner/add-form';
 import BannersHeader from '@/lib/ui/screen-components/protected/super-admin/banner/view/header/screen-header';
 import BannersMain from '@/lib/ui/screen-components/protected/super-admin/banner/view/main';
 
-// State - Render Prop
 import BannerStateProvider from '@/lib/states/Banner';
 
 export default function BannerScreen() {

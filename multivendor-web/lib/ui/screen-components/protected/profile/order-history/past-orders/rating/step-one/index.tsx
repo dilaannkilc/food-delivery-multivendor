@@ -5,14 +5,12 @@ import { IRatingOption } from "@/lib/utils/interfaces/ratings.interface";
 import { useTranslations } from "next-intl";
 import { twMerge } from "tailwind-merge";
 
-
-// Rating option component - Displays individual rating options (1-5 stars)
 const RatingOption = ({ value, emoji, label, selected, onSelect }: IRatingOption) => (
     <span
       onClick={() => onSelect(value)}
       className={twMerge(
         "flex flex-col cursor-pointer items-center focus:outline-none transition-all hover:scale-125 ease-in-out md:w-auto w-1/5",
-        selected ? "transform scale-125 transition-all ease-in-out" : ""  // Scale up when selected
+        selected ? "transform scale-125 transition-all ease-in-out" : ""  
       )}
     >
       <span className="text-3xl mb-2">{emoji}</span>
@@ -22,7 +20,6 @@ const RatingOption = ({ value, emoji, label, selected, onSelect }: IRatingOption
     </span>
   )
 
-  // Render the first step - Rating selection (1-5 stars)
   function RenderStepOne({rating,handleRatingSelect,handleNext}: {rating: number | null,handleRatingSelect: (value: number) => void,handleNext: () => void}) {
     const t = useTranslations()
     return (

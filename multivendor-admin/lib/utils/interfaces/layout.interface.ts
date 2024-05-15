@@ -8,10 +8,9 @@ import { IGlobalProps } from './global.interface';
 import { ICategory, ISubCategory } from './category.interface';
 import { IOptions } from './options.interface';
 
-// Layout
 export interface IProvider extends IGlobalProps {}
 
-/* Layoyt */
+
 export type LayoutState = {
   staticMenuDesktopInactive: boolean;
   overlayMenuActive: boolean;
@@ -30,20 +29,19 @@ export type LayoutConfig = {
   scale: number;
 };
 
-/* Layout Context */
+
 export interface LayoutContextProps {
-  // Super Admin
+
   isSuperAdminSidebarVisible: boolean;
   showSuperAdminSidebar: (isOpen?: boolean) => void;
-  // Restaurant
+
   isRestaurantSidebarVisible: boolean;
   showRestaurantSidebar: (isOpen?: boolean) => void;
-  // Vendor
+
   isVendorSidebarVisible: boolean;
   showVendorSidebar: (isOpen?: boolean) => void;
 }
 
-// Restaurant layout
 export interface RestaurantLayoutContextProps {
   restaurantLayoutContextData: RestaurantLayoutContextData;
   onSetRestaurantLayoutContextData: (
@@ -72,7 +70,6 @@ export interface RestaurantLayoutContextData {
   restaurantId: string;
 }
 
-// Vendor Layout
 export interface VendorLayoutContextProps {
   vendorLayoutContextData: VendorLayoutContextData;
   onSetVendorLayoutContextData: (
@@ -84,30 +81,28 @@ export interface VendorLayoutContextData {
   vendorId: string;
 }
 
-/* Menu */
+
 
 export interface MenuContextProps {
   activeMenu: string;
   setActiveMenu: Dispatch<SetStateAction<string>>;
 }
 
-/* AppConfig Types */
+
 export interface AppConfigProps {
   simple?: boolean;
 }
 
-/* AppTopbar Types */
-// export type NodeRef = MutableRefObject<ReactNode>;
 export interface AppTopbarRef {
   menubutton?: HTMLButtonElement | null;
   topbarmenu?: HTMLDivElement | null;
   topbarmenubutton?: HTMLButtonElement | null;
 }
 
-/* AppMenu Types */
+
 type CommandProps = {
   originalEvent: React.MouseEvent<HTMLAnchorElement, MouseEvent>;
-  //item: MenuModelItem;
+
   item: string;
 };
 

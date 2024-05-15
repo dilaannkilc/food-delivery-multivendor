@@ -1,20 +1,16 @@
-// Core
+
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-// Icons
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-// Interface & Types
 import { ISidebarMenuItem, SubMenuItemProps } from '@/lib/utils/interfaces';
 
-// Styles
 import classes from './side-bar.module.css';
 import { onUseLocalStorage } from '@/lib/utils/methods';
 import { SELECTED_SIDEBAR_MENU } from '@/lib/utils/constants';
 
-// This component is used to render the sub-menu items when hovered
 function HoveredSubMenuItem({ icon, text, active }: SubMenuItemProps) {
   return (
     <div
@@ -46,28 +42,24 @@ export default function SidebarItem({
   route,
   isParent,
   isClickable,
-  shouldOpenInNewTab, // <-- add this prop
+  shouldOpenInNewTab, 
 }: ISidebarMenuItem) {
-  // States
+
   const [expandSubMenu, setExpandSubMenu] = useState(false);
 
-  // Hooks
   const pathname = usePathname();
   const router = useRouter();
 
-  // use Effect
   useEffect(() => {
     if (!expanded) {
       setExpandSubMenu(false);
     }
   }, [expanded]);
 
-  // Calculate the height of the sub-menu assuming each item is 40px tall
   const subMenuHeight = expandSubMenu
     ? `${((subMenu?.length || 0) * 41.5 + (subMenu! && 15)).toString()}px`
     : 0;
 
-  // Defaults
   const bg_color = pathname.includes(route ?? '')
     ? isParent
       ? 'primary-color'
@@ -90,7 +82,7 @@ export default function SidebarItem({
             if (!isParent || isClickable) {
               if (
                 shouldOpenInNewTab &&
-                route // <-- check for shouldOpenInNewTab
+                route 
               ) {
                 window.open(route, '_blank');
               } else if (
@@ -120,7 +112,7 @@ export default function SidebarItem({
             }`}
           >
              {label || text}
-            {/* {label} */}
+            {}
           </span>
           {subMenu && (
             <div

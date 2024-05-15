@@ -60,27 +60,23 @@ const LanguageModal = ({ modalVisible, setModalVisible, currentTheme, showCrossB
 
   async function determineInitialLanguage() {
     try {
-      // First, check for stored language
+
       const storedLanguageCode = await AsyncStorage.getItem('enatega-language')
 
-      // Get system language
       const systemLanguageCode = Localization?.locale?.split('-')[0]
 
-      // Available language codes
       const availableLanguageCodes = languageTypes.map((lang) => lang.code)
 
-      // Determine which language to use
-      let languageToUse = 'en' // Default to English
+      let languageToUse = 'en' 
 
       if (storedLanguageCode) {
-        // Use stored language if it's valid
+
         languageToUse = storedLanguageCode
       } else if (availableLanguageCodes.includes(systemLanguageCode)) {
-        // Use system language if it's available
+
         languageToUse = systemLanguageCode
       }
 
-      // Find the index and name of the language
       const selectedLanguage = languageTypes.find((lang) => lang.code === languageToUse)
 
       if (selectedLanguage) {
@@ -99,11 +95,9 @@ const LanguageModal = ({ modalVisible, setModalVisible, currentTheme, showCrossB
       const languageCode = languageTypes[languageInd].code
       const languageVal = languageTypes[languageInd].value
 
-      // Save language preferences
       await AsyncStorage.setItem('enatega-language', languageCode)
       await AsyncStorage.setItem('enatega-language-name', languageVal)
 
-      // Change app language
       i18next.changeLanguage(languageCode)
       languageNameSetter(languageVal)
     } catch (error) {
@@ -141,14 +135,14 @@ const LanguageModal = ({ modalVisible, setModalVisible, currentTheme, showCrossB
           <ScrollView
             style={{
               flex: 1,
-              maxHeight: Dimensions.get('window').height * 0.5 // Limit height to 50% of screen
+              maxHeight: Dimensions.get('window').height * 0.5 
             }}
             contentContainerStyle={{
               flexGrow: 1,
               paddingVertical: 10
             }}
-            showsVerticalScrollIndicator={false} // hide scroll indicator
-            keyboardShouldPersistTaps='handled' // Allows tapping items while keyboard is open
+            showsVerticalScrollIndicator={false} 
+            keyboardShouldPersistTaps='handled' 
           >
             {languageTypes.map((item, index) => (
               <TouchableOpacity activeOpacity={0.7} key={index} onPress={() => activeRadioSetter(item.index)} style={[styles(currentTheme).radioContainer]}>

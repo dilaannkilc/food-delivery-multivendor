@@ -89,15 +89,13 @@ function EmailOtp(props) {
                 bold
                 textColor={currentTheme.fontSecondColor}
                 isRTL
-                // style={{
-                //   paddingBottom: scale(5)
-                // }}
+
+
+
               >
                 {t('otpSentToEmail')}
               </TextDefault>
-              {/* <TextDefault H5 bold  textColor={currentTheme.newFontcolor}>
-              {userData.email}
-            </TextDefault> */}
+              {}
             </View>
             <View>
               <OTPInputView

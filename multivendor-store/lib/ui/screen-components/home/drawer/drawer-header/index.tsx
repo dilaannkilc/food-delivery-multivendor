@@ -11,12 +11,11 @@ import { Image, Text, View } from "react-native";
 import { showMessage } from "react-native-flash-message";
 
 const CustomDrawerHeader = () => {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const { dataProfile, userId, refetchProfile, loadingProfile } = useUserContext();
 
-  // Queries
   const [toggleAvailablity, { loading }] = useMutation(UPDATE_AVAILABILITY, {
     refetchQueries: [
       { query: STORE_PROFILE, variables: { restaurantId: userId } },
@@ -37,7 +36,6 @@ const CustomDrawerHeader = () => {
     },
   }) as MutationTuple<IStoreProfile | undefined, { restaurantId: string }>;
 
-  // Handlers
   async function handleToggleAvailability() {
     try {
       await toggleAvailablity({ variables: { restaurantId: userId ?? "" } });

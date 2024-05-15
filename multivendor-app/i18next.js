@@ -71,27 +71,24 @@ export const languageResources = {
 
 }
 
-// Initialize i18next synchronously with fallback language
 i18next
   .use(initReactI18next)
   .init({
     compatibilityJSON: 'v3',
-    lng: 'en', // default language
+    lng: 'en', 
     fallbackLng: 'en',
     resources: languageResources,
     interpolation: {
-      escapeValue: false, // React already escapes by default
+      escapeValue: false, 
     },
   });
 
-// Async function to detect and set language
 const detectAndSetLanguage = async () => {
   try {
     const storedLanguage = await AsyncStorage.getItem('enatega-language');
     const systemLanguage = Localization?.locale?.split('-')[0];
     const availableLanguages = Object.keys(languageResources);
 
-    // Prefer stored language if available, else system language if supported, else fallback to 'en'
     let languageToUse = 'en';
     if (storedLanguage && availableLanguages.includes(storedLanguage)) {
       languageToUse = storedLanguage;
@@ -101,7 +98,6 @@ const detectAndSetLanguage = async () => {
 
     await i18next.changeLanguage(languageToUse);
 
-    // Optionally clear stored language keys if you want fresh detection next time
     await AsyncStorage.removeItem('enatega-language');
     await AsyncStorage.removeItem('enatega-language-name');
   } catch (error) {

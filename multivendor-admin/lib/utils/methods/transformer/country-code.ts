@@ -1,4 +1,4 @@
-// Interfaces
+
 import { SelectItem } from 'primereact/selectitem';
 import { ICountryCodes } from '../../interfaces/country-code';
 

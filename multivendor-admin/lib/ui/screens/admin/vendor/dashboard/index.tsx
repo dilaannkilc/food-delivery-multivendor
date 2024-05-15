@@ -8,12 +8,12 @@ import { IDateFilter } from '@/lib/utils/interfaces';
 import VendorDashboardMain from '@/lib/ui/screen-components/protected/vendor/dashboard/main';
 
 export default function VendorDashboardScreen() {
-  // State
+
   const [isStoreView, setIsStoreView] = useState(false);
   const [dateFilter, setDateFilter] = useState<IDateFilter>({
     dateKeyword: 'All',
-    startDate: `${new Date().getFullYear()}-01-01`, // Current year, January 1st
-    endDate: `${new Date().getFullYear()}-${String(new Date().getMonth()).padStart(2, '0')}-${String(new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDate()).padStart(2, '0')}`, // Last day of previous month
+    startDate: `${new Date().getFullYear()}-01-01`, 
+    endDate: `${new Date().getFullYear()}-${String(new Date().getMonth()).padStart(2, '0')}-${String(new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDate()).padStart(2, '0')}`, 
   });
 
   const handleDateFilter = (dateFilter: IDateFilter) => {

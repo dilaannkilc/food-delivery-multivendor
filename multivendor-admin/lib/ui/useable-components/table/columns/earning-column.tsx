@@ -9,13 +9,12 @@ export const EARNING_COLUMNS = ({
   menuItems: IActionMenuProps<IEarning>['items'];
   isSuperAdmin?: boolean;
 }) => {
-  // Hooks
+
   const t = useTranslations();
   const { CURRENT_SYMBOL } = useConfiguration();
 
   console.log({ isSuperAdmin });
 
-  // Columns
   return [
     {
       headerName: t('Order ID'),

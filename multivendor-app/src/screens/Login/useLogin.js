@@ -1,6 +1,6 @@
 import { useState, useContext, useRef, useEffect } from 'react'
 import { Alert } from 'react-native'
-import _ from 'lodash' // Import lodash
+import _ from 'lodash' 
 import * as Device from 'expo-device'
 import Constants from 'expo-constants'
 import { useMutation } from '@apollo/client'
@@ -48,7 +48,6 @@ export const useLogin = () => {
     onError: onLoginError
   })
 
-  // Update both state and ref
   const handleSetEmail = (newEmail) => {
     setEmail(newEmail)
     emailRef.current = newEmail
@@ -57,7 +56,6 @@ export const useLogin = () => {
     }
   }
 
-  // Reset password when registeredEmail becomes true
   useEffect(() => {
     if (registeredEmail) {
       if (emailRef.current === 'demo-customer@enatega.com') {
@@ -72,7 +70,6 @@ export const useLogin = () => {
     setEmailError(null)
     setPasswordError(null)
 
-    // Use the state value for validation
     if (!email.trim()) {
       setEmailError(t('emailErr1'))
       result = false

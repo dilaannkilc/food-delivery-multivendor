@@ -1,13 +1,10 @@
-/* eslint-disable no-unused-vars */
+
 'use client';
 
-// Core
 import { useContext } from 'react';
 
-// Context
 import { IConfiguration } from '@/lib/utils/interfaces';
 
-// Interface
 import { ConfigurationContext } from '@/lib/context/global/configuration.context';
 
 import { Libraries } from '@react-google-maps/api';
@@ -78,26 +75,21 @@ export const useConfiguration = () => {
     WS_SERVER_URL: process.env.NEXT_PUBLIC_WS_SERVER_URL,
     COLORS,
 
-    // EMAIL CONFIG
     EMAIL_NAME,
     EMAIL,
     PASSWORD,
     ENABLE_EMAIL,
 
-    // STRIPE
     STRIPE_PUBLIC_KEY,
     STRIPE_SECRET_KEY,
 
-    // PAYPAL
     PAYPAL_KEY,
     PAYPAL_SECRET,
     PAYPAL_SANDBOX,
 
-    // DELIVERY RATE
     DELIVERY_RATE,
     COST_TYPE,
 
-    // TWILIO
     TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN,
     TWILIO_PHONE_NUMBER,
@@ -105,7 +97,6 @@ export const useConfiguration = () => {
     SKIP_WHATSAPP_OTP,
     TWILIO_WHATSAPP_NUMBER,
 
-    // SENTRY
     DASHBOARD_SENTRY_URL,
     WEB_SENTRY_URL,
     API_SENTRY_URL,
@@ -113,21 +104,17 @@ export const useConfiguration = () => {
     RESTAURANT_APP_SENTRY_URL,
     RIDER_APP_SENTRY_URL,
 
-    // GOOGLE MAPS
     GOOGLE_MAPS_KEY,
     LIBRARIES,
 
-    // CLOUDINARY
     CLOUDINARY_UPLOAD_URL,
     CLOUDINARY_API_KEY,
 
-    // GOOGLE CLIENT
     GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_ID_ANDRIOD,
     GOOGLE_CLIENT_ID_IOS,
     GOOGLE_CLIENT_ID_EXPO,
 
-    // FIREBASE
     FIREBASE_KEY,
     FIREBASE_AUTH_DOMAIN,
     FIREBASE_PROJECT_ID,
@@ -137,25 +124,20 @@ export const useConfiguration = () => {
     FIREBASE_MEASUREMENT_ID,
     FIREBASE_VAPID_KEY,
 
-    // APP CONFIG
     APP_TERMS,
     APP_PRIVACY,
     APP_TEST_OTP,
 
-    // APP
     SKIP_EMAIL_VERIFICATION,
     SKIP_MOBILE_VERIFICATION,
 
-    //CURRENCY
     CURRENCY_CODE,
     CURRENCY_SYMBOL,
     CURRENT_SYMBOL,
 
-    // AMPLITUDE
     AMPLITUDE_API_KEY_WEB,
     AMPLITUDE_API_KEY_APP,
 
-    // IS PAID VERSION
     ISPAID_VERSION,
   };
 };

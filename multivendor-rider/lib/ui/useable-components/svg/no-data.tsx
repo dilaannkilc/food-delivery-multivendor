@@ -14,7 +14,7 @@ const NoDataIcon: FC<IconProps> = ({
 }) => {
   return (
     <Svg
-      // className="mx-auto mb-4 text-gray-400"
+
       width={width}
       height={height}
       fill="none"

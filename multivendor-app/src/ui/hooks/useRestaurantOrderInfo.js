@@ -26,7 +26,6 @@ export default function useHomeRestaurants() {
   const orderError =
     recentOrderRestaurants?.error || mostOrderedRestaurants?.error
 
-// console.log("recentOrderRestaurants?.data?.recentOrderRestaurantsPreview",JSON.stringify(recentOrderRestaurants?.data?.recentOrderRestaurantsPreview,null,2))
   return {
     orderLoading,
     orderError,

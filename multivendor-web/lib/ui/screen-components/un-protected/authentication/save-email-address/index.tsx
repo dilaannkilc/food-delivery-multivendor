@@ -1,14 +1,11 @@
-// Components
+
 import CustomButton from "@/lib/ui/useable-components/button";
 import CustomTextField from "@/lib/ui/useable-components/input-field";
 
-// Interfaces
 import { ISaveEmailAddressProps } from "@/lib/utils/interfaces";
 
-// Icons
 import EmailIcon from "@/public/assets/images/svgs/email";
 
-// Hooks
 import { useAuth } from "@/lib/context/auth/auth.context";
 import useToast from "@/lib/hooks/useToast";
 import useUser from "@/lib/hooks/useUser";
@@ -17,13 +14,12 @@ import { useTranslations } from "next-intl";
 export default function SaveEmailAddress({
   handleChangePanel,
 }: ISaveEmailAddressProps) {
-  // Hooks
+
   const t = useTranslations();
   const {showToast} = useToast();
   const { setUser, user, sendOtpToEmailAddress, setIsAuthModalVisible, isLoading} = useAuth();
   const {profile} = useUser();
 
-  // Handlers
   const handleSubmit = async () => {
     try {
       if (!user?.email) {
@@ -50,7 +46,7 @@ export default function SaveEmailAddress({
           showToast({
             type: "success",
             title: t("Login"),
-            message: t("login_success_message"), // put ! at the end of the statement in the translation
+            message: t("login_success_message"), 
           });
         }else{
           handleChangePanel(4);

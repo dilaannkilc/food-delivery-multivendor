@@ -71,7 +71,7 @@ const SideList: React.FC<SideListProps> = ({ data, onHover }) => {
 
   return (
     <>
-      {/* LIST UI */}
+      {}
       <div className="md:shadow-lg md:pt-8 md:bg-white dark:bg-gray-900 md:rounded-lg overflow-y-auto h-full md:pb-12 md:p-4 pl-2">
         <div
           className="flex md:flex-col gap-4 flex-shrink-0 overflow-x-auto scroll-snap-x w-full md:pb-0 pb-2"
@@ -140,7 +140,7 @@ const SideList: React.FC<SideListProps> = ({ data, onHover }) => {
         </div>
       </div>
 
-      {/* MODAL */}
+      {}
       {selectedItem && (
         <CustomDialog
           className="max-w-[300px]"

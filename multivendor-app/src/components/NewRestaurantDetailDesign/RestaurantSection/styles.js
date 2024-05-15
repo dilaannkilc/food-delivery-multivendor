@@ -1,4 +1,4 @@
-// styles.js
+
 import { StyleSheet } from 'react-native'
 import { scale } from '../../../utils/scaling'
 import { Dimensions } from 'react-native'
@@ -41,11 +41,11 @@ const styles = (props = null) =>
       overflow: 'hidden',
       height: '100px',
       position: 'relative',
-      shadowColor: '#000', // Shadow for iOS
-      shadowOffset: { width: 0, height: 4 }, // Shadow offset for iOS
-      shadowOpacity: 0.25, // Shadow opacity for iOS
-      shadowRadius: 4, // Shadow radius for iOS
-      elevation: 5 // Shadow for Android
+      shadowColor: '#000', 
+      shadowOffset: { width: 0, height: 4 }, 
+      shadowOpacity: 0.25, 
+      shadowRadius: 4, 
+      elevation: 5 
     },
     plusButton: {
       position: 'absolute',

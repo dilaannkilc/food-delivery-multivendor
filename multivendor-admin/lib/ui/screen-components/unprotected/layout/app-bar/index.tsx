@@ -1,14 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
+
 
 'use client';
 
-// Core
 import Link from 'next/link';
 
-// Assets
 import { AppLogo } from '@/lib/utils/assets/svgs/logo';
 
-// Styles
 import classes from './app-bar.module.css';
 
 const AppTopbar = () => {

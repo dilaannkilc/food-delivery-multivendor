@@ -3,7 +3,6 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 
-// components
 import EmailForm from '@/lib/ui/useable-components/RiderandRestaurantsInfos/Form';
 import Heading from '@/lib/ui/useable-components/RiderandRestaurantsInfos/Heading/Heading';
 import SideContainers from '@/lib/ui/useable-components/RiderandRestaurantsInfos/SideContainers/SideCard';
@@ -11,7 +10,6 @@ import WhyCardsList from '@/lib/ui/useable-components/RiderandRestaurantsInfos/W
 import WhyChoose from '@/lib/ui/useable-components/RiderandRestaurantsInfos/WhyChoose';
 import StartingImage from '@/lib/ui/useable-components/RiderandRestaurantsInfos/StartingImage/StartingImage';
 
-// images
 import WorldClassCustomers from "@/public/assets/images/png/WorldClassCustomer.webp";
 import enategaApp from "@/public/assets/images/png/enategaApp.png";
 import growth from "@/public/assets/images/png/Growth.png";

@@ -1,7 +1,7 @@
 import { ILocationPointCoordinates } from "./location.interface";
 
 export interface IAddress {
-    location?: ILocationPointCoordinates; // Assuming pointSchema refers to a geo point
+    location?: ILocationPointCoordinates; 
     deliveryAddress: string;
     details?: string;
     label: string;

@@ -1,18 +1,16 @@
-// Components
+
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 
-// Interfaces
 import { ICuisineScreenHeaderProps } from '@/lib/utils/interfaces/cuisine.interface';
 
-// Icons
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 
 export default function CuisineScreenHeader({
   handleButtonClick,
 }: ICuisineScreenHeaderProps) {
-  // Hooks
+
   const t = useTranslations();
 
   return (

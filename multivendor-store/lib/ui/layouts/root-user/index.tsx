@@ -1,22 +1,18 @@
-// React Native Async Storage
+
 import { useApptheme } from "@/lib/context/theme.context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Expo
 import { Stack } from "expo-router";
 
-// i18n
 import { changeLanguage } from "i18next";
 
-// Hooks
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native";
 
 export default function RootUserLayout() {
-  // Hooks
+
   const { appTheme } = useApptheme();
 
-  // Handlers
   async function handleSetCurrentLanguage() {
     try {
       const lng = await AsyncStorage.getItem("lang");
@@ -28,7 +24,6 @@ export default function RootUserLayout() {
     }
   }
 
-  // UseEffects
   useEffect(() => {
     handleSetCurrentLanguage();
   }, []);

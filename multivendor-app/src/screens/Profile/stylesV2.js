@@ -80,10 +80,10 @@ const styles = (props = null) =>
       paddingRight: scale(10),
       borderRadius: scale(6),
       width: '28%',
-      // height: scale(30),
+
       marginTop: scale(10)
     },
-    // Model for password changing
+
     modalContainer: {
       backgroundColor: props !== null ? props?.themeBackground : '#FFF',
       borderRadius: scale(14),

@@ -1,4 +1,4 @@
-// Interface
+
 import { ITextComponentProps } from '@/lib/utils/interfaces';
 
 export default function TextComponent({

@@ -25,7 +25,7 @@ const styles = (props = null) =>
       ...alignment.PLlarge
     },
     modalTextBtn: {
-      // alignSelf: 'flex-end',
+
       height: scale(30),
       width: scale(30),
       ...alignment.MTsmall

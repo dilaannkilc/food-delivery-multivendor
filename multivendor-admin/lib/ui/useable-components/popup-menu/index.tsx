@@ -3,28 +3,22 @@ import {
   IPopupMenuComponentProps,
   IPopupMenuItem,
 } from '@/lib/utils/interfaces';
-// queries
 
-//interfaces
 
-//components
 
-//icons
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-//contexts
 
-//hooks
 import { useEffect, useRef } from 'react';
 
 export default function CustomPopupMenu<T>({
   close,
   items,
 }: IPopupMenuComponentProps<T>) {
-  //popup ref
+
   const popupRef = useRef<HTMLDivElement | null>(null);
 
-  //handle blur
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (

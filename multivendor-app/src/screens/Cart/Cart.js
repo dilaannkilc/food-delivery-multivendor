@@ -34,7 +34,6 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-na
 import useNetworkStatus from '../../utils/useNetworkStatus'
 import ErrorView from '../../components/ErrorView/ErrorView'
 
-// Constants
 const TIPPING = gql`
   ${getTipping}
 `
@@ -68,13 +67,13 @@ function Cart(props) {
 
   const animateQuantityChange = () => {
     animatedQuantity.value = withSpring(1.3, {
-      damping: 2, // Adjust for desired bounciness
-      stiffness: 20 // Adjust for desired spring effect
+      damping: 2, 
+      stiffness: 20 
     })
 
     setTimeout(() => {
-      animatedQuantity.value = withSpring(1) // Reset scale to 1
-    }, 200) // Match this duration with the spring duration
+      animatedQuantity.value = withSpring(1) 
+    }, 200) 
   }
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -177,17 +176,17 @@ function Cart(props) {
     }
     Track()
   }, [])
-  // useEffect(() => {
-  //   if (cart && cartCount > 0) {
-  //     if (
-  //       data &&
-  //       data?.restaurant &&
-  //       (!data?.restaurant?.isAvailable || !isOpen(data?.restaurant))
-  //     ) {
-  //       showAvailablityMessage()
-  //     }
-  //   }
-  // }, [data])
+
+
+
+
+
+
+
+
+
+
+
 
   const showAvailablityMessage = () => {
     Alert.alert(
@@ -224,7 +223,7 @@ function Cart(props) {
     if (withDiscount && coupon && coupon.discount) {
       itemTotal = itemTotal - (coupon.discount / 100) * itemTotal
     }
-    // const deliveryAmount = delivery > 0 ? deliveryCharges : 0
+
     return itemTotal.toFixed(2)
   }
 
@@ -232,8 +231,8 @@ function Cart(props) {
     let total = 0
     const delivery = isPickup ? 0 : deliveryCharges
     total += +calculatePrice(delivery)
-    // total += +taxCalculation()
-    // total += +calculateTip()
+
+
     return parseFloat(total).toFixed(2)
   }
 

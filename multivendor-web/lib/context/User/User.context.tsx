@@ -1,4 +1,4 @@
-/* eslint-disable max-lines */
+
 "use client";
 
 import { GET_USER_PROFILE, ORDERS } from "@/lib/api/graphql";
@@ -40,7 +40,6 @@ const SAVE_NOTIFICATION_TOKEN_WEB = gql`
   ${saveNotificationTokenWeb}
 `;
 
-// Types
 export interface CartItem {
   image: string;
   key: string;
@@ -57,7 +56,7 @@ export interface CartItem {
     }>;
   }>;
   specialInstructions?: string;
-  title?: string; // Added after querying food info
+  title?: string; 
   foodTitle?: string;
   variationTitle?: string;
   optionTitles?: string[];
@@ -241,42 +240,34 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
     onError,
   });
 
-  // Universal cart transformation function that can be used anywhere
   const transformCartWithFoodInfo = useCallback(
     (cartItems: CartItem[], foodsData: IRestaurant): CartItem[] => {
       if (!foodsData || !cartItems.length) return cartItems;
 
-      // Extract all foods from categories
       const foods = foodsData.categories
         ? foodsData.categories.flatMap((c: ICategory) => c.foods)
         : [];
 
-      // Get addons and options data
       const { addons, options } = foodsData;
 
       if (!foods.length || !addons || !options) return cartItems;
 
-      // Transform each cart item with display info
       return cartItems.map((cartItem) => {
-        // Find the food item
+
         const foodItem = foods.find((food: IFood) => food._id === cartItem._id);
         if (!foodItem) return cartItem;
 
-        // Find the variation
         const variationItem = foodItem.variations.find(
           (v: IVariation) => v._id === cartItem.variation._id
         );
         if (!variationItem) return cartItem;
 
-        // Create the full title
         const foodTitle = foodItem.title;
         const variationTitle = variationItem.title;
         const title = `${foodTitle}(${variationTitle})`;
 
-        // Calculate price
         let totalPrice = variationItem.price;
 
-        // Process addons and create optionTitles
         let optionTitles: string[] = [];
 
         if (cartItem.addons && cartItem.addons.length > 0) {
@@ -327,7 +318,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
     setIsLoading(false);
   }, [fetchProfile, fetchOrders]);
 
-  // Define setCartRestaurant before it's used in dependencies
   const setCartRestaurant = useCallback(async (id: string) => {
     setRestaurant(id);
     if (typeof window !== "undefined") {
@@ -335,7 +325,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
     }
   }, []);
 
-  // Initialize from local storage
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedRestaurant = localStorage.getItem("restaurant");
@@ -358,7 +347,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
     setIsLoading(false);
   }, []);
 
-  // Load user profile and orders
   useEffect(() => {
     let isSubscribed = true;
 
@@ -367,7 +355,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
     return () => {
       isSubscribed = false;
     };
-    // Important: Include token as a dependency to refetch when it changes
+
   }, [token, onInit]);
 
 
@@ -441,7 +429,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
         },
       });
 
-      // Convert the function to return a Promise to satisfy TypeScript
       const unsubscribeAsPromise = () => {
         unsubscribeOrders();
         return Promise.resolve();
@@ -454,7 +441,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
     }
   }, [client, dataProfile, subscribeToMoreOrders]);
 
-  // Setup subscription when profile is loaded
   useEffect(() => {
     if (!dataProfile) return;
     subscribeOrders();
@@ -465,12 +451,12 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
       fetchMoreOrders({
         variables: { offset: dataOrders?.orders?.length + 1 || 0 },
         updateQuery: (previousResult, { fetchMoreResult }) => {
-          // Don't do anything if there weren't any new items
+
           if (!fetchMoreResult || fetchMoreResult.orders.length === 0) {
             return previousResult;
           }
           return {
-            // Append the new feed results to the old one
+
             orders: previousResult.orders.concat(fetchMoreResult.orders),
           };
         },
@@ -493,11 +479,10 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
       const cartIndex = updatedCart.findIndex((c) => c.key === key);
 
       if (cartIndex !== -1) {
-        // Important: Set the exact new quantity instead of adding to prevent potential double-increments
+
         updatedCart[cartIndex].quantity =
           updatedCart[cartIndex].quantity + quantity;
 
-        // Save to local storage
         if (typeof window !== "undefined") {
           localStorage.setItem("cartItems", JSON.stringify(updatedCart));
         }
@@ -516,7 +501,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
         updatedCart.splice(cartIndex, 1);
         const items = updatedCart.filter((c) => c.quantity > 0);
 
-        // Update localStorage
         if (typeof window !== "undefined") {
           if (items.length === 0) {
             localStorage.removeItem("cartItems");
@@ -541,11 +525,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
 
       if (cartIndex === -1) return prevCart;
 
-      // Important: Ensure we're only decreasing by exactly 1
       updatedCart[cartIndex].quantity = updatedCart[cartIndex].quantity - 1;
       const items = updatedCart.filter((c) => c.quantity > 0);
 
-      // Update localStorage
       if (typeof window !== "undefined") {
         if (items.length === 0) {
           localStorage.removeItem("cartItems");
@@ -583,7 +565,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
     return cart.map((c) => c.quantity).reduce((a, b) => a + b, 0);
   }, [cart]);
 
-  // Enhanced method that replaces the old addCartItem - uses setCartRestaurant which is defined above
   const addItem = useCallback(
     async (
       image: string,
@@ -599,10 +580,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
       }> = [],
       specialInstructions: string = ""
     ) => {
-      // Check if we need to clear the cart (different restaurant)
+
       const needsClear = Boolean(restaurantId && restaurant !== restaurantId);
 
-      // Create new cart item
       const newItem: CartItem = {
         image,
         key: v4(),
@@ -615,18 +595,14 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
         specialInstructions,
       };
 
-      // Set restaurant first
       await setCartRestaurant(restaurantId);
 
-      // Update cart
       setCart((prevCart) => {
-        // Use empty array if needsClear is true, otherwise use current cart
+
         const cartItems = needsClear ? [] : [...prevCart];
 
-        // Add the new item
         const updatedCart = [...cartItems, newItem];
 
-        // Save to localStorage
         if (typeof window !== "undefined") {
           localStorage.setItem("cartItems", JSON.stringify(updatedCart));
         }
@@ -639,7 +615,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
 
   const updateCart = useCallback(
     async (updatedCart: CartItem[]) => {
-      // Skip update if cart is empty or unchanged (prevents infinite loop)
+
       if (JSON.stringify(cart) === JSON.stringify(updatedCart)) {
         return;
       }
@@ -663,15 +639,14 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
 
   const updateItemQuantity = useCallback(
     async (key: string, changeAmount: number) => {
-      // Force change to be exactly +1 or -1
+
       const safeChange = changeAmount > 0 ? 1 : -1;
 
-      // Use a local variable that will be unique to each function call
-      // This ensures the flag is reset for each new click
+
       let updateApplied = false;
 
       setCart((prevCart) => {
-        // If we've already applied an update in this callback invocation, don't do it again
+
         if (updateApplied) {
           return prevCart;
         }
@@ -689,7 +664,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
           `[UserContext] Current quantity for ${key}: ${currentQuantity}`
         );
 
-        // For decrement
         if (safeChange < 0) {
           if (currentQuantity <= 1) {
             updatedCart.splice(cartIndex, 1);
@@ -700,7 +674,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
             };
           }
         }
-        // For increment
+
         else {
           updatedCart[cartIndex] = {
             ...currentItem,
@@ -708,10 +682,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
           };
         }
 
-        // Mark that we've applied an update
         updateApplied = true;
 
-        // Update localStorage
         if (typeof window !== "undefined") {
           if (updatedCart.length === 0) {
             localStorage.removeItem("cartItems");
@@ -759,7 +731,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = (props) => {
         loadingProfile: loadingProfile && calledProfile,
         errorProfile,
         profile: dataProfile && dataProfile.profile ? dataProfile.profile : null,
-        fetchProfile, // Add this line
+        fetchProfile, 
         setTokenAsync,
         logout,
         loadingOrders: loadingOrders && calledOrders,

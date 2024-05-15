@@ -1,37 +1,29 @@
-// Core
+
 import { ApolloError, useMutation } from '@apollo/client';
 import { Form, Formik } from 'formik';
 import { useContext, useEffect, useState } from 'react';
 
-// Prime React
 import { Sidebar } from 'primereact/sidebar';
 
-// Context
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { ProfileContext } from '@/lib/context/vendor/profile.context';
 
-// Interface and Types
 import { IVendorUpdateFormComponentProps } from '@/lib/utils/interfaces';
 import { IVendorForm } from '@/lib/utils/interfaces/forms';
 
-// Constants and Methods
 import { MAX_SQUARE_FILE_SIZE, VendorErrors } from '@/lib/utils/constants';
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import CustomIconTextField from '@/lib/ui/useable-components/input-icon-field';
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/upload-image';
 
-// Schema
 import { VendorEditSchema } from '@/lib/utils/schema';
 
-// GraphQL
 import { EDIT_VENDOR } from '@/lib/api/graphql';
 
-// Icons
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 
@@ -48,27 +40,23 @@ export default function VendorUpdateForm({
   vendorFormVisible,
   setIsUpdateProfileVisible,
 }: IVendorUpdateFormComponentProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const { showToast } = useContext(ToastContext);
   const { vendorProfileResponse } = useContext(ProfileContext);
   let vendor = vendorProfileResponse.data?.getVendor;
 
-  // States
   const [formInitialValues, setFormValues] = useState<IVendorForm>({
     ...initialValues,
   });
 
-  // Mutations
   const [createVendor] = useMutation(EDIT_VENDOR, {
-    //  refetchQueries: [{ query: GET_VENDORS, fetchPolicy: 'network-only' }],
+
     onError,
     onCompleted: () => {},
   });
 
-  // Handlers
   const onVendorCreate = async (data: IVendorForm) => {
     try {
       await createVendor({
@@ -114,7 +102,6 @@ export default function VendorUpdateForm({
     });
   }
 
-  // Effects
   useEffect(() => {
     if (vendor) {
       setFormValues({

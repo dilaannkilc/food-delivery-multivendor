@@ -19,7 +19,7 @@ export default function useQueryBySlug(
   page: number = 1,
   limit: number
 ): UseQueryBySlugResult {
-  const mostOrdered = useMostOrderedRestaurants(true, page, limit, null); // null → no filter
+  const mostOrdered = useMostOrderedRestaurants(true, page, limit, null); 
   const grocery_pick = useMostOrderedRestaurants(true, page, limit, "grocery");
   const popular_restaurant = useMostOrderedRestaurants(
     true,
@@ -44,9 +44,7 @@ export default function useQueryBySlug(
   const ourBrands = useTopRatedVendors(true);
   if (!slug) return { data: [], loading: false, error: undefined };
   switch (slug) {
-    /**
-     * 🔹 Most ordered (all shop types)
-     */
+    
     case "most-ordered-restaurants": {
       const data = mostOrdered.queryData;
       return {
@@ -62,9 +60,7 @@ export default function useQueryBySlug(
       };
     }
 
-    /**
-     * 🔹 Top grocery picks
-     */
+    
     case "top-grocery-picks": {
       const data = grocery_pick.queryData;
       return {
@@ -80,9 +76,7 @@ export default function useQueryBySlug(
       };
     }
 
-    /**
-     * 🔹 Popular restaurants
-     */
+    
     case "popular-restaurants": {
       const data = popular_restaurant.queryData;
       return {
@@ -98,9 +92,7 @@ export default function useQueryBySlug(
       };
     }
 
-    /**
-     * 🔹 Popular stores (alias for grocery)
-     */
+    
     case "popular-stores": {
       const data = popular_stores.queryData;
       return {
@@ -116,9 +108,7 @@ export default function useQueryBySlug(
       };
     }
 
-    /**
-     * 🔹 Nearby
-     */
+    
     case "restaurants-near-you": {
       const data = nearby.queryData;
       return {
@@ -144,9 +134,7 @@ export default function useQueryBySlug(
       };
     }
 
-    /**
-     * 🔹 Order it again
-     */
+    
     case "order-it-again": {
       const data = recentOrdered.queryData;
       return {
@@ -156,9 +144,7 @@ export default function useQueryBySlug(
       };
     }
 
-    /**
-     * 🔹 Our brands
-     */
+    
     case "our-brands": {
       const data = ourBrands.queryData;
       return {

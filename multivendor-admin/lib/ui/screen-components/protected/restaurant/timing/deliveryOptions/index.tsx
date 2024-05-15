@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client"
 import { UPDATE_DELIVERY_OPTIONS } from '@/lib/api/graphql/mutations/deliveryOptions';
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
@@ -20,7 +20,7 @@ interface IDeliveryOptions {
     pickup: boolean
     delivery: boolean
 }
-//@ts-ignore
+
 const DeliveryOptions = ({ data, loading, refetch } : any) => {
     const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
     const restaurantId = restaurantLayoutContextData?.restaurantId || '';

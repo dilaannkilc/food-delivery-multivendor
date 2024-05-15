@@ -39,7 +39,6 @@ const CreateAccount = (props) => {
       )
     }
 
-    // Hide Apple login on Android if not enabled
     if (Platform.OS === 'android' && !enableApple) {
       return null
     }
@@ -122,14 +121,14 @@ const CreateAccount = (props) => {
       <StatusBar backgroundColor='transparent' translucent barStyle={themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'} />
 
       <View style={styles().mainContainer}>
-        {/* GIF Section */}
+        {}
         <View style={styles().gifContainer}>
           <Image source={require('../../assets/gifs/login.gif')} style={styles().gifImage} resizeMode='cover' />
         </View>
 
-        {/* Content Section */}
+        {}
         <View styl>
-          {/* Welcome Text */}
+          {}
           <View style={styles().welcomeSection}>
             <TextDefault H1 bolder center textColor={currentTheme.newFontcolor} style={styles(currentTheme).mainTitle}>
               {t('welcomeText')}
@@ -139,7 +138,7 @@ const CreateAccount = (props) => {
             </TextDefault>
           </View>
 
-          {/* Login Buttons */}
+          {}
           <View style={styles().buttonsContainer}>
             {renderGoogleAction()}
             {Platform.OS === 'ios' && enableApple && renderAppleAction()}

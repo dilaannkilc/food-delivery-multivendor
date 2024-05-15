@@ -19,13 +19,12 @@ const RatingsHeaderDataView: React.FC<ICommissionRateHeaderProps> = ({
   selectedActions,
   onSearch,
 }) => {
-  // Hooks
+
   const t = useTranslations();
   const {theme} = useTheme()
-  // States
+
   const [searchValue, setSearchValue] = useState<string>('');
 
-  // Refs
   const overlayPanelRef = useRef<OverlayPanel>(null);
 
   const toggleAction = (action: string) => {

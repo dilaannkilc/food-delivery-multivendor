@@ -947,7 +947,6 @@ export const orderFragment = `fragment NewOrder on Order {
   assignedAt
 }`
 
-// TODO: Check why the url is null
 export const fetchCategoryDetailsByStore = `query fetchCategoryDetailsByStoreIdForMobile($storeId: String!)  {
   fetchCategoryDetailsByStoreIdForMobile(storeId: $storeId) {
       id
@@ -1117,7 +1116,6 @@ export const versions = `query {
   }
 }`
 
-// Version
 export const getVersions = `
 query GetVersions {
   getVersions {
@@ -1161,19 +1159,18 @@ export const FetchAllShopTypes = gql`
   }
 `
 
-// export const RestaurantCuisines = `query NearByRestaurantsCuisines {
-//     nearByRestaurantsCuisines(
-//        latitude: $latitude
-//     longitude:$longitude 
-//     shopType: $shopType
-//     ) {
-//         _id
-//         name
-//         description
-//         image
-//         shopType
-//     }
-// }`
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 export const RestaurantCuisines = `

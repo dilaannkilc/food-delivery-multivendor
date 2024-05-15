@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Platform } from "react-native";
 
 export default function OrderDetailLayour() {
-  // Hooks
+
   const { t } = useTranslation();
   const { appTheme } = useApptheme();
 
@@ -19,8 +19,8 @@ export default function OrderDetailLayour() {
           default: {
             position: "absolute",
             backgroundColor: appTheme.themeBackground,
-            elevation: 0, // Shadow for Android
-            shadowColor: appTheme.themeBackground, // Shadow for iOS
+            elevation: 0, 
+            shadowColor: appTheme.themeBackground, 
             shadowOpacity: 0,
             shadowRadius: 0,
           },

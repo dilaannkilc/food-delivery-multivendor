@@ -1,7 +1,6 @@
-// Custom Components
+
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 
-// Interfaces
 import { IAddonTableHeaderProps } from '@/lib/utils/interfaces';
 import { useTranslations } from 'next-intl';
 
@@ -9,7 +8,7 @@ export default function AddonTableHeader({
   globalFilterValue,
   onGlobalFilterChange,
 }: IAddonTableHeaderProps) {
-  // Hooks
+
   const t = useTranslations();
   return (
     <div className="mb-4 flex flex-col gap-6">

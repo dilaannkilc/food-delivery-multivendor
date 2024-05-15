@@ -16,10 +16,9 @@ export default function EarningRestaurantTableHeader({
   setDateFilters,
   onClearFilters,
 }: IEarningTableHeaderProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const [errors, setErrors] = useState({ startDate: '', endDate: '' });
 
   const orderTypes = [

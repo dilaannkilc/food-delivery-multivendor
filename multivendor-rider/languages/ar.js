@@ -1,12 +1,11 @@
 export const ar = {
-  // Navigation
+
   continue: "متابعة",
   Wallet: "المحفظة",
   Home: "الرئيسية",
   Earnings: "الأرباح",
   Profile: "الملف الشخصي",
 
-  // FAQs
   faq1: "كيف يمكنني تقديم طلب؟",
   faq1Description:
     "لتقديم طلب، يمكنك ببساطة تصفح قائمتنا، اختيار العناصر التي ترغب في طلبها، ثم المتابعة إلى الدفع. يمكنك اختيار طريقة الدفع المفضلة لديك وعنوان التوصيل قبل تأكيد الطلب.",
@@ -29,7 +28,6 @@ export const ar = {
   faq7Description:
     "للأسف، لا يمكنك الاختيار من عدة مطاعم ضمن نفس الطلب. ولكن يمكنك تقديم طلبات منفصلة من مطاعم مختلفة في نفس الوقت.",
 
-  // Earnings
   "Earnings Summary": "ملخص الأرباح",
   Deliveries: "التوصيلات",
   "Total Earnings": "إجمالي الأرباح",
@@ -39,13 +37,11 @@ export const ar = {
   "Order Date": "تاريخ الطلب",
   "Earnings Order Details": "تفاصيل أرباح الطلب",
 
-  // Flash messages
   "Order placed successfully": "تم تقديم الطلب بنجاح",
   "Order cancelled successfully": "تم إلغاء الطلب بنجاح",
   "Error while placing order": "خطأ أثناء تقديم الطلب",
   "Error while cancelling order": "خطأ أثناء إلغاء الطلب",
 
-  // Other messages
   "Please enter your name": "يرجى إدخال اسمك",
   "Please enter your email": "يرجى إدخال بريدك الإلكتروني",
   "Please enter your password": "يرجى إدخال كلمة المرور",
@@ -238,14 +234,12 @@ export const ar = {
   "You don't have any orders yet!": "ليس لديك أي طلبات حتى الآن!",
   "No delivered orders yet!": "لا توجد طلبات تم تسليمها بعد!",
 
-  // Chat Screen
   "Contact Customer": "اتصل بالعميل",
   "Type a message": "اكتب رسالة",
   "Send": "إرسال",
   "Message sent": "تم إرسال الرسالة",
   "Message failed": "فشل إرسال الرسالة",
 
-  // Earnings Screen
   "Please select a date range": "الرجاء تحديد نطاق التاريخ",
   "Please select a start date": "الرجاء تحديد تاريخ البداية",
   "Please select an end date": "الرجاء تحديد تاريخ النهاية",
@@ -253,8 +247,6 @@ export const ar = {
   "Please log in to view your earnings": "الرجاء تسجيل الدخول لعرض أرباحك",
   "Tips": "الإكراميات",
 
-
-  // Profile Forms
   "Unable to update availability": "تعذر تحديث التوفر",
   "rider name": "اسم السائق",
   "rider id": "معرف السائق",

@@ -1,17 +1,14 @@
-// Core
+
 import { useContext, useState } from 'react';
 
-// Context
 import { LayoutContext } from '@/lib/context/global/layout.context';
 
-// Interface & Types
 import {
   IGlobalComponentProps,
   ISidebarMenuItem,
   LayoutContextProps,
 } from '@/lib/utils/interfaces';
 
-// Icons
 import {
   faArrowLeft,
   faCog,
@@ -23,14 +20,13 @@ import {
   faWallet,
 } from '@fortawesome/free-solid-svg-icons';
 
-// Components
 import SidebarItem from './side-bar-item';
 import { useUserContext } from '@/lib/hooks/useUser';
 import { onUseLocalStorage } from '@/lib/utils/methods';
 import { useTranslations } from 'next-intl';
 
 function AdminSidebar({ children }: IGlobalComponentProps) {
-  // Context
+
   const { isRestaurantSidebarVisible } =
     useContext<LayoutContextProps>(LayoutContext);
 
@@ -51,13 +47,13 @@ function AdminSidebar({ children }: IGlobalComponentProps) {
 }
 
 export default function MakeSidebar() {
-  // Hooks
+
   const t = useTranslations();
 
   const { isRestaurantSidebarVisible } =
     useContext<LayoutContextProps>(LayoutContext);
   const { user } = useUserContext();
-  // Get the current route stack from localStorage without modifying it
+
   const [routeStack, setRouteStack] = useState<string[]>(
     JSON.parse(onUseLocalStorage('get', 'routeStack') || '[]')
   );
@@ -183,7 +179,7 @@ export default function MakeSidebar() {
       icon: faArrowLeft,
       isClickable: true,
       onClick: () => {
-        // Handle popping the route and updating localStorage
+
         const updatedStack = [...routeStack];
         updatedStack.pop();
         onUseLocalStorage('save', 'routeStack', JSON.stringify(updatedStack));

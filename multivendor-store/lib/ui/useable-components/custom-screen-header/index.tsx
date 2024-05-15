@@ -1,10 +1,10 @@
-// Core
+
 import { useApptheme } from "@/lib/context/theme.context";
 import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 
 export default function CustomScreenHeader({ title }: { title: string }) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 

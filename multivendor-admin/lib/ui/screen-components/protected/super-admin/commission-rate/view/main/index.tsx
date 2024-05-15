@@ -1,27 +1,20 @@
-// GraphQL API imports
+
 import { GET_COMMISSION_RATES_PAGINATED, updateCommission } from '@/lib/api/graphql';
 
-// Context imports
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Custom hooks
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
-// UI components
+
 import Table from '@/lib/ui/useable-components/table';
 
-// Utility functions
-// import { generateDummyCommissionRates } from '@/lib/utils/dummy';
 
-// Type definitions
+
 import { IQueryResult, ICommissionRateRestaurantResponse, IPaginationCommissionRateVars } from '@/lib/utils/interfaces';
 
-// Apollo Client hooks
 import { useMutation } from '@apollo/client';
 
-// React hooks
 import { useContext, useEffect, useState } from 'react';
 
-// Table column definitions
 import { COMMISSION_RATE_ACTIONS } from '@/lib/utils/constants';
 
 import CommissionRateHeader from '../header/table-header';
@@ -39,10 +32,9 @@ interface CommissionRateData {
 }
 
 export default function CommissionRateMain() {
-  //Hooks
+
   const t = useTranslations();
 
-  // States
   const [restaurants, setRestaurants] = useState<ICommissionRateRestaurantResponse[] | null>(null);
   const [editingRestaurantIds, setEditingRestaurantIds] = useState<Set<string>>(
     new Set()
@@ -58,10 +50,8 @@ export default function CommissionRateMain() {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  // Context
   const { showToast } = useContext(ToastContext);
 
-  // Query
   const { data, error, refetch, loading } = useQueryGQL(
     GET_COMMISSION_RATES_PAGINATED,
     { page: currentPage, limit: rowsPerPage },
@@ -70,10 +60,8 @@ export default function CommissionRateMain() {
     }
   ) as IQueryResult<CommissionRateData | undefined, IPaginationCommissionRateVars>;
 
-  // Mutation
   const [updateCommissionMutation] = useMutation(updateCommission);
 
-  // Handlers
   const handleSave = async (restaurantId: string) => {
     const restaurant = restaurants?.find((r) => r._id === restaurantId);
     if (!restaurant?.commissionRate) {
@@ -151,22 +139,18 @@ export default function CommissionRateMain() {
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
 
-      // Always show restaurants that are currently being edited
       if (editingRestaurantIds.has(restaurant._id)) {
         return true;
       }
 
-      // Apply name filter
       if (!nameMatches) {
         return false;
       }
 
-      // If no commission rate filters are applied, show all name matches
       if (selectedActions.length === 0) {
         return true;
       }
 
-      // Apply commission rate filters
       return selectedActions.some((action) => {
         switch (action) {
           case COMMISSION_RATE_ACTIONS.MORE_THAN_5:
@@ -182,7 +166,6 @@ export default function CommissionRateMain() {
     });
   };
 
-  // Use Effects
   useEffect(() => {
     if (data?.commissionRate?.restaurant) {
       setRestaurants(data.commissionRate.restaurant);
@@ -214,7 +197,7 @@ export default function CommissionRateMain() {
         loading={loading || restaurants === null}
         currentPage={currentPage}
         rowsPerPage={rowsPerPage}
-        totalRecords={(data?.commissionRate?.totalPages || 0) * rowsPerPage} // Approximation if totalCount missing
+        totalRecords={(data?.commissionRate?.totalPages || 0) * rowsPerPage} 
         onPageChange={(page, rows) => {
           setCurrentPage(page);
           setRowsPerPage(rows);

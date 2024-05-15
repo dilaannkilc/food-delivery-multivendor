@@ -1,16 +1,13 @@
 "use client";
 import React from "react";
 
-// Components
 import ActionButton from "@/lib/ui/useable-components/action-button";
 import RenderAspects from "@/lib/ui/useable-components/render-aspects";
 import CustomButton from "@/lib/ui/useable-components/button";
 import CustomTextAreaField from "@/lib/ui/useable-components/custom-text-area-field";
 
-// Types
 import { IRenderStepThreeProps } from "@/lib/utils/interfaces/ratings.interface";
 
-// i18n
 import { useTranslations } from "next-intl";
 
 const RenderStepThree: React.FC<IRenderStepThreeProps> = ({

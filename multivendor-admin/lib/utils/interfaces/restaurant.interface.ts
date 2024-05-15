@@ -12,7 +12,7 @@ export interface IRestaurantCardProps extends IGlobalComponentProps {
 }
 
 export interface IRestaurantContextProps {
-  // Vendor and Restaurant Data
+
   vendorId: string | null;
   restaurantContextData: IVendorLayoutRestaurantContextData;
   restaurantByOwnerResponse: IQueryResult<
@@ -20,16 +20,13 @@ export interface IRestaurantContextProps {
     undefined
   >;
 
-  // Form Visibility
   isRestaurantFormVisible: boolean;
   onSetRestaurantFormVisible: (status: boolean) => void;
 
-  // Form Navigation
   activeIndex: number;
   onActiveStepChange: (activeStep: number) => void;
   onClearRestaurntsData: () => void;
 
-  // Context Data Management
   onSetRestaurantContextData: (data: Partial<IRestaurantContextData>) => void;
   isRestaurantModifed: boolean;
   setRestaurantModifed: (status: boolean) => void;
@@ -75,7 +72,7 @@ export interface IRestaurantResponse {
   shopType: string;
   __typename: string;
 }
-//Interface for commission rate
+
 export interface ICommissionRateRestaurantResponse {
   _id: string;
   unique_restaurant_id: string;
@@ -85,7 +82,6 @@ export interface ICommissionRateRestaurantResponse {
   commissionRate: number;
 }
 
-// Updated to support pagination
 export interface IPaginatedRestaurantResponse {
   data: IRestaurantResponse[];
   totalCount: number;
@@ -100,7 +96,6 @@ export interface IRestaurantsResponseGraphQL {
   getClonedRestaurantsPaginated?: IPaginatedRestaurantResponse;
 }
 
-// Table header props with pagination
 export interface IRestaurantsTableHeaderProps {
   globalFilterValue: string;
   onGlobalFilterChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -176,14 +171,13 @@ export interface ICreateRestaurant {
   };
 }
 
-// The two interfaces are identical. There are no differences between them.
 export interface ICreateRestaurantResponse {
   data?: {
     createRestaurant?: ICreateRestaurant;
   };
 }
 
-/* Get Restaurant By ID Profile */
+
 export interface IRestaurantProfile {
   _id: string;
   orderId: number;

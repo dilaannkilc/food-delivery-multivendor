@@ -5,17 +5,15 @@ import * as Notifications from "expo-notifications";
 import { useCallback, useEffect } from "react";
 import { Platform } from "react-native";
 
-// API
 import { GET_RESTAURANT_BY_ID, SAVE_TOKEN } from "@/lib/api/graphql";
 
 export default function useNotification() {
   const [getStore, { data }] = useLazyQuery(GET_RESTAURANT_BY_ID, {
     fetchPolicy: "network-only",
-    // variables: { id: userId },
+
   });
   const [sendTokenToBackend, { loading }] = useMutation(SAVE_TOKEN);
 
-  // Handler
   const onGetStoreData = async () => {
     const userId = await AsyncStorage.getItem("store-id");
 
@@ -25,7 +23,6 @@ export default function useNotification() {
     });
   };
 
-  // Notification Handler
   async function registerForPushNotificationsAsync() {
     if (!Device.isDevice) {
       alert("Must use physical device for Push Notifications");
@@ -57,10 +54,10 @@ export default function useNotification() {
           notification: Notifications.Notification
         ) => {
           return {
-            shouldShowAlert: true, // ✅ show banner/alert
-            shouldPlaySound: true, // ✅ play notification sound
-            // shouldShowAlert: false, // Prevent the app from closing
-            // shouldPlaySound: false,
+            shouldShowAlert: true, 
+            shouldPlaySound: true, 
+
+
             shouldSetBadge: false,
             shouldShowBanner: false,
             shouldShowList: false,
@@ -83,24 +80,22 @@ export default function useNotification() {
 
         console.log("notification response", response);
 
-        // const { data } = await client.query({
-        //   query: STORE_ORDERS,
-        //   fetchPolicy: "network-only",
-        // });
-        // const order = data.riderOrders.find((o: IOrder) => o._id === _id);
+
+
+
+
         const lastNotificationHandledId = await AsyncStorage.getItem(
           "@lastNotificationHandledId"
         );
         if (lastNotificationHandledId === _id) return;
         await AsyncStorage.setItem("@lastNotificationHandledId", _id);
-        // router.navigate("/order-detail");
-        // router.setParams({ itemId: _id, order });
+
+
       }
     },
     []
   );
 
-  // Use Effect
   useEffect(() => {
     const subscription =
       Notifications.addNotificationResponseReceivedListener(handleNotification);

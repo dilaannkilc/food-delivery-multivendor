@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Simple event emitter using a callback registry
 class SimpleEventEmitter {
   private listeners: { [key: string]: Function[] } = {};
 
@@ -15,8 +14,7 @@ class SimpleEventEmitter {
       this.listeners[event] = [];
     }
     this.listeners[event].push(listener);
-    
-    // Return an object with removeListener method for compatibility
+
     return {
       removeListener: () => {
         const index = this.listeners[event].indexOf(listener);
@@ -47,13 +45,11 @@ class SimpleEventEmitter {
 
 export const asyncStorageEmitter = new SimpleEventEmitter();
 
-// Custom function to set item and emit event
 export const setItem = async (key: string, value: string) => {
   await AsyncStorage.setItem(key, value);
   asyncStorageEmitter?.emit(key, { key, value });
 };
 
-// Custom function to remove item and emit event
 export const removeItem = async (key: string) => {
   await AsyncStorage.removeItem(key);
   asyncStorageEmitter.emit(key, { key, value: null });

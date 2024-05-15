@@ -14,7 +14,7 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
       <Avatar
         image={
           'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
-        } // Use placeholder.com image if no avatar
+        } 
         size="xlarge"
         shape="circle"
         className="border shadow-md"

@@ -5,9 +5,8 @@ import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
-// ANimation
-// import notFoundAnimation from "@/lib/assets/animations/404.json"; // You can place your JSON file in public or src/assets
-import animationData from "@/lib/assets/animations/404.json"; // Your Lottie file
+
+import animationData from "@/lib/assets/animations/404.json"; 
 import CustomLoader from "@/lib/ui/useable-components/custom-progress-indicator";
 
 const COUNTER = 5;

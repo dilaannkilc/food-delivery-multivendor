@@ -1,45 +1,38 @@
-// Contexts
-// import { ConfigurationContext } from '@/lib/context/global/configuration.context';
+
+
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// GraphQL
 import { useMutation } from '@apollo/client';
 import { UPLOAD_IMAGE_TO_S3 } from '@/lib/api/graphql/mutations';
 
-// Interfaces
 import {
   IImageUploadComponentProps,
 } from '@/lib/utils/interfaces';
 import Image from 'next/image';
 
-// Hooks
 import { memo, useCallback, useContext, useState } from 'react';
 
-// Utils
 import { compressImage, compressVideo } from '@/lib/utils/methods';
 
-// Components
 import CustomLoader from '../custom-progress-indicator';
 
-// Prime React
 import {
   FileUpload,
   FileUploadSelectEvent,
   ItemTemplateOptions,
 } from 'primereact/fileupload';
 
-// Icons
 import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'use-intl';
-// import { MAX_VIDEO_FILE_SIZE } from '@/lib/utils/constants';
+
 
 function CustomUploadImageComponent({
   name,
   title,
   page,
-  // onChange,
+
   onSetImageUrl,
   existingImageUrl,
   style,
@@ -52,15 +45,13 @@ function CustomUploadImageComponent({
     'video/mp4',
   ],
 }: IImageUploadComponentProps) {
-  // Context
-  // const configuration: IConfiguration | undefined =
-  //   useContext(ConfigurationContext);
+
+
+
   const { showToast } = useContext(ToastContext);
 
-  // Mutations
   const [uploadToS3] = useMutation(UPLOAD_IMAGE_TO_S3);
 
-  // States
   const [isUploading, setIsUploading] = useState(false);
   const [imageFile, setImageFile] = useState('');
   const [currentFileType, setCurrentFileType] = useState('');
@@ -69,10 +60,8 @@ function CustomUploadImageComponent({
     msg: '',
   });
 
-  // Hooks
   const t = useTranslations();
 
-  // Filter Files
   const filterFiles = (event: FileUploadSelectEvent): File | undefined => {
     const files = Array.from(event.files || []);
     const extracted_files = files.filter((file) =>
@@ -81,14 +70,13 @@ function CustomUploadImageComponent({
     return extracted_files.length ? extracted_files[0] : files[0];
   };
 
-  // Upload to S3
   const uploadImageToS3 = useCallback(
     async (file: File): Promise<void> => {
       setIsUploading(true);
       setImageFile(URL.createObjectURL(file));
       
       try {
-        // Compress file based on type
+
         let processedFile: File;
         if (file.type.startsWith('image/')) {
           processedFile = await compressImage(file, 800, 0.7);
@@ -97,8 +85,7 @@ function CustomUploadImageComponent({
         } else {
           processedFile = file;
         }
-        
-        // Convert to base64
+
         const base64 = await new Promise<string>((resolve) => {
           const reader = new FileReader();
           reader.onloadend = () => resolve(reader.result as string);
@@ -142,7 +129,6 @@ function CustomUploadImageComponent({
     [name, onSetImageUrl, showToast, title, fileTypes, uploadToS3, t]
   );
 
-  // Select Image
   const handleFileSelect = useCallback(
     (event: FileUploadSelectEvent): void => {
       const result = filterFiles(event);
@@ -154,7 +140,6 @@ function CustomUploadImageComponent({
     [uploadImageToS3]
   );
 
-  // Handle cancel click
   const handleCancelClick = (type: String) => {
     if (type === 'cancel') {
       setImageFile('');
@@ -177,7 +162,7 @@ function CustomUploadImageComponent({
             ? `bg-transparnt`
             : `mx-auto flex h-48 w-48 flex-col items-center justify-start border-2 border-dashed ${imageValidationErr.bool ? 'border-red-900' : 'border-gray-300 dark:border-dark-600'}`
         }
-        // className="bg-transparnt"
+
       >
         <FileUpload
           headerClassName='dark:text-white'
@@ -272,13 +257,13 @@ function CustomUploadImageComponent({
           cancelOptions={{
             className: 'text-xs',
           }}
-          // maxFileSize={maxFileSize}
+
           customUpload={true}
           itemTemplate={(file: object, object: ItemTemplateOptions) => {
             const extractedFile = file as File;
-            // if(page && page === "vendor-profile-edit"){
-            //   onChange(URL.createObjectURL(extractedFile));
-            // }
+
+
+
             return (
               <div className="h-12">
                 {isUploading && (

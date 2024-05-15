@@ -1,12 +1,11 @@
 export const jp = {
-  // Navigation
+
   continue: "続ける",
   Wallet: "ウォレット",
   Home: "ホーム",
   Earnings: "収益",
   Profile: "プロフィール",
 
-  // FAQs
   faq1: "注文方法は？",
   faq1Description:
     "メニューから商品を選び、チェックアウトに進むだけで注文できます。注文を確定する前に、お好みの支払い方法と配送先住所を選択できます。",
@@ -29,7 +28,6 @@ export const jp = {
   faq7Description:
     "申し訳ありませんが、同じ注文内で複数のレストランから選択することはできません。ただし、異なるレストランから別々の注文を同時に行うことはできます。",
 
-  // Earnings
   "Earnings Summary": "収益概要",
   Deliveries: "配送件数",
   "Total Earnings": "総収益",
@@ -39,13 +37,11 @@ export const jp = {
   "Order Date": "注文日",
   "Earnings Order Details": "収益注文詳細",
 
-  // Flash messages
   "Order placed successfully": "注文が成功しました",
   "Order cancelled successfully": "注文がキャンセルされました",
   "Error while placing order": "注文中にエラーが発生しました",
   "Error while cancelling order": "キャンセル中にエラーが発生しました",
 
-  // Other messages
   "Please enter your name": "名前を入力してください",
   "Please enter your email": "メールアドレスを入力してください",
   "Please enter your password": "パスワードを入力してください",
@@ -238,7 +234,7 @@ export const jp = {
   "No new orders yet!": "まだ新しい注文はありません！",
   "You don't have any orders yet!": "まだ注文がありません！",
   "No delivered orders yet!": "まだ配達済みの注文はありません！",
-  // Vehicle Screen
+
   "Vehicle Details": "車両詳細",
   "Vehicle Number": "車両番号",
   "Vehicle Color": "車両色",
@@ -285,21 +281,18 @@ export const jp = {
   "Vehicle documents too large": "車両書類が大きすぎます",
   "Vehicle documents format not supported": "車両書類の形式がサポートされていません",
 
-  // Chat Screen
   "Contact Customer": "顧客に連絡",
   "Type a message": "メッセージを入力",
   "Send": "送信",
   "Message sent": "メッセージを送信しました",
   "Message failed": "メッセージの送信に失敗しました",
 
-  // Earnings Screen
   "Please select a date range": "日付範囲を選択してください",
   "Please select a start date": "開始日を選択してください",
   "Please select an end date": "終了日を選択してください",
   "Start date cannot be after end date": "開始日は終了日より後にできません",
   "Please log in to view your earnings": "収益を表示するにはログインしてください",
 
-  // Profile Forms
   "Unable to update availability": "利用可能状況を更新できません",
   "rider name": "ライダー名",
   "rider id": "ライダーID",

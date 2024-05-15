@@ -16,7 +16,6 @@ export interface IWithDrawRequestMainProps {
   setSelectedRequest: (request: IWithDrawRequest | undefined) => void;
 }
 
-// Business Details Interface
 interface IBusinessDetails {
   bankName: string;
   accountName: string;
@@ -27,7 +26,6 @@ interface IBusinessDetails {
   taxRate: number;
 }
 
-// Rider Interface
 interface IRider {
   _id: string;
   name: string;
@@ -35,7 +33,7 @@ interface IRider {
   phone: string;
   available: boolean;
   isActive: boolean;
-  // isSuperAdminRider: boolean;
+
   accountNumber: string;
   currentWalletAmount: number;
   totalWalletAmount: number;
@@ -46,7 +44,6 @@ interface IRider {
   bussinessDetails: IBusinessDetails;
 }
 
-// Store Interface
 interface IStore {
   unique_restaurant_id: string;
   _id: string;

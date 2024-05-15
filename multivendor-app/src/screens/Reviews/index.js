@@ -33,7 +33,7 @@ const Reviews = ({ navigation, route }) => {
 
   const restaurant = route.params.restaurantObject
   const { restaurantId } = restaurant
-  // console.log("restaurant in review page",restaurantId);
+
   const {
     loading,
     error,
@@ -49,7 +49,7 @@ const Reviews = ({ navigation, route }) => {
     reviewsdata?.reviewsByRestaurant.reviews,
     'rating'
   )
-  // console.log("reviewGroups",reviewGroups)
+
   const [sortBy, setSortBy] = useState('newest')
   const sortingParams = {
     newest: t('Newest'),
@@ -104,13 +104,13 @@ const Reviews = ({ navigation, route }) => {
 
 
   const calculatePercentages = (groups, total) => {
-    // Calculate raw percentages
+
     const rawPercentages = {}
     let totalInteger = 0
 
     Object.keys(groups).forEach((key) => {
       const rawValue = (groups[key] / total) * 100
-      // Store the raw value and its integer part
+
       rawPercentages[key] = {
         raw: rawValue,
         integer: Math.floor(rawValue),
@@ -119,22 +119,18 @@ const Reviews = ({ navigation, route }) => {
       totalInteger += Math.floor(rawValue)
     })
 
-    // Determine how many points we need to distribute to reach 100%
     const remaining = 100 - totalInteger
 
-    // Sort keys by remainder in descending order to allocate extra points
     const sortedKeys = Object.keys(rawPercentages).sort(
       (a, b) => rawPercentages[b].remainder - rawPercentages[a].remainder
     )
 
-    // Distribute the remaining points to items with largest remainders
     for (let i = 0; i < remaining; i++) {
       if (i < sortedKeys.length) {
         rawPercentages[sortedKeys[i]].integer += 1
       }
     }
 
-    // Create final percentage object
     const finalPercentages = {}
     Object.keys(rawPercentages).forEach((key) => {
       finalPercentages[key] = rawPercentages[key].integer
@@ -143,7 +139,6 @@ const Reviews = ({ navigation, route }) => {
     return finalPercentages
   }
 
-  // Calculate percentages once before rendering
   const percentages = calculatePercentages(reviewGroups, total)
 
   const { isConnected:connect,setIsConnected :setConnect} = useNetworkStatus();

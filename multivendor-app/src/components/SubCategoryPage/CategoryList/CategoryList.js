@@ -1,4 +1,4 @@
-// SubcategoryList/SubcategoryList.js
+
 import React from 'react'
 import { View, FlatList, TouchableOpacity } from 'react-native'
 import TextDefault from '../../../components/Text/TextDefault/TextDefault'

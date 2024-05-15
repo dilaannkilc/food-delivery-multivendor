@@ -1,21 +1,19 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-// Core
+
 import { useContext, useEffect, useState } from "react";
 
 import { NetworkStatus } from "@apollo/client";
 import { Dimensions, Platform, StyleSheet, Text, View } from "react-native";
 
-// Components
 import Order from "@/lib/ui/useable-components/order";
 import { WalletIcon } from "@/lib/ui/useable-components/svg";
-// Context
+
 import UserContext from "@/lib/context/global/user.context";
-// Constants
+
 import { NO_ORDER_PROMPT } from "@/lib/utils/constants";
-// Interface
+
 import { IOrderTabsComponentProps } from "@/lib/utils/interfaces";
 import { IOrder } from "@/lib/utils/interfaces/order.interface";
-// Types
+
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { ORDER_TYPE } from "@/lib/utils/types";
 import { FlashList } from "@shopify/flash-list";
@@ -24,10 +22,9 @@ import { useTranslation } from "react-i18next";
 const { height } = Dimensions.get("window");
 
 function HomeProcessingOrdersMain(props: IOrderTabsComponentProps) {
-  // Props
+
   const { route } = props;
 
-  // Hooks
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const {
@@ -38,10 +35,8 @@ function HomeProcessingOrdersMain(props: IOrderTabsComponentProps) {
     networkStatusAssigned,
   } = useContext(UserContext);
 
-  // States
   const [orders, setOrders] = useState<IOrder[]>([]);
 
-  // Handlers
   const onInitOrders = () => {
     if (loadingAssigned || errorAssigned) return;
     if (!assignedOrders) return;
@@ -55,22 +50,20 @@ function HomeProcessingOrdersMain(props: IOrderTabsComponentProps) {
     setOrders(_orders ?? []);
   };
 
-  // Use Effect
   useEffect(() => {
     onInitOrders();
   }, [assignedOrders, route.key]);
 
   useEffect(() => {
-    // Trigger refetch when orders length changes
+
     if (orders?.length === 0) {
       refetchAssigned();
     }
   }, [orders?.length]);
-  // Calculate the marginBottom dynamically
-  // const marginBottom = Platform.OS === "ios" ? height * 0.5 : height * 0.01;
-  // Render
 
-    // console.log({assignedOrders: JSON.stringify(orders, null, 2)});
+
+
+
 
 
   return (

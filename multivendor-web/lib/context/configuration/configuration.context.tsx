@@ -1,18 +1,15 @@
 "use client";
 
 import getEnv from "@/environment";
-// GQL
+
 import { GET_CONFIG } from "@/lib/api/graphql/queries";
 import { ENV } from "@/lib/utils/constants";
 
-// Interfaces
 import { IConfigProps } from "@/lib/utils/interfaces";
 
-// Apollo
 import { useQuery } from "@apollo/client";
 import { Libraries } from "@react-google-maps/api";
 
-// Core
 import React, { ReactNode, useContext } from "react";
 
 const ConfigurationContext = React.createContext({} as IConfigProps);

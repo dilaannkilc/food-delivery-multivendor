@@ -1,7 +1,4 @@
-// /*****************************
-//  * environment.js
-//  * path: '/environment.js' (root of your project)
-//  ******************************/
+
 
 import { useContext } from 'react'
 import ConfigurationContext from './src/context/Configuration'

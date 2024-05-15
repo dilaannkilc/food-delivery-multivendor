@@ -21,7 +21,7 @@ const styles = (props = null) =>
     },
     mainContainer: {
       flex: 1,
-      // ...alignment.Pmedium,
+
     },
     formSubContainer: {
       borderRadius: scale(8),
@@ -84,7 +84,6 @@ const styles = (props = null) =>
       width: scale(120)
     },
 
-    // Model for password changing
     modalContainer: {
       backgroundColor: props !== null ? props?.themeBackground : '#FFF',
       display: 'flex',
@@ -134,7 +133,7 @@ const styles = (props = null) =>
       display: 'flex',
       flexDirection: 'row'
     },
-    //Modal
+
     centeredView: {
       flex: 1,
       justifyContent: 'center',

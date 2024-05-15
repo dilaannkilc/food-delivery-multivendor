@@ -28,9 +28,9 @@ function Search(props) {
                 style={[
                   styles(currentTheme).bodyStyleOne,
                   {
-                    textAlignVertical: 'center', // For Android
-                    paddingVertical: 0, // Remove default padding
-                    height: '100%', // Take full height of container
+                    textAlignVertical: 'center', 
+                    paddingVertical: 0, 
+                    height: '100%', 
                     flex: 1,
                     includeFontPadding: false,
                   }

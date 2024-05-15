@@ -1,4 +1,4 @@
-// Interfaces
+
 import {
   IFood,
   IFoodByRestaurantResponse,

@@ -1,4 +1,4 @@
-// SubcategoryList/styles.js
+
 import { StyleSheet } from 'react-native';
 import { scale } from '../../../utils/scaling';
 

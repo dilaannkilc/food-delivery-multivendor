@@ -4,7 +4,7 @@ import ProfileHeader from "@/lib/ui/screen-components/protected/layout/profile/p
 import ProfileTabs from "@/lib/ui/screen-components/protected/layout/profile/profile-tabs";
 import { PaddingContainer } from "@/lib/ui/useable-components/containers";
 import { IProtectedProfileLayoutComponent } from "@/lib/utils/interfaces";
-// import { usePathname, useRouter } from "next/navigation";
+
 
 
 export default function ProfileLayout({
@@ -18,7 +18,7 @@ export default function ProfileLayout({
         <ProfileTabs />
       </div>
       <div className="flex-1 overflow-auto px-4 md:px-0 lg:px-28 xl:px-40">
-        {/* Scrollable Content */}
+        {}
         <PaddingContainer>
           {children}
         </PaddingContainer>

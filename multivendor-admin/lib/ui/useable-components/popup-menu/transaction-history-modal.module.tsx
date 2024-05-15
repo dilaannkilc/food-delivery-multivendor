@@ -18,7 +18,7 @@ const TransactionDetailModal: React.FC<ITransactionDetailModalProps> = ({
   onHide,
   transaction,
 }) => {
-  // Hooks
+
   const t = useTranslations();
   const { CURRENT_SYMBOL } = useConfiguration();
 
@@ -34,7 +34,7 @@ const TransactionDetailModal: React.FC<ITransactionDetailModalProps> = ({
       contentClassName="dark:bg-dark-950 dark:border dark:border-dark-600 dark:text-white"
     >
       <div className="space-y-6 p-4">
-        {/* Basic Transaction Info */}
+        {}
         <div className="rounded-lg bg-gray-50 dark:bg-dark-900 p-4">
           <h3 className="mb-3 text-lg font-semibold">
             {t('Transaction Information')}
@@ -71,7 +71,7 @@ const TransactionDetailModal: React.FC<ITransactionDetailModalProps> = ({
           </div>
         </div>
 
-        {/* Bank Transfer Details */}
+        {}
         {transaction.toBank && (
           <div className="rounded-lg bg-gray-50 dark:bg-dark-900 p-4">
             <h3 className="mb-3 text-lg font-semibold">{t('Bank Details')}</h3>
@@ -110,7 +110,7 @@ const TransactionDetailModal: React.FC<ITransactionDetailModalProps> = ({
           </div>
         )}
 
-        {/* Rider Details */}
+        {}
         {transaction.rider && (
           <div className="rounded-lg bg-gray-50 dark:bg-dark-900 p-4">
             <h3 className="mb-3 text-lg font-semibold">{t('Rider Details')}</h3>
@@ -127,12 +127,7 @@ const TransactionDetailModal: React.FC<ITransactionDetailModalProps> = ({
                 <p className="text-gray-600 dark:text-white">{t('Phone')}</p>
                 <p className="font-medium">{transaction?.rider?.phone}</p>
               </div>
-              {/* <div>
-                <p className="text-gray-600">{t('Account Number')}</p>
-                <p className="font-medium">
-                  {transaction?.rider?.accountNumber}
-                </p>
-              </div> */}
+              {}
               <div>
                 <p className="text-gray-600 dark:text-white">
                   {t('Current Wallet Amount')}
@@ -155,7 +150,7 @@ const TransactionDetailModal: React.FC<ITransactionDetailModalProps> = ({
           </div>
         )}
 
-        {/* Store Details */}
+        {}
         {transaction.store && (
           <div className="rounded-lg bg-gray-50 dark:bg-dark-900 p-4">
             <h3 className="mb-3 text-lg font-semibold">{t('Store Details')}</h3>
@@ -182,13 +177,13 @@ const TransactionDetailModal: React.FC<ITransactionDetailModalProps> = ({
                         icon={faStar}
                         className="text-yellow-500"
                       />
-                    } // Filled Star
+                    } 
                     offIcon={
                       <FontAwesomeIcon
                         icon={faStarHalfAlt}
                         className="text-yellow-500"
                       />
-                    } // Empty Star
+                    } 
                     readOnly
                     cancel={false}
                   />

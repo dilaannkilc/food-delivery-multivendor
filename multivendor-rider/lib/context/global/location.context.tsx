@@ -55,7 +55,7 @@ export const LocationProvider = ({ children }: ILocationProviderProps) => {
       setLocationPermission(false);
     }
   };
-  // Use Effect
+
   useEffect(() => {
     getLocationPermission();
   }, []);

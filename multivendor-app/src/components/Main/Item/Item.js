@@ -65,7 +65,7 @@ function Item(props) {
   }
   return (
     <TouchableOpacity
-      // style={{ padding: scale(10), backgroundColor: 'green' }}
+
       activeOpacity={1}
       onPress={() => navigation.navigate('Restaurant', { ...item })}>
       <View key={item._id} style={styles().mainContainer}>
@@ -116,17 +116,7 @@ function Item(props) {
                   </TextDefault>
                 </View>
               )}
-              {/* <View style={styles(currentTheme).deliveryRestaurantOverlay}>
-                <TextDefault
-                  textColor={currentTheme.fontMainColor}
-                  numberOfLines={1}
-                  small
-                  bolder
-                  center>
-                  {item.deliveryTime + ' '}
-                  {t('min')}
-                </TextDefault>
-              </View> */}
+              {}
             </View>
           </View>
           <View style={styles().descriptionContainer}>

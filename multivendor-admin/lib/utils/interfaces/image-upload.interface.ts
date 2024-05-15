@@ -1,6 +1,5 @@
 import { IGlobalComponentProps } from './global.interface';
 
-// Types
 type ImageOrientation = 'LANDSCAPE' | 'SQUARE';
 type FileTypes =
   | 'image/webp'

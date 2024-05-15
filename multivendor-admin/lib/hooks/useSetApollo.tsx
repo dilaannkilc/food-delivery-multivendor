@@ -13,9 +13,8 @@ import {
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
-import { onError } from '@apollo/client/link/error'; // Import onError utility
+import { onError } from '@apollo/client/link/error'; 
 
-// Utility imports
 import { Subscription } from 'zen-observable-ts';
 import { APP_NAME } from '../utils/constants';
 
@@ -77,7 +76,6 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
     uri: `${SERVER_URL}graphql`,
   });
 
-  // WebSocketLink with error handling
   const wsLink = new WebSocketLink(
     new SubscriptionClient(`${WS_SERVER_URL}graphql`, {
       reconnect: true,
@@ -86,7 +84,6 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
     })
   );
 
-  // Error Handling Link using ApolloLink's onError (for network errors)
   const errorLink = onError(({ networkError, graphQLErrors }) => {
     if (networkError) {
       console.error('Network Error:', networkError);
@@ -123,7 +120,6 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
     });
   };
 
-  // Request Link
   const requestLink = new ApolloLink(
     (operation, forward) =>
       new Observable((observer) => {
@@ -145,7 +141,6 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
       })
   );
 
-  // Terminating Link for split between HTTP and WebSocket
   const terminatingLink = split(({ query }) => {
     const definition = getMainDefinition(query);
     return (

@@ -1,12 +1,10 @@
-// Hooks
+
 import { useApptheme } from "@/lib/context/theme.context";
 import { useContext, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-// Contexts
 import { ConfigurationContext } from "@/lib/context/global/configuration.context";
 
-// Core
 import { Text, View } from "react-native";
 
 import { IOrder, Item } from "@/lib/utils/interfaces/order.interface";
@@ -16,7 +14,7 @@ interface ItemDetailsProps {
 }
 
 const ItemDetails = ({ orderData: order }: ItemDetailsProps) => {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const configuration = useContext(ConfigurationContext);
@@ -94,13 +92,13 @@ const ItemDetails = ({ orderData: order }: ItemDetailsProps) => {
         })}
       </View>
 
-      {/* Divider */}
+      {}
       <View
         className="flex-1 h-[1px] mb-4 mt-4"
         style={{ backgroundColor: appTheme.borderLineColor }}
       />
 
-      {/* Order Amount */}
+      {}
       <View className="flex-1 flex-row justify-between mb-4">
         <Text
           className="font-[Inter] text-[16px] text-base font-[500]"

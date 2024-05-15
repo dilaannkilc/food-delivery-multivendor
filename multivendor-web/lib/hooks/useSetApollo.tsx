@@ -1,7 +1,6 @@
-// Environment
-// import getEnv from "@/environment";
 
-// Apollo
+
+
 import {
   ApolloClient,
   ApolloLink,
@@ -13,16 +12,14 @@ import {
   Operation,
   split,
 } from "@apollo/client";
-import { onError } from "@apollo/client/link/error"; // Import onError utility
+import { onError } from "@apollo/client/link/error"; 
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 
-// GQL
 import { SubscriptionClient } from "subscriptions-transport-ws";
 
-// Utility imports
 import { Subscription } from "zen-observable-ts";
-// import { ENV } from "../utils/constants";
+
 
 import {
   initializeNonce,
@@ -77,7 +74,7 @@ async function fetchMetricsToken(serverUrl?: string): Promise<string | null> {
 }
 
 export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
-  // const { SERVER_URL, WS_SERVER_URL } = getEnv(ENV);
+
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const WS_SERVER_URL = process.env.NEXT_PUBLIC_WS_SERVER_URL;
 
@@ -87,10 +84,9 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
 
   const httpLink = createHttpLink({
     uri: `${SERVER_URL}graphql`,
-    // useGETForQueries: true, 
+
   });
 
-  // WebSocketLink with error handling
   const wsLink = new WebSocketLink(
     new SubscriptionClient(`${WS_SERVER_URL}graphql`, {
       reconnect: true,
@@ -99,7 +95,6 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
     })
   );
 
-  // Error Handling Link using ApolloLink's onError (for network errors)
   const errorLink = onError(({ networkError, graphQLErrors }) => {
     if (networkError) {
       console.error("Network Error:", networkError);
@@ -143,7 +138,6 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
     });
   };
 
-  // Request Link
   const requestLink = new ApolloLink(
     (operation, forward) =>
       new Observable((observer) => {
@@ -165,7 +159,6 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
       })
   );
 
-  // Terminating Link for split between HTTP and WebSocket
   const terminatingLink = split(({ query }) => {
     const definition = getMainDefinition(query);
     return (

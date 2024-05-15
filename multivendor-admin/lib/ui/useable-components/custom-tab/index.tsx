@@ -1,4 +1,4 @@
-// Interface
+
 import { ICustomTabProps } from '@/lib/utils/interfaces';
 import OrdersDashboardDateFilter from '../orders-date-filter';
 import { useTranslations } from 'next-intl';
@@ -10,7 +10,7 @@ const CustomTab = ({
   dateFilter,
   setDateFilter,
 }: ICustomTabProps) => {
-  // Hooks
+
   const t = useTranslations();
   return (
     <div>

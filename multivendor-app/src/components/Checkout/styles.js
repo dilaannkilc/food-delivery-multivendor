@@ -62,16 +62,16 @@ export const useStyles = (theme) =>
       borderColor: theme.newIconColor,
       borderRadius: scale(20),
       padding: scale(20),
-      width: '90%', // Adjust width as needed
-      alignSelf: 'center', // Horizontal centering
-      justifyContent: 'center', // Vertical centering
-      alignItems: 'center', // Ensure content is centered
-      height: 'auto', // Auto height
+      width: '90%', 
+      alignSelf: 'center', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      height: 'auto', 
     },
     backdrop: {
       flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
-      justifyContent: 'center', // Vertical centering of modal
-      alignItems: 'center', // Horizontal centering of modal
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
     }
   })

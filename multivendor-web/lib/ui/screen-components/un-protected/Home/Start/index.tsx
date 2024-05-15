@@ -3,22 +3,19 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-// Components
 import HomeSearch from "@/lib/ui/useable-components/Home-search";
 import TextFlyingAnimation from "@/lib/ui/useable-components/FlyingText";
 
-// Hooks
 import useLocation from "@/lib/hooks/useLocation";
 import useSetUserCurrentLocation from "@/lib/hooks/useSetUserCurrentLocation";
 import LoginInForSavedAddresses from "@/lib/ui/useable-components/LoginForSavedAddresses";
 
-// imports related to auth module
 import AuthModal from "../../authentication";
 import { useAuth } from "@/lib/context/auth/auth.context";
 import { useTranslations } from "next-intl";
 
 const Start: React.FC = () => {
-  // Hooks
+
   const router = useRouter();
   const { getCurrentLocation } = useLocation();
   const { onSetUserLocation } = useSetUserCurrentLocation();
@@ -74,16 +71,16 @@ const Start: React.FC = () => {
         preserveAspectRatio="none"
         className="absolute bottom-0 left-0 w-full h-[100px] "
       >
-        {/* light mode */}
+        {}
         <path
           d="M0,100 C500,60 500,60 1000,100 L1000,200 L0,200 Z"
           fill="white"
           className="block dark:hidden"
         />
-         {/* Dark Mode */}
+         {}
          <path
           d="M0,100 C500,60 500,60 1000,100 L1000,200 L0,200 Z"
-          //"bg-gray-900"
+
           fill="#111827"
           
           className="hidden dark:block"

@@ -186,7 +186,7 @@ function EditAddress(props) {
     FlashMessage({
       message: t('addressUpdated')
     })
-    // show message here
+
     props?.navigation.goBack()
   }
 
@@ -442,11 +442,7 @@ function EditAddress(props) {
           </ScrollView>
         </View>
       </KeyboardAvoidingView>
-      {/* <SearchModal
-        visible={modalVisible}
-        onClose={onClose}
-        onSubmit={onSubmit}
-      /> */}
+      {}
       {modalVisible ? (
         <SearchModal
           visible={modalVisible}

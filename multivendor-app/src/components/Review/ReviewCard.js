@@ -16,7 +16,7 @@ const ReviewCard = ({ theme, name, rating, description, date }) => {
         <StarRating numberOfStars={5} rating={rating} />
         <TextDefault textColor={theme.gray500} isRTL>
           {date}
-          {/* {t('daysAgo')} */}
+          {}
         </TextDefault>
       </View>
       <TextDefault textColor={theme.gray500} numberOfLines={5} isRTL>

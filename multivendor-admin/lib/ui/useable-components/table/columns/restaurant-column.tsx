@@ -1,25 +1,18 @@
 'use client';
 
-// Core
 import Image from 'next/image';
 import { useContext, useState } from 'react';
 
-// Context
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Apollo Client
 import { ApolloError, useMutation } from '@apollo/client';
 
-// Custom Components
 import CustomInputSwitch from '../../custom-input-switch';
 
-// Interfaces
 import { IActionMenuProps, IRestaurantResponse } from '@/lib/utils/interfaces';
 
-// GraphQL Queries and Mutations
 import { DELETE_RESTAURANT } from '@/lib/api/graphql';
 
-// Components
 import ActionMenu from '../../action-menu';
 import { useTranslations } from 'next-intl';
 
@@ -28,19 +21,16 @@ export const RESTAURANT_TABLE_COLUMNS = ({
 }: {
   menuItems: IActionMenuProps<IRestaurantResponse>['items'];
 }) => {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const { showToast } = useContext(ToastContext);
 
-  // State
   const [deletingRestaurant, setDeletingRestaurant] = useState<{
     id: string;
     isActive: boolean;
   }>({ id: '', isActive: false });
 
-  // API
   const [deleteRestaurant] = useMutation(DELETE_RESTAURANT, {
     onCompleted: () => {
       showToast({
@@ -53,7 +43,6 @@ export const RESTAURANT_TABLE_COLUMNS = ({
     onError,
   });
 
-  // Handle checkbox change
   const onHandleRestaurantStatusChange = async (
     isActive: boolean,
     id: string

@@ -1,11 +1,9 @@
-// Prime React
+
 import { InputText } from 'primereact/inputtext';
 import { Calendar } from 'primereact/calendar';
 
-// Interfaces
 import { ITransactionHistoryTableHeaderProps } from '@/lib/utils/interfaces';
 
-// Hooks
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -15,13 +13,11 @@ export default function TransactionHistoryStoreTableHeader({
   dateFilters,
   setDateFilters,
 }: ITransactionHistoryTableHeaderProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const [errors, setErrors] = useState({ startDate: '', endDate: '' });
 
-  // Handlers
   const handleStartDateChange = (e: { value: Date | null }) => {
     const newStartDate = e.value ? e.value.toISOString() : '';
     if (

@@ -30,7 +30,7 @@ const styles = (props = null) =>
     horizontalLine: {
       borderBottomColor: theme.Pink.tagColor,
       borderBottomWidth: scale(1),
-      marginVertical: scale(10), // Adjust this value to control the spacing above and below the line
+      marginVertical: scale(10), 
       width: '90%',
       alignSelf: 'center',
       marginBottom: scale(30)

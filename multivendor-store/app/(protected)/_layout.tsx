@@ -1,15 +1,13 @@
-// Providers
+
 import RestaurantProvider from "@/lib/context/global/restaurant";
 import { SoundProvider } from "@/lib/context/global/sound.context";
 import { useUserContext } from "@/lib/context/global/user.context";
 import { useApptheme } from "@/lib/context/theme.context";
 import SpinnerComponent from "@/lib/ui/useable-components/spinner";
 
-// Expo
 import { Stack } from "expo-router";
 import { StatusBar, StatusBarStyle } from "expo-status-bar";
 
-// React Native Flash Message
 import FlashMessage from "react-native-flash-message";
 
 export default function ProtectedLayout() {
@@ -35,10 +33,7 @@ export default function ProtectedLayout() {
             />
             <Stack.Screen name="chat" options={{ headerShown: false }} />
           </Stack>
-          {/* <Stack.Screen
-            name="bank-management"
-            options={{ headerShown: true }}
-          /> */}
+          {}
           <StatusBar style={currentTheme as StatusBarStyle} />
           <FlashMessage position="bottom" />
         </>

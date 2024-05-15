@@ -1,4 +1,4 @@
-// Core
+
 import {
   LazyQueryResultTuple,
   QueryResult,
@@ -8,10 +8,8 @@ import {
 } from '@apollo/client';
 import { useContext, useEffect, useMemo, useState } from 'react';
 
-// Prime React
 import { FilterMatchMode } from 'primereact/api';
 
-// Interface and Types
 import {
   IActionMenuItem,
   IAddon,
@@ -26,24 +24,19 @@ import {
   IVariationForm,
 } from '@/lib/utils/interfaces';
 
-// Components
 import Table from '@/lib/ui/useable-components/table';
 import FoodsTableHeader from '../header/table-header';
 import { FOODS_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/foods-columns';
 
-// Utilities and Data
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
 import { generateDummyFoods } from '@/lib/utils/dummy';
 
-// Context
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { FoodsContext } from '@/lib/context/restaurant/foods.context';
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 
-// Hooks
 import useToast from '@/lib/hooks/useToast';
 
-// GraphQL
 import { DELETE_FOOD } from '@/lib/api/graphql';
 import {
   GET_ADDONS_BY_RESTAURANT_ID,
@@ -56,16 +49,14 @@ import {
 import { useTranslations } from 'next-intl';
 
 export default function FoodsMain() {
-  // Context
+
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const { onSetFoodContextData, onFoodFormVisible } = useContext(FoodsContext);
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
 
-  // Hooks
   const t = useTranslations();
   const { showToast } = useToast();
 
-  // State - Table
   const [foodItems, setFoodItems] = useState<IFoodNew[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [deleteId, setDeleteId] = useState({ id: '', categoryId: '' });
@@ -75,7 +66,6 @@ export default function FoodsMain() {
     global: { value: '' as string | null, matchMode: FilterMatchMode.CONTAINS },
   });
 
-  // Query
   const {
     data: foodsData,
     loading,
@@ -116,7 +106,6 @@ export default function FoodsMain() {
     GET_SUBCATEGORIES
   ) as QueryResult<ISubCategoryResponse>;
 
-  //Mutation
   const [deleteFood, { loading: mutationLoading }] = useMutation(DELETE_FOOD, {
     refetchQueries: [
       {
@@ -135,7 +124,6 @@ export default function FoodsMain() {
     },
   });
 
-  // Memoized Data
   const addons = useMemo(
     () =>
       data?.restaurant?.addons.map((addon: IAddon) => {
@@ -144,7 +132,6 @@ export default function FoodsMain() {
     [data?.restaurant?.addons]
   );
 
-  // Handlers
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const _filters = { ...filters };
@@ -152,7 +139,7 @@ export default function FoodsMain() {
     setFilters(_filters);
     setGlobalFilterValue(value);
   };
-  // Restaurant Profile Complete
+
   function onFetchFoodsByRestaurantCompleted() {
     if (!foodsData) return;
     const refined_food_items: IFoodNew[] = [];
@@ -184,7 +171,7 @@ export default function FoodsMain() {
     setFoodItems(refined_food_items);
     setIsLoading(false);
   }
-  // Restaurant Zone Info Error
+
   function onErrorFetchFoodsByRestaurant() {
     showToast({
       type: 'error',
@@ -194,7 +181,6 @@ export default function FoodsMain() {
     });
   }
 
-  // Constants
   const menuItems: IActionMenuItem<IFoodNew>[] = [
     {
       label: t('Edit'),
@@ -218,7 +204,7 @@ export default function FoodsMain() {
           const _variations =
             (data?.variations?.map(({ discounted, ...variation }) => {
               _variation = { ...variation };
-              // delete _variation.__typename;
+
 
               return {
                 ..._variation,
@@ -257,7 +243,6 @@ export default function FoodsMain() {
     },
   ];
 
-  // Use Effect
   useEffect(() => {
     onFetchFoodsByRestaurantCompleted();
   }, [foodsData?.restaurant.categories]);

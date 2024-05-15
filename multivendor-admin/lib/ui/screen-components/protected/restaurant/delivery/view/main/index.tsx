@@ -1,24 +1,20 @@
-// Core
+
 import { Form, Formik } from 'formik';
 import React, { useContext } from 'react';
 
-// Custom Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomNumberField from '@/lib/ui/useable-components/number-input-field';
 import UpdateRestaurantLocationBounds from '@/lib/ui/useable-components/google-maps/location-bounds-profile-restaurants';
 
-// Context
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 import { ProfileContext } from '@/lib/context/restaurant/profile.context';
 
-// Utilities & Types
 import { RestaurantDeliveryErrors } from '@/lib/utils/constants';
 import { IRestaurantDeliveryForm } from '@/lib/utils/interfaces';
 import { onErrorMessageMatcher } from '@/lib/utils/methods';
 import { DeliverySchema } from '@/lib/utils/schema/delivery';
 
-// GraphQL
 import { ApolloError, useMutation } from '@apollo/client';
 import { UPDATE_RESTAURANT_DELIVERY } from '@/lib/api/graphql';
 import { GoogleMapsContext } from '@/lib/context/global/google-maps.context';
@@ -37,8 +33,7 @@ const DeliveryMain = () => {
     ...restaurantProfileResponse.data?.restaurant.deliveryInfo,
   };
 
-  // API
-  // Mutation
+
   const [createRestaurant] = useMutation(UPDATE_RESTAURANT_DELIVERY, {
     onError,
     onCompleted: () => {
@@ -51,7 +46,6 @@ const DeliveryMain = () => {
     },
   });
 
-  // Handlers
   const onCreateDelivery = async (data: IRestaurantDeliveryForm) => {
     try {
       await createRestaurant({

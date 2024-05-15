@@ -1,12 +1,11 @@
 export const az = {
-  // Navigation
+
   continue: "Davam et",
   Wallet: "Pul kisəsi",
   Home: "Əsas səhifə",
   Earnings: "Qazanc",
   Profile: "Profil",
 
-  // FAQs
   faq1: "Sifarişi necə verim?",
   faq1Description:
     "Sifariş vermək üçün menyumuzda gəzin, sifariş etmək istədiyiniz məhsulları seçin və kassaya keçin. Sifarişi təsdiqləməzdən əvvəl üstünlük verdiyiniz ödəniş metodunu və çatdırılma ünvanını seçə bilərsiniz.",
@@ -29,7 +28,6 @@ export const az = {
   faq7Description:
     "Təəssüf ki, eyni sifariş daxilində bir neçə restorandan seçim edə bilməzsiniz. Ancaq eyni zamanda fərqli restoranlardan ayrı-ayrılıqda sifariş verə bilərsiniz.",
 
-  // Earnings
   "Earnings Summary": "Qazanc Xülasəsi",
   Deliveries: "Çatdırılmalar",
   "Total Earnings": "Ümumi Qazanc",
@@ -39,13 +37,11 @@ export const az = {
   "Order Date": "Sifariş Tarixi",
   "Earnings Order Details": "Qazanc Sifariş Detalları",
 
-  // Flash messages
   "Order placed successfully": "Sifariş uğurla verildi",
   "Order cancelled successfully": "Sifariş uğurla ləğv edildi",
   "Error while placing order": "Sifariş verərkən xəta baş verdi",
   "Error while cancelling order": "Sifarişi ləğv edərkən xəta baş verdi",
 
-  // Other messages
   "Please enter your name": "Adınızı daxil edin",
   "Please enter your email": "E-poçtunuzu daxil edin",
   "Please enter your password": "Şifrənizi daxil edin",
@@ -238,7 +234,7 @@ export const az = {
   "No new orders yet!": "Hələ yeni sifariş yoxdur!",
   "You don't have any orders yet!": "Hələ heç bir sifarişiniz yoxdur!",
   "No delivered orders yet!": "Hələ çatdırılmış sifariş yoxdur!",
-  // Vehicle Screen
+
   "Vehicle Details": "Nəqliyyat Vasitəsi Detalları",
   "Vehicle Number": "Nəqliyyat Vasitəsi Nömrəsi",
   "Vehicle Color": "Nəqliyyat Vasitəsi Rəngi",
@@ -285,21 +281,18 @@ export const az = {
   "Vehicle documents too large": "Nəqliyyat vasitəsi sənədləri həddindən böyükdür",
   "Vehicle documents format not supported": "Nəqliyyat vasitəsi sənədləri formatı dəstəklənmir",
 
-  // Chat Screen
   "Contact Customer": "Müştəri ilə Əlaqə",
   "Type a message": "Mesaj yazın",
   "Send": "Göndər",
   "Message sent": "Mesaj göndərildi",
   "Message failed": "Mesaj uğursuz oldu",
 
-  // Earnings Screen
   "Please select a date range": "Zəhmət olmasa, tarix aralığı seçin",
   "Please select a start date": "Zəhmət olmasa, başlama tarixini seçin",
   "Please select an end date": "Zəhmət olmasa, bitmə tarixini seçin",
   "Start date cannot be after end date": "Başlama tarixi bitmə tarixindən sonra ola bilməz",
   "Please log in to view your earnings": "Qazancınızı görmək üçün daxil olun",
 
-  // Profile Forms
   "Unable to update availability": "Mövcudluq yenilənə bilmədi",
   "rider name": "Kuryer Adı",
   "rider id": "Kuryer ID",

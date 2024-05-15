@@ -1,7 +1,6 @@
-// Custom Components
+
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 
-// Interfaces
 import { IRestaurantsTableHeaderProps } from '@/lib/utils/interfaces';
 import { useTranslations } from 'next-intl';
 
@@ -9,7 +8,7 @@ export default function RestaurantsTableHeader({
   globalFilterValue,
   onGlobalFilterChange,
 }: IRestaurantsTableHeaderProps) {
-  // Hooks
+
   const t = useTranslations();
 
   return (

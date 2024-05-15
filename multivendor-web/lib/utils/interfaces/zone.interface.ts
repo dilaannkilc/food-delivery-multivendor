@@ -9,7 +9,7 @@ export interface IMapZone {
 }
 
 interface PolygonLocation {
-  coordinates: number[][][]; // An array of rings; each ring is an array of [longitude, latitude]
+  coordinates: number[][][]; 
   __typename: "Polygon";
 }
 

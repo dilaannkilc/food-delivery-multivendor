@@ -12,7 +12,7 @@ const InternetContext = createContext<InternetContextProps | undefined>(
 );
 
 export const useInternet = (): InternetContextProps => {
-  // Hooks
+
 
   const context = useContext(InternetContext);
   if (!context) {

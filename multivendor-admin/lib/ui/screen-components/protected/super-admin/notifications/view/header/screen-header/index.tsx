@@ -1,16 +1,15 @@
-//Components
+
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import { INotificationHeaderProps } from '@/lib/utils/interfaces/notification.interface';
 
-// Icons
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 
 export default function NotificationHeader({
   handleButtonClick,
 }: INotificationHeaderProps) {
-  // Hooks
+
   const t = useTranslations();
 
   return (

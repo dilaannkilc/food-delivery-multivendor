@@ -1,12 +1,11 @@
 export const th = {
-  // Navigation
+
   continue: "ดำเนินการต่อ",
   Wallet: "กระเป๋าเงิน",
   Home: "หน้าหลัก",
   Earnings: "รายได้",
   Profile: "โปรไฟล์",
 
-  // FAQs
   faq1: "ฉันจะสั่งอาหารได้อย่างไร?",
   faq1Description:
     "ในการสั่งอาหาร เพียงแค่ดูเมนูของเรา เลือกรายการที่คุณต้องการสั่ง และดำเนินการไปยังการชำระเงิน คุณสามารถเลือกวิธีการชำระเงินและที่อยู่จัดส่งที่คุณต้องการก่อนยืนยันการสั่งซื้อ",
@@ -29,7 +28,6 @@ export const th = {
   faq7Description:
     "น่าเสียดายที่คุณไม่สามารถเลือกร้านอาหารหลายแห่งภายในคำสั่งซื้อเดียวกันได้ อย่างไรก็ตาม คุณสามารถสั่งซื้อแยกจากร้านอาหารต่างๆ ในเวลาเดียวกันได้",
 
-  // Earnings
   "Earnings Summary": "สรุปรายได้",
   Deliveries: "การจัดส่ง",
   "Total Earnings": "รายได้ทั้งหมด",
@@ -39,13 +37,11 @@ export const th = {
   "Order Date": "วันที่สั่งซื้อ",
   "Earnings Order Details": "รายละเอียดคำสั่งซื้อรายได้",
 
-  // Flash messages
   "Order placed successfully": "สั่งซื้อสำเร็จ",
   "Order cancelled successfully": "ยกเลิกคำสั่งซื้อสำเร็จ",
   "Error while placing order": "เกิดข้อผิดพลาดขณะสั่งซื้อ",
   "Error while cancelling order": "เกิดข้อผิดพลาดขณะยกเลิกคำสั่งซื้อ",
 
-  // Other messages
   "Please enter your name": "กรุณากรอกชื่อของคุณ",
   "Please enter your email": "กรุณากรอกอีเมลของคุณ",
   "Please enter your password": "กรุณากรอกรหัสผ่านของคุณ",

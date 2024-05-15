@@ -1,27 +1,23 @@
-// Expo
+
 import { Drawer } from "expo-router/drawer";
 
-// Components
 import CustomDrawerContent from "@/lib/ui/screen-components/home/drawer/drawer-content";
 
-// Icons
 import {
   BikeRidingIcon,
   CardIcon,
   ClockIcon,
   HelpIcon,
-  // UserIcon,
+
   HomeIcon,
   LanguageIcon,
 } from "@/lib/ui/useable-components/svg";
 import { Ionicons } from "@expo/vector-icons";
 
-// Core
 import { ColorSchemeName, TouchableOpacity } from "react-native";
 
-// React Navigation
 import { DrawerActions } from "@react-navigation/native";
-// Hooks
+
 
 import { AppTheme } from "@/lib/utils/interfaces/app-theme";
 import { memo } from "react";
@@ -69,7 +65,7 @@ const DrawerMain = ({
         drawerStatusBarAnimation: "slide",
         drawerItemStyle: {
           borderRadius: 0,
-          // marginTop: 4,
+
         },
         drawerStyle: {
           backgroundColor: appTheme?.themeBackground,

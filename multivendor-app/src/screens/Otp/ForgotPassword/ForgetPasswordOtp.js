@@ -78,15 +78,13 @@ function ForgotPasswordOtp(props) {
               bold
                 textColor={currentTheme.fontSecondColor}
                 isRTL
-              // style={{
-              //   paddingBottom: scale(5)
-              // }}
+
+
+
             >
               {t('otpSentToEmail')}
             </TextDefault>
-            {/* <TextDefault H5 bold textColor={currentTheme.newFontcolor}>
-              {email}
-            </TextDefault> */}
+            {}
           </View>
           <View>
             <OTPInputView

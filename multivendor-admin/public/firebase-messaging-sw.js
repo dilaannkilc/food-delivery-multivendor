@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 importScripts(
   'https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js'
 );
@@ -48,7 +48,7 @@ self.addEventListener('notificationclick', (event) => {
 
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then(() => {
-      // Otherwise, open a new window/tab
+
       return clients.openWindow(redirectUrl);
     })
   );

@@ -1,10 +1,8 @@
-// Core
+
 import { Form, Formik, FormikHelpers } from 'formik';
 
-// Prime React
 import { Sidebar } from 'primereact/sidebar';
 
-// Interface and Types
 import { IQueryResult } from '@/lib/utils/interfaces';
 import { IRiderForm } from '@/lib/utils/interfaces/forms';
 import {
@@ -12,24 +10,20 @@ import {
   IRiderZonesResponse,
 } from '@/lib/utils/interfaces';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomDropdownComponent from '@/lib/ui/useable-components/custom-dropdown';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 
-// Utilities and Constants
 import {
-  RiderErrors /* , VEHICLE_TYPE  */,
+  RiderErrors ,
   VEHICLE_TYPE,
 } from '@/lib/utils/constants';
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 import { RiderSchema } from '@/lib/utils/schema/rider';
 
-//Toast
 import useToast from '@/lib/hooks/useToast';
 
-//GraphQL
 import {
   CREATE_RIDER,
   EDIT_RIDER,
@@ -60,23 +54,18 @@ export default function RiderAddForm({
     zone: rider ? { label: rider.zone.title, code: rider.zone._id } : null,
   };
 
-
-  // Hooks
   const t = useTranslations();
   const { showToast } = useToast();
 
-  // Query
   const { data } = useQueryGQL(GET_ZONES, {
     fetchPolicy: 'cache-and-network',
   }) as IQueryResult<IRiderZonesResponse | undefined, undefined>;
 
-  // Mutation
   const mutation = rider ? EDIT_RIDER : CREATE_RIDER;
   const [mutate, { loading: mutationLoading }] = useMutation(mutation, {
     refetchQueries: [{ query: GET_RIDERS }],
   });
 
-  // Form Submission
   const handleSubmit = (
     values: IRiderForm,
     { resetForm }: FormikHelpers<IRiderForm>
@@ -145,8 +134,8 @@ export default function RiderAddForm({
                 validationSchema={RiderSchema}
                 onSubmit={handleSubmit}
                 enableReinitialize
-                validateOnChange={false} // Disable validation on change
-                validateOnBlur={false} // Disable validation on blur
+                validateOnChange={false} 
+                validateOnBlur={false} 
               >
                 {({
                   values,
@@ -282,12 +271,12 @@ export default function RiderAddForm({
                           name="phone"
                           showLabel={true}
                           value={values?.phone?.toString()}
-                          // onChange={(code: string) => {
-                          //   setFieldValue('phone', code);
-                          // }}
+
+
+
                           onChange={(code: string) => {
                             setFieldValue('phone', code);
-                            setFieldTouched('phone', true, false); // Mark as touched immediately
+                            setFieldTouched('phone', true, false); 
                           }}
                           style={{
                             borderColor: onErrorMessageMatcher(

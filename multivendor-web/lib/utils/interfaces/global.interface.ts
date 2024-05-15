@@ -38,7 +38,7 @@ export interface ILazyQueryResult<T, V> {
   data: T | null;
   error: Error | null;
   loading: boolean;
-  fetch: (variables?: V) => void; // for useLazyQuery
+  fetch: (variables?: V) => void; 
   isError: boolean;
   isSuccess: boolean;
 }
@@ -46,7 +46,7 @@ export interface IQueryResult<T, V> {
   data: T | null;
   error: Error | null;
   loading: boolean;
-  refetch: (variables?: V) => void; // for useQuery
+  refetch: (variables?: V) => void; 
   isError: boolean;
   isSuccess: boolean;
 }
@@ -62,7 +62,7 @@ export interface INotificationComponentProps {
   message: string;
 }
 
-/* Stepper */
+
 
 export interface IStepperFormProps {
   order: number;

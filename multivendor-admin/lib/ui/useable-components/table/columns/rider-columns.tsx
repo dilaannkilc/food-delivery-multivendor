@@ -1,31 +1,27 @@
-// Core
+
 import { useContext, useState } from 'react';
 
-// Custom Components
 import ActionMenu from '@/lib/ui/useable-components/action-menu';
 import CustomInputSwitch from '../../custom-input-switch';
 
-// Interfaces and Types
 import { IActionMenuProps } from '@/lib/utils/interfaces/action-menu.interface';
 import { IRiderResponse } from '@/lib/utils/interfaces/rider.interface';
 
-// GraphQL
 import { GET_RIDERS, TOGGLE_RIDER } from '@/lib/api/graphql';
 import { useMutation } from '@apollo/client';
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { useTranslations } from 'next-intl';
 import { toTextCase } from '@/lib/utils/methods';
-// import { toTextCase } from '@/lib/utils/methods';
+
 
 export const RIDER_TABLE_COLUMNS = ({
   menuItems,
 }: {
   menuItems: IActionMenuProps<IRiderResponse>['items'];
 }) => {
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const [isLoading, setIsLoading] = useState(false);
   const [selectedRider, setSelectedRider] = useState<{
     id: string;
@@ -34,7 +30,6 @@ export const RIDER_TABLE_COLUMNS = ({
 
   const { showToast } = useContext(ToastContext);
 
-  // GraphQL mutation hook
   const [mutateToggle, { loading }] = useMutation(TOGGLE_RIDER, {
     refetchQueries: [{ query: GET_RIDERS }],
     awaitRefetchQueries: true,
@@ -56,7 +51,6 @@ export const RIDER_TABLE_COLUMNS = ({
     },
   });
 
-  // Handle availability toggle
   const onHandleBannerStatusChange = async (isActive: boolean, id: string) => {
     try {
       setIsLoading(true);

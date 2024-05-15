@@ -1,10 +1,10 @@
-/******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
+ (() => { 
+ 	"use strict";
 var __webpack_exports__ = {};
 
 
 self.fallback = async request => {
-  // https://developer.mozilla.org/en-US/docs/Web/API/RequestDestination
+
   switch (request.destination) {
     case 'document':
       if (true) return caches.match("/offline.html", {
@@ -24,5 +24,5 @@ self.fallback = async request => {
       return Response.error();
   }
 };
-/******/ })()
+ })()
 ;

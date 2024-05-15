@@ -1,23 +1,17 @@
 'use client';
 
-// Interfaces
 import { IIconTextFieldProps } from '@/lib/utils/interfaces';
 
-// Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-// Prime React
 import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
 import { InputText } from 'primereact/inputtext';
 
-// Utilities
 import { twMerge } from 'tailwind-merge';
 
-// Components
 import InputSkeleton from '../custom-skeletons/inputfield.skeleton';
 
-// Styles
 
 export default function CustomIconTextField({
   className,

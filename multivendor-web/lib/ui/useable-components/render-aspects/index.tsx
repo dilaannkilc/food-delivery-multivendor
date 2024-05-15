@@ -3,36 +3,34 @@ import { useTranslations } from "next-intl";
 import { Button } from "primereact/button";
 import { twMerge } from "tailwind-merge";
 
-// Aspect button component - Toggleable buttons for rating aspects (Food quality, delivery time, etc)
 const AspectButton = ({
   aspect,
   selected,
   onToggle,
 }: {
-  aspect: string; // Aspect text (e.g., "Food quality")
-  selected: boolean; // Whether this aspect is currently selected
-  onToggle: (aspect: string) => void; // Toggle callback
+  aspect: string; 
+  selected: boolean; 
+  onToggle: (aspect: string) => void; 
 }) => (
   <Button
     onClick={() => onToggle(aspect)}
     className={twMerge(
       "px-4 py-2 rounded-full border border-gray-400  text-sm font-medium transition-colors",
       selected
-        ? "bg-primary-color text-white border-primary-color" // Selected style
-        : "bg-white dark:text-gray-300 dark:bg-gray-600 text-gray-700 border-gray-400 hover:bg-gray-50" // Unselected style
+        ? "bg-primary-color text-white border-primary-color" 
+        : "bg-white dark:text-gray-300 dark:bg-gray-600 text-gray-700 border-gray-400 hover:bg-gray-50" 
     )}
   >
     {aspect}
   </Button>
 );
 
-// Render the aspects selection UI (reused in both step 2 and 3)
 function RenderAspects({
   selectedAspects,
   handleAspectToggle,
 }: {
-  selectedAspects: string[]; // Array of selected aspects
-  handleAspectToggle: (aspect: string) => void; // Toggle callback
+  selectedAspects: string[]; 
+  handleAspectToggle: (aspect: string) => void; 
 }) {
   const t = useTranslations()
   return (

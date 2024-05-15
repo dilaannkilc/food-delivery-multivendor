@@ -85,15 +85,13 @@ function PhoneOtp(props) {
                 bold
                 textColor={currentTheme.color6}
                 isRTL
-                // style={{
-                //   paddingBottom: scale(5)
-                // }}
+
+
+
               >
                 {t('enterOtp')}
               </TextDefault>
-              {/* <TextDefault H5 bold textColor={currentTheme.fontfourthColor}>
-                {phone}
-              </TextDefault> */}
+              {}
             </View>
             <View>
               <OTPInputView

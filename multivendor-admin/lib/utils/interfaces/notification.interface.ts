@@ -40,7 +40,6 @@ export interface IWebNotification {
   createdAt: string;
 }
 
-// Define the structure of the query result object
 export interface INotificationsDataResponse {
   webNotifications: IWebNotification[];
 }

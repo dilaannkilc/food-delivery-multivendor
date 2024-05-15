@@ -1,9 +1,7 @@
 'use client';
 
-// Core
 import { createContext, useContext, useEffect, useState } from 'react';
 
-// Interface
 import {
   IProvider,
   IQueryResult,
@@ -13,28 +11,23 @@ import {
   IRestaurantsByOwnerResponseGraphQL,
 } from '@/lib/utils/interfaces';
 
-// API
 import { GET_RESTAURANTS_BY_OWNER } from '@/lib/api/graphql';
 
-// Hooks
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 
-// Context
 import { VendorContext } from './vendor.context';
 
-// Method
 import { onFilterObjects } from '@/lib/utils/methods';
 
-// Types
 
 export const RestaurantContext = createContext<IRestaurantContextProps>(
   {} as IRestaurantContextProps
 );
 
 export const RestaurantProvider = ({ children }: IProvider) => {
-  // Context
+
   const { vendorId } = useContext(VendorContext);
-  // States
+
   const [restaurantContextData, setRestaurantContextData] =
     useState<IRestaurantContextData>({
       id: '',
@@ -47,11 +40,10 @@ export const RestaurantProvider = ({ children }: IProvider) => {
 
   const [isRestaurantFormVisible, setRestaurantFormVisible] =
     useState<boolean>(false);
-  // Form Flow
+
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isRestaurantModifed, setRestaurantModifed] = useState<boolean>(false);
 
-  // API
   const restaurantByOwnerResponse = useQueryGQL(
     GET_RESTAURANTS_BY_OWNER,
     {
@@ -102,7 +94,6 @@ export const RestaurantProvider = ({ children }: IProvider) => {
     });
   };
 
-  // Use Effect
   useEffect(() => {
     onHandlerFilterData();
   }, [restaurantContextData?.globalFilter, isRestaurantModifed]);
@@ -112,16 +103,16 @@ export const RestaurantProvider = ({ children }: IProvider) => {
   }, [vendorId]);
 
   const value: IRestaurantContextProps = {
-    // Vendor Information
+
     vendorId,
-    // Form Visibility
+
     isRestaurantFormVisible,
     onSetRestaurantFormVisible,
-    // Restaurant Data
+
     restaurantByOwnerResponse,
     restaurantContextData,
     onSetRestaurantContextData,
-    // Navigation and State Management
+
     activeIndex,
     onActiveStepChange,
     onClearRestaurntsData,

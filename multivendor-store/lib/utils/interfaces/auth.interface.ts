@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import { Dispatch, SetStateAction } from "react";
 import { IGlobalProviderProps } from "./global.interface";

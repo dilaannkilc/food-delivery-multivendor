@@ -8,7 +8,7 @@ export function usePrimeReactLocales() {
   const t = useTranslations("Password");
 
   useEffect(() => {
-    // Define custom translation messages
+
     
     addLocale("en", {
       weak: t("weak"),
@@ -17,7 +17,6 @@ export function usePrimeReactLocales() {
       passwordPrompt: t("enter_a_password"),
     });
 
-    // Apply the current locale (adjust if you're using `ar`, `he`, etc.)
     setLocale("en");
   }, [t]);
 }

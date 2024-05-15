@@ -1,12 +1,11 @@
 export const pl = {
-  // Navigation
+
   continue: "Kontynuuj",
   Wallet: "Portfel",
   Home: "Strona główna",
   Earnings: "Zarobki",
   Profile: "Profil",
 
-  // FAQs
   faq1: "Jak złożyć zamówienie?",
   faq1Description:
     "Aby złożyć zamówienie, po prostu przeglądaj nasze menu, wybierz pozycje, które chcesz zamówić, i przejdź do kasy. Możesz wybrać preferowaną metodę płatności i adres dostawy przed potwierdzeniem zamówienia.",
@@ -29,7 +28,6 @@ export const pl = {
   faq7Description:
     "Niestety, nie możesz wybierać z wielu restauracji w ramach jednego zamówienia. Możesz jednak składać osobne zamówienia z różnych restauracji w tym samym czasie.",
 
-  // Earnings
   "Earnings Summary": "Podsumowanie zarobków",
   Deliveries: "Dostawy",
   "Total Earnings": "Łączne zarobki",
@@ -39,13 +37,11 @@ export const pl = {
   "Order Date": "Data zamówienia",
   "Earnings Order Details": "Szczegóły zarobków z zamówienia",
 
-  // Flash messages
   "Order placed successfully": "Zamówienie złożone pomyślnie",
   "Order cancelled successfully": "Zamówienie anulowane pomyślnie",
   "Error while placing order": "Błąd podczas składania zamówienia",
   "Error while cancelling order": "Błąd podczas anulowania zamówienia",
 
-  // Other messages
   "Please enter your name": "Proszę podać swoje imię",
   "Please enter your email": "Proszę podać swój email",
   "Please enter your password": "Proszę podać swoje hasło",

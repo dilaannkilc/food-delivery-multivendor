@@ -328,7 +328,7 @@ export const ps = {
     statusAssigned: 'ټاکل شوی',
     statusPicked: 'اخیستل شوی',
     statusDelivered: 'تحویل شوی',
-    ///
+
     selectLocation: 'ځای غوره کړئ',
     languageSetting: 'د ژبې ترتیب',
     receiveOfferByEmail: 'زه غواړم له موږ څخه د برېښنالیک له لارې ځانګړي وړاندیزونه او پروموشنونه ترلاسه کړم',

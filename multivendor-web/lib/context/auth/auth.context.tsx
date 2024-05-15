@@ -1,6 +1,5 @@
 "use client";
 
-// Hooks
 import useToast from "@/lib/hooks/useToast";
 import { useTranslations } from "next-intl";
 import {
@@ -13,10 +12,8 @@ import {
   useState,
 } from "react";
 
-// Context
 import { useConfig } from "../configuration/configuration.context";
 
-// GQL
 import {
   CREATE_USER,
   EMAIL_EXISTS,
@@ -28,7 +25,6 @@ import {
   SENT_OTP_TO_PHONE,
 } from "@/lib/api/graphql";
 
-// Interface & Types
 import {
   IAuthContextProps,
   IAuthFormData,
@@ -45,10 +41,8 @@ import {
   IUserLoginArguments,
 } from "@/lib/utils/interfaces";
 
-// Apollo
 import { ApolloError, useLazyQuery, useMutation } from "@apollo/client";
 
-// Google API
 import { onUseLocalStorage } from "@/lib/utils/methods/local-storage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useRouter } from "next/navigation";
@@ -56,7 +50,7 @@ import { useRouter } from "next/navigation";
 const AuthContext = createContext({} as IAuthContextProps);
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
-  // States
+
   const [activePanel, setActivePanel] = useState(0);
   const [authToken, setAuthToken] = useState("");
   const [user, setUser] = useState<ILoginProfile | null>(null);
@@ -66,7 +60,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [isRegistering, setIsRegistering] = useState(false);
   const [refetchProfileData, setRefetchProfileData] = useState(false);
 
-  // Hooks
   const {
     GOOGLE_CLIENT_ID,
     SKIP_EMAIL_VERIFICATION,
@@ -77,7 +70,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const t = useTranslations();
   const router = useRouter();
 
-  // Mutations
   const [mutateEmailCheck] = useMutation<
     IEmailExistsResponse,
     undefined | { email: string }
@@ -103,7 +95,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     undefined | { password: string; email: string }
   >(RESET_PASSWORD);
 
-  // Checkers
   async function checkEmailExists(email: string): Promise<IEmailExists> {
     try {
       setIsLoading(true);
@@ -133,15 +124,14 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       const resp = await mutatePhoneCheck({ variables: { phone } });
       const exists = Boolean(resp.data?.phoneExist?._id);
 
-      // if (exists) {
-      // showToast({
-      //   type: "error",
-      //   title: t("phone_check_error"),
-      //   message: t("phone_already_registered"), // fix punctuation in translations file
-      //   sticky: true,
-      // });
-      //}
-      return exists; // true = already registered, false = not registered
+
+
+
+
+
+
+
+      return exists; 
     } catch (err) {
       const error = err as ApolloError;
       console.error("Error while checking phone:", error);
@@ -153,13 +143,12 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         duration: 3000
       });
 
-      // Safer fallback: treat as "exists" so the flow stops on error
       return true;
     } finally {
       setIsLoading(false);
     }
   }
-  // handlers
+
 
   const handlePasswordReset = async (
     password: string,
@@ -179,7 +168,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         });
         setFormData({} as IAuthFormData);
         setActivePanel(0);
-        // setIsAuthModalVisible(false);
+
       }
     } catch (err) {
       const error = err as ApolloError;
@@ -219,7 +208,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         type: "error",
         title: t("login_error"),
         message: t("invalid_credentials"),
-        // sticky: true,
+
       });
     } finally {
       setIsLoading(false);
@@ -294,7 +283,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [fetchProfile] = useLazyQuery(GET_USER_PROFILE, {
     fetchPolicy: "network-only",
   });
-  // GQL Handlers
+
   async function onLoginCompleted(data: ILoginProfileResponse) {
     try {
       setUser(data.login);
@@ -348,7 +337,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  // OTP Handlers
   async function sendOtpToEmailAddress(email: string, type?: string) {
     try {
       setIsLoading(true);
@@ -440,11 +428,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  // Use Effects
   useEffect(() => {
-    if (typeof window === "undefined") return; // ⛔ Prevent SSR execution
+    if (typeof window === "undefined") return; 
 
-    // Local Vars
     const token = localStorage.getItem("token");
 
     if (token) {

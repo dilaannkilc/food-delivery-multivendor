@@ -209,12 +209,11 @@ function Addresses() {
     setDeleteModalVisible(false)
     navigation.navigate('AddNewAddress', {
       id: address._id,
-      longitude: +longitude, // Convert string to number
+      longitude: +longitude, 
       latitude: +latitude,
       prevScreen: 'Addresses'
     })
 
-    // setSelectedAddressId(null)
   }
 
   const deleteMyAddress = () => {
@@ -257,7 +256,7 @@ function Addresses() {
                       <CheckboxBtn checked={selectedAddresses.includes(address._id)} onPress={() => handleAddressSelection(address._id)} />
                     </View>
                   )}
-                  {/* location icon */}
+                  {}
                   <View style={[styles(currentTheme).homeIcon]}>
                     {addressIcons[address.label]
                       ? React.createElement(addressIcons[address.label], {
@@ -268,19 +267,19 @@ function Addresses() {
                         })}
                   </View>
 
-                  {/* addresses */}
+                  {}
                   <View style={styles(currentTheme).actionButton}>
-                    {/* location title */}
+                    {}
                     <View style={[styles().titleAddress]}>
                       <TextDefault textColor={currentTheme.darkBgFont} style={styles(currentTheme).labelStyle} H5 bolder isRTL>
                         {t(address.label)}
                       </TextDefault>
                     </View>
-                    {/* location description */}
+                    {}
                     <View style={styles(currentTheme).midContainer}>
                       <View style={styles(currentTheme).addressDetail}>
                         <TextDefault numberOfLines={1} textColor={currentTheme.darkBgFont} style={{ ...alignment.PBxSmall }} isRTL>
-                          {/* {address.deliveryAddress} */}
+                          {}
                           {address.deliveryAddress.slice(0, 35) + (address.deliveryAddress.length > 35 ? '...' : '')}
                         </TextDefault>
                       </View>
@@ -289,21 +288,21 @@ function Addresses() {
                 </View>
 
                 {!isEditMode && (
-                  //  location edit and delete buttons
+
                   <View style={styles(currentTheme).buttonsAddress}>
                     <TouchableOpacity
                       disabled={loadingAddressMutation || loadingDeleteBulk}
                       activeOpacity={0.7}
-                      // onPress={() => {
-                      //   const [longitude, latitude] =
-                      //     address.location.coordinates
-                      //   navigation.navigate('AddNewAddress', {
-                      //     id: address._id,
-                      //     longitude: +longitude,
-                      //     latitude: +latitude,
-                      //     prevScreen: 'Addresses'
-                      //   })
-                      // }}
+
+
+
+
+
+
+
+
+
+
                       onPress={() => {
                         setSelectedAddressId(address)
                         setDeleteModalVisible(true)
@@ -312,19 +311,7 @@ function Addresses() {
                       <MaterialCommunityIcons name='dots-horizontal-circle-outline' size={scale(24)} color={currentTheme.darkBgFont} />
                     </TouchableOpacity>
 
-                    {/* <TouchableOpacity
-                      activeOpacity={0.7}
-                      disabled={loadingAddressMutation}
-                      onPress={() => {
-                        mutate({ variables: { id: address._id } })
-                      }}
-                    >
-                      <EvilIcons
-                        name='trash'
-                        size={scale(33)}
-                        color={currentTheme.darkBgFont}
-                      />
-                    </TouchableOpacity> */}
+                    {}
                   </View>
                 )}
               </View>

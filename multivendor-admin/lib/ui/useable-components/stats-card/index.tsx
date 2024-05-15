@@ -1,10 +1,8 @@
-// Core
+
 import Link from 'next/link';
 
-// Interface
 import { IStatsCardProps } from '@/lib/utils/interfaces';
 
-// Methods
 import { formatNumber, formatNumberWithCurrency } from '@/lib/utils/methods';
 import DashboardStatsCardSkeleton from '../custom-skeletons/dasboard.stats.card.skeleton';
 

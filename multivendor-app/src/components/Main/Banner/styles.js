@@ -55,8 +55,8 @@ const styles = (props = null) =>
     {
 
     flex: 1,
-    justifyContent: 'center', // Centers vertically
-    alignItems: 'center', // Centers horizontally
+    justifyContent: 'center', 
+    alignItems: 'center', 
     width: '100%',
       height: "100%",
     paddingHorizontal:'5%',

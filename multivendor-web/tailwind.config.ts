@@ -3,13 +3,13 @@ import type { Config } from "tailwindcss";
 const config = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-    "./lib/**/*.{ts,tsx}",
+    "./pages*.{ts,tsx}",
+    "./components*.{ts,tsx}",
+    "./app*.{ts,tsx}",
+    "./src*.{ts,tsx}",
+    "./lib*.{ts,tsx}",
   ],
-  // content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+
   prefix: "",
   theme: {
     container: {
@@ -22,7 +22,7 @@ const config = {
 
     extend: {
       transitionProperty: {
-        // Customize or disable transition properties
+
         none: "none",
       },
       colors: {

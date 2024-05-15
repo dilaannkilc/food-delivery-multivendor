@@ -1,13 +1,13 @@
-// Queries
+
 import { NEAR_BY_RESTAURANTS_PREVIEW } from "@/lib/api/graphql/queries";
-// UseQuery
+
 import { useQuery } from "@apollo/client";
-// interface
+
 import {
   INearByRestaurantsPreviewData,
   IRestaurant,
 } from "../utils/interfaces/restaurants.interface";
-// context
+
 import { useUserAddress } from "../context/address/address.context";
 
 const useNearByRestaurantsPreview = (
@@ -25,7 +25,7 @@ const useNearByRestaurantsPreview = (
       variables: {
         latitude: userLatitude,
         longitude: userLongitude,
-        shopType: shopType ?? null, // 🔑 pass down if provided
+        shopType: shopType ?? null, 
         page,
         limit,
       },
@@ -54,7 +54,7 @@ const useNearByRestaurantsPreview = (
     networkStatus,
     groceriesData,
     restaurantsData,
-    fetchMore, // expose for infinite scroll
+    fetchMore, 
   };
 };
 

@@ -1,23 +1,18 @@
-// Core
+
 import { Image, Text, View } from "react-native";
 
-// Icons
 import { Ionicons } from "@expo/vector-icons";
 
-// Assets
 import { IMAGES } from "@/lib/assets/images";
 
-// Expo
 import { router } from "expo-router";
 
-// Interfaces
 import { IWalletSuccessModalProps } from "@/lib/utils/interfaces/withdraw.interface";
 
-// Hooks
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { useTranslation } from "react-i18next";
 const SuccessModal = ({ message }: IWalletSuccessModalProps) => {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   return (

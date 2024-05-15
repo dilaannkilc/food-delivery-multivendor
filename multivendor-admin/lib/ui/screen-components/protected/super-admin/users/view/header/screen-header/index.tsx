@@ -1,13 +1,11 @@
 import React from 'react';
-// Components
+
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import CustomTextInput from '@/lib/ui/useable-components/custom-text-input';
 import CustomMultiSelectComponent from '@/lib/ui/useable-components/custom-multi-select';
 
-// Hooks
 import { useTranslations } from 'next-intl';
 
-// Types
 import { IDropdownSelectItem } from '@/lib/utils/interfaces';
 
 interface UserHeaderProps {
@@ -27,7 +25,7 @@ const UserHeader: React.FC<UserHeaderProps> = ({
   accountStatusFilter,
   setAccountStatusFilter,
 }) => {
-  // Hooks
+
   const t = useTranslations();
 
   const registrationMethodOptions = [

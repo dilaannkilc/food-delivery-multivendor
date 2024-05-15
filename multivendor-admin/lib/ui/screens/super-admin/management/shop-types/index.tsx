@@ -1,16 +1,14 @@
-//screen components
+
 import ShopTypesScreenHeader from '@/lib/ui/screen-components/protected/super-admin/shop-types/view/header/screen-header';
 import ShopTypesForm from '@/lib/ui/screen-components/protected/super-admin/shop-types/form';
 import ShopTypesMain from '@/lib/ui/screen-components/protected/super-admin/shop-types/view/main';
 
-// Interface
 import { IShopType, IEditState } from '@/lib/utils/interfaces';
 
-//hooks
 import { useState } from 'react';
 
 export default function CouponsScreen() {
-  //states
+
   const [visible, setVisible] = useState(false);
   const [isEditing, setIsEditing] = useState<IEditState<IShopType>>({
     bool: false,
@@ -23,7 +21,6 @@ export default function CouponsScreen() {
     },
   });
 
-  //toggle visibility
   const handleButtonClick = () => {
     setVisible(true);
     setIsEditing({

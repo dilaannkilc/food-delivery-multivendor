@@ -1,4 +1,4 @@
-// lib/utils/constants/profileDefaultTabs.ts
+
 "use client";
 import { useTranslations } from "next-intl";
 import { ITabItem } from "@/lib/utils/interfaces";

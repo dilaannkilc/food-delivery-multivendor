@@ -1,18 +1,18 @@
-// Components
+
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import StatsCard from '@/lib/ui/useable-components/stats-card';
 import { IEarningsHeaderComponentProps } from '@/lib/utils/interfaces';
 import { useTranslations } from 'next-intl';
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
-// import { useState } from 'react';
+
 
 const EarningsSuperAdminHeader = ({
   earnings,
 }: IEarningsHeaderComponentProps) => {
-  // Hooks
+
   const t = useTranslations();
   const { CURRENT_SYMBOL } = useConfiguration();
-  // Helper function to format numbers to 2 decimal places
+
   const formatNumber = (value: number) => Number(value.toFixed(2));
   return (
     <div className="sticky top-0 z-10 w-full flex-shrink-0 bg-white dark:bg-dark-950 p-3 shadow-sm">
@@ -26,21 +26,21 @@ const EarningsSuperAdminHeader = ({
           currencySymbol={CURRENT_SYMBOL || '$'}
           route=""
           isClickable={false}
-          // loading= {loading}
+
         />
         <StatsCard
           label={t('Total Stores Earning')}
           total={formatNumber(earnings?.storeTotal || 0)}
           currencySymbol={CURRENT_SYMBOL || '$'}
           isClickable={false}
-          route="" // loading={loading}
+          route="" 
         />
         <StatsCard
           label={t('Total Riders Earnings')}
           total={formatNumber(earnings?.riderTotal || 0)}
           currencySymbol={CURRENT_SYMBOL || '$'}
           isClickable={false}
-          route="" // loading = {loading}
+          route="" 
         />
       </div>
     </div>

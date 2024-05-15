@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useContext, useEffect, useState } from "react";
 
 import {
@@ -30,7 +30,7 @@ import { FlashMessageComponent } from "../ui/useable-components";
 import { IOrder } from "../utils/interfaces/order.interface";
 
 const useDetails = (orderData: IOrder) => {
-  // Hooks
+
   const { t } = useTranslation();
   const { assignedOrders, loadingAssigned, userId } = useContext(UserContext);
   const [order, setOrder] = useState<IOrder>(orderData);
@@ -118,7 +118,7 @@ const useDetails = (orderData: IOrder) => {
       FlashMessageComponent({
         message: "Order assigned",
       });
-      //   setActive("MyOrders");
+
     }
   }
 
@@ -134,7 +134,7 @@ const useDetails = (orderData: IOrder) => {
     if (networkError) message = "Internal Server Error";
     if (graphQLErrors) message = graphQLErrors.map((o) => o.message).join(", ");
     if (cause) message = cause.message;
-    // FlashMessageComponent({ message: message });
+
     console.log({ message });
   }
 

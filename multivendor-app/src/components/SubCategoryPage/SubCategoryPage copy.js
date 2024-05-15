@@ -188,12 +188,12 @@ const CategoryPage = ({ route, navigation }) => {
       <CategoryPageHeader navigation={navigation} restaurantName={restaurantName} deliveryTime={deliveryTime} currentTheme={currentTheme} onOpenSearch={handleOpenSearch} />
 
       <View style={stylesb.container}>
-        {/* Fixed Header with Tabs and Sub-Tabs */}
+        {}
         <View style={stylesb.fixedHeader}>
           <ScrollView
             onLayout={(event) => {
               const { width } = event.nativeEvent.layout
-              setScrollWidth(width) // Capture the width of the ScrollView
+              setScrollWidth(width) 
             }}
             ref={scrollRef2}
             horizontal
@@ -231,7 +231,7 @@ const CategoryPage = ({ route, navigation }) => {
           )}
         </View>
 
-        {/* Horizontal Scroll for Main Tabs */}
+        {}
         <ScrollView
           horizontal
           pagingEnabled
@@ -260,13 +260,7 @@ const CategoryPage = ({ route, navigation }) => {
                 >
                   {subCategories[index]?.map((sub, j) => (
                     <View style={stylesb.foodListView}>
-                      {/* <ScrollView
-                        nestedScrollEnabled={true}
-                        key={j}
-                        pagingEnabled
-                        ontentContainerStyle={{ flex: 1 }}
-                        style={stylesb.page}
-                      > */}
+                      {}
                       <FlatList
                         data={filteredFood}
                         keyExtractor={(item) => item._id}
@@ -301,7 +295,7 @@ const CategoryPage = ({ route, navigation }) => {
                         }
                         contentContainerStyle={{ paddingHorizontal: 10 }}
                       />
-                      {/* </ScrollView> */}
+                      {}
                     </View>
                   ))}
                 </ScrollView>
@@ -356,7 +350,7 @@ const CategoryPage = ({ route, navigation }) => {
         </ScrollView>
       </View>
 
-      {/* Search Overlay */}
+      {}
       <SearchOverlay isVisible={isSearchVisible} onClose={handleCloseSearch} currentTheme={currentTheme} configuration={configuration} restaurant={restaurantData?.restaurant} navigation={navigation} />
 
       {cartCount > 0 && (

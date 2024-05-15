@@ -22,7 +22,7 @@ export interface IZoneAddFormComponentProps extends IGlobalComponentProps {
   zone: IZoneResponse | null;
 }
 
-/* Zone Bound COmponent */
+
 export interface IZoneCustomGoogleMapsBoundComponentProps
   extends IGlobalComponentProps {
   _id: string;
@@ -30,7 +30,7 @@ export interface IZoneCustomGoogleMapsBoundComponentProps
   onSetZoneCoordinates: (path: TPolygonPoints) => void;
 }
 
-/* API */
+
 export interface IZoneResponse {
   __typename: string;
   _id: string;
@@ -52,7 +52,7 @@ export interface IZonesDataReponse {
   data: IZonesResponse;
 }
 
-/* Rider Zone */
+
 export interface IRiderZonesResponse {
   zones: IRiderZone[];
 }

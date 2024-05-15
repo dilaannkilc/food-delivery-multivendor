@@ -1,4 +1,4 @@
-// Interface
+
 import { IVendorCustomTabProps } from '@/lib/utils/interfaces';
 
 const VendorCustomTab = ({

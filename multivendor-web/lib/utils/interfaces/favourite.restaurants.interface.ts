@@ -1,4 +1,4 @@
-// User Favourite Restaurants Interfaces
+
 
 export interface IUserReviewAuthor {
     _id?: string;

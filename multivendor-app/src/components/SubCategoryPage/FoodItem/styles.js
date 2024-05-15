@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native'
 import { scale } from '../../../utils/scaling'
 
 const { width } = Dimensions.get('window')
-const ITEM_WIDTH = width / 2 // Account for padding and gap
+const ITEM_WIDTH = width / 2 
 
 const styles = (props = null) =>
   StyleSheet.create({
@@ -12,13 +12,13 @@ const styles = (props = null) =>
       borderRadius: scale(20),
       padding: scale(10),
       marginBottom: scale(8),
-      // marginRight: 10,
+
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
         height: 2
       },
-      // minHeight: 290,
+
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
       elevation: 5
@@ -49,7 +49,7 @@ const styles = (props = null) =>
       marginTop: scale(10),
       gap: scale(4)
     },
-    // Improved styles for out of stock items
+
     disabledItem: {
       opacity: 0.95
     },

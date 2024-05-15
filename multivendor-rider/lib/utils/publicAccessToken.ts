@@ -8,9 +8,7 @@ const STORAGE_KEYS = {
   EXPIRY: "_session_ttl",
 };
 
-/**
- * Generate a unique device nonce
- */
+
 const generateNonce = async (): Promise<string> => {
   const deviceId = Device.modelId || Device.osInternalBuildId || "unknown";
   const timestamp = Date.now();
@@ -18,9 +16,7 @@ const generateNonce = async (): Promise<string> => {
   return `${deviceId}-${timestamp}-${random}`;
 };
 
-/**
- * Get or create nonce (cached in AsyncStorage)
- */
+
 export const getOrCreateNonce = async (): Promise<string> => {
   let nonce = await AsyncStorage.getItem(STORAGE_KEYS.NONCE);
   if (!nonce) {
@@ -34,9 +30,7 @@ export const getOrCreateNonce = async (): Promise<string> => {
   return nonce;
 };
 
-/**
- * Save public token and expiry
- */
+
 export const savePublicToken = async (
   token: string,
   expiry: string,
@@ -48,7 +42,7 @@ export const savePublicToken = async (
   await AsyncStorage.multiSet([
     [STORAGE_KEYS.TOKEN, token],
     [STORAGE_KEYS.EXPIRY, expiry],
-  ]); // Verify save
+  ]); 
 
   const saved = await AsyncStorage.multiGet([
     STORAGE_KEYS.TOKEN,
@@ -60,23 +54,17 @@ export const savePublicToken = async (
   );
 };
 
-/**
- * Get public token from storage
- */
+
 export const getPublicToken = async (): Promise<string | null> => {
   return await AsyncStorage.getItem(STORAGE_KEYS.TOKEN);
 };
 
-/**
- * Get token expiry from storage
- */
+
 export const getTokenExpiry = async (): Promise<string | null> => {
   return await AsyncStorage.getItem(STORAGE_KEYS.EXPIRY);
 };
 
-/**
- * Check if token is expired
- */
+
 export const isTokenExpired = async (): Promise<boolean> => {
   const expiry = await getTokenExpiry();
   if (!expiry) {
@@ -107,9 +95,7 @@ export const isTokenExpired = async (): Promise<boolean> => {
   return isExpired;
 };
 
-/**
- * Clear public token data
- */
+
 export const clearPublicToken = async (): Promise<void> => {
   await AsyncStorage.multiRemove([STORAGE_KEYS.TOKEN, STORAGE_KEYS.EXPIRY]);
 };

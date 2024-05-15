@@ -1,12 +1,9 @@
 'use client';
 
-// Interface and Types
 import { ICustomRadiusInputFieldComponentProps } from '@/lib/utils/interfaces';
 
-// Components
 import { InputText } from 'primereact/inputtext';
 
-// Styles
 import InputSkeleton from '../custom-skeletons/inputfield.skeleton';
 import classes from './cusom-input.module.css';
 
@@ -22,13 +19,13 @@ export default function CustomRadiusInputField({
   ...props
 }: ICustomRadiusInputFieldComponentProps) {
   const MIN_VALUE = 1;
-  // const MAX_VALUE = 100;
+
 
   const handleIncrease = () => {
     const currentValue = value || 0;
-    // if (currentValue < MAX_VALUE) {
+
     onChange && onChange(currentValue + 1);
-    // }
+
   };
 
   const handleDecrease = () => {
@@ -47,7 +44,7 @@ export default function CustomRadiusInputField({
       )}
 
       <div className="relative flex items-center">
-        {/* Decrease */}
+        {}
         <div
           className="absolute left-2 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border border-[#E4E4E7] hover:bg-slate-200"
           onClick={handleDecrease}
@@ -66,7 +63,7 @@ export default function CustomRadiusInputField({
           }}
         />
 
-        {/* Increase */}
+        {}
         <div
           className="absolute right-2 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border border-[#E4E4E7] hover:bg-slate-200"
           onClick={handleIncrease}

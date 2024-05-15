@@ -74,7 +74,7 @@ export const alignment = {
   MTxLarge: {
     marginTop: scale(XLARGE)
   },
-  // Padding
+
   PxSmall: {
     padding: scale(XSMALL)
   },

@@ -1,13 +1,12 @@
-// Core
+
 import { useContext, useMemo } from 'react';
 import { Form, Formik } from 'formik';
 import { ApolloCache, ApolloError, useMutation } from '@apollo/client';
 import { useState } from 'react';
-// Icons
+
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { IEditState, IShopType } from '@/lib/utils/interfaces';
 
-// Interfaces and Types
 import {
   IAddRestaurantComponentProps,
   ICreateRestaurant,
@@ -22,7 +21,6 @@ import {
   IGetCuisinesData,
 } from '@/lib/utils/interfaces/cuisine.interface';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomDropdownComponent from '@/lib/ui/useable-components/custom-dropdown';
 import CustomMultiSelectComponent from '@/lib/ui/useable-components/custom-multi-select';
@@ -33,7 +31,7 @@ import CustomNumberField from '@/lib/ui/useable-components/number-input-field';
 import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/upload-image';
 import ShopTypesForm from '@/lib/ui/screen-components/protected/super-admin/shop-types/form';
 import CuisineForm from '@/lib/ui/screen-components/protected/super-admin/cuisines/form';
-// Constants and Utils
+
 import {
   MAX_LANSDCAPE_FILE_SIZE,
   MAX_SQUARE_FILE_SIZE,
@@ -43,7 +41,6 @@ import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 import { toTextCase } from '@/lib/utils/methods';
 import { useShopTypes } from '@/lib/hooks/useShopType';
 
-// Schemas and GraphQL
 import { RestaurantSchema } from '@/lib/utils/schema/restaurant';
 import {
   CREATE_RESTAURANT,
@@ -51,11 +48,9 @@ import {
   GET_RESTAURANTS_BY_OWNER,
 } from '@/lib/api/graphql';
 
-// Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { VendorLayoutRestaurantContext } from '@/lib/context/vendor/restaurant.context';
 
-// Hooks
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { useTranslations } from 'next-intl';
 import CustomPhoneTextField from '@/lib/ui/useable-components/phone-input-field';
@@ -86,7 +81,6 @@ export default function RestaurantDetails({
     order: -1,
   };
 
-  // Hooks
   const t = useTranslations();
   const [isAddShopTypeVisible, setIsAddShopTypeVisible] = useState(false);
   const [isEditShopType, setIsEditShopType] = useState<IEditState<IShopType>>({
@@ -112,13 +106,11 @@ export default function RestaurantDetails({
     },
   });
 
-  // Context
   const { showToast } = useContext(ToastContext);
   const { vendorId, onSetRestaurantContextData } = useContext(
     VendorLayoutRestaurantContext
   );
 
-  // Mutation
   const [createRestaurant] = useMutation(CREATE_RESTAURANT, {
     onError,
     onCompleted: ({
@@ -152,7 +144,6 @@ export default function RestaurantDetails({
     transform_to_dropdown_list: true,
   });
 
-  // Memoized Constants
   const cuisinesDropdown = useMemo(
     () =>
       cuisineResponse.data?.cuisines?.map((cuisin: ICuisine) => {
@@ -161,7 +152,6 @@ export default function RestaurantDetails({
     [cuisineResponse.data?.cuisines]
   );
 
-  // Handlers
   const onCreateRestaurant = async (data: IRestaurantForm) => {
     try {
       if (!vendorId) {
@@ -369,14 +359,14 @@ export default function RestaurantDetails({
                           mask="999-999-9999"
                           name="phoneNumber"
                           showLabel={true}
-                          // placeholder="Phone Number"
+
                           onChange={(e) => {
-                            // console.log("phone number format ==> ", e, code);
+
                             setFieldValue('phoneNumber', e);
-                            // setCountryCode(code);
+
                           }}
                           value={values.phoneNumber}
-                          // value={values.phoneNumber?.toString().match(/\(\+(\d+)\)\s(.+)/)?.[2]}
+
                           type="text"
                           className="rounded-[6px] border-[#D1D5DB]"
                           style={{

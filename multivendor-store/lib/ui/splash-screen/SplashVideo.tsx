@@ -13,7 +13,7 @@ export default function SplashVideo({ onLoaded, onFinish }) {
     <Video
       ref={video}
       style={StyleSheet.absoluteFill}
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
+
       source={require("../../assets/video/mobile-splash.mp4")}
       shouldPlay={!(lastStatus.isLoaded && lastStatus.didJustFinish)}
       isLooping={false}

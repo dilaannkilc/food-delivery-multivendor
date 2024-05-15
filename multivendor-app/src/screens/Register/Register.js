@@ -241,7 +241,7 @@ function Register(props) {
                             style={{ marginTop: Platform.OS === 'android' ? 7 : 10 }}
                             isRTL
                           >
-                            {/* {country?.cca2} */}+{country?.callingCode[0]}
+                            {}+{country?.callingCode[0]}
                           </TextDefault>
                         </>
 

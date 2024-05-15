@@ -1,4 +1,4 @@
-//Components
+
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import { IWithDrawRequestAdminHeaderProps } from '@/lib/utils/interfaces/withdraw-request.interface';

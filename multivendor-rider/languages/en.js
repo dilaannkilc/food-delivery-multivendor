@@ -1,12 +1,11 @@
 export const en = {
-  // Navigation
+
   continue: "Continue",
   Wallet: "Wallet",
   Home: "Home",
   Earnings: "Earnings",
   Profile: "Profile",
 
-  // FAQs
   faq1: "How do I place an order?",
   faq1Description:
     "To place an order, simply browse through our menu, select the items you'd like to order, and proceed to checkout. You can choose your preferred payment method and delivery address before confirming your order.",
@@ -29,7 +28,6 @@ export const en = {
   faq7Description:
     "Unfortunately, you can't choose from multiple restaurants within the same order. However, you can place separate orders from different restaurants at the same time.",
 
-  // Earnings
   "Earnings Summary": "Earnings Summary",
   Deliveries: "Deliveries",
   "Total Earnings": "Total Earnings",
@@ -39,13 +37,11 @@ export const en = {
   "Order Date": "Order Date",
   "Earnings Order Details": "Earnings Order Details",
 
-  // Flash messages
   "Order placed successfully": "Order placed successfully",
   "Order cancelled successfully": "Order cancelled successfully",
   "Error while placing order": "Error while placing order",
   "Error while cancelling order": "Error while cancelling order",
 
-  // Other messages
   "Please enter your name": "Please enter your name",
   "Please enter your email": "Please enter your email",
   "Please enter your password": "Please enter your password",
@@ -254,7 +250,7 @@ export const en = {
   "No new orders yet!": "No new orders yet!",
   "You don't have any orders yet!": "You don't have any orders yet!",
   "No delivered orders yet!": "No delivered ",
-  // Vehicle Screen
+
   "Vehicle Details": "Vehicle Details",
   "Vehicle Number": "Vehicle Number",
   "Vehicle Color": "Vehicle Color",
@@ -301,22 +297,18 @@ export const en = {
   "Vehicle documents too large": "Vehicle documents too large",
   "Vehicle documents format not supported": "Vehicle documents format not supported",
 
-  // Chat Screen
   "Contact Customer": "Contact Customer",
   "Type a message": "Type a message",
   "Send": "Send",
   "Message sent": "Message sent",
   "Message failed": "Message failed",
 
-  // Earnings Screen
   "Please select a date range": "Please select a date range",
   "Please select a start date": "Please select a start date",
   "Please select an end date": "Please select an end date",
   "Start date cannot be after end date": "Start date cannot be after end date",
   "Please log in to view your earnings": "Please log in to view your earnings",
 
-
-  // Profile Forms
   "Unable to update availability": "Unable to update availability",
   "rider name": "Rider Name",
   "rider id": "Rider ID",

@@ -53,7 +53,6 @@ export default function SearchModal({
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
 
-  // Debug logging when modal becomes visible
   useEffect(() => {
     if (visible) {
       console.log('🔍 SearchModal opened - Debug Info:', {
@@ -63,8 +62,7 @@ export default function SearchModal({
         themeValue: themeContext.ThemeValue,
         timestamp: new Date().toISOString()
       })
-      
-      // Reset state when modal opens
+
       setSearchText('')
       setPredictions([])
       setLoading(false)
@@ -112,8 +110,7 @@ export default function SearchModal({
     return () => {
       keyboardShowListener.remove()
       keyboardHideListener.remove()
-      
-      // Cleanup timers and requests
+
       if (debounceTimerRef.current) {
         clearTimeout(debounceTimerRef.current)
       }
@@ -144,8 +141,7 @@ export default function SearchModal({
   const close = () => {
     console.log('🚪 SearchModal closing')
     animation.value = 0
-    
-    // Cleanup
+
     setSearchText('')
     setPredictions([])
     setLoading(false)
@@ -161,7 +157,6 @@ export default function SearchModal({
     onClose()
   }
 
-  // Search for places using Google Places API
   const searchPlaces = useCallback(async (query) => {
     console.log('🔍 SearchModal: searchPlaces called with query:', query)
     
@@ -179,12 +174,10 @@ export default function SearchModal({
       return
     }
 
-    // Cancel previous request if exists
     if (requestCancelTokenRef.current) {
       requestCancelTokenRef.current.cancel('New search initiated')
     }
 
-    // Create new cancel token
     const cancelToken = axios.CancelToken.source()
     requestCancelTokenRef.current = cancelToken
 
@@ -201,7 +194,7 @@ export default function SearchModal({
             input: query,
             key: GOOGLE_MAPS_KEY,
             language: 'en',
-            // components: 'country:pk', // use to Restrict to Pakistan
+
             types: 'geocode'
           },
           timeout: 10000,
@@ -242,7 +235,7 @@ export default function SearchModal({
     } catch (error) {
       if (axios.isCancel(error)) {
         console.log('🔄 Request cancelled:', error.message)
-        return // Don't update state for cancelled requests
+        return 
       }
       
       console.error('🚨 Error searching places:', error)
@@ -260,14 +253,13 @@ export default function SearchModal({
       }
     } finally {
       setLoading(false)
-      // Clear the cancel token reference if this was the current request
+
       if (requestCancelTokenRef.current === cancelToken) {
         requestCancelTokenRef.current = null
       }
     }
   }, [GOOGLE_MAPS_KEY])
 
-  // Get place details
   const getPlaceDetails = useCallback(async (placeId) => {
     console.log('📍 Getting place details for placeId:', placeId)
     
@@ -313,23 +305,19 @@ export default function SearchModal({
     }
   }, [GOOGLE_MAPS_KEY])
 
-  // Handle text input change with debouncing
   const handleTextChange = useCallback((text) => {
     console.log('⌨️ Text changed:', text)
     setSearchText(text)
-    
-    // Clear existing timer
+
     if (debounceTimerRef.current) {
       clearTimeout(debounceTimerRef.current)
     }
-    
-    // Set new timer for debounced search
+
     debounceTimerRef.current = setTimeout(() => {
       searchPlaces(text)
     }, 300)
   }, [searchPlaces])
 
-  // Handle place selection
   const handlePlaceSelect = useCallback(async (place) => {
     console.log('🎯 Place selected:', place.description)
     setLoading(true)
@@ -375,7 +363,6 @@ export default function SearchModal({
     </TouchableOpacity>
   )
 
-  // Don't render if no API key
   if (!GOOGLE_MAPS_KEY) {
     return (
       <Modal visible={visible} transparent animationType={'slide'} onRequestClose={onClose}>
@@ -437,10 +424,10 @@ export default function SearchModal({
             />
           </TouchableOpacity>
           
-          {/* Full Width Container for Search */}
+          {}
           <View style={{ flex: 1, paddingHorizontal: 0 }}>
             
-            {/* Text Input Container */}
+            {}
             <View style={{
               borderWidth: 1,
               borderColor: currentTheme.customBorder,
@@ -483,13 +470,13 @@ export default function SearchModal({
               )}
             </View>
 
-            {/* Results List Container */}
+            {}
             {(predictions.length > 0 || error || (searchText.length > 2 && !loading)) && (
               <View style={{
                 marginTop: 8,
                 backgroundColor: currentTheme.cardBackground,
                 borderRadius: scale(6),
-                maxHeight: height * 0.4, // Limit height to 40% of screen
+                maxHeight: height * 0.4, 
                 elevation: 3,
                 shadowColor: currentTheme.shadowColor,
                 shadowOffset: { width: 0, height: 2 },

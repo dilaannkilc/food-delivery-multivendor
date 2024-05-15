@@ -1,10 +1,8 @@
-// Prime React
+
 import { Dialog } from 'primereact/dialog';
 
-// Components
 import CustomButton from '../button';
 
-// Interface and Types
 import { IDialogComponentProps } from '@/lib/utils/interfaces/dialog.interface';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';

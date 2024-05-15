@@ -86,10 +86,10 @@ function Profile(props) {
 
   useFocusEffect(
     useCallback(() => {
-      // Only refetch if we're coming back from a screen that might have updated data
+
       const timeoutId = setTimeout(() => {
         refetch();
-      }, 100); // Small delay to prevent immediate refetch
+      }, 100); 
       
       return () => clearTimeout(timeoutId);
     }, [refetch])
@@ -197,7 +197,7 @@ function Profile(props) {
 
               <View style={styles(currentTheme).line} />
 
-              {/* favourite section */}
+              {}
               {loading ? (
                 <Spinner
                   size={'small'}
@@ -304,7 +304,7 @@ function Profile(props) {
                 <View style={styles(currentTheme).line} />
               </View>
 
-              {/* order again */}
+              {}
               {orderLoading ? (
                 <Spinner
                   size={'small'}
@@ -333,7 +333,7 @@ function Profile(props) {
                     </View>
 
                     <FlatList
-                      // style={styles().offerScroll}
+
                       contentContainerStyle={{
                         flexGrow: 1,
                         ...alignment.MTsmall

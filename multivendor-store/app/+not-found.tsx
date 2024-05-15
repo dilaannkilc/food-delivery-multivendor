@@ -1,19 +1,16 @@
-// Expo
+
 import { Link, Stack } from "expo-router";
 
-// Core
 import { StyleSheet } from "react-native";
 
-// Components
 import { ThemedText } from "@/lib/ui/useable-components/ThemedText";
 import { ThemedView } from "@/lib/ui/useable-components/ThemedView";
 
-// Hooks
 import { useApptheme } from "@/lib/context/theme.context";
 import { useTranslation } from "react-i18next";
 
 export default function NotFoundScreen() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   return (

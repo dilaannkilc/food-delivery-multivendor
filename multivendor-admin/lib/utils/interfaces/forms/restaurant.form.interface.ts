@@ -1,6 +1,5 @@
 import { IDropdownSelectItem } from '../global.interface';
 
-// Errors
 export interface IRestaurantFormErrors {
   name: string[];
   username: string[];

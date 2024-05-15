@@ -1,14 +1,13 @@
-// Interfaces and Types
+
 import { ActionMenu } from '@/lib/ui/screen-components/protected/super-admin/users/view/main/ActionMenu';
 import { IUserResponse } from '@/lib/utils/interfaces/users.interface';
 
-// Icons
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslations } from 'next-intl';
 
 export const USERS_TABLE_COLUMNS = (openMenuId?: string | null, setOpenMenuId?: (id: string | null) => void) => {
-  // Hooks
+
   const t = useTranslations();
   return [
     { headerName: t('user_id'), propertyName: '_id' },
@@ -63,7 +62,6 @@ export const USERS_TABLE_COLUMNS = (openMenuId?: string | null, setOpenMenuId?: 
 
         const date = new Date(user.lastLogin);
 
-        // Format date and time
         const formattedDate = date.toLocaleDateString('en-GB', {
           day: '2-digit',
           month: 'short',

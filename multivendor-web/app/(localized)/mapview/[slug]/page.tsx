@@ -8,7 +8,6 @@ import Map from "./components/Map";
 import SideList from "./components/SideList";
 import dynamic from "next/dynamic";
 
-//Your correct import
 import { isRestaurantOpen } from "../../../../lib/utils/constants/isRestaurantOpen";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
@@ -39,7 +38,6 @@ const MapView: FC<MapViewPageProps> = ({ params }) => {
 
     const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
 
-    // ⭐ Enhance data with isOpen field
     const enhancedData = data?.map((restaurant: any) => ({
         ...restaurant,
         isOpen: isRestaurantOpen(restaurant.openingTimes),  
@@ -54,7 +52,7 @@ const MapView: FC<MapViewPageProps> = ({ params }) => {
             ) : enhancedData?.length > 0 ? (
                 <div className="flex mt-1 relative min-h-screen max-h-screen md:flex-row flex-col-reverse">
 
-                    {/* LEFT SIDE LIST */}
+                    {}
                     <div className="md:relative absolute bottom-0 z-[99] md:flex-[0.35] xl:flex-[0.25] overflow-y-auto md:w-auto w-full">
                         <SideList
                             data={enhancedData}
@@ -63,7 +61,7 @@ const MapView: FC<MapViewPageProps> = ({ params }) => {
                         />
                     </div>
 
-                    {/* RIGHT MAP */}
+                    {}
                     <div className="flex-[0.65] xl:flex-[0.75] h-screen overflow-y-auto">
                         <Map
                             apiKey={GOOGLE_MAPS_KEY}
@@ -74,7 +72,7 @@ const MapView: FC<MapViewPageProps> = ({ params }) => {
 
                 </div>
             ) : (
-                // NO DATA UI
+
                 <div className="flex mt-1 relative min-h-screen max-h-screen md:flex-row flex-col-reverse">
                     <div className="md:relative absolute top-2 mt-12 z-[99] md:flex-[0.35] xl:flex-[0.25] overflow-y-auto md:w-auto w-full ">
                         <div className="flex flex-col items-center justify-center p-6">

@@ -1,20 +1,16 @@
-// GraphQL
+
 import { GET_SUBCATEGORIES_BY_PARENT_ID } from '@/lib/api/graphql/queries/sub-categories';
 
-// Components
 import InputSkeleton from '@/lib/ui/useable-components/custom-skeletons/inputfield.skeleton';
 
-// Interfaces
 import {
   ISubCategoriesPreviewModalProps,
   ISubCategoryByParentIdResponse,
 } from '@/lib/utils/interfaces';
 
-// Hooks
 import { QueryResult, useQuery } from '@apollo/client';
 import { useTranslations } from 'next-intl';
 
-// Prime React
 import { Dialog } from 'primereact/dialog';
 
 export default function SubCategoriesPreiwModal({
@@ -22,10 +18,9 @@ export default function SubCategoriesPreiwModal({
   isSubCategoryModalOpen,
   setIsSubCategoryModalOpen,
 }: ISubCategoriesPreviewModalProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // Queries
   const { data: sub_categories_data, loading: sub_categories_loading } =
     useQuery(GET_SUBCATEGORIES_BY_PARENT_ID, {
       variables: {

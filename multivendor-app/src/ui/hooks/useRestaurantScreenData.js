@@ -39,7 +39,6 @@ export const useRestaurantData = (
   const [selectedSubCtg, setSelectedSubCtg] = useState('')
   const [selectedPrntCtg, setSelectedPrntCtg] = useState('')
 
-  // Queries
   const { data: popularItemsData } = useQuery(POPULAR_ITEMS, {
     variables: { restaurantId }
   })
@@ -51,7 +50,6 @@ export const useRestaurantData = (
     }
   )
 
-  // console.log("🚀 ~ popularFoodsItems:", JSON.stringify(popularFoodsItems))
 
   const { data: subCategoriesData, loading: subCategoriesLoading } = useQuery(
     GET_SUB_CATEGORIES,
@@ -84,19 +82,17 @@ export const useRestaurantData = (
     if (!restaurant)
       return { sortedDeals: [], merged_food_items: [], deals: [] }
 
-    // First create the popular section
     const popularSection = {
       title: 'Popular',
       parentCategoryTitle: 'Popular',
       subCategoryTitle: null,
-      foods: popularFoodsItems?.popularFoodItems || [] // Use the new resolver data
+      foods: popularFoodsItems?.popularFoodItems || [] 
     }
 
     const allDeals =
       restaurant?.categories?.filter((cat) => cat?.foods?.length) || []
     const subCategories = subCategoriesData?.subCategories || []
 
-    // Group subcategories
     const grouped_subcategories_obj = subCategories?.reduce((acc, sub_ctg) => {
       if (!acc[sub_ctg.parentCategoryId]) {
         acc[sub_ctg.parentCategoryId] = []
@@ -109,7 +105,6 @@ export const useRestaurantData = (
       grouped_subcategories_obj
     ).flat()
 
-    // Process parent categories
     const parentCategories =
       allDeals?.filter((ctg) =>
         grouped_subcategories_arr?.some(
@@ -121,7 +116,6 @@ export const useRestaurantData = (
         )
       ) || []
 
-    // Process food items without subcategories
     const foodItemsWithoutSubCtgs = allDeals.flatMap((ctg) => {
       const foodsWithoutSubCtgs =
         ctg?.foods?.filter(
@@ -138,7 +132,6 @@ export const useRestaurantData = (
         : []
     })
 
-    // Sort deals
     const map = new Map()
     const sortedDeals = allDeals.flatMap((ctg) => {
       if (!ctg?.foods?.length) return []
@@ -175,7 +168,7 @@ export const useRestaurantData = (
           }) || []
       )
     })
-    // Merge all food items
+
     const merged_food_items = [
       popularSection,
       ...sortedDeals,
@@ -202,10 +195,9 @@ export const useRestaurantData = (
     }
   }
 
-  // Handle search
   useEffect(() => {
     if (!data?.restaurant) return
-    // Get all deals and process them
+
     const { sortedDeals, merged_food_items } = processCategories(
       data?.restaurant
     )
@@ -247,7 +239,6 @@ export const useRestaurantData = (
     }
   }, [search, searchOpen, data])
 
-  // Check restaurant availability
   useEffect(() => {
     if (
       data?.restaurant &&
@@ -272,7 +263,6 @@ export const useRestaurantData = (
     }
   }, [data])
 
-  // Search handlers
   const searchHandler = () => {
     const { merged_food_items } = processCategories(data?.restaurant)
     setSelectedPrntCtg(merged_food_items[0]?.parentCategoryTitle)

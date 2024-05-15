@@ -1,7 +1,7 @@
 'use client';
 
 import { LayoutContext } from '@/lib/context/global/layout.context';
-// Component
+
 import GrowthOverView from '@/lib/ui/screen-components/protected/super-admin/home/growth-overview';
 import StatesTable from '@/lib/ui/screen-components/protected/super-admin/home/stats-table';
 import UserStats from '@/lib/ui/screen-components/protected/super-admin/home/user-stats';

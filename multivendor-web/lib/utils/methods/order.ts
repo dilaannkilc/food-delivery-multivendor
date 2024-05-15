@@ -1,16 +1,15 @@
-// Converts numeric degrees to radians
+
 function toRad(value: number): number {
   return (value * Math.PI) / 180;
 }
 
-// Calculates the distance between two coordinates in kilometers
 export function calculateDistance(
   latS: number,
   lonS: number,
   latD: number,
   lonD: number
 ): number {
-  const R = 6371; // Radius of the Earth in km
+  const R = 6371; 
   const dLat = toRad(latD - latS);
   const dLon = toRad(lonD - lonS);
   const lat1 = toRad(latS);
@@ -26,7 +25,6 @@ export function calculateDistance(
   return distance;
 }
 
-// Calculates the delivery amount based on cost type and distance
 export function calculateAmount(
   costType: "fixed" | "per_km",
   deliveryRate: number,

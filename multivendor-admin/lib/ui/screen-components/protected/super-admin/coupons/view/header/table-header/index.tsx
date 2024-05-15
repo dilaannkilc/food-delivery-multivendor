@@ -1,17 +1,14 @@
-// CSS
+
 import classes from './table-header.module.css';
 
-// Components
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import { ICouponTableHeaderProps } from '@/lib/utils/interfaces/coupons.interface';
 
-// Icons
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 
-// Prime react
 import { Checkbox } from 'primereact/checkbox';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { useRef, useState } from 'react';
@@ -22,17 +19,14 @@ export default function CouponTableHeader({
   selectedActions,
   setSelectedActions,
 }: ICouponTableHeaderProps) {
-  // Hooks
+
   const t = useTranslations();
   const { theme } = useTheme();
 
-  //Ref
   const overlayPanelRef = useRef<OverlayPanel>(null);
 
-  // States
   const [searchValue, setSearchValue] = useState('');
 
-  // Handle checkbox toggle
   const toggleAction = (action: string) => {
     const updatedActions = selectedActions.includes(action)
       ? selectedActions.filter((a) => a !== action)

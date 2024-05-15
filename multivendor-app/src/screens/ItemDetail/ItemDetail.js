@@ -17,7 +17,6 @@ import UserContext from '../../context/User'
 import useNetworkStatus from '../../utils/useNetworkStatus'
 import ErrorView from '../../components/ErrorView/ErrorView'
 
-// Hooks
 import React, { useState, useContext, useLayoutEffect, useEffect, useRef, useCallback } from 'react'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
@@ -28,7 +27,6 @@ import { Text } from 'react-native'
 import { scale } from '../../utils/scaling'
 import { TextField } from 'react-native-material-textfield'
 
-// Utils
 import { truncateText } from '../../utils/customFunctions'
 
 const { height } = Dimensions.get('window')
@@ -40,7 +38,6 @@ const SCROLL_RANGE = HEADER_MAX_HEIGHT
 function ItemDetail(props) {
   const { food, addons, options, restaurant } = props?.route?.params
 
-  // States
   const [listZindex, setListZindex] = useState(0)
   const [isDescriptionVisible, setIsDescriptionVisible] = useState(false)
   const [selectedVariation, setSelectedVariation] = useState({
@@ -146,7 +143,7 @@ function ItemDetail(props) {
       if (addonRefs.current[addonId] && scrollViewRef.current && totalAddons > 0) {
         addonRefs.current[addonId].measure((x, y, width, height, pageX, pageY) => {
           scrollViewRef.current.scrollTo({
-            // Solution: Round the final value to an integer
+
             y: Math.round(Math.max(0, pageY - HEADER_MAX_HEIGHT)),
             animated: true
           })
@@ -201,7 +198,6 @@ function ItemDetail(props) {
     }
   }
 
-  // Add to cart
   const addToCart = async (quantity, clearFlag) => {
     const addons = selectedAddons.map((addon) => ({
       ...addon,
@@ -360,7 +356,7 @@ function ItemDetail(props) {
             }
           }}
           contentContainerStyle={{
-            // paddingTop: HEADER_MAX_HEIGHT,
+
             paddingBottom: scale(Math.round(height * 0.09))
           }}
         >
@@ -410,7 +406,7 @@ function ItemDetail(props) {
               <TitleComponent title={t('specialInstructions')} subTitle={t('anySpecificPreferences')} status={t('optional')} />
               <TextField style={styles(currentTheme).input} placeholder={t('noMayo')} textAlignVertical='center' value={specialInstructions} onChangeText={setSpecialInstructions} maxLength={144} textColor={currentTheme.fontMainColor} baseColor={currentTheme.lightHorizontalLine} errorColor={currentTheme.textErrorColor} tintColor={themeContext.ThemeValue === 'Dark' ? "white" : "black"} placeholderTextColor={themeContext.ThemeValue === 'Dark' ? "white" : "black"} />
             </View>
-            {/** frequently bought together */}
+            {}
             <FrequentlyBoughtTogether itemId={food?._id} restaurantId={restaurant} />
           </View>
         </Animated.ScrollView>

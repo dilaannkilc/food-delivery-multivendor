@@ -13,10 +13,10 @@ import Card from "../card";
 import CustomButton from "../button";
 import { useTranslations } from "next-intl";
 const responsiveOptions = [
-  { breakpoint: "1280px", numVisible: 4, numScroll: 1 }, // If screen width is ≤ 1280px, show 4 items
-  { breakpoint: "1024px", numVisible: 3, numScroll: 1 }, // If screen width is ≤ 1024px, show 3 items
-  { breakpoint: "640px", numVisible: 2, numScroll: 1 }, // If screen width is ≤ 640px, show 2 items
-  { breakpoint: "425px", numVisible: 1, numScroll: 1 }, // If screen width is ≤ 425px, show 1 item
+  { breakpoint: "1280px", numVisible: 4, numScroll: 1 }, 
+  { breakpoint: "1024px", numVisible: 3, numScroll: 1 }, 
+  { breakpoint: "640px", numVisible: 2, numScroll: 1 }, 
+  { breakpoint: "425px", numVisible: 1, numScroll: 1 }, 
 ];
 
 const SliderCard = <T,>({
@@ -41,10 +41,9 @@ const SliderCard = <T,>({
 
   function getNumVisible() {
     if (typeof window === "undefined") return;
-    // Get the current screen width
+
     const width = window.innerWidth;
 
-    // Find the matching responsive option
     const option =
       responsiveOptions.find((opt) => width <= parseInt(opt.breakpoint)) ||
       responsiveOptions[0];
@@ -55,16 +54,15 @@ const SliderCard = <T,>({
   const next = () => {
     setPage((prevPage) =>
       prevPage < totalPages - 1 ? prevPage + numScroll : 0
-    ); // Reset to first page at the end
+    ); 
   };
 
   const prev = () => {
     setPage((prevPage) =>
       prevPage > 0 ? prevPage - numScroll : totalPages - 1
-    ); // Go to last page if at start
+    ); 
   };
 
-  // Effects
   useEffect(() => {
     const handleResize = () => setNumVisible(getNumVisible());
 
@@ -85,16 +83,14 @@ const SliderCard = <T,>({
     };
   }, []);
 
-  const numScroll = 1; // Scroll by 1 item
+  const numScroll = 1; 
   const totalPages =
-    Math.ceil((data?.length - (numVisible || 0)) / numScroll) + 1; // Total pages
+    Math.ceil((data?.length - (numVisible || 0)) / numScroll) + 1; 
 
-  // see all click handler
   const onSeeAllClick = () => {
     router.push(`/see-all/${title?.toLocaleLowerCase().replace(/\s/g, "-")}`);
   };
 
-    // Check if RTL (client-side only)
     const [isRTL, setIsRTL] = useState(false);
     useEffect(() => {
       setIsRTL(document.documentElement.dir === "rtl");
@@ -108,14 +104,14 @@ const SliderCard = <T,>({
             {t(heading)}
           </span>
           <div className="flex items-center justify-end gap-x-2">
-            {/* See All Button */}
+            {}
             <CustomButton
               label={t("see_all")}
               onClick={onSeeAllClick}
               className="text-secondary-color transition-colors duration-200 text-sm md:text-base "
             />
 
-            {/* Navigation Buttons */}
+            {}
             <div className="gap-x-2 hidden md:flex">
               <button
                 className="w-8 h-8 flex items-center justify-center  shadow-md  rounded-full dark:bg-gray-800"
@@ -135,7 +131,7 @@ const SliderCard = <T,>({
 
         <Carousel
           value={data}
-          className={`  w-["100%"] ${data?.length == 1 ? "md:w-[25%]" : "md:w-[100%]"} discovery-carousel ${isRTL ? "rtl-carousel" : ""}`} // Add RTL class
+          className={`  w-["100%"] ${data?.length == 1 ? "md:w-[25%]" : "md:w-[100%]"} discovery-carousel ${isRTL ? "rtl-carousel" : ""}`} 
           itemTemplate={(item) => <Card item={item} isModalOpen={isModalOpen} handleUpdateIsModalOpen={handleUpdateIsModalOpen} />}
           numVisible={numVisible}
           numScroll={1}

@@ -1,4 +1,4 @@
-// components/SmallHeader/styles.js
+
 import { StyleSheet, Platform, StatusBar } from 'react-native';
 import { scale } from '../../../utils/scaling';
 

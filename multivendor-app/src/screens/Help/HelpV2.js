@@ -44,7 +44,7 @@ const Help = props => {
   }, [])
 
   useEffect(() => {
-    // Update translations when the language changes
+
     setLinks([
       {
         title: t('titleProductPage'),

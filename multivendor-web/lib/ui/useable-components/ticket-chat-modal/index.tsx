@@ -24,11 +24,9 @@ export default function TicketChatModal({
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState<string>("");
   const [isSending, setIsSending] = useState<boolean>(false);
-  
-  // Create a polling interval reference
+
 const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Fetch single ticket details
   const { data: ticketData, loading: ticketLoading } = useQuery(
     GET_SINGLE_SUPPORT_TICKET,
     {
@@ -38,7 +36,6 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     }
   );
 
-  // Fetch ticket messages with polling
   const { data, loading, error, refetch, startPolling, stopPolling } = useQuery(
     GET_TICKET_MESSAGES,
     {
@@ -62,12 +59,11 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     }
   );
 
-  // Send message mutation
   const [sendMessage] = useMutation(CREATE_TICKET_MESSAGE, {
     onCompleted: () => {
       setMessage("");
       setIsSending(false);
-      refetch(); // Immediately refetch messages after sending
+      refetch(); 
     },
     onError: (error) => {
       setIsSending(false);
@@ -79,21 +75,18 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     }
   });
 
-  // Start polling when modal is visible
   useEffect(() => {
     if (visible && ticketId) {
-      // Immediate fetch to get fresh data
+
       refetch();
-      
-      // Start polling for messages every 3 seconds
+
       startPolling(3000);
-      
-      // Additional interval as backup for polling
+
       pollingIntervalRef.current = setInterval(() => {
         refetch();
-      }, 5000); // Every 5 seconds as backup
+      }, 5000); 
     } else {
-      // Stop polling when modal is closed
+
       stopPolling();
       
       if (pollingIntervalRef.current) {
@@ -101,8 +94,7 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
         pollingIntervalRef.current = null;
       }
     }
-    
-    // Cleanup on unmount
+
     return () => {
       stopPolling();
       if (pollingIntervalRef.current) {
@@ -112,14 +104,12 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     };
   }, [visible, ticketId, startPolling, stopPolling, refetch]);
 
-  // Auto scroll to bottom when new messages arrive
   useEffect(() => {
     if (messagesEndRef.current && visible) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [data, visible]);
 
-  // Format timestamp
   const formatTimestamp = (timestamp: string) => {
     try {
       const date = new Date(parseInt(timestamp));
@@ -129,8 +119,7 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
       return "unknown time";
     }
   };
-  
-  // Handle sending a message
+
   const handleSendMessage = () => {
     if (!message.trim() || isSending) return;
     
@@ -145,8 +134,7 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
       }
     });
   };
-  
-  // Handle enter key for sending message
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -158,7 +146,6 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const ticket = data?.getTicketMessages?.ticket || ticketData?.getSingleSupportTicket;
   const isClosed = ticket?.status === 'closed';
 
-  // Get ticket title
   const getTicketTitle = () => {
     if (!ticket) return "Support Chat";
     
@@ -169,14 +156,13 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     return ticket.title;
   };
 
-   // get the RTL direction
    const direction = document.documentElement.getAttribute("dir") || "ltr";
 
   return (
     <Dialog
       visible={visible}
       onHide={() => {
-        // Stop polling before closing
+
         stopPolling();
         if (pollingIntervalRef.current) {
           clearInterval(pollingIntervalRef.current);
@@ -195,7 +181,7 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
       closeOnEscape
     >
       <div className="flex flex-col md:h-[600px] h-[500px]">
-        {/* Header */}
+        {}
         <div className="flex justify-between items-center bg-[#1a1a1a] text-white p-4">
           <div className="flex-1">
             <h3 className="font-medium">{getTicketTitle()}</h3>
@@ -218,7 +204,7 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
           </div>
           <button 
             onClick={() => {
-              // Stop polling before closing
+
               stopPolling();
               if (pollingIntervalRef.current) {
                 clearInterval(pollingIntervalRef.current);
@@ -232,7 +218,7 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
           </button>
         </div>
 
-        {/* Fixed Ticket Description Section (non-scrollable) */}
+        {}
         {ticketData?.getSingleSupportTicket?.description && (
           <div className="border-b border-gray-200 dark:border-gray-600 p-3 bg-gray-50 dark:text-white dark:bg-gray-700">
             <div className="text-xs font-medium text-gray-500 mb-1 dark:text-white">
@@ -245,7 +231,7 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
           </div>
         )}
 
-        {/* Messages Area (scrollable) */}
+        {}
         <div className="flex-1 p-4 overflow-y-auto bg-white dark:bg-gray-800 dark:text-white">
           {loading || ticketLoading ? (
             <ChatSkeleton />
@@ -255,14 +241,13 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
             </div>
           ) : messages.length > 0 ? (
             <div className="space-y-4">
-              {/* Messages in chronological order (oldest first) */}
+              {}
               {[...messages].reverse().map((msg) => {
-                // Skip messages that match description
+
                 if (msg.content.trim() === ticketData?.getSingleSupportTicket?.description?.trim()) {
                   return null;
                 }
-                
-                // User's own messages are green and on right, admin messages are gray on left
+
                 const isUserMessage = msg.senderType === "user";
                 return (
                   <div
@@ -289,7 +274,7 @@ const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
           )}
         </div>
 
-        {/* Input Area */}
+        {}
         {isClosed ? (
           <div className="p-4 border-t border-gray-200 bg-gray-50 dark:bg-gray-800 dark:text-white text-center">
             <p className="text-gray-500">

@@ -1,27 +1,9 @@
-// Interface
+
 import { SectionProps, Option } from "@/lib/utils/interfaces";
 import { useTranslations } from "next-intl";
 import { useConfig } from "@/lib/context/configuration/configuration.context";
 
-/**
- * `ItemDetailSection` is a generic component that renders either radio buttons or checkboxes
- * based on the `multiple` prop. It supports single or multiple selection.
- *
- * @template T - The type of the option items, which must include an `_id` field.
- *
- * @param {string} title - The title of the section.
- * @param {T[]} options - The list of options to choose from.
- * @param {string} name - The name attribute for radio or checkbox inputs.
- * @param {boolean} [multiple=false] - If true, allows multiple selections.
- * @param {T | null} singleSelected - The currently selected option
- * @param {Dispatch<SetStateAction<T | null>>} onSingleSelect - Callback function when selection changes.
- * @param {T[] | null} multiSelected - The currently selected options
- * @param {Dispatch<SetStateAction<T | null>>} onMultiSelect - Callback function when multi-select changes
- * @param {string} [requiredTag] - Optional text for required tag (e.g., "1 Required" or "Optional")
- * @param {boolean} [showTag=false] - Whether to show the required/optional tag
- *
- * @returns {JSX.Element} The rendered component.
- */
+
 
 export const ItemDetailSection = <
   T extends {
@@ -74,7 +56,7 @@ export const ItemDetailSection = <
           {title}
         </h3>
 
-        {/* Required/Optional Tag - Only shown when showTag is true */}
+        {}
         {showTag && requiredTag && (
           <span className="text-xs px-2 py-1 rounded-full bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white">
             {requiredTag}
@@ -87,7 +69,7 @@ export const ItemDetailSection = <
             key={option._id}
             className="flex items-center gap-x-2 w-full cursor-pointer"
           >
-            {/* Input Radio/Checkbox */}
+            {}
             <input
               type={multiple ? "checkbox" : "radio"}
               name={name}
@@ -103,7 +85,7 @@ export const ItemDetailSection = <
               className="accent-sky-600 dark:accent-sky-400 dark:bg-gray-700 dark:border-gray-600 "
             />
 
-            {/* Label & Price */}
+            {}
             <div className="flex justify-between items-center w-full">
               <span className="text-sm text-gray-900 dark:text-white">
                 {option.title}{" "}

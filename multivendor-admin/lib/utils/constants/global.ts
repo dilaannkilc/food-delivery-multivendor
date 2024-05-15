@@ -6,19 +6,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { ISeverityStyles } from '../interfaces/toast.interface';
 
-// Prices
 export const MIN_PRICE = 0.0;
 export const MAX_PRICE = 99999;
 
-// File Sizes
-export const MAX_LANSDCAPE_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
-export const MAX_SQUARE_FILE_SIZE = 500 * 1000; // 500 KB
-export const MAX_VIDEO_FILE_SIZE = 8 * 1024 * 1024; // 8 MB
+export const MAX_LANSDCAPE_FILE_SIZE = 2 * 1024 * 1024; 
+export const MAX_SQUARE_FILE_SIZE = 500 * 1000; 
+export const MAX_VIDEO_FILE_SIZE = 8 * 1024 * 1024; 
 
-// Default Locale
 export const DEFAULT_LOCALE: string = 'en';
 
-// Severity Styles
 export const SEVERITY_STYLES: ISeverityStyles = {
   error: {
     bgColor: '#FFC5C5',

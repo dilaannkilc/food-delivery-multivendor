@@ -1,24 +1,18 @@
 'use client';
-// Core
+
 import { Form, Formik } from 'formik';
 
-// Components
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 import ConfigCard from '../../view/card';
 
-// Toast
 import useToast from '@/lib/hooks/useToast';
 
-// Hooks
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Interfaces and Types
 import { IStripeForm } from '@/lib/utils/interfaces/configurations.interface';
 
-// Utils and Constants
 import { StripeValidationSchema } from '@/lib/utils/schema';
 
-// GraphQL
 import {
   GET_CONFIGURATION,
   SAVE_STRIPE_CONFIGURATION,
@@ -26,7 +20,7 @@ import {
 import { useMutation } from '@apollo/client';
 
 const StripeAddForm = () => {
-  // Hooks
+
   const { STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY } = useConfiguration();
   const { showToast } = useToast();
 

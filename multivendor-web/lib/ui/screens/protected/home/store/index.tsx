@@ -17,16 +17,13 @@ export default function StoreScreen() {
   
   const { loading, error, queryData, fetchMore } = useNearByRestaurantsPreview(true, page, limit, "grocery");
   const { loading:cuisinesloading, groceryCuisinesData } = useGetCuisines();
- 
 
-  // ✅ Initial load
   useEffect(() => {
     if (page === 1 && queryData?.length) {
       setItems(queryData);
     }
   }, [queryData, page]);
 
-  // ✅ Load more
   const loadMore = useCallback(async () => {
     if (!hasMore || loading) return;
 
@@ -48,7 +45,6 @@ export default function StoreScreen() {
     }
   }, [page, hasMore, fetchMore, loading]);
 
-  // ✅ Scroll listener (your tested one)
   useEffect(() => {
     if (!fetchMore || !hasMore) return;
 
@@ -76,12 +72,12 @@ export default function StoreScreen() {
       headingTitle= {t('StoresPage.headingTitle')}
       cuisineSectionTitle={t('StoresPage.cuisineSectionTitle')}
       mainSectionTitle={t('StoresPage.mainSectionTitle')}
-      mainData={items} // ✅ pass paginated items
+      mainData={items} 
       cuisineDataFromHook={groceryCuisinesData}
       loading={loading}
       cuisinesloading={cuisinesloading}
       error={!!error}
-      hasMore={hasMore} // ✅ pass down so MainSection can show "No more"
+      hasMore={hasMore} 
     />
   );
 }

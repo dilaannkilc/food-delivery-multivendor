@@ -179,7 +179,7 @@ function ImageTextCenterHeader(props, ref) {
                   style={[
                     styles(currentTheme).touchArea,
                     {
-                      // backgroundColor: props?.themeBackground,
+
                       borderRadius: props?.iconRadius,
                       height: props?.iconTouchHeight
                     }
@@ -198,7 +198,7 @@ function ImageTextCenterHeader(props, ref) {
                   style={[
                     styles(currentTheme).touchArea,
                     {
-                      // backgroundColor: props?.themeBackground,
+
                       borderRadius: props?.iconRadius,
                       height: props?.iconTouchHeight
                     }
@@ -241,7 +241,7 @@ function ImageTextCenterHeader(props, ref) {
                     style={[
                       styles(currentTheme).touchArea,
                       {
-                        // backgroundColor: props?.themeBackground,
+
                         borderRadius: props?.iconRadius,
                         height: props?.iconTouchHeight
                       }
@@ -264,7 +264,7 @@ function ImageTextCenterHeader(props, ref) {
                     style={[
                       styles(currentTheme).touchArea,
                       {
-                        // backgroundColor: props?.themeBackground,
+
                         borderRadius: props?.iconRadius,
                         height: props?.iconTouchHeight
                       }

@@ -1,12 +1,11 @@
 export const te = {
-  // Navigation
+
   continue: "కొనసాగించు",
   Wallet: "వాలెట్",
   Home: "హోమ్",
   Earnings: "సంపాదనలు",
   Profile: "ప్రొఫైల్",
 
-  // FAQs
   faq1: "నేను ఆర్డర్ ఎలా ఇవ్వగలను?",
   faq1Description:
     "ఆర్డర్ ఇవ్వడానికి, మా మెనూలో బ్రౌజ్ చేయండి, మీరు ఆర్డర్ చేయాలనుకునే ఐటెమ్లను ఎంచుకుని, చెక్అవుట్కు వెళ్లండి. మీ ఆర్డర్ను నిర్ధారించే ముందు మీకు నచ్చిన పేమెంట్ మెథడ్ మరియు డెలివరీ చిరునామాను ఎంచుకోవచ్చు.",
@@ -29,7 +28,6 @@ export const te = {
   faq7Description:
     "దురదృష్టవశాత్తు, మీరు ఒకే ఆర్డర్లో బహుళ రెస్టారెంట్ల నుండి ఎంచుకోలేరు. అయితే, మీరు ఒకేసారి వేర్వేరు రెస్టారెంట్ల నుండి విడి ఆర్డర్లు ఇవ్వగలరు.",
 
-  // Earnings
   "Earnings Summary": "సంపాదనల సారాంశం",
   Deliveries: "డెలివరీలు",
   "Total Earnings": "మొత్తం సంపాదనలు",
@@ -39,13 +37,11 @@ export const te = {
   "Order Date": "ఆర్డర్ తేదీ",
   "Earnings Order Details": "సంపాదనల ఆర్డర్ వివరాలు",
 
-  // Flash messages
   "Order placed successfully": "ఆర్డర్ విజయవంతంగా ఇవ్వబడింది",
   "Order cancelled successfully": "ఆర్డర్ విజయవంతంగా క్యాన్సల్ చేయబడింది",
   "Error while placing order": "ఆర్డర్ ఇవ్వడంలో లోపం",
   "Error while cancelling order": "ఆర్డర్ క్యాన్సల్ చేయడంలో లోపం",
 
-  // Other messages
   "Please enter your name": "దయచేసి మీ పేరును నమోదు చేయండి",
   "Please enter your email": "దయచేసి మీ ఇమెయిల్ నమోదు చేయండి",
   "Please enter your password": "దయచేసి మీ పాస్వర్డ్ నమోదు చేయండి",
@@ -258,7 +254,7 @@ export const te = {
   "No new orders yet!": "ఇంకా కొత్త ఆర్డర్లు లేవు!",
   "You don't have any orders yet!": "మీకు ఇంకా ఆర్డర్లు లేవు!",
   "No delivered orders yet!": "ఇంకా డెలివర్ చేయబడిన ఆర్డర్లు లేవు!",
-  // Vehicle Screen
+
   "Vehicle Details": "వాహనం వివరాలు",
   "Vehicle Number": "వాహనం నంబర్",
   "Vehicle Color": "వాహనం రంగు",
@@ -307,14 +303,12 @@ export const te = {
   "Vehicle documents format not supported":
     "వాహనం డాక్యుమెంట్ల ఫార్మాట్ సపోర్ట్ చేయబడదు",
 
-  // Chat Screen
   "Contact Customer": "కస్టమర్ను సంప్రదించండి",
   "Type a message": "సందేశాన్ని టైప్ చేయండి",
   Send: "పంపండి",
   "Message sent": "సందేశం పంపబడింది",
   "Message failed": "సందేశం విఫలమైంది",
 
-  // Earnings Screen
   "Please select a date range": "దయచేసి తేదీ పరిధిని ఎంచుకోండి",
   "Please select a start date": "దయచేసి ప్రారంభ తేదీని ఎంచుకోండి",
   "Please select an end date": "దయచేసి ముగింపు తేదీని ఎంచుకోండి",
@@ -323,7 +317,6 @@ export const te = {
   "Please log in to view your earnings":
     "దయచేసి మీ సంపాదనలను వీక్షించడానికి లాగిన్ అవ్వండి",
 
-  // Profile Forms
   "Unable to update availability": "లభ్యతను నవీకరించడం సాధ్యం కాలేదు",
   "rider name": "రైడర్ పేరు",
   "rider id": "రైడర్ ID",

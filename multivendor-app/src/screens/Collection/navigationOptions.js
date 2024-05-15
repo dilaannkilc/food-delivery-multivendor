@@ -1,4 +1,4 @@
-/* eslint-disable react/display-name */
+
 import React from 'react'
 import { alignment } from '../../utils/alignment'
 import { TouchableOpacity } from 'react-native'

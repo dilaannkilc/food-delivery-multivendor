@@ -5,7 +5,6 @@ import { Dialog } from "primereact/dialog";
 import { useQuery, useMutation, useSubscription } from "@apollo/client";
 import { MessageBox } from "react-chat-elements";
 
-// Subscriptions, Queries, and Mutations
 import { CHAT_QUERY } from "@/lib/api/graphql/queries/chatWithRider";
 import { SUBSCRIPTION_NEW_MESSAGE } from "@/lib/api/graphql/subscription/ChatWithRider";
 import { SEND_CHAT_MESSAGE } from "@/lib/api/graphql/mutations/chatWithRider";
@@ -38,19 +37,16 @@ function ChatWithRiderModal({
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState("");
 
-  // Initial chat messages
   const { data: chatData } = useQuery(CHAT_QUERY, {
     variables: { order: orderId },
     fetchPolicy: "network-only",
     onError: (error) => alert(error.message),
   });
 
-  // Subscription for new messages
   const { data: subscriptionData } = useSubscription(SUBSCRIPTION_NEW_MESSAGE, {
     variables: { order: orderId },
   });
 
-  // Send message mutation
   const [sendChatMessage] = useMutation(SEND_CHAT_MESSAGE, {
     onCompleted: (data) => {
       if (!data.sendChatMessage.success) {
@@ -60,7 +56,6 @@ function ChatWithRiderModal({
     onError: (error) => alert(error.message),
   });
 
-  // Load chat history
   useEffect(() => {
     if (chatData?.chat) {
       const formattedMessages = chatData.chat.map((message: any) => ({
@@ -72,11 +67,10 @@ function ChatWithRiderModal({
           name: message.user.name,
         },
       }));
-      setMessages(formattedMessages.reverse()); // Newest messages at the bottom
+      setMessages(formattedMessages.reverse()); 
     }
   }, [chatData]);
 
-  // Handle new message via subscription
   useEffect(() => {
     if (subscriptionData?.subscriptionNewMessage) {
       const newMsg = subscriptionData.subscriptionNewMessage;
@@ -95,7 +89,6 @@ function ChatWithRiderModal({
     }
   }, [subscriptionData]);
 
-  // Handle sending a message
   const handleSend = async () => {
     if (!inputMessage.trim()) return;
 
@@ -144,7 +137,7 @@ function ChatWithRiderModal({
           </button>
         </div>
 
-        {/* Messages */}
+        {}
         <div className="flex-1 overflow-y-auto p-2">
           {messages.map((msg: Message) => (
             <div key={msg._id} className="mb-2">
@@ -173,7 +166,7 @@ function ChatWithRiderModal({
           ))}
         </div>
 
-        {/* Input Area */}
+        {}
 
         <div className="flex gap-2 p-2">
           <input

@@ -2,9 +2,7 @@ import { useEffect } from "react";
 import useEnvVars from "../../environment";
 import { fetchPublicAccessToken } from "../utils/service/publicAccessService";
 
-/**
- * Hook to initialize public access token on app startup
- */
+
 export const usePublicAccessInit = () => {
   const { GRAPHQL_URL } = useEnvVars();
 

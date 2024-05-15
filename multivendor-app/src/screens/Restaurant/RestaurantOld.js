@@ -24,7 +24,6 @@ const { height } = Dimensions.get('screen')
 import { useTranslation } from 'react-i18next'
 import { ItemCard } from '../../components/ItemCards/ItemCards'
 
-// Animated Section List component
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList)
 const TOP_BAR_HEIGHT = height * 0.05
 const HEADER_MAX_HEIGHT = height * 0.3
@@ -197,7 +196,6 @@ function Restaurant(props) {
     return null
   }
 
-  // button animation
   function animate() {
     timing(circle, {
       toValue: 1,
@@ -213,8 +211,8 @@ function Restaurant(props) {
         animated: true,
         sectionIndex: index,
         itemIndex: 0
-        // viewOffset: -(HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT),
-        // viewPosition: 0
+
+
       })
     }
   }
@@ -244,52 +242,50 @@ function Restaurant(props) {
       scrollToNavbar(viewableItems[0].section.index)
     }
   }
-  // const onScrollEndSnapToEdge = event => {
-  //   const y = event.nativeEvent.contentOffset.y
-  //   if (y > 0 && y < HALF_HEADER_SCROLL / 2) {
-  //     if (scrollRef.current) {
-  //       timing(animation, config(0)).start(({ finished }) => {
-  //         if (finished) {
-  //           scrollRef.current.scrollToLocation({
-  //             animated: false,
-  //             sectionIndex: 0,
-  //             itemIndex: 0,
-  //             viewOffset: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT,
-  //             viewPosition: 0
-  //           })
-  //         }
-  //       })
-  //     }
-  //   } else if (HALF_HEADER_SCROLL / 2 <= y && y < HALF_HEADER_SCROLL) {
-  //     if (scrollRef.current) {
-  //       timing(animation, config(SCROLL_RANGE)).start(({ finished }) => {
-  //         if (finished) {
-  //           scrollRef.current.scrollToLocation({
-  //             animated: false,
-  //             sectionIndex: 0,
-  //             itemIndex: 0,
-  //             viewOffset: -(HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT),
-  //             viewPosition: 0
-  //           })
-  //         }
-  //       })
-  //     }
-  //   }
-  //   buttonClickedSetter(false)
-  // }
 
-  // Important
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const headerHeight = interpolateNode(animation, {
     inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
     outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
     extrapolate: Extrapolate.CLAMP
   })
 
-  // const opacity = interpolateNode(animation, {
-  //   inputRange: [0, height * 0.05, SCROLL_RANGE / 2],
-  //   outputRange: [1, 0.8, 0],
-  //   extrapolate: Extrapolate.CLAMP
-  // })
+
+
+
+
 
   const iconColor = currentTheme.iconColorPink
 
@@ -303,14 +299,13 @@ function Restaurant(props) {
 
   const iconTouchWidth = scale(30)
 
-  // const headerTextFlex = concat(
-  //   interpolateNode(animation, {
-  //     inputRange: [0, 80, SCROLL_RANGE],
-  //     outputRange: [-10, -10, 0],
-  //     extrapolate: Extrapolate.CLAMP
-  //   }),
-  //   '%'
-  // )
+
+
+
+
+
+
+
 
   const circleSize = interpolateNode(circle, {
     inputRange: [0, 0.5, 1],
@@ -339,7 +334,7 @@ function Restaurant(props) {
           iconRadius={iconRadius}
           iconTouchWidth={iconTouchWidth}
           iconTouchHeight={iconTouchHeight}
-          // headerTextFlex={headerTextFlex}
+
           restaurantName={propsData.name}
           restaurantImage={propsData.image}
           restaurant={null}
@@ -395,7 +390,7 @@ function Restaurant(props) {
             iconRadius={iconRadius}
             iconTouchWidth={iconTouchWidth}
             iconTouchHeight={iconTouchHeight}
-            // headerTextFlex={headerTextFlex}
+
             restaurantName={propsData.name}
             restaurantImage={propsData.image}
             restaurant={data.restaurant}
@@ -407,37 +402,37 @@ function Restaurant(props) {
           <AnimatedSectionList
             ref={scrollRef}
             sections={deals}
-            // Important
-            // contentContainerStyle={{
-            //   paddingBottom: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
-            // }}
+
+
+
+
             scrollEventThrottle={1}
             stickySectionHeadersEnabled={false}
             showsVerticalScrollIndicator={false}
             refreshing={networkStatus === 4}
             onRefresh={() => networkStatus === 7 && refetch()}
             onViewableItemsChanged={onViewableItemsChanged}
-            // onMomentumScrollEnd={event => {
-            //   onScrollEndSnapToEdge(event)
-            // }}
-            // // Important
-            // onScroll={Animated.event([
-            //   {
-            //     nativeEvent: {
-            //       contentOffset: {
-            //         y: animation
-            //       }
-            //     }
-            //   }
-            // ])}
+
+
+
+
+
+
+
+
+
+
+
+
+
             keyExtractor={(item, index) => item + index}
-            // ItemSeparatorComponent={() => (
-            //   <View style={styles(currentTheme).listSeperator} />
-            // )}
-            // SectionSeparatorComponent={props => {
-            //   if (!props?.leadingItem) return null
-            //   return <View style={styles(currentTheme).sectionSeparator} />
-            // }}
+
+
+
+
+
+
+
             renderSectionHeader={({ section: { title } }) => {
               return (
                 <View style={{ backgroundColor: '#fff' }}>

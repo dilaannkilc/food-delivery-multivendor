@@ -8,15 +8,14 @@ import { useTranslation } from "react-i18next";
 import { Bubble, GiftedChat, Send } from "react-native-gifted-chat";
 
 export default function ChatMain() {
-  // Hooks
+
   const { t } = useTranslation();
   const { appTheme } = useApptheme();
   const { messages, onSend, inputMessage, setInputMessage, profile } =
     useChatScreen();
 
-  // const filterImages = (src) => {
-  //   setImage(image.filter((item) => item !== src));
-  // };
+
+
 
   const renderSend = (props) => {
     return (
@@ -136,8 +135,8 @@ export default function ChatMain() {
           right: { color: "green" },
         }}
         placeholder={t("Type your message")}
-        // textInputStyle={{ paddingTop: 10 }}
-        // renderAccessory={image.length > 0 ? renderAccessory : <></>}
+
+
         text={inputMessage ?? ""}
         onInputTextChanged={(m) => setInputMessage(m)}
       />

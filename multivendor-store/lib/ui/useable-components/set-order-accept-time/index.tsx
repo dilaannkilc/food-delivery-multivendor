@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useState } from "react";
 
 import {
@@ -9,19 +9,14 @@ import {
   View,
 } from "react-native";
 
-// Hooks
 import useAcceptOrder from "@/lib/hooks/useAcceptOrder";
 import useOrderRing from "@/lib/hooks/useOrderRing";
 
-// Constants
 import { TIMES } from "@/lib/utils/constants";
 
-// Interface
 import { ISetOrderTimeComponentProps } from "@/lib/utils/interfaces";
 
-// UI
 
-// Icons
 import { useApptheme } from "@/lib/context/theme.context";
 import { useTranslation } from "react-i18next";
 import CustomContinueButton from "../custom-continue-button";
@@ -33,11 +28,10 @@ const SetTimeScreenAndAcceptOrder = ({
   orderId,
   handleDismissModal,
 }: ISetOrderTimeComponentProps) => {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
-  // States
   const [selectedTime, setSelectedTime] = useState(TIMES[0]);
   const [isAcceptingOrder, setIsAcceptingOrder] = useState(false);
 
@@ -51,7 +45,7 @@ const SetTimeScreenAndAcceptOrder = ({
       await muteRing(orderId);
       handleDismissModal();
     } catch (err) {
-      // FlashMessageComponent({ message: err?.message ?? "Order accept failed" });
+
       console.log(err);
     } finally {
       handleDismissModal();
@@ -63,7 +57,7 @@ const SetTimeScreenAndAcceptOrder = ({
       const status = await printOrder(id);
 
       if (status) {
-        // null means it's ioS so ignore printing and true mean print wa successfull
+
         await acceptOrder(id, selectedTime?.toString() || "0");
         await muteRing(orderId);
       }
@@ -71,7 +65,7 @@ const SetTimeScreenAndAcceptOrder = ({
       setIsAcceptingOrder(false);
       handleDismissModal();
     } catch (err) {
-      // FlashMessageComponent({ message: err?.message ?? "Order accept failed" });
+
       console.log(err);
     } finally {
       setIsAcceptingOrder(false);

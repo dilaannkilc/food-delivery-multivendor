@@ -7,7 +7,6 @@ import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useQuery, useApolloClient } from "@apollo/client";
 import { RELATED_ITEMS, FOOD } from "@/lib/api/graphql";
 
-// Hooks
 import useUser from "@/lib/hooks/useUser";
 import { useConfig } from "@/lib/context/configuration/configuration.context";
 import Image from "next/image";
@@ -22,7 +21,7 @@ interface CartProps {
 }
 
 export default function Cart({ onClose }: CartProps) {
-  // Access user context for cart functionality
+
   const {
     clearCart,
     cart,
@@ -38,7 +37,6 @@ export default function Cart({ onClose }: CartProps) {
   );
   const [showDialog, setShowDialog] = useState<IFood | null>(null);
 
-  // retrieve cart-product-store-slug and id from local storage rather than useParams
   const slug = localStorage.getItem("cart-product-store-slug") || "";
   const id = localStorage.getItem("cart-product-store-id") || "";
 
@@ -49,15 +47,13 @@ export default function Cart({ onClose }: CartProps) {
   const client = useApolloClient();
   const shopType = localStorage.getItem("currentShopType");
 
-  // Format subtotal for display
   const formattedSubtotal =
     cartCount > 0
       ? `${CURRENCY_SYMBOL}${calculateSubtotal()}`
       : `${CURRENCY_SYMBOL}0`;
 
-  // Get first item's ID for related items query (if cart is not empty)
   const firstCartItemId = cart.length > 0 ? cart[0]._id : null;
-  // Fetch related items
+
   const { data: relatedItemsData } = useQuery(RELATED_ITEMS, {
     variables: {
       itemId: firstCartItemId || "",
@@ -69,22 +65,20 @@ export default function Cart({ onClose }: CartProps) {
   const handleClearCart = async () => {
     await clearCart();
   };
-  // Handle adding related item to cart
-  // const handleAddRelatedItem = (id: string) => {
-  //   // Use Apollo Client to read the food fragment
-  //   const food = client.readFragment({
-  //     id: `Food:${id}`,
-  //     fragment: FOOD,
-  //   });
 
-  //   if (food) {
-  //     // Assuming first variation for simplicity
-  //     const variation = food.variations[0];
-  //     addItem(food?.image, food._id, variation._id, restaurantId || "");
-  //   }
-  // };
 
-  // Empty cart state
+
+
+
+
+
+
+
+
+
+
+
+
   if (cart.length === 0) {
     return (
       <div className="h-full flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 transition-colors duration-300">
@@ -100,7 +94,7 @@ export default function Cart({ onClose }: CartProps) {
               if (onClose) {
                 await onClose();
               }
-              // Add 300ms delay (for modal animation or smooth UX)
+
               await new Promise((resolve) => setTimeout(resolve, 300));
 
               router.push("/discovery", { scroll: true });
@@ -123,7 +117,6 @@ export default function Cart({ onClose }: CartProps) {
     }
   };
 
-  // Slice related items to max 3
   const slicedRelatedItems = (relatedItemsData?.relatedItems || []).slice(0, 3);
   const handleOpenFoodModal = async (food: IFood) => {
     if (food.isOutOfStock) return;
@@ -135,7 +128,7 @@ export default function Cart({ onClose }: CartProps) {
     ) {
       return;
     }
-    // Add restaurant ID to the food item
+
 
     setShowDialog({
       ...food,
@@ -160,7 +153,7 @@ export default function Cart({ onClose }: CartProps) {
     const now = new Date();
     const currentDay = now
       .toLocaleString("en-US", { weekday: "short" })
-      .toUpperCase(); // e.g., "MON", "TUE", ...
+      .toUpperCase(); 
     const currentHour = now.getHours();
     const currentMinute = now.getMinutes();
 
@@ -186,7 +179,7 @@ export default function Cart({ onClose }: CartProps) {
   return (
     <>
       <div className="h-full flex flex-col bg-white dark:bg-gray-800 dark:text-white relative">
-        {/* Header */}
+        {}
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="font-inter font-semibold text-xl text-gray-900 dark:text-white">
             {t("your_order_label")}
@@ -196,9 +189,9 @@ export default function Cart({ onClose }: CartProps) {
           </span>
         </div>
 
-        {/* Scrollable Content */}
+        {}
         <div className="flex-1 overflow-y-auto">
-          {/* Cart Items */}
+          {}
           <div className="p-4 space-y-4">
             {cart.map((item) => (
               <div
@@ -210,8 +203,8 @@ export default function Cart({ onClose }: CartProps) {
                     <Image
                       src={item.image}
                       alt="item image"
-                      width={112} // w-28 = 112px
-                      height={112} // h-28 = 112px
+                      width={112} 
+                      height={112} 
                       className="w-28 h-28 object-cover rounded-md mb-2"
                     />
                     <div>
@@ -235,7 +228,7 @@ export default function Cart({ onClose }: CartProps) {
                   )}
                 </div>
 
-                {/* Quantity Controls */}
+                {}
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={(e) => {
@@ -269,7 +262,7 @@ export default function Cart({ onClose }: CartProps) {
             ))}
           </div>
 
-          {/* Recommended for You Section */}
+          {}
           {slicedRelatedItems.length > 0 && (
             <div className="p-4 bg-gray-50 dark:bg-gray-800 ">
               <h2 className="font-inter font-semibold text-base  text-gray-900 dark:text-white mb-3">
@@ -277,7 +270,7 @@ export default function Cart({ onClose }: CartProps) {
               </h2>
               <div className="flex flex-wrap gap-3">
                 {slicedRelatedItems.map((id: string) => {
-                  // Read the food fragment using Apollo Client
+
                   const food = client.readFragment({
                     id: `Food:${id}`,
                     fragment: FOOD,
@@ -287,7 +280,7 @@ export default function Cart({ onClose }: CartProps) {
                   return (
                     <div
                       key={id}
-                      // onClick={() => handleAddRelatedItem(id)}
+
                       onClick={() => handleOpenFoodModal(food)}
                       className="flex-grow basis-[calc(50%-0.75rem)] bg-white dark:bg-gray-800 rounded-lg overflow-hidden relative 
                     transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg cursor-pointer group"
@@ -296,8 +289,8 @@ export default function Cart({ onClose }: CartProps) {
                         <Image
                           src={food.image}
                           alt={food.title}
-                          width={600} // adjust as needed
-                          height={144} // h-36 = 144px
+                          width={600} 
+                          height={144} 
                           className="w-full h-36 object-cover group-hover:opacity-80 transition-opacity duration-300"
                         />
                       )}
@@ -317,7 +310,7 @@ export default function Cart({ onClose }: CartProps) {
             </div>
           )}
 
-          {/* Add Comment Section */}
+          {}
           <div className="p-4 bg-whitedark:bg-gray-800 ">
             <div className="bg-gray-50 dark:bg-gray-800  rounded-lg p-3">
               <h2 className="font-inter font-semibold text-base text-gray-900 dark:text-white  mb-2">
@@ -348,7 +341,7 @@ export default function Cart({ onClose }: CartProps) {
           </div>
         </div>
 
-        {/* Fixed Checkout Button */}
+        {}
         <div className="p-4 flex flex-col justify-center items-center border-t bg-white dark:bg-gray-800 ">
           <button
             className="flex justify-between items-center w-full bg-primary-color text-black rounded-full px-4 py-3"
@@ -370,7 +363,7 @@ export default function Cart({ onClose }: CartProps) {
               {formattedSubtotal}
             </span>
           </button>
-          {/* Clear Cart */}
+          {}
           <button
             onClick={handleClearCart}
             className="mt-3  w-full flex items-center justify-center gap-2 rounded-full px-4 py-3 border border-red-500 text-red-500 hover:bg-red-50 dark:hover:border-red-700 dark:hover:bg-inherit transition-colors"
@@ -382,18 +375,18 @@ export default function Cart({ onClose }: CartProps) {
           </button>
         </div>
       </div>
-      {/* Food Item Detail Modal */}
+      {}
       <Dialog
         visible={!!showDialog}
-        className="mx-3 sm:mx-4 md:mx-0 " // Adds margin on small screens
+        className="mx-3 sm:mx-4 md:mx-0 " 
         onHide={handleCloseFoodModal}
         showHeader={false}
         contentStyle={{
           borderTopLeftRadius: "4px",
           borderTopRightRadius: "4px",
           padding: "0px",
-        }} // Rounds top corners
-        style={{ borderRadius: "1rem" }} // Rounds full box including top corners
+        }} 
+        style={{ borderRadius: "1rem" }} 
       >
         {showDialog && (
           <FoodItemDetail

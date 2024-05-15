@@ -1,23 +1,19 @@
-// Core
+
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 
-// Context
 import { VendorContext } from '@/lib/context/super-admin/vendor.context';
 
-// Components
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 
-// Constants
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import { useTranslations } from 'next-intl';
 
 export default function VendorHeader() {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const { onSetVendorFormVisible, globalFilter, onSetGlobalFilter } =
     useContext(VendorContext);
 
@@ -49,12 +45,7 @@ export default function VendorHeader() {
             onChange={(e) => onSetGlobalFilter(e.target.value)}
           />
         </div>
-        {/* <VendorCustomTab
-          options={options}
-          selectedTab={selectedVendorFilter}
-          setSelectedTab={setSelectedVendorFilter}
-          className="w-full sm:w-auto"
-        /> */}
+        {}
       </div>
     </div>
   );

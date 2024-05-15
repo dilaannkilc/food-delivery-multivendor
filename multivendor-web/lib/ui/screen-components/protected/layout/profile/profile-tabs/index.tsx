@@ -10,33 +10,29 @@ export default function ProfileTabs({ className, tabs }: IProfileTabsProps & { t
   const router = useRouter();
   const pathname = usePathname();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
-  // Use the passed tabs or default to profileDefaultTabs
+
   const defaultTabs = useProfileDefaultTabs();
-  const tabsToRender: ITabItem[] = tabs ?? defaultTabs; // ✅ safe fallback
+  const tabsToRender: ITabItem[] = tabs ?? defaultTabs; 
 
   const scrollableStyles: CSSProperties = {
-    msOverflowStyle: "none", // IE and Edge
-    scrollbarWidth: "none", // Firefox
-    WebkitOverflowScrolling: "touch", // Smooth scrolling
+    msOverflowStyle: "none", 
+    scrollbarWidth: "none", 
+    WebkitOverflowScrolling: "touch", 
   };
 
-  // Function to scroll active tab into center view
   useEffect(() => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
       const activeTabElement = container.querySelector('.active-tab');
       
       if (activeTabElement) {
-        // Calculate positions
+
         const containerWidth = container.offsetWidth;
         const tabWidth = (activeTabElement as HTMLElement).offsetWidth;
         const tabLeft = (activeTabElement as HTMLElement).offsetLeft;
-        
-        // Calculate scroll position to center the tab
+
         const scrollPosition = tabLeft - (containerWidth / 2) + (tabWidth / 2);
-        
-        // Smooth scroll to position
+
         container.scrollTo({
           left: scrollPosition,
           behavior: 'smooth'
@@ -47,7 +43,7 @@ export default function ProfileTabs({ className, tabs }: IProfileTabsProps & { t
 
   return (
     <div className={`w-full md:w-auto max-w-7xl border-b border-gray-200 dark:border-gray-700 ${className || ""}`}>
-      {/* Mobile View - Horizontally scrollable with centered active tab */}
+      {}
       <div 
         ref={scrollContainerRef}
         className="flex overflow-x-auto md:hidden px-1 pb-1 snap-x" 
@@ -69,7 +65,7 @@ export default function ProfileTabs({ className, tabs }: IProfileTabsProps & { t
         })}
       </div>
 
-      {/* Desktop View */}
+      {}
       <div className="hidden md:flex space-x-8 rtl:space-x-reverse">
         {tabsToRender.map((tab) => (
           <TabItem

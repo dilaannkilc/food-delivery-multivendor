@@ -1,12 +1,11 @@
 export const pt = {
-  // Navigation
+
   continue: "Continuar",
   Wallet: "Carteira",
   Home: "Início",
   Earnings: "Ganhos",
   Profile: "Perfil",
 
-  // FAQs
   faq1: "Como faço um pedido?",
   faq1Description:
     "Para fazer um pedido, basta navegar pelo nosso menu, selecionar os itens que deseja pedir e prosseguir para o checkout. Você pode escolher seu método de pagamento preferido e endereço de entrega antes de confirmar seu pedido.",
@@ -29,7 +28,6 @@ export const pt = {
   faq7Description:
     "Infelizmente, você não pode escolher de vários restaurantes no mesmo pedido. No entanto, você pode fazer pedidos separados de diferentes restaurantes ao mesmo tempo.",
 
-  // Earnings
   "Earnings Summary": "Resumo de Ganhos",
   Deliveries: "Entregas",
   "Total Earnings": "Ganhos Totais",
@@ -39,13 +37,11 @@ export const pt = {
   "Order Date": "Data do Pedido",
   "Earnings Order Details": "Detalhes do Pedido de Ganhos",
 
-  // Flash messages
   "Order placed successfully": "Pedido realizado com sucesso",
   "Order cancelled successfully": "Pedido cancelado com sucesso",
   "Error while placing order": "Erro ao fazer pedido",
   "Error while cancelling order": "Erro ao cancelar pedido",
 
-  // Other messages
   "Please enter your name": "Por favor, digite seu nome",
   "Please enter your email": "Por favor, digite seu email",
   "Please enter your password": "Por favor, digite sua senha",

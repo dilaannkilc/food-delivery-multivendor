@@ -7,16 +7,14 @@ import {
   Text,
   View,
 } from "react-native";
-// UI
+
 import CustomTab from "@/lib/ui/useable-components/custom-tab";
-// Constants
+
 import { NO_ORDER_PROMPT, ORDER_DISPATCH_TYPE } from "@/lib/utils/constants";
 
-// Interface
 import { IOrderTabsComponentProps } from "@/lib/utils/interfaces";
 import { IOrder } from "@/lib/utils/interfaces/order.interface";
 
-// Hook
 import { useApptheme } from "@/lib/context/theme.context";
 import useOrders from "@/lib/hooks/useOrders";
 import Order from "@/lib/ui/useable-components/order";
@@ -36,10 +34,9 @@ import SpinnerComponent from "@/lib/ui/useable-components/spinner";
 const { height } = Dimensions.get("window");
 
 function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
-  // Props
+
   const { route } = props;
 
-  // Hooks
   const { t } = useTranslation();
   const { appTheme } = useApptheme();
   const {
@@ -52,19 +49,15 @@ function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
     setCurrentTab,
   } = useOrders();
 
-  // Ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
-  // States
   const [refreshing, setRefreshing] = useState(false);
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<IOrder | null>(null);
   const [showDetails, setShowDetails] = useState<Record<string, boolean>>({});
-  // Printer States
 
-  //////////
 
-  // Handlers
+
   const onInitOrders = () => {
     if (loading || error) return;
     if (!data) return;
@@ -96,19 +89,18 @@ function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
   const toggleShowDetails = (itemId: string) => {
     setShowDetails((prev) => ({ ...prev, [itemId]: !prev[itemId] }));
   };
-  // Use Effect
+
   useEffect(() => {
     onInitOrders();
   }, [data?.restaurantOrders, route.key, currentTab]);
 
   useEffect(() => {
-    // Trigger refetch when orders length changes
+
     if (orders?.length === 0) {
       refetch();
     }
   }, [orders?.length]);
 
-  // Calculate the marginBottom dynamically
   const marginBottom = Platform.OS === "ios" ? height * 0.4 : height * 0.35;
 
   return (
@@ -145,9 +137,9 @@ function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
               showsVerticalScrollIndicator={false}
               refreshing={refreshing}
               onRefresh={onRefresh}
-              initialNumToRender={20} // render more items up front
-              maxToRenderPerBatch={20} // reduce batching delays
-              windowSize={5} // keep more items around viewport
+              initialNumToRender={20} 
+              maxToRenderPerBatch={20} 
+              windowSize={5} 
               removeClippedSubviews={false}
               renderItem={({ item }: { item: IOrder }) => (
                 <Order

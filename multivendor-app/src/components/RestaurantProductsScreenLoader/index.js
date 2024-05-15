@@ -1,11 +1,9 @@
-// Core
+
 import React from 'react'
 import { View } from 'react-native'
 
-// Placeholder
 import { Fade, Placeholder, PlaceholderLine } from 'rn-placeholder'
 
-// Components
 import ImageHeader from '../Restaurant/ImageHeader'
 
 const RestaurantProductsScreenLoader = (

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+
 import { ApolloError, NetworkStatus } from "@apollo/client";
 import { LocationPermissionResponse } from "expo-location";
 import { Dispatch, SetStateAction } from "react";

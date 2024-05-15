@@ -1,28 +1,21 @@
 'use client';
-// GraphQL
+
 import { CREATE_COUPON, EDIT_COUPON, GET_COUPONS } from '@/lib/api/graphql';
 
-// Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Components
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import CustomNumberField from '@/lib/ui/useable-components/number-input-field';
 
-// Interfaces
 import { IAddCouponProps } from '@/lib/utils/interfaces/coupons.interface';
 
-// Schema
 import { CouponFormSchema } from '@/lib/utils/schema/coupon';
 
-// Formik
 import { Form, Formik } from 'formik';
 
-// Prime react
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Sidebar } from 'primereact/sidebar';
 
-// Hooks
 import { useMutation } from '@apollo/client';
 import { ChangeEvent, useContext } from 'react';
 import CustomInputSwitch from '@/lib/ui/useable-components/custom-input-switch';
@@ -36,11 +29,10 @@ export default function CouponForm({
   visible,
   setIsEditing,
 }: IAddCouponProps) {
-  // Hooks
+
   const { showToast } = useContext(ToastContext);
   const t = useTranslations();
 
-  // Initial values
   const initialValues = {
     _id: isEditing.bool ? isEditing?.data?._id : '',
     title: isEditing.bool ? isEditing?.data?.title : '',
@@ -67,7 +59,6 @@ export default function CouponForm({
         : '',
   };
 
-  // Mutations
   const [CreateCoupon, { loading: createCouponLoading }] = useMutation(
     CREATE_COUPON,
     {

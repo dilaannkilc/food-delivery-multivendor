@@ -16,14 +16,14 @@ const styles = (props = null) =>
       flex: 1,
       flexDirection: 'column',
       flexDirection: 'row',
-      // gap: 15,
+
       paddingHorizontal: 18,
       paddingVertical: 10,
-      // backgroundColor: '#eee',
+
       backgroundColor: props?.subCategoryTopSection,
-      // backgroundColor: props?.themeBackground,
-      // borderBottomWidth: 1,
-      // borderBottomColor: props?.borderColor,
+
+
+
       paddingBottom: 2
     },
     backgroundColor: props?.themeBackground,
@@ -42,9 +42,9 @@ const styles = (props = null) =>
       width: 180,
       paddingHorizontal: scale(16),
       paddingVertical: scale(8),
-      // borderRadius: scale(20),
-      // backgroundColor: props?.gray100,
-      // marginRight: scale(2),
+
+
+
       textAlign: 'center',
       alignItems: 'center',
 
@@ -62,7 +62,7 @@ const styles = (props = null) =>
     selectedCategoryText: {
       color: props?.primary
     },
-    // Sub Category
+
     subcategoryItem: {
       width: 120,
       paddingHorizontal: scale(16),
@@ -72,7 +72,7 @@ const styles = (props = null) =>
       textAlign: 'center',
       alignItems: 'center'
     },
-    // Sub Category LTR with better spacing
+
     subcategoryItemltr: {
       width: 140,
       paddingHorizontal: scale(18),
@@ -158,7 +158,7 @@ const styles = (props = null) =>
       backgroundColor: 'transparent',
       color: props != null ? props.white : 'white'
     },
-    // Skeleton styles
+
     categoryTabsContainer: {
       paddingHorizontal: 16,
       paddingVertical: 12,

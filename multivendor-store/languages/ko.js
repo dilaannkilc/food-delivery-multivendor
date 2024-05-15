@@ -1,12 +1,11 @@
 export const ko = {
-  // Navigation
+
   continue: "계속",
   Wallet: "지갑",
   Home: "홈",
   Earnings: "수익",
   Profile: "프로필",
 
-  // FAQs
   faq1: "주문은 어떻게 하나요?",
   faq1Description:
     "주문하려면 메뉴를 탐색하고 주문하려는 항목을 선택한 후 결제로 진행하세요. 주문을 확인하기 전에 선호하는 결제 방법과 배송 주소를 선택할 수 있습니다.",
@@ -29,7 +28,6 @@ export const ko = {
   faq7Description:
     "안타깝게도 같은 주문 내에서 여러 음식점을 선택할 수 없습니다. 그러나 다른 음식점에서 동시에 별도의 주문을 할 수 있습니다.",
 
-  // Earnings
   "Earnings Summary": "수익 요약",
   Deliveries: "배달",
   "Total Earnings": "총 수익",
@@ -39,13 +37,11 @@ export const ko = {
   "Order Date": "주문 일자",
   "Earnings Order Details": "수익 주문 상세",
 
-  // Flash messages
   "Order placed successfully": "주문이 성공적으로 접수되었습니다",
   "Order cancelled successfully": "주문이 성공적으로 취소되었습니다",
   "Error while placing order": "주문 중 오류 발생",
   "Error while cancelling order": "주문 취소 중 오류 발생",
 
-  // Other messages
   "Please enter your name": "이름을 입력해 주세요",
   "Please enter your email": "이메일을 입력해 주세요",
   "Please enter your password": "비밀번호를 입력해 주세요",

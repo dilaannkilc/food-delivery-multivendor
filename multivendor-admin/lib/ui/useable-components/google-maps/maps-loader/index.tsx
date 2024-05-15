@@ -1,9 +1,7 @@
-// React and Hooks
 
-// Interfaces
+
 import { IGoogleMapsLoaderComponentProps } from '@/lib/utils/interfaces';
 
-// Components
 import { GoogleMapsContext } from '@/lib/context/global/google-maps.context';
 import { useContext } from 'react';
 import CustomLoader from '../../custom-progress-indicator';

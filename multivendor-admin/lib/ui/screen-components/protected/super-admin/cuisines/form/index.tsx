@@ -1,27 +1,21 @@
 'use client';
-// Contexts
+
 import { CREATE_CUISINE, EDIT_CUISINE, GET_CUISINES } from '@/lib/api/graphql';
 
-// Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Components
 import CustomDropdownComponent from '@/lib/ui/useable-components/custom-dropdown';
 import CustomTextAreaField from '@/lib/ui/useable-components/custom-text-area-field';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 
-// Interfaces
 import { IAddCuisineProps } from '@/lib/utils/interfaces/cuisine.interface';
 
-// Schema
 import { CuisineFormSchema } from '@/lib/utils/schema';
 import { Form, Formik } from 'formik';
 
-// Prime react
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Sidebar } from 'primereact/sidebar';
 
-// Hooks
 import { ApolloError, useMutation } from '@apollo/client';
 import { useContext } from 'react';
 import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/upload-image';
@@ -39,17 +33,15 @@ export default function CuisineForm({
   isEditing,
   visible,
 }: IAddCuisineProps) {
-  // Utility function to capitalize the first word of a string
+
   const capitalizeFirstWord = (str: string): string => {
     if (!str) return '';
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-  // Hooks
   const t = useTranslations();
   const { showToast } = useContext(ToastContext);
 
-  // Initial values
   const initialValues = {
     _id: isEditing.bool ? isEditing?.data?._id : '',
     name: isEditing.bool ? isEditing?.data?.name : '',
@@ -65,7 +57,6 @@ export default function CuisineForm({
     transform_to_dropdown_list: true,
   });
 
-  // Mutations
   const [CreateCuisine, { loading: createCuisineLoading }] = useMutation(
     CREATE_CUISINE,
     {
@@ -99,7 +90,6 @@ export default function CuisineForm({
     }
   );
 
-  // API Handlers
   function onError({ cause, networkError }: ApolloError) {
     showToast({
       type: 'error',

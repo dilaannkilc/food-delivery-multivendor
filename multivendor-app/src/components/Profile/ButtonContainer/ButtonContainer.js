@@ -39,17 +39,17 @@ const ButtonContainer = (props) => {
           </TextDefault>
         </View>
 
-        {/* <View style={styles(currentTheme).leftContainer}> */}
+        {}
           <EvilIcons
             name={currentTheme.isRTL ? 'chevron-left' : 'chevron-right'}
             size={verticalScale(20)}
             color={currentTheme.darkBgFont}
           />
-        {/* </View> */}
+        {}
       </TouchableOpacity>
 
     </View>
-      {/* <View style={styles().line} /> */}
+      {}
    </>
   )
 }

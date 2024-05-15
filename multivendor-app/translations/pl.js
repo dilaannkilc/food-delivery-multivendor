@@ -327,7 +327,7 @@ export const pl = {
     statusAssigned: 'Przypisane',
     statusPicked: 'Odebrane',
     statusDelivered: 'Dostarczone',
-    ///
+
     selectLocation: 'Wybierz lokalizację',
     languageSetting: 'Ustawienia języka',
     receiveOfferByEmail: 'Chcę otrzymywać specjalne oferty i promocje od nas przez email',

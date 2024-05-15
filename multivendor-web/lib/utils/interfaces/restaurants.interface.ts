@@ -1,6 +1,5 @@
 import { IAddon, IReview, IVariation } from "./orders.interface";
 
-// Define types for the GraphQL query response
 export interface IRestaurantLocation {
   coordinates: [number, number];
 }
@@ -133,7 +132,6 @@ export interface ITimeSlot {
   endTime: string[];
 }
 
-// Double Category
 export interface ISubCategoryV2 extends ISubCategory {
   foods: IFood[];
 }

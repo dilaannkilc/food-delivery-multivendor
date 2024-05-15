@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { memo } from 'react';
 
-// Interfaces
 export interface IUser {
   _id: string;
   name: string;
@@ -31,7 +30,6 @@ interface IUserTicketCardProps {
   formatDate: (dateString: string) => string;
 }
 
-// Using memo to prevent unnecessary re-renders
 function UserTicketCard({ 
   user, 
   latestTicket, 
@@ -39,37 +37,32 @@ function UserTicketCard({
   onClick,
   formatDate
 }: IUserTicketCardProps) {
-  // Format time ago from timestamp
+
   const formatTimeAgo = (timestamp: string) => {
     try {
       const date = new Date(parseInt(timestamp));
       const now = new Date();
       const diffMs = now.getTime() - date.getTime();
-      
-      // Less than a minute
+
       if (diffMs < 60000) {
         return 'just now';
       }
-      
-      // Less than an hour
+
       const diffMins = Math.floor(diffMs / 60000);
       if (diffMins < 60) {
         return `${diffMins} ${diffMins === 1 ? 'min' : 'mins'} ago`;
       }
-      
-      // Less than a day
+
       const diffHours = Math.floor(diffMins / 60);
       if (diffHours < 24) {
         return `${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`;
       }
-      
-      // Less than a week
+
       const diffDays = Math.floor(diffHours / 24);
       if (diffDays < 7) {
         return `${diffDays} ${diffDays === 1 ? 'day' : 'days'} ago`;
       }
-      
-      // Use date format for older messages
+
       return formatDate(timestamp);
     } catch (error) {
       return "unknown time";
@@ -85,7 +78,7 @@ function UserTicketCard({
           : 'bg-white text-black dark:bg-dark-950 dark:text-white'
       }`}
     >
-      {/* User avatar */}
+      {}
       <div className="relative">
         <Image
           width={40}
@@ -96,7 +89,7 @@ function UserTicketCard({
         />
       </div>
       
-      {/* User name and ticket info */}
+      {}
       <div className="flex-1">
         <div className="flex justify-between items-center">
           <h3 className={`font-medium text-base ${isSelected ? 'text-white' : 'text-black dark:text-white'}`}>
@@ -109,14 +102,14 @@ function UserTicketCard({
           )}
         </div>
         
-        {/* Preview of latest ticket/message */}
+        {}
         {latestTicket && (
           <p className={`text-sm truncate ${isSelected ? 'text-gray-300' : 'text-gray-500 dark:text-white'}`}>
             {latestTicket.title}
           </p>
         )}
         
-        {/* Status badge for latest ticket */}
+        {}
         {latestTicket && (
           <div className="mt-1">
             <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -138,5 +131,4 @@ function UserTicketCard({
   );
 }
 
-// Use React.memo to prevent unnecessary re-renders
 export default memo(UserTicketCard);

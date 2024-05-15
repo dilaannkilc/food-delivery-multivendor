@@ -1,46 +1,36 @@
-// Core
+
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 
-// Interfaces
 import {
   IRiderEarnings,
   IRiderEarningsResponse,
 } from "@/lib/utils/interfaces/rider-earnings.interface";
 
-// Charts
 import { barDataItem } from "react-native-gifted-charts";
 
-// GraphQL
 import { RIDER_EARNINGS_GRAPH } from "@/lib/apollo/queries/earnings.query";
 
-// Hooks
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { useUserContext } from "@/lib/context/global/user.context";
 import { QueryResult, useQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 
-// Expo
 import { router } from "expo-router";
 
-// Skeletons
 import { EarningScreenMainLoading } from "@/lib/ui/skeletons";
 
-// Components
 import EarningsBarChart from "../../bar-chart";
 import EarningStack from "../earnings-stack";
 
-// Helpers
 import formatNumber from "@/lib/utils/methods/num-formatter";
 
 export default function EarningsMain() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
-  // Contexts
   const { userId, setModalVisible } = useUserContext();
 
-  // Queries
   const { loading: isRiderEarningsLoading, data: riderEarningsData } = useQuery(
     RIDER_EARNINGS_GRAPH,
     {
@@ -77,7 +67,6 @@ export default function EarningsMain() {
         },
       })) ?? ([] as barDataItem[]);
 
-  // If loading
   if (isRiderEarningsLoading) return <EarningScreenMainLoading />;
 
   return (

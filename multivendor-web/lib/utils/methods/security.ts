@@ -5,8 +5,8 @@ const STORAGE_KEYS = {
   LAST_REFRESH: '_rf8n1',
 } as const;
 
-const MIN_REFRESH_INTERVAL = 5000; // 5 seconds between refresh attempts
-const EXPIRY_BUFFER = 10000; // Start refreshing 10 seconds before expiry
+const MIN_REFRESH_INTERVAL = 5000; 
+const EXPIRY_BUFFER = 10000; 
 
 function generateRandomKey(): string {
   const array = new Uint8Array(16);
@@ -46,16 +46,13 @@ export function shouldRefreshToken(): boolean {
   const expiryStr = localStorage.getItem(STORAGE_KEYS.EXPIRY);
   const lastRefreshStr = localStorage.getItem(STORAGE_KEYS.LAST_REFRESH);
 
-  // No token or expiry - must refresh
   if (!token || !expiryStr) return true;
 
   const expiryTime = new Date(expiryStr).getTime();
   const now = Date.now();
 
-  // Token is fully expired - always refresh
   if (now >= expiryTime) return true;
 
-  // Token is approaching expiry (within buffer) - respect MIN_REFRESH_INTERVAL
   if (now >= expiryTime - EXPIRY_BUFFER) {
     if (!lastRefreshStr) return true;
     const lastRefresh = parseInt(lastRefreshStr, 10);

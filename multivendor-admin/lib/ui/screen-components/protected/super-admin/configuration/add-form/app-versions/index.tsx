@@ -1,16 +1,12 @@
 'use client';
 
-// Core
 import { Form, Formik } from 'formik';
 
-// Components
 import ConfigCard from '../../view/card';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 
-// Toast
 import useToast from '@/lib/hooks/useToast';
 
-// GraphQL
 import { GET_VERSIONS, SET_VERSIONS } from '@/lib/api/graphql';
 import { useMutation, useQuery } from '@apollo/client';
 import { VersionConfigValidationSchema } from '@/lib/utils/schema';
@@ -18,11 +14,9 @@ import { IVersionConfigForm } from '@/lib/utils/interfaces';
 
 const VersionConfigAddForm = () => {
   const { showToast } = useToast();
-  
-  // Query to fetch current versions
+
   const { data: versionsData } = useQuery(GET_VERSIONS);
 
-  // Set initial values from query data
   const initialValues: IVersionConfigForm = {
     customerAppVersionAndroid: versionsData?.getVersions?.customerAppVersion?.android ?? '',
     customerAppVersionIos: versionsData?.getVersions?.customerAppVersion?.ios ?? '',
@@ -32,12 +26,10 @@ const VersionConfigAddForm = () => {
     restaurantAppVersionIos: versionsData?.getVersions?.restaurantAppVersion?.ios ?? '',
   };
 
-  // Mutation for saving versions
   const [mutate, { loading: mutationLoading }] = useMutation(SET_VERSIONS, {
     refetchQueries: [{ query: GET_VERSIONS }],
   });
 
-  // Handle form submission
   const handleSubmit = (values: IVersionConfigForm) => {
     mutate({
       variables: {
@@ -101,7 +93,7 @@ const VersionConfigAddForm = () => {
                 buttonLoading={mutationLoading}
               >
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {/* Customer App Version Fields */}
+                  {}
                   <CustomTextField
                     type="text"
                     placeholder="Customer App Version for Android"
@@ -133,7 +125,7 @@ const VersionConfigAddForm = () => {
                     }}
                   />
 
-                  {/* Rider App Version Fields */}
+                  {}
                   <CustomTextField
                     type="text"
                     placeholder="Rider App Version for Android"
@@ -165,7 +157,7 @@ const VersionConfigAddForm = () => {
                     }}
                   />
 
-                  {/* Restaurant App Version Fields */}
+                  {}
                   <CustomTextField
                     type="text"
                     placeholder="Restaurant App Version for Android"

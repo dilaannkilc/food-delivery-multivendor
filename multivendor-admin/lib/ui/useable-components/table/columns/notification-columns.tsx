@@ -1,24 +1,20 @@
-// Components
+
 import { INotification } from '@/lib/utils/interfaces/notification.interface';
 import CustomButton from '../../button';
 
-// Hooks
 import { useContext, useMemo } from 'react';
 import { useMutation } from '@apollo/client';
 
-// GrahpQL
 import { GET_NOTIFICATIONS, SEND_NOTIFICATION_USER } from '@/lib/api/graphql';
 
-// Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { useTranslations } from 'next-intl';
 
 export const NOTIFICATIONS_TABLE_COLUMNS = () => {
-  // Hooks
+
   const t = useTranslations();
   const { showToast } = useContext(ToastContext);
 
-  // Mutations
   const [sendNotificationUser, { loading }] = useMutation(
     SEND_NOTIFICATION_USER,
     {
@@ -42,7 +38,6 @@ export const NOTIFICATIONS_TABLE_COLUMNS = () => {
     }
   );
 
-  // Handlers
   async function handleResendNotification(rowData: INotification) {
     await sendNotificationUser({
       variables: {
@@ -52,7 +47,6 @@ export const NOTIFICATIONS_TABLE_COLUMNS = () => {
     });
   }
 
-  // Columns
   const notification_columns = useMemo(
     () => [
       {

@@ -11,7 +11,7 @@ import { useApptheme } from "../context/global/theme.context";
 import UserContext from "../context/global/user.context";
 
 const useOrderDetail = () => {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const navigation = useNavigation();
   const route = useRoute();

@@ -1,13 +1,11 @@
 'use client';
-// Core
+
 import { ErrorMessage, Form, Formik, FormikErrors } from 'formik';
 import { useContext } from 'react';
 
-// Interface and Types
 import { TWeekDays } from '@/lib/utils/types/days';
 import { IRestaurantsRestaurantTimingComponentProps } from '@/lib/utils/interfaces';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomTimeInput from '@/lib/ui/useable-components/time-input';
 import Toggle from '@/lib/ui/useable-components/toggle';
@@ -18,17 +16,13 @@ import {
   ITimingResponseGQL,
 } from '@/lib/utils/interfaces/timing.interface';
 
-// Context
 import { VendorLayoutRestaurantContext } from '@/lib/context/vendor/restaurant.context';
 
-// Utilities and Constants
 import { TIMING_INITIAL_VALUE } from '@/lib/utils/constants';
 import { TimingSchema } from '@/lib/utils/schema/timing';
 
-// Toast
 import useToast from '@/lib/hooks/useToast';
 
-// GraphQL
 import { GET_RESTAURANT_PROFILE } from '@/lib/api/graphql';
 import { UPDATE_TIMINGS } from '@/lib/api/graphql/mutations/timing';
 import { useMutation, useQuery } from '@apollo/client';
@@ -48,7 +42,6 @@ const RestaurantTiming = ({
   } = useContext(VendorLayoutRestaurantContext);
   const restaurantId = restaurantContextData?.id || '';
 
-  // Hooks
   const t = useTranslations();
   const { showToast } = useToast();
 
@@ -56,7 +49,6 @@ const RestaurantTiming = ({
     variables: { id: restaurantId },
   });
 
-  //for conversion from ["HH","MM"] to 'HH:MM' format
   const openingTimes: ITimingForm[] =
     data?.restaurant?.openingTimes?.map((opening: ITimingResponseGQL) => {
       const times = opening?.times?.map((timing: ITimeSlotResponseGQL) => {
@@ -80,9 +72,8 @@ const RestaurantTiming = ({
 
   const [mutate, { loading: mutationLoading }] = useMutation(UPDATE_TIMINGS);
 
-  // Form Submission
   const handleSubmit = (values: ITimingForm[]) => {
-    //conversion from 'HH:MM' to ["HH","MM"]
+
     const formattedData = [...values]?.map((v) => {
       const tempTime = [...v.times];
       const formattedTime = tempTime?.map((time) => {
@@ -147,7 +138,7 @@ const RestaurantTiming = ({
             {values?.map((value, dayIndex) => {
               return (
                 <div key={dayIndex} className="flex items-start gap-5">
-                  {/* left side */}
+                  {}
                   <div className="mt-2 flex items-center gap-4">
                     <Toggle
                       onClick={() => {
@@ -167,7 +158,7 @@ const RestaurantTiming = ({
                     <span className="w-10 text-sm">{value.day}</span>
                   </div>
 
-                  {/* center */}
+                  {}
                   {value?.times?.length > 0 ? (
                     <div className="flex flex-col gap-4">
                       {value?.times?.map((time: ITimeSlot, timeIndex) => {
@@ -254,7 +245,7 @@ const RestaurantTiming = ({
                               </div>
                             </div>
 
-                            {/* right side */}
+                            {}
                             {timeIndex > 0 ? (
                               <button
                                 type="button"

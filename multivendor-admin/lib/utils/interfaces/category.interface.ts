@@ -39,7 +39,7 @@ export interface ISubCategoriesAddFormProps {
   };
   category: ICategory | null;
 }
-/* API */
+
 export interface ICategory {
   _id: string;
   title: string;
@@ -54,7 +54,6 @@ export interface ICategoryByRestaurantResponse {
   };
 }
 
-// Sub-Category
 export interface ISubCategory {
   _id?: string;
   title: string;

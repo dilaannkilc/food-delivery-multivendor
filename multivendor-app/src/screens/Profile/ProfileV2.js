@@ -378,7 +378,7 @@ function Profile(props) {
             )}
           </View>
 
-          {/* email */}
+          {}
           <View style={styles(currentTheme).formSubContainer}>
             <View style={styles().containerHeading}>
               <>
@@ -398,7 +398,7 @@ function Profile(props) {
             {changeEmailTab()}
           </View>
 
-          {/* password */}
+          {}
           <View style={styles(currentTheme).formSubContainer}>
             <View style={styles().containerHeading}>
               <>
@@ -432,7 +432,7 @@ function Profile(props) {
             {changePasswordTab()}
           </View>
 
-          {/* phone */}
+          {}
           <View style={styles(currentTheme).formSubContainer}>
             <View style={styles().containerHeading}>
               {toggleView && (

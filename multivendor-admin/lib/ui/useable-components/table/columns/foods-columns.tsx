@@ -1,7 +1,6 @@
-// import ActionMenu from '../../action-menu';
+
 import Image from 'next/image';
 
-// Interface
 import { IActionMenuProps, IFoodNew } from '@/lib/utils/interfaces';
 
 import ActionMenu from '../../action-menu';
@@ -21,19 +20,16 @@ export const FOODS_TABLE_COLUMNS = ({
 }: {
   menuItems: IActionMenuProps<IFoodNew>['items'];
 }) => {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const { showToast } = useContext(ToastContext);
   const {
     restaurantLayoutContextData: { restaurantId },
   } = useContext(RestaurantLayoutContext);
 
-  // State
   const [isFoodLoading, setIsFoodLoading] = useState<string>('');
 
-  // API
   const [updateFoodOutOfStock] = useMutation(UPDATE_FOOD_OUT_OF_STOCK, {
     refetchQueries: [
       {
@@ -62,7 +58,6 @@ export const FOODS_TABLE_COLUMNS = ({
     },
   });
 
-  // Handlers
   const onUpdateFoodOutOfStock = async (foodId: string, categoryId: string) => {
     try {
       setIsFoodLoading(foodId);

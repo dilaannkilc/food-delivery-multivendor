@@ -1,4 +1,4 @@
-// Interfaces
+
 import {
   IActiveOrders,
   IAssignRider,
@@ -9,11 +9,9 @@ import {
   IRidersDataResponse,
 } from '@/lib/utils/interfaces';
 
-// Prime React
 import { Tag } from 'primereact/tag';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 
-// GraphQL
 import {
   ASSIGN_RIDER,
   GET_ACTIVE_ORDERS,
@@ -22,19 +20,15 @@ import {
   GET_RIDERS,
 } from '@/lib/api/graphql';
 
-// Hooks
 import { useContext, useState, useEffect } from 'react';
 import { useMutation, useSubscription } from '@apollo/client';
 
-// Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// CSS
 import classes from '@/lib/ui/screen-components/protected/super-admin/dispatch/view/main/index.module.css';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { useTranslations } from 'next-intl';
 
-// Status templates
 const valueTemplate = (option: IDropdownSelectItem) => (
   <div className="flex items-center justify-start gap-2 dark:text-white">
     <Tag
@@ -45,8 +39,7 @@ const valueTemplate = (option: IDropdownSelectItem) => (
   </div>
 );
 
-// Item templates
-// Item templates
+
 const itemTemplate = (option: IDropdownSelectItem) => {
   return (
     <div
@@ -59,7 +52,6 @@ const itemTemplate = (option: IDropdownSelectItem) => {
   );
 };
 
-// Severity checker
 function severityChecker(status: string | undefined) {
   switch (status) {
     case 'PENDING':
@@ -76,11 +68,10 @@ function severityChecker(status: string | undefined) {
 }
 
 export const DISPATCH_TABLE_COLUMNS = () => {
-  // Hooks
+
   const t = useTranslations();
   const { showToast } = useContext(ToastContext);
 
-  // Status options
   const actionStatusOptions = [
     {
       label: t('PENDING'),
@@ -114,7 +105,6 @@ export const DISPATCH_TABLE_COLUMNS = () => {
     },
   ];
 
-  // States
   const [riderOptions, setRiderOptions] = useState<IDropdownSelectItem[]>([]);
   const [isRiderLoading, setIsRiderLoading] = useState({
     _id: '',
@@ -126,13 +116,11 @@ export const DISPATCH_TABLE_COLUMNS = () => {
     bool: false,
   });
 
-  // Query
   const { data: ridersData } = useQueryGQL(GET_RIDERS, {}) as IQueryResult<
     IRidersDataResponse | undefined,
     undefined
   >;
 
-  // Side-Effects
   useEffect(() => {
     if (ridersData) {
       const newRiderOptions = ridersData.riders.map((rider) => ({
@@ -140,11 +128,10 @@ export const DISPATCH_TABLE_COLUMNS = () => {
         code: rider.name.toUpperCase(),
         _id: rider._id,
       }));
-      setRiderOptions(newRiderOptions); // Set the rider options
+      setRiderOptions(newRiderOptions); 
     }
   }, [ridersData]);
 
-  // Order Subscription
   const useOrderSubscription = (rowData: IActiveOrders) => {
     useSubscription(SUBSCRIPTION_ORDER, {
       variables: {
@@ -152,12 +139,12 @@ export const DISPATCH_TABLE_COLUMNS = () => {
       },
       fetchPolicy: 'network-only',
       onSubscriptionData: () => {
-        // fetchActiveOrders({
-        //   page: 1,
-        //   rowsPerPage: 10,
-        //   search: '',
-        //   actions: [],
-        // });
+
+
+
+
+
+
       },
     });
   };
@@ -166,7 +153,6 @@ export const DISPATCH_TABLE_COLUMNS = () => {
     return <p>{rowData.isPickedUp === false ? 'Delivery' : 'Pick Up'}</p>;
   };
 
-  // Mutations
   const [assignRider] = useMutation<
     IAssignRider,
     { id: string; riderId: string }
@@ -210,7 +196,6 @@ export const DISPATCH_TABLE_COLUMNS = () => {
     refetchQueries: [{ query: GET_ACTIVE_ORDERS }],
   });
 
-  //Handlers
   const handleAssignRider = async (
     item: IDropdownSelectItem,
     rowData: IActiveOrders
@@ -249,14 +234,14 @@ export const DISPATCH_TABLE_COLUMNS = () => {
     rowData: IActiveOrders
   ) => {
     console.log(rowData);
-    // // Set the loader to true for the specific row
+
     setIsStatusUpdating({
       _id: rowData._id,
       bool: true,
     });
 
     try {
-      // Perform the update mutation
+
       await updateStatus({
         variables: {
           id: rowData._id,
@@ -264,7 +249,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
         },
       });
     } catch (error) {
-      // Handle error
+
       console.log(error);
       showToast({
         type: 'error',
@@ -272,7 +257,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
         message: t('Something went wrong'),
       });
     } finally {
-      // Set the loader to false after the mutation
+
       setIsStatusUpdating({
         _id: rowData._id,
         bool: false,
@@ -330,7 +315,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
                 onChange={(e: DropdownChangeEvent) =>
                   handleAssignRider(e.value, rowData)
                 }
-                // filter={true}
+
                 className="min-w-[120px] outline outline-1 outline-gray-600 "
               />
             </div>
@@ -354,10 +339,10 @@ export const DISPATCH_TABLE_COLUMNS = () => {
                 }}
                 dropdownIcon={() => <></>}
                 disabled={true}
-                // onChange={(e: DropdownChangeEvent) =>
-                //   handleAssignRider(e.value, rowData)
-                // }
-                // filter={true}
+
+
+
+
                 className="min-w-[150px] outline outline-1 outline-gray-600"
               />
             </div>
@@ -376,37 +361,35 @@ export const DISPATCH_TABLE_COLUMNS = () => {
         </span>
       ),
     },
-    // {
-    //   propertyName: 'orderStatus',
-    //   headerName: t('Status'),
 
-    //   body: (rowData: IActiveOrders) => {
-    //     const currentStatus = actionStatusOptions.find(
-    //       (status: IDropdownSelectItem) => status.code === rowData?.orderStatus
-    //     );
 
-    //     return (
-    //       <>
-    //         <Dropdown
-    //           value={currentStatus}
-    //           onChange={(e) => handleStatusDropDownChange(e, rowData)}
-    //           options={actionStatusOptions}
-    //           itemTemplate={itemTemplate}
-    //           valueTemplate={valueTemplate}
-    //           loading={
-    //             isStatusUpdating.bool && isStatusUpdating._id === rowData._id
-    //           }
-    //           className="outline outline-1 outline-gray-300"
-    //         />
-    //       </>
-    //     );
-    //   },
-    // },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     {
       propertyName: 'orderStatus',
       headerName: t('Status'),
       body: (rowData: IActiveOrders) => {
-        // CHANGE 2: Filter status options based on whether it's a pickup order
+
         const filteredOptions = rowData.isPickedUp
           ? actionStatusOptions.filter((status) =>
               ['PENDING', 'ACCEPTED', 'DELIVERED', 'CANCELLED'].includes(
@@ -415,7 +398,6 @@ export const DISPATCH_TABLE_COLUMNS = () => {
             )
           : actionStatusOptions;
 
-        // Get the list of statuses that are part of the main flow (excluding CANCELLED)
         const flowCodes = filteredOptions
           .filter((s) => s.code !== 'CANCELLED')
           .map((s) => s.code);
@@ -425,7 +407,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
           let disabled = false;
 
           if (status.code === 'CANCELLED') {
-            // Disable cancel if already delivered or cancelled
+
             if (
               rowData.orderStatus === 'DELIVERED' ||
               rowData.orderStatus === 'CANCELLED'
@@ -435,18 +417,16 @@ export const DISPATCH_TABLE_COLUMNS = () => {
           } else {
             const statusIndex = flowCodes.indexOf(status.code);
 
-            // If current status is not in the flow (e.g. CANCELLED), disable all main flow steps
-            // OR if it's a valid flow status:
+
             if (currentIndex !== -1 && statusIndex !== -1) {
-              if (statusIndex < currentIndex) disabled = true; // Previous steps
-              if (statusIndex > currentIndex + 1) disabled = true; // Future steps beyond next one
+              if (statusIndex < currentIndex) disabled = true; 
+              if (statusIndex > currentIndex + 1) disabled = true; 
             } else {
-              // Fallback: if we are in a weird state, maybe disable everything except current?
-              // Or if we are in CANCELLED, everything is disabled.
+
+
               disabled = true;
             }
 
-            // Specific rule: Cannot assign without rider
             if (status.code === 'ASSIGNED' && !rowData.rider) {
               disabled = true;
             }
@@ -459,7 +439,6 @@ export const DISPATCH_TABLE_COLUMNS = () => {
           (status: IDropdownSelectItem) => status.code === rowData?.orderStatus
         );
 
-        // CHANGE 3: Disable status changes for delivered orders
         const isDelivered = rowData.orderStatus === 'DELIVERED';
 
         return (
@@ -467,7 +446,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
             <Dropdown
               value={currentStatus}
               onChange={(e) => handleStatusDropDownChange(e, rowData)}
-              options={availableStatuses} // CHANGE 4: Use filtered status options
+              options={availableStatuses} 
               itemTemplate={itemTemplate}
               valueTemplate={valueTemplate}
               loading={
@@ -475,7 +454,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
               }
               className="outline outline-1 outline-gray-300"
               optionDisabled="disabled"
-              disabled={isDelivered} // CHANGE 5: Disable dropdown if delivered
+              disabled={isDelivered} 
             />
           </>
         );

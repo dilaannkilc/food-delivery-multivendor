@@ -38,7 +38,7 @@ import {nl} from './translations/nl'
 i18n.initAsync = async () => {
   i18n.fallbacks = true
   i18n.translations = { fr, en, km, zh, de, ar,hi,es,bn,pt,ru,ur,id,jp,tr,mr,te,vi,ko,it,th,gu,fa,pl,ps,ro,ku,uz,az,nl }
-  // i18n.locale = 'km'
+
   if (Platform.OS === 'android') {
     const lang = await AsyncStorage.getItem('yalla-language')
     i18n.locale = lang || 'ar'

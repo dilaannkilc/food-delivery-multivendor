@@ -1,19 +1,15 @@
-// Interfaces
+
 import { IActionMenuProps } from '@/lib/utils/interfaces';
 import { ICoupon } from '@/lib/utils/interfaces/coupons.interface';
 
-// Components
 import CustomInputSwitch from '../../custom-input-switch';
 import ActionMenu from '../../action-menu';
 
-// Hooks
 import { useContext, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-//GraphQL
 import { EDIT_COUPON, GET_COUPONS } from '@/lib/api/graphql';
 
-// Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { useTranslations } from 'next-intl';
 
@@ -22,18 +18,16 @@ export const COUPONS_TABLE_COLUMNS = ({
 }: {
   menuItems: IActionMenuProps<ICoupon>['items'];
 }) => {
-  // Hooks
+
   const { showToast } = useContext(ToastContext);
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const [editCouponLoading, setEditCouponLoading] = useState({
     _id: '',
     bool: false,
   });
 
-  // Mutations
   const [editCoupon, { loading }] = useMutation(EDIT_COUPON, {
     refetchQueries: [{ query: GET_COUPONS }],
     onCompleted: () => {
@@ -65,7 +59,6 @@ export const COUPONS_TABLE_COLUMNS = ({
     },
   });
 
-  // Handlers
   async function handleEnableField(rowData: ICoupon) {
     setEditCouponLoading({
       bool: true,
@@ -87,7 +80,6 @@ export const COUPONS_TABLE_COLUMNS = ({
     });
   }
 
-  // Columns
   const coupon_columns = useMemo(
     () => [
       {

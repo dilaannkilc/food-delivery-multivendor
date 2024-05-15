@@ -1,21 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 'use client';
 
-// Core
 import { useContext } from 'react';
 
-// Context
 import { LayoutContext } from '@/lib/context/global/layout.context';
 
-// Components
 import VendorAppTopbar from '@/lib/ui/screen-components/protected/layout/vendor-layout/app-bar';
 import VendorSidebar from '@/lib/ui/screen-components/protected/layout/vendor-layout/side-bar';
 
-// Interface
 import { IProvider, LayoutContextProps } from '@/lib/utils/interfaces';
 
 const VendorLayout = ({ children }: IProvider) => {
-  // Context
+
   const { isVendorSidebarVisible } =
     useContext<LayoutContextProps>(LayoutContext);
 

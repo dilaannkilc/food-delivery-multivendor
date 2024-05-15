@@ -1,11 +1,9 @@
-// CSS
+
 import './index.module.css';
 
-// GraphQL
 import { DELETE_SHOP_TYPE, GET_SHOP_TYPES } from '@/lib/api/graphql';
 import { useLazyQueryQL } from '@/lib/hooks/useLazyQueryQL';
 
-// Interfaces
 import {
   IActionMenuItem,
   IEditState,
@@ -16,24 +14,19 @@ import {
 } from '@/lib/utils/interfaces';
 import { IFilterType } from '@/lib/utils/interfaces/table.interface';
 
-// Prime react
 import { FilterMatchMode } from 'primereact/api';
 
-// Hooks
 import { useContext, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useMutation } from '@apollo/client';
 
-// Components
 import { ToastContext } from '@/lib/context/global/toast.context';
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
 import ShopTypesTableHeader from '../header/table-header';
 import Table from '@/lib/ui/useable-components/table';
 
-// Constants
 import { generateDummyShopTypes } from '@/lib/utils/dummy';
 
-// Table COlumns
 import { SHOP_TYPES_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/shop-types-columns';
 
 export default function ShopTypesMain({
@@ -41,13 +34,11 @@ export default function ShopTypesMain({
   isEditing,
   setIsEditing,
 }: IShopTypesMainProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // Toast
   const { showToast } = useContext(ToastContext);
 
-  // States
   const [selectedData, setSelectedData] = useState<IShopType[]>([]);
   const [isDeleting, setIsDeleting] = useState<IEditState<IShopType>>({
     bool: false,
@@ -62,19 +53,16 @@ export default function ShopTypesMain({
   const [globalFilterValue, setGlobalFilterValue] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Filters
   const filters: IFilterType = {
     global: { value: globalFilterValue, matchMode: FilterMatchMode.CONTAINS },
   };
 
-  // Queries
   const { data, fetch } = useLazyQueryQL(GET_SHOP_TYPES, {
     fetchPolicy: 'network-only',
     debounceMs: 5000,
     onCompleted: () => setIsLoading(false),
   }) as ILazyQueryResult<IGetShopTypesData | undefined, undefined>;
 
-  // Mutations
   const [deleteShopType, { loading: deleteShopTypeLoading }] = useMutation(
     DELETE_SHOP_TYPE,
     {
@@ -99,7 +87,6 @@ export default function ShopTypesMain({
     }
   );
 
-  // Delete Item
   async function deleteItem() {
     await deleteShopType({
       variables: {
@@ -118,7 +105,6 @@ export default function ShopTypesMain({
     });
   }
 
-  // Menu Items
   const menuItems: IActionMenuItem<IShopType>[] = [
     {
       label: t('Edit'),
@@ -152,7 +138,6 @@ export default function ShopTypesMain({
     },
   ];
 
-  // UseEffects
   useEffect(() => {
     if (isEditing.bool) {
       setVisible(true);

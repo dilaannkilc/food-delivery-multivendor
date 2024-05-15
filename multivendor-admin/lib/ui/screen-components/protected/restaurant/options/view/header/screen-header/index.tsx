@@ -1,16 +1,14 @@
-// Interface and Types
 
-// Components
+
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 
-// Icons
 import { IOptionsHeaderProps } from '@/lib/utils/interfaces';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 
 const OptionHeader = ({ setIsAddOptionsVisible }: IOptionsHeaderProps) => {
-  // Hooks
+
   const t = useTranslations();
 
   return (

@@ -156,12 +156,12 @@ console.log('Favourite Restaurants:', favouriteRestaurants)
         showsVerticalScrollIndicator={false}
         refreshing={networkStatus === 4}
         onRefresh={() => networkStatus === 7 && refetch()}
-        // style={[styles().flex, styles(currentTheme).container]}
+
         contentContainerStyle={styles(currentTheme).contentContainer}
         ListEmptyComponent={emptyView()}
         ListHeaderComponent={null}
         renderItem={({ item }) => {
-  if (!item) return null // skip nulls
+  if (!item) return null 
 
   return (
     <NewRestaurantCard

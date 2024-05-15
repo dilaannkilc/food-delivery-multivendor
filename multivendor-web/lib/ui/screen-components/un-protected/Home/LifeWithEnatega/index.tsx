@@ -1,11 +1,9 @@
-// libraries
+
 import React from "react";
 
-// Components
 import HomeCard from "@/lib/ui/useable-components/Home-Card";
 import MoveableCard from "@/lib/ui/useable-components/Moveable-Card";
 
-// images
 import deliveryFee from "@/public/assets/images/png/deliveryFee.webp";
 import ZeroDelivery from "@/public/assets/images/png/0delivery.webp";
 import RestaurantApp from "@/public/assets/images/png/restaurantApp.png"

@@ -17,7 +17,6 @@ const HEADING = {
   default: 'Collections'
 }
 
-// CustomItem component to handle animation
 const CustomItem = ({ index, children }) => {
   const scaleValue = new Animated.Value(0)
 
@@ -25,7 +24,7 @@ const CustomItem = ({ index, children }) => {
     Animated.timing(scaleValue, {
       toValue: 1,
       delay: index * 130,
-      useNativeDriver: true // Use native driver for better performance
+      useNativeDriver: true 
     }).start()
   }, [index])
 

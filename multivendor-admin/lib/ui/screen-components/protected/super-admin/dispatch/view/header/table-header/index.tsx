@@ -1,17 +1,14 @@
-// CSS
+
 import classes from './table-header.module.css';
 
-// Components
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import { IDispatchTableHeaderProps } from '@/lib/utils/interfaces/dispatch.interface';
 
-// Icons
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 
-// Prime react
 import { Checkbox } from 'primereact/checkbox';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { ChangeEvent, useCallback, useRef, useState } from 'react';
@@ -22,16 +19,14 @@ export default function DispatchTableHeader({
   search,
   setSearch,
 }: IDispatchTableHeaderProps) {
-  // Hooks
+
   const t = useTranslations();
   const {theme } = useTheme()
-  // Ref
+
   const overlayPanelRef = useRef<OverlayPanel>(null);
 
-  // States
   const [searchValue, setSearchValue] = useState('');
 
-  // Checkbox toggle
   const toggleAction = (action: string) => {
     const updatedActions = selectedActions.includes(action)
       ? selectedActions.filter((a) => a !== action)
@@ -39,7 +34,6 @@ export default function DispatchTableHeader({
     setSelectedActions(updatedActions);
   };
 
-  // Actions
   const menuItems = [
     {
       label: t('Pending'),
@@ -63,7 +57,6 @@ export default function DispatchTableHeader({
     },
   ];
 
-  // Debounce Search Handler
   const debounceSearch = useCallback((delay: number, val: string) => {
     let timer: ReturnType<typeof setTimeout>;
     setSearch(val);

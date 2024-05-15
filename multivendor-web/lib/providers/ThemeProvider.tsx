@@ -15,7 +15,6 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<Theme>("light");
   const pathname = usePathname();
 
-  // Load theme on first mount
   useEffect(() => {
     const saved = localStorage.getItem("theme") as Theme | null;
     const initial = saved || "light";
@@ -23,7 +22,6 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     document.documentElement.classList.toggle("dark", initial === "dark");
   }, []);
 
-  // 🔥 Re-apply theme on every route change (fix for /404 navigation)
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme, pathname]);

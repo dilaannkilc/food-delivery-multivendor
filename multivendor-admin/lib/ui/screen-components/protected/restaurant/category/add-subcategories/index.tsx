@@ -1,31 +1,25 @@
-// Hooks
+
 import useToast from '@/lib/hooks/useToast';
 import { useMutation } from '@apollo/client';
 import { useContext } from 'react';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomLoader from '@/lib/ui/useable-components/custom-progress-indicator';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 
-// Interfaces
 import {
   ISubCategoriesAddFormProps,
   ISubCategory,
 } from '@/lib/utils/interfaces';
 
-// Schema
 import { SubCategoriesSchema } from '@/lib/utils/schema/sub-categories';
 import { faAdd, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-// Formik
 import { FieldArray, Form, Formik, FormikHelpers } from 'formik';
 
-// Prime React
 import { Sidebar } from 'primereact/sidebar';
 
-// GraphQL
 import {
   GET_CATEGORY_BY_RESTAURANT_ID,
   GET_RESTAURANTS,
@@ -37,7 +31,6 @@ import {
 } from '@/lib/api/graphql/queries/sub-categories';
 import { CREATE_SUB_CATEGORIES } from '@/lib/api/graphql/mutations/sub-category';
 
-// Contexts
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 import { useTranslations } from 'next-intl';
 
@@ -45,17 +38,14 @@ export default function SubCategoriesAddForm({
   onHide,
   isAddSubCategoriesVisible,
 }: ISubCategoriesAddFormProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
 
-  // Toast
   const { showToast } = useToast();
 
-  // Initial Values
   const initialValues: { subCategories: ISubCategory[] } = {
     subCategories: [
       {
@@ -65,7 +55,6 @@ export default function SubCategoriesAddForm({
     ],
   };
 
-  // Mutations
   const [
     createSubCategories,
     { loading: subCategoriesLoading, error: subCategoriesError },
@@ -103,7 +92,6 @@ export default function SubCategoriesAddForm({
     },
   });
 
-  // Handlers
   async function handleFormSubmit(
     values: ISubCategory[],
     formikHelpers: FormikHelpers<{ subCategories: ISubCategory[] }>
@@ -184,7 +172,7 @@ export default function SubCategoriesAddForm({
                           toggleable
                           className="my-1 dark:text-white dark:bg-dark-950"
                         >
-                          {/* Sub-Category Field and Remove Button */}
+                          {}
                           <div className="flex-col justify-center items-center dark:bg-dark-900 ">
                             <TextIconClickable
                               icon={faTrash}
@@ -214,7 +202,7 @@ export default function SubCategoriesAddForm({
                             />
                           </div>
                         </Fieldset>
-                        {/* Add More Button */}
+                        {}
                         {index === values.subCategories.length - 1 && (
                           <div className="mt-4">
                             <TextIconClickable

@@ -1,12 +1,11 @@
 export const it = {
-  // Navigation
+
   continue: "Continua",
   Wallet: "Portafoglio",
   Home: "Home",
   Earnings: "Guadagni",
   Profile: "Profilo",
 
-  // FAQs
   faq1: "Come posso effettuare un ordine?",
   faq1Description:
     "Per effettuare un ordine, sfoglia semplicemente il nostro menu, seleziona gli articoli che desideri ordinare e procedi al checkout. Puoi scegliere il metodo di pagamento preferito e l'indirizzo di consegna prima di confermare l'ordine.",
@@ -29,7 +28,6 @@ export const it = {
   faq7Description:
     "Sfortunatamente, non puoi scegliere da più ristoranti all'interno dello stesso ordine. Tuttavia, puoi effettuare ordini separati da diversi ristoranti contemporaneamente.",
 
-  // Earnings
   "Earnings Summary": "Riepilogo Guadagni",
   Deliveries: "Consegne",
   "Total Earnings": "Guadagni Totali",
@@ -39,13 +37,11 @@ export const it = {
   "Order Date": "Data Ordine",
   "Earnings Order Details": "Dettagli Ordine Guadagni",
 
-  // Flash messages
   "Order placed successfully": "Ordine effettuato con successo",
   "Order cancelled successfully": "Ordine cancellato con successo",
   "Error while placing order": "Errore durante l'ordine",
   "Error while cancelling order": "Errore durante la cancellazione dell'ordine",
 
-  // Other messages
   "Please enter your name": "Inserisci il tuo nome",
   "Please enter your email": "Inserisci la tua email",
   "Please enter your password": "Inserisci la tua password",

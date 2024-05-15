@@ -30,8 +30,8 @@ export const useLazyQueryQL = <
     debounceMs = 500,
     pollInterval,
     fetchPolicy,
-    retry = 3, // Default retry count
-    retryDelayMs = 1000, // Default retry delay,
+    retry = 3, 
+    retryDelayMs = 1000, 
     onCompleted,
   } = options;
   const [fetch, { data, error, loading }] = useLazyQuery<T, V>(query, {
@@ -50,7 +50,7 @@ export const useLazyQueryQL = <
 
   const handleFetch = async (variables?: V) => {
     if (enabled) {
-      await debouncedFetch(variables); // Ensure the async debounced fetch is awaited
+      await debouncedFetch(variables); 
     }
   };
 

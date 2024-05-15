@@ -40,16 +40,15 @@ const CountryService: Country[] = [
 ];
 
 export default function TemplateDemo() {
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const [countries, setCountries] = useState<Country[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
 
   const search = (event: AutoCompleteCompleteEvent) => {
-    // Timeout to emulate a network connection
+
     setTimeout(() => {
       let _filteredCountries;
 
@@ -67,30 +66,14 @@ export default function TemplateDemo() {
     }, 250);
   };
 
-  //   const itemTemplate = (item: Country) => {
-  //     return (
-  //       <div className="flex align-items-center">
-  //         <div>{item.name}</div>
-  //       </div>
-  //     );
-  //   };
 
-  /*   const panelFooterTemplate = () => {
-    const isCountrySelected = (filteredCountries || []).some(
-      (country: Country) => country.name === selectedCountry?.name
-    );
-    return (
-      <div className="py-2 px-3">
-        {isCountrySelected ? (
-          <span>
-            <b>{selectedCountry?.name}</b> selected.
-          </span>
-        ) : (
-          'No country selected.'
-        )}
-      </div>
-    );
-  }; */
+
+
+
+
+
+
+  
 
   useEffect(() => {
     setCountries(CountryService);
@@ -121,7 +104,7 @@ export default function TemplateDemo() {
         <button
           className="absolute right-8 top-1/2 -translate-y-1/2 transform text-gray-500 hover:text-gray-700"
           onClick={() => {
-            /* Add location functionality here */
+            
           }}
         >
           <FontAwesomeIcon

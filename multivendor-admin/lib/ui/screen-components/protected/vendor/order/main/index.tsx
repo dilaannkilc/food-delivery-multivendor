@@ -14,10 +14,9 @@ import OrderDetailModal from '@/lib/ui/useable-components/popup-menu/order-detai
 import { useTranslations } from 'next-intl';
 
 export default function OrderVendorMain() {
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const [selectedData, setSelectedData] = useState<IExtendedOrder[]>([]);
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,7 +30,7 @@ export default function OrderVendorMain() {
     GET_ORDER_BY_RESTAURANT_WITHOUT_PAGINATION,
     {
       restaurant: restaurantId,
-      search: searchTerm, // Only pass restaurant and search
+      search: searchTerm, 
     },
     {
       fetchPolicy: 'network-only',
@@ -78,7 +77,7 @@ export default function OrderVendorMain() {
 
   const displayData: TOrderRowData[] = useMemo(() => {
     if (loading) {
-      return OrderTableSkeleton({ rowCount: 10 }); // Change as per your need, no rows state now
+      return OrderTableSkeleton({ rowCount: 10 }); 
     }
     return filteredData;
   }, [loading, filteredData]);

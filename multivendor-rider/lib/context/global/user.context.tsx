@@ -7,15 +7,15 @@ import {
   watchPositionAsync,
 } from "expo-location";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-// Interface
+
 import {
   IRiderProfileResponse,
   IUserContextProps,
   IUserProviderProps,
 } from "@/lib/utils/interfaces";
-// Context
-// import { useLocationContext } from "./location.context";
-// API
+
+
+
 import { UPDATE_LOCATION } from "@/lib/apollo/mutations/rider.mutation";
 import { RIDER_ORDERS, RIDER_PROFILE } from "@/lib/apollo/queries";
 import {
@@ -34,7 +34,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const UserContext = createContext<IUserContextProps>({} as IUserContextProps);
 
 export const UserProvider = ({ children }: IUserProviderProps) => {
-  // States
+
   const [modalVisible, setModalVisible] = useState<
     IRiderEarnings & { bool: boolean }
   >({
@@ -52,12 +52,10 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
   const [userId, setUserId] = useState("");
   const [zoneId, setZoneId] = useState("");
 
-  // Refs
   const locationListener = useRef<LocationSubscription>();
   const coordinatesRef = useRef<LocationObject>({} as LocationObject);
 
-  // Context
-  // const { locationPermission } = useLocationContext()
+
 
   const {
     loading: loadingProfile,
@@ -81,8 +79,8 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     subscribeToMore,
    refetch: refetchAssigned
   } = useQuery(RIDER_ORDERS, {
-    // onCompleted,
-    // onError: error2,
+
+
     fetchPolicy: "network-only",
     notifyOnNetworkStatusChange: true,
     pollInterval: 5000,
@@ -133,7 +131,6 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     );
   };
 
-  // UseEffects
   useEffect(() => {
     if (!dataProfile?.rider.zone._id || !dataProfile.rider._id) return;
 
@@ -168,7 +165,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
       }),
 
       unsubZoneOrder: subscribeToMore({
-        document: SUBSCRIPTION_ZONE_ORDERS, // Previously known as SUBSCRIPTION_UNASSIGNED_ORDER
+        document: SUBSCRIPTION_ZONE_ORDERS, 
         variables: { zoneId: dataProfile?.rider?.zone?._id ?? zoneId },
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) return prev;

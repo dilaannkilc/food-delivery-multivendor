@@ -65,7 +65,7 @@ const styles = (props = null) =>
     },
     whatsAppText: {
       textAlign: 'center',
-      // paddingLeft: scale(5),
+
     },
     contentContainer: {
       flexDirection: props?.isRTL ? 'row-reverse' : 'row',

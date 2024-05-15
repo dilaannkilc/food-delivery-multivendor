@@ -148,7 +148,7 @@ export interface Point {
 
 export interface IUserAddress {
   _id: string;
-  location?: Point; // optional if it can be null
+  location?: Point; 
   deliveryAddress: string;
   details?: string;
   label: string;
@@ -197,7 +197,7 @@ export interface ICreateUserArguments {
   name?: string;
   notificationToken?: string;
   appleId?: string;
-  emailIsVerified?: boolean; // optional, can be undefined
+  emailIsVerified?: boolean; 
   isPhoneExists?: boolean;
 }
 export interface IVerificationEmailForChangePasswordProps {

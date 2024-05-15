@@ -1,10 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 'use client';
 
-// Components
 import AppTopbar from '@/lib/ui/screen-components/unprotected/layout/app-bar';
 
-// Interface & Types
 import { IProvider } from '@/lib/utils/interfaces';
 
 const Layout = ({ children }: IProvider) => {

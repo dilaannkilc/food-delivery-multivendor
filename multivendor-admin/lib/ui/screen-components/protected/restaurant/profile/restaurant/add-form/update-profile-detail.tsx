@@ -55,10 +55,8 @@ export default function UpdateRestaurantDetails({
     order: -1,
   };
 
-  // Hooks
   const t = useTranslations();
 
-  // Contexts
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const { restaurantId } = restaurantLayoutContextData;
 
@@ -298,14 +296,14 @@ export default function UpdateRestaurantDetails({
                         mask="999-999-9999"
                         name="phoneNumber"
                         showLabel={true}
-                        // placeholder="Phone Number"
+
                         onChange={(e) => {
-                          // console.log("phone number format ==> ", e, code);
+
                           setFieldValue('phoneNumber', e);
-                          // setCountryCode(code);
+
                         }}
                         value={values.phoneNumber}
-                        // value={values.phoneNumber?.toString().match(/\(\+(\d+)\)\s(.+)/)?.[2]}
+
                         type="text"
                         className="rounded-[6px] border-[#D1D5DB]"
                         style={{

@@ -1,9 +1,9 @@
 "use client";
 import type React from "react";
 import { useRef, useState, useEffect } from "react";
-//components
+
 import CustomButton from "@/lib/ui/useable-components/button";
-// Icons
+
 import PhoneIcon from "@/lib/utils/assets/svg/phone";
 import useDebounceFunction from "@/lib/hooks/useDebounceForFunction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,60 +21,50 @@ const VerificationPhone = ({
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  // Initialize refs array
   useEffect(() => {
     inputRefs.current = inputRefs.current.slice(0, 6);
 
-    // Set initial values from phoneOtp if it exists
     if (phoneOtp) {
       const otpArray = phoneOtp.split("").slice(0, 6);
       setOtp(otpArray.concat(Array(6 - otpArray.length).fill("")));
     }
   }, []);
 
-  // Update parent component's phoneOtp when our local otp changes
   useEffect(() => {
     setPhoneOtp(otp.join(""));
   }, [otp, setPhoneOtp]);
 
-  // Handle input change
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const value = e.target.value;
 
-    // Only accept single digit numbers
     if (!/^\d*$/.test(value)) return;
 
-    // Update the OTP array
     const newOtp = [...otp];
-    newOtp[index] = value.slice(-1); // Take only the last character
+    newOtp[index] = value.slice(-1); 
     setOtp(newOtp);
 
-    // Auto-focus next input if a digit was entered
     if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
   };
 
-  // Handle backspace key
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
-      // Focus previous input when backspace is pressed on an empty input
+
       inputRefs.current[index - 1]?.focus();
     }
   };
 
-  // Handle paste event
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text/plain").trim();
 
-    // Only accept digits
     const digits = pastedData.replace(/\D/g, "").slice(0, 6);
 
     if (digits) {
@@ -84,7 +74,6 @@ const VerificationPhone = ({
       });
       setOtp(newOtp);
 
-      // Focus the next empty input or the last input
       const lastFilledIndex = Math.min(digits.length, 5);
       inputRefs.current[lastFilledIndex]?.focus();
     }
@@ -155,11 +144,7 @@ const VerificationPhone = ({
         {t("otp_valid_for_10_minutes_label")}
       </p>
 
-      {/* <CustomButton
-    label={"Continue"}
-    className="bg-primary-color text-white flex items-center justify-center rounded-full p-3 w-full mb-4 h-12 sm:h-14 text-md lg:text-lg sm:text-md font-medium"
-    onClick={handleSubmit}
-  /> */}
+      {}
       <button
         onClick={handleSubmit}
         disabled={loading}

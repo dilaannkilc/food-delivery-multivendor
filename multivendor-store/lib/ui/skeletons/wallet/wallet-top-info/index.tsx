@@ -1,11 +1,10 @@
-// Hooks
+
 import { useApptheme } from "@/lib/context/theme.context";
 
-// Moti
 import { MotiView } from "moti";
 import { Skeleton } from "moti/skeleton";
 export default function WalletTopInfoSkeleton() {
-  // Hooks
+
   const { appTheme, currentTheme } = useApptheme();
   return (
     <MotiView

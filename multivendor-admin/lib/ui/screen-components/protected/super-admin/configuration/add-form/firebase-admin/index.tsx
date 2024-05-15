@@ -1,23 +1,17 @@
-// Core
+
 import { Form, Formik } from 'formik';
 
-// Components
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 import ConfigCard from '../../view/card';
 
-// Toast
 import useToast from '@/lib/hooks/useToast';
 
-// Hooks
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Interfaces and Types
 import { IFirebaseForm } from '@/lib/utils/interfaces/configurations.interface';
 
-// Utils and Constants
 import { FirebaseValidationSchema } from '@/lib/utils/schema';
 
-// GraphQL
 import {
   GET_CONFIGURATION,
   SAVE_FIREBASE_CONFIGURATION,
@@ -25,7 +19,7 @@ import {
 import { useMutation } from '@apollo/client';
 
 const FirebaseAdminAddForm = () => {
-  // Hooks to fetch environment variables
+
   const {
     FIREBASE_KEY,
     FIREBASE_AUTH_DOMAIN,
@@ -38,7 +32,6 @@ const FirebaseAdminAddForm = () => {
   } = useConfiguration();
   const { showToast } = useToast();
 
-  // Set initial values based on fetched configuration
   const initialValues = {
     firebaseKey: FIREBASE_KEY ?? '',
     authDomain: FIREBASE_AUTH_DOMAIN ?? '',
@@ -50,7 +43,6 @@ const FirebaseAdminAddForm = () => {
     vapidKey: FIREBASE_VAPID_KEY ?? '',
   };
 
-  // GraphQL mutation to save the Firebase configuration
   const [mutate, { loading: mutationLoading }] = useMutation(
     SAVE_FIREBASE_CONFIGURATION,
     {
@@ -58,7 +50,6 @@ const FirebaseAdminAddForm = () => {
     }
   );
 
-  // Handle form submission
   const handleSubmit = (values: IFirebaseForm) => {
     mutate({
       variables: {
@@ -114,7 +105,7 @@ const FirebaseAdminAddForm = () => {
                 buttonLoading={mutationLoading}
               >
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {/* Firebase Key */}
+                  {}
                   <CustomPasswordTextField
                     placeholder="Firebase Key"
                     name="firebaseKey"
@@ -129,7 +120,7 @@ const FirebaseAdminAddForm = () => {
                     }}
                   />
 
-                  {/* Auth Domain */}
+                  {}
                   <CustomPasswordTextField
                     placeholder="Auth Domain"
                     name="authDomain"
@@ -144,7 +135,7 @@ const FirebaseAdminAddForm = () => {
                     }}
                   />
 
-                  {/* Project ID */}
+                  {}
                   <CustomPasswordTextField
                     placeholder="Project ID"
                     name="projectId"
@@ -159,7 +150,7 @@ const FirebaseAdminAddForm = () => {
                     }}
                   />
 
-                  {/* Storage Bucket */}
+                  {}
                   <CustomPasswordTextField
                     placeholder="Storage Bucket"
                     name="storageBucket"
@@ -176,7 +167,7 @@ const FirebaseAdminAddForm = () => {
                     }}
                   />
 
-                  {/* Message Sender ID */}
+                  {}
                   <CustomPasswordTextField
                     placeholder="Message Sender ID"
                     name="msgSenderId"
@@ -191,7 +182,7 @@ const FirebaseAdminAddForm = () => {
                     }}
                   />
 
-                  {/* App ID */}
+                  {}
                   <CustomPasswordTextField
                     placeholder="App ID"
                     name="appId"
@@ -205,7 +196,7 @@ const FirebaseAdminAddForm = () => {
                     }}
                   />
 
-                  {/* Measurement ID */}
+                  {}
                   <CustomPasswordTextField
                     placeholder="Measurement ID"
                     name="measurementId"
@@ -222,7 +213,7 @@ const FirebaseAdminAddForm = () => {
                     }}
                   />
 
-                  {/* Vapid Key */}
+                  {}
                   <CustomPasswordTextField
                     placeholder="Vapid Key"
                     name="vapidKey"

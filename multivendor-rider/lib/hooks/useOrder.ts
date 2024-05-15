@@ -11,7 +11,7 @@ import { IOrder } from "../utils/interfaces/order.interface";
 import { getRemainingAcceptingTime } from "../utils/methods";
 
 const useOrder = (order: IOrder) => {
-  //   const { active } = useContext(TabsContext)
+
   const { refetchAssigned } = useContext(UserContext);
   const navigation = useNavigation();
   const secondsRef = useRef(0);
@@ -20,7 +20,7 @@ const useOrder = (order: IOrder) => {
   const [time, setTime] = useState("00:00");
 
   useEffect(() => {
-        // Clear any existing timer first to prevent multiple timers
+
         if (timerRef.current) {
           clearInterval(timerRef.current);
           timerRef.current = undefined;
@@ -67,7 +67,7 @@ const useOrder = (order: IOrder) => {
     {
       onCompleted,
       onError,
-      // refetchQueries: [{ query: refetchAssigned }],
+
     }
   );
 
@@ -86,7 +86,7 @@ const useOrder = (order: IOrder) => {
   }
 
   return {
-    // active,
+
     navigation,
     time,
     mutateAssignOrder,

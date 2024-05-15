@@ -1,19 +1,15 @@
 import { memo, useContext } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
-// Components
 import { IconSymbol } from "@/lib/ui/useable-components/IconSymbol";
-// Interface
+
 import { IOrderComponentProps } from "@/lib/utils/interfaces/interface";
 
-// Contexrtg
-// Hook
+
 import useOrder from "@/lib/hooks/useOrder";
 
-// Cion
 import { BikeRidingIcon, ChatIcon, ClockIcon } from "../svg";
 
-// Hooks
 import { ConfigurationContext } from "@/lib/context/global/configuration.context";
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { IOrder } from "@/lib/utils/interfaces/order.interface";
@@ -35,7 +31,7 @@ const Order = ({
   user,
   tab,
 }: IOrderComponentProps) => {
-  // Hooks
+
   const { t } = useTranslation();
   const { appTheme } = useApptheme();
   const { time, mutateAssignOrder, loadingAssignOrder } = useOrder({
@@ -113,7 +109,7 @@ const Order = ({
                 }}
               >
                 <View className="flex flex-col gap-y-2">
-                  {/* Status */}
+                  {}
                   {orderStatus && (
                     <View className="flex-1 flex-row justify-between items-center">
                       <Text
@@ -156,7 +152,7 @@ const Order = ({
                     </View>
                   )}
 
-                  {/* Order ID */}
+                  {}
                   {orderId && (
                     <View className="flex-1 flex-row justify-between items-center">
                       <Text
@@ -175,16 +171,16 @@ const Order = ({
                   )}
                 </View>
 
-                {/* Store Image and Name */}
+                {}
                 <View className="w-[90%] flex-row justify-start items-center gap-x-4">
-                  {/* <View className="h-8 w-8 bg-gray-400 justify-center items-center"> */}
-                  {/* <View className="w-[60px] h-[70px] bg-gray-200 rounded-[8px]"> */}
+                  {}
+                  {}
                   <Image
                     src={restaurant?.image}
                     style={{ width: 32, height: 30, borderRadius: 8 }}
                   />
-                  {/* </View> */}
-                  {/* </View> */}
+                  {}
+                  {}
                   <Text
                     className="font-[Inter] text-lg font-bold leading-7 text-left underline-offset-auto decoration-skip-ink "
                     style={{ color: appTheme.fontMainColor }}
@@ -193,7 +189,7 @@ const Order = ({
                   </Text>
                 </View>
 
-                {/* Pick Up Order */}
+                {}
                 <View className="w-[90%] flex-row items-center gap-x-2">
                   <View>
                     <IconSymbol
@@ -223,7 +219,7 @@ const Order = ({
                   </View>
                 </View>
 
-                {/* Delivery Order */}
+                {}
                 <View className="w-[90%] flex-row items-center gap-x-2">
                   <View>
                     <IconSymbol
@@ -253,7 +249,7 @@ const Order = ({
                   </View>
                 </View>
 
-                {/* Price/Time/Distance */}
+                {}
                 <View className="w-[99%] flex-row justify-between items-center">
                   {time && (
                     <View className="flex-1 flex-row justify-start  items-center gap-x-1">
@@ -286,7 +282,7 @@ const Order = ({
                   </View>
                 </View>
 
-                {/* Payment Method */}
+                {}
                 <View className="w-[99%] flex-row justify-between items-center">
                   <Text
                     className="flex-1 font-[Inter] text-[16px] text-base font-[500] "
@@ -302,7 +298,7 @@ const Order = ({
                   </Text>
                 </View>
 
-                {/* Order Amount */}
+                {}
                 <View className="w-[99%] flex-row justify-between">
                   <Text
                     className="flex-1 font-[Inter] text-[16px] text-base font-[500] "
@@ -343,7 +339,7 @@ const Order = ({
                         />
                       </View>
                     </TouchableOpacity>
-                    {/* Order Comment */}
+                    {}
                     <View className="flex-1">
                       <Text
                         className="font-[Inter] text-[16px] text-base font-[500] "
@@ -361,15 +357,15 @@ const Order = ({
                   </View>
                 )}
                 {tab === "new_orders" && (
-                  // <CustomContinueButton
-                  //   title={t("Assign me")}
-                  //   className="w-[95%] mx-auto"
-                  //   onPress={() =>
-                  //     mutateAssignOrder({
-                  //       variables: { id: _id },
-                  //     })
-                  //   }
-                  // />
+
+
+
+
+
+
+
+
+
                   <TouchableOpacity
                     className="h-14 rounded-3xl py-3 mt-10 w-full"
                     disabled={loadingAssignOrder}

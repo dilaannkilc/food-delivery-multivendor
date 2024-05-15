@@ -10,7 +10,7 @@ import TextError from '../../components/Text/TextError/TextError'
 import ConfigurationContext from '../../context/Configuration'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
-// import analytics from '../../utils/analytics'
+
 import Detail from '../../components/OrderDetail/Detail/Detail'
 import RestaurantMarker from '../../assets/SVG/restaurant-marker'
 import CustomerMarker from '../../assets/SVG/customer-marker'
@@ -47,13 +47,13 @@ const CANCEL_ORDER = gql`
 `
 
 function OrderDetail(props) {
-  // console.log("propsdata",props?.route.params)
+
   const [cancelModalVisible, setCancelModalVisible] = useState(false)
-  //const Analytics = analytics()
+
   const { t, i18n } = useTranslation()
   const id = props?.route.params ? props?.route.params?._id : null
   const orderData = props?.route.params ? props?.route.params?.order : null
-  // console.log('orderData',orderData)
+
   const { loadingOrders, errorOrders, orders } = useContext(OrdersContext)
   const configuration = useContext(ConfigurationContext)
   const themeContext = useContext(ThemeContext)
@@ -73,14 +73,9 @@ function OrderDetail(props) {
     },
     variables: { abortOrderId: id }
   })
-  // useEffect(() => {
-  //   /* async function Track() {
-  //     await Analytics.track(Analytics.events.NAVIGATE_TO_ORDER_DETAIL, {
-  //       orderId: id
-  //     })
-  //   }
-  //   Track() */
-  // }, [])
+
+
+
 
   const cancelModalToggle = () => {
     setCancelModalVisible(!cancelModalVisible)
@@ -203,8 +198,8 @@ function OrderDetail(props) {
               strokeColor={currentTheme.main}
               optimizeWaypoints={true}
               onReady={(result) => {
-                //result.distance} km
-                //Duration: ${result.duration} min.
+
+
 
                 mapView?.current?.fitToCoordinates(result.coordinates, {
                   edgePadding: {
@@ -261,15 +256,7 @@ function OrderDetail(props) {
         <Taxes tax={tax} deliveryCharges={deliveryCharges} currency={configuration.currencySymbol} tip={tip} discountAmount={discountAmount} />
       </ScrollView>
       <View style={styles().bottomContainer(currentTheme)}>
-        {/* Tip is not showing on the tracking page
-        {tip > 0 && (
-  <PriceRow 
-    theme={currentTheme} 
-    title={t('tip')}   // uses translation
-    currency={configuration.currencySymbol} 
-    price={tip.toFixed(2)} 
-  />
-)} */}
+        {}
 
         <PriceRow theme={currentTheme} title={t('total')} currency={configuration.currencySymbol} price={total.toFixed(2)} />
 

@@ -1,9 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 
 'use client';
 
-// Core
 import { usePathname, useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -17,7 +16,6 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
-// Icons
 import {
   faBell,
   faChevronDown,
@@ -31,25 +29,19 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from 'next-themes';
 
-// UI Components
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
 
-// Prime Reat
 import { Menu } from 'primereact/menu';
 import { Skeleton } from 'primereact/skeleton';
 
-// Layout
 import { LayoutContext } from '@/lib/context/global/layout.context';
 
-// Hooks
 import { useUserContext } from '@/lib/hooks/useUser';
 
-// Interface/Types
 import { LayoutContextProps } from '@/lib/utils/interfaces';
 import { IWebNotification } from '@/lib/utils/interfaces/notification.interface';
 
-// Constants
 import {
   APP_NAME,
   languageTypes,
@@ -58,18 +50,15 @@ import {
   SELECTED_VENDOR_EMAIL,
 } from '@/lib/utils/constants';
 
-// Methods
 import { onUseLocalStorage } from '@/lib/utils/methods';
 import { timeAgo } from '@/lib/utils/methods/timeAgo';
 
-// Styles
 import classes from './app-bar.module.css';
 import { AppLogo } from '@/lib/utils/assets/svgs/logo';
 import { useLocale, useTranslations } from 'next-intl';
 import { TLocale } from '@/lib/utils/types/locale';
 import { setUserLocale } from '@/lib/utils/methods/locale';
 
-// GraphQL
 import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import { RIDER_UPDATED_SUBSCRIPTION } from '@/lib/api/graphql/subscription/rider-subscription';
 import {
@@ -79,13 +68,12 @@ import {
 import ThemeToggle from '@/lib/ui/useable-components/theme-button';
 
 const AppTopbar = () => {
-  // States
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNtfnOpen, setIsNtfnOpen] = useState(false);
-  const [isLogoutModalVisible, setLogoutModalVisible] = useState(false); // New state for the modal
+  const [isLogoutModalVisible, setLogoutModalVisible] = useState(false); 
   const [notifications, setNotifications] = useState<IWebNotification[]>([]);
 
-  // Hooks
   const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
@@ -94,18 +82,15 @@ const AppTopbar = () => {
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === 'dark';
 
-  // Ref
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<Menu>(null);
   const ntfnDropdownRef = useRef<HTMLDivElement>(null);
   const languageMenuRef = useRef<Menu>(null);
 
-  // Context
   const { showSuperAdminSidebar } =
     useContext<LayoutContextProps>(LayoutContext);
   const { user, setUser } = useUserContext();
 
-  // Query
   const { loading, refetch } = useQuery(GET_WEB_NOTIFICATIONS, {
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
@@ -113,7 +98,6 @@ const AppTopbar = () => {
     },
   });
 
-  // Subscriptions
   useSubscription(RIDER_UPDATED_SUBSCRIPTION, {
     fetchPolicy: 'network-only',
     onData: async () => {
@@ -122,7 +106,6 @@ const AppTopbar = () => {
     },
   });
 
-  // Mutation
   const [markAllAsRead] = useMutation(MARK_WEB_NOTIFICATIONS_AS_READ, {
     refetchQueries: [{ query: GET_WEB_NOTIFICATIONS }],
     onCompleted: (data) => {
@@ -130,7 +113,6 @@ const AppTopbar = () => {
     },
   });
 
-  // Handlers
   const toggleDropdown = () => {
     markAllAsRead();
     setIsNtfnOpen((prevState) => !prevState);
@@ -176,7 +158,6 @@ const AppTopbar = () => {
     });
   }
 
-  // Use Effects
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     window.addEventListener('resize', onDevicePixelRatioChange);
@@ -189,7 +170,7 @@ const AppTopbar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // Close the notification dropdown if the click is outside the dropdown or on the bell icon
+
       if (
         ntfnDropdownRef.current &&
         !ntfnDropdownRef.current.contains(event.target as Node) &&
@@ -206,7 +187,6 @@ const AppTopbar = () => {
     };
   }, []);
 
-  // Language Modal
   const model = languageTypes.map((lang) => ({
     label: lang.value.toUpperCase(),
     template(item: any) {
@@ -274,7 +254,7 @@ const AppTopbar = () => {
             icon={faBell}
             className="cursor-pointer text-gray-600 dark:text-white hover:text-black"
             onClick={toggleDropdown}
-            title="Notifications" // 👈 native tooltip added here
+            title="Notifications" 
           />
           {!loading &&
             notifications?.filter((ntfn) => !ntfn.read).length > 0 && (
@@ -293,7 +273,7 @@ const AppTopbar = () => {
               </p>
 
               <ul className="flex flex-col gap-1 pt-2 overflow-y-auto max-h-[368px]">
-                {/* If loading, show skeleton loaders */}
+                {}
                 {loading ? (
                   [1, 2, 3].map((_, index) => (
                     <div className="px-3" key={index}>
@@ -466,8 +446,8 @@ const AppTopbar = () => {
                 onClick={() => onRedirectToPage('/dispatch')}
               />
             )}
-            {/* <TextIconClickable className="justify-between" icon={faCog} /> */}
-            {/* <TextIconClickable className="justify-between" icon={faGlobe} /> */}
+            {}
+            {}
             <TextIconClickable
               className="cursor-pointer"
               icon={faRightFromBracket}
@@ -484,7 +464,7 @@ const AppTopbar = () => {
         visible={isLogoutModalVisible}
         onHide={() => setLogoutModalVisible(false)}
         onConfirm={onConfirmLogout}
-        loading={false} // Set to true if you have a loading state for logout
+        loading={false} 
         buttonConfig={{
           primaryButtonProp: { label: t('Yes'), icon: 'pi pi-check' },
           secondaryButtonProp: { label: t('Cancel'), icon: 'pi pi-times' },

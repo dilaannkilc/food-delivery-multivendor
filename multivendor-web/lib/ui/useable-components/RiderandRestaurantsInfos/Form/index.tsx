@@ -1,29 +1,22 @@
 "use client";
 
-// formik imports
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-// Components from primeReact
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 
-// libraries and utils
 import { useRouter } from "next/navigation";
 import { sendEmail } from "@/lib/utils/methods";
 import "react-phone-input-2/lib/style.css";
 
-// interfcaes
 import { VendorFormValues } from "@/lib/utils/interfaces/Rider-restaurant.interface";
 
-// component
 import PhoneNumberInput from "./phoneNumberInput/PhoneNumberInput";
 
-// validation Schema
 import emailValidationSchema from "./validationSchema";
 
-// hooks
 import useToast from "@/lib/hooks/useToast";
 import { useTranslations } from "next-intl";
 
@@ -90,7 +83,7 @@ const EmailForm: React.FC<formProps> = ({ heading, role }) => {
       >
         {({ values, setFieldValue, isSubmitting }) => (
           <Form className="grid gap-5">
-            {/* First and Last Name */}
+            {}
 
             <div className="gap-4 flex w-[100%] justify-between">
               <div className="w-[50%]">
@@ -134,7 +127,7 @@ const EmailForm: React.FC<formProps> = ({ heading, role }) => {
               </div>
             </div>
 
-            {/* Email */}
+            {}
             <div>
               <label className="text-sm dark:text-gray-300">
                 {t("email_label")}
@@ -155,7 +148,7 @@ const EmailForm: React.FC<formProps> = ({ heading, role }) => {
               />
             </div>
 
-            {/* Phone Number */}
+            {}
             <div>
               <label className="text-sm dark:text-gray-300">
                 {t("phone_label")}
@@ -168,7 +161,7 @@ const EmailForm: React.FC<formProps> = ({ heading, role }) => {
               />
             </div>
 
-            {/* Password */}
+            {}
             <div>
               <label className="text-sm dark:text-gray-300">
                 {t("password_label")}
@@ -194,7 +187,7 @@ const EmailForm: React.FC<formProps> = ({ heading, role }) => {
               />
             </div>
 
-            {/* Confirm Password */}
+            {}
             <div>
               <label className="text-sm dark:text-gray-300">
                 {t("confirm_password_label")}
@@ -219,7 +212,7 @@ const EmailForm: React.FC<formProps> = ({ heading, role }) => {
               />
             </div>
 
-            {/* Terms & Conditions */}
+            {}
             <div className="flex items-center gap-2 h-[40px]">
               <Checkbox
                 inputId="termsAccepted"
@@ -240,7 +233,7 @@ const EmailForm: React.FC<formProps> = ({ heading, role }) => {
               className="p-error text-sm"
             />
 
-            {/* Submit Button */}
+            {}
             <div className="flex justify-center items-center">
               <Button
                 type="submit"

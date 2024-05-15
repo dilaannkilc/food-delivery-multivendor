@@ -16,7 +16,7 @@ export default function FirebaseForegroundHandler() {
   } = useConfig();
 
   useEffect(() => {
-    // Ensure all required keys are present
+
     const isReady =
       FIREBASE_KEY &&
       FIREBASE_AUTH_DOMAIN &&
@@ -63,7 +63,6 @@ export default function FirebaseForegroundHandler() {
       }
     });
 
-    // Optional: Cleanup on unmount
     return () => {
       unsubscribe?.();
     };

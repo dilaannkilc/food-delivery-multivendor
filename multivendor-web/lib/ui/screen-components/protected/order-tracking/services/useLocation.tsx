@@ -9,12 +9,11 @@ import { useUserAddress } from "@/lib/context/address/address.context";
 import { onUseLocalStorage } from "@/lib/utils/methods/local-storage";
 
 function useLocation() {
-  // Hooks
+
   const { location, setLocation } = useLocationContext();
   const { userAddress } = useUserAddress();
   const { restaurant: restaurantId } = useUser();
 
- // Check if window is defined (client-side) before accessing localStorage
   const orderTrackingRestaurantId = typeof window !== 'undefined' 
   ? localStorage.getItem("orderTrackingRestaurantId") 
   : null;
@@ -71,15 +70,15 @@ function useLocation() {
   }, []);
 
   useEffect(() => {
-  // This function runs when the component unmounts
+
   return () => {
-     // This runs only on the client side
+
   if (typeof window !== 'undefined') {
-    // Remove the item from local storage on unmount
+
     localStorage.removeItem("orderTrackingRestaurantId");
   }
 }
-}, []); // this effect runs once on mount and cleanup runs on unmount
+}, []); 
 
   return {
     isLoaded,

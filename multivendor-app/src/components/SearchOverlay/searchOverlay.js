@@ -1,4 +1,4 @@
-// SearchOverlay.js
+
 import React, { useState, useEffect } from 'react'
 import {
   View,
@@ -42,7 +42,7 @@ const SearchOverlay = ({
       const filteredData = []
       restaurant.categories.forEach((category) => {
         category.foods?.forEach((food) => {
-          // Include all items, even out-of-stock ones
+
           filteredData.push(food)
         })
       })
@@ -55,7 +55,7 @@ const SearchOverlay = ({
 
       restaurant.categories.forEach((category) => {
         category.foods?.forEach((food) => {
-          // Include all matching items regardless of stock status
+
           const title = food.title.search(regex)
           if (title >= 0 || food.description.search(regex) >= 0) {
             filteredData.push(food)
@@ -72,21 +72,21 @@ const SearchOverlay = ({
 
   const onPressItem = (food) => {
     if (food.isOutOfStock) {
-      // Display an alert if the item is out of stock
+
       Alert.alert('Currently Unavailable', 'Item Out of Stock')
       return
     }
     
     if (!isRestaurantOpen) {
-      // Show alert if restaurant is closed
+
       Alert.alert(
         '',
         t('restaurantClosed'),
         [
           {
-            text: t('סגור'), // Hebrew for "close"
+            text: t('סגור'), 
             onPress: () => {
-              // Just close the search overlay
+
               onClose()
             },
             style: 'cancel'
@@ -94,15 +94,15 @@ const SearchOverlay = ({
           {
             text: t('seeMenu'),
             onPress: () => {
-              // Stay on search, don't navigate away
-              // Do nothing here
+
+
             }
           }
         ],
         { cancelable: true }
       )
     } else {
-      // Only navigate if restaurant is open
+
       navigation.navigate('ItemDetail', {
         food: {
           ...food,
@@ -113,7 +113,7 @@ const SearchOverlay = ({
         options: restaurant?.options || [],
         restaurant: restaurant?._id
       })
-      onClose() // Close the search overlay after navigation
+      onClose() 
     }
   }
 

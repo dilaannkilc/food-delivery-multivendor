@@ -11,7 +11,7 @@ const ItemDetails = ({
   orderData: IOrder;
   tab: string;
 }) => {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const configuration = useContext(ConfigurationContext);
@@ -55,7 +55,7 @@ const ItemDetails = ({
                 }}
               >
                 <Image
-                  // src={item?.image}
+
                   source={{ uri: item?.image }}
                   width={100}
                   height={100}
@@ -87,7 +87,7 @@ const ItemDetails = ({
                   </Text>
                 </View>
 
-                {/* Variation */}
+                {}
                 <View>
                   {item?.variation && (
                     <View className="flex-row items-center">
@@ -100,7 +100,7 @@ const ItemDetails = ({
                   )}
                 </View>
 
-                {/* Addons */}
+                {}
                 <View>
                   {
                     item?.addons?.map((addon) => {
@@ -135,13 +135,13 @@ const ItemDetails = ({
         })}
       </View>
 
-      {/* Divider */}
+      {}
       <View
         className="flex-1 h-[1px] mb-4 mt-4"
         style={{ backgroundColor: appTheme.themeBackground }}
       />
 
-      {/* Order Amount */}
+      {}
       <View className="flex-1 flex-row justify-between mb-4">
         <Text
           className="font-[Inter] text-[16px] text-base font-[500]"

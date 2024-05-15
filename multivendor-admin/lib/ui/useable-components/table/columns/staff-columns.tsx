@@ -1,11 +1,9 @@
-// Core
+
 import { useState } from 'react';
 
-// Custom Components
 import ActionMenu from '@/lib/ui/useable-components/action-menu';
 import CustomInputSwitch from '../../custom-input-switch';
 
-// Interfaces and Types
 import { IStaffResponse } from '@/lib/utils/interfaces';
 import { IActionMenuProps } from '@/lib/utils/interfaces/action-menu.interface';
 import { useMutation } from '@apollo/client';
@@ -19,14 +17,12 @@ export const STAFF_TABLE_COLUMNS = ({
 }: {
   menuItems: IActionMenuProps<IStaffResponse>['items'];
 }) => {
-  // Hooks
+
   const t = useTranslations();
   const { showToast } = useToast();
 
-  // States
   const [selectedStaffId, setSelectedStaffId] = useState<string | null>(null);
 
-  // GraphQL mutation hook
   const [mutateToggle, { loading }] = useMutation(EDIT_STAFF, {
     refetchQueries: [{ query: GET_STAFFS }],
     awaitRefetchQueries: true,
@@ -81,14 +77,14 @@ export const STAFF_TABLE_COLUMNS = ({
     { headerName: t('Email'), propertyName: 'email' },
     { headerName: t('Password'), propertyName: 'plainPassword' },
     { headerName: t('Phone'), propertyName: 'phone' },
-    // ? Should this be added as it will make table overflow on normal screens
-    // {
-    //   headerName: 'Permissions',
-    //   propertyName: 'permissions',
-    //   body: (staff: IStaffResponse) => {
-    //     return staff.permissions.map((v) => v + ', ');
-    //   },
-    // },
+
+
+
+
+
+
+
+
     {
       headerName: t('Status'),
       propertyName: 'status',

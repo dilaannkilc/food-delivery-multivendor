@@ -5,9 +5,9 @@ import { theme } from '../../../utils/themeColors'
 const { height } = Dimensions.get('window')
 const styles = (props = null) =>
   StyleSheet.create({
-    // ML20: {
-    //   ...alignment.MLlarge
-    // },
+
+
+
     offerScroll: {
       height: height * 0.386,
       width: '100%'
@@ -23,8 +23,8 @@ const styles = (props = null) =>
     },
     orderAgainSec: {
       marginHorizontal: scale(10),
-      // ...alignment.MLmedium,
-      // ...alignment.MRmedium
+
+
     },
     topPicksSec: {
       ...alignment.MLmedium,
@@ -54,8 +54,8 @@ const styles = (props = null) =>
       flexDirection: props?.isRTL ? 'row-reverse' : 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      // ...alignment.MRmedium,
-      // marginBottom: scale(8),
+
+
     },
     row: {
       flexDirection: props?.isRTL ? 'row-reverse' : 'row',

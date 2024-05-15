@@ -1,23 +1,18 @@
-// Core
+
 import { useContext } from 'react';
 
-// UI Components
 import { RestaurantContext } from '@/lib/context/super-admin/restaurant.context';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import RestaurantCard from '@/lib/ui/useable-components/resturant-card';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import VendorCard from '@/lib/ui/useable-components/vendor-card';
 
-// Context
 import { VendorContext } from '@/lib/context/super-admin/vendor.context';
 
-// Interface
 import { IVendorMainComponentProps } from '@/lib/utils/interfaces';
 
-// Constants
 import { SELECTED_VENDOR_EMAIL } from '@/lib/utils/constants';
 
-// Icons
 import CustomRestaurantCardSkeleton from '@/lib/ui/useable-components/custom-skeletons/restaurant.card.skeleton';
 import CustomVendorSkeleton from '@/lib/ui/useable-components/custom-skeletons/vendor.skeleton';
 import HeaderText from '@/lib/ui/useable-components/header-text';
@@ -28,10 +23,9 @@ import NoData from '@/lib/ui/useable-components/no-data';
 import { useTranslations } from 'next-intl';
 
 export default function VendorMain({ activeTab }: IVendorMainComponentProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const {
     onSetVendorFormVisible,
     globalFilter,
@@ -62,7 +56,7 @@ export default function VendorMain({ activeTab }: IVendorMainComponentProps) {
           activeTab === 'vendors' ? '' : 'hidden sm:block'
         }`}
       >
-        {/* Mobile-only header for Vendors section */}
+        {}
         <div className="mt-3  border-b dark:border-dark-600 p-3 sm:hidden">
           <div className="mb-4 flex items-center justify-between">
             <HeaderText text={t('Vendors')} />
@@ -85,15 +79,11 @@ export default function VendorMain({ activeTab }: IVendorMainComponentProps) {
               onChange={(e) => onSetGlobalFilter(e.target.value)}
             />
 
-            {/* <CustomTab
-              options={options}
-              selectedTab={selectedVendorFilter}
-              setSelectedTab={setSelectedVendorFilter}
-            /> */}
+            {}
           </div>
         </div>
 
-        {/* Vendors content */}
+        {}
         <div className="pb-16">
           {vendorResponse?.loading ? (
             new Array(10)
@@ -124,7 +114,7 @@ export default function VendorMain({ activeTab }: IVendorMainComponentProps) {
           activeTab === 'restaurants' ? '' : 'hidden sm:block'
         }`}
       >
-        {/* Header for Restaurants section */}
+        {}
         <div className="border-b  pb-2 pt-3 dark:border-dark-600">
           <div className="mb-4 flex items-center justify-between">
             <div className="hidden sm:block">
@@ -162,11 +152,7 @@ export default function VendorMain({ activeTab }: IVendorMainComponentProps) {
                 }
               />
             </div>
-            {/* <CustomTab
-              options={options}
-              selectedTab={selectedRestaurantFilter}
-              setSelectedTab={setSelectedResturantFilter}
-            /> */}
+            {}
           </div>
         </div>
 

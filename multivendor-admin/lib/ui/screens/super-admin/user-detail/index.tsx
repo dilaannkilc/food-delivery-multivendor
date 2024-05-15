@@ -34,7 +34,6 @@ const UserDetailScreen: React.FC<UserDetailScreenProps> = ({ userId }) => {
   const router = useRouter();
   const t = useTranslations();
 
-  // Fetch user data
   const {
     data: userData,
     loading: userLoading,
@@ -44,9 +43,8 @@ const UserDetailScreen: React.FC<UserDetailScreenProps> = ({ userId }) => {
     fetchPolicy: 'cache-and-network',
   });
 
-  // Fetch order history
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(10); // Number of orders per page
+  const [limit, setLimit] = useState(10); 
   const {
     data: ordersData,
     loading: ordersLoading,
@@ -83,13 +81,13 @@ const UserDetailScreen: React.FC<UserDetailScreenProps> = ({ userId }) => {
   if (userLoading || ordersLoading) {
     return (
       <div className="p-4 md:p-6">
-        {/* Header Skeleton */}
+        {}
         <div className="flex items-center gap-4 mb-6">
           <Skeleton shape="circle" size="2.5rem" className="mr-2"></Skeleton>
           <Skeleton width="10rem" height="2.5rem"></Skeleton>
         </div>
 
-        {/* User Card Skeleton */}
+        {}
         <div className="card mt-6">
           <div className="flex items-center p-4">
             <Skeleton shape="circle" size="6rem" className="mr-4"></Skeleton>
@@ -101,7 +99,7 @@ const UserDetailScreen: React.FC<UserDetailScreenProps> = ({ userId }) => {
           </div>
         </div>
 
-        {/* Tabs Skeleton */}
+        {}
         <div className="card mt-6">
           <div className="flex border-b border-gray-300">
             <Skeleton width="8rem" height="2.5rem" className="mr-2"></Skeleton>
@@ -243,7 +241,7 @@ const UserDetailScreen: React.FC<UserDetailScreenProps> = ({ userId }) => {
           onClick={() => router.back()}
         >
           <FontAwesomeIcon icon={faArrowLeft} scale={1.5} />{' '}
-          {/* Use FontAwesomeIcon here */}
+          {}
         </Button>
 
         <HeaderText text={t('user_details')} />

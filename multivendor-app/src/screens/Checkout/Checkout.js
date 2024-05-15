@@ -1,4 +1,4 @@
-/* eslint-disable indent */
+
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import { View, ScrollView, TouchableOpacity, StatusBar, Platform, Alert, TextInput, Dimensions } from 'react-native'
 import { useMutation, useQuery } from '@apollo/client'
@@ -45,7 +45,6 @@ import { useCallback } from 'react'
 import useNetworkStatus from '../../utils/useNetworkStatus'
 import ErrorView from '../../components/ErrorView/ErrorView'
 
-// Constants
 const PLACEORDER = gql`
   ${placeOrder}
 `
@@ -61,7 +60,7 @@ function Checkout(props) {
   const Analytics = analytics()
   useFocusEffect(
     useCallback(() => {
-      // Alert.alert( "Server is currently unavailable. Please try again later.");
+
       console.log('Server is currently unavailable. Please try again later.')
     }, [])
   )
@@ -145,7 +144,7 @@ function Checkout(props) {
         setLoadingOrder(false)
       }
     } else {
-      // If no coupon data, show the message from the response
+
       FlashMessage({
         message: data?.coupon?.message || t('invalidCoupan')
       })
@@ -204,10 +203,10 @@ function Checkout(props) {
     if (tip) {
       setSelectedTip(null)
     }
-    // uncomment it if you want to select the tip by default
-    // else if (dataTip && !selectedTip) {
-    //   setSelectedTip(dataTip.tips.tipVariations[1])
-    // }
+
+
+
+
   }, [tip, data])
 
   useEffect(() => {
@@ -415,11 +414,11 @@ function Checkout(props) {
       })
     }
     if (error?.networkError) {
-      // console.log(`Network Error: ${networkError.message}`);
+
       if (error?.networkError.statusCode === 502) {
-        // FlashMessage({
-        //   message: "Server is currently unavailable. Please try again later."
-        // })
+
+
+
         console.log('Server is currently unavailable. Please try again later.')
       }
       if (error?.networkError.statusCode === 504) {
@@ -431,11 +430,11 @@ function Checkout(props) {
   }
 
   function calculateTip() {
-    // if (paymentMode !== 'HYP') {
-    //   return 0 // Return 0 if payment mode is not 'COD'
-    // }
+
+
+
     if (isPickup) {
-      return 0 // No tip for pickup orders since no rider is involved
+      return 0 
     }
     if (tip) {
       return tip
@@ -492,8 +491,8 @@ function Checkout(props) {
     if (calculatePrice(deliveryCharges, true) < minimumOrder) {
       FlashMessage({
         message: `The minimum amount of (${configuration.currencySymbol} ${minimumOrder}) for your order has not been reached.`
-        // message: `(${t(minAmount)}) (${configuration.currencySymbol
-        //   } ${minimumOrder}) (${t(forYourOrder)})`
+
+
       })
       return false
     }
@@ -565,7 +564,7 @@ function Checkout(props) {
         }
 
         if (isPickup) {
-          // For pickup, use the location from context
+
           orderVariables.address = {
             label: 'Current Location',
             deliveryAddress: 'Pickup',
@@ -574,7 +573,7 @@ function Checkout(props) {
             latitude: '' + location.latitude
           }
         } else {
-          // For delivery, use the selected address
+
           orderVariables.address = {
             label: location.label,
             deliveryAddress: location.deliveryAddress,
@@ -733,12 +732,8 @@ function Checkout(props) {
                     </View>
                     <View style={styles(currentTheme).labelContainer}>
                       <View style={{ marginHorizontal: scale(5) }}>
-                        {/* <TextDefault textColor={currentTheme.newFontcolor} numberOfLines={1} H5 bolder isRTL>                         
-                          {t(isPickup ? 'pickUp' : 'delivery')} ({deliveryTime} {t('mins')})
-                        </TextDefault> */}
-                        {/* <TextDefault textColor={currentTheme.newFontcolor} numberOfLines={1} H5 bolder isRTL>
-                          {orderConfirmedTime ? `${t(isPickup ? 'pickUp' : 'delivery')} (${deliveryTime} ${t('mins')})` : `${t(isPickup ? 'pickUp' : 'delivery')} (${restaurant?.deliveryTime} ${t('mins')})`}
-                        </TextDefault> */}
+                        {}
+                        {}
                         <TextDefault textColor={currentTheme.newFontcolor} numberOfLines={1} H5 bolder isRTL>
                           {t(isPickup ? 'pickUp' : 'delivery')} {deliveryTime} {''}
                           {t('mins')}
@@ -772,15 +767,7 @@ function Checkout(props) {
                             setPaymentMode('COD')
                           }}
                         />
-                        {/* <PaymentModeOption
-                          title={t('paypal')}
-                          icon={'credit-card'}
-                          selected={paymentMode === 'PAYPAL'}
-                          theme={currentTheme}
-                          onSelect={() => {
-                            setPaymentMode('PAYPAL')
-                          }}
-                        /> */}
+                        {}
                         {restaurant?.stripeDetailsSubmitted && (
                           <PaymentModeOption
                             title={t('Stripe')}
@@ -1003,7 +990,7 @@ function Checkout(props) {
           </>
         )}
 
-        {/* Tip Modal */}
+        {}
         <Modalize
           ref={tipModalRef}
           modalStyle={[styles(currentTheme).modal]}
@@ -1043,7 +1030,7 @@ function Checkout(props) {
             </TouchableOpacity>
           </View>
         </Modalize>
-        {/* Voucher Modal */}
+        {}
         <Modalize
           ref={voucherModalRef}
           modalStyle={[styles(currentTheme).modal]}

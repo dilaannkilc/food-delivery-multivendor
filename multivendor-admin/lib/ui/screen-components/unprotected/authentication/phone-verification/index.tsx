@@ -1,7 +1,6 @@
-// Component
+
 import CustomButton from '@/lib/ui/useable-components/button';
 
-// Prime React
 import { Card } from 'primereact/card';
 
 export default function PhoneVerificationMain() {
@@ -18,14 +17,8 @@ export default function PhoneVerificationMain() {
           </div>
 
           <div className="flex flex-col gap-2">
-            {/* <CustomPhoneTextField
-              name="otp"
-              type="text"
-               mask="(999) 999-9999" 
-              placeholder="(999) 999-9999"
-              showLabel={false}
-            /> */}{' '}
-            {/*  Whoever is working on this module,  I have commented out the phone field, because of some type issues so please uncomment to continue`*/}
+            {}{' '}
+            {}
             <CustomButton
               className="h-12 w-full border-primary-color bg-primary-color text-white hover:bg-white hover:text-primary-color"
               label="Continue"

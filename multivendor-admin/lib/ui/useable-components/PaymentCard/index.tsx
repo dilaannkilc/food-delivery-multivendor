@@ -16,7 +16,6 @@ export default function PaymentCard({
 }: IPaymentCardProps & { type: TPaymentType }) {
   const LogoComponent = type === 'stripe' ? StripeSVG : null;
 
-  // Hooks
   const t = useTranslations();
   return (
     <div className="flex flex-col items-center justify-center rounded-lg border dark:border-dark-600 border-gray-200 bg-white dark:bg-dark-950 p-6">

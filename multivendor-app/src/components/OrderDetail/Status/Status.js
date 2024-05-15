@@ -171,17 +171,9 @@ const StatusRow = ({ theme, number, status, time, isEta, showLine }) => {
           <TextDefault>{number}</TextDefault>
         </Circle>
         <View style={styles.statusTimeContainer}>
-          {/* <TextDefault
-            style={styles.statusRowText}
-            textColor={theme.main}
-            bolder>
-            {status}
-          </TextDefault> */}
+          {}
           
-          {/* <TextDefault textColor={theme.secondaryText} bold>
-            {isEta ? t('ETA') : ''}
-            {time}
-          </TextDefault> */}
+          {}
 
         </View>
       </View>

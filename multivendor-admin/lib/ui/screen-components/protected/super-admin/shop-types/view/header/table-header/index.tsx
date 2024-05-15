@@ -1,15 +1,10 @@
-// Components
+
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 
-
-// Interface
 import { IShopTypesTableHeaderProps } from '@/lib/utils/interfaces';
 
-
-// Icons
 import { useTranslations } from 'next-intl';
 
-// Prime react
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { useRef, useState } from 'react';
 
@@ -17,13 +12,11 @@ export default function ShopTypesTableHeader({
   globalFilterValue,
   onGlobalFilterChange,
 }: IShopTypesTableHeaderProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  //Ref
   const overlayPanelRef = useRef<OverlayPanel>(null);
 
-  // States
   const [searchValue, setSearchValue] = useState('');
 
 

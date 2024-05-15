@@ -50,7 +50,6 @@ export default function OrderHistoryScreen() {
     },
   });
 
-  // Merge new orders & update hasMore
   useEffect(() => {
     if (!activeOrder?.getUsersActiveOrders) return;
     
@@ -61,7 +60,6 @@ export default function OrderHistoryScreen() {
       return [...prev, ...newOrders];
     });
 
-    // Only update hasMore after pagination starts
     if (page > 1 && activeOrder.getUsersActiveOrders.length < limit) {
       setActiveOrderHasMore(false);
     }
@@ -77,14 +75,13 @@ export default function OrderHistoryScreen() {
       return [...prev, ...newOrders];
     });
 
-    // Only update hasMore after pagination starts
     if (page > 1 && pastOrder.getUsersPastOrders.length < limit) {
       setPastOrderHasMore(false);
     }
   }, [pastOrder, page, limit]);
 
   const loadMore = () => {
-    // Stop completely if nothing has more data
+
     if (!activeOrderHasMore && !pastOrderHasMore) return;
 
     const nextPage = page + 1;
@@ -137,19 +134,19 @@ export default function OrderHistoryScreen() {
 
   return (
     <div className="flex flex-col space-y-10 my-10">
-      {/* Active Orders */}
+      {}
       <ActiveOrders
         activeOrders={activeOrders}
-        isOrdersLoading={activeOrderNetwork === 1} // initial load only
+        isOrdersLoading={activeOrderNetwork === 1} 
       />
 
-      {/* Past Orders */}
+      {}
       <PastOrders
         pastOrders={pastOrders}
-        isOrdersLoading={pastOrderNetwork === 1} // initial load only
+        isOrdersLoading={pastOrderNetwork === 1} 
       />
 
-      {/* Load More Button */}
+      {}
       {(activeOrderHasMore || pastOrderHasMore) && (
         <div className="flex justify-center">
           <button

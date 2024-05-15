@@ -1,9 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 
 'use client';
 
-// Core
 import {
   useCallback,
   useContext,
@@ -15,7 +14,6 @@ import {
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-// Icons
 import {
   faBars,
   faBell,
@@ -28,29 +26,22 @@ import {
   faTruck,
 } from '@fortawesome/free-solid-svg-icons';
 
-// UI Components
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
 
-// Prime React
 import { Menu } from 'primereact/menu';
 
-// Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-// Layout
 import { LayoutContext } from '@/lib/context/global/layout.context';
 
-// Hooks
 import { useUserContext } from '@/lib/hooks/useUser';
 
-// Interface/Types
 import {
   IRestaurantByIdResponse,
   LayoutContextProps,
 } from '@/lib/utils/interfaces';
 
-// Constants
 import {
   APP_NAME,
   languageTypes,
@@ -59,10 +50,8 @@ import {
   SELECTED_VENDOR_EMAIL,
 } from '@/lib/utils/constants';
 
-// Methods
 import { onUseLocalStorage } from '@/lib/utils/methods';
 
-// Styles
 import classes from './app-bar.module.css';
 import { AppLogo } from '@/lib/utils/assets/svgs/logo';
 import { useQuery } from '@apollo/client';
@@ -73,21 +62,18 @@ import { setUserLocale } from '@/lib/utils/methods/locale';
 import ThemeToggle from '@/lib/ui/useable-components/theme-button';
 
 const AppTopbar = () => {
-  // Hooks
+
   const t = useTranslations();
   const router = useRouter();
   const [, startTransition] = useTransition();
   const currentLocale = useLocale();
 
-  // Local Storage
   const restaurantId = onUseLocalStorage('get', 'restaurantId');
 
-  // States
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLogoutModalVisible, setLogoutModalVisible] = useState(false); // New state for the modal
+  const [isLogoutModalVisible, setLogoutModalVisible] = useState(false); 
   const [restaurantName, setRestaurantName] = useState('');
 
-  // Queries
   const { data: restaurantData } = useQuery<
     IRestaurantByIdResponse | undefined,
     { id: string }
@@ -97,30 +83,27 @@ const AppTopbar = () => {
     },
   });
 
-  // Ref
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<Menu>(null);
   const languageMenuRef = useRef<Menu>(null);
 
-  // Context
   const { showRestaurantSidebar } =
     useContext<LayoutContextProps>(LayoutContext);
   const { user, setUser } = useUserContext();
 
-  // Handlers
   const onDevicePixelRatioChange = useCallback(() => {
     setIsMenuOpen(false);
     showRestaurantSidebar(false);
   }, [showRestaurantSidebar]);
 
   const handleClickOutside = (event: MouseEvent) => {
-    // Check if the clicked target is outside the container
+
     if (
       containerRef.current &&
       !containerRef.current.contains(event.target as Node)
     ) {
       setIsMenuOpen(false);
-      // Close the container or handle the click outside
+
     }
   };
 
@@ -140,7 +123,6 @@ const AppTopbar = () => {
     });
   }
 
-  // Language Modal
   const model = languageTypes.map((lang) => ({
     label: lang.value.toUpperCase(),
     template(item: any) {
@@ -158,16 +140,14 @@ const AppTopbar = () => {
     },
   }));
 
-  // Use Effects
   useEffect(() => {
-    // Listening to mouse down event
+
     document.addEventListener('mousedown', handleClickOutside);
 
-    // Listen to window resize events
     window.addEventListener('resize', onDevicePixelRatioChange);
 
     return () => {
-      // Cleanup listener on component unmount
+
       document.removeEventListener('mousedown', handleClickOutside);
       window.removeEventListener('resize', onDevicePixelRatioChange);
     };
@@ -304,7 +284,7 @@ const AppTopbar = () => {
         visible={isLogoutModalVisible}
         onHide={() => setLogoutModalVisible(false)}
         onConfirm={onConfirmLogout}
-        loading={false} // Set to true if you have a loading state for logout
+        loading={false} 
         buttonConfig={{
           primaryButtonProp: { label: t('Yes'), icon: 'pi pi-check' },
           secondaryButtonProp: { label: t('Cancel'), icon: 'pi pi-times' },

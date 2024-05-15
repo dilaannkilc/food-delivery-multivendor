@@ -1,36 +1,29 @@
-// Core
+
 import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-// Third-party libraries
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ApolloError, useMutation } from '@apollo/client';
 import { Avatar } from 'primereact/avatar';
 
-// Icons
 import {
   faLocationDot,
   faStore,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 
-// Interfaces
 import { IRestaurantCardProps } from '@/lib/utils/interfaces';
 
-// Methods
 import { onUseLocalStorage } from '@/lib/utils/methods';
 
-// GraphQL
 import { DELETE_RESTAURANT, HARD_DELETE_RESTAURANT } from '@/lib/api/graphql';
 
-// Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { RestaurantContext } from '@/lib/context/super-admin/restaurant.context';
 import { ConfigurationContext } from '@/lib/context/global/configuration.context';
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Components
 import CustomButton from '../button';
 import CustomInputSwitch from '../custom-input-switch';
 import TextComponent from '../text-field';
@@ -40,7 +33,7 @@ import { FrameSVG } from '@/lib/utils/assets/svgs/Frame';
 import { useTranslations } from 'next-intl';
 
 export default function RestaurantCard({ restaurant }: IRestaurantCardProps) {
-  // Props
+
   const {
     _id,
     name,
@@ -52,7 +45,7 @@ export default function RestaurantCard({ restaurant }: IRestaurantCardProps) {
   } = restaurant;
 
   const configuration = useContext(ConfigurationContext);
-  // Hooks
+
   const t = useTranslations();
   const { CURRENT_SYMBOL } = useConfiguration();
   const { showToast } = useContext(ToastContext);
@@ -69,10 +62,8 @@ export default function RestaurantCard({ restaurant }: IRestaurantCardProps) {
     setRestaurantModifed,
   } = useContext(RestaurantContext);
 
-  // Hooks
   const router = useRouter();
 
-  // API
   const [hardDeleteRestaurant, { loading: isHardDeleting }] = useMutation(
     HARD_DELETE_RESTAURANT,
     {
@@ -121,7 +112,6 @@ export default function RestaurantCard({ restaurant }: IRestaurantCardProps) {
     },
   });
 
-  // Handle checkbox change
   const handleCheckboxChange = async () => {
     try {
       await deleteRestaurant({ variables: { id: _id } });
@@ -202,7 +192,7 @@ export default function RestaurantCard({ restaurant }: IRestaurantCardProps) {
       </div>
 
       <div className="mb-4 flex flex-wrap items-center gap-x-2 px-2 sm:grid sm:grid-cols-2 sm:gap-4 lg:flex">
-        {/* Delivery Time */}
+        {}
         <div className="flex items-center gap-2 rounded-lg border border-gray-300 p-1 mb-2 text-sm">
           <FrameSVG width="24" height="24" />
           <span>
@@ -210,7 +200,7 @@ export default function RestaurantCard({ restaurant }: IRestaurantCardProps) {
           </span>
         </div>
 
-        {/* Delivery Fee */}
+        {}
         <div className="flex items-center gap-2 rounded-lg border border-gray-300 p-1 mb-2 text-sm">
           <CarSVG width="24" height="24" />
           <span>
@@ -218,7 +208,7 @@ export default function RestaurantCard({ restaurant }: IRestaurantCardProps) {
           </span>
         </div>
 
-        {/* Minimum Order */}
+        {}
         <div className="flex items-center gap-1 rounded-lg border border-gray-300 p-2 mb-2 text-sm">
           <span>{t('Min Order')}</span>
           <span>

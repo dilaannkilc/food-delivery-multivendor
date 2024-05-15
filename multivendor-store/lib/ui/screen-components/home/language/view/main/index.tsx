@@ -1,36 +1,29 @@
-// Components
+
 import {
   CustomContinueButton,
   CustomRadioButton,
 } from "@/lib/ui/useable-components";
 
-// Constants
 import { LANGUAGES } from "@/lib/utils/constants";
 
-// React Native Async Storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// I18n
 import { changeLanguage } from "i18next";
 
-// Hooks
 import { useApptheme } from "@/lib/context/theme.context";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-// Core
 import { AuthContext } from "@/lib/context/global/auth.context";
 import { Image, ScrollView, Text, View } from "react-native";
 
 export default function LanguageMain() {
   const [isChangingLang, setIsChangingLang] = useState(false);
 
-  // Hooks
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const { isSelected, setIsSelected } = useContext(AuthContext);
 
-  // Handlers
   const handleLanguageSelection = async (selectedLanguage: string) => {
     setIsSelected(selectedLanguage);
     await AsyncStorage.setItem("lang", selectedLanguage);
@@ -55,11 +48,11 @@ export default function LanguageMain() {
       className="flex-1 w-full items-center"
       style={{ backgroundColor: appTheme.screenBackground }}
     >
-      {/* ---------- SCROLLABLE LIST ---------- */}
+      {}
       <ScrollView
         className="w-[90%] flex-1 mt-4"
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 20 }}   // space before button
+        contentContainerStyle={{ paddingBottom: 20 }}   
       >
         {LANGUAGES.map((lng, index) => (
           <View
@@ -90,7 +83,7 @@ export default function LanguageMain() {
         ))}
       </ScrollView>
 
-      {/* ---------- FIXED BUTTON ---------- */}
+      {}
       <View className="w-[90%] mb-16">
         <CustomContinueButton
           title={isChangingLang ? t('Please wait') : t('Update Language')}

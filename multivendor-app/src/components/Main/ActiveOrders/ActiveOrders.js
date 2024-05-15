@@ -59,10 +59,9 @@ const ActiveOrders = ({ onActiveOrdersChange }) => {
 
   const displayOrders = showAll ? activeOrders : activeOrders.slice(0, 2)
 
-  // Real-time timer update effect
   useEffect(() => {
     if (displayOrders.length > 0) {
-      // Update time every 60 seconds for real-time updates
+
       timeUpdateInterval.current = setInterval(() => {
         setCurrentTime(new Date())
       }, 60000)
@@ -84,8 +83,7 @@ const ActiveOrders = ({ onActiveOrdersChange }) => {
   useEffect(() => {
     const hasActiveOrders = displayOrders.length > 0
     onActiveOrdersChange(hasActiveOrders)
-    
-    // Reset states when no active orders
+
     if (!hasActiveOrders) {
       setIsMinimized(false)
       setJustPlacedOrder(false)
@@ -95,15 +93,13 @@ const ActiveOrders = ({ onActiveOrdersChange }) => {
       }
       return
     }
-    
-    // Auto-minimize after 3 seconds when a new order is detected
+
     if (hasActiveOrders && !justPlacedOrder) {
       setJustPlacedOrder(true)
       const timer = setTimeout(() => {
         setIsMinimized(true)
         setShowPulse(true)
-        
-        // Start pulse animation
+
         Animated.loop(
           Animated.sequence([
             Animated.timing(pulseAnim, {
@@ -132,13 +128,13 @@ const ActiveOrders = ({ onActiveOrdersChange }) => {
 
   const handleMinimize = () => {
     setIsMinimized(true)
-    // Update time immediately when minimizing
+
     setCurrentTime(new Date())
   }
 
   const handleExpand = () => {
     setIsMinimized(false)
-    // Update time immediately when expanding
+
     setCurrentTime(new Date())
   }
 
@@ -146,15 +142,14 @@ const ActiveOrders = ({ onActiveOrdersChange }) => {
   if (errorOrders && !orders) return <TextError text={errorOrders.message} />
   if (!displayOrders.length) return null
   const order = displayOrders[0]
-  
-  // Calculate real-time remaining time
+
   const getRealTimeRemainingTime = (order) => {
     if (!order?.createdAt || !order?.expectedTime) {
       return calulateRemainingTime(order)
     }
     
     const orderTime = new Date(order.createdAt)
-    const expectedDeliveryTime = new Date(orderTime.getTime() + (order.expectedTime * 60000)) // expectedTime in minutes
+    const expectedDeliveryTime = new Date(orderTime.getTime() + (order.expectedTime * 60000)) 
     const now = currentTime
     const timeDiff = expectedDeliveryTime.getTime() - now.getTime()
     const minutesRemaining = Math.max(0, Math.ceil(timeDiff / (1000 * 60)))
@@ -168,7 +163,6 @@ const ActiveOrders = ({ onActiveOrdersChange }) => {
     backgroundColor: currentTheme.cardBackground
   }
 
-  // Render minimized tab
   if (isMinimized) {
     return (
       <Animated.View

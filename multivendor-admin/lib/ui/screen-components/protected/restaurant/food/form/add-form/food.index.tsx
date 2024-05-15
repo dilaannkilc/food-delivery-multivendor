@@ -1,18 +1,14 @@
 'use client';
 
-// Core
 import { Form, Formik } from 'formik';
 import { useContext, useEffect, useMemo, useState } from 'react';
 
-// Context
 import { FoodsContext } from '@/lib/context/restaurant/foods.context';
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 
-// Hooks
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { useTranslations } from 'next-intl';
 
-// Interface and Types
 import {
   ICategory,
   ICategoryByRestaurantResponse,
@@ -25,11 +21,9 @@ import {
 } from '@/lib/utils/interfaces';
 import { IFoodDetailsForm } from '@/lib/utils/interfaces/forms/food.form.interface';
 
-// Constants and Methods
 import { FoodErrors, MAX_LANSDCAPE_FILE_SIZE } from '@/lib/utils/constants';
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 
-// Components
 import CategoryAddForm from '../../../category/add-form';
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
@@ -37,20 +31,15 @@ import CustomDropdownComponent from '@/lib/ui/useable-components/custom-dropdown
 import CustomTextAreaField from '@/lib/ui/useable-components/custom-text-area-field';
 import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/upload-image';
 
-// API
 import { GET_CATEGORY_BY_RESTAURANT_ID } from '@/lib/api/graphql';
 import { GET_SUBCATEGORIES_BY_PARENT_ID } from '@/lib/api/graphql/queries/sub-categories';
 
-// Schema
 import { FoodSchema } from '@/lib/utils/schema';
 
-// Prime React
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 
-// Icons
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 
-// Components
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import InputSkeleton from '@/lib/ui/useable-components/custom-skeletons/inputfield.skeleton';
 import { useTheme } from 'next-themes';
@@ -66,17 +55,16 @@ const initialValues: IFoodDetailsForm = {
 export default function FoodDetails({
   stepperProps,
 }: IFoodDetailsComponentProps) {
-  // Hooks
+
   const t = useTranslations();
   const { theme } = useTheme();
-  // Props
+
   const { onStepChange, order } = stepperProps ?? {
     onStepChange: () => { },
     type: '',
     order: -1,
   };
 
-  // Context
   const { onSetFoodContextData, foodContextData } = useContext(FoodsContext);
   const { isAddSubCategoriesVisible, setIsAddSubCategoriesVisible } =
     useContext(RestaurantLayoutContext);
@@ -84,7 +72,6 @@ export default function FoodDetails({
     restaurantLayoutContextData: { restaurantId },
   } = useContext(RestaurantLayoutContext);
 
-  // State
   const [isAddCategoryVisible, setIsAddCategoryVisible] = useState(false);
   const [subCategories] = useState<ISubCategory[]>([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState<
@@ -99,7 +86,6 @@ export default function FoodDetails({
       : { ...initialValues }
   );
 
-  // Queries
   const {
     data,
     loading: categoriesLoading,
@@ -131,7 +117,6 @@ export default function FoodDetails({
     { parentCategoryId: string }
   >;
 
-  // Memoized Data
   const categoriesDropdown = useMemo(
     () =>
       data?.restaurant?.categories.map((category: ICategory) => {
@@ -150,7 +135,6 @@ export default function FoodDetails({
     [categoryDropDown?.code, subCategoriesData]
   );
 
-  // Handlers
   const onFoodSubmitHandler = (values: IFoodDetailsForm) => {
     const foodData: IFoodNew = {
       _id: foodContextData?.food?.data?._id ?? '',
@@ -192,7 +176,7 @@ export default function FoodDetails({
           })) || [];
       setSelectedSubCategories(selectedSubCategory);
     }
-    // setFoodInitialValues((prev)=>({...prev, subCategory:foodContextData?.food?.data.subCategory||null}))
+
     refetchCategories();
     refetchSubCategories({
       parentCategoryId: categoryDropDown?.code ?? '',
@@ -204,7 +188,6 @@ export default function FoodDetails({
     subCategoriesData,
   ]);
 
-  // UseEffects
   useEffect(() => {
     if (foodContextData?.isEditing) {
       const editing_category = categoriesDropdown?.find(
@@ -426,7 +409,7 @@ export default function FoodDetails({
         }}
         isAddCategoryVisible={isAddCategoryVisible}
         subCategories={subCategories}
-        // Add this prop to trigger refetch after category add/edit
+
         onCategoryAdded={() => {
           refetchCategories();
         }}

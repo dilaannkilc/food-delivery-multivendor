@@ -1,9 +1,8 @@
 "use client";
 
-// import { useRouter } from "next/navigation";
 
 const Forbidden = () => {
-  // const router = useRouter();
+
   return (
     <main className="h-screen w-full flex flex-col gap-2 justify-center items-center bg-white">
       <h1 className="text-9xl font-extrabold text-black tracking-widest">

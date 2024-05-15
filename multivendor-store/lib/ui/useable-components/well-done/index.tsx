@@ -2,7 +2,6 @@ import { useApptheme } from "@/lib/context/theme.context";
 import { Text, View } from "react-native";
 import Modal from "react-native-modal";
 
-// Interface
 import { IWellDoneComponentProps } from "@/lib/utils/interfaces";
 import { useTranslation } from "react-i18next";
 
@@ -11,7 +10,7 @@ export default function WelldoneComponent({
   status = "Delivered",
   setOrderId,
 }: IWellDoneComponentProps) {
-  // Hooks
+
   const { t } = useTranslation();
   const { appTheme } = useApptheme();
 

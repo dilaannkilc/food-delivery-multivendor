@@ -1,13 +1,11 @@
-// Core
+
 import { Animated } from "react-native";
 
-// Hooks
 import { useApptheme } from "@/lib/context/theme.context";
 export default function CustomSpinner() {
-  // Hooks
+
   const { appTheme } = useApptheme();
 
-  // Spin Value
   const spinValue = new Animated.Value(0);
 
   Animated.loop(

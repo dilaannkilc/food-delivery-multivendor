@@ -1,7 +1,6 @@
-// Components
+
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 
-// Interfaces
 import { ICuisineTableHeaderProps } from '@/lib/utils/interfaces/cuisine.interface';
 import { useTranslations } from 'next-intl';
 
@@ -9,7 +8,7 @@ export default function NotificationTableHeader({
   globalFilterValue,
   onGlobalFilterChange,
 }: ICuisineTableHeaderProps) {
-  // Hooks
+
   const t = useTranslations();
 
   return (

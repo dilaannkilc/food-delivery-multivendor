@@ -1,8 +1,8 @@
-// Hooks
+
 import { useState, useMemo, useEffect } from 'react';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import useDebounce from '@/lib/hooks/useDebounce';
-// Interfaces & Types
+
 import {
   IDateFilter,
   IQueryResult,
@@ -13,25 +13,23 @@ import { TOrderRowData } from '@/lib/utils/types';
 import { getGraphQLErrorMessage } from '@/lib/utils/methods/error';
 import { useTranslations } from 'next-intl';
 
-// GraphQL
 import { GET_ALL_ORDERS_PAGINATED } from '@/lib/api/graphql';
 
-// Components
 import OrderSuperAdminTableHeader from '../header/table-header';
-// import Table from '@/lib/ui/useable-components/table';
+
 import OrderTableSkeleton from '@/lib/ui/useable-components/custom-skeletons/orders.vendor.row.skeleton';
-// import { ORDER_SUPER_ADMIN_COLUMNS } from '@/lib/ui/useable-components/table/columns/order-superadmin-columns';
+
 import OrderDetailModal from '@/lib/ui/useable-components/popup-menu/order-details-modal';
 import DashboardDateFilter from '@/lib/ui/useable-components/date-filter';
 import OrderTable from '../order-table';
 import ApiErrorAlert from '@/lib/ui/useable-components/api-error-alert';
-// Prime React
+
 import { FilterMatchMode } from 'primereact/api';
 import { DataTableRowClickEvent } from 'primereact/datatable';
 
 export default function OrderSuperAdminMain() {
   const t = useTranslations();
-  // States
+
   const [selectedData, setSelectedData] = useState<IExtendedOrder[]>([]);
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,12 +37,12 @@ export default function OrderSuperAdminMain() {
     useState<IExtendedOrder | null>(null);
   const [dateFilter, setDateFilter] = useState<IDateFilter>({
     dateKeyword: 'All',
-    startDate: `${new Date().getFullYear()}-01-01`, // Current year, January 1st
-    endDate: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`, // Today's date
+    startDate: `${new Date().getFullYear()}-01-01`, 
+    endDate: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`, 
   });
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(10); // For PrimeReact Table's 'rows' prop
-  const [currentPage, setCurrentPage] = useState(1); // For API 'page' parameter
+  const [rows, setRows] = useState(10); 
+  const [currentPage, setCurrentPage] = useState(1); 
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   const [globalFilterValue, setGlobalFilterValue] = useState('');
@@ -57,7 +55,6 @@ export default function OrderSuperAdminMain() {
     });
   };
 
-  // Only send dates when Custom filter is active, otherwise backend handles date filtering
   const queryVariables = {
     page: currentPage,
     rows: rows,
@@ -104,7 +101,6 @@ export default function OrderSuperAdminMain() {
     }
   }, [loading, isInitialLoad]);
 
-  // For global search - updates filters for PrimeReact DataTable
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const _filters = { ...filters };
@@ -147,7 +143,7 @@ export default function OrderSuperAdminMain() {
 
   const displayData: TOrderRowData[] = useMemo(() => {
     if (loading) {
-      return OrderTableSkeleton({ rowCount: 10 }); // Display 10 skeleton rows while loading
+      return OrderTableSkeleton({ rowCount: 10 }); 
     }
     return tableData;
   }, [loading, tableData]);

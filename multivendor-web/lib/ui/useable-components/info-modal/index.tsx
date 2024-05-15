@@ -2,18 +2,14 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
-// Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
-// Hooks
 import { useConfig } from "@/lib/context/configuration/configuration.context";
 
-// Useable components
 import GoogleMapComponent from "@/lib/ui/useable-components/google-map-component";
 import CustomDialog from "../custom-dialog";
 
-// Methods and Interfaces
 import {
   IInfoModalProps,
   IOpeningTime,
@@ -109,7 +105,7 @@ const InfoModal = ({ visible, onHide, restaurantInfo }: IInfoModalProps) => {
       width="550px"
     >
       <div className="restaurant-info-modal">
-        {/* Map */}
+        {}
         <div className="relative">
           <GoogleMapComponent
             center={mapCenter}
@@ -147,7 +143,7 @@ const InfoModal = ({ visible, onHide, restaurantInfo }: IInfoModalProps) => {
             {restaurantInfo.description}
           </p>
 
-          {/* Address */}
+          {}
           <div className="mb-6">
             <h2 className="text-lg md:text-xl font-bold mb-2">
               {t("Address")}
@@ -165,7 +161,7 @@ const InfoModal = ({ visible, onHide, restaurantInfo }: IInfoModalProps) => {
             </a>
           </div>
 
-          {/* Opening Hours */}
+          {}
           <div className="mb-6">
             <h2 className="text-lg md:text-xl font-bold mb-2">
               {t("OpeningHours")}
@@ -173,12 +169,12 @@ const InfoModal = ({ visible, onHide, restaurantInfo }: IInfoModalProps) => {
             <div className="grid grid-cols-1 gap-2">
               {restaurantInfo.openingTimes.map((day) => (
                 <div key={day.day} className="flex justify-between items-start">
-                  {/* Day Name */}
+                  {}
                   <div className="w-28 text-xs md:text-[16px] font-normal leading-[24px]">
                     {t(getCurrentDay(day.day))}
                   </div>
 
-                  {/* Time Ranges with monospaced font */}
+                  {}
                   <div className="flex flex-col gap-[2px] text-xs md:text-[16px] font-normal leading-[24px] items-end font-inter">
                     {getFormattedHours(day)}
                   </div>
@@ -187,7 +183,7 @@ const InfoModal = ({ visible, onHide, restaurantInfo }: IInfoModalProps) => {
             </div>
           </div>
 
-          {/* Delivery Info */}
+          {}
           <div className="mb-6">
             <h2 className="text-lg md:text-xl font-bold mb-2">
               {t("DeliveryInfo")}
@@ -207,7 +203,7 @@ const InfoModal = ({ visible, onHide, restaurantInfo }: IInfoModalProps) => {
             </div>
           </div>
 
-          {/* Contact */}
+          {}
           <div>
             <h2 className="text-lg md:text-xl font-bold mb-2">
               {t("Contact")}
@@ -215,7 +211,7 @@ const InfoModal = ({ visible, onHide, restaurantInfo }: IInfoModalProps) => {
             <p className="text-gray-500 text-xs md:text-[16px] font-normal">
               {t("AllergyNote")}
             </p>
-            {/* Phone */}
+            {}
             <div className=" flex justify-between text-xs md:text-[16px] font-normal leading-[16px] md:leading-[24px] mt-2">
               <h1 className="text-sm md:text-[16px] font-bold mb-2">
                 {t("Phone")}

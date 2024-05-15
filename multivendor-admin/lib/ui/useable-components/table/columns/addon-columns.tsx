@@ -7,7 +7,7 @@ export const ADDON_TABLE_COLUMNS = ({
 }: {
   menuItems: IActionMenuProps<IAddon>['items'];
 }) => {
-  // Hooks
+
   const t = useTranslations();
   return [
     { headerName: t('Title'), propertyName: 'title' },

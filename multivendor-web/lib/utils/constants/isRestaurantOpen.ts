@@ -1,10 +1,10 @@
 export interface OpeningSlot {
-  startTime: [string, string]; // ["09", "00"]
-  endTime: [string, string];   // ["18", "00"]
+  startTime: [string, string]; 
+  endTime: [string, string];   
 }
 
 export interface OpeningTime {
-  day: string;                // "MON"
+  day: string;                
   times: OpeningSlot[];
 }
 
@@ -22,7 +22,7 @@ export interface Restaurant {
   isActive?: boolean;
 
   location: {
-    coordinates: [number, number]; // [lng, lat]
+    coordinates: [number, number]; 
   };
 
   openingTimes: OpeningTime[];

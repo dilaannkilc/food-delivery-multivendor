@@ -1,6 +1,5 @@
 'use client';
 
-// Core imports
 import {
   ApolloCache,
   ApolloError,
@@ -17,7 +16,6 @@ import React, {
   useState,
 } from 'react';
 
-// API and GraphQL
 import {
   GET_RESTAURANT_DELIVERY_ZONE_INFO,
   GET_RESTAURANT_PROFILE,
@@ -25,11 +23,9 @@ import {
   UPDATE_DELIVERY_BOUNDS_AND_LOCATION,
 } from '@/lib/api/graphql';
 
-// Context
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 
-// Interfaces
 import {
   ICustomGoogleMapsLocationBoundsComponentProps,
   ILocationPoint,
@@ -42,10 +38,8 @@ import {
   IZonesResponse,
 } from '@/lib/utils/interfaces';
 
-// Utilities
 import { transformPath, transformPolygon } from '@/lib/utils/methods';
 
-// Third-party libraries
 import {
   faChevronDown,
   faMapMarker,
@@ -56,7 +50,6 @@ import { Circle, GoogleMap, Marker, Polygon } from '@react-google-maps/api';
 import parse from 'autosuggest-highlight/parse';
 import { AutoComplete, AutoCompleteSelectEvent } from 'primereact/autocomplete';
 
-// Components
 import CustomButton from '../../button';
 import CustomRadiusInputField from '../../custom-radius-input';
 import CustomShape from '../shapes';
@@ -72,31 +65,29 @@ const autocompleteService: {
 const CustomGoogleMapsLocationBounds: React.FC<
   ICustomGoogleMapsLocationBoundsComponentProps
 > = ({ onStepChange, hideControls, height }) => {
-  // Context
+
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const { restaurantId } = restaurantLayoutContextData;
   const { showToast } = useContext(ToastContext);
 
-  // States
   const [zoom, setZoom] = useState(14);
   const [UpdateLocationAddress, setUpdateLocationAddress] = useState('');
   const [deliveryZoneType, setDeliveryZoneType] = useState('point');
   const [center, setCenter] = useState({
-    lat: -25.2744, // Central latitude of Australia
-    lng: 133.7751, // Central longitude of Australia
+    lat: -25.2744, 
+    lng: 133.7751, 
   });
 
   const [marker, setMarker] = useState({
-    lat: -25.2744, // Marker at the same central point
-    lng: 133.7751, // Marker at the same central point
+    lat: -25.2744, 
+    lng: 133.7751, 
   });
   const [path, setPath] = useState<ILocationPoint[]>([]);
   const [distance, setDistance] = useState(1);
-  // Hooks
+
   const t = useTranslations();
   const { theme } = useTheme();
 
-  // States
   const [options, setOptions] = useState<IPlaceSelectedOption[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [selectedPlaceObject, setSelectedPlaceObject] =
@@ -104,11 +95,9 @@ const CustomGoogleMapsLocationBounds: React.FC<
   const [search, setSearch] = useState<string>('');
   const [zones, setZones] = useState<IZoneResponse[]>([]);
 
-  // Ref
   const polygonRef = useRef<google.maps.Polygon | null>(null);
   const listenersRef = useRef<google.maps.MapsEventListener[]>([]);
 
-  // API
   const { loading: isFetchingRestaurantProfile } = useQuery(
     GET_RESTAURANT_PROFILE,
     {
@@ -150,7 +139,6 @@ const CustomGoogleMapsLocationBounds: React.FC<
     },
   });
 
-  // Memos
   const radiusInMeter = useMemo(() => {
     return distance * 1000;
   }, [distance]);
@@ -163,7 +151,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
   );
 
   console.log('Zones........ ', zones);
-  // API Handlers
+
   function updateCache(
     cache: ApolloCache<unknown>,
     { data }: IRestaurantProfileResponse
@@ -183,7 +171,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
       },
     });
   }
-  // Profile Error
+
   function onErrorFetchRestaurantProfile({
     graphQLErrors,
     networkError,
@@ -198,7 +186,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
       duration: 2500,
     });
   }
-  // Restaurant Profile Complete
+
   function onRestaurantProfileFetchCompleted({
     restaurant,
   }: {
@@ -223,7 +211,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
         : path
     );
   }
-  // Restaurant Zone Info Error
+
   function onErrorFetchRestaurantZoneInfo({
     graphQLErrors,
     networkError,
@@ -238,7 +226,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
       duration: 2500,
     });
   }
-  // Restaurant Zone Info Complete
+
   function onRestaurantZoneInfoFetchCompleted({
     getRestaurantDeliveryZoneInfo,
   }: {
@@ -273,7 +261,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
       }) || []
     );
   }
-  // Zone Update Error
+
   function onErrorLocationZoneUpdate({
     graphQLErrors,
     networkError,
@@ -288,7 +276,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
       duration: 2500,
     });
   }
-  // Zone Update Complete
+
   function onRestaurantZoneUpdateCompleted({
     restaurant,
   }: {
@@ -317,11 +305,10 @@ const CustomGoogleMapsLocationBounds: React.FC<
     });
 
     if (onStepChange) onStepChange(2);
-    // onSetRestaurantsContextData({} as IRestaurantsContextPropData);
-    // onSetRestaurantFormVisible(false);
+
+
   }
 
-  // Other Handlers
   const handleInputChange = (value: string) => {
     setInputValue(value);
   };
@@ -426,7 +413,6 @@ const CustomGoogleMapsLocationBounds: React.FC<
 
       setPath(nextPath);
 
-      // Calculate new center based on polygon vertices
       const newCenter = nextPath.reduce(
         (acc, point) => ({
           lat: acc.lat + point.lat / nextPath.length,
@@ -469,13 +455,12 @@ const CustomGoogleMapsLocationBounds: React.FC<
     setMarker(newLatLng);
     setCenter(newLatLng);
 
-    // Update polygon when marker is dragged
     if (deliveryZoneType === 'polygon') {
       const newPath = getPolygonPathFromCircle(newLatLng, radiusInMeter ?? 1);
       setPath(newPath);
     }
   };
-  // Submit Handler
+
   const onLocationSubmitHandler = () => {
     try {
       if (!restaurantId) {
@@ -510,7 +495,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
         ...variables,
         bounds,
         circleBounds: {
-          radius: distance, // Convert kilometers to meters
+          radius: distance, 
         },
       };
 
@@ -524,7 +509,6 @@ const CustomGoogleMapsLocationBounds: React.FC<
     }
   };
 
-  // Use Effects
   useEffect(() => {
     let active = true;
 
@@ -693,7 +677,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
             {zones.map(
               (zone) =>
                 zone.location && (
-                  // Zone boundary polygon
+
                   <Polygon
                     key={zone._id}
                     onClick={
@@ -715,7 +699,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
                 )
             )}
 
-            {/* Delivery zone boundary. */}
+            {}
             <Polygon
               editable={!hideControls}
               draggable={!hideControls}
@@ -763,7 +747,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
 
       {!hideControls && (
         <>
-          {/* Radius Input */}
+          {}
           {deliveryZoneType === 'radius' && (
             <div className="mt-2 w-[8rem]">
               <CustomRadiusInputField
@@ -772,7 +756,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
                 placeholder={t('Radius')}
                 maxLength={35}
                 min={0}
-                // max={100}
+
                 value={distance}
                 onChange={handleDistanceChange}
                 showLabel={true}
@@ -781,7 +765,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
             </div>
           )}
 
-          {/* Shapes */}
+          {}
           <CustomShape
             selected={deliveryZoneType}
             onClick={(val: string) => {

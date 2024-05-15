@@ -1,12 +1,11 @@
 export const ps = {
-  // Navigation
+
   continue: "دوام ورکړئ",
   Wallet: "بټۍ",
   Home: "کور",
   Earnings: "عاید",
   Profile: "پروفایل",
 
-  // FAQs
   faq1: "زه څنګه امر کولی شم؟",
   faq1Description:
     "د امر کولو لپاره، یوازې زموږ د مینو له لارې وګورئ، هغه توکي غوره کړئ چې تاسو یې امر کول غواړئ او چیک آؤټ ته لاړ شئ. تاسو کولی شئ خپل غوره تادیاتي طریقه او د تحویلي پته وټاکئ مخکې له دې چې خپل امر تایید کړئ.",
@@ -29,7 +28,6 @@ export const ps = {
   faq7Description:
     "له بده مرغه، تاسو نشئ کولی په ورته امر کې له څو رستورانټونو څخه غوره کړئ. مګر تاسو کولی شئ په ورځ وخت کې له مختلفو رستورانټونو څخه جلا امرونه ورکړئ.",
 
-  // Earnings
   "Earnings Summary": "د عاید لنډیز",
   Deliveries: "تحویلي",
   "Total Earnings": "ټول عاید",
@@ -39,13 +37,11 @@ export const ps = {
   "Order Date": "د امر نیټه",
   "Earnings Order Details": "د عاید امر تفصیلات",
 
-  // Flash messages
   "Order placed successfully": "امر په بریالیتوب سره ورکړل شو",
   "Order cancelled successfully": "امر په بریالیتوب سره لغوه شو",
   "Error while placing order": "د امر ورکولو په وخت کې تېروتنه",
   "Error while cancelling order": "د امر لغوه کولو په وخت کې تېروتنه",
 
-  // Other messages
   "Please enter your name": "مهرباني وکړئ خپل نوم ولیکئ",
   "Please enter your email": "مهرباني وکړئ خپل بریښنالیک ولیکئ",
   "Please enter your password": "مهرباني وکړئ خپل پاسورډ ولیکئ",
@@ -238,7 +234,7 @@ export const ps = {
   "No new orders yet!": "تر اوسه هیڅ نوی امر نشته!",
   "You don't have any orders yet!": "تاسو تر اوسه هیڅ امر نلرئ!",
   "No delivered orders yet!": "تر اوسه هیڅ تحویل شوی امر نشته!",
-  // Vehicle Screen
+
   "Vehicle Details": "د موټر تفصیلات",
   "Vehicle Number": "د موټر نمبر",
   "Vehicle Color": "د موټر رنګ",
@@ -285,21 +281,18 @@ export const ps = {
   "Vehicle documents too large": "د موټر اسناد ډیر لوی دي",
   "Vehicle documents format not supported": "د موټر اسناد فورمټ ملاتړ نه کیږي",
 
-  // Chat Screen
   "Contact Customer": "پیرودونکي سره اړیکه ونیسئ",
   "Type a message": "یوه پیغام ولیکئ",
   "Send": "لیږل",
   "Message sent": "پیغام لیږل شو",
   "Message failed": "پیغام ناکام شو",
 
-  // Earnings Screen
   "Please select a date range": "مهرباني وکړئ د نیټې حد وټاکئ",
   "Please select a start date": "مهرباني وکړئ د پیل نیټه وټاکئ",
   "Please select an end date": "مهرباني وکړئ د پای نیټه وټاکئ",
   "Start date cannot be after end date": "د پیل نیټه د پای نیټه وروسته نشي کیدی",
   "Please log in to view your earnings": "مهرباني وکړئ خپل عاید د لیدلو لپاره ننوځئ",
 
-  // Profile Forms
   "Unable to update availability": "شته توب تازه کول ناشونی دی",
   "rider name": "د رایډر نوم",
   "rider id": "د رایډر پېژند",

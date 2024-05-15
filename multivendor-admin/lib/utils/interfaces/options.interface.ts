@@ -21,7 +21,7 @@ export interface IOptionsMainComponentsProps extends IGlobalComponentProps {
   setOption: React.Dispatch<React.SetStateAction<IOptions | null>>;
 }
 
-/*  */
+
 export interface IOptions {
   _id: string;
   title: string;

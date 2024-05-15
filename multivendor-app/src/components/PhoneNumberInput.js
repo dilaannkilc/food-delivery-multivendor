@@ -31,10 +31,9 @@ const PhoneNumberInput = ({
 
         input = input.replace(/\s+/g, '');
 
-        // Uncomment if you want to remove leading zero
-        // if (input.startsWith('0')) {
-        //     input = input.substring(1);
-        // }
+
+
+
 
 
         if (!/^\d*$/.test(input)) {

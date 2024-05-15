@@ -1,21 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 'use client';
 
-// Core
 import { useContext } from 'react';
 
-// Context
 import { LayoutContext } from '@/lib/context/global/layout.context';
 
-// Components
 import RestaurantAppTopbar from '@/lib/ui/screen-components/protected/layout/restaurant-layout/app-bar';
 import RestaurantSidebar from '@/lib/ui/screen-components/protected/layout/restaurant-layout/side-bar';
 
-// Interface
 import { IProvider, LayoutContextProps } from '@/lib/utils/interfaces';
 
 const RestaurantLayout = ({ children }: IProvider) => {
-  // Context
+
   const { isRestaurantSidebarVisible } =
     useContext<LayoutContextProps>(LayoutContext);
 

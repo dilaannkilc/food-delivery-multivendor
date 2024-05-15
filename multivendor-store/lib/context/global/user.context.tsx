@@ -8,27 +8,25 @@ import {
 import { requestForegroundPermissionsAsync } from "expo-location";
 import { QueryResult, useQuery } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// Interface
+
 import {
   IStoreProfileResponse,
   IUserContextProps,
   IUserProviderProps,
 } from "@/lib/utils/interfaces";
 
-// API
 import { STORE_PROFILE } from "@/lib/apollo/queries";
 import {
   IStoreEarnings,
   IStoreEarningsArray,
 } from "@/lib/utils/interfaces/rider-earnings.interface";
 
-// Services
 import { asyncStorageEmitter } from "@/lib/services";
 
 const UserContext = createContext<IUserContextProps>({} as IUserContextProps);
 
 export const UserProvider = ({ children }: IUserProviderProps) => {
-  // States
+
   const [modalVisible, setModalVisible] = useState<
     IStoreEarnings & { bool: boolean }
   >({

@@ -4,7 +4,7 @@ import { scale } from '../../../utils/scaling'
 const styles = (props = null) =>
   StyleSheet.create({
     container: {
-      // backgroundColor: props?.themeBackground,
+
       backgroundColor: props?.subCategoryTopSection
     },
     headerContainer: {
@@ -14,8 +14,8 @@ const styles = (props = null) =>
       paddingTop: Platform.OS === 'android' ? 0 : 0,
       paddingBottom: scale(10),
       backgroundColor: props?.subCategoryTopSection,
-      // backgroundColor: props?.themeBackground,
-      position: 'relative' // Added for absolute positioning of center content
+
+      position: 'relative' 
     },
     iconButton: {
       width: scale(40),
@@ -26,7 +26,7 @@ const styles = (props = null) =>
       alignItems: 'center'
     },
     restaurantInfoContainer: {
-      flex: 2, // Allows the center section to take space and align properly
+      flex: 2, 
       alignItems: 'center',
       justifyContent: 'center'
     },

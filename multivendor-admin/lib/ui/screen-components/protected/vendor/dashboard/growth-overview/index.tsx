@@ -1,9 +1,8 @@
 'use client';
-// Core
+
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-// Prime React
 import { Chart } from 'primereact/chart';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import {
@@ -27,22 +26,18 @@ import { generateVendorStoreDetails } from '@/lib/utils/dummy';
 import { useTranslations } from 'next-intl';
 import { VENDOR_STORE_DETAILS_COLUMN } from '@/lib/ui/useable-components/table/columns/store-details-by-vendor-columns';
 
-// Dummy
 
 const VendorGrowthOverViewGraph = () => {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const {
     vendorLayoutContextData: { vendorId },
   } = useContext(VendorLayoutContext);
 
-  // States
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
 
-  // Query
   const { data, loading } = useQueryGQL(
     GET_VENDOR_DASHBOARD_GROWTH_DETAILS_BY_YEAR,
     {
@@ -69,7 +64,6 @@ const VendorGrowthOverViewGraph = () => {
     };
   }, [data]);
 
-  // Handlers
   const onChartDataChange = () => {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
@@ -157,7 +151,7 @@ const VendorGrowthOverViewGraph = () => {
     setChartData(data);
     setChartOptions(options);
   };
-  // Use Effect
+
   useEffect(() => {
     onChartDataChange();
   }, [dashboardVendorDetailsByYear]);
@@ -186,7 +180,6 @@ const VendorGrowthOverViewTabular = ({
     vendorLayoutContextData: { vendorId },
   } = useContext(VendorLayoutContext);
 
-  // Hooks
   const router = useRouter();
 
   const { data, loading } = useQueryGQL(
@@ -203,7 +196,6 @@ const VendorGrowthOverViewTabular = ({
     }
   ) as IQueryResult<IVendorStoreDetailsResponseGraphQL | undefined, undefined>;
 
-  // Handler
   const handleRowClick = (event: DataTableRowClickEvent) => {
     const details = event.data as IVendorStoreDetails;
     onUseLocalStorage('save', 'restaurantId', details._id);
@@ -231,7 +223,7 @@ export default function VendorGrowthOverView({
   isStoreView,
   dateFilter,
 }: IDashboardGrowthOverviewComponentsProps) {
-  // Add keyword filter to the VendorGrowthOverViewGraphq
+
   return isStoreView ? (
     <VendorGrowthOverViewTabular dateFilter={dateFilter} />
   ) : (

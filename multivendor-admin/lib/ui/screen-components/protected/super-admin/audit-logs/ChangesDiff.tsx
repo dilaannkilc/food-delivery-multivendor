@@ -18,7 +18,6 @@ const ChangesDiff: React.FC<ChangesDiffProps> = ({ changes }) => {
     const parsedChanges = typeof changes === 'string' ? JSON.parse(changes) : changes;
     const changeKeys = Object.keys(parsedChanges);
 
-    // Check if this is a comparison between old and new
     const isComparison = changeKeys.length === 2 && changeKeys.some(k => k.startsWith('old')) && changeKeys.some(k => k.startsWith('new'));
 
     const renderValue = (value: JSON) => {
@@ -74,7 +73,7 @@ const ChangesDiff: React.FC<ChangesDiffProps> = ({ changes }) => {
             </div>
         );
     } else {
-        // For create, delete, or other non-comparison logs, just display the data.
+
         return (
             <div>
                 <Button

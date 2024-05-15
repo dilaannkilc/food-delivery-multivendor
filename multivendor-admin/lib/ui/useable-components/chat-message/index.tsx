@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-// Interface
 export interface IMessage {
   id: number;
   text: string;
@@ -47,7 +46,7 @@ export default function ChatMessage({ message, isAdmin = false }: IChatMessagePr
           <Image
             width={36}
             height={36}
-            src="/logo.png" // Use your admin/support logo
+            src="/logo.png" 
             alt="Support avatar"
             className="h-9 w-9 rounded-full bg-primary-dark p-1"
           />

@@ -1,20 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// Core
+
 import { useState, useMemo, useEffect } from 'react';
 
-// Prime React
 import { FilterMatchMode } from 'primereact/api';
 
-// Components
 import Table from '@/lib/ui/useable-components/table';
 import WithdrawRequestTableHeader from '../header/table-header';
 import { WITHDRAW_REQUESTS_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/withdraw-requests-columns';
 
-// GraphQL
 import { GET_ALL_WITHDRAW_REQUESTS } from '@/lib/api/graphql';
 import { useQuery } from '@apollo/client';
 
-// Interfaces
 import {
   IGetWithDrawRequestsData,
   IWithDrawRequest,
@@ -30,7 +25,7 @@ export default function WithdrawRequestsSuperAdminMain({
   setVisible: (value: boolean) => void;
   setSelectedRequest: (request: IWithDrawRequest | undefined) => void;
 }) {
-  // States
+
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
   const [selectedData, setSelectedData] = useState<IWithDrawRequest[]>([]);
   const [globalFilterValue, setGlobalFilterValue] = useState('');
@@ -41,24 +36,19 @@ export default function WithdrawRequestsSuperAdminMain({
     },
   });
 
-  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  // Hooks
   const debouncedSearch = useDebounce(globalFilterValue);
 
-  // Get userType from selected actions (RIDER or STORE)
   const selectedUserType = selectedActions.find((action) =>
     ['RIDER', 'STORE'].includes(action)
   );
 
-  // Get status filter from selected actions
   const selectedStatus = selectedActions.find((action) =>
     ['REQUESTED', 'TRANSFERRED', 'CANCELLED'].includes(action)
   );
 
-  // Query with proper typing
   const { data, loading, refetch } = useQuery(GET_ALL_WITHDRAW_REQUESTS, {
     variables: {
       pageSize: pageSize,
@@ -69,7 +59,6 @@ export default function WithdrawRequestsSuperAdminMain({
     fetchPolicy: 'network-only',
   }) as unknown as IQueryResult<IGetWithDrawRequestsData | undefined, any>;
 
-  // Global search handler
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const _filters = { ...filters };
@@ -78,7 +67,6 @@ export default function WithdrawRequestsSuperAdminMain({
     setGlobalFilterValue(value);
   };
 
-  // Handle page change
   const onPageChange = (page: number, size: number) => {
     setCurrentPage(page);
     setPageSize(size);
@@ -96,13 +84,11 @@ export default function WithdrawRequestsSuperAdminMain({
     },
   ];
 
-  // Filter data based on status on the frontend
   const filteredData = useMemo(() => {
     if (!data?.withdrawRequests?.data) return [];
 
     let filtered = data.withdrawRequests.data;
 
-    // Apply status filter if selected
     if (selectedStatus) {
       filtered = filtered.filter((item) => item.status === selectedStatus);
     }
@@ -110,7 +96,6 @@ export default function WithdrawRequestsSuperAdminMain({
     return filtered;
   }, [data?.withdrawRequests?.data, selectedStatus]);
 
-  // Use Effect
   useEffect(() => {
     refetch({ search: debouncedSearch });
   }, [selectedUserType, debouncedSearch]);

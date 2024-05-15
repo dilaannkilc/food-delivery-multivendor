@@ -1,14 +1,11 @@
-// Interfaces
+
 import { IWithdrawModalProps } from "@/lib/utils/interfaces/withdraw.interface";
 
-// Core
 import { Text, TextInput, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
 
-// Components
 import { CustomContinueButton } from "@/lib/ui/useable-components";
 
-// Hooks
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -22,15 +19,13 @@ export default function WithdrawModal({
   setAmountErrMsg,
   withdrawRequestLoading,
 }: IWithdrawModalProps) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
-  // States
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [ModalMarginTop, setModalMargintTop] = useState(480);
 
-  // Handlers
   function handleTextChange(val: string) {
     setWithdrawAmount(val);
     setAmountErrMsg("");

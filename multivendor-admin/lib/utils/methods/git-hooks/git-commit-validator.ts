@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
 const { execSync } = require('child_process');
 
 const commitMsg = execSync('cat .git/COMMIT_EDITMSG').toString().trim();
@@ -17,7 +17,6 @@ const [, , , version] = commitMsg
   ? (commitMsg.match(pattern)?.slice(1) ?? ['', '', '', ''])
   : ['', '', '', ''];
 
-// Get the last commit messageå
 let lastCommitMsg: string | undefined;
 try {
   lastCommitMsg = execSync('git log -1 --pretty=%B').toString().trim();
@@ -32,10 +31,7 @@ if (lastCommitMsg) {
   if (lastCommitMatch) {
     const [, , , lastVersion] = lastCommitMatch.slice(1);
 
-    /*   if (description === lastDescription) {
-      console.error('Description must be different from the previous commit.');
-      process.exit(1);
-    } */
+    
 
     if (version === lastVersion) {
       console.error('Version must be different from the previous commit.');

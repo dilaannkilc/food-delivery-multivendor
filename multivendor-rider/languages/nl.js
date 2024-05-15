@@ -1,12 +1,11 @@
 export const nl = {
-  // Navigation
+
   continue: "Doorgaan",
   Wallet: "Portemonnee",
   Home: "Home",
   Earnings: "Inkomsten",
   Profile: "Profiel",
 
-  // FAQs
   faq1: "Hoe plaats ik een bestelling?",
   faq1Description:
     "Om een bestelling te plaatsen, bladert u eenvoudig door ons menu, selecteert u de items die u wilt bestellen en gaat u naar de kassa. U kunt uw voorkeursbetaalmethode en bezorgadres kiezen voordat u uw bestelling bevestigt.",
@@ -29,7 +28,6 @@ export const nl = {
   faq7Description:
     "Helaas kunt u niet van meerdere restaurants in dezelfde bestelling kiezen. U kunt echter wel tegelijkertijd aparte bestellingen plaatsen bij verschillende restaurants.",
 
-  // Earnings
   "Earnings Summary": "Inkomstenoverzicht",
   Deliveries: "Bezorgingen",
   "Total Earnings": "Totale Inkomsten",
@@ -39,13 +37,11 @@ export const nl = {
   "Order Date": "Besteldatum",
   "Earnings Order Details": "Besteldetails - Inkomsten",
 
-  // Flash messages
   "Order placed successfully": "Bestelling succesvol geplaatst",
   "Order cancelled successfully": "Bestelling succesvol geannuleerd",
   "Error while placing order": "Fout bij plaatsen bestelling",
   "Error while cancelling order": "Fout bij annuleren bestelling",
 
-  // Other messages
   "Please enter your name": "Voer uw naam in",
   "Please enter your email": "Voer uw e-mailadres in",
   "Please enter your password": "Voer uw wachtwoord in",
@@ -238,7 +234,7 @@ export const nl = {
   "No new orders yet!": "Nog geen nieuwe bestellingen!",
   "You don't have any orders yet!": "U heeft nog geen bestellingen!",
   "No delivered orders yet!": "Nog geen bezorgde bestellingen!",
-  // Vehicle Screen
+
   "Vehicle Details": "Voertuiggegevens",
   "Vehicle Number": "Voertuignummer",
   "Vehicle Color": "Voertuigkleur",
@@ -285,21 +281,18 @@ export const nl = {
   "Vehicle documents too large": "Voertuigdocumenten te groot",
   "Vehicle documents format not supported": "Voertuigdocumentenformaat niet ondersteund",
 
-  // Chat Screen
   "Contact Customer": "Klant Contacteren",
   "Type a message": "Typ een bericht",
   "Send": "Verzenden",
   "Message sent": "Bericht verzonden",
   "Message failed": "Bericht verzenden mislukt",
 
-  // Earnings Screen
   "Please select a date range": "Selecteer een datumbereik",
   "Please select a start date": "Selecteer een startdatum",
   "Please select an end date": "Selecteer een einddatum",
   "Start date cannot be after end date": "Startdatum kan niet na einddatum zijn",
   "Please log in to view your earnings": "Log in om uw inkomsten te bekijken",
 
-  // Profile Forms
   "Unable to update availability": "Kan beschikbaarheid niet bijwerken",
   "rider name": "Bezorgersnaam",
   "rider id": "Bezorger ID",

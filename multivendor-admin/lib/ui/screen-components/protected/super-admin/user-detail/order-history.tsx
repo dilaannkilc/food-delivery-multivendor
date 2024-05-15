@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import Table from '@/lib/ui/useable-components/table';
 import { ORDER_SUPER_ADMIN_COLUMNS } from '@/lib/ui/useable-components/table/columns/order-superadmin-columns';
-import OrderDetailModal from '@/lib/ui/useable-components/popup-menu/order-details-modal'; // Import the shared modal component
-import { IExtendedOrder } from '@/lib/utils/interfaces'; // Import IExtendedOrder
+import OrderDetailModal from '@/lib/ui/useable-components/popup-menu/order-details-modal'; 
+import { IExtendedOrder } from '@/lib/utils/interfaces'; 
 import { DataTableRowClickEvent } from 'primereact/datatable';
 
 interface OrderHistoryProps {
@@ -19,7 +19,7 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ orders, totalRecords, rowsP
 
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<IExtendedOrder | null>(null); // Use IExtendedOrder
+  const [selectedOrder, setSelectedOrder] = useState<IExtendedOrder | null>(null); 
 
   const handleRowClick = (event: DataTableRowClickEvent) => {
     setSelectedOrder(event.data as IExtendedOrder);

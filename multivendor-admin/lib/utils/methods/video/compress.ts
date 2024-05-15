@@ -6,18 +6,17 @@ export const compressVideo = (file: File): Promise<File> => {
   
       video.onloadedmetadata = () => {
         const { videoWidth, videoHeight } = video;
-        
-        // Aggressive size reduction for 1MB target
+
         const maxDimension = 480;
         const scale = Math.min(maxDimension / videoWidth, maxDimension / videoHeight);
         
         canvas.width = Math.floor(videoWidth * scale);
         canvas.height = Math.floor(videoHeight * scale);
   
-        const stream = canvas.captureStream(15); // 15 FPS
+        const stream = canvas.captureStream(15); 
         const mediaRecorder = new MediaRecorder(stream, {
           mimeType: 'video/webm;codecs=vp8',
-          videoBitsPerSecond: 200000 // 200kbps for 1MB target
+          videoBitsPerSecond: 200000 
         });
   
         const chunks: Blob[] = [];

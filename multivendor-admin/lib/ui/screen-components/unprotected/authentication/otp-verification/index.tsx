@@ -1,11 +1,9 @@
-// Component
+
 import CustomButton from '@/lib/ui/useable-components/button';
 
-// Prime React
 import { Card } from 'primereact/card';
 import { InputOtp } from 'primereact/inputotp';
 
-// Style
 
 export default function OTPVerificationMain() {
   return (

@@ -6,8 +6,8 @@ const useStyle = (props) => {
     errorViewContainer: {
       flex:1,
       backgroundColor: props != null ? props?.themeBackground : 'white',
-      // paddingTop: verticalScale(50),
-      // paHorizontal: scale(10),
+
+
       justifyContent: 'center',
       alignItems: 'center',
       gap: 16,

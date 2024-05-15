@@ -1,12 +1,11 @@
-// Components
+
 import { useApptheme } from "@/lib/context/theme.context";
 import SuccessModal from "../success-modal";
 
-// Core
 import { View } from "react-native";
 
 export default function WithdrawRquestSuccessMain() {
-  // Hooks
+
   const { appTheme } = useApptheme();
 
   return (

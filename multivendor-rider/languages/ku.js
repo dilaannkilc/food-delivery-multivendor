@@ -1,12 +1,11 @@
 export const ku = {
-  // Navigation
+
   continue: "Bidomîne",
   Wallet: "Cizdan",
   Home: "Mal",
   Earnings: "Dahat",
   Profile: "Profîl",
 
-  // FAQs
   faq1: "Ez çawa siparîş dikim?",
   faq1Description:
     "Ji bo ku hûn siparîş bidin, tenê li meniya me gerin, tiştên ku hûn dixwazin ferman bikin hilbijêrin û berbi checkoutê biçin. Hûn dikarin berî ku hûn fermana xwe pejirînin, rêya dravdana xwe ya bijarte û navnîşana teslîmkirina xwe hilbijêrin.",
@@ -29,7 +28,6 @@ export const ku = {
   faq7Description:
     "Mixabin, hûn nikarin di heman fermanê de ji çend restoranan hilbijêrin. Lêbelê, hûn dikarin di heman demê de fermanên cuda ji restorananên cuda bidin.",
 
-  // Earnings
   "Earnings Summary": "Kurteya Dahatan",
   Deliveries: "Teslîmkirin",
   "Total Earnings": "Tevahiya Dahatan",
@@ -39,13 +37,11 @@ export const ku = {
   "Order Date": "Dîroka Fermanê",
   "Earnings Order Details": "Detayên Fermana Dahatan",
 
-  // Flash messages
   "Order placed successfully": "Ferman bi serketî hate dayîn",
   "Order cancelled successfully": "Ferman bi serketî hate betalkirin",
   "Error while placing order": "Çewtiyek di ferman dayînê de çêbû",
   "Error while cancelling order": "Çewtiyek di betalkirina fermanê de çêbû",
 
-  // Other messages
   "Please enter your name": "Ji kerema xwe navê xwe binivîse",
   "Please enter your email": "Ji kerema xwe e-nameya xwe binivîse",
   "Please enter your password": "Ji kerema xwe şîfreya xwe binivîse",
@@ -258,7 +254,7 @@ export const ku = {
   "No new orders yet!": "Hîn fermanên nû tune!",
   "You don't have any orders yet!": "Hîn tu fermanên we tune!",
   "No delivered orders yet!": "Hîn tu fermanên teslîmkirî tune!",
-  // Vehicle Screen
+
   "Vehicle Details": "Detayên Wesayîtê",
   "Vehicle Number": "Hejmara Wesayîtê",
   "Vehicle Color": "Rengê Wesayîtê",
@@ -309,14 +305,12 @@ export const ku = {
   "Vehicle documents format not supported":
     "Formata belgeyên wesayîtê nayê piştgirî kirin",
 
-  // Chat Screen
   "Contact Customer": "Bi Xerîdar re Têkilî daynin",
   "Type a message": "Peyamek binivîse",
   Send: "Bişîne",
   "Message sent": "Peyam hate şandin",
   "Message failed": "Peyam bi ser neket",
 
-  // Earnings Screen
   "Please select a date range": "Ji kerema xwe polê dîrokê hilbijêrin",
   "Please select a start date": "Ji kerema xwe dîroka destpêkê hilbijêrin",
   "Please select an end date": "Ji kerema xwe dîroka dawiyê hilbijêrin",
@@ -325,7 +319,6 @@ export const ku = {
   "Please log in to view your earnings":
     "Ji kerema xwe ji bo dîtina dahatên xwe têkevin",
 
-  // Profile Forms
   "Unable to update availability": "Nekarî berdestbûnê nûve bike",
   "rider name": "Navê Rider",
   "rider id": "Nasnameya Rider",

@@ -35,7 +35,7 @@ const CategoryPage = ({ route, navigation }) => {
   const subScrollRef = useRef(null)
   const [subCategories, setSubCategories] = useState([])
   const [tabs, setTabs] = useState([])
-  // const scrollRef2 = useRef(null)
+
   const [scrollWidth, setScrollWidth] = useState(0)
   const themeContext = useContext(ThemeContext)
   const configuration = useContext(ConfigurationContext)
@@ -44,7 +44,6 @@ const CategoryPage = ({ route, navigation }) => {
   const tabItemRef = useRef(null)
   const [isSubTabClicked, setIsSubTabClicked] = useState(false)
 
-  // Scroll Tab Ref
   const tabScrollRef = useRef(null)
   const subTabScrollRef = useRef(null)
 
@@ -144,21 +143,19 @@ const CategoryPage = ({ route, navigation }) => {
     getSubCategoriesAndTabs()
   }, [restaurantData?.restaurant?.categories, subcategoriesData?.subCategories])
 
-  // Scroll to active tab when index changes
   useEffect(() => {
     if (tabScrollRef.current) {
       tabScrollRef.current.scrollTo({
-        x: index * 90, // Adjust width dynamically
+        x: index * 90, 
         animated: true
       })
     }
   }, [index])
 
-  // Scroll to active sub-tab when subIndex changes
   useEffect(() => {
     if (subTabScrollRef.current) {
       subTabScrollRef.current.scrollTo({
-        x: subIndex * 90, // Adjust width dynamically
+        x: subIndex * 90, 
         animated: true
       })
     }
@@ -221,10 +218,8 @@ const CategoryPage = ({ route, navigation }) => {
     )
   }
 
-  // Constants
   const total_filtered_items = filteredFood.length
 
-  // Memoized List
   const MemoizedFlatList = React.memo(({ data, total_filtered_items }) => (
     <FlatList
       data={data}
@@ -262,12 +257,12 @@ const CategoryPage = ({ route, navigation }) => {
           <Text style={stylesb.emptyText}>No food items available</Text>
         </View>
       }
-      // contentContainerStyle={{ paddingHorizontal: 10 }}
-      columnWrapperStyle={{ gap: 10 }} // Adjust gap between columns
+
+      columnWrapperStyle={{ gap: 10 }} 
       contentContainerStyle={{
         gap: 20
-        // paddingHorizontal: 10
-      }} // Adjust gap between row
+
+      }} 
     />
   ))
 
@@ -278,12 +273,12 @@ const CategoryPage = ({ route, navigation }) => {
       <CategoryPageHeader navigation={navigation} restaurantName={restaurantName} deliveryTime={deliveryTime} currentTheme={currentTheme} onOpenSearch={handleOpenSearch} />
 
       <View style={stylesb.container}>
-        {/* Fixed Header with Tabs and Sub-Tabs */}
+        {}
         <View style={stylesb.fixedHeader}>
           <ScrollView
             onLayout={(event) => {
               const { width } = event.nativeEvent.layout
-              setScrollWidth(width) // Capture the width of the ScrollView
+              setScrollWidth(width) 
             }}
             ref={tabScrollRef}
             horizontal
@@ -322,7 +317,7 @@ const CategoryPage = ({ route, navigation }) => {
           )}
         </View>
 
-        {/* Horizontal Scroll for Main Tabs */}
+        {}
         <ScrollView
           horizontal
           pagingEnabled
@@ -380,7 +375,7 @@ const CategoryPage = ({ route, navigation }) => {
                             }
                             contentContainerStyle={{ paddingHorizontal: 10 }}
                           />
-                          {/* </ScrollView> */}
+                          {}
                         </View>
                       ))}
                     </View>
@@ -466,9 +461,9 @@ const CategoryPage = ({ route, navigation }) => {
                             <TextDefault>No Item Available at the moment</TextDefault>
                           </View>
                         }
-                        // contentContainerStyle={{ paddingHorizontal: 10 }}
-                        columnWrapperStyle={{ gap: 10 }} // Adjust gap between columns
-                        contentContainerStyle={{ gap: 10 }} // Adjust gap between row
+
+                        columnWrapperStyle={{ gap: 10 }} 
+                        contentContainerStyle={{ gap: 10 }} 
                       />
                     </View>
                   </ScrollView>
@@ -478,10 +473,10 @@ const CategoryPage = ({ route, navigation }) => {
           })}
         </ScrollView>
 
-        {/* )} */}
+        {}
       </View>
 
-      {/* Search Overlay */}
+      {}
       <SearchOverlay isVisible={isSearchVisible} onClose={handleCloseSearch} currentTheme={currentTheme} configuration={configuration} restaurant={restaurantData?.restaurant} navigation={navigation} />
 
       {cartCount > 0 && (
@@ -543,7 +538,7 @@ const stylesb = StyleSheet.create({
   },
   scrollContent: {
     marginTop: 130
-    // backgroundColor: 'blue'
+
   },
   scrollContent2: {
     marginTop: 80
@@ -555,14 +550,14 @@ const stylesb = StyleSheet.create({
   },
   foodItemContainer: { margin: 4 },
   foodList: {
-    // backgroundColor: 'yellow',
+
     margin: scale(10)
   },
   foodListView: {
     height: SCREEN_HEIGHT * 0.8,
     paddingBottom: 140,
     zIndex: 999
-    // backgroundColor: 'red'
+
   },
   text: {
     fontSize: 24,

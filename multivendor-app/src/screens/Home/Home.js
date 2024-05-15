@@ -1,4 +1,4 @@
-/* eslint-disable react/display-name */
+
 import React, { useRef, useContext, useLayoutEffect, useState, useEffect } from 'react'
 import { View, SafeAreaView, TouchableOpacity, Animated, StatusBar, Platform, RefreshControl, Image, FlatList, ScrollView } from 'react-native'
 import { Modalize } from 'react-native-modalize'
@@ -66,7 +66,7 @@ function Main(props) {
     onError
   })
 
-  const { onScroll /* Event handler */, containerPaddingTop /* number */, scrollIndicatorInsetTop /* number */, translateY } = useCollapsibleSubHeader()
+  const { onScroll , containerPaddingTop , scrollIndicatorInsetTop , translateY } = useCollapsibleSubHeader()
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
@@ -132,10 +132,9 @@ function Main(props) {
       return
     }
 
-    // Get the address function from the hook
 
     try {
-      // Fetch the address using the geocoding hook
+
       const { formattedAddress, city } = await getAddress(coords.latitude, coords.longitude)
 
       let address = formattedAddress || 'Unknown Address'
@@ -161,40 +160,37 @@ function Main(props) {
     }
   }
 
-  // const setCurrentLocation = async () => {
-  //   setBusy(true)
-  //   const { error, coords } = await getCurrentLocation()
 
-  //   const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coords.latitude}&lon=${coords.longitude}`
-  //   fetch(apiUrl)
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       if (data.error) {
-  //         console.log('Reverse geocoding request failed:', data.error)
-  //       } else {
-  //         let address = data.display_name
-  //         if (address.length > 21) {
-  //           address = address.substring(0, 21) + '...'
-  //         }
 
-  //         if (error) navigation.navigate('SelectLocation')
-  //         else {
-  //           modalRef.current.close()
-  //           setLocation({
-  //             label: 'currentLocation',
-  //             latitude: coords.latitude,
-  //             longitude: coords.longitude,
-  //             deliveryAddress: address
-  //           })
-  //           setBusy(false)
-  //         }
-  //         console.log(address)
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching reverse geocoding data:', error)
-  //     })
-  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const modalHeader = () => (
     <View style={[styles().addressbtn]}>
@@ -311,7 +307,6 @@ function Main(props) {
     return data
   }
 
-  // Flatten the array. That is important for data sequence
   const restaurantSections = sections.map((sec) => ({
     ...sec,
     restaurants: sec.restaurants.map((id) => restaurants.filter((res) => res._id === id)).flat()
@@ -395,41 +390,8 @@ function Main(props) {
                   </View>
                 </ScrollView>
 
-                {/* <Animated.FlatList
-                  contentInset={{ top: containerPaddingTop }}
-                  contentContainerStyle={{
-                    paddingTop: Platform.OS === 'ios' ? 0 : containerPaddingTop
-                  }}
-                  contentOffset={{ y: -containerPaddingTop }}
-                  onScroll={onScroll}
-                  scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
-                  showsVerticalScrollIndicator={false}
-                  ListHeaderComponent={
-                    search ? null : (
-                      <ActiveOrdersAndSections sections={restaurantSections} />
-                    )
-                  }
-                  ListEmptyComponent={emptyView()}
-                  keyExtractor={(item, index) => index.toString()}
-                  refreshControl={
-                    <RefreshControl
-                      progressViewOffset={containerPaddingTop}
-                      colors={[currentTheme.iconColorPink]}
-                      refreshing={networkStatus === 4}
-                      onRefresh={() => {
-                        if (networkStatus === 7) {
-                          refetch()
-                        }
-                      }}
-                    />
-                  }
-                  data={search ? searchRestaurants(search) : restaurants}
-                  renderItem={({ item }) => <Item item={item} />}
-                /> */}
-                {/* <CollapsibleSubHeaderAnimator translateY={translateY}>
-                  <Search setSearch={setSearch} search={search} /> 
-                  <MapSection location={location} restaurants={restaurants} />
-                </CollapsibleSubHeaderAnimator> */}
+                {}
+                {}
               </View>
             </View>
           </View>

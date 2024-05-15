@@ -45,7 +45,7 @@ export interface ITransactionHistory {
     image?: string;
     available: boolean;
     isActive: boolean;
-    // isSuperAdminRider: boolean;
+
     accountNumber: string;
     currentWalletAmount: number;
     totalWalletAmount: number;

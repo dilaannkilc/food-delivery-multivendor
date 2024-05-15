@@ -1,14 +1,10 @@
 'use client';
 
-// Core
 import React, { useRef } from 'react';
 
-// Interfaces
 
-// Prime React
 import { Toast } from 'primereact/toast';
 
-// Components
 import CustomNotification from '@/lib/ui/useable-components/notification';
 import {
   IToast,
@@ -21,10 +17,9 @@ export const ToastContext = React.createContext<IToastContext>(
 );
 
 export const ToastProvider: React.FC<IToastProviderProps> = ({ children }) => {
-  // Ref
+
   const toastRef = useRef<Toast>(null);
 
-  // Handlers
   const onShowToast = (config: IToast) => {
     toastRef.current?.show({
       severity: config.type,

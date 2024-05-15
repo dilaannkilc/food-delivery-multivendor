@@ -1,13 +1,13 @@
-// Queries
+
 import { MOST_ORDER_RESTAURANTS } from "@/lib/api/graphql/queries";
-// UseQuery
+
 import { useQuery } from "@apollo/client";
-// interfaces
+
 import {
   IMostOrderedRestaurantsData,
   IRestaurant,
 } from "../utils/interfaces/restaurants.interface";
-// context
+
 import { useUserAddress } from "../context/address/address.context";
 import { toFloatIfNeeded } from "../utils/methods/helpers";
 
@@ -27,7 +27,7 @@ const useMostOrderedRestaurants = (enabled = true, page = 1, limit=10, shopType?
       },
       fetchPolicy: "cache-and-network",
       skip: !enabled,
-      notifyOnNetworkStatusChange: true, // 🔑 helps track loading state when fetching more
+      notifyOnNetworkStatusChange: true, 
     });
 
   let queryData = data?.mostOrderedRestaurantsPreview || [];
@@ -47,7 +47,7 @@ const useMostOrderedRestaurants = (enabled = true, page = 1, limit=10, shopType?
     networkStatus,
     restaurantsData,
     groceriesData,
-    fetchMore, // 🔑 expose fetchMore for infinite scroll
+    fetchMore, 
   };
 };
 

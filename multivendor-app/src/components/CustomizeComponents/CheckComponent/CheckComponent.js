@@ -42,7 +42,7 @@ function CheckComponent(props) {
             <TextDefault
               numberOfLines={1}
               textColor={currentTheme.gray900}
-              // style={[alignment.MLsmall, alignment.PRsmall, alignment.MRlarge]}
+
               style={styles(currentTheme).title}
               H6
               bolder>

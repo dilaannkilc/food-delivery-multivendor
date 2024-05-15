@@ -55,7 +55,7 @@ const App = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        {/* Category Slider */}
+        {}
         <FlatList
           horizontal
           data={categories}
@@ -75,7 +75,7 @@ const App = () => {
           )}
         />
 
-        {/* Sub-Category Slider */}
+        {}
         <FlatList
           horizontal
           data={
@@ -97,7 +97,7 @@ const App = () => {
           )}
         />
 
-        {/* Content */}
+        {}
         <ScrollView ref={scrollRef}>
           {categories.map((category) =>
             category.subCategories.map((sub) => (

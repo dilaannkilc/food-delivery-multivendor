@@ -1,4 +1,4 @@
-// Component
+
 import { GET_DASHBOARD_RESTAURANT_ORDERS } from '@/lib/api/graphql/queries/dashboard';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import {
@@ -8,7 +8,6 @@ import {
 } from '@/lib/utils/interfaces';
 import StatsCard from '@/lib/ui/useable-components/stats-card';
 
-// Interface & Types
 import {
   faCashRegister,
   faCreditCard,
@@ -23,14 +22,13 @@ import { useTranslations } from 'next-intl';
 export default function UserStats({
   dateFilter,
 }: IDashboardOrderStatsComponentsProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const {
     restaurantLayoutContextData: { restaurantId },
   } = useContext(RestaurantLayoutContext);
-  // COntext
+
   const { CURRENCY_CODE } = useConfiguration();
 
   const { data, loading } = useQueryGQL(

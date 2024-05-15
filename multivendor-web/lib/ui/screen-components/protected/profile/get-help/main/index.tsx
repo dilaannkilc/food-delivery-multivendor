@@ -25,7 +25,6 @@ export default function GetHelpMain() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  // Get user profile data
   const { data: profileData } = useQuery(GET_USER_PROFILE, {
     fetchPolicy: "cache-and-network",
   });
@@ -33,10 +32,8 @@ export default function GetHelpMain() {
   const userName = profileData?.profile?.name || "User";
   const userEmail = profileData?.profile?.email || "N/A";
 
-  // Setup toast notification
   const { showToast } = useToast();
 
-  // Setup mutation for creating a support ticket
   const [createSupportTicket] = useMutation(CREATE_SUPPORT_TICKET, {
     onCompleted: () => {
       setIsSubmitting(false);
@@ -47,7 +44,7 @@ export default function GetHelpMain() {
         duration: 3000,
       });
       handleCloseModal();
-      // Redirect to the tickets page after successful creation
+
       router.push("/profile/customerTicket");
     },
     onError: (error) => {
@@ -84,7 +81,7 @@ export default function GetHelpMain() {
   };
 
   const handleSendMessage = useDebounceFunction(() => {
-    // Validate form data
+
     if (!reason) {
       showToast({
         type: "error",
@@ -127,17 +124,14 @@ export default function GetHelpMain() {
 
     setIsSubmitting(true);
 
-    // Set title based on the selected reason
     const finalTicketTitle =
       reason === "order related" ? `Order Issue - ${orderId}` : ticketTitle;
 
-    // Include order ID in description if order-related
     const ticketDescription =
       reason === "order related"
         ? `Order ID: ${orderId}\n\n${description}`
         : description;
 
-    // Prepare variables object based on the selected reason
     const ticketInput = {
       title: finalTicketTitle,
       description: ticketDescription,
@@ -145,17 +139,15 @@ export default function GetHelpMain() {
       userType: "User",
     };
 
-    // Add orderId only for order_related category
     if (reason === "order related") {
-      // @ts-ignore - Adding dynamic property
+
       ticketInput.orderId = orderId;
     } else {
-      // Add otherDetails only for others category
-      // @ts-ignore - Adding dynamic property
+
+
       ticketInput.otherDetails = ticketTitle;
     }
 
-    // Create the support ticket
     createSupportTicket({
       variables: {
         ticketInput,
@@ -163,7 +155,6 @@ export default function GetHelpMain() {
     });
   }, 500);
 
-  // Simplified reason options - matching exact values from API
   const reasonOptions = [
     { label: t("order_related_label"), value: "order related" },
     { label: t("others_label"), value: "others" },
@@ -209,7 +200,7 @@ export default function GetHelpMain() {
         <Accordion
           className="w-full"
           pt={{
-            root: { className: "dark:bg-gray-800 dark:text-white rounded-lg" }, // outer container
+            root: { className: "dark:bg-gray-800 dark:text-white rounded-lg" }, 
           }}
         >
           {faqItems.map((item, index) => (
@@ -221,13 +212,13 @@ export default function GetHelpMain() {
                 </span>
               }
               pt={{
-                header: { className: "dark:bg-gray-800" }, // wrapper of the clickable header
+                header: { className: "dark:bg-gray-800" }, 
                 headerAction: {
                   className:
                     "  dark:bg-gray-800 dark:white dark:hover:bg-gray-700 focus:outline-none focus:ring-0",
-                }, // the clickable element
-                headerIcon: { className: "dark:text-white" }, // chevron icon color
-                content: { className: "dark:bg-gray-800 dark:text-gray-200" }, // content panel
+                }, 
+                headerIcon: { className: "dark:text-white" }, 
+                content: { className: "dark:bg-gray-800 dark:text-gray-200" }, 
               }}
             >
               <div className="p-3">
@@ -255,7 +246,7 @@ export default function GetHelpMain() {
         />
       </div>
 
-      {/* Support Modal - Responsive positioning */}
+      {}
       <CustomDialog
         visible={isModalOpen}
         onHide={handleCloseModal}
@@ -263,20 +254,15 @@ export default function GetHelpMain() {
         className="support-modal md:fixed md:bottom-4 md:right-4 md:shadow-xl"
       >
         <div className="flex flex-col md:h-[500px] h-[450px] dark:bg-gray-900 dark:text-gray-100">
-          {/* Modal Header */}
+          {}
           <div className="flex justify-between items-center bg-[#1a1a1a] text-white p-4">
             <h3 className="font-medium"> {t("support_modal_title")} </h3>
             <div className="flex items-center space-x-2">
-              {/* <button
-                onClick={handleCloseModal}
-                className="text-white hover:text-gray-300"
-              >
-                <span className="sr-only">{t("close_label")}</span>✕
-              </button> */}
+              {}
             </div>
           </div>
 
-          {/* Modal Body - Scrollable */}
+          {}
           <div className="flex-1 p-4 overflow-y-auto">
             <div className="mb-6">
               <h2 className="text-lg font-semibold mb-2">{t("hi_label")}</h2>
@@ -285,7 +271,7 @@ export default function GetHelpMain() {
               </p>
             </div>
 
-            {/* Reason Dropdown */}
+            {}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 {t("whats_your_issue_about_label")}
@@ -294,7 +280,7 @@ export default function GetHelpMain() {
                 value={reason}
                 onChange={(e: DropdownChangeEvent) => {
                   setReason(e.value);
-                  // Reset order ID when changing reason type
+
                   if (e.value !== "order related") {
                     setOrderId("");
                   }
@@ -313,7 +299,7 @@ export default function GetHelpMain() {
               />
             </div>
 
-            {/* Conditional field based on reason */}
+            {}
             {reason === "order related" && (
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -342,7 +328,7 @@ export default function GetHelpMain() {
               </div>
             )}
 
-            {/* Description Text Area */}
+            {}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300  mb-1">
                 {reason === "order related"
@@ -359,7 +345,7 @@ export default function GetHelpMain() {
             </div>
           </div>
 
-          {/* Send Button - Fixed at bottom */}
+          {}
           <div className="p-4 border-t border-gray-200 bg-white dark:bg-gray-900">
             <button
               onClick={handleSendMessage}

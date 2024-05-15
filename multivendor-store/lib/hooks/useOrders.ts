@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
-// Context
+
 import RestaurantProvider from "@/lib/context/global/restaurant";
-// Interface
+
 import { IOrder } from "@/lib/utils/interfaces/order.interface";
 import { ORDER_DISPATCH_TYPE } from "../utils/constants";
 

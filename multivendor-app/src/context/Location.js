@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 import { useQuery } from '@apollo/client'
 import { getZones } from '../apollo/queries'
 import NetInfo from '@react-native-community/netinfo'
-// import * as Network from 'expo-network';
+
 
 const GET_ZONES = gql`
   ${getZones}
@@ -44,24 +44,22 @@ export const LocationProvider = ({ children }) => {
     getActiveLocation()
 
     const unsubscribe = NetInfo.addEventListener((state) => {
-      setIsConnected(state.isConnected) // Update connectivity status
+      setIsConnected(state.isConnected) 
     })
 
-    return () => unsubscribe() // Clean up the listener
+    return () => unsubscribe() 
   }, [])
 
-  // show zones as cities
   useEffect(() => {
     if (!loading && !error && data) {
       const fetchedZones = data.zones || []
 
-      // Function to calculate centroid of a polygon
       const calculateCentroid = (coordinates) => {
         let x = 0,
           y = 0,
           area = 0
 
-        const points = coordinates[0] // Assuming the first array contains the coordinates
+        const points = coordinates[0] 
 
         for (let i = 0; i < points?.length - 1; i++) {
           const x0 = points[i][0]
@@ -81,7 +79,6 @@ export const LocationProvider = ({ children }) => {
         return { latitude: y, longitude: x }
       }
 
-      // Calculate centroids for each zone
       const centroids = fetchedZones.map((zone) => {
         const centroid = calculateCentroid(zone.location.coordinates)
         return {
@@ -92,13 +89,12 @@ export const LocationProvider = ({ children }) => {
         }
       })
 
-      // Set this as the cities or the midpoint
       setCities(centroids)
     }
   }, [loading, error, data])
   useEffect(() => {
     if (isConnected) {
-      refetch() // Refetch the data when the internet is back
+      refetch() 
     }
   }, [isConnected, refetch])
 

@@ -27,7 +27,7 @@ export interface IAddonMainComponentsProps extends IGlobalComponentProps {
   setAddon: React.Dispatch<React.SetStateAction<IAddon | null>>;
 }
 
-/*  */
+
 export interface IAddon {
   _id: string;
   options: string[];

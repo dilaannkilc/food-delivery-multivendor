@@ -10,7 +10,7 @@ const styles = (props = null) =>
     },
     width85: {
       width: '70%',
-      //backgroundColor: theme.Pink.deleteButton
+
     },
     shadow: {
       shadowOffset: { width: 0, height: scale(2) },

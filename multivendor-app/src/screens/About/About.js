@@ -76,13 +76,13 @@ function About(props) {
       <StatusBar backgroundColor={currentTheme.themeBackground} barStyle={themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'} />
       <ScrollView
         style={[
-          // { marginTop: inset.top },
+
           styles().flex,
           { backgroundColor: currentTheme.headerMenuBackground }
         ]}
       >
         <ImageHeader iconColor={currentTheme.newIconColor} svgNameL='leftArrow' restaurantImage={restaurantObject.restaurantImage} restaurantName={ restaurantObject.restaurantName} deliveryTime={restaurantObject.deliveryTime} total={restaurantObject.total} rating={restaurantObject?.reviews && restaurantObject?.reviews?.length === 0 ? 0 : restaurantObject.reviews && restaurantObject?.reviews[0]?.rating} />
-        {/* map view */}
+        {}
         <View style={styles(currentTheme).mapContainer}>
           <MapView style={styles().flex} scrollEnabled={false} zoomEnabled={false} zoomControlEnabled={false} rotateEnabled={false} cacheEnabled={false} initialRegion={RestAbout.map} customMapStyle={customMapStyle} provider={PROVIDER_DEFAULT} />
           <View style={styles().marker}>
@@ -90,7 +90,7 @@ function About(props) {
           </View>
         </View>
 
-        {/* other details */}
+        {}
         <View style={[styles().flex, styles(currentTheme).mainContainer]}>
           <View>
             <View style={styles(currentTheme).subContainer}>

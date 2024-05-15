@@ -1,12 +1,10 @@
-// Interfaces
+
 import { IActionMenuProps } from '@/lib/utils/interfaces';
 import { ICuisine } from '@/lib/utils/interfaces/cuisine.interface';
 
-// Components
 import ActionMenu from '../../action-menu';
 import Image from 'next/image';
 
-// Hooks
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
@@ -15,10 +13,9 @@ export const CUISINE_TABLE_COLUMNS = ({
 }: {
   menuItems: IActionMenuProps<ICuisine>['items'];
 }) => {
-  // Hooks
+
   const t = useTranslations();
 
-  // Cuisine Columns
   const cuisine_columns = useMemo(
     () => [
       {

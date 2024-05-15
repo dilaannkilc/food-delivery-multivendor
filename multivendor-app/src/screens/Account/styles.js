@@ -26,7 +26,7 @@ const styles = (props = null) =>
     subContainer: {
       ...alignment.MTmedium
     },
-    //Modal
+
     centeredView: {
       flex: 1,
       justifyContent: 'center',
@@ -89,7 +89,7 @@ const styles = (props = null) =>
     },
     width85: {
       width: '70%',
-      //backgroundColor: theme.Pink.deleteButton
+
     },
     shadow: {
       shadowOffset: { width: 0, height: scale(2) },
@@ -112,19 +112,19 @@ const styles = (props = null) =>
     },
     languageContainer: {
       width: '100%',
-      // backgroundColor: props !== null ? props.gray100 : '#FFF',
-      // backgroundColor: 'red',
-      // borderRadius: scale(10),
-      // borderWidth: 1,
+
+
+
+
       flexDirection: props?.isRTL ? 'row-reverse' : 'row',
       alignSelf: 'center',
-      // borderColor: props !== null ? props.gray200 : '#E5E7EB',
-      // ...alignment.PRmedium,
+
+
       ...alignment.PTmedium,
       ...alignment.PBmedium,
       borderBottomWidth: 0.2,
       borderBottomColor: props !== null ? props.color6 : '#9B9A9A'
-      // ...alignment.PLmedium
+
     },
     changeLanguage: {
       flexDirection: props?.isRTL ? 'row-reverse' : 'row',

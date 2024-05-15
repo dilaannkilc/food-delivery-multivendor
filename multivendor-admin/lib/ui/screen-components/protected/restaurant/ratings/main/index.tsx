@@ -9,10 +9,9 @@ import { IItem, IReview } from '@/lib/utils/interfaces';
 import { useTranslations } from 'next-intl';
 
 const RatingMain: React.FC = () => {
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
   const [filteredReviews, setFilteredReviews] = useState<IReview[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');

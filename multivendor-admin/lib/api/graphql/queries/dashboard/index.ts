@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 
-// Super Admin
 export const GET_DASHBOARD_USERS = gql`
   query GetDashboardUsers {
     getDashboardUsers {
@@ -49,7 +48,6 @@ export const GET_DASHBOARD_SALES_BY_TYPE = gql`
   }
 `;
 
-// Restaurant
 export const GET_DASHBOARD_RESTAURANT_ORDERS = gql`
   query GetRestaurantDashboardOrdersSalesStats(
     $restaurant: String!
@@ -128,7 +126,6 @@ export const GET_DASHBOARD_ORDER_SALES_DETAILS_BY_PAYMENT_METHOD = gql`
   }
 `;
 
-// Vendor
 
 export const GET_STORE_DETAILS_BY_VENDOR_ID = gql`
   query GetStoreDetailsByVendorId(

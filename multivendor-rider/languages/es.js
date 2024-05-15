@@ -1,12 +1,11 @@
 export const es = {
-  // Navigation
+
   continue: "Continuar",
   Wallet: "Billetera",
   Home: "Inicio",
   Earnings: "Ganancias",
   Profile: "Perfil",
 
-  // FAQs
   faq1: "¿Cómo realizo un pedido?",
   faq1Description:
     "Para realizar un pedido, simplemente navega por nuestro menú, selecciona los artículos que deseas pedir y procede al checkout. Puedes elegir tu método de pago preferido y dirección de entrega antes de confirmar tu pedido.",
@@ -29,7 +28,6 @@ export const es = {
   faq7Description:
     "Desafortunadamente, no puedes elegir de múltiples restaurantes dentro del mismo pedido. Sin embargo, puedes realizar pedidos separados de diferentes restaurantes al mismo tiempo.",
 
-  // Earnings
   "Earnings Summary": "Resumen de Ganancias",
   Deliveries: "Entregas",
   "Total Earnings": "Ganancias Totales",
@@ -39,13 +37,11 @@ export const es = {
   "Order Date": "Fecha del Pedido",
   "Earnings Order Details": "Detalles del Pedido - Ganancias",
 
-  // Flash messages
   "Order placed successfully": "Pedido realizado exitosamente",
   "Order cancelled successfully": "Pedido cancelado exitosamente",
   "Error while placing order": "Error al realizar el pedido",
   "Error while cancelling order": "Error al cancelar el pedido",
 
-  // Other messages
   "Please enter your name": "Por favor ingresa tu nombre",
   "Please enter your email": "Por favor ingresa tu email",
   "Please enter your password": "Por favor ingresa tu contraseña",
@@ -259,7 +255,7 @@ export const es = {
   "No new orders yet!": "¡Aún no hay nuevos pedidos!",
   "You don't have any orders yet!": "¡Aún no tienes ningún pedido!",
   "No delivered orders yet!": "¡Aún no hay pedidos entregados!",
-  // Vehicle Screen
+
   "Vehicle Details": "Detalles del Vehículo",
   "Vehicle Number": "Número del Vehículo",
   "Vehicle Color": "Color del Vehículo",
@@ -310,14 +306,12 @@ export const es = {
   "Vehicle documents format not supported":
     "Formato de documentos del vehículo no soportado",
 
-  // Chat Screen
   "Contact Customer": "Contactar Cliente",
   "Type a message": "Escribe un mensaje",
   Send: "Enviar",
   "Message sent": "Mensaje enviado",
   "Message failed": "Mensaje fallido",
 
-  // Earnings Screen
   "Please select a date range": "Por favor selecciona un rango de fechas",
   "Please select a start date": "Por favor selecciona una fecha de inicio",
   "Please select an end date": "Por favor selecciona una fecha de fin",
@@ -326,7 +320,6 @@ export const es = {
   "Please log in to view your earnings":
     "Por favor inicia sesión para ver tus ganancias",
 
-  // Profile Forms
   "Unable to update availability": "No se pudo actualizar la disponibilidad",
   "rider name": "Nombre del Repartidor",
   "rider id": "ID del Repartidor",

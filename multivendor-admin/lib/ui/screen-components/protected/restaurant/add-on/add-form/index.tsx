@@ -1,13 +1,10 @@
-// Core
+
 import { FieldArray, Form, Formik, FormikErrors } from 'formik';
 
-// Prime React
 import { Sidebar } from 'primereact/sidebar';
 
-// Interface and Types
 import { IAddonForm } from '@/lib/utils/interfaces/forms';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomMultiSelectComponent from '@/lib/ui/useable-components/custom-multi-select';
 import CustomTextAreaField from '@/lib/ui/useable-components/custom-text-area-field';
@@ -16,13 +13,10 @@ import CustomNumberField from '@/lib/ui/useable-components/number-input-field';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import OptionsAddForm from '@/lib/ui/screen-components/protected/restaurant/options/add-form';
 
-// Utilities and Constants
 import { AddonsErrors, OptionErrors } from '@/lib/utils/constants';
 
-//Toast
 import useToast from '@/lib/hooks/useToast';
 
-//GraphQL
 import {
   CREATE_ADDONS,
   EDIT_ADDON,
@@ -51,7 +45,7 @@ import { Fieldset } from 'primereact/fieldset';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
-// State
+
 const initialFormValuesTemplate: IAddonForm = {
   title: '',
   description: '',
@@ -75,11 +69,11 @@ export default function AddonAddForm({
   isAddAddonVisible,
 
 }: IAddonAddFormComponentProps) {
-  // Hooks
+
   const t = useTranslations();
   const { theme } = useTheme();
   const { showToast } = useToast();
-  // Context
+
 
   const { restaurantLayoutContextData, setIsAddOptionsVisible,
     option,
@@ -95,7 +89,6 @@ export default function AddonAddForm({
     ],
   });
 
-  // Query
   const { data } = useQueryGQL(
     GET_OPTIONS_BY_RESTAURANT_ID,
     { id: restaurantId },
@@ -107,7 +100,6 @@ export default function AddonAddForm({
     }
   ) as IQueryResult<IOptionsByRestaurantResponse | undefined, undefined>;
 
-  // Memoized Constants
   const optionsDropdown = useMemo(
     () =>
       data?.restaurant?.options.map((option: IOptions) => {
@@ -116,7 +108,6 @@ export default function AddonAddForm({
     [data?.restaurant?.options]
   );
 
-  // Mutation
   const [createAddons, { loading: mutationLoading }] = useMutation(
     addon ? EDIT_ADDON : CREATE_ADDONS,
     {
@@ -151,8 +142,7 @@ export default function AddonAddForm({
     }
   );
 
-  // Handlers
-  // Complete and Error
+
   function onFetchAddonsByRestaurantCompleted() { }
   function onErrorFetchAddonsByRestaurant() {
     showToast({
@@ -170,7 +160,7 @@ export default function AddonAddForm({
       ),
     }));
   }
-  // Form Submission
+
   const handleSubmit = ({ addons }: { addons: IAddonForm[] }) => {
     createAddons({
       variables: {
@@ -213,7 +203,6 @@ export default function AddonAddForm({
     });
   };
 
-  // UseEffects
   useEffect(() => {
     mapOptionIds((addon?.options as string[]) ?? [], optionsDropdown ?? []);
   }, [addon, optionsDropdown]);

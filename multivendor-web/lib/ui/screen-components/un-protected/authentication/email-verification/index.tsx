@@ -1,11 +1,10 @@
-// Hooks and Context
+
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/lib/context/auth/auth.context";
 import { useConfig } from "@/lib/context/configuration/configuration.context";
 import { useTranslations } from "next-intl";
 import useVerifyOtp from "@/lib/hooks/useVerifyOtp";
 
-// Components and Utilities
 import CustomButton from "@/lib/ui/useable-components/button";
 import useToast from "@/lib/hooks/useToast";
 import useUser from "@/lib/hooks/useUser";
@@ -37,12 +36,10 @@ export default function EmailVerification({
   const { showToast } = useToast();
   const { profile } = useUser();
 
-  // Sync parent state with local OTP
   useEffect(() => {
     setEmailOtp(otp.join(""));
   }, [otp]);
 
-  // Initialize on mount
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -76,7 +73,7 @@ export default function EmailVerification({
     setOtp(newOtp);
     inputRefs.current[Math.min(pasted.length, 5)]?.focus();
   };
-  // handler
+
   const handleSubmit = async () => {
     if (SKIP_EMAIL_VERIFICATION) {
       setStoredOtp(TEST_OTP);
@@ -107,7 +104,7 @@ export default function EmailVerification({
     });
 
     if (otpResponse.data?.verifyOtp.result && !!formData?.email) {
-      // Create user with isPhoneExists flag if set in formData
+
       const userData = await handleCreateUser({
         email: formData?.email,
         phone: formData?.phone,
@@ -120,12 +117,11 @@ export default function EmailVerification({
       setStoredOtp("");
       setEmailOtp("");
 
-      // Check if phone number needs verification after user creation
       if (userData?.phone && !userData?.phoneIsVerified) {
         setIsRegistering(false);
-        // Send OTP to phone number before redirecting to phone verification
+
         await sendOtpToPhoneNumber(userData.phone);
-        handleChangePanel(6); // Go to phone verification panel (panel 6, not 4)
+        handleChangePanel(6); 
         return;
       }
 
@@ -165,7 +161,6 @@ export default function EmailVerification({
     setIsResendingOtp(false);
   };
 
-  // useEffect for displaying otp verification error
   useEffect(() => {
     if (error) {
       showToast({

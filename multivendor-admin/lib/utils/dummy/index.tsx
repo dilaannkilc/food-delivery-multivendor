@@ -1,4 +1,4 @@
-// Icons
+
 import {
   faMotorcycle,
   faStore,
@@ -6,7 +6,6 @@ import {
   faUtensils,
 } from '@fortawesome/free-solid-svg-icons';
 
-// Interfaces
 import {
   IAddon,
   IBannersResponse,
@@ -111,7 +110,7 @@ export const generateRandomUserCounts = () => {
   const randomNumbers = new Set();
 
   while (randomNumbers.size < 12) {
-    randomNumbers.add(Math.floor(Math.random() * 101)); // Generates random integer between 0 and 100
+    randomNumbers.add(Math.floor(Math.random() * 101)); 
   }
 
   return Array.from(randomNumbers);
@@ -186,16 +185,16 @@ export const generateDummyCommissionRates = (
       _id: `restaurant_${i + 1}`,
       unique_restaurant_id: `restaurant_${i + 1}`,
       name: `Restaurant ${i + 1}`,
-      commissionRate: Math.floor(Math.random() * 10) + 5, // Random commission rate between 5 and 15
-      isActive: Math.random() > 0.2, // 80% chance of being active
+      commissionRate: Math.floor(Math.random() * 10) + 5, 
+      isActive: Math.random() > 0.2, 
       __typename: 'Restaurant',
       image: '',
       orderPrefix: '',
       slug: '',
       address: '',
-      deliveryTime: Math.floor(Math.random() * 60) + 15, // Random delivery time between 15 and 75 minutes
-      minimumOrder: Math.floor(Math.random() * 20) + 5, // Random minimum order between $5 and $25
-      tax: Math.floor(Math.random() * 10) + 5, // Random tax between 5% and 15%
+      deliveryTime: Math.floor(Math.random() * 60) + 15, 
+      minimumOrder: Math.floor(Math.random() * 20) + 5, 
+      tax: Math.floor(Math.random() * 10) + 5, 
       username: `restaurant${i + 1}`,
       owner: {
         _id: `owner_${i + 1}`,
@@ -222,16 +221,16 @@ export const generateDummyOrderVendor = (
       _id: `restaurant_${i + 1}`,
       unique_restaurant_id: `restaurant_${i + 1}`,
       name: `Restaurant ${i + 1}`,
-      commissionRate: Math.floor(Math.random() * 10) + 5, // Random commission rate between 5 and 15
-      isActive: Math.random() > 0.2, // 80% chance of being active
+      commissionRate: Math.floor(Math.random() * 10) + 5, 
+      isActive: Math.random() > 0.2, 
       __typename: 'Restaurant',
       image: '',
       orderPrefix: '',
       slug: '',
       address: '',
-      deliveryTime: Math.floor(Math.random() * 60) + 15, // Random delivery time between 15 and 75 minutes
-      minimumOrder: Math.floor(Math.random() * 20) + 5, // Random minimum order between $5 and $25
-      tax: Math.floor(Math.random() * 10) + 5, // Random tax between 5% and 15%
+      deliveryTime: Math.floor(Math.random() * 60) + 15, 
+      minimumOrder: Math.floor(Math.random() * 20) + 5, 
+      tax: Math.floor(Math.random() * 10) + 5, 
       username: `restaurant${i + 1}`,
       owner: {
         _id: `owner_${i + 1}`,
@@ -311,7 +310,7 @@ export const generateDummyUsers = (count: number = 10): IUserResponse[] => {
 
       status: 'Loading...',
       lastLogin: 'Loading...',
-      registrationMethod: 'Loading...', // VALID (it exists in your interface!)
+      registrationMethod: 'Loading...', 
 
       isOrderNotification: false,
       isOfferNotification: false,
@@ -325,7 +324,7 @@ export const generateDummyUsers = (count: number = 10): IUserResponse[] => {
       addresses: [],
       notes: 'Loading...',
 
-      actions: 'Loading...', // REQUIRED in your interface
+      actions: 'Loading...', 
     });
   }
 
@@ -361,7 +360,7 @@ export const generateDummyZones = (count: number = 10): IZoneResponse[] => {
       title: `Zone ${i + 1}`,
       description: `Description for Zone ${i + 1}`,
       location: {
-        coordinates: [[[0, 0]]], // Placeholder coordinates
+        coordinates: [[[0, 0]]], 
       },
       isActive: Math.random() > 0.5,
       __typename: 'Zone',
@@ -565,7 +564,7 @@ export const generateDummyStaff = (count: number = 10): IStaffResponse[] => {
       __typename: 'Staff',
       _id: `staff_${i + 1}`,
       name: `Staff ${i + 1}`,
-      email: `staff${i + 1}@example.com`, // updated email to be more realistic
+      email: `staff${i + 1}@example.com`, 
       plainPassword: `password${i + 1}`,
       password: `password${i + 1}`,
       phone: 1234567890 + i,
@@ -600,7 +599,7 @@ export const generateSkeletonTransactionHistory = (
   count: number = 10
 ): ITransactionHistory[] => {
   const transactionHistory: ITransactionHistory[] = [];
-  const currentDate = new Date().toISOString(); // Generate date string once
+  const currentDate = new Date().toISOString(); 
 
   for (let i = 0; i < count; i++) {
     transactionHistory.push({
@@ -628,7 +627,7 @@ export const generateSkeletonTransactionHistory = (
         image: '',
         available: false,
         isActive: false,
-        // isSuperAdminRider: false,
+
         accountNumber: '',
         currentWalletAmount: 0,
         totalWalletAmount: 0,

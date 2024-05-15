@@ -57,7 +57,7 @@ function Paypal(props) {
       })
     } else if (data.url.includes(SERVER_URL + 'paypal/cancel')) {
       props?.navigation.goBack()
-      // goBack on Payment Screen
+
     }
   }
 

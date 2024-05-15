@@ -1,20 +1,15 @@
-//Prime react
+
 import { FilterMatchMode } from 'primereact/api';
 
-//Hooks
 import { ChangeEvent, useState } from 'react';
 
-//Components
 import NotificationTableHeader from '../header/table-header';
 import Table from '@/lib/ui/useable-components/table';
 
-// Constants
 import { generateDummyNotifications } from '@/lib/utils/dummy';
 import { NOTIFICATIONS_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/notification-columns';
 
-// GraphQL
 
-// Interfaces
 import { IQueryResult } from '@/lib/utils/interfaces';
 import { IGetNotifications } from '@/lib/utils/interfaces/notification.interface';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
@@ -26,17 +21,14 @@ export default function NotificationMain() {
     {}
   ) as IQueryResult<IGetNotifications | undefined, undefined>;
 
-  // States
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
 
-  // Filters
   const [filters, setFilters] = useState({
     global: { value: '', matchMode: FilterMatchMode.CONTAINS },
   });
 
   const [globalFilterValue, setGlobalFilterValue] = useState('');
 
-  // Global filters change
   const onGlobalFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const _filters = { ...filters };

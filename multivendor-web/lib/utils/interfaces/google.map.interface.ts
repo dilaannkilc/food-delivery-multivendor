@@ -25,7 +25,7 @@ export interface IGoogleMapsProviderProps {
   children: ReactNode;
 }
 
-/* Shape */
+
 export interface ICustomShapeComponentProps extends IGlobalComponentProps {
   selected: string;
   onClick: (value: string) => void;
@@ -84,9 +84,8 @@ export interface IUpdateRestaurantDeliveryZoneVariables {
   city?: string;
 }
 
-// Interface for Google Map component props
 export interface IGoogleMapComponentProps {
-  center: { lat: number; lng: number }; // Center coordinates for the map
-  circleRadius?: number; // Optional prop for circle radius in meters
-  visible: boolean; // Controls visibility of the map
+  center: { lat: number; lng: number }; 
+  circleRadius?: number; 
+  visible: boolean; 
 }

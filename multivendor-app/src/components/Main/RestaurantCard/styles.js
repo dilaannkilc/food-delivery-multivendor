@@ -38,8 +38,8 @@ const styles = (props = null) =>
       paddingLeft: scale(10),
       paddingRight: scale(10),
       width: '100%',
-      // borderColor: props != null ? props?.iconBackground : '#E5E7EB',
-      // borderWidth: 1,
+
+
       borderBottomLeftRadius: 8,
       borderBottomRightRadius: 8,
       height: '35%',

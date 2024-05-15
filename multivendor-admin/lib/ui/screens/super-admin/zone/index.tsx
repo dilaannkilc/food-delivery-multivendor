@@ -1,22 +1,18 @@
 'use client';
 
-// Core
 import React, { useState } from 'react';
 
-// Interfaces
 import { IZoneResponse } from '@/lib/utils/interfaces';
 
-// Components
 import ZoneAddForm from '@/lib/ui/screen-components/protected/super-admin/zone/form';
 import ZoneHeader from '@/lib/ui/screen-components/protected/super-admin/zone/view/header/screen-header';
 import ZoneMain from '@/lib/ui/screen-components/protected/super-admin/zone/view/main';
 
 export default function ZoneScreen() {
-  // States
+
   const [isAddRiderVisible, setIsAddRiderVisible] = useState(false);
   const [zone, setZone] = useState<IZoneResponse | null>(null);
 
-  // Handler
   const onSetAddFormVisible = () => {
     setIsAddRiderVisible(true);
     setZone(null);

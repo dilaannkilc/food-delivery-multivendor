@@ -1,24 +1,18 @@
 'use client';
-// Core
+
 import { Form, Formik } from 'formik';
 
-// Components
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 import ConfigCard from '../../view/card';
 
-// Toast
 import useToast from '@/lib/hooks/useToast';
 
-// Hooks
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Interfaces and Types
 import { ISentryForm } from '@/lib/utils/interfaces/configurations.interface';
 
-// Utils and Constants
 import { SentryValidationSchema } from '@/lib/utils/schema';
 
-// GraphQL
 import {
   GET_CONFIGURATION,
   SAVE_SENTRY_CONFIGURATION,
@@ -26,7 +20,7 @@ import {
 import { useMutation } from '@apollo/client';
 
 const SentryAddForm = () => {
-  // Hooks
+
   const {
     DASHBOARD_SENTRY_URL,
     WEB_SENTRY_URL,

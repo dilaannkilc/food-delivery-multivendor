@@ -1,40 +1,31 @@
 'use client';
 
-// Core
 import { ApolloError, useMutation } from '@apollo/client';
 import { Form, Formik } from 'formik';
 import { useContext, useEffect, useState } from 'react';
 
-// Prime React
 
-// Context
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Interface and Types
 import { ICreateVendorResponseGraphQL } from '@/lib/utils/interfaces';
 import { IRestauransVendorDetailsForm } from '@/lib/utils/interfaces/forms';
 
-// Constants and Methods
 import { MAX_SQUARE_FILE_SIZE, VendorErrors } from '@/lib/utils/constants';
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import CustomIconTextField from '@/lib/ui/useable-components/input-icon-field';
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/upload-image';
 
-// Schema
 import {
   RestaurantsVendorDetails,
   VendorSchemaOnStoreCreate,
 } from '@/lib/utils/schema';
 
-// GraphQL
 import { CREATE_VENDOR, GET_VENDORS } from '@/lib/api/graphql';
 
-// Icons
 import { RestaurantsContext } from '@/lib/context/super-admin/restaurants.context';
 import CustomDropdownComponent from '@/lib/ui/useable-components/custom-dropdown';
 import CustomInputSwitch from '@/lib/ui/useable-components/custom-input-switch';
@@ -58,32 +49,27 @@ export default function VendorDetails({
   stepperProps,
   vendorsDropdown,
 }: IRestaurantsVendorDetailsComponentProps) {
-  // Props
+
   const { onStepChange, order } = stepperProps ?? {
     onStepChange: () => {},
     type: '',
     order: -1,
   };
 
-  // Hooks
   const t = useTranslations();
 
-  // Context
   const { showToast } = useContext(ToastContext);
   const { restaurantsContextData, onSetRestaurantsContextData } =
     useContext(RestaurantsContext);
 
-  // States
   const [formInitialValues, setFormValues] =
     useState<IRestauransVendorDetailsForm>({
       ...initialValues,
     });
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
 
-  // Constants
 
-  // API
-  // Mutations
+
   const [createVendor] = useMutation(CREATE_VENDOR, {
     refetchQueries: [{ query: GET_VENDORS }],
     onError,
@@ -108,7 +94,6 @@ export default function VendorDetails({
     },
   });
 
-  // Handlers
   const onVendorSubmitHandler = async (
     formData: IRestauransVendorDetailsForm
   ) => {
@@ -172,7 +157,6 @@ export default function VendorDetails({
     });
   };
 
-  // Use Effects
   useEffect(() => {
     onSelectVendor();
   }, []);
@@ -251,7 +235,7 @@ export default function VendorDetails({
                               maxLength={35}
                               value={values.firstName}
                               onChange={handleChange}
-                              // isLoading={loading}
+
                               showLabel={true}
                               style={{
                                 borderColor: onErrorMessageMatcher(
@@ -273,7 +257,7 @@ export default function VendorDetails({
                               maxLength={35}
                               value={values.lastName}
                               onChange={handleChange}
-                              // isLoading={loading}
+
                               showLabel={true}
                               style={{
                                 borderColor: onErrorMessageMatcher(
@@ -317,12 +301,12 @@ export default function VendorDetails({
                               mask="999-999-9999"
                               name="phoneNumber"
                               showLabel={true}
-                              // isLoading={loading}
+
                               placeholder={t('Phone Number')}
                               value={values.phoneNumber}
                               onChange={(e) => {
                                 setFieldValue('phoneNumber', e);
-                                // setCountryCode(code);
+
                               }}
                               type="text"
                               style={{

@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import React from "react";
-import styles from "./Movable.module.css"; // Ensure this path is correct
+import styles from "./Movable.module.css"; 
 import { MoveableProps } from "@/lib/utils/interfaces/Home-interfaces";
 import { useEffect, useState } from "react";
 const MoveableCard: React.FC<MoveableProps> = ({
@@ -24,7 +24,7 @@ const MoveableCard: React.FC<MoveableProps> = ({
       }
     };
 
-    handleResize(); // Initial check
+    handleResize(); 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [height]);
@@ -34,7 +34,7 @@ const MoveableCard: React.FC<MoveableProps> = ({
       className={`${styles.cardContainer} bg-green-300 dark:bg-gray-800 rounded-3xl cursor-pointer`}
       style={{ height: responsiveHeight }}
     >
-      {/* Image container */}
+      {}
       <Image
         src={
           image ||
@@ -45,7 +45,7 @@ const MoveableCard: React.FC<MoveableProps> = ({
         className={`${styles.imageContainer} c`}
       />
 
-      {/* Text container */}
+      {}
 
       {middle == false ? (
         <div

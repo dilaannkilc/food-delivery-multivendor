@@ -1,6 +1,5 @@
 "use client";
 
-// ui/screens/GenericListingComponent.tsx
 import { useEffect, useState } from "react";
 import HomeHeadingSection from "@/lib/ui/useable-components/home-heading-section";
 import CuisinesSection from "@/lib/ui/useable-components/cuisines-section";
@@ -94,7 +93,6 @@ export default function GenericListingComponent({
       );
     }
 
-    // Apply sorting
     if (tempSortBy === "Distance") {
       filtered.sort((a, b) => {
         const [lonA, latA] = a.location.coordinates;
@@ -145,7 +143,7 @@ export default function GenericListingComponent({
         data={restaurantData}
         loading={loading}
         error={error}
-        hasMore={hasMore} // ✅ pass down for infinite scroll message
+        hasMore={hasMore} 
       />
       <FilterModal
         visible={showDialog}

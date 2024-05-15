@@ -61,7 +61,7 @@ const styles = (props = null) =>
     containerSpace: {
       backgroundColor: props !== null ? props.cardBackground : 'transparent',
       width: '92%',
-      // margin: scale(10),
+
       padding: scale(5),
       borderRadius: scale(10),
       borderWidth: 1,

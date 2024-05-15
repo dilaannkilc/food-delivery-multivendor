@@ -1,20 +1,15 @@
-// Core
+
 import { useContext, useState } from 'react';
 
-// Prime React
 import { FilterMatchMode } from 'primereact/api';
 
-// Interface and Types
 
-// Components
 import Table from '@/lib/ui/useable-components/table';
 import { CATEGORY_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/category-columns';
 
-// Utilities and Data
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
 import { IActionMenuItem } from '@/lib/utils/interfaces/action-menu.interface';
 
-//Toast
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import useToast from '@/lib/hooks/useToast';
 import {
@@ -25,7 +20,6 @@ import {
   ISubCategoryResponse,
 } from '@/lib/utils/interfaces';
 
-// GraphQL
 import {
   DELETE_CATEGORY,
   GET_CATEGORY_BY_RESTAURANT_ID,
@@ -44,10 +38,9 @@ export default function CategoryMain({
   setCategory,
   setIsAddSubCategoriesVisible,
 }: ICategoryMainComponentsProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const {
     restaurantLayoutContextData,
     subCategoryParentId,
@@ -58,12 +51,10 @@ export default function CategoryMain({
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
   const shopType = restaurantLayoutContextData?.shopType || '';
   console.log("🚀 ~ shopType:", shopType)
-  // console.log("🚀 ~ restaurantLayoutContextData:", restaurantLayoutContextData)
 
-  // Hooks
+
   const { showToast } = useToast();
 
-  // State - Table
   const [deleteId, setDeleteId] = useState('');
   const [selectedProducts, setSelectedProducts] = useState<ICategory[]>([]);
   const [globalFilterValue, setGlobalFilterValue] = useState('');
@@ -71,7 +62,6 @@ export default function CategoryMain({
     global: { value: '' as string | null, matchMode: FilterMatchMode.CONTAINS },
   });
 
-  // Queries
   const { data, loading } = useQueryGQL(
     GET_CATEGORY_BY_RESTAURANT_ID,
     { id: restaurantId },
@@ -98,7 +88,6 @@ export default function CategoryMain({
       },
     }) as IQueryResult<ISubCategoryResponse | undefined, undefined>;
 
-  //Mutation
   const [deleteCategory, { loading: mutationLoading }] = useMutation(
     DELETE_CATEGORY,
     {
@@ -115,7 +104,6 @@ export default function CategoryMain({
     }
   );
 
-  // Handlers
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const _filters = { ...filters };
@@ -128,9 +116,9 @@ export default function CategoryMain({
     setSubCategoryParentId(id);
     setIsSubCategoryModalOpen((prev) => !prev);
   };
-  // Restaurant Profile Complete
+
   function onFetchCategoriesByRestaurantCompleted() {}
-  // Restaurant Zone Info Error
+
   function onErrorFetchCategoriesByRestaurant() {
     showToast({
       type: 'error',
@@ -140,7 +128,6 @@ export default function CategoryMain({
     });
   }
 
-  // Constants
   const menuItems: IActionMenuItem<ICategory>[] = [
     {
       label: t('Edit'),
@@ -189,7 +176,7 @@ export default function CategoryMain({
   ];
   return (
     <div className="p-3">
-      {/* Sub-CTG Preview Modal  */}
+      {}
       <SubCategoriesPreiwModal
         isSubCategoryModalOpen={isSubCategoryModalOpen}
         setIsSubCategoryModalOpen={setIsSubCategoryModalOpen}

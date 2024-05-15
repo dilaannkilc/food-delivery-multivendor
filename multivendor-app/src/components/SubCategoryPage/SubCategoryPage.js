@@ -39,7 +39,6 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 const ITEM_WIDTH = 180
 const MAX_CHAR_LEN = 20
 
-// DEBUG HELPER - Console with timestamp and color coding
 const debugLog = (message, type = 'info') => {
   const timestamp = new Date().toISOString().split('T')[1].slice(0, 12)
   const prefix =
@@ -53,7 +52,6 @@ const debugLog = (message, type = 'info') => {
   console.log(`${prefix} [${timestamp}] ${message}`)
 }
 
-// Category Tab Skeleton Component
 const CategoryTabSkeleton = ({ currentTheme }) => {
   const animatedOpacity = useRef(new Animated.Value(0.5)).current
 
@@ -91,7 +89,6 @@ const CategoryTabSkeleton = ({ currentTheme }) => {
   )
 }
 
-// Category Tabs Skeleton
 const CategoryTabsSkeleton = ({ currentTheme }) => {
   return (
     <View style={styles.categoryTabsContainer}>
@@ -104,7 +101,6 @@ const CategoryTabsSkeleton = ({ currentTheme }) => {
   )
 }
 
-// Food Item Skeleton Component
 const FoodItemSkeleton = ({ currentTheme }) => {
   const animatedOpacity = useRef(new Animated.Value(0.5)).current
 
@@ -171,7 +167,6 @@ const FoodItemSkeleton = ({ currentTheme }) => {
   )
 }
 
-// Food Items Grid Skeleton
 const FoodItemsGridSkeleton = ({ currentTheme, count = 6 }) => {
   return (
     <View style={styles.foodList}>
@@ -189,10 +184,9 @@ const FoodItemsGridSkeleton = ({ currentTheme, count = 6 }) => {
 }
 
 const CategoryPage = ({ route, navigation }) => {
-  // Params
+
   const { restaurantName, deliveryTime, category, restaurantId } = route.params
 
-  // States
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0)
   const [selectedSubcategoryIndex, setSelectedSubcategoryIndex] = useState(0)
   const [tabs, setTabs] = useState([])
@@ -201,30 +195,24 @@ const CategoryPage = ({ route, navigation }) => {
   const [isDataLoaded, setIsDataLoaded] = useState(false)
   const [isSearchVisible, setIsSearchVisible] = useState(false)
   const [initialRender, setInitialRender] = useState(true)
-  
-  // FOOD PRELOADING STATES
+
   const [preloadedFoodItems, setPreloadedFoodItems] = useState({})
   const [currentFoodItems, setCurrentFoodItems] = useState([])
   const [isChangingCategory, setIsChangingCategory] = useState(false)
 
-  // Refs
   const categoryScrollRef = useRef(null)
   const subcategoryScrollRef = useRef(null)
   const swipeInProgress = useRef(false)
 
-  // Reanimated values for gesture
   const translateX = useSharedValue(0)
   const opacity = useSharedValue(1)
 
-  // Hooks
   const { t, i18n } = useTranslation()
 
-  // Context
   const configuration = useContext(ConfigurationContext)
   const themeContext = useContext(ThemeContext)
   const { cartCount } = useContext(UserContext)
 
-  // Constants
   const currentTheme = {
     isRTL: i18n.dir() === 'rtl',
     ...theme[themeContext.ThemeValue]
@@ -235,10 +223,8 @@ const CategoryPage = ({ route, navigation }) => {
   const { data: restaurantData, loading: restaurantLoading } = useRestaurant(restaurantId)
   const { data: subcategoriesData, loading: subcategoriesLoading } = useQuery(GET_SUB_CATEGORIES)
 
-  // Cart animation
   const scaleValue = useRef(new Animated.Value(1)).current
 
-  // Handlers
   const handleOpenSearch = () => {
     setIsSearchVisible(true)
   }
@@ -246,7 +232,6 @@ const CategoryPage = ({ route, navigation }) => {
     setIsSearchVisible(false)
   }
 
-  // PRELOAD ALL FOOD ITEMS BY CATEGORY AND SUBCATEGORY
   const preloadAllFoodItems = (restaurantCategories, subcategoriesData) => {
     debugLog('🍕 PRELOADING ALL FOOD ITEMS...')
     
@@ -258,18 +243,16 @@ const CategoryPage = ({ route, navigation }) => {
       const categorySubcategories = subcategoriesData.subCategories.filter(
         (sub) => sub.parentCategoryId === category._id
       )
-      
-      // Sort subcategories alphabetically for consistency
+
       const sortedSubcategories = categorySubcategories.sort((a, b) => 
         a.title.localeCompare(b.title)
       )
-      
-      // Create cache key for this category
+
       const categoryKey = `category_${categoryIndex}`
       foodItemsCache[categoryKey] = {}
       
       if (sortedSubcategories.length > 0) {
-        // Has subcategories - group food by subcategory
+
         sortedSubcategories.forEach((subcategory, subIndex) => {
           const subKey = `sub_${subIndex}`
           const foodItems = category.foods.filter(
@@ -279,7 +262,7 @@ const CategoryPage = ({ route, navigation }) => {
           debugLog(`  Subcategory ${subIndex} (${subcategory.title}): ${foodItems.length} items`)
         })
       } else {
-        // No subcategories - all foods go to category directly
+
         foodItemsCache[categoryKey]['no_sub'] = category.foods
         debugLog(`  No subcategories: ${category.foods.length} items`)
       }
@@ -289,7 +272,6 @@ const CategoryPage = ({ route, navigation }) => {
     setPreloadedFoodItems(foodItemsCache)
   }
 
-  // GET CURRENT FOOD ITEMS FROM CACHE
   const getCurrentFoodItems = () => {
     if (!preloadedFoodItems || Object.keys(preloadedFoodItems).length === 0) {
       return []
@@ -301,8 +283,7 @@ const CategoryPage = ({ route, navigation }) => {
     if (!categoryCache) {
       return []
     }
-    
-    // Check if this category has subcategories
+
     if (subCategories[selectedCategoryIndex]?.length > 0) {
       const subKey = `sub_${selectedSubcategoryIndex}`
       return categoryCache[subKey] || []
@@ -311,7 +292,6 @@ const CategoryPage = ({ route, navigation }) => {
     }
   }
 
-  // PRELOAD AND SORT SUBCATEGORIES CONSISTENTLY
   const preprocessSubcategories = (subcategoriesData, restaurantCategories) => {
     if (!subcategoriesData?.subCategories || !restaurantCategories) {
       return []
@@ -325,13 +305,11 @@ const CategoryPage = ({ route, navigation }) => {
       const categorySubcategories = subcategoriesData.subCategories.filter(
         (sub) => sub.parentCategoryId === category._id
       )
-      
-      // Sort subcategories by title alphabetically for consistency
+
       const sortedSubcategories = categorySubcategories.sort((a, b) => {
         return a.title.localeCompare(b.title)
       })
-      
-      // Add original index for tracking
+
       const subcategoriesWithIndex = sortedSubcategories.map((sub, index) => ({
         ...sub,
         originalIndex: index,
@@ -349,11 +327,9 @@ const CategoryPage = ({ route, navigation }) => {
     return processedSubcategories
   }
 
-  // CREATE DISPLAY DATA WITH RTL REVERSAL (VISUAL ONLY)
   const createDisplayData = (originalData, isRTL) => {
     if (!originalData || originalData.length === 0) return []
 
-    // Add original index to track real data position
     const dataWithIndex = originalData.map((item, index) => ({
       ...item,
       originalIndex: index,
@@ -361,9 +337,9 @@ const CategoryPage = ({ route, navigation }) => {
     }))
 
     if (isRTL) {
-      // Reverse ONLY for display - data structure remains the same
+
       const reversed = [...dataWithIndex].reverse()
-      // Update display indices after reversal
+
       return reversed.map((item, index) => ({
         ...item,
         displayIndex: index
@@ -373,14 +349,12 @@ const CategoryPage = ({ route, navigation }) => {
     return dataWithIndex
   }
 
-  // Get display data for categories and subcategories
   const displayTabs = createDisplayData(tabs, currentTheme.isRTL)
   const displaySubcategories = createDisplayData(
     subCategories[selectedCategoryIndex] || [],
     currentTheme.isRTL
   )
 
-  // FIXED: SIMPLE UNIVERSAL SCROLL FUNCTION - CORNER BASED ON DIRECTION
   const scrollToSelectedSimple = (
     scrollRef,
     displayIndex,
@@ -406,17 +380,16 @@ const CategoryPage = ({ route, navigation }) => {
     let targetScrollX = 0
 
     if (currentTheme.isRTL) {
-      // RTL: Scroll to show item at RIGHT corner
+
       debugLog('RTL: Positioning at RIGHT corner')
       if (totalContentWidth <= SCREEN_WIDTH) {
         targetScrollX = 0
         debugLog('All items fit, no scroll needed')
       } else {
-        // Position item so it's fully visible at the right side
+
         const itemStartPosition = displayIndex * ITEM_WIDTH
         const itemEndPosition = itemStartPosition + ITEM_WIDTH
-        
-        // Scroll so the item ends at the screen's right edge
+
         targetScrollX = Math.max(0, itemEndPosition - SCREEN_WIDTH)
         targetScrollX = Math.min(targetScrollX, maxScrollX)
         
@@ -425,18 +398,16 @@ const CategoryPage = ({ route, navigation }) => {
         )
       }
     } else {
-      // LTR: Scroll to show item at LEFT corner - FIXED CALCULATION
+
       debugLog('LTR: Positioning at LEFT corner')
-      
-      // CRITICAL FIX: Ensure we don't scroll past the beginning
+
       if (displayIndex === 0) {
         targetScrollX = 0
         debugLog('First item - scroll to beginning')
       } else {
-        // Position the item at the left edge
+
         targetScrollX = displayIndex * ITEM_WIDTH
-        
-        // Clamp to valid range
+
         targetScrollX = Math.max(0, targetScrollX)
         targetScrollX = Math.min(targetScrollX, maxScrollX)
         
@@ -450,7 +421,6 @@ const CategoryPage = ({ route, navigation }) => {
     scrollRef.current.scrollTo({ x: targetScrollX, animated })
   }
 
-  // CATEGORY scroll handler using simple scroll
   const scrollCategoryToSelected = (
     scrollRef,
     displayIndex,
@@ -465,7 +435,6 @@ const CategoryPage = ({ route, navigation }) => {
     )
   }
 
-  // SUBCATEGORY scroll handler using simple scroll
   const scrollSubcategoryToSelected = (
     scrollRef,
     displayIndex,
@@ -480,11 +449,9 @@ const CategoryPage = ({ route, navigation }) => {
     )
   }
 
-  // Reset subcategory to correct item with corner positioning
   const resetSubcategoryToCorrectPosition = (categoryIndex) => {
     debugLog('Resetting subcategory to show correct item at corner')
-    
-    // Get the current subcategories for the selected category
+
     const currentSubcategories = subCategories[categoryIndex] || []
     const currentDisplaySubcategories = createDisplayData(currentSubcategories, currentTheme.isRTL)
     
@@ -493,7 +460,7 @@ const CategoryPage = ({ route, navigation }) => {
     
     if (subcategoryScrollRef.current && currentDisplaySubcategories.length > 0) {
       if (currentTheme.isRTL) {
-        // For RTL, show the last item (which appears first visually) at the right corner
+
         const lastDisplayIndex = currentDisplaySubcategories.length - 1
         scrollToSelectedSimple(
           subcategoryScrollRef,
@@ -504,7 +471,7 @@ const CategoryPage = ({ route, navigation }) => {
         )
         debugLog(`RTL: Positioning last subcategory (display index ${lastDisplayIndex}) at right corner`)
       } else {
-        // For LTR, show the first item at the left corner
+
         scrollToSelectedSimple(
           subcategoryScrollRef,
           0,
@@ -519,7 +486,6 @@ const CategoryPage = ({ route, navigation }) => {
     }
   }
 
-  // GESTURE HANDLER FOR SWIPING BETWEEN SUBCATEGORIES AND CATEGORIES
   const handleSwipeNavigation = (direction) => {
     if (!isDataLoaded || swipeInProgress.current) {
       debugLog('Data not loaded or swipe in progress, ignoring swipe', 'warning')
@@ -540,17 +506,14 @@ const CategoryPage = ({ route, navigation }) => {
     const maxSubcategoryIndex = currentSubcategories.length - 1
     const maxCategoryIndex = tabs.length - 1
 
-    // Calculate next subcategory index
     const nextSubcategoryIndex = selectedSubcategoryIndex + direction
 
-    // CHECK IF WE CAN MOVE WITHIN CURRENT CATEGORY'S SUBCATEGORIES
     if (nextSubcategoryIndex >= 0 && nextSubcategoryIndex <= maxSubcategoryIndex) {
-      // Move within subcategories
+
       debugLog(`Moving within subcategories: ${selectedSubcategoryIndex} → ${nextSubcategoryIndex}`)
       
       setSelectedSubcategoryIndex(nextSubcategoryIndex)
-      
-      // Find the display index for the new subcategory
+
       const currentDisplaySubcategories = createDisplayData(currentSubcategories, currentTheme.isRTL)
       const targetDisplayIndex = currentDisplaySubcategories.findIndex(
         item => item.originalIndex === nextSubcategoryIndex
@@ -568,34 +531,31 @@ const CategoryPage = ({ route, navigation }) => {
         }, 10)
       }
     } else {
-      // NEED TO MOVE TO NEXT/PREVIOUS CATEGORY
+
       const nextCategoryIndex = selectedCategoryIndex + direction
       
       if (nextCategoryIndex >= 0 && nextCategoryIndex <= maxCategoryIndex) {
         debugLog(`Moving to ${direction > 0 ? 'next' : 'previous'} category: ${selectedCategoryIndex} → ${nextCategoryIndex}`)
-        
-        // Determine which subcategory to select in the new category
+
         const nextCategorySubcategories = subCategories[nextCategoryIndex] || []
         let newSubcategoryIndex = 0
         
         if (currentTheme.isRTL) {
-          // RTL: When moving to next category, start from last subcategory
-          // When moving to previous category, start from first subcategory
+
+
           newSubcategoryIndex = direction > 0 ? (nextCategorySubcategories.length - 1) : 0
         } else {
-          // LTR: When moving to next category, start from first subcategory
-          // When moving to previous category, start from last subcategory
+
+
           newSubcategoryIndex = direction > 0 ? 0 : (nextCategorySubcategories.length - 1)
         }
         
         debugLog(`New category subcategories: ${nextCategorySubcategories.length}`)
         debugLog(`New subcategory index: ${newSubcategoryIndex}`)
-        
-        // Update states
+
         setSelectedCategoryIndex(nextCategoryIndex)
         setSelectedSubcategoryIndex(newSubcategoryIndex)
-        
-        // Scroll category to correct position
+
         const categoryDisplayIndex = currentTheme.isRTL 
           ? displayTabs.findIndex(item => item.originalIndex === nextCategoryIndex)
           : nextCategoryIndex
@@ -603,8 +563,7 @@ const CategoryPage = ({ route, navigation }) => {
         setTimeout(() => {
           scrollCategoryToSelected(categoryScrollRef, categoryDisplayIndex, true)
         }, 10)
-        
-        // Scroll subcategory to correct position
+
         setTimeout(() => {
           resetSubcategoryToCorrectPosition(nextCategoryIndex)
         }, 100)
@@ -612,8 +571,7 @@ const CategoryPage = ({ route, navigation }) => {
         debugLog(`Cannot move to category index ${nextCategoryIndex} (out of bounds)`, 'warning')
       }
     }
-    
-    // Reset swipe progress after animation
+
     setTimeout(() => {
       swipeInProgress.current = false
       setIsChangingCategory(false)
@@ -622,39 +580,36 @@ const CategoryPage = ({ route, navigation }) => {
     debugLog(`=== SWIPE NAVIGATION END ===`)
   }
 
-  // Create pan gesture
   const panGesture = Gesture.Pan()
-    .activeOffsetX([-15, 15]) // Only activate for horizontal movement > 15px
-    .failOffsetY([-25, 25])   // Fail if vertical movement > 25px
+    .activeOffsetX([-15, 15]) 
+    .failOffsetY([-25, 25])   
     .onUpdate((event) => {
-      // Only update during horizontal swipes
+
       if (Math.abs(event.translationX) > Math.abs(event.translationY)) {
         translateX.value = event.translationX
       }
     })
     .onEnd((event) => {
       const swipeDistance = event.translationX
-      const threshold = 50 // Minimum swipe distance
+      const threshold = 50 
       
       if (Math.abs(swipeDistance) > threshold) {
         let direction = 0
         
         if (currentTheme.isRTL) {
-          // RTL: Right swipe = next, Left swipe = previous
+
           direction = swipeDistance > 0 ? 1 : -1
         } else {
-          // LTR: Left swipe = next, Right swipe = previous
+
           direction = swipeDistance < 0 ? 1 : -1
         }
         
         runOnJS(handleSwipeNavigation)(direction)
       }
-      
-      // Always reset position
+
       translateX.value = withTiming(0, { duration: 200 })
     })
 
-  // Animated style for the food list container
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{ translateX: translateX.value }],
@@ -662,7 +617,6 @@ const CategoryPage = ({ route, navigation }) => {
     }
   })
 
-  // PRELOAD ALL DATA INCLUDING SUBCATEGORIES AND FOOD ITEMS
   const preloadAllData = () => {
     debugLog('=== PRELOADING ALL DATA ===')
 
@@ -674,19 +628,16 @@ const CategoryPage = ({ route, navigation }) => {
       return
     }
 
-    // Build categories
     const categories = restaurantData.restaurant.categories.map(category => ({
       _id: category._id,
       name: category.title
     }))
 
-    // PRELOAD and process ALL subcategories at once
     const processedSubcategories = preprocessSubcategories(
       subcategoriesData,
       restaurantData.restaurant.categories
     )
 
-    // PRELOAD ALL FOOD ITEMS
     preloadAllFoodItems(
       restaurantData.restaurant.categories,
       subcategoriesData
@@ -702,7 +653,6 @@ const CategoryPage = ({ route, navigation }) => {
     setTabs(categories)
     setSubCategories(processedSubcategories)
 
-    // Find target category index
     let targetCategoryIndex = 0
     if (category) {
       const ctgryIndex = categories.findIndex(
@@ -725,14 +675,12 @@ const CategoryPage = ({ route, navigation }) => {
     debugLog('=== DATA PRELOADING COMPLETE ===', 'success')
   }
 
-  // FIXED: Handle category selection - SEPARATE FROM GESTURE
   const handleCategoryPress = (displayIndex) => {
     if (!isDataLoaded) {
       debugLog('Data not loaded yet, ignoring category press', 'warning')
       return
     }
 
-    // DON'T check swipeInProgress here - this is for TAP navigation
     const selectedItem = displayTabs[displayIndex]
     const originalIndex = selectedItem.originalIndex
 
@@ -753,14 +701,12 @@ const CategoryPage = ({ route, navigation }) => {
     }, 10)
   }
 
-  // FIXED: Handle subcategory selection - SEPARATE FROM GESTURE
   const handleSubcategoryPress = (displayIndex) => {
     if (!isDataLoaded) {
       debugLog('Data not loaded yet, ignoring subcategory press', 'warning')
       return
     }
 
-    // DON'T check swipeInProgress here - this is for TAP navigation
     const selectedItem = displaySubcategories[displayIndex]
     const originalIndex = selectedItem.originalIndex
 
@@ -769,18 +715,16 @@ const CategoryPage = ({ route, navigation }) => {
     )
 
     setSelectedSubcategoryIndex(originalIndex)
-    
-    // CRITICAL FIX: Don't set isChangingCategory for subcategory taps
-    // This was causing the scroll to be interfered with
+
+
     
     setTimeout(() => {
       scrollSubcategoryToSelected(subcategoryScrollRef, displayIndex, true)
     }, 10)
   }
 
-  // Memorized FlatList component with preloaded data
   const MemoizedFlatList = React.memo(({ data }) => {
-    // Animated items component
+
     const AnimatedItem = ({ index, children }) => {
       const itemOpacity = useRef(new Animated.Value(0)).current
 
@@ -881,7 +825,6 @@ const CategoryPage = ({ route, navigation }) => {
     )
   })
 
-  // Update current food items when selection changes
   useEffect(() => {
     if (isDataLoaded && Object.keys(preloadedFoodItems).length > 0) {
       const foodItems = getCurrentFoodItems()
@@ -890,7 +833,6 @@ const CategoryPage = ({ route, navigation }) => {
     }
   }, [selectedCategoryIndex, selectedSubcategoryIndex, preloadedFoodItems, isDataLoaded])
 
-  // Handle scroll positioning after tabs are set
   useEffect(() => {
     if (isInitialized && isDataLoaded && tabs.length > 0) {
       debugLog(
@@ -918,7 +860,6 @@ const CategoryPage = ({ route, navigation }) => {
     }
   }, [isInitialized, isDataLoaded, tabs.length, subCategories.length, currentTheme.isRTL])
 
-  // UseEffect for preloading data
   useEffect(() => {
     if (restaurantData?.restaurant?.categories && subcategoriesData?.subCategories) {
       setIsInitialized(false)
@@ -931,7 +872,6 @@ const CategoryPage = ({ route, navigation }) => {
     currentTheme.isRTL
   ])
 
-  // Cart animation
   useEffect(() => {
     if (cartCount > 0) {
       Animated.sequence([
@@ -949,7 +889,6 @@ const CategoryPage = ({ route, navigation }) => {
     }
   }, [cartCount])
 
-  // Initial render timer
   useEffect(() => {
     if (initialRender) {
       setTimeout(() => {
@@ -958,7 +897,6 @@ const CategoryPage = ({ route, navigation }) => {
     }
   }, [initialRender])
 
-  // Show skeleton components until data is preloaded
   if (!isDataLoaded || restaurantLoading || subcategoriesLoading) {
     return (
       <View style={[callStyles(currentTheme).container, { flex: 1 }]}>
@@ -1013,7 +951,7 @@ const CategoryPage = ({ route, navigation }) => {
               }
             ]}
           >
-            {/* Category List */}
+            {}
             <View style={{ zIndex: 2 }}>
               <ScrollView
                 horizontal
@@ -1064,7 +1002,7 @@ const CategoryPage = ({ route, navigation }) => {
               </ScrollView>
             </View>
 
-            {/* Subcategory List */}
+            {}
             {displaySubcategories?.length > 0 && (
               <View style={{ zIndex: 2 }}>
                 <ScrollView
@@ -1085,10 +1023,10 @@ const CategoryPage = ({ route, navigation }) => {
                         <TouchableOpacity
                           key={`${sub._id}-${displayIndex}`}
                           style={[
-                            // ✅ CONDITIONAL STYLE BASED ON RTL/LTR
+
                             currentTheme.isRTL 
-                              ? callStyles(currentTheme).subcategoryItem     // RTL: width 120
-                              : callStyles(currentTheme).subcategoryItemltr, // LTR: width 180
+                              ? callStyles(currentTheme).subcategoryItem     
+                              : callStyles(currentTheme).subcategoryItemltr, 
                             isSelected && callStyles(currentTheme).selectedSubcategoryItem,
                             {
                               direction: currentTheme.isRTL ? "rtl" : "ltr",
@@ -1121,7 +1059,7 @@ const CategoryPage = ({ route, navigation }) => {
               </View>
             )}
 
-            {/* Food Items List */}
+            {}
             <ReAnimated.View
               style={[
                 {
@@ -1135,7 +1073,7 @@ const CategoryPage = ({ route, navigation }) => {
             </ReAnimated.View>
           </View>
 
-          {/* Search Overlay */}
+          {}
           <SearchOverlay
             isVisible={isSearchVisible}
             onClose={handleCloseSearch}
@@ -1196,8 +1134,7 @@ const CategoryPage = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: { backgroundColor: '#fff' },
-  
-  // Enhanced Loading Screen Styles
+
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -1241,12 +1178,12 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     gap: 8
   },
-  // Food List
+
   foodList: {
     flex: 1,
     margin: scale(10)
   },
-  // Food Card Skeleton
+
   foodItemContainer: {
     flex: 1,
     marginBottom: 8
@@ -1292,7 +1229,7 @@ const styles = StyleSheet.create({
     height: 14,
     borderRadius: 3
   },
-  // Empty Container
+
   emptyContainer: {
     flex: 1,
     justifyContent: 'center',

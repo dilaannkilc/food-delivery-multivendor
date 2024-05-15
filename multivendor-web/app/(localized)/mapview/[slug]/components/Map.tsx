@@ -35,7 +35,7 @@ const Map: FC<MapProps> = ({ apiKey, data, center }) => {
       const [lng, lat] = data[0].location.coordinates;
       return { lat: Number(lat), lng: Number(lng) };
     }
-    return { lat: 33.6844, lng: 73.0479 }; // Default to Islamabad
+    return { lat: 33.6844, lng: 73.0479 }; 
   }, [data]);
 
 
@@ -55,7 +55,7 @@ const Map: FC<MapProps> = ({ apiKey, data, center }) => {
     <DisplayError />
   ) : (
     <>
-    {/* Light mode */}
+    {}
     <GoogleMap
       mapContainerClassName="block dark:hidden"
       zoom={12} 
@@ -107,14 +107,14 @@ const Map: FC<MapProps> = ({ apiKey, data, center }) => {
       })}
     </GoogleMap>
 
-    {/* Dark mode */}
+    {}
     <GoogleMap
       mapContainerClassName="hidden dark:block"
       zoom={12} 
       center={center || defaultCenter}
       mapContainerStyle={{ width: "100%", height: "100vh" }}
       options={{
-        zoomControl: false, // Disable default zoom controls
+        zoomControl: false, 
         mapTypeControl: false,
         streetViewControl: false,
         fullscreenControl: false,

@@ -1,14 +1,12 @@
-// Core
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FieldArray, Form, Formik, FormikErrors, FormikProps } from 'formik';
 import { Fieldset } from 'primereact/fieldset';
 import React, { useContext, useMemo, useState } from 'react';
 
-// Context
 import { FoodsContext } from '@/lib/context/restaurant/foods.context';
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 
-// Interface and Types
 import {
   IAddon,
   IAddonByRestaurantResponse,
@@ -19,12 +17,10 @@ import {
   IVariationForm,
 } from '@/lib/utils/interfaces';
 
-// Constants and Methods
 import { MAX_PRICE, MIN_PRICE, VariationErrors } from '@/lib/utils/constants';
 import { onErrorMessageMatcher } from '@/lib/utils/methods';
 import { VariationSchema } from '@/lib/utils/schema';
 
-// Components
 import CustomInputSwitch from '@/lib/ui/useable-components/custom-input-switch';
 import CustomMultiSelectComponent from '@/lib/ui/useable-components/custom-multi-select';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
@@ -33,10 +29,8 @@ import AddonAddForm from '../../../add-on/add-form';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import CustomButton from '@/lib/ui/useable-components/button';
 
-// Context
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// API
 import {
   CREATE_FOOD,
   EDIT_FOOD,
@@ -44,10 +38,8 @@ import {
   GET_FOODS_BY_RESTAURANT_ID,
 } from '@/lib/api/graphql';
 
-// Icons
 import { faAdd, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-// Apollo
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { useMutation } from '@apollo/client';
 import { useTranslations } from 'next-intl';
@@ -64,21 +56,19 @@ const initialFormValuesTemplate: IVariationForm = {
 export default function VariationAddForm({
   stepperProps,
 }: IFoodVariationsAddRestaurantComponentProps) {
-  // Props
+
   const { onStepChange, order } = stepperProps ?? {
     onStepChange: () => { },
     type: '',
     order: -1,
   };
-  // Hooks
+
   const t = useTranslations();
   const { theme } = useTheme();
 
-  // State
   const [isAddAddonVisible, setIsAddAddonVisible] = useState(false);
   const [addon, setAddon] = useState<IAddon | null>(null);
 
-  // Context
   const { showToast } = useContext(ToastContext);
   const { onSetFoodContextData, foodContextData, onClearFoodData } =
     useContext(FoodsContext);
@@ -88,7 +78,6 @@ export default function VariationAddForm({
     setOption
   } = useContext(RestaurantLayoutContext);
 
-  // Constants
   const initialValues = {
     variations:
       foodContextData?.isEditing ||
@@ -101,7 +90,6 @@ export default function VariationAddForm({
         ],
   };
 
-  // Query
   const { data, loading } = useQueryGQL(
     GET_ADDONS_BY_RESTAURANT_ID,
     { id: restaurantId },
@@ -147,7 +135,6 @@ export default function VariationAddForm({
     }
   );
 
-  // Memoized Data
   const addonsDropdown = useMemo(
     () =>
       data?.restaurant?.addons.map((addon: IAddon) => {
@@ -156,7 +143,6 @@ export default function VariationAddForm({
     [data?.restaurant?.addons]
   );
 
-  // API Handlers
   function onFetchAddonsByRestaurantCompleted() { }
   function onErrorFetchAddonsByRestaurant() {
     showToast({
@@ -167,7 +153,6 @@ export default function VariationAddForm({
     });
   }
 
-  // Handlers
   const onHandleSubmit = async ({
     variations,
   }: {

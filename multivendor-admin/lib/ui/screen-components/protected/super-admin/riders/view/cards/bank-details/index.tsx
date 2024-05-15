@@ -1,10 +1,8 @@
-// Interfaces
+
 import { IRiderDetailsProps } from '@/lib/utils/interfaces';
 
-// PrimeReact Components
 import { Skeleton } from 'primereact/skeleton';
 
-// Localization
 import { useTranslations } from 'next-intl';
 
 const BankDetails = ({ loading, rider }: IRiderDetailsProps) => {
@@ -16,9 +14,9 @@ const BankDetails = ({ loading, rider }: IRiderDetailsProps) => {
         {t('bank_details')}
       </header>
 
-      {/* columns */}
+      {}
       <div className="grid grid-cols-2 py-5 px-6">
-        {/* left-column */}
+        {}
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-1">
             <span className="text-xs">{t('Bank Name')}</span>
@@ -52,7 +50,7 @@ const BankDetails = ({ loading, rider }: IRiderDetailsProps) => {
           </div>
         </div>
 
-        {/* right-column */}
+        {}
         <div className="flex pl-5 flex-col gap-5">
           <div className="flex flex-col gap-1">
             <span className="text-xs">{t('Account Name')}</span>

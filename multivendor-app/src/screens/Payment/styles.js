@@ -9,7 +9,7 @@ const styles = (props = null) =>
       flex: 1
     },
     paymentMethod: {
-      // backgroundColor: theme.Pink.lightHorizontalLine,
+
       borderRadius: scale(20),
       paddingVertical: scale(10),
       flexDirection: 'row',

@@ -1,12 +1,11 @@
 export const id = {
-  // Navigation
+
   continue: "Lanjutkan",
   Wallet: "Dompet",
   Home: "Beranda",
   Earnings: "Pendapatan",
   Profile: "Profil",
 
-  // FAQs
   faq1: "Bagaimana cara memesan?",
   faq1Description:
     "Untuk memesan, cukup jelajahi menu kami, pilih item yang ingin Anda pesan, dan lanjutkan ke checkout. Anda dapat memilih metode pembayaran dan alamat pengiriman yang diinginkan sebelum mengonfirmasi pesanan.",
@@ -29,7 +28,6 @@ export const id = {
   faq7Description:
     "Sayangnya, Anda tidak dapat memilih dari beberapa restoran dalam pesanan yang sama. Namun, Anda dapat melakukan pesanan terpisah dari restoran yang berbeda pada waktu yang sama.",
 
-  // Earnings
   "Earnings Summary": "Ringkasan Pendapatan",
   Deliveries: "Pengiriman",
   "Total Earnings": "Total Pendapatan",
@@ -39,13 +37,11 @@ export const id = {
   "Order Date": "Tanggal Pesanan",
   "Earnings Order Details": "Detail Pesanan - Pendapatan",
 
-  // Flash messages
   "Order placed successfully": "Pesanan berhasil dilakukan",
   "Order cancelled successfully": "Pesanan berhasil dibatalkan",
   "Error while placing order": "Error saat melakukan pesanan",
   "Error while cancelling order": "Error saat membatalkan pesanan",
 
-  // Other messages
   "Please enter your name": "Silakan masukkan nama Anda",
   "Please enter your email": "Silakan masukkan email Anda",
   "Please enter your password": "Silakan masukkan kata sandi Anda",
@@ -256,7 +252,7 @@ export const id = {
   "No new orders yet!": "Belum ada pesanan baru!",
   "You don't have any orders yet!": "Anda belum memiliki pesanan!",
   "No delivered orders yet!": "Belum ada pesanan yang dikirim!",
-  // Vehicle Screen
+
   "Vehicle Details": "Detail Kendaraan",
   "Vehicle Number": "Nomor Kendaraan",
   "Vehicle Color": "Warna Kendaraan",
@@ -305,14 +301,12 @@ export const id = {
   "Vehicle documents format not supported":
     "Format dokumen kendaraan tidak didukung",
 
-  // Chat Screen
   "Contact Customer": "Hubungi Pelanggan",
   "Type a message": "Ketik pesan",
   Send: "Kirim",
   "Message sent": "Pesan terkirim",
   "Message failed": "Pesan gagal",
 
-  // Earnings Screen
   "Please select a date range": "Silakan pilih rentang tanggal",
   "Please select a start date": "Silakan pilih tanggal mulai",
   "Please select an end date": "Silakan pilih tanggal akhir",
@@ -321,7 +315,6 @@ export const id = {
   "Please log in to view your earnings":
     "Silakan login untuk melihat pendapatan Anda",
 
-  // Profile Forms
   "Unable to update availability": "Tidak dapat memperbarui ketersediaan",
   "rider name": "Nama Rider",
   "rider id": "ID Rider",

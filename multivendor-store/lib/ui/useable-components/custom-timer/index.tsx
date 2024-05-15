@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-// Hooks
 import { useApptheme } from "@/lib/context/theme.context";
 
 interface TimerProps {
-  duration: number; // Duration in seconds
+  duration: number; 
 }
 
 const CountdownTimer: React.FC<TimerProps> = ({ duration }) => {
-  // Hooks
+
   const { appTheme } = useApptheme();
 
-  // States
   const [timeLeft, setTimeLeft] = useState(duration);
 
-  // UseEffects
   useEffect(() => {
     if (timeLeft <= 0) return;
 
@@ -26,7 +23,6 @@ const CountdownTimer: React.FC<TimerProps> = ({ duration }) => {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  // Convert seconds to HH:MM:SS format
   const formatTime = (time: number) => {
     const hours = Math.floor(time / 3600);
     const minutes = Math.floor((time % 3600) / 60);
@@ -102,7 +98,7 @@ const styles = StyleSheet.create({
   timerText: {
     fontSize: 20,
     fontWeight: "bold",
-    // color: "red",
+
   },
   timerTextEnd: {
     fontSize: 20,

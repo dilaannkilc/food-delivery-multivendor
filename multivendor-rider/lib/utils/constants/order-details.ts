@@ -6,10 +6,10 @@ export const map_styles = StyleSheet.create({
       width: "100%",
     },
     backgroundStyle: {
-      //zIndex: 0,
-      backgroundColor: "transparent", // Change to your desired background color
+
+      backgroundColor: "transparent", 
     },
-    // Added error banner styles for user feedback
+
     errorBanner: {
       position: "absolute",
       bottom: 10,

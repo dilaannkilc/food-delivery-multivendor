@@ -82,7 +82,7 @@ export const useChatScreen = ({ navigation, route }) => {
       },
       headerTitleStyle: {
         fontSize: 14,
-        // fontWeight: '700',
+
         color: currentTheme.fontFourthColor
       },
       headerLeft: () => (
@@ -145,8 +145,7 @@ export const useChatScreen = ({ navigation, route }) => {
         name: profile.name
       }
     }
-    
-    // Optimistically update messages
+
     setMessages(previousMessages => [newMessage, ...previousMessages])
     
     send({

@@ -14,7 +14,7 @@ const TrackingStatusWrapper = ({ orderId }: TrackingStatusWrapperProps) => {
     try {
       const response = await axios.get<IOrderTrackingDetail>(`/api/order-tracking/${orderId}`);
       setTrackingDetails(prev => {
-        // Optional shallow comparison to prevent unnecessary re-renders
+
         if (JSON.stringify(prev) !== JSON.stringify(response.data)) {
           return response.data;
         }
@@ -26,9 +26,9 @@ const TrackingStatusWrapper = ({ orderId }: TrackingStatusWrapperProps) => {
   };
 
   useEffect(() => {
-    fetchTrackingDetails(); // Initial fetch
-    const interval = setInterval(fetchTrackingDetails, 30000); // Fetch every 30s
-    return () => clearInterval(interval); // Clean up
+    fetchTrackingDetails(); 
+    const interval = setInterval(fetchTrackingDetails, 30000); 
+    return () => clearInterval(interval); 
   }, [orderId]);
 
   if (!trackingDetails) return <div>Loading tracking info...</div>;

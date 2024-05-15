@@ -1,24 +1,18 @@
 'use client';
-// Core
+
 import { Form, Formik } from 'formik';
 
-// Components
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 import ConfigCard from '../../view/card';
 
-// Toast
 import useToast from '@/lib/hooks/useToast';
 
-// Hooks
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Interfaces and Types
 import { ITwilioForm } from '@/lib/utils/interfaces/configurations.interface';
 
-// Utils and Constants
 import { TwilioValidationSchema } from '@/lib/utils/schema';
 
-// GraphQL
 import {
   GET_CONFIGURATION,
   SAVE_TWILIO_CONFIGURATION,
@@ -27,7 +21,7 @@ import { useMutation } from '@apollo/client';
 import CustomNumberField from '@/lib/ui/useable-components/number-input-field';
 
 const TwilioAddForm = () => {
-  // Hooks
+
   const {
     TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN,

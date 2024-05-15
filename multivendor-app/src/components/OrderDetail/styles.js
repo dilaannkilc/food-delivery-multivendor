@@ -24,7 +24,7 @@ export default StyleSheet.create({
     backgroundColor: theme.themeBackground,
     borderRadius: 20,
     padding: 35,
-    // alignItems: 'center',
+
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

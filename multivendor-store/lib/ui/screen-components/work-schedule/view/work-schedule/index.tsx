@@ -1,7 +1,6 @@
-// Core
+
 import { StyleSheet, Text, View } from "react-native";
 
-// Hooks
 import { useApptheme } from "@/lib/context/theme.context";
 import { WorkSchedule } from "@/lib/utils/interfaces";
 import { Dispatch, SetStateAction } from "react";
@@ -38,7 +37,7 @@ export default function WorkScheduleStack({
   >;
   isTogglingDay: number;
 }) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   return (
@@ -50,7 +49,7 @@ export default function WorkScheduleStack({
         borderColor: appTheme.borderLineColor,
       }}
     >
-      {/* Day Header with Toggle */}
+      {}
       <View className="flex-row justify-between items-center">
         <Text
           className="text-lg font-bold"
@@ -72,7 +71,7 @@ export default function WorkScheduleStack({
         />
       </View>
 
-      {/* Time Slots */}
+      {}
       {item.times.some((t) => !!t) && (
         <View className="mt-2">
           {item.times.map((slot, slotIndex) => {
@@ -90,7 +89,7 @@ export default function WorkScheduleStack({
                 key={slotIndex}
                 className="flex-row items-center justify-between mt-2 gap-x-2"
               >
-                {/* Start Time Button */}
+                {}
                 <TouchableOpacity
                   hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                   onPress={() =>
@@ -118,7 +117,7 @@ export default function WorkScheduleStack({
                   -
                 </Text>
 
-                {/* End Time Button */}
+                {}
                 <TouchableOpacity
                   onPress={() =>
                     setDropdown({
@@ -141,7 +140,7 @@ export default function WorkScheduleStack({
                   </Text>
                 </TouchableOpacity>
 
-                {/* Remove Slot Button */}
+                {}
                 {item.times.length > 1 && slotIndex !== 0 && (
                   <TouchableOpacity
                     onPress={() => removeSlot(index, slotIndex)}
@@ -156,7 +155,7 @@ export default function WorkScheduleStack({
                   </TouchableOpacity>
                 )}
 
-                {/* Add Slot Button */}
+                {}
                 {slotIndex === 0 && (
                   <TouchableOpacity
                     onPress={() => addSlot(index)}

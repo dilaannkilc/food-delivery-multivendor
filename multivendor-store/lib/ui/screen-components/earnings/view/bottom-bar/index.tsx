@@ -1,21 +1,16 @@
-// Contexts
+
 import { useUserContext } from "@/lib/context/global/user.context";
 import { useApptheme } from "@/lib/context/theme.context";
 
-// Interfaces
 import { IEarningBottomProps } from "@/lib/utils/interfaces/earning.interface";
 
-// Icons
 import { Ionicons } from "@expo/vector-icons";
 
-// Expo
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 
-// Core
 import { Text, TouchableOpacity, View } from "react-native";
 
-// React Native Modal
 import ReactNativeModal from "react-native-modal";
 
 export default function EarningBottomBar({
@@ -24,11 +19,10 @@ export default function EarningBottomBar({
   modalVisible,
   setModalVisible,
 }: IEarningBottomProps) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
-  // Contexts
   const { setStoreOrderEarnings } = useUserContext();
   return (
     <ReactNativeModal

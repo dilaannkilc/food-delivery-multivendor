@@ -8,7 +8,6 @@ import {
 } from './global.interface';
 import { IProvider } from './layout.interface';
 
-// Context
 export interface IFoodContextPropData {
   food?: {
     _id: string;
@@ -30,7 +29,6 @@ export interface IFoodContextProps {
 
 export interface IFoodProvider extends IProvider {}
 
-///////////
 export interface IFoodHeaderProps extends IGlobalComponentProps {
   setIsAddFoodVisible: (visible: boolean) => void;
 }
@@ -42,7 +40,6 @@ export interface IFoodAddFormComponentProps extends IGlobalComponentProps {
 
 export interface IFoodMainComponentsProps extends IGlobalComponentProps {}
 
-// Components
 export interface IFoodDetailsComponentProps extends IGlobalComponentProps {
   stepperProps?: IStepperFormProps;
   isFoodFormVisible: boolean;
@@ -56,7 +53,7 @@ export interface IFoodAddonsRestaurantLocationComponentProps
   stepperProps?: IStepperFormProps;
 }
 
-/* API */
+
 export interface IFoodGridItem {
   _id: string;
   title: string;

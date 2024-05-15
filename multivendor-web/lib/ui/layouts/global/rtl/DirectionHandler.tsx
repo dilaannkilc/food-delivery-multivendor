@@ -1,5 +1,4 @@
 
-// components/DirectionHandler.tsx
 "use client";
 
 import { useLocale } from "next-intl";

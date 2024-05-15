@@ -1,20 +1,15 @@
-// Core
+
 import { useContext, useState } from 'react';
 
-// Prime React
 import { FilterMatchMode } from 'primereact/api';
 
-// Interface and Types
 
-// Components
 import Table from '@/lib/ui/useable-components/table';
 import { OPTION_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/option-columns';
 
-// Utilities and Data
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
 import { IActionMenuItem } from '@/lib/utils/interfaces/action-menu.interface';
 
-//Toast
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import useToast from '@/lib/hooks/useToast';
 import {
@@ -24,7 +19,6 @@ import {
   IQueryResult,
 } from '@/lib/utils/interfaces';
 
-// GraphQL
 import { DELETE_OPTION, GET_OPTIONS_BY_RESTAURANT_ID } from '@/lib/api/graphql';
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 import { generateDummyOptions } from '@/lib/utils/dummy';
@@ -36,15 +30,13 @@ export default function OptionMain({
   setIsAddOptionsVisible,
   setOption,
 }: IOptionsMainComponentsProps) {
-  // Context
+
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
 
-  // Hooks
   const t = useTranslations();
   const { showToast } = useToast();
 
-  // State - Table
   const [deleteId, setDeleteId] = useState('');
   const [selectedProducts, setSelectedProducts] = useState<IOptions[]>([]);
   const [globalFilterValue, setGlobalFilterValue] = useState('');
@@ -52,7 +44,6 @@ export default function OptionMain({
     global: { value: '' as string | null, matchMode: FilterMatchMode.CONTAINS },
   });
 
-  // Query
   const { data, loading } = useQueryGQL(
     GET_OPTIONS_BY_RESTAURANT_ID,
     { id: restaurantId },
@@ -64,7 +55,6 @@ export default function OptionMain({
     }
   ) as IQueryResult<IOptionsByRestaurantResponse | undefined, undefined>;
 
-  //Mutation
   const [deleteCategory, { loading: mutationLoading }] = useMutation(
     DELETE_OPTION,
     {
@@ -81,7 +71,6 @@ export default function OptionMain({
     }
   );
 
-  // Handlers
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const _filters = { ...filters };
@@ -90,7 +79,6 @@ export default function OptionMain({
     setGlobalFilterValue(value);
   };
 
-  // Complete and Error
   function onFetchCategoriesByRestaurantCompleted() {}
   function onErrorFetchCategoriesByRestaurant() {
     showToast({
@@ -101,7 +89,6 @@ export default function OptionMain({
     });
   }
 
-  // Constants
   const menuItems: IActionMenuItem<IOptions>[] = [
     {
       label: t('Edit'),

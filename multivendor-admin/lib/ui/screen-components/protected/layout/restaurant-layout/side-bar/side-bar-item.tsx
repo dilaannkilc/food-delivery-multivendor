@@ -1,19 +1,16 @@
-// Core
+
 import { usePathname, useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
-// Icons
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-// Interface & Types
 import {
   ISidebarMenuItem,
   LayoutContextProps,
   SubMenuItemProps,
 } from '@/lib/utils/interfaces';
 
-// Styles
 import classes from './side-bar.module.css';
 import { LayoutContext } from '@/lib/context/global/layout.context';
 
@@ -47,24 +44,21 @@ export default function SidebarItem({
   isParent,
   isClickable,
 }: ISidebarMenuItem) {
-  // States
+
   const [expandSubMenu, setExpandSubMenu] = useState(false);
   const { showRestaurantSidebar } =
     useContext<LayoutContextProps>(LayoutContext);
 
-  // Hooks
   const pathname = usePathname();
   const router = useRouter();
 
-  // use Effect
   useEffect(() => {
     if (!expanded) {
       setExpandSubMenu(false);
     }
   }, [expanded]);
 
-  // Constants
-  // Calculate the height of the sub-menu assuming each item is 40px tall
+
   const subMenuHeight = expandSubMenu
     ? `${((subMenu?.length || 0) * 40 + (subMenu! && 15)).toString()}px`
     : 0;

@@ -118,9 +118,9 @@ const useRegister = () => {
   function onCompleted({ phoneExist }) {
     console.log('phoneExist', phoneExist)
     if (phoneExist  && phoneExist?.phone) {
-      // FlashMessage({
-      //   message: t('phoneNumberExist')
-      // })
+
+
+
 
       Alert.alert(
         '',
@@ -162,28 +162,28 @@ const useRegister = () => {
 
   function onError(error) {
     try {
-      // if (error.graphQLErrors[0]?.extensions?.exception.messageCode === 'NETWORK_ERROR') {
-      //   Alert.alert(
-      //     '',
-      //     t('restaurantClosed'),
-      //     [
-      //       {
-      //         text: t('close'),
-      //         onPress: () => {},
-      //         style: 'cancel'
-      //       },
-      //       {
-      //         text: t('Confirm'),
-      //         onPress: () => {}
-      //       }
-      //     ],
-      //     { cancelable: true }
-      //   )
-      // } else {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       FlashMessage({
         message: error.graphQLErrors[0].message
       })
-      // }
+
     } catch (e) {
       FlashMessage({
         message: t('phoneCheckingError')

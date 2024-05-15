@@ -13,33 +13,28 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 export const LocationContext = React.createContext({} as ILocationContext);
 
 export const LocationProvider = ({ children }: ILocationProvider) => {
-  // State
+
   const [location, setLocation] = useState<ILocation | null>(null);
 
   const [cities, setCities] = useState<IArea[] | []>([]);
 
-  // Ref
   const isInitialRender = useRef(true);
 
-  // Hooks
   const isOnline = useNetworkStatus();
 
-  // API
   const { loading, error, data, refetch } = useQuery(GET_ZONES);
 
-  // Effects
 
   useEffect(() => {
     if (!loading && !error && data) {
       const fetchedZones = data.zones || [];
 
-      // Function to calculate centroid of a polygon
       const calculateCentroid = (coordinates: number[][][]) => {
         let x = 0,
           y = 0,
           area = 0;
 
-        const points = coordinates[0]; // Assuming the first array contains the coordinates
+        const points = coordinates[0]; 
 
         for (let i = 0; i < points?.length - 1; i++) {
           const x0 = points[i][0];
@@ -59,7 +54,6 @@ export const LocationProvider = ({ children }: ILocationProvider) => {
         return { latitude: y, longitude: x };
       };
 
-      // Calculate centroids for each zone
       const centroids = fetchedZones.map((zone: IMapZone) => {
         const centroid = calculateCentroid(zone.location.coordinates);
         return {
@@ -70,14 +64,13 @@ export const LocationProvider = ({ children }: ILocationProvider) => {
         };
       });
 
-      // Set this as the cities or the midpoint
       setCities(centroids);
     }
   }, [loading, error, data]);
 
   useEffect(() => {
     if (isOnline) {
-      refetch(); // Refetch the data when the internet is back
+      refetch(); 
     }
   }, [isOnline, refetch]);
 

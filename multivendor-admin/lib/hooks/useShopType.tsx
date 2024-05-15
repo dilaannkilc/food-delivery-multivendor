@@ -14,7 +14,7 @@ export const useShopTypes = (
     transform_to_dropdown_list: false,
   }
 ): IUseShopTypesHookResponse => {
-  // Props
+
   const { invoke_now, transform_to_dropdown_list } = props;
 
   const { data, loading, fetch } = useLazyQueryQL(GET_SHOP_TYPES, {
@@ -22,7 +22,6 @@ export const useShopTypes = (
     debounceMs: 5000,
   }) as ILazyQueryResult<IGetShopTypesData | undefined, undefined>;
 
-  // Handler
   const fetchShopTypes = () => {
     fetch();
   };
@@ -37,7 +36,6 @@ export const useShopTypes = (
     return [];
   }, [data?.fetchShopTypes]);
 
-  // Use Effect
   useEffect(() => {
     if (invoke_now) {
       fetchShopTypes();

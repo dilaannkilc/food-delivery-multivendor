@@ -18,12 +18,11 @@ function TrackingOrderDetails({
   const [setshowCancelOrderSuccessModal, setSetshowCancelOrderSuccessModal] =
     useState(orderTrackingDetails?.orderStatus === "CANCELLED" ? true : false);
   const { CURRENCY_SYMBOL } = useConfig();
-  // Format currency values
+
   const formatCurrency = (amount: number) => {
     return `${CURRENCY_SYMBOL}${amount?.toFixed(2) || "0.00"}`;
   };
 
-  // set orderTrackingDetails.restaurant._id in local storage
   const restaurantId = orderTrackingDetails?.restaurant?._id;
   if (restaurantId) {
     onUseLocalStorage("save", "orderTrackingRestaurantId", restaurantId);
@@ -46,7 +45,6 @@ function TrackingOrderDetails({
     }, 0);
   };
 
-  // Calculate subtotal (items only)
   const calculateSubtotal = () => {
     if (!orderTrackingDetails?.items) return 0;
 
@@ -55,18 +53,15 @@ function TrackingOrderDetails({
     }, 0);
   };
 
-  // console.log("order detail..",orderTrackingDetails);
 
-  // // Calculate total
-  // const calculateTotal = () => {
-  //   const subtotal = calculateSubtotal();
-  //   const deliveryCharge = orderTrackingDetails?.deliveryCharges || 0;
-  //   const tax = orderTrackingDetails?.taxationAmount || 0;
-  //   const tip = orderTrackingDetails?.tipping || 0;
-  //   const addons = calculateTotalAddonPrice();
 
-  //   return subtotal + deliveryCharge + tax + tip + addons;
-  // };
+
+
+
+
+
+
+
 
   const calculateItemTotal = (item: any) => {
     const variationPrice = item.variation.price || 0;
@@ -83,7 +78,6 @@ function TrackingOrderDetails({
     return (variationPrice + addonsPrice) * item.quantity;
   };
 
-  // Check if order can be cancelled (only PENDING or ACCEPTED)
   const canCancelOrder = () => {
     const cancellableStatuses = ["PENDING"];
     return cancellableStatuses.includes(orderTrackingDetails?.orderStatus);
@@ -96,8 +90,8 @@ function TrackingOrderDetails({
       </div>
     );
   }
-  // Get Order instructions from local storage
-  // const orderInstructions = localStorage.getItem("newOrderInstructions");
+
+
 
   const orderInstructions =
     orderTrackingDetails?.instructions ||
@@ -123,7 +117,7 @@ function TrackingOrderDetails({
           {t("order_details_heading")}
         </h3>
 
-        {/* Display each food item under Order Details */}
+        {}
         {orderTrackingDetails.items?.map((item, index) => (
           <div
             key={item._id || index}
@@ -151,7 +145,7 @@ function TrackingOrderDetails({
                   {item.description?.length > 50 ? "..." : ""}
                 </p>
 
-                {/* Display addons */}
+                {}
                 {item.addons && item.addons.length > 0 && (
                   <div className="mt-1">
                     {item.addons.map((addon, addonIndex) => (
@@ -187,7 +181,7 @@ function TrackingOrderDetails({
           {orderInstructions}
         </p>
       </div>
-      {/* Items Summary */}
+      {}
       <div>
         <h3 className="text-lg font-semibold mb-4 dark:text-gray-100">
           {t("order_details_summary_label")} (
@@ -195,7 +189,7 @@ function TrackingOrderDetails({
           {t("order_details_items_label")})
         </h3>
         <div className="text-sm text-gray-700 dark:text-gray-300 space-y-3">
-          {/* Display each item with quantity and price */}
+          {}
           {orderTrackingDetails.items?.map((item, idx) => (
             <div key={`summary-item-${idx}`} className="flex justify-between">
               <span>
@@ -207,7 +201,7 @@ function TrackingOrderDetails({
             </div>
           ))}
 
-          {/* Subtotal and charges */}
+          {}
           <div className="flex justify-between pt-2 border-t dark:border-gray-700">
             <span>{t("order_details_subtotal_label")}</span>
             <span>{formatCurrency(calculateSubtotal())}</span>
@@ -256,7 +250,7 @@ function TrackingOrderDetails({
         </div>
       </div>
 
-      {/* Payment Info */}
+      {}
       <div className="border rounded-md p-4 dark:border-gray-700">
         <h4 className="font-semibold mb-2 dark:text-gray-100">
           {t("order_details_paid_with_label")}
@@ -276,7 +270,7 @@ function TrackingOrderDetails({
         </div>
       </div>
 
-      {/* Cancel Button - only show for pending/accepted orders */}
+      {}
       {canCancelOrder() && (
         <div className="text-center">
           <button
@@ -288,7 +282,7 @@ function TrackingOrderDetails({
         </div>
       )}
 
-      {/* Cancel Order Modal */}
+      {}
       <CancelOrderModal
         visible={isCancelModalVisible}
         onHide={() => {

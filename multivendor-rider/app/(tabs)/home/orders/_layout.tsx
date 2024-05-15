@@ -1,20 +1,18 @@
-// Expo
+
 import { Tabs } from "expo-router";
 
-// Core
 import { Platform, Pressable, Text, View } from "react-native";
 
-// Hooks
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { useTranslation } from "react-i18next";
 
 export default function Layout() {
-  // Hooks
+
   const { t } = useTranslation();
   const { appTheme } = useApptheme();
   return (
     <Tabs
-      // initialRouteName="processing"
+
       screenOptions={{
         tabBarIcon: () => null,
         tabBarActiveTintColor: appTheme.primary,
@@ -28,9 +26,9 @@ export default function Layout() {
             className="w-full"
             style={{
               alignItems: "center",
-              borderBottomWidth: focused ? 2 : 0, // Bottom border when selected
-              borderBottomColor: focused ? appTheme.primary : "transparent", // Black border for active tab
-              paddingBottom: 8, // Space between text and border
+              borderBottomWidth: focused ? 2 : 0, 
+              borderBottomColor: focused ? appTheme.primary : "transparent", 
+              paddingBottom: 8, 
 
               backgroundColor: appTheme.themeBackground,
             }}
@@ -52,10 +50,10 @@ export default function Layout() {
           return (
             <Pressable
               {...props}
-              android_ripple={{ color: "transparent" }} // Remove ripple on Android
+              android_ripple={{ color: "transparent" }} 
               style={({ pressed }) => [
                 props.style,
-                { opacity: pressed ? 1 : 1 }, // Remove opacity change on iOS
+                { opacity: pressed ? 1 : 1 }, 
               ]}
             />
           );
@@ -63,7 +61,7 @@ export default function Layout() {
         tabBarPosition: "bottom",
         tabBarItemStyle: {
           height: 40,
-          // backgroundColor: "transparent",
+
           backgroundColor: appTheme.themeBackground,
         },
 

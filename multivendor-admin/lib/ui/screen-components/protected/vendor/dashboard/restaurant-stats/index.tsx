@@ -1,37 +1,32 @@
 import { useContext, useMemo } from 'react';
-// Component
+
 import { GET_VENDOR_DASHBOARD_STATS_CARD_DETAILS } from '@/lib/api/graphql/queries/dashboard';
 import StatsCard from '@/lib/ui/useable-components/stats-card';
 
-// Hooks
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Interface & Types
 import {
   IDashboardOrderStatsComponentsProps,
   IQueryResult,
   IVendorDashboardStatsCardDetailsResponseGraphQL,
 } from '@/lib/utils/interfaces';
 
-// Icons
 import {
   faShoppingCart,
   faShop,
   faTruck,
 } from '@fortawesome/free-solid-svg-icons';
 
-// Context
 import { VendorLayoutContext } from '@/lib/context/vendor/layout-vendor.context';
 import { useTranslations } from 'next-intl';
 
 export default function RestaurantStats({
   dateFilter,
 }: IDashboardOrderStatsComponentsProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const {
     vendorLayoutContextData: { vendorId },
   } = useContext(VendorLayoutContext);

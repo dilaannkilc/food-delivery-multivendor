@@ -77,7 +77,7 @@ const ReviewsModal = ({
       <div className="p-4 md:p-8 space-y-6">
         {hasReviews ? (
           <>
-            {/* Average Rating & Breakdown */}
+            {}
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 border border-gray-300 dark:border-gray-700 p-4 rounded-md shadow-sm bg-white dark:bg-gray-900">
               <div className="w-full md:w-1/3">
                 <h1 className="text-3xl md:text-5xl font-semibold text-gray-700 dark:text-gray-200">
@@ -122,7 +122,7 @@ const ReviewsModal = ({
               </div>
             </div>
 
-            {/* Individual Reviews */}
+            {}
             <div className="space-y-4">
               {reviewResult.reviews.map((review) => (
                 <div

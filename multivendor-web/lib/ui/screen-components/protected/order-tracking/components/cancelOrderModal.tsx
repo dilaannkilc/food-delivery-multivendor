@@ -21,7 +21,7 @@ function CancelOrderModal({
   onSuccess,
 }: CancelOrderModalProps) {
   const { showToast } = useToast();
-  const { authToken } = useAuth(); // Get auth context for authentication
+  const { authToken } = useAuth(); 
   const t = useTranslations();
 
   const [abortOrder, { loading }] = useMutation(ABORT_ORDER, {
@@ -34,7 +34,7 @@ function CancelOrderModal({
       });
       console.log("onSuccess is called");
       onSuccess();
-      // Refresh the order tracking page to show the updated status
+
     },
     onError: (error) => {
       console.error("Abort order error:", error);
@@ -49,10 +49,10 @@ function CancelOrderModal({
         message: error.message || t("unable_to_cancel_order_message"),
       });
     },
-    // Ensure token is sent with the request
+
     context: {
       headers: {
-        Authorization: authToken ? `Bearer ${authToken}` : "", // Changed to uppercase 'Authorization'
+        Authorization: authToken ? `Bearer ${authToken}` : "", 
       },
     },
   });

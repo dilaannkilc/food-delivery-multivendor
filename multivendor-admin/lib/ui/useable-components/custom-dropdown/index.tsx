@@ -1,8 +1,7 @@
 'use client';
-// Interface
+
 import { IDropdownComponentProps } from '@/lib/utils/interfaces';
 
-// Prime React
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import InputSkeleton from '../custom-skeletons/inputfield.skeleton';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';

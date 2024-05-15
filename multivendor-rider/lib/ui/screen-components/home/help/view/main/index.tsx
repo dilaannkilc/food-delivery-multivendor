@@ -15,7 +15,7 @@ import {
 import HelpAccordian from "../../accordian";
 
 export default function HelpMain() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 

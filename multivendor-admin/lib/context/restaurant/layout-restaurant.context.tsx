@@ -1,9 +1,7 @@
 'use client';
 
-// Core
 import { createContext, useState } from 'react';
 
-// Interface
 import {
   ICategory,
   IOptions,
@@ -13,18 +11,16 @@ import {
   RestaurantLayoutContextProps,
 } from '@/lib/utils/interfaces';
 
-// Utils
 import { SELECTED_RESTAURANT, SELECTED_SHOPTYPE } from '../../utils/constants';
 import { onUseLocalStorage } from '../../utils/methods';
 
-// Types
 export const RestaurantLayoutContext =
   createContext<RestaurantLayoutContextProps>(
     {} as RestaurantLayoutContextProps
   );
 
 export const RestaurantLayoutProvider = ({ children }: IProvider) => {
-  // States
+
   const [isAddOptionsVisible, setIsAddOptionsVisible] = useState(false);
   const [option, setOption] = useState<IOptions | null>(null);
   const [restaurantLayoutContextData, setRestaurantLayoutContextData] =
@@ -42,7 +38,6 @@ export const RestaurantLayoutProvider = ({ children }: IProvider) => {
   const [subCategories, setSubCategories] = useState<ISubCategory[]>([]);
   const [subCategoryParentId, setSubCategoryParentId] = useState<string>('');
 
-  // Handlers
   const onSetRestaurantLayoutContextData = (
     data: Partial<RestaurantLayoutContextData>
   ) => {

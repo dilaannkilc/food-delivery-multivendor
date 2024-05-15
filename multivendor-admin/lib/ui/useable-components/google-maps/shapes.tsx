@@ -10,7 +10,7 @@ export default function CustomShape({
   onClick,
   hidenNames = [],
 }: ICustomShapeComponentProps) {
-  // Hooks
+
   const t = useTranslations();
   const { theme } = useTheme();
 

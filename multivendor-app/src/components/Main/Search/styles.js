@@ -64,8 +64,8 @@ const styles = (props = null, newheaderColor = theme.headerMenuBackground) =>
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: props?.isRTL ? 'row-reverse' : 'row'
-      // borderColor: 'white',
-      // borderWidth: 2
+
+
     }
   })
 export default styles

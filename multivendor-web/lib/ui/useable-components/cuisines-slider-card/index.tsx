@@ -1,15 +1,15 @@
 "use client";
-// core
+
 import React, { useEffect, useState } from "react";
 import { Carousel } from "primereact/carousel";
-// interfaces
+
 import { CuisinesSliderCardComponent } from "@/lib/utils/interfaces";
-// icons
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-// router
+
 import { useRouter, usePathname } from "next/navigation";
-// ui components
+
 import SquareCard from "../square-card";
 import CustomButton from "../button";
 import { useTranslations } from "next-intl";
@@ -63,14 +63,12 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
     setPage((prevPage) => (prevPage > 0 ? prevPage - numScroll : maxPage));
   };
 
-  // Handle resize
   useEffect(() => {
     const handleResize = () => setNumVisible(getNumVisible());
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Auto-scroll logic
   useEffect(() => {
     if (data.length <= numVisible || userInteracted) return;
 
@@ -82,7 +80,6 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
     return () => clearInterval(interval);
   }, [data.length, numVisible, userInteracted]);
 
-  // Resume auto-scroll after 30s
   useEffect(() => {
     if (!userInteracted) return;
     const timeout = setTimeout(() => setUserInteracted(false), 30000);
@@ -93,7 +90,6 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
     router.push(`/see-all/${title?.toLocaleLowerCase().replace(/\s/g, "-")}`);
   };
 
-  // Check if RTL (client-side only)
   const [isRTL, setIsRTL] = useState(false);
   useEffect(() => {
     setIsRTL(document.documentElement.dir === "rtl");
@@ -164,7 +160,7 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
         
           <Carousel
             value={data}
-            className={`discovery-carousel ${isRTL ? "rtl-carousel" : ""}`} // Add RTL class
+            className={`discovery-carousel ${isRTL ? "rtl-carousel" : ""}`} 
             itemTemplate={(item) => (
               <SquareCard item={item} showLogo={showLogo} cuisines={cuisines} shoptype={shopTypes} />
             )}

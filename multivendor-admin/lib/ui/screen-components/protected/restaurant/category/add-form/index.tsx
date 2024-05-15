@@ -1,11 +1,9 @@
-// Core
+
 import { FieldArray, Form, Formik } from 'formik';
 
-// Prime React
 import { Sidebar } from 'primereact/sidebar';
 import { Fieldset } from 'primereact/fieldset';
 
-// Interface, Types & Schema
 import { ICategoryForm } from '@/lib/utils/interfaces/forms';
 import {
   ICategoryAddFormComponentProps,
@@ -14,20 +12,16 @@ import {
 } from '@/lib/utils/interfaces';
 import { CategorySchema } from '@/lib/utils/schema';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/upload-image';
 
-// Utilities and Constants
 import { CategoryErrors } from '@/lib/utils/constants';
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 
-//Toast
 import useToast from '@/lib/hooks/useToast';
 
-//GraphQL
 import {
   CREATE_CATEGORY,
   EDIT_CATEGORY,
@@ -35,13 +29,10 @@ import {
 } from '@/lib/api/graphql';
 import { DELETE_SUB_CATEGORY } from '@/lib/api/graphql/mutations/sub-category';
 
-// Contexts
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 
-// Icons
 import { faAdd, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-// Hooks
 import { useMutation, useQuery } from '@apollo/client';
 import { useContext, useEffect } from 'react';
 import {
@@ -59,9 +50,9 @@ export default function CategoryAddForm({
   isAddCategoryVisible,
   onCategoryAdded,
 }: ICategoryAddFormComponentProps & { onCategoryAdded?: () => void }) {
-  // Hooks
+
   const t = useTranslations();
-  // Queries
+
   const {
     data: subCategories,
     loading: subCategoriesLoading,
@@ -76,17 +67,15 @@ export default function CategoryAddForm({
 
   const shopType = onUseLocalStorage('get', "shopType")
 
-  // Fetch all categories for duplicate check
   const {
     data: allCategoriesData,
-    // loading: allCategoriesLoading,
+
   } = useQuery(GET_CATEGORY_BY_RESTAURANT_ID, {
     variables: { id: restaurantId },
     skip: !restaurantId,
     fetchPolicy: 'cache-first',
   });
 
-  // StateS
   const initialValues: ICategoryForm = {
     _id: '',
     title: '',
@@ -98,15 +87,11 @@ export default function CategoryAddForm({
     ...category,
   };
 
-  // Hooks
   const { showToast } = useToast();
 
-  // Context
 
-  // const shopType = restaurantLayoutContextData?.shopType || '';
-  // console.log("🚀 ~ shopType:", shopType)
 
-  // Mutations
+
   const [deleteSubCategory, { loading: deleteSubCategoryLoading }] =
     useMutation(DELETE_SUB_CATEGORY, {
       refetchQueries: [
@@ -155,7 +140,7 @@ export default function CategoryAddForm({
           message: `${t('Category has been')} ${category ? t('edited') : t('added')} ${t('successfully')}.`,
           duration: 3000,
         });
-        // Call the callback to notify parent to refetch categories
+
         if (onCategoryAdded) onCategoryAdded();
         onHide();
       },
@@ -176,9 +161,8 @@ export default function CategoryAddForm({
     }
   );
 
-  // Form Submission
   const handleSubmit = async (values: ICategoryForm) => {
-    // Duplicate name check (case-insensitive, ignore self if editing)
+
     const allCategories =
       allCategoriesData?.restaurant?.categories || [];
     const isDuplicate = allCategories.some(
@@ -297,7 +281,7 @@ export default function CategoryAddForm({
                                 }} maxFileSize={0} maxFileWidth={1980} maxFileHeight={1080} fileTypes={[]} />
                             </div>
                           )}
-                          {/* Sub Categories  */}
+                          {}
                           {shopType == 'grocery' && (
                             <FieldArray name="subCategories">
                               {({ remove, push }) => (
@@ -324,7 +308,7 @@ export default function CategoryAddForm({
                                             toggleable
                                             className="my-1"
                                           >
-                                            {/* Sub-Category Field and Remove Button */}
+                                            {}
                                             <div className="flex-col justify-center items-center">
                                               <TextIconClickable
                                                 icon={
@@ -359,7 +343,7 @@ export default function CategoryAddForm({
                                               />
                                             </div>
                                           </Fieldset>
-                                          {/* Add More Button */}
+                                          {}
                                           {index ===
                                             values.subCategories.length - 1 &&
                                             !category && (

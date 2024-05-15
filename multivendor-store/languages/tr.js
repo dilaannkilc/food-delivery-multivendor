@@ -1,12 +1,11 @@
 export const tr = {
-  // Navigation
+
   continue: "Devam Et",
   Wallet: "Cüzdan",
   Home: "Ana Sayfa",
   Earnings: "Kazançlar",
   Profile: "Profil",
 
-  // FAQs
   faq1: "Nasıl sipariş verebilirim?",
   faq1Description:
     "Sipariş vermek için menümüzü inceleyin, sipariş etmek istediğiniz ürünleri seçin ve ödeme işlemine geçin. Siparişinizi onaylamadan önce tercih ettiğiniz ödeme yöntemini ve teslimat adresini seçebilirsiniz.",
@@ -29,7 +28,6 @@ export const tr = {
   faq7Description:
     "Maalesef aynı sipariş içinde birden fazla restorandan seçim yapamazsınız. Ancak aynı anda farklı restoranlardan ayrı siparişler verebilirsiniz.",
 
-  // Earnings
   "Earnings Summary": "Kazanç Özeti",
   Deliveries: "Teslimatlar",
   "Total Earnings": "Toplam Kazanç",
@@ -39,13 +37,11 @@ export const tr = {
   "Order Date": "Sipariş Tarihi",
   "Earnings Order Details": "Kazanç Sipariş Detayları",
 
-  // Flash messages
   "Order placed successfully": "Sipariş başarıyla verildi",
   "Order cancelled successfully": "Sipariş başarıyla iptal edildi",
   "Error while placing order": "Sipariş verilirken hata oluştu",
   "Error while cancelling order": "Sipariş iptal edilirken hata oluştu",
 
-  // Other messages
   "Please enter your name": "Lütfen adınızı girin",
   "Please enter your email": "Lütfen e-postanızı girin",
   "Please enter your password": "Lütfen şifrenizi girin",

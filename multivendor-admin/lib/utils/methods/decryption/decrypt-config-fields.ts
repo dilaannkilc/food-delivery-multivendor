@@ -1,7 +1,6 @@
 import { IConfiguration } from '../../interfaces';
 import { decrypt } from './decrypt';
 
-// Extract only keys that are string (or string | undefined)
 type StringKeys<T> = {
   [K in keyof T]: T[K] extends string | undefined ? K : never;
 }[keyof T];
@@ -54,12 +53,11 @@ export const decryptConfigFields = async (
 
   const decrypted: IConfiguration = { ...config };
 
-  // Loop and decrypt each field asynchronously
   for (const key of encryptedKeys) {
     if (key && typeof decrypted[key] === 'string') {
       const value = decrypted[key] as string;
       try {
-        decrypted[key] = (await decrypt(value)) as string; // cast safely
+        decrypted[key] = (await decrypt(value)) as string; 
       } catch {
         decrypted[key] = value;
       }

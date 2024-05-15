@@ -1,4 +1,4 @@
-// Core
+
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   Keyboard,
@@ -10,43 +10,33 @@ import {
 } from "react-native";
 import FormHeader from "../form-header";
 
-// React Native Calendars
-// import { Calendar, DateData } from 'react-native-calendars'
 
-// RNC Calendar
+
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 
-// Flash Message
 import { showMessage } from "react-native-flash-message";
 
-// Icons
 import { UploadIcon } from "@/lib/assets/svg";
 import { Ionicons } from "@expo/vector-icons";
 
-// Components
 import { CustomContinueButton } from "@/lib/ui/useable-components";
 
-// Expo
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { Link } from "expo-router";
 
-// Skeleton
 import { MotiView } from "moti";
 import { Skeleton } from "moti/skeleton";
 
-// Hooks
 import { useUserContext } from "@/lib/context/global/user.context";
 import { useMutation } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 
-// GraphQL
 import { UPDATE_LICENSE, UPLOAD_IMAGE_TO_S3 } from "@/lib/apollo/mutations/rider.mutation";
 import { RIDER_PROFILE } from "@/lib/apollo/queries";
 
-// Interfaces
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { TRiderProfileBottomBarBit } from "@/lib/utils/types/rider";
 
@@ -57,18 +47,17 @@ export default function DrivingLicenseForm({
 }: {
   setIsFormOpened: Dispatch<SetStateAction<TRiderProfileBottomBarBit>>;
 }) {
-  // Hooks
+
   const { t } = useTranslation();
   const { userId, dataProfile } = useUserContext();
   const { appTheme } = useApptheme();
 
-  // States
   const [isLoading, setIsLoading] = useState({
     isUploading: false,
     isCalendarVisible: false,
     isSubmitting: false,
   });
-  // const [date, setDate] = useState(new Date());
+
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
@@ -85,7 +74,6 @@ export default function DrivingLicenseForm({
     message: null,
   });
 
-  // Mutations
   const [uploadImageToS3] = useMutation(UPLOAD_IMAGE_TO_S3);
   
   const [mutateLicense] = useMutation(UPDATE_LICENSE, {
@@ -110,7 +98,6 @@ export default function DrivingLicenseForm({
     refetchQueries: [{ query: RIDER_PROFILE, variables: { id: userId } }],
   });
 
-  // Handlers
   const pickImage = async () => {
     try {
       setIsLoading((prev) => ({
@@ -175,7 +162,7 @@ export default function DrivingLicenseForm({
     const currentDate = selectedDate;
     setShow(false);
     if (currentDate) {
-      // setDate(currentDate);
+
       setFormData((prev) => ({
         ...prev,
         expiryDate: currentDate,
@@ -183,7 +170,6 @@ export default function DrivingLicenseForm({
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const showMode = (currentMode: any) => {
     setShow(true);
     setMode(currentMode);
@@ -193,7 +179,6 @@ export default function DrivingLicenseForm({
     showMode("date");
   };
 
-  // Handlers
   const handleInputChange = (name: string, value: string | Date) => {
     setFormData({ ...formData, [name]: value });
   };
@@ -251,7 +236,6 @@ export default function DrivingLicenseForm({
     }
   };
 
-  // UseEffects
   useEffect(() => {
     setFormData({
       expiryDate: dataProfile?.licenseDetails?.expiryDate
@@ -293,10 +277,10 @@ export default function DrivingLicenseForm({
                 </Text>
                 <TouchableOpacity
                   onPress={() => {
-                    // setIsLoading((prev) => ({
-                    //   ...prev,
-                    //   isCalendarVisible: true,
-                    // }))
+
+
+
+
                     showDatepicker();
                     Keyboard.dismiss();
                   }}

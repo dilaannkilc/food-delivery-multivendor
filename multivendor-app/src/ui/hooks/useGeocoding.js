@@ -10,15 +10,14 @@ const useGeocoding = () => {
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_KEY}&language=en`
       )
 
-      // Check if the response is successful and contains results
       if (
         response.data &&
         response.data.results &&
         response.data.results.length > 0
       ) {
-        // Extract the formatted address from the first result
+
         const formattedAddress = response.data.results[0].formatted_address
-        // Search through all results to find the best city match
+
         let city = null
 
         for (const result of response.data.results) {

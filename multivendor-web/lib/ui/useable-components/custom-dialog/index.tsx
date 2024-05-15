@@ -12,7 +12,7 @@ export default function CustomDialog({
   showCloseButton = true,
   className = "",
 }: ICustomDialogProps) {
-  // get the RTL direction
+
   const direction = document.documentElement.getAttribute("dir") || "ltr";
   return (
     <Dialog
@@ -26,7 +26,7 @@ export default function CustomDialog({
       style={{ maxWidth: width, borderRadius: "0.75rem", height: height }}
     >
       <div className="relative">
-        {/* Close button */}
+        {}
         {showCloseButton && (
           <span
             onClick={onHide}
@@ -36,7 +36,7 @@ export default function CustomDialog({
           </span>
         )}
 
-        {/* Just render the children passed to the dialog */}
+        {}
         <div className="pt-10">{children}</div>
       </div>
     </Dialog>

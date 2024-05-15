@@ -29,20 +29,20 @@ const styles = (props = null) =>
     horizontalLine: {
       borderBottomColor: theme.Pink.tagColor,
       borderBottomWidth: 1,
-      marginVertical: 10, // Adjust this value to control the spacing above and below the line
+      marginVertical: 10, 
       width: '90%',
       alignSelf: 'center',
       marginBottom: 30
     },
     address: {
       ...alignment.MTxSmall
-      //...alignment.MBsmall
-      //backgroundColor: '#112233'
+
+
     },
     addressContainer: {
       paddingTop: 0,
       width: '100%',
-      //shadowOffset: { width: 0, height: scale(2) },
+
       shadowColor: props !== null ? props?.verticalLine : '#D1D5DB',
       shadowOpacity: 0.3,
       shadowRadius: scale(1),
@@ -61,7 +61,6 @@ const styles = (props = null) =>
       ...alignment.MTmedium,
       ...alignment.MBmedium
 
-      //backgroundColor: '#335599'
     },
     locationRow: {
       flex: 1,

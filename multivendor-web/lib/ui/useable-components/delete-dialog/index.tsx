@@ -1,10 +1,8 @@
-// Prime React
+
 import { Dialog } from "primereact/dialog";
 
-// Components
 import CustomButton from "../button";
 
-// Interface and Types
 import { IDialogComponentProps } from "@/lib/utils/interfaces/";
 import { useTranslations } from "next-intl";
 
@@ -34,9 +32,7 @@ const CustomDialog = ({
     } = {},
   } = buttonConfig || {};
 
-  // const footer = (
-    
-  // );
+
 
   return (
     <Dialog
@@ -47,8 +43,7 @@ const CustomDialog = ({
       style={{ width: "32rem", textAlign: "center" }}
       breakpoints={{ "960px": "75vw", "641px": "90vw" }}
       header={title || t("confirm_deletion")}
-      
-      // footer={footer}
+
       onHide={onHide}
     >
       <div className="confirmation-content text-center mx-3 text-sm sm:text-lg dark:bg-gray-800">

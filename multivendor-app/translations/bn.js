@@ -327,7 +327,7 @@ export const bn = {
   statusAssigned: 'নির্ধারিত',
   statusPicked: 'তোলা হয়েছে',
   statusDelivered: 'ডেলিভারি হয়েছে',
-  ///
+
   selectLocation: 'অবস্থান নির্বাচন করুন',
   languageSetting: 'ভাষা সেটিং',
   receiveOfferByEmail: 'আমি ইমেইলের মাধ্যমে আমাদের কাছ থেকে বিশেষ অফার এবং প্রচার পেতে চাই',

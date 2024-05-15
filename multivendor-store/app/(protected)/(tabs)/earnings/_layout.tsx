@@ -5,7 +5,7 @@ import { Stack, usePathname } from "expo-router";
 import { useTranslation } from "react-i18next";
 
 export default function StackLayout() {
-  // Hooks
+
   const { t } = useTranslation();
   const { appTheme } = useApptheme();
   const { modalVisible, setModalVisible } = useUserContext();

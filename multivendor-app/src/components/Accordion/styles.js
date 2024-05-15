@@ -11,7 +11,7 @@ const styles = (props = null) =>
       borderColor: props !== null ? props?.customBorder : '#E5E7EB',
       borderRadius: scale(8),
       backgroundColor: props !== null ? props?.cardBackground : '#F3F4F6',
-      // ...alignment.Msmall,
+
       ...alignment.Psmall,
     },
     header: {

@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import useUser from "@/lib/hooks/useUser";
 
-// Interface
 import {
   IAddon,
   IFoodItemDetalComponentProps,
   Option,
 } from "@/lib/utils/interfaces";
 
-// Components
 import Divider from "../custom-divider";
 import { ItemDetailSection } from "./item-section";
 import ClearCartModal from "../clear-cart-modal";
@@ -33,11 +31,9 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
   const { id, slug }: { id: string; slug: string } = useParams();
   const locale = useLocale();
 
-  // Map locale to direction - same logic as DirectionHandler.tsx (SSR-safe)
   const isRTL = ["ar", "he", "fa", "ur"].includes(locale);
   const direction = isRTL ? "rtl" : "ltr";
 
-  // Access user context for cart functionality
   const {
     addItem,
     restaurant: cartRestaurant,
@@ -46,31 +42,25 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
     addQuantity,
   } = useUser();
 
-  // State for selected variation
   const [selectedVariation, setSelectedVariation] = useState(
     foodItem?.variations && foodItem.variations.length > 0
       ? foodItem.variations[0]
       : null,
   );
 
-  // State for quantity
   const [quantity, setQuantity] = useState(1);
 
-  // State for selected addon options - use an object with addon IDs as keys
   const [selectedAddonOptions, setSelectedAddonOptions] = useState<
     Record<string, Option | Option[]>
   >({});
 
-  // State for clear cart modal
   const [showClearCartModal, setShowClearCartModal] = useState(false);
 
-  // Get the addon objects for the selected variation
   const variationAddons =
     selectedVariation?.addons
       ?.map((addonId) => addons?.find((a) => a._id === addonId))
       .filter(Boolean) || [];
 
-  // Function to get options for a specific addon
   const getAddonOptions = (addon: IAddon | undefined) => {
     return (
       addon?.options
@@ -79,7 +69,6 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
     );
   };
 
-  // Handle selection for a specific addon
   const handleAddonSelection = (
     addonId: string,
     isMultiple: boolean,
@@ -93,24 +82,21 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
 
   const t = useTranslations();
 
-  // Validate if all required addons are selected
   const isFormValid = () => {
-    // If no variation is selected, form is invalid
+
     if (!selectedVariation) return false;
 
-    // Check if all required addons are selected
     for (const addon of variationAddons) {
-      if (!addon) continue; // Skip if addon is undefined
+      if (!addon) continue; 
 
       const selected = selectedAddonOptions[addon._id ?? ""];
 
-      // Required addon check
       if (addon.quantityMinimum && addon.quantityMinimum > 0) {
-        // For single select addons
+
         if (addon.quantityMinimum === 1 && addon.quantityMaximum === 1) {
           if (!selected) return false;
         }
-        // For multi-select addons
+
         else {
           const selectedCount = selected
             ? Array.isArray(selected)
@@ -129,35 +115,30 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
     return true;
   };
 
-  // Function to add item to cart
   const handleAddToCart = () => {
     if (!isFormValid() || !foodItem || !selectedVariation) return;
 
-    // Check if we need to clear the cart (different restaurant)
     const needsClear =
       cart.length > 0 &&
       cartRestaurant &&
       foodItem.restaurant !== cartRestaurant;
 
     if (needsClear) {
-      // Show clear cart confirmation dialog
+
       setShowClearCartModal(true);
       return;
     }
 
-    // Add item directly if from same restaurant or no restaurant in cart
     addItemToCart();
   };
 
-  // Function to add item to cart after confirmation if needed
   const addItemToCart = () => {
     if (!foodItem || !selectedVariation) return;
 
-    // Format addons for cart
     const formattedAddons = Object.entries(selectedAddonOptions)
-      .filter(([, value]) => value) // Filter out undefined/null values
+      .filter(([, value]) => value) 
       .map(([addonId, optionOrOptions]) => {
-        // Handle both single and multi-select addons
+
         const options = Array.isArray(optionOrOptions)
           ? optionOrOptions.map((opt) => ({ _id: opt._id }))
           : [{ _id: optionOrOptions._id }];
@@ -167,12 +148,12 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
           options,
         };
       });
-    // chech if foodItem._id matches the id of any item in the cart and foodItem.variation.id matches variation id of selected item then return true
+
     const isItemInCart = cart.some(
       (item) =>
         item._id === foodItem._id &&
         item.variation._id === selectedVariation._id &&
-        // check if addons ids and their option id's of item matches formattedAddons ids and option id's
+
         JSON.stringify(item.addons?.map((a) => a._id)) ===
           JSON.stringify(formattedAddons.map((a) => a._id)) &&
         JSON.stringify(
@@ -188,7 +169,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
         if (
           item._id === foodItem._id &&
           item.variation._id === selectedVariation._id &&
-          // check if addons ids and their option id's of item matches formattedAddons ids and option id's
+
           JSON.stringify(item.addons?.map((a) => a._id)) ===
             JSON.stringify(formattedAddons.map((a) => a._id)) &&
           JSON.stringify(
@@ -198,12 +179,12 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
               formattedAddons.flatMap((a) => a.options.map((o) => o._id)),
             )
         ) {
-          // If item is already in cart, update its quantity
+
           addQuantity(item.key, quantity);
         }
       });
     } else {
-      // Call the addItem function from useUser hook
+
       addItem(
         foodItem?.image,
         foodItem._id,
@@ -211,16 +192,15 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
         foodItem.restaurant,
         quantity,
         formattedAddons,
-        // Special instructions - could add a field for this
+
       );
-      // save restaurant id to local storage for product recommendation
+
       if (!isRecommendedProduct) {
         onUseLocalStorage("save", "cart-product-store-id", id);
         onUseLocalStorage("save", "cart-product-store-slug", slug);
       }
     }
 
-    // UPDAT4 STORAGE
 
     onUseLocalStorage("save", "restaurant", restaurant?._id);
     onUseLocalStorage("save", "restaurant-slug", restaurant?.slug);
@@ -230,13 +210,11 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
       restaurant?.shopType === "restaurant" ? "restaurant" : "store",
     );
 
-    // Close the modal
     if (onClose) {
       onClose();
     }
   };
 
-  // Handle clear cart confirmation
   const handleClearCartConfirm = async () => {
     await clearCart();
     addItemToCart();
@@ -251,23 +229,21 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
     );
   };
 
-  // Calculate total price
   const calculateTotalPrice = () => {
     if (!selectedVariation) return 0;
 
     let totalPrice = selectedVariation.price;
 
-    // Add prices for selected addons
     Object.entries(selectedAddonOptions).forEach(([, selected]) => {
       if (!selected) return;
 
       if (Array.isArray(selected)) {
-        // Multiple selected options
+
         selected.forEach((option) => {
           totalPrice += option.price;
         });
       } else {
-        // Single selected option
+
         totalPrice += selected.price;
       }
     });
@@ -279,18 +255,17 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  // useeffects
   useEffect(() => {
     if (foodItem?.variations && foodItem.variations.length > 0) {
-      // Find the first in-stock variation
+
       const inStockVariation = foodItem.variations.find(
         (variation) => !variation.isOutOfStock,
       );
-      // If there's an in-stock variation, select it; otherwise, explicitly set to null
+
       if (inStockVariation) {
         setSelectedVariation(inStockVariation);
       } else {
-        // If no in-stock variations, set to null to avoid selecting out-of-stock items
+
         setSelectedVariation(null);
       }
     }
@@ -298,7 +273,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
 
   return (
     <div className="bg-white md:max-w-md w-100 w-full relative dark:bg-gray-800 dark:text-gray-200">
-      {/* close icon to close the modal */}
+      {}
       <button
         onClick={onClose}
         className={`${direction === "rtl" ? "left-3" : "right-3"} absolute top-3 bg-slate-400 hover:bg-slate-500 transition-all duration-300 rounded-full p-2`}
@@ -342,12 +317,12 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
         <Divider />
 
         <div id="addon-sections">
-          {/* Variation Selection - With required tag */}
+          {}
           {foodItem?.variations && foodItem.variations.length > 0 && (
             <ItemDetailSection
               key="variations"
               title={`${t("select_variation")}`}
-              name="variation" // This is a string literal, no undefined issue
+              name="variation" 
               singleSelected={selectedVariation}
               onSingleSelect={setSelectedVariation}
               options={foodItem?.variations || []}
@@ -356,14 +331,13 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
             />
           )}
 
-          {/* Addon Sections - With required/optional tags */}
+          {}
           {variationAddons.map((addon) => {
-            if (!addon) return null; // Skip rendering if addon is undefined
+            if (!addon) return null; 
 
             const isSingleSelect = addon.quantityMaximum === 1;
             const addonOptions = getAddonOptions(addon);
 
-            // Determine required/optional tag text
             const requiredTagText =
               (addon.quantityMinimum ?? 0) > 0
                 ? `${addon.quantityMinimum} ${t("required")}`
@@ -421,7 +395,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
         </div>
 
         <div className="flex items-center justify-between gap-x-2 mt-4">
-          {/* Quantity Controls - Rounded Rectangle Container */}
+          {}
           <div className="flex items-center space-x-2 bg-gray-200 dark:bg-gray-400 rounded-[42px] px-3 py-1 flex-[0.2]">
             <button
               className="bg-white text-black text-2xl rounded-full w-6 h-6 flex rtl:ml-2 items-center justify-center shadow"
@@ -442,7 +416,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
             </button>
           </div>
 
-          {/* Add to Order Button - Takes Remaining 80% */}
+          {}
           <button
             className={`${isFormValid() ? "bg-primary-color" : "bg-gray-300"} text-black px-4 py-2 text-[500] font-[14px] rounded-full flex flex-col md:flex-row items-center justify-between flex-[0.8]`}
             onClick={handleAddToCart}
@@ -458,7 +432,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
         </div>
       </div>
 
-      {/* Clear Cart Confirmation Modal */}
+      {}
       <ClearCartModal
         isVisible={showClearCartModal}
         onHide={() => setShowClearCartModal(false)}

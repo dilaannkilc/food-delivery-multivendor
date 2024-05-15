@@ -43,7 +43,7 @@ function Payment(props) {
       label: t('creditCart'),
       index: 0,
       icon: 'credit-card'
-      // icon1: require('../../assets/images/visaIcon.png')
+
     },
     {
       payment: 'PAYPAL',

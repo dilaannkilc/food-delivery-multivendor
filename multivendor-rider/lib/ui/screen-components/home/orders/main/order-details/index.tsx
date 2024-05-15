@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+
 import BottomSheet, {
   BottomSheetScrollView,
   BottomSheetView,
@@ -27,23 +27,17 @@ import MapView, {
 import MapViewDirections from "react-native-maps-directions";
 import { Easing } from "react-native-reanimated";
 
-// Methods
 import { linkToMapsApp } from "@/lib/utils/methods";
 
-// Icons
 import Icons from "@expo/vector-icons/MaterialIcons";
 
-// Screen Components
 import ItemDetails from "@/lib/ui/screen-components/home/orders/main/item-details";
 
-// Hooks
 import useDetails from "@/lib/hooks/useDetail";
 import useOrderDetail from "@/lib/hooks/useOrderDetails";
 
-// Context
 import { ConfigurationContext } from "@/lib/context/global/configuration.context";
 
-// UI Components
 import { RIDER_ORDERS } from "@/lib/apollo/queries";
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { useUserContext } from "@/lib/context/global/user.context";
@@ -59,8 +53,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const { height } = Dimensions.get("window");
 
-// Helper function to check if coordinates are valid
-// Added to prevent array bounds crashes when using invalid coordinates
+
 const isValidCoordinate = (coord?: LatLng): boolean => {
   if (!coord) return false;
   return (
@@ -74,15 +67,13 @@ const isValidCoordinate = (coord?: LatLng): boolean => {
 };
 
 export default function OrderDetailScreen() {
-  // Ref
+
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  // Context
   const configuration = useContext(ConfigurationContext);
   const retryTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const insets = useSafeAreaInsets();
 
-  // Hooks
   const { appTheme, currentTheme } = useApptheme();
   const { t } = useTranslation();
   const {
@@ -100,31 +91,27 @@ export default function OrderDetailScreen() {
   const { mutateAssignOrder, mutateOrderStatus, loadingOrderStatus } =
     useDetails(order);
 
-  // States
   const [customMapStyles, setCustomMapStyles] = useState<MapStyleElement[]>();
   const [orderId, setOrderId] = useState("");
-  const [retryCount, setRetryCount] = useState(0); // Added to implement retry logic
+  const [retryCount, setRetryCount] = useState(0); 
 
-  // Ref
   const latitude = useRef(
     new Animated.Value(locationPin.location.latitude),
   ).current;
   const longitude = useRef(
     new Animated.Value(locationPin.location.longitude),
   ).current;
-  const waveAnimation = useRef(new Animated.Value(0)).current; // Wave animation value
+  const waveAnimation = useRef(new Animated.Value(0)).current; 
 
-  // Handler
   const moveMarker = (newLocation: LatLng) => {
-    // Safety check for valid coordinates before starting animation
-    // This prevents trying to animate to invalid coordinates which could cause crashes
+
+
     if (!isValidCoordinate(newLocation)) {
       console.warn("Attempted to move marker to invalid location", newLocation);
       return;
     }
 
-    // Use a single animation group to prevent potential race conditions
-    // This prevents array index issues by ensuring animations stay in sync
+
     Animated.parallel([
       Animated.timing(latitude, {
         toValue: newLocation.latitude,
@@ -141,7 +128,7 @@ export default function OrderDetailScreen() {
 
   useEffect(() => {
     return () => {
-      // Clean up any pending retry timeouts
+
       if (retryTimeoutRef.current) {
         clearTimeout(retryTimeoutRef.current);
         retryTimeoutRef.current = null;
@@ -151,8 +138,8 @@ export default function OrderDetailScreen() {
 
   const openMaps = () => {
     try {
-      // Validate all required coordinates to prevent app crashes
-      // when trying to construct navigation URLs with invalid data
+
+
       if (!isValidCoordinate(locationPin?.location)) {
         console.log("Invalid rider location for maps navigation");
         Alert.alert(t("Navigation Error"), t("Rider location is unavailable."));
@@ -182,9 +169,9 @@ export default function OrderDetailScreen() {
       const customer = `${deliveryAddressPin.location.latitude},${deliveryAddressPin.location.longitude}`;
 
       if (Platform.OS === "ios") {
-        // Apple Maps (Only Rider -> Store -> Customer)
+
         const appleMapsUrl = `maps://app?saddr=${rider}&daddr=${localOrder?.orderStatus === "PICKED" ? customer : store}`;
-        // Added error handling for Linking
+
         Linking.openURL(appleMapsUrl).catch(() => {
           Alert.alert(
             t("Navigation Error"),
@@ -192,9 +179,9 @@ export default function OrderDetailScreen() {
           );
         });
       } else {
-        // Google Maps (Supports waypoints: Rider -> Store -> Customer)
+
         const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${rider}&destination=${customer}&waypoints=${store}`;
-        // Added error handling for Linking
+
         Linking.openURL(googleMapsUrl).catch(() => {
           Alert.alert(
             t("Navigation Error"),
@@ -203,7 +190,7 @@ export default function OrderDetailScreen() {
         });
       }
     } catch (error) {
-      // Added global error handling
+
       console.log("Error opening maps:", error);
       Alert.alert(
         t("Navigation Error"),
@@ -212,41 +199,36 @@ export default function OrderDetailScreen() {
     }
   };
 
-  // Use Effect
   useEffect(() => {
     const styles_for_map = CustomMapStyles(appTheme);
     if (currentTheme && appTheme) {
       setCustomMapStyles(styles_for_map);
     }
 
-    // Added validation for Google Maps API key to catch common configuration issues
     if (!GOOGLE_MAPS_KEY || GOOGLE_MAPS_KEY === "") {
       console.log("Google Maps API key is missing or invalid");
     }
   }, [appTheme, currentTheme, GOOGLE_MAPS_KEY]);
 
   useEffect(() => {
-    // Only set up the animation if locationPin.location exists and is valid
-    // This prevents trying to animate when location data is invalid
+
+
     if (!locationPin?.location || !isValidCoordinate(locationPin.location)) {
       console.warn("Location pin is invalid or missing:", locationPin);
       return;
     }
 
-    // Reference to the timer for proper cleanup
     let intervalId: NodeJS.Timeout | null = null;
 
     try {
-      // Safely initialize marker position before starting animations
-      // This prevents issues with undefined initial values
+
+
       const initialLatitude = locationPin.location.latitude;
       const initialLongitude = locationPin.location.longitude;
 
-      // Initial positioning (without animation)
       latitude.setValue(initialLatitude);
       longitude.setValue(initialLongitude);
 
-      // Start periodic updates with proper error handling
       intervalId = setInterval(() => {
         if (
           !locationPin?.location ||
@@ -261,7 +243,6 @@ export default function OrderDetailScreen() {
         moveMarker({ latitude: newLatitude, longitude: newLongitude });
       }, 5000);
 
-      // Start wave animation
       const animation = Animated.loop(
         Animated.timing(waveAnimation, {
           toValue: 1000,
@@ -274,7 +255,7 @@ export default function OrderDetailScreen() {
       animation.start();
 
       return () => {
-        // Proper cleanup to prevent animation continuing after unmount
+
         if (intervalId) {
           clearInterval(intervalId);
           intervalId = null;
@@ -282,15 +263,15 @@ export default function OrderDetailScreen() {
         animation.stop();
       };
     } catch (error) {
-      // Error handling to prevent uncaught exceptions
+
       console.log("Error in location animation setup:", error);
       if (intervalId) {
         clearInterval(intervalId);
       }
       return () => { };
     }
-    // Added proper dependency array to control rerunning this effect
-    // This prevents stale closures that might reference outdated data
+
+
   }, [locationPin?.location?.latitude, locationPin?.location?.longitude]);
 
   useEffect(() => {
@@ -313,7 +294,7 @@ export default function OrderDetailScreen() {
             backgroundColor: "transparent",
           }}
         >
-          {/* <Button title="Open in Maps" onPress={openMaps} /> */}
+          {}
           <View
             style={{
               alignItems: "center",
@@ -356,7 +337,7 @@ export default function OrderDetailScreen() {
                 longitudeDelta: 0.0421,
               }}
               provider={PROVIDER_DEFAULT}
-            // customMapStyle={MapStyles}
+
             >
               {deliveryAddressPin?.location && (
                 <Marker
@@ -392,7 +373,7 @@ export default function OrderDetailScreen() {
                   />
                 </Marker>
               )}
-              {/* Added multiple validation checks for rider marker to prevent array index errors */}
+              {}
               {locationPin?.location &&
                 isValidCoordinate(locationPin.location) && (
                   <Marker.Animated
@@ -415,7 +396,7 @@ export default function OrderDetailScreen() {
                   </Marker.Animated>
                 )}
 
-              {/* Added validation for rider to restaurant directions */}
+              {}
               {localOrder?.orderStatus === "ACCEPTED" ||
                 localOrder?.orderStatus === "ASSIGNED"
                 ? isValidCoordinate(locationPin?.location) &&
@@ -428,7 +409,7 @@ export default function OrderDetailScreen() {
                     strokeWidth={2}
                     strokeColor={"#f95509"}
                     precision="low"
-                    resetOnChange={false} // Prevents unnecessary recalculations
+                    resetOnChange={false} 
                     onReady={(results) => {
                       if (results && results.distance) {
                         setDistance(results.distance);
@@ -438,7 +419,7 @@ export default function OrderDetailScreen() {
                     optimizeWaypoints={true}
                     onError={(error) => {
                       console.log("Detailed route error:", error);
-                      // Retry logic for NOT_FOUND errors
+
                       if (
                         error.toString().includes("NOT_FOUND") &&
                         retryCount < 10
@@ -450,7 +431,7 @@ export default function OrderDetailScreen() {
                 )
                 : null}
 
-              {/* Added validation for rider to customer directions */}
+              {}
               {localOrder?.orderStatus === "PICKED" &&
                 isValidCoordinate(locationPin?.location) &&
                 isValidCoordinate(deliveryAddressPin?.location) &&
@@ -470,7 +451,7 @@ export default function OrderDetailScreen() {
                     }}
                     onError={(error) => {
                       console.log("Delivery route error:", error);
-                      // Retry logic for NOT_FOUND errors
+
                       if (
                         error.toString().includes("NOT_FOUND") &&
                         retryCount < 10
@@ -481,7 +462,7 @@ export default function OrderDetailScreen() {
                   />
                 )}
 
-              {/* Added validation for restaurant to customer directions */}
+              {}
               {localOrder?.orderStatus !== "ACCEPTED" &&
                 localOrder?.orderStatus !== "PICKED" &&
                 localOrder?.orderStatus !== "ASSIGNED" &&
@@ -504,7 +485,7 @@ export default function OrderDetailScreen() {
                     }}
                     onError={(error) => {
                       console.log("Default route error:", error);
-                      // Retry logic for NOT_FOUND errors
+
                       if (
                         error.toString().includes("NOT_FOUND") &&
                         retryCount < 10
@@ -514,7 +495,7 @@ export default function OrderDetailScreen() {
                     }}
                   />
                 )}
-              {/* <Button title="Open in Maps" onPress={openMaps} /> */}
+              {}
             </MapView>
           ) : (
             <View className="flex-1 justify-center items-center gap-y-3">
@@ -531,16 +512,16 @@ export default function OrderDetailScreen() {
 
         <BottomSheet
           ref={bottomSheetRef}
-          index={0} // Initially, the sheet starts at 50% height (snap point 0)
-          snapPoints={["50%"]} // Snap points: 50%
-          backgroundStyle={map_styles.backgroundStyle} // Optional, to style the background
-          animateOnMount={true} // Ensure that the initial animation is applied
+          index={0} 
+          snapPoints={["50%"]} 
+          backgroundStyle={map_styles.backgroundStyle} 
+          animateOnMount={true} 
           handleIndicatorStyle={{
             backgroundColor: "transparent",
           }}
           enableDynamicSizing
           enableOverDrag={false}
-          maxDynamicContentSize={height * 0.8} // Set a maximum dynamic content size (optional)
+          maxDynamicContentSize={height * 0.8} 
         >
           <BottomSheetView
             className="flex-1  border p-1.5 rounded-lg"
@@ -554,7 +535,7 @@ export default function OrderDetailScreen() {
               showsVerticalScrollIndicator={false}
               style={{ backgroundColor: appTheme.themeBackground }}
             >
-              {/* Order ID */}
+              {}
               <View className="flex-row justify-between mb-4">
                 <Text
                   className="font-bold "
@@ -583,7 +564,7 @@ export default function OrderDetailScreen() {
                 )}
               </View>
 
-              {/* Pick Up Order */}
+              {}
               <View className="w-[90%] flex-row items-center gap-x-2 mb-4">
                 <View>
                   <HomeIcon
@@ -608,7 +589,7 @@ export default function OrderDetailScreen() {
                 </View>
               </View>
 
-              {/* Payment Method */}
+              {}
               <View className="flex-1 flex-row justify-between items-center mb-4">
                 <Text
                   className="font-[Inter] text-[16px] text-base font-[500]"
@@ -624,7 +605,7 @@ export default function OrderDetailScreen() {
                 </Text>
               </View>
 
-              {/* Order Amount */}
+              {}
               <View className="w-[99%] flex-row justify-between">
                 <Text
                   className="flex-1 font-[Inter] text-[16px] text-base font-[500] "
@@ -645,14 +626,14 @@ export default function OrderDetailScreen() {
                 </Text>
               </View>
 
-              {/* Divider */}
+              {}
               <View className="flex-1 h-[1px] mb-4" />
 
               <AccordionItem title={t("Order Details")}>
                 <ItemDetails orderData={localOrder} tab={tab} />
               </AccordionItem>
 
-              {/* Pick up Button */}
+              {}
               {tab === "processing" &&
                 localOrder.orderStatus === "ASSIGNED" && (
                   <TouchableOpacity

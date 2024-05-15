@@ -62,7 +62,7 @@ import SearchScreen from '../screens/Search/SearchScreen'
 import UserContext from '../context/User'
 import { Easing, Platform } from 'react-native'
 import CategoryPage from '../components/SubCategoryPage/SubCategoryPage'
-// import HypCheckout from '../screens/Hyp/HypCheckout'
+
 import NewRestaurantDetailDesign from '../components/NewRestaurantDetailDesign/RestaurantDetailDesign'
 import { SLIDE_RIGHT_WITH_CURVE_ANIM, SLIDE_UP_RIGHT_ANIMATION, AIMATE_FROM_CENTER, SLIDE_UP_RIGHT_ANIMATION_FIXED_HEADER } from '../utils/constants'
 import * as LocationImport from 'expo-location'
@@ -135,9 +135,9 @@ function MainNavigator() {
         name='OrderDetail'
         component={OrderDetail}
         options={{
-          // headerTransparent: true,
-          // headerRight: null,
-          // title: '',
+
+
+
           headerBackImage: () =>
             DarkBackButton({
               iconColor: currentTheme.backIcon,
@@ -158,7 +158,7 @@ function MainNavigator() {
 
       <NavigationStack.Screen name='StripeCheckout' component={StripeCheckout} />
 
-      {/* Authentication Login */}
+      {}
       <NavigationStack.Screen name='CreateAccount' component={CreateAccount} />
       <NavigationStack.Screen name='Login' component={Login} />
       <NavigationStack.Screen name='Register' component={Register} />
@@ -178,7 +178,7 @@ function MainNavigator() {
       <NavigationStack.Screen name='Account' component={Account} options={SLIDE_RIGHT_WITH_CURVE_ANIM} />
       <NavigationStack.Screen name='EditName' component={EditName} />
       <NavigationStack.Screen name='SearchScreen' component={SearchScreen} />
-      {/* <NavigationStack.Screen name='HypCheckout' component={HypCheckout} /> */}
+      {}
     </NavigationStack.Navigator>
   )
 }
@@ -211,7 +211,7 @@ function BottomTabNavigator() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          // synced with BottomTabIcon, make sure to have the same name as icon in BottomTabIcon
+
           return <BottomTabIcon name={route.name.toLowerCase()} size={focused ? '28' : size} color={color} />
         },
         tabBarStyle: {
@@ -301,7 +301,6 @@ function AppContainer() {
     [lastNotificationResponse]
   )
 
-  // Handlers
   const init = async () => {
     try {
       const permission_state = await LocationImport.getForegroundPermissionsAsync()
@@ -339,8 +338,7 @@ function AppContainer() {
       >
         {!permissionState?.granted || !location ? <LocationStack /> : <MainNavigator />}
 
-        {/* {<LocationStack />}
-        <MainNavigator /> */}
+        {}
       </NavigationContainer>
     </SafeAreaProvider>
   )

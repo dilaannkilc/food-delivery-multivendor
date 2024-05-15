@@ -3,15 +3,12 @@ import { Alert } from "react-native";
 import { useState, useEffect, useContext } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 
-// Context
 import UserContext from "../context/global/user.context";
 
-// API
 import { CHAT } from "@/lib/apollo/queries";
 import { SEND_CHAT_MESSAGE } from "@/lib/apollo/mutations/chat.mutation";
 import { SUBSCRIPTION_NEW_MESSAGE } from "@/lib/apollo/subscriptions";
 
-// Interface
 
 export const useChatScreen = () => {
   const route = useRoute();
@@ -19,12 +16,11 @@ export const useChatScreen = () => {
   const { id: orderId } = route.params;
 
   const { dataProfile } = useContext(UserContext);
-  // States
+
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState(null);
   const [image, setImage] = useState([]);
 
-  // API
   const { subscribeToMore: subscribeToMessages, data: chatData } = useQuery(
     CHAT,
     {
@@ -44,7 +40,6 @@ export const useChatScreen = () => {
     Alert.alert("Error", error.message);
   }
 
-  //Handler
   const onSend = () => {
     send({
       variables: {
@@ -62,7 +57,6 @@ export const useChatScreen = () => {
     setImage([]);
   };
 
-  // Use Effect
   useEffect(() => {
     const unsubscribe = subscribeToMessages({
       document: SUBSCRIPTION_NEW_MESSAGE,

@@ -1,9 +1,9 @@
-// Components
+
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import { useTranslations } from 'next-intl';
 
 const TimingHeader = () => {
-  // Hooks
+
   const t = useTranslations();
 
   return (

@@ -1,4 +1,4 @@
-// orders.vendor.row.skeleton.ts
+
 import React from 'react';
 import { Skeleton } from 'primereact/skeleton';
 

@@ -1,11 +1,9 @@
-// Expo
+
 import "expo-dev-client";
 import * as SplashScreen from "expo-splash-screen";
 
-// Core
 import { StyleSheet, View } from "react-native";
 
-// React Native Reanimated
 import Animated, {
   Easing,
   runOnJS,
@@ -14,10 +12,8 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-// Components
 import SplashVideo from "./SplashVideo";
 
-// Hooks
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 
 export default function AnimatedSplashScreen({
@@ -25,25 +21,23 @@ export default function AnimatedSplashScreen({
 }: {
   children: ReactNode;
 }) {
-  // States
+
   const [isAppReady, setAppReady] = useState(false);
   const [isSplashVideoComplete, setSplashVideoComplete] = useState(false);
   const [isSplashAnimationComplete, setAnimationComplete] = useState(false);
 
-  // Hooks
-  const opacityAnimation = useSharedValue(1); // Shared value for opacity
-  const scaleAnimation = useSharedValue(1); // Shared value for scale
+  const opacityAnimation = useSharedValue(1); 
+  const scaleAnimation = useSharedValue(1); 
 
-  // Handlers
   const onImageLoaded = useCallback(async () => {
     try {
       await SplashScreen.hideAsync();
-      // Load stuff
+
       await Promise.all([]);
     } catch (e) {
       const err = e as Error;
       console.log(err);
-      // Handle errors
+
     } finally {
       setAppReady(true);
     }
@@ -54,7 +48,7 @@ export default function AnimatedSplashScreen({
       <SplashVideo
         onLoaded={onImageLoaded}
         onFinish={() => {
-          setSplashVideoComplete(true); // Mark video as complete
+          setSplashVideoComplete(true); 
         }}
       />
     );
@@ -62,15 +56,14 @@ export default function AnimatedSplashScreen({
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      opacity: opacityAnimation.value, // Use shared value for opacity
-      transform: [{ scale: scaleAnimation.value }], // Use shared value for scale
+      opacity: opacityAnimation.value, 
+      transform: [{ scale: scaleAnimation.value }], 
     };
   });
 
-  // UseEffects
   useEffect(() => {
     if (isAppReady && isSplashVideoComplete) {
-      // Start fade out and scale down animation when the app is ready and video has completed
+
       opacityAnimation.value = withTiming(0, {
         duration: 300,
         easing: Easing.out(Easing.exp),
@@ -83,7 +76,7 @@ export default function AnimatedSplashScreen({
           easing: Easing.out(Easing.exp),
         },
         () => {
-          runOnJS(setAnimationComplete)(true); // Update the animation completion state
+          runOnJS(setAnimationComplete)(true); 
         },
       );
     }

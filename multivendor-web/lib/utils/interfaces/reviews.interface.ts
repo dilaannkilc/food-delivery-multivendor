@@ -1,5 +1,4 @@
 
-// Basic user information
 export interface IUser {
     _id: string;
     name: string;
@@ -7,21 +6,18 @@ export interface IUser {
     __typename: string;
 }
 
-// Order information with associated user
 export interface IOrder {
     _id: string;
     user: IUser;
     __typename: string;
 }
 
-// Restaurant basic details
 export interface IRestaurant {
     _id: string;
     name: string;
     __typename: string;
 }
 
-// Complete review structure
 export interface IReview {
     _id: string;
     rating: number;
@@ -34,7 +30,6 @@ export interface IReview {
     __typename: string;
 }
 
-// Container for multiple reviews
 export interface IReviewsResult {
     reviews?: IReview[];
     ratings?: number;

@@ -7,7 +7,7 @@ const styles = (props = null) =>
     container: {
       flexDirection: 'column',
       gap: 24,
-      // ...alignment.MBxLarge
+
       marginVertical : 16
     },
     heading: { 
@@ -24,7 +24,7 @@ const styles = (props = null) =>
       paddingHorizontal: 16,
       paddingVertical: 8,
       borderRadius: 50,
-      // borderWidth: 1,
+
       marginRight: 8,
     },
     applyBtn: {

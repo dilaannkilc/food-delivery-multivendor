@@ -1,20 +1,19 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+
 import { NetworkStatus } from "@apollo/client";
 import { useContext, useEffect, useState } from "react";
 import { Dimensions, Platform, StyleSheet, Text, View } from "react-native";
 
-// Context
 import UserContext from "@/lib/context/global/user.context";
-// UI
+
 import Order from "@/lib/ui/useable-components/order";
-// Constants
+
 import { NO_ORDER_PROMPT } from "@/lib/utils/constants";
-// Interface
+
 import { IOrderTabsComponentProps } from "@/lib/utils/interfaces";
 import { IOrder } from "@/lib/utils/interfaces/order.interface";
-// Type
+
 import { ORDER_TYPE } from "@/lib/utils/types";
-// Icon
+
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { WalletIcon } from "@/lib/ui/useable-components/svg";
 import { FlashList } from "@shopify/flash-list";
@@ -23,10 +22,9 @@ import { useTranslation } from "react-i18next";
 const { height } = Dimensions.get("window");
 
 export default function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
-  // Props
+
   const { route } = props;
 
-  // Hooks
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const {
@@ -37,10 +35,8 @@ export default function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
     networkStatusAssigned,
   } = useContext(UserContext);
 
-  // States
   const [orders, setOrders] = useState<IOrder[]>([]);
 
-  // Handlers
   const onInitOrders = () => {
     if (loadingAssigned || errorAssigned) return;
     if (!assignedOrders) return;
@@ -52,22 +48,19 @@ export default function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
     setOrders(_orders ?? []);
   };
 
-  // Use Effect
   useEffect(() => {
     onInitOrders();
   }, [assignedOrders, route.key]);
 
   useEffect(() => {
-    // Trigger refetch when orders length changes
+
     if (orders?.length === 0) {
       refetchAssigned();
     }
   }, [orders?.length]);
 
-  // Calculate the marginBottom dynamically
-  // const marginBottom = Platform.OS === "ios" ? height * 0.0 : height * 0.01;
 
-  // Render
+
   return (
     <View
       className="pt-14 flex-1 pb-16"

@@ -1,33 +1,26 @@
-// Core
+
 import { ApolloError, useMutation } from '@apollo/client';
 import { Form, Formik } from 'formik';
 import { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
 
-// Context
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { ProfileContext } from '@/lib/context/vendor/profile.context';
 
-// Interface and Types
 import { IVendorForm } from '@/lib/utils/interfaces/forms';
 
-// Constants and Methods
 import { MAX_SQUARE_FILE_SIZE, VendorErrors } from '@/lib/utils/constants';
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/upload-image';
 
-// Schema
 import { VendorEditSchema } from '@/lib/utils/schema';
 
-// GraphQL
 import { EDIT_VENDOR } from '@/lib/api/graphql';
 
-// Icons
 import CustomPhoneTextField from '@/lib/ui/useable-components/phone-input-field';
 import { useTranslations } from 'next-intl';
 
@@ -43,29 +36,25 @@ const initialValues: IVendorForm = {
 };
 
 export default function VendorUpdateForms() {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const { showToast } = useContext(ToastContext);
   const { vendorProfileResponse } = useContext(ProfileContext);
   let vendor = vendorProfileResponse.data?.getVendor;
 
-  // States
   const [formInitialValues, setFormValues] = useState<IVendorForm>({
     ...initialValues,
   });
   const [profileImage, setprofileImage] = useState('');
 
-  // API
-  // Mutations
+
   const [updateVendor] = useMutation(EDIT_VENDOR, {
-    //  refetchQueries: [{ query: GET_VENDORS, fetchPolicy: 'network-only' }],
+
     onError,
     onCompleted: () => {},
   });
 
-  // Handlers
   const onVendorCreate = async (data: IVendorForm) => {
     try {
       await updateVendor({
@@ -89,7 +78,7 @@ export default function VendorUpdateForms() {
         message: t(`Vendor has been edited successfully`),
         duration: 3000,
       });
-      // setIsUpdateProfileVisible(false);
+
     } catch (error) {
       console.log('error', error);
 
@@ -113,7 +102,6 @@ export default function VendorUpdateForms() {
     });
   }
 
-  //  Effects
   useEffect(() => {
     if (vendor) {
       setFormValues({
@@ -178,7 +166,7 @@ export default function VendorUpdateForms() {
                                 name="image"
                                 title=""
                                 page="vendor-profile-edit"
-                                // onChange={memoizedCallback}
+
                                 fileTypes={['image/png', 'image/jpg']}
                                 maxFileHeight={512}
                                 maxFileWidth={512}
@@ -271,14 +259,14 @@ export default function VendorUpdateForms() {
                                 name="phoneNumber"
                                 showLabel={true}
                                 page="vendor-profile-edit"
-                                // placeholder="Phone Number"
+
                                 onChange={(e) => {
-                                  // console.log("phone number format ==> ", e, code);
+
                                   setFieldValue('phoneNumber', e);
-                                  // setCountryCode(code);
+
                                 }}
                                 value={values.phoneNumber}
-                                // value={values.phoneNumber?.toString().match(/\(\+(\d+)\)\s(.+)/)?.[2]}
+
                                 type="text"
                                 style={{
                                   borderColor: onErrorMessageMatcher(

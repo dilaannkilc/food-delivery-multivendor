@@ -2,7 +2,7 @@
 
 import { GoogleMapsProvider } from '@/lib/context/global/google-maps.context';
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
-// Layout
+
 import GlobalLayout from '@/lib/ui/layouts/protected/global';
 
 export default function RootLayout({

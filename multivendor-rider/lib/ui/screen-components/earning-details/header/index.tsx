@@ -1,38 +1,31 @@
-// GraphQL
+
 import { RIDER_EARNINGS_GRAPH } from "@/lib/apollo/queries/earnings.query";
 
-// Hooks
 import { useUserContext } from "@/lib/context/global/user.context";
 import { QueryResult, useQuery } from "@apollo/client";
 
-// Components
 import SpinnerComponent from "@/lib/ui/useable-components/spinner";
 
-// Interfacs
 import { IRiderEarningsResponse } from "@/lib/utils/interfaces/rider-earnings.interface";
 
-// Core
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 
 export default function EarningDetailsHeader() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
-  // States
   const [riderEarningsGrandTotal, setRiderEarningsGrandTotal] = useState({
     earnings: 0,
     tips: 0,
     totalDeliveries: 0,
   });
 
-  // Contexts
   const { userId } = useUserContext();
 
-  // Queries
   const { loading: isRiderEarningsLoading, data: riderEarningsData } = useQuery(
     RIDER_EARNINGS_GRAPH,
     {

@@ -32,7 +32,7 @@ const styles = (props = null) =>
     mainContainer: {
       flex: 1,
       backgroundColor: props !== null ? props?.themeBackground : 'transparent'
-      //...alignment.PTsmall
+
     },
     paymentSecInner: {
       flexDirection: props?.isRTL ? 'row-reverse' : 'row',
@@ -133,7 +133,7 @@ const styles = (props = null) =>
     },
     suggestItemImg: {
       width: '100%',
-      // aspectRatio: 18/8,
+
       height: scale(70)
     },
     suggestItemContainer: {
@@ -199,26 +199,25 @@ const styles = (props = null) =>
       borderColor: props !== null ? props?.black : 'black'
     },
 
-    // totalBill:{
-    //   fontSize:scale(27)
-    // },
-    // buttontLeft: {
-    //   width: '35%',
-    //   height: '50%',
-    //   justifyContent: 'center'
-    // },
-    // buttonLeftCircle: {
-    //   backgroundColor: props != null ? props?.black : 'black',
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
-    //   width: scale(18),
-    //   height: scale(18),
-    //   borderRadius: scale(9)
-    // },
-    // iconStyle: {
-    //   height: verticalScale(18),
-    //   width: verticalScale(18)
-    // },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     subContainerImage: {
       flex: 1,
       justifyContent: 'center',
@@ -282,7 +281,7 @@ const styles = (props = null) =>
       width: '100%',
       flexDirection: props?.isRTL ? 'row-reverse' : 'row',
       justifyContent: 'space-between'
-      // gap:scale(8),
+
     },
     labelButton: {
       borderRadius: scale(40),
@@ -380,9 +379,9 @@ const styles = (props = null) =>
       height: scale(30)
     },
     addressAllignment: {
-      // display: 'flex',
-      // flexDirection: 'column',
-      // // justifyContent: 'flex-end',
+
+
+
       width: '100%',
       marginLeft: scale(15)
     },

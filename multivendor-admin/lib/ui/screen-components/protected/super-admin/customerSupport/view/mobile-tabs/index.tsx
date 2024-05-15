@@ -1,8 +1,7 @@
-// Path: /index.tsx/mobile-tabs/view/customerSupport/super-admin/protected/screen-components/ui/lib
+
 
 import { useTranslations } from 'next-intl';
 
-// Interface
 export interface ICustomerSupportMobileTabsProps {
   activeTab: 'tickets' | 'chats';
   setActiveTab: (tab: 'tickets' | 'chats') => void;
@@ -12,7 +11,7 @@ export default function CustomerSupportMobilesTabs({
   activeTab,
   setActiveTab,
 }: ICustomerSupportMobileTabsProps) {
-  // Hooks
+
   const t = useTranslations();
 
   return (

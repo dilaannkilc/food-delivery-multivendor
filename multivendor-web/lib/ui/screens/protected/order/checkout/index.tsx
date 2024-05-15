@@ -1,7 +1,6 @@
-/* eslint-disable max-lines */
+
 "use client";
 
-// Core
 import { faBicycle, faStore } from "@fortawesome/free-solid-svg-icons";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons/faSpinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,34 +23,27 @@ import {
   Marker,
 } from "@react-google-maps/api";
 
-// Componentns
 import { PaddingContainer } from "@/lib/ui/useable-components/containers";
 import Divider from "@/lib/ui/useable-components/custom-divider";
 import UserAddressComponent from "@/lib/ui/useable-components/address";
 
-// Context
 import { GoogleMapsContext } from "@/lib/context/global/google-maps.context";
 import { CartItem } from "@/lib/context/User/User.context";
 import { useConfig } from "@/lib/context/configuration/configuration.context";
 
-// Hooks
 import useUser from "@/lib/hooks/useUser";
 import useToast from "@/lib/hooks/useToast";
 import useRestaurant from "@/lib/hooks/useRestaurant";
 import { useUserAddress } from "@/lib/context/address/address.context";
 import { useAuth } from "@/lib/context/auth/auth.context";
 
-// Asssets
 import { InfoSvg } from "@/lib/utils/assets/svg";
 
-// Constants
 import { DAYS } from "@/lib/utils/constants/orders";
 import { PAYMENT_METHOD_LIST } from "@/lib/utils/constants";
 
-// API
 import { PLACE_ORDER, VERIFY_COUPON, ORDERS } from "@/lib/api/graphql";
 
-// Interfaces
 import {
   ICoupon,
   ICouponData,
@@ -59,17 +51,14 @@ import {
   IOrder,
 } from "@/lib/utils/interfaces";
 
-// Types
 import { OrderTypes } from "@/lib/utils/types/order";
 
-// Methods
 import {
   calculateAmount,
   calculateDistance,
   checkPaymentMethod,
 } from "@/lib/utils/methods";
 
-// Asets
 import HomeIcon from "../../../../../assets/home_icon.png";
 import RestIcon from "../../../../../assets/rest_icon.png";
 import { onUseLocalStorage } from "@/lib/utils/methods/local-storage";
@@ -79,7 +68,6 @@ import { useTheme } from "@/lib/providers/ThemeProvider";
 import { darkMapStyle } from "@/lib/utils/mapStyles/mapStyle";
 import { GET_TIPS } from "@/lib/api/graphql/queries/tipping";
 
-//Coupon localStorage Keys
 const COUPON_STORAGE_KEY = "applied_coupon";
 const COUPON_TEXT_STORAGE_KEY = "coupon_text";
 const COUPON_APPLIED_STORAGE_KEY = "is_coupon_applied";
@@ -89,7 +77,7 @@ export default function OrderCheckoutScreen() {
   const t = useTranslations();
   const [isAddressSelectedOnce, setIsAddressSelectedOnce] = useState(false);
   const [isUserAddressModalOpen, setIsUserAddressModalOpen] = useState(false);
-  // const [isOpen, setIsOpen] = useState(false);
+
   const [deliveryType, setDeliveryType] = useState("Delivery");
   const [deliveryCharges, setDeliveryCharges] = useState(0);
   const [isPickUp, setIsPickUp] = useState(false);
@@ -104,12 +92,10 @@ export default function OrderCheckoutScreen() {
     useState<google.maps.DirectionsResult | null>(null);
   const [isCheckingCache, setIsCheckingCache] = useState(true);
 
-  // Coupon
   const [isCouponApplied, setIsCouponApplied] = useState(false);
   const [couponText, setCouponText] = useState("");
   const [coupon, setCoupon] = useState<ICouponData | null>(null);
 
-  // Hooks
   const router = useRouter();
   const { CURRENCY_SYMBOL, CURRENCY, DELIVERY_RATE, COST_TYPE, SERVER_URL } =
     useConfig();
@@ -134,7 +120,7 @@ export default function OrderCheckoutScreen() {
       : null,
     loading: false,
   };
-  // Load restaurant data from localStorage if not available from GraphQL
+
   const [localRestaurantData, setLocalRestaurantData] = useState(null);
 
   useEffect(() => {
@@ -153,19 +139,14 @@ export default function OrderCheckoutScreen() {
     }
   }, [restaurantData, restaurantFromLocalStorage]);
 
-  // Load saved coupon from localStorage when page loads
 
-  // ============================================================================
-  // FIX: Clear coupon when restaurant changes
-  // ============================================================================
 
-  // ADD THIS NEW CONSTANT with your other coupon constants (around line 76)
 
-  // ============================================================================
-  // STEP 1: Update couponCompleted to save restaurant ID
-  // ============================================================================
 
-  // Find the couponCompleted function (around line 420) and UPDATE it:
+
+
+
+
 
   function couponCompleted({ coupon }: { coupon: ICoupon }) {
     if (!coupon.success) {
@@ -184,7 +165,6 @@ export default function OrderCheckoutScreen() {
         setIsCouponApplied(true);
         setCoupon(coupon.coupon);
 
-        // SAVE TO LOCALSTORAGE
         onUseLocalStorage(
           "save",
           COUPON_STORAGE_KEY,
@@ -193,7 +173,6 @@ export default function OrderCheckoutScreen() {
         onUseLocalStorage("save", COUPON_TEXT_STORAGE_KEY, couponText);
         onUseLocalStorage("save", COUPON_APPLIED_STORAGE_KEY, "true");
 
-        // SAVE RESTAURANT ID WITH COUPON
         onUseLocalStorage("save", COUPON_RESTAURANT_KEY, restaurantId || "");
       } else {
         showToast({
@@ -205,21 +184,17 @@ export default function OrderCheckoutScreen() {
     }
   }
 
-  // ============================================================================
-  // STEP 2: Add useEffect to check restaurant change
-  // ============================================================================
 
-  // ADD THIS NEW useEffect after your existing coupon useEffects (around line 185)
 
-  // Clear coupon when restaurant changes
+
+
   useEffect(() => {
-    // Only run this check if restaurantId has actually loaded
+
     if (typeof window !== "undefined" && isCouponApplied && restaurantId) {
       const savedRestaurantId = onUseLocalStorage("get", COUPON_RESTAURANT_KEY);
 
-      // Only clear if both IDs exist and are different
       if (savedRestaurantId && savedRestaurantId !== restaurantId) {
-        // Restaurant changed - clear coupon
+
         setIsCouponApplied(false);
         setCoupon({} as ICouponData);
         setCouponText("");
@@ -240,15 +215,12 @@ export default function OrderCheckoutScreen() {
     }
   }, [restaurantId, isCouponApplied, showToast, t]);
 
-  // ============================================================================
-  // STEP 3: Update the load coupon useEffect to validate restaurant
-  // ============================================================================
 
-  // REPLACE your existing "Load saved coupon" useEffect (around line 160) with this:
 
-  // Load saved coupon from localStorage when page loads
+
+
   useEffect(() => {
-    // Wait until restaurantId is loaded before checking coupon
+
     if (typeof window !== "undefined" && restaurantId) {
       const savedCouponData = onUseLocalStorage("get", COUPON_STORAGE_KEY);
       const savedCouponText = onUseLocalStorage("get", COUPON_TEXT_STORAGE_KEY);
@@ -259,7 +231,7 @@ export default function OrderCheckoutScreen() {
       const savedRestaurantId = onUseLocalStorage("get", COUPON_RESTAURANT_KEY);
 
       if (savedCouponData && savedCouponText && savedCouponApplied === "true") {
-        // CHECK IF RESTAURANT MATCHES
+
         if (savedRestaurantId === restaurantId) {
           try {
             const parsedCoupon = JSON.parse(savedCouponData);
@@ -267,14 +239,14 @@ export default function OrderCheckoutScreen() {
             setCouponText(savedCouponText);
             setIsCouponApplied(true);
           } catch (error) {
-            // Clear invalid data
+
             onUseLocalStorage("delete", COUPON_STORAGE_KEY);
             onUseLocalStorage("delete", COUPON_TEXT_STORAGE_KEY);
             onUseLocalStorage("delete", COUPON_APPLIED_STORAGE_KEY);
             onUseLocalStorage("delete", COUPON_RESTAURANT_KEY);
           }
         } else {
-          // DIFFERENT RESTAURANT - CLEAR COUPON
+
           console.log("Coupon not loaded: different restaurant");
           onUseLocalStorage("delete", COUPON_STORAGE_KEY);
           onUseLocalStorage("delete", COUPON_TEXT_STORAGE_KEY);
@@ -283,12 +255,11 @@ export default function OrderCheckoutScreen() {
         }
       }
     }
-  }, [restaurantId]); // restaurantId is the key dependency here
+  }, [restaurantId]); 
 
-  // Clear coupon when cart is empty
   useEffect(() => {
     if (isCouponApplied && cart.length === 0) {
-      // Cart is empty - clear coupon
+
       setIsCouponApplied(false);
       setCoupon({} as ICouponData);
       setCouponText("");
@@ -299,13 +270,12 @@ export default function OrderCheckoutScreen() {
     }
   }, [cart.length, isCouponApplied]);
 
-  // Clear coupon when restaurant changes
   useEffect(() => {
     if (typeof window !== "undefined" && isCouponApplied && restaurantId) {
       const savedRestaurantId = onUseLocalStorage("get", COUPON_RESTAURANT_KEY);
 
       if (savedRestaurantId && savedRestaurantId !== restaurantId) {
-        // Restaurant changed - clear coupon
+
         setIsCouponApplied(false);
         setCoupon({} as ICouponData);
         setCouponText("");
@@ -325,20 +295,14 @@ export default function OrderCheckoutScreen() {
       }
     }
   }, [restaurantId, isCouponApplied]);
-  // Use local restaurant data if GraphQL data is not available
+
   const finalRestaurantData = restaurantData || localRestaurantData;
 
-  // Context
   const { isLoaded } = useContext(GoogleMapsContext);
 
-  // Ref
-  // const contentRef = useRef<HTMLDivElement>(null);
 
-  /*
-    ##############
-     Constants
-    #############
-   */
+
+  
   const origin = {
     lat:
       Number(finalRestaurantData?.restaurant?.location?.coordinates?.[1]) || 0,
@@ -357,13 +321,11 @@ export default function OrderCheckoutScreen() {
   );
   const { theme } = useTheme();
 
-  // Initialize on client
   useEffect(() => {
     const stored = localStorage.getItem("newOrderInstructions");
     setOrderInstructions(stored);
   }, []);
 
-  // Update on cross-tab localStorage changes
   useEffect(() => {
     const handleStorage = (event: StorageEvent) => {
       if (event.key === "newOrderInstructions") {
@@ -374,7 +336,6 @@ export default function OrderCheckoutScreen() {
     return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
-  // Optional: For same-tab updates via a custom event
   useEffect(() => {
     const handleCustomUpdate = () => {
       const updated = localStorage.getItem("newOrderInstructions");
@@ -388,7 +349,6 @@ export default function OrderCheckoutScreen() {
       );
   }, []);
 
-  // API
   const { data: tipData } = useQuery(GET_TIPS);
   const [placeOrder, { loading: loadingOrderMutation }] = useMutation(
     PLACE_ORDER,
@@ -406,24 +366,21 @@ export default function OrderCheckoutScreen() {
   );
 
   console.log("Tipps from admin:", tipData);
-  // Handlers
+
   const onInit = () => {
     if (!finalRestaurantData) return;
 
-    // Set Tax
     setTaxValue(finalRestaurantData?.restaurant?.tax);
-    // Delivery Charges
+
     onInitDeliveryCharges();
   };
 
-  // Update tax value when restaurant data is loaded
   useEffect(() => {
     if (finalRestaurantData?.restaurant?.tax !== undefined) {
       setTaxValue(finalRestaurantData.restaurant.tax);
     }
   }, [finalRestaurantData]);
 
-  // Initialize tax value on component mount
   useEffect(() => {
     if (!taxValue && finalRestaurantData?.restaurant?.tax !== undefined) {
       setTaxValue(finalRestaurantData.restaurant.tax);
@@ -436,7 +393,7 @@ export default function OrderCheckoutScreen() {
     if (savedCoupon) {
       const parsed = JSON.parse(savedCoupon);
       setCoupon(parsed);
-      setIsCouponApplied(true); // ← VERY IMPORTANT
+      setIsCouponApplied(true); 
     }
   }, []);
 
@@ -451,7 +408,7 @@ export default function OrderCheckoutScreen() {
       } else {
         setDirections(null);
       }
-      setIsCheckingCache(false); // done checking
+      setIsCheckingCache(false); 
     } catch (err) {
       setDirections(null);
       setIsCheckingCache(false);
@@ -480,9 +437,8 @@ export default function OrderCheckoutScreen() {
     setDeliveryCharges(amount > 0 ? amount : DELIVERY_RATE);
   };
 
-  // const togglePriceSummary = () => {
-  //   setIsOpen((prev) => !prev);
-  // };
+
+
 
   function transformOrder(cartData: CartItem[]) {
     return cartData.map((food) => {
@@ -525,99 +481,85 @@ export default function OrderCheckoutScreen() {
     return times.length > 0;
   };
 
-  // API Handlers
   const onApplyCoupon = () => {
     verifyCoupon({
       variables: { coupon: couponText, restaurantId: restaurantId },
     });
   };
 
-  // function validateOrder() {
-  //   if (!restaurantData.restaurant.isAvailable || !onCheckIsOpen()) {
-  //     // toggleCloseModal();
-  //     showToast({
-  //       title: "Restaurant",
-  //       message: "Restaurant is not available right now.",
-  //       type: "error",
-  //     });
 
-  //     return;
-  //   }
-  //   if (!cart.length) {
-  //     showToast({ title: "Cart", message: "Cart is empty", type: "error" });
 
-  //     return false;
-  //   }
-  //   const delivery = isPickUp ? 0 : deliveryCharges;
-  //   if (
-  //     Number(calculatePrice(delivery, true)) <
-  //     restaurantData?.restaurant?.minimumOrder
-  //   ) {
-  //     showToast({
-  //       title: "Minimum Amount",
-  //       message: `The minimum amount of (${CURRENCY_SYMBOL} ${restaurantData?.restaurant?.minimumOrder}) for your order has not been reached.`,
-  //       type: "warn",
-  //     });
 
-  //     return false;
-  //   }
-  //   if (!userAddress) {
-  //     showToast({
-  //       title: "Missing Address",
-  //       message: "Select your address.",
-  //       type: "warn",
-  //     });
 
-  //     return false;
-  //   }
-  //   if (!paymentMethod) {
-  //     showToast({
-  //       title: "Missing Payment Method",
-  //       message: "Set payment method before checkout",
-  //       type: "warn",
-  //     });
 
-  //     return false;
-  //   }
-  //   if ((profile?.phone?.length || 0) < 1) {
-  //     showToast({
-  //       title: "Missing Phone number",
-  //       message: "Phone number is missing.",
-  //       type: "warn",
-  //     });
 
-  //     setTimeout(() => {
-  //       router.replace("/phone-number");
-  //     }, 1000);
 
-  //     return false;
-  //   }
-  //   if (!profile?.phoneIsVerified) {
-  //     showToast({
-  //       title: "Unverified Phone number",
-  //       message: "Phone Number is not verified",
 
-  //       type: "warn",
-  //     });
 
-  //     setTimeout(() => {
-  //       router.replace("/phone-number");
-  //     }, 1000);
 
-  //     return false;
-  //   }
-  //   return true;
-  // }
 
-  // Order
 
-  // This is the fixed validateOrder function inside your OrderCheckoutScreen.js file
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const isWithinOpeningTime = (openingTimes: IOpeningTime[]): boolean => {
     const now = new Date();
     const currentDay = now
       .toLocaleString("en-US", { weekday: "short" })
-      .toUpperCase(); // e.g., "MON", "TUE", ...
+      .toUpperCase(); 
     const currentHour = now.getHours();
     const currentMinute = now.getMinutes();
 
@@ -652,7 +594,7 @@ export default function OrderCheckoutScreen() {
       !isWithinOpeningTime(finalRestaurantData.restaurant.openingTimes) ||
       !onCheckIsOpen()
     ) {
-      // toggleCloseModal();
+
       showToast({
         title: t("restaurant_label"),
         message: t("restaurant_unavailable"),
@@ -697,7 +639,6 @@ export default function OrderCheckoutScreen() {
       return false;
     }
 
-    // Check if the profile data is being loaded
     if (loadingProfile) {
       showToast({
         title: "Loading Profile",
@@ -707,7 +648,6 @@ export default function OrderCheckoutScreen() {
       return false;
     }
 
-    // Check if profile exists
     if (!profile) {
       showToast({
         title: "Missing Profile",
@@ -716,7 +656,6 @@ export default function OrderCheckoutScreen() {
         type: "error",
       });
 
-      // Force fetch the profile
       fetchProfile();
 
       setTimeout(() => {
@@ -726,7 +665,6 @@ export default function OrderCheckoutScreen() {
       return false;
     }
 
-    // Now safely check for phone number and verification status
     if (!profile.phone || profile.phone.length < 1) {
       showToast({
         title: t("Missing_Phone_number"),
@@ -735,7 +673,7 @@ export default function OrderCheckoutScreen() {
       });
 
       setTimeout(() => {
-        // router.replace("/phone-number");
+
       }, 1000);
 
       return false;
@@ -749,7 +687,7 @@ export default function OrderCheckoutScreen() {
       });
 
       setTimeout(() => {
-        // router.replace("/phone-number");
+
       }, 1000);
 
       return false;
@@ -759,7 +697,7 @@ export default function OrderCheckoutScreen() {
   }
 
   async function onPlaceOrder() {
-    // Check if user is autenticated
+
     if (!authToken) {
       setIsAuthModalVisible(true);
       return;
@@ -769,7 +707,6 @@ export default function OrderCheckoutScreen() {
       return;
     }
 
-    // if false then select the address
     if (!isAddressSelectedOnce && deliveryType === "Delivery") {
       setIsUserAddressModalOpen(true);
       return;
@@ -788,13 +725,13 @@ export default function OrderCheckoutScreen() {
           couponCode: isCouponApplied ? (coupon ? coupon.title : null) : null,
           tipping: +selectedTip,
           taxationAmount: +taxCalculation(),
-          // address: {
-          //   label: location?.label,
-          //   deliveryAddress: location?.deliveryAddress,
-          //   details: location?.details,
-          //   longitude: "" + location?.longitude,
-          //   latitude: "" + location?.latitude,
-          // },
+
+
+
+
+
+
+
           address: {
             label: userAddress?.label,
             deliveryAddress: userAddress?.deliveryAddress,
@@ -819,7 +756,7 @@ export default function OrderCheckoutScreen() {
   async function onCompleted(data: { placeOrder: IOrder }) {
     localStorage.removeItem("orderInstructions");
     clearCart();
-    // CLEAR COUPON FROM LOCALSTORAGE
+
     onUseLocalStorage("delete", COUPON_STORAGE_KEY);
     onUseLocalStorage("delete", COUPON_TEXT_STORAGE_KEY);
     onUseLocalStorage("delete", COUPON_APPLIED_STORAGE_KEY);
@@ -863,7 +800,6 @@ export default function OrderCheckoutScreen() {
     });
   }
 
-  // Pricing Handlers
   function calculatePrice(delivery = 0, withDiscount: boolean = false) {
     let itemTotal: number = 0;
     cart.forEach((cartItem) => {
@@ -887,19 +823,7 @@ export default function OrderCheckoutScreen() {
     return taxAmount;
   }
 
-  /* function calculateTip() {
-    if (selectedTip) {
-      const _tip = parseFloat(selectedTip);
-      let total = 0;
-      const delivery = isPickUp ? 0 : deliveryCharges;
-      total += +calculatePrice(delivery, true);
-      total += +taxCalculation();
-      const tipPercentage = ((total / 100) * _tip).toFixed(2);
-      return tipPercentage;
-    } else {
-      return "0";
-    }
-  } */
+  
 
   function calculateTotal() {
     let total: number = 0;
@@ -910,9 +834,7 @@ export default function OrderCheckoutScreen() {
     return total.toFixed(2);
   }
 
-  /*
-   Use Callbacks
-  */
+  
   const directionsCallback = useCallback(
     (result: google.maps.DirectionsResult | null, status: string) => {
       if (status === "OK" && result) {
@@ -929,13 +851,11 @@ export default function OrderCheckoutScreen() {
     [],
   );
 
-  // Filter PAYMENT_METHOD_LIST based on stripeDetailsSubmitted
   const filteredPaymentMethods = !finalRestaurantData?.restaurant
     ?.stripeDetailsSubmitted
     ? PAYMENT_METHOD_LIST.filter((method) => method.value === "COD")
     : PAYMENT_METHOD_LIST;
 
-  // Use Effect
   useEffect(() => {
     if (finalRestaurantData?.restaurant) {
       onInit();
@@ -948,7 +868,7 @@ export default function OrderCheckoutScreen() {
 
   return (
     <>
-      {/* <!-- Header with map and navigation --> */}
+      {}
       <div className="relative">
         {isLoaded ? (
           <GoogleMap
@@ -961,25 +881,25 @@ export default function OrderCheckoutScreen() {
               disableDefaultUI: true,
             }}
             center={{
-              lat: 24.8607, // Example: Karachi
+              lat: 24.8607, 
               lng: 67.0011,
             }}
             zoom={13}
           >
-            {/* Custom Origin Marker */}
+            {}
             <Marker
               position={origin}
               icon={{
-                url: RestIcon.src, // Replace with your icon path or external URL
+                url: RestIcon.src, 
                 scaledSize: new window.google.maps.Size(40, 40),
               }}
             />
 
-            {/* Custom Destination Marker */}
+            {}
             <Marker
               position={destination}
               icon={{
-                url: HomeIcon.src, // Replace with your icon path or external URL
+                url: HomeIcon.src, 
                 scaledSize: new window.google.maps.Size(40, 40),
               }}
             />
@@ -999,11 +919,11 @@ export default function OrderCheckoutScreen() {
                 directions={directions}
                 options={{
                   directions,
-                  suppressMarkers: true, // Hide default markers
+                  suppressMarkers: true, 
                   polylineOptions: {
-                    strokeColor: "#5AC12F", // blue line
+                    strokeColor: "#5AC12F", 
                     strokeOpacity: 0.8,
-                    strokeWeight: 3, // thickness
+                    strokeWeight: 3, 
                     zIndex: 10,
                   },
                 }}
@@ -1025,26 +945,13 @@ export default function OrderCheckoutScreen() {
           </>
         )}
       </div>
-      {/* <!-- Toggle Prices Button for Mobile --> 
-          <div className="sm:hidden fixed top-14 left-0 right-0 bg-transparent z-10 p-4">
-            <button
-              className="bg-white text-primary-color w-full py-2 px-4 rounded-full border border-gray-300 flex justify-between items-center"
-              onClick={togglePriceSummary}
-            >
-              <span className="font-inter text-[14px]">
-                Total: {`${CURRENCY_SYMBOL} ${calculateTotal()}`}
-              </span>
+      {}
 
-              <FontAwesomeIcon icon={faChevronDown} className="text-[14px]" />
-            </button>
-          </div>
-          */}
-
-      {/* <!-- Main Content --> */}
+      {}
       <PaddingContainer className="pb-10">
         <div className="max-w-6xl md:pt-10 p-4 md:p-0 lg:flex lg:space-x-4">
           <div className="lg:w-3/4 md:mr-40 md:rtl:ml-40">
-            {/* <!-- Delivery and Pickup Toggle --> */}
+            {}
             <div className="flex justify-between bg-gray-100 dark:bg-gray-800 rounded-full p-2 mb-6">
               <button
                 className={`w-1/2 ${
@@ -1087,12 +994,12 @@ export default function OrderCheckoutScreen() {
               </button>
             </div>
 
-            {/* <!-- Section Title --> */}
+            {}
             <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
               {t("for_greater_hunger_title")}
             </h2>
 
-            {/* <!-- Delivery Details --> */}
+            {}
             <div className="bg-white dark:bg-gray-800 px-4 pt-4 pb-2 rounded-lg mb-4 border border-gray-300 dark:border-gray-700 w-full">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center">
@@ -1126,7 +1033,7 @@ export default function OrderCheckoutScreen() {
               </div>
             </div>
 
-            {/* <!-- Leave at Door --> */}
+            {}
             <div
               className={
                 deliveryType === "Pickup"
@@ -1154,12 +1061,12 @@ export default function OrderCheckoutScreen() {
               </p>
             </div>
 
-            {/* <!-- Selected Items --> */}
+            {}
             <div className="bg-white dark:bg-gray-800 pt-4 px-3  pb-2 rounded-lg mb-4 w-full ">
               <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
                 {t("selected_items_label")}
               </h2>
-              {/* Map this below section */}
+              {}
               {cart.map((item) => {
                 return (
                   <div
@@ -1242,7 +1149,7 @@ export default function OrderCheckoutScreen() {
               ""
             )}
 
-            {/* <!-- Payment Details --> */}
+            {}
             <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
               {t("payment_details_label")}
             </h2>
@@ -1276,7 +1183,7 @@ export default function OrderCheckoutScreen() {
               );
             })}
 
-            {/* <!-- Tip the Courier --> */}
+            {}
             {!isPickUp && (
               <div className="bg-white dark:bg-gray-900 mb-6 w-full">
                 <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
@@ -1314,7 +1221,7 @@ export default function OrderCheckoutScreen() {
               </div>
             )}
 
-            {/* <!-- Promo Code --> */}
+            {}
             <div className="bg-white dark:bg-gray-900  pb-2 rounded-lg mb-4 w-full">
               <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
                 {t("promo_code_label")}
@@ -1334,7 +1241,6 @@ export default function OrderCheckoutScreen() {
                       setCoupon({} as ICouponData);
                       setCouponText("");
 
-                      // CLEAR FROM LOCALSTORAGE
                       onUseLocalStorage("delete", COUPON_STORAGE_KEY);
                       onUseLocalStorage("delete", COUPON_TEXT_STORAGE_KEY);
                       onUseLocalStorage("delete", COUPON_APPLIED_STORAGE_KEY);
@@ -1380,7 +1286,7 @@ export default function OrderCheckoutScreen() {
             </div>
           </div>
 
-          {/* <!-- Order Summary - Large Screen --> */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1429,9 +1335,7 @@ export default function OrderCheckoutScreen() {
                   </span>
                   <span className="font-inter text-gray-900 dark:text-white leading-5">
                     {`${CURRENCY_SYMBOL} ${selectedTip}`}
-                    {/*    {`${CURRENCY_SYMBOL} ${parseFloat(calculateTip()).toFixed(
-                      2
-                    )}`} */}
+                    {}
                   </span>
                 </div>
               )}
@@ -1447,14 +1351,7 @@ export default function OrderCheckoutScreen() {
                 </span>
               </div>
 
-              {/* <div className="flex justify-between mb-1 text-xs lg:text-[12px]">
-                  <span className="font-inter text-gray-900 leading-5">
-                    Service fee
-                  </span>
-                  <span className="font-inter text-gray-900 leading-5">
-                    $0.40
-                  </span>
-                </div> */}
+              {}
 
               <Divider />
 
@@ -1472,11 +1369,7 @@ export default function OrderCheckoutScreen() {
                 </div>
               )}
 
-              {/* <div className="text-secondary-color mb-1 text-left font-inter text-xs lg:text-[12px]">
-                    Choose an offer (1 available)
-                  </div>
-
-                  <Divider /> */}
+              {}
 
               <div className="flex justify-between font-semibold mb-4 text-xs lg:text-[16px] dark:text-white ">
                 <span>{t("total_sum_label")}</span>
@@ -1497,7 +1390,7 @@ export default function OrderCheckoutScreen() {
             </div>
           </motion.div>
 
-          {/* <!-- Order Summary - Medium & Small Screens --> */}
+          {}
           <div className="block lg:hidden md:mr-40">
             <div
               className="bg-white dark:bg-gray-800 dark:text-white p-2 sticky top-4 rounded-lg shadow-md border border-gray-300 expandable h-fit lg:hidden block"
@@ -1543,9 +1436,7 @@ export default function OrderCheckoutScreen() {
                   </span>
                   <span className="font-inter text-gray-900 dark:text-white leading-5">
                     {`${CURRENCY_SYMBOL} ${selectedTip}`}
-                    {/*    {`${CURRENCY_SYMBOL} ${parseFloat(calculateTip()).toFixed(
-                      2
-                    )}`} */}
+                    {}
                   </span>
                 </div>
               )}
@@ -1560,14 +1451,7 @@ export default function OrderCheckoutScreen() {
                 </span>
               </div>
 
-              {/* <div className="flex justify-between mb-1 text-xs lg:text-[12px]">
-                  <span className="font-inter text-gray-900 leading-5">
-                    Service fee
-                  </span>
-                  <span className="font-inter text-gray-900 leading-5">
-                    $0.40
-                  </span>
-                </div> */}
+              {}
 
               <Divider />
 
@@ -1585,11 +1469,9 @@ export default function OrderCheckoutScreen() {
                 </div>
               )}
 
-              {/* <div className="text-secondary-color mb-1 text-left font-inter text-xs lg:text-[12px]">
-                    Choose an offer (1 available)
-                  </div> */}
+              {}
 
-              {/* <Divider /> */}
+              {}
 
               <div className="flex justify-between font-semibold mb-4 text-xs lg:text-[14px ] dark:text-white">
                 <span>{t("total_sum_label")}</span>
@@ -1609,117 +1491,8 @@ export default function OrderCheckoutScreen() {
             </div>
           </div>
 
-          {/* Order Summary - Small Screen */}
-          {/* <div className="fixed top-4 right-0 mx-auto md:fixed lg:hidden xl:hidden m-4 p-4 w-full sm:w-64 ml-0 sm:ml-8 mt-16 sm:mt-0 lg:right-auto lg:m-0 lg:w-1/4 lg:sticky lg:top-6">
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      ref={contentRef}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="bg-white p-2 rounded-lg shadow-md border border-gray-300 overflow-hidden"
-                    >
-                      <h2 className="text-base font-semibold text-left flex justify-between">
-                       
-                        <InfoSvg />
-                      </h2>
-                      <p className="text-gray-300 mb-4 text-left  sm:leading-5 tracking-normal font-inter text-xs sm:text-sm md:text-sm align-middle ">
-                        Inc. Taxes (if applicable)
-                      </p>
-
-                      <div className="flex justify-between mb-1 text-sm">
-                        <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                          
-                        </span>
-                        <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                          {CURRENCY_SYMBOL}
-                          {calculatePrice(0)}
-                        </span>
-                      </div>
-
-                      <div className="flex justify-between mb-1 text-sm">
-                        <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                          Delivery ({dstance} km)
-                        </span>
-                        <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                          {CURRENCY_SYMBOL}
-                          {deliveryCharges.toFixed()}
-                        </span>
-                      </div>
-
-                      {selectedTip && (
-                        <div className="flex justify-between mb-1 text-sm">
-                          <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                            Tip
-                          </span>
-                          <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                            {`${CURRENCY_SYMBOL} ${selectedTip}`}
-                              {`${CURRENCY_SYMBOL} ${parseFloat(
-                          calculateTip()
-                        ).toFixed(2)}`} 
-                          </span>
-                        </div>
-                      )}
-
-                      <div className="flex justify-between mb-1 text-sm">
-                        <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                          Tax
-                        </span>
-                        <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                          {CURRENCY_SYMBOL}
-                          {taxCalculation()}
-                        </span>
-                      </div>
-
-                        <div className="flex justify-between mb-1 text-sm">
-                      <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                        Service fee
-                      </span>
-                      <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                        $0.40
-                      </span>
-                    </div> 
-
-                      <Divider />
-
-                      <div className="flex justify-between mb-1 text-sm">
-                        <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                          Discount
-                        </span>
-                        <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                          {`-${CURRENCY_SYMBOL} ${(
-                            Number(calculatePrice(0, false)) -
-                            Number(calculatePrice(0, true))
-                          ).toFixed(2)}`}
-                        </span>
-                      </div>
-
-                      <div className="text-secondary-color mb-1 text-left font-inter text-[14px] md:text-lg leading-6 md:leading-7">
-                        Choose an offer (1 available)
-                      </div>
-                      <Divider />
-
-                      <div className="flex justify-between font-semibold mb-4 text-sm">
-                        <span>Total sum</span>
-                        <span>
-                          {CURRENCY_SYMBOL}
-                          {calculateTotal()}
-                        </span>
-                      </div>
-                      <button
-                        className="bg-primary-color text-gray-900 w-full py-2 rounded-full text-sm"
-                        onClick={onPlaceOrder}
-                      >
-                        {loadingOrderMutation ?
-                          <FontAwesomeIcon icon={faSpinner} spin />
-                        : <span> Click to order</span>}
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div> */}
+          {}
+          {}
         </div>
       </PaddingContainer>
 

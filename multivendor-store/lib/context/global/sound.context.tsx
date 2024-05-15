@@ -1,25 +1,23 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+
 import { useContext, useEffect, useState, createContext } from "react";
 import { Audio } from "expo-av";
-// Interface
+
 import {
   ISoundContext,
   ISoundContextProviderProps,
 } from "@/lib/utils/interfaces";
-// Context/Hooks
 
-// Hook
+
 import useOrders from "@/lib/hooks/useOrders";
 
 const SoundContext = createContext<ISoundContext>({} as ISoundContext);
 
 export const SoundProvider = ({ children }: ISoundContextProviderProps) => {
-  // State
+
   const [sound, setSound] = useState<Audio.SoundObject | null>(null);
-  // Context/Hooks
+
   const { hasNewOrders } = useOrders();
 
-  // Handlers
   const playSound = async () => {
     try {
       await stopSound();
@@ -52,7 +50,6 @@ export const SoundProvider = ({ children }: ISoundContextProviderProps) => {
     }
   };
 
-  // Use Effect
   useEffect(() => {
     if (hasNewOrders) {
       const shouldPlaySound = hasNewOrders;

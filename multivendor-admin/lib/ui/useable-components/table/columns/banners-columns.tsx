@@ -1,18 +1,18 @@
-// Core
+
 import Image from 'next/image';
-// Custom Components
+
 import ActionMenu from '@/lib/ui/useable-components/action-menu';
-// Interfaces and Types
+
 import { IActionMenuProps } from '@/lib/utils/interfaces/action-menu.interface';
 import { IBannersResponse } from '@/lib/utils/interfaces/banner.interface';
 import { useTranslations } from 'next-intl';
-// Interfaces and Types
+
 export const BANNERS_TABLE_COLUMNS = ({
   menuItems,
 }: {
   menuItems: IActionMenuProps<IBannersResponse>['items'];
 }) => {
-  // Hooks
+
   const t = useTranslations();
   return [
     {

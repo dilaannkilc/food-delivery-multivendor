@@ -236,22 +236,7 @@ function RightButton(props) {
   } else if (props?.icon === 'cart') {
     return (
       <View style={{ flexDirection: 'row' }}>
-        {/* <HeaderBackButton
-          truncatedLabel=''
-          pressColorAndroid={route.name === 'Main' && rippleColor}
-          labelVisible={false}
-          backImage={() => (
-            <View style={styles().favContainer}>
-              {BackButton({ iconColor: currentTheme.darkBgFont, icon: 'fav' })}
-            </View>
-          )}
-          bolder
-          onPress={() =>
-            isLoggedIn && profile
-              ? navigation.navigate('Favourite')
-              : navigation.navigate('CreateAccount')
-          }
-        /> */}
+        {}
         {cartCount >= 0 && (
           <HeaderBackButton
             truncatedLabel=''

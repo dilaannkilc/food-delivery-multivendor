@@ -23,7 +23,7 @@ const styles = (props = null) =>
       width: '100%',
       height: '80%',
       alignSelf: 'center',
-      // backgroundColor: 'red'
+
     },
 
     ML20: {
@@ -211,7 +211,7 @@ const styles = (props = null) =>
     collectionContainer: {
       flexGrow: 1,
       gap: 8,
-      // ...alignment.PTsmall,
+
       ...alignment.PBsmall
     },
     all:

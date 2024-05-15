@@ -1,12 +1,11 @@
 export const de = {
-  // Navigation
+
   continue: "Weiter",
   Wallet: "Wallet",
   Home: "Startseite",
   Earnings: "Einnahmen",
   Profile: "Profil",
 
-  // FAQs
   faq1: "Wie gebe ich eine Bestellung auf?",
   faq1Description:
     "Um eine Bestellung aufzugeben, durchsuchen Sie einfach unser Menü, wählen Sie die gewünschten Artikel aus und gehen Sie zur Kasse. Sie können Ihre bevorzugte Zahlungsmethode und Lieferadresse auswählen, bevor Sie die Bestellung bestätigen.",
@@ -29,7 +28,6 @@ export const de = {
   faq7Description:
     "Leider können Sie nicht aus mehreren Restaurants in einer Bestellung wählen. Sie können jedoch separate Bestellungen aus verschiedenen Restaurants gleichzeitig aufgeben.",
 
-  // Earnings
   "Earnings Summary": "Einnahmenübersicht",
   Deliveries: "Lieferungen",
   "Total Earnings": "Gesamteinnahmen",
@@ -39,13 +37,11 @@ export const de = {
   "Order Date": "Bestelldatum",
   "Earnings Order Details": "Bestelldetails Einnahmen",
 
-  // Flash messages
   "Order placed successfully": "Bestellung erfolgreich aufgegeben",
   "Order cancelled successfully": "Bestellung erfolgreich storniert",
   "Error while placing order": "Fehler beim Aufgeben der Bestellung",
   "Error while cancelling order": "Fehler beim Stornieren der Bestellung",
 
-  // Other messages
   "Please enter your name": "Bitte geben Sie Ihren Namen ein",
   "Please enter your email": "Bitte geben Sie Ihre E-Mail-Adresse ein",
   "Please enter your password": "Bitte geben Sie Ihr Passwort ein",

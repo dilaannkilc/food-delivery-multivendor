@@ -57,7 +57,7 @@ const styles = (props = null) =>
       gap: scale(5)
     },
     searchDealSection: {
-      // position: 'relative',
+
       backgroundColor: props != null ? props.themeBackground : 'white',
       paddingVertical: scale(10),
       ...alignment.PRmedium,

@@ -96,20 +96,17 @@ const PastOrders = ({
 }
 
 const formatDeliveredAt = (deliveredAt) => {
-  // Check if deliveredAt is null, undefined, or empty
+
   if (!deliveredAt) {
     return 'N/A'
   }
 
-  // Convert deliveredAt string to a Date object
   const deliveryDate = new Date(deliveredAt)
 
-  // Check if the date is valid
   if (isNaN(deliveryDate.getTime())) {
     return 'N/A'
   }
 
-  // Define months array for formatting
   const months = [
     'Jan',
     'Feb',
@@ -125,18 +122,15 @@ const formatDeliveredAt = (deliveredAt) => {
     'Dec'
   ]
 
-  // Getting components of the date
   const day = deliveryDate.getDate()
   const month = months[deliveryDate.getMonth()]
   const hours = deliveryDate.getHours()
   const minutes = deliveryDate.getMinutes()
 
-  // Padding single digits with 0
   const formattedDay = day < 10 ? '0' + day : day
   const formattedHours = hours < 10 ? '0' + hours : hours
   const formattedMinutes = minutes < 10 ? '0' + minutes : minutes
 
-  // Formatting the date and time
   return `${formattedDay} ${month} ${formattedHours}:${formattedMinutes}`
 }
 const getItems = (items) => {
@@ -252,7 +246,7 @@ const Item = ({
                   numberOfLines={1}
                   style={{
                     ...alignment.MTxSmall
-                    // width: '122%'
+
                   }}
                   textColor={currentTheme.secondaryText}
                   isRTL

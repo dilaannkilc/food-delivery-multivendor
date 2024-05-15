@@ -1,4 +1,4 @@
-/* eslint-disable react/display-name */
+
 import React from 'react'
 import SelectedLocation from '../../components/Main/Location/Location'
 import { alignment } from '../../utils/alignment'

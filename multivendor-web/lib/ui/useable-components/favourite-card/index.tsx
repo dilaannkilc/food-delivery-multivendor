@@ -1,7 +1,7 @@
 import type React from "react";
 import TextComponent from "../text-field";
 import ImageComponent from "../card-image-component";
-// import IconText from "../icon-text";
+
 import { IFavoriteCardProps } from "@/lib/utils/interfaces/favourite.restaurants.interface";
 import IconWithTitle from "../icon-with-title";
 import { ClockSvg, CycleSvg, FaceSvg } from "@/lib/utils/assets/svg";

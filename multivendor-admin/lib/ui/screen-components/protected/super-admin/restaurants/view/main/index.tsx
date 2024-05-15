@@ -1,28 +1,22 @@
 'use client';
 
-// Core
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ApolloError, useMutation } from '@apollo/client';
 
-// PrimeReact
 import { FilterMatchMode } from 'primereact/api';
 
-// Context
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { RestaurantsContext } from '@/lib/context/super-admin/restaurants.context';
 
-// Custom Hooks
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import useDebounce from '@/lib/hooks/useDebounce';
 
-// Custom Components
 import RestaurantDuplicateDialog from '../duplicate-dialog';
 import RestaurantsTableHeader from '../header/table-header';
 import Table from '@/lib/ui/useable-components/table';
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
 
-// Constants and Interfaces
 import {
   IActionMenuItem,
   IQueryResult,
@@ -30,34 +24,28 @@ import {
   IRestaurantsResponseGraphQL,
 } from '@/lib/utils/interfaces';
 
-// GraphQL Queries and Mutations
 import {
   GET_RESTAURANTS_PAGINATED,
   GET_CLONED_RESTAURANTS_PAGINATED,
   HARD_DELETE_RESTAURANT,
 } from '@/lib/api/graphql';
 
-// Method
 import { onUseLocalStorage } from '@/lib/utils/methods';
 
-// Dummy
 import { generateDummyRestaurants } from '@/lib/utils/dummy';
 import { DataTableRowClickEvent } from 'primereact/datatable';
 import { useTranslations } from 'next-intl';
 import { RESTAURANT_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/restaurant-column';
 
 export default function RestaurantsMain() {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const { showToast } = useContext(ToastContext);
   const { currentTab } = useContext(RestaurantsContext);
 
-  // Hooks
   const router = useRouter();
 
-  // State for pagination and search
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [deleteId, setDeleteId] = useState('');
@@ -68,7 +56,6 @@ export default function RestaurantsMain() {
   const [globalFilterValue, setGlobalFilterValue] = useState('');
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
 
-  // Debounce search to avoid too many API calls
   const debouncedSearchTerm = useDebounce(globalFilterValue, 500);
 
   const filters = {
@@ -79,19 +66,16 @@ export default function RestaurantsMain() {
     },
   };
 
-  // Reset page when search changes
   useEffect(() => {
     setCurrentPage(1);
   }, [debouncedSearchTerm, currentTab]);
 
-  // Query variables
   const queryVariables = {
     page: currentPage,
     limit: rowsPerPage,
     search: debouncedSearchTerm || undefined,
   };
 
-  //Query
   const { data, loading, refetch } = useQueryGQL(
     currentTab === 'Actual'
       ? GET_RESTAURANTS_PAGINATED
@@ -103,7 +87,6 @@ export default function RestaurantsMain() {
     }
   ) as IQueryResult<IRestaurantsResponseGraphQL | undefined, undefined>;
 
-  // API
   const [hardDeleteRestaurant, { loading: isHardDeleting }] = useMutation(
     HARD_DELETE_RESTAURANT,
     {
@@ -115,7 +98,7 @@ export default function RestaurantsMain() {
           duration: 2000,
         });
         setDeleteId('');
-        // Refetch data after deletion
+
         refetch();
       },
       onError: ({ networkError, graphQLErrors }: ApolloError) => {
@@ -146,13 +129,11 @@ export default function RestaurantsMain() {
     }
   };
 
-  // Pagination handlers
   const handlePageChange = (page: number, rows: number) => {
     setCurrentPage(page);
     setRowsPerPage(rows);
   };
 
-  // Constants
   const menuItems: IActionMenuItem<IRestaurantResponse>[] = [
     {
       label: t('View'),
@@ -184,7 +165,6 @@ export default function RestaurantsMain() {
     },
   ];
 
-  // Get pagination data
   const restaurantData =
     currentTab === 'Actual'
       ? data?.restaurantsPaginated
@@ -211,7 +191,7 @@ export default function RestaurantsMain() {
         columns={RESTAURANT_TABLE_COLUMNS({ menuItems })}
         loading={loading}
         rowsPerPage={rowsPerPage}
-        // Server-side pagination props
+
         totalRecords={totalRecords}
         currentPage={currentPage}
         onPageChange={handlePageChange}

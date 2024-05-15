@@ -1,4 +1,4 @@
-/* eslint-disable react/display-name */
+
 import React from 'react'
 import {
   RightButton,
@@ -8,7 +8,7 @@ import { textStyles } from '../../utils/textStyles'
 import { scale } from '../../utils/scaling'
 
 const navigationOptions = props => ({
-  // eslint-disable-next-line react/display-name
+
   headerRight: () => (
     <RightButton
       icon="dots"

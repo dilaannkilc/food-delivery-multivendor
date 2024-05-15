@@ -12,7 +12,6 @@ import {
   CountryItem,
 } from "@/lib/utils/interfaces/Home-interfaces";
 
-// Assets
 import { CircleCrossSvg } from "@/lib/utils/assets/svg";
 import { onUseLocalStorage } from "@/lib/utils/methods/local-storage";
 import { useUserAddress } from "@/lib/context/address/address.context";
@@ -81,7 +80,7 @@ const CitiesTiles: React.FC<CitiesTilesProps> = ({
               {data?.getCitiesByCountry?.name}
             </p>
 
-            {/* <button onClick={AllCountries}>All Countries</button> */}
+            {}
             <div
               className="absolute -right-2 -top-2 cursor-pointer"
               onClick={AllCountries}

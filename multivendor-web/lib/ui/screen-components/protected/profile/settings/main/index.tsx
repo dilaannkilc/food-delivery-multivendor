@@ -2,20 +2,19 @@
 import type React from "react";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
-// Api
+
 import { DEACTIVATE_USER, GET_USER_PROFILE } from "@/lib/api/graphql";
 import { useMutation, useQuery, ApolloError } from "@apollo/client";
 
-// Components
 import CustomButton from "@/lib/ui/useable-components/button";
 import CustomInputSwitch from "@/lib/ui/useable-components/custom-input-switch";
 import ProfileSettingsSkeleton from "@/lib/ui/useable-components/custom-skeletons/profile.settings.skelton";
 import TextComponent from "@/lib/ui/useable-components/text-field";
 import DeleteAccountDialog from "./delete-account";
 import UpdatePhoneModal from "./update-phone";
-// Context
+
 import { useAuth } from "@/lib/context/auth/auth.context";
-// Hooks
+
 import useToast from "@/lib/hooks/useToast";
 import NameUpdateModal from "./update-name";
 import { useTranslations } from "next-intl";
@@ -25,7 +24,7 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import ThemeToggle from "@/lib/ui/useable-components/theme-button";
 
 export default function SettingsMain() {
-  // States for current values
+
   const [sendReceipts, setSendReceipts] = useState<boolean>(false);
   const [deleteAccount, setDeleteAccount] = useState<boolean>(false);
 
@@ -40,14 +39,12 @@ export default function SettingsMain() {
     useState<boolean>(false);
   const [activeStep, setActiveStep] = useState<number>(0);
 
-  // Hooks
   const { setAuthToken } = useAuth();
   const router = useRouter();
   const { showToast } = useToast();
   const t = useTranslations();
 
-  // Queries and Mutations
-  // Get profile data by using the query
+
   const { data: profileData, loading: isProfileLoading } = useQuery(
     GET_USER_PROFILE,
     {
@@ -55,7 +52,6 @@ export default function SettingsMain() {
     }
   );
 
-  // Update user muattion
   const [Deactivate] = useMutation(DEACTIVATE_USER, {
     onCompleted: () => {
       showToast({
@@ -73,21 +69,19 @@ export default function SettingsMain() {
     },
   });
 
-  // Handle Delete Account button click
   const handleDeleteAccount = () => {
     setDeleteAccount(true);
   };
 
-  // Handle send receipts toggle
   const handleSendReceiptsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.checked;
     setSendReceipts(newValue);
-    // You can use a mutation to update the user's settings
+
   };
-  //  handle Logout
+
   const handleLogout = () => {
-    // Add your logout logic here
-    // e.g., clear cookies, redirect to login page, etc.
+
+
     setAuthToken("");
     localStorage.clear();
     showToast({
@@ -112,9 +106,8 @@ const handleConfirmDelete = async () => {
       },
     });
 
-    // Check if mutation returned data
     if (result.data?.Deactivate) {
-      // Success: log out user
+
       setAuthToken("");
       localStorage.clear();
       setDeleteAccount(false);
@@ -127,7 +120,7 @@ const handleConfirmDelete = async () => {
       });
     }
   } catch (err: unknown) {
-    // Handle unexpected errors
+
     let errorMessage = "Unable to delete account";
     if (err instanceof ApolloError) {
       errorMessage = err.message;
@@ -145,9 +138,6 @@ const handleConfirmDelete = async () => {
   }
 };
 
-  
-
-  // Close delete dialog
   const handleCancelDelete = useCallback(() => {
     setDeleteAccount(false);
   }, []);
@@ -179,7 +169,7 @@ const handleConfirmDelete = async () => {
         loading={isDeleting}
       />
 
-      {/* Email */}
+      {}
       <div className="py-4 border-b">
         <div className="flex justify-between items-center dark:border-gray-700">
           <TextComponent
@@ -193,7 +183,7 @@ const handleConfirmDelete = async () => {
         </div>
       </div>
 
-      {/* Mobile Number */}
+      {}
       <div className="py-4 border-b dark:border-gray-700">
         <div className="flex justify-between items-center ">
           <TextComponent
@@ -220,7 +210,7 @@ const handleConfirmDelete = async () => {
         </div>
       </div>
 
-      {/* Name */}
+      {}
       <div className="py-4 border-b dark:border-gray-700">
         <div className="flex justify-between items-center">
           <TextComponent
@@ -237,7 +227,7 @@ const handleConfirmDelete = async () => {
         </div>
       </div>
 
-      {/* Delete Account */}
+      {}
       <div className="py-4 border-b dark:border-gray-700">
         <div className="flex justify-between items-center">
           <TextComponent
@@ -252,7 +242,7 @@ const handleConfirmDelete = async () => {
         </div>
       </div>
 
-      {/* Send Receipts */}
+      {}
       <div className="py-4 border-b dark:border-gray-700">
         <div className="flex justify-between items-center">
           <TextComponent
@@ -266,7 +256,7 @@ const handleConfirmDelete = async () => {
         </div>
       </div>
 
-      {/* Theme Toggle */}
+      {}
       <div className="py-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex justify-between items-center">
           <TextComponent
@@ -277,7 +267,7 @@ const handleConfirmDelete = async () => {
         </div>
       </div>
 
-      {/* Update Phone Modal */}
+      {}
       <UpdatePhoneModal
         handleUpdatePhoneModal={handleUpdatePhoneModal}
         isUpdatePhoneModalVisible={isUpdatePhoneModalVisible}
@@ -286,14 +276,14 @@ const handleConfirmDelete = async () => {
         userPhone={profileData?.profile?.phone || ""}
       />
 
-      {/* Upate Name MOdal */}
+      {}
       <NameUpdateModal
         handleUpdateNameModal={handleUpdateNameModal}
         isUpdateNameModalVisible={isUpdateNameModalVisible}
         existedName={profileData?.profile?.name}
       />
 
-      {/* Logout */}
+      {}
       <div className="py-4">
         <div className="flex justify-between items-center">
           <TextComponent
@@ -307,7 +297,7 @@ const handleConfirmDelete = async () => {
           />
         </div>
 
-        {/* Logout Confirmation Dialog */}
+        {}
         <Dialog
           contentClassName="dark:bg-gray-800"
           maskClassName="bg-black/80"
@@ -326,7 +316,7 @@ const handleConfirmDelete = async () => {
           dismissableMask
         >
           <div className="flex flex-col items-center text-center space-y-4 dark:bg-gray-800 dark:text-white">
-            {/* Action buttons */}
+            {}
             <div className="flex justify-center gap-3 w-full">
               <CustomButton
                 label="Cancel"

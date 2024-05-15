@@ -5,7 +5,7 @@ import { Animated, StyleSheet, View, Image } from 'react-native'
 import CartItemPlaceholder from '../../assets/images/CartItemPlaceholder.png'
 
 const ShimmerImage = ({ imageUrl, style, resizeMode = 'cover', defaultSource }) => {
-  // Check if we have a valid image URL
+
   const hasValidUrl = imageUrl && imageUrl.trim().length > 0
 
   const [imageLoaded, setImageLoaded] = useState(false)
@@ -14,7 +14,6 @@ const ShimmerImage = ({ imageUrl, style, resizeMode = 'cover', defaultSource }) 
   const fadeAnim = useRef(new Animated.Value(0)).current
   const imagePath = require('../../assets/SVG/ShiimerImagePlaceholder.json')
 
-  // Only start shimmer animation if we have a valid URL and image hasn't loaded
   useEffect(() => {
     if (hasValidUrl && !imageLoaded && !imageError) {
       const shimmerLoop = Animated.loop(
@@ -33,14 +32,12 @@ const ShimmerImage = ({ imageUrl, style, resizeMode = 'cover', defaultSource }) 
       )
       shimmerLoop.start()
 
-      // Cleanup function to stop animation
       return () => {
         shimmerLoop.stop()
       }
     }
   }, [hasValidUrl, imageLoaded, imageError, shimmerAnimation])
 
-  // Fade in image when loaded
   useEffect(() => {
     if (imageLoaded && !imageError) {
       Animated.timing(fadeAnim, {
@@ -66,7 +63,6 @@ const ShimmerImage = ({ imageUrl, style, resizeMode = 'cover', defaultSource }) 
     setImageLoaded(false)
   }
 
-  // If we don't have a valid URL or image failed to load, show placeholder
   if (!hasValidUrl || imageError) {
     return (
       <View style={[styles.container, style]}>
@@ -93,10 +89,9 @@ const ShimmerImage = ({ imageUrl, style, resizeMode = 'cover', defaultSource }) 
     )
   }
 
-  // If we have a valid URL, show shimmer while loading, then the image
   return (
     <View style={[styles.container, style]}>
-      {/* Show shimmer only while loading */}
+      {}
       {!imageLoaded && (
         <View style={[StyleSheet.absoluteFill, styles.shimmerContainer]}>
           <Animated.View
@@ -117,7 +112,7 @@ const ShimmerImage = ({ imageUrl, style, resizeMode = 'cover', defaultSource }) 
         </View>
       )}
 
-      {/* Main image */}
+      {}
       <Animated.Image
         source={{ uri: imageUrl }}
         onLoad={handleImageLoad}
@@ -129,7 +124,7 @@ const ShimmerImage = ({ imageUrl, style, resizeMode = 'cover', defaultSource }) 
           }
         ]}
         resizeMode={resizeMode}
-        // Remove defaultSource prop as it can cause flashing
+
       />
     </View>
   )

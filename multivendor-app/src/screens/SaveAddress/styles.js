@@ -27,15 +27,15 @@ const styles = (props = null) =>
     horizontalLine: {
       borderBottomColor: theme.Pink.tagColor,
       borderBottomWidth: 1,
-      marginVertical: 10, // Adjust this value to control the spacing above and below the line
+      marginVertical: 10, 
       width: '90%',
       alignSelf: 'center',
       marginBottom: 30
     },
     address: {
       ...alignment.MTxSmall
-      //...alignment.MBsmall
-      //backgroundColor: '#112233'
+
+
     },
     addressContainer: {
       paddingTop: 0,

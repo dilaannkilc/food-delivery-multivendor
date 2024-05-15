@@ -1,6 +1,6 @@
 'use client';
 
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useContext, useEffect } from 'react';
 import Geocode from 'react-geocode';
 import { ILocation } from '../utils/interfaces';
@@ -10,7 +10,7 @@ import { ToastContext } from '@/lib/context/global/toast.context';
 type LocationCallback = (error: string | null, location?: ILocation) => void;
 
 export default function useLocation() {
-  // Toast Context
+
   const { showToast } = useContext(ToastContext);
 
   const { GOOGLE_MAPS_KEY } = useConfiguration();

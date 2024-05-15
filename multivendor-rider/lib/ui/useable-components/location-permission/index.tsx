@@ -11,12 +11,11 @@ import SpinnerComponent from "../spinner";
 export default function LocationPermissionComponent({
   children,
 }: ILocationPermissionComponentProps) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const { setLocationPermission } = useLocationContext();
 
-  // States
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isLoading, setLoading] = useState(false);
 

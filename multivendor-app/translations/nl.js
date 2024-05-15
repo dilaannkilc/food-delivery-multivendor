@@ -347,7 +347,7 @@ export const nl = {
     statusAssigned: 'Toegewezen',
     statusPicked: 'Opgehaald',
     statusDelivered: 'Bezorgd',
-    ///
+
     selectLocation: 'Selecteer Locatie',
     languageSetting: 'Taalinstelling',
     receiveOfferByEmail: 'Ik wil speciale aanbiedingen en promoties van ons ontvangen via e-mail',

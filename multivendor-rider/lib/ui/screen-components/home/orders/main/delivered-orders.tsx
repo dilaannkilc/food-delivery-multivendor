@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+
 
 import { useApptheme } from "@/lib/context/global/theme.context";
 import UserContext from "@/lib/context/global/user.context";
@@ -17,10 +17,9 @@ import { Dimensions, Platform, StyleSheet, Text, View } from "react-native";
 const { height } = Dimensions.get("window");
 
 function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
-  // Props
+
   const { route } = props;
 
-  // Hooks
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const {
@@ -32,10 +31,8 @@ function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
     networkStatusAssigned,
   } = useContext(UserContext);
 
-  // States
   const [orders, setOrders] = useState<IOrder[]>([]);
 
-  // Handlers
   const onInitOrders = () => {
     if (loadingAssigned || errorAssigned) return;
     if (!assignedOrders) return;
@@ -49,21 +46,19 @@ function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
     setOrders(_orders ?? []);
   };
 
-  // Use Effect
   useEffect(() => {
     onInitOrders();
   }, [assignedOrders, route.key]);
 
   useEffect(() => {
-    // Trigger refetch when orders length changes
+
     if (orders?.length === 0) {
       refetchAssigned();
     }
   }, [orders?.length]);
 
-  // Calculate the marginBottom dynamically
-  // const marginBottom = Platform.OS === "ios" ? height * 0.0 : height * 0.01;
-  // Render
+
+
   return (
     <View
       className="pt-14 flex-1 pb-16"

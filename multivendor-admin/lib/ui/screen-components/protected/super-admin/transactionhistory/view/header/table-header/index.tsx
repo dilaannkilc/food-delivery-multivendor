@@ -11,10 +11,9 @@ export default function TransactionHistoryTableHeader({
   dateFilters,
   setDateFilters,
 }: ITransactionHistoryTableHeaderProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const [errors, setErrors] = useState({ startDate: '', endDate: '' });
 
   const userTypes = [

@@ -1,16 +1,14 @@
-// Interface and Types
 
-// Components
+
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 
-// Icons
 import { ICategoryHeaderProps } from '@/lib/utils/interfaces';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 
 const CategoryHeader = ({ setIsAddCategoryVisible }: ICategoryHeaderProps) => {
-  // Hooks
+
   const t = useTranslations();
   return (
     <div className="sticky top-0 z-10 w-full flex-shrink-0 bg-white dark:bg-dark-950 p-3 shadow-sm">

@@ -1,20 +1,14 @@
-// Core
+
 import { FieldArray, Form, Formik, FormikErrors } from 'formik';
 
-// Prime React
 import { Sidebar } from 'primereact/sidebar';
 
-// Interface and Types
 import { IOptionForm } from '@/lib/utils/interfaces/forms';
 
-// Components
 
-// Utilities and Constants
 
-//Toast
 import useToast from '@/lib/hooks/useToast';
 
-//GraphQL
 import {
   CREATE_OPTIONS,
   EDIT_OPTION,
@@ -42,7 +36,6 @@ import { useContext } from 'react';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 
-// State
 const initialFormValuesTemplate: IOptionForm = {
   title: '',
   description: '',
@@ -61,17 +54,15 @@ export default function OptionAddForm({
   position = 'right',
   isAddOptionsVisible,
 }: IOptionsAddFormComponentProps) {
-  // Hooks
+
   const t = useTranslations();
   const { showToast } = useToast();
   const { theme } = useTheme();
 
-  // Context
   const { CURRENT_SYMBOL } = useConfiguration();
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
 
-  // Constants
   const initialValues = {
     options: [
       {
@@ -81,7 +72,6 @@ export default function OptionAddForm({
     ],
   };
 
-  // Mutation
   const [createOption, { loading: mutationLoading }] = useMutation(
     option ? EDIT_OPTION : CREATE_OPTIONS,
     {
@@ -116,7 +106,6 @@ export default function OptionAddForm({
     }
   );
 
-  // Form Submission
   const handleSubmit = ({ options }: { options: IOptionForm[] }) => {
     createOption({
       variables: {

@@ -1,53 +1,45 @@
-// GraphQL
+
 import { GET_ACTIVE_ORDERS, SUBSCRIPTION_DISPATCH_ORDER } from '@/lib/api/graphql';
 
-//Components
 import Table from '@/lib/ui/useable-components/table';
 import DispatchTableHeader from '../header/table-header';
 
-//Inrfaces
 import {
   IActiveOrders,
   IGetActiveOrders,
 } from '@/lib/utils/interfaces/dispatch.interface';
 
-//Hooks
 import { useEffect, useRef, useState } from 'react';
 
-// Constants
 import { generateDummyDispatchOrders } from '@/lib/utils/dummy';
 import { DISPATCH_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/dispatch-columns';
 import { useLazyQuery, useSubscription } from '@apollo/client';
 
 export default function DispatchMain() {
-  // States
+
   const [selectedData, setSelectedData] = useState<IActiveOrders[]>([]);
   const [globalFilterValue, setGlobalFilterValue] = useState('');
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
-  // const [isLoading, setIsLoading] = useState(true);
+
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [search, setSearch] = useState('');
   const hasDataRef = useRef(false);
   const [lastValidOrders, setLastValidOrders] = useState<IActiveOrders[]>([]);
 
-
-
-  // Ref for debouncing and polling
   const refetchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pollingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
     null
   );
-  // Filters
-  // const filters = {
-  //   global: { value: globalFilterValue, matchMode: FilterMatchMode.CONTAINS },
-  //   orderStatus: {
-  //     value: selectedActions.length > 0 ? selectedActions : null,
-  //     matchMode: FilterMatchMode.IN,
-  //   },
-  // };
 
-  // Queries
+
+
+
+
+
+
+
+
   const [
     fetchActiveOrders,
     { data: active_orders_data, loading: active_orders_loading, refetch },
@@ -68,9 +60,9 @@ export default function DispatchMain() {
       search: search,
       actions: selectedActions,
     },
-    // onCompleted: () => {
-    //   setIsLoading(false);
-    // },
+
+
+
     fetchPolicy: 'network-only',
   });
   const showLoading =
@@ -85,8 +77,6 @@ export default function DispatchMain() {
     }
   }, [active_orders_data]);
 
-
-  // 🔥 SUBSCRIPTION (will attempt to use, but has fallback)
   const { data: subscriptionData } = useSubscription(
     SUBSCRIPTION_DISPATCH_ORDER,
     {
@@ -94,8 +84,6 @@ export default function DispatchMain() {
     }
   );
 
-
-  // Handle subscription data
   useEffect(() => {
     if (subscriptionData) {
 
@@ -111,16 +99,14 @@ export default function DispatchMain() {
     }
   }, [subscriptionData, refetch]);
 
-  //  POLLING FALLBACK - Polls every 5 seconds
   useEffect(() => {
-    // Start polling
+
     pollingIntervalRef.current = setInterval(() => {
       if (refetch && !active_orders_loading) {
         refetch();
       }
-    }, 5000); // Poll every 5 seconds
+    }, 5000); 
 
-    // Cleanup
     return () => {
       if (pollingIntervalRef.current) {
         clearInterval(pollingIntervalRef.current);
@@ -138,11 +124,9 @@ export default function DispatchMain() {
         restaurantId: '',
       },
     });
-    // setIsLoading(true);
+
   }, [rowsPerPage, page, selectedActions, search, fetchActiveOrders]);
 
-
-  // Cleanup
   useEffect(() => {
     return () => {
       if (refetchTimeoutRef.current) {
@@ -184,7 +168,7 @@ export default function DispatchMain() {
           setRowsPerPage(rowNumber);
         }}
         currentPage={page}
-      // filters={filters}
+
       />
     </div>
   );

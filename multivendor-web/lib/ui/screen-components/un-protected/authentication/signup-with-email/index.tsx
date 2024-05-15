@@ -1,25 +1,21 @@
 "use client";
-// Icons
+
 import PersonIcon from "@/lib/utils/assets/svg/person";
 
-// Components
 import CustomButton from "@/lib/ui/useable-components/button";
 import CustomTextField from "@/lib/ui/useable-components/input-field";
 import CustomPasswordTextField from "@/lib/ui/useable-components/password-input-field";
 import CustomPhoneTextField from "@/lib/ui/useable-components/phone-input-field";
 import PhoneConflictModal from "../phone-conflict-modal";
 
-// Interfaces
 import { ILoginWithEmailProps } from "@/lib/utils/interfaces";
 
-// Hooks
 import { useAuth } from "@/lib/context/auth/auth.context";
 import { useConfig } from "@/lib/context/configuration/configuration.context";
 import useToast from "@/lib/hooks/useToast";
 import { useTranslations } from "next-intl";
 import { FcGoogle } from "react-icons/fc";
 
-// Apollo
 import { ApolloError } from "@apollo/client";
 import { useEffect, useState } from "react";
 import useUser from "@/lib/hooks/useUser";
@@ -30,7 +26,7 @@ export default function SignUpWithEmail({
   handleFormChange,
   setFormData,
 }: ILoginWithEmailProps) {
-  // Hooks
+
   const t = useTranslations();
   const {
     sendOtpToEmailAddress,
@@ -53,20 +49,17 @@ export default function SignUpWithEmail({
     fetchProfile();
   }, []);
 
-  // Validation
   const validatePassword = (password: string) => {
     const strongPasswordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     return strongPasswordRegex.test(password);
   };
 
-  // Handlers
   const handleSubmit = async (isPhoneExists = false) => {
     try {
       setIsLoading(true);
       setIsRegistering(true);
 
-      // Required fields
       if (Object.values(formData).some((val) => !val)) {
         showToast({
           type: "error",
@@ -76,7 +69,6 @@ export default function SignUpWithEmail({
         return;
       }
 
-      // Name validation
       const namePattern = /^[A-Za-z\s]+$/;
       if (!namePattern.test(formData.name || "")) {
         showToast({
@@ -86,7 +78,7 @@ export default function SignUpWithEmail({
         });
         return;
       }
-      // Email validation
+
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       setIsValid(emailRegex.test(formData.email || ""));
 
@@ -99,7 +91,6 @@ export default function SignUpWithEmail({
         return;
       }
 
-      // Password strength
       if (!validatePassword(formData.password || "")) {
         showToast({
           type: "error",
@@ -109,8 +100,7 @@ export default function SignUpWithEmail({
         return;
       }
 
-      // Check email existence first (before phone check)
-      // Only check if we are NOT already continuing with isPhoneExists flag
+
       if (!isPhoneExists && formData.email) {
         console.log("Checking email existence for:", formData.email);
         const emailResult = await checkEmailExists(formData.email);
@@ -118,7 +108,7 @@ export default function SignUpWithEmail({
         console.log("Email exists result:", emailExists);
 
         if (emailExists) {
-          // Email already exists - show toast and stop
+
           showToast({
             type: "error",
             title: t("create_user_label"),
@@ -128,39 +118,36 @@ export default function SignUpWithEmail({
         }
       }
 
-      // If phone provided, check existence
-      // Only check if we are NOT continuing with isPhoneExists flag
+
       if (formData.phone && !isPhoneExists) {
         console.log("Checking phone existence for:", formData.phone);
         const phoneExists = await checkPhoneExists(formData.phone);
         console.log("Phone exists result:", phoneExists);
 
         if (phoneExists) {
-          // Email is new but phone exists - show phone conflict modal
+
           console.log("Phone exists with new email, showing modal");
           setShowPhoneConflictModal(true);
           return;
         }
       }
 
-      // Verification flow (prioritize email, then phone, then direct create)
       if (formData.email && !SKIP_EMAIL_VERIFICATION) {
-        // Store isPhoneExists in formData before proceeding to email verification
+
         if (isPhoneExists) {
           setFormData({ ...formData, isPhoneExists: true });
         }
         sendOtpToEmailAddress(formData.email);
-        handleChangePanel(3); // Email OTP step
+        handleChangePanel(3); 
         return;
       }
 
       if (formData.phone && !SKIP_MOBILE_VERIFICATION) {
         sendOtpToPhoneNumber(formData.phone);
-        handleChangePanel(6); // Phone OTP step
+        handleChangePanel(6); 
         return;
       }
 
-      // If both verifications are skipped → create user immediately
       if (SKIP_EMAIL_VERIFICATION && SKIP_MOBILE_VERIFICATION) {
         const userData = await handleCreateUser({
           email: formData.email,
@@ -204,9 +191,9 @@ export default function SignUpWithEmail({
         <h3 className="text-3xl font-semibold">
           {t("lets_get_you_started_label")}
         </h3>
-        {/*replace lets with let's in the translation*/}
+        {}
         <p>{t("first_lets_create_your_account_message")}</p>
-        {/*replace "First" with "First," in the translation*/}
+        {}
       </div>
       <div className="flex flex-col gap-y-1 my-3 w-full">
         <CustomTextField
@@ -228,7 +215,7 @@ export default function SignUpWithEmail({
           onChange={(e) => handleFormChange("email", e.target.value)}
         />
       </div>
-      {/* Email Validation message */}
+      {}
       <div className={` ${isValid ? `hidden` : ``} h-[20px]  `}>
         {!isValid && (
           <p className="text-red-500 text-sm">

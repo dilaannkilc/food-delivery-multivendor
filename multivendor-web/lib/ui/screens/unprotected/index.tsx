@@ -1,9 +1,7 @@
 'use client'
 
-// libraries
 import React from "react";
 
-//Componets
 import Start from "../../screen-components/un-protected/Home/Start";
 import Cities from "../../screen-components/un-protected/Home/Cities";
 import Info from "../../screen-components/un-protected/Home/Info";

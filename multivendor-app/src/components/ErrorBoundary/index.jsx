@@ -1,4 +1,4 @@
-// components/ErrorBoundary.js
+
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
@@ -18,7 +18,7 @@ export class ErrorBoundary extends Component {
 
   componentDidCatch(error, info) {
     console.log('ErrorBoundary caught an error', error, info);
-    // Optionally log to a service like Sentry
+
   }
 
   handleReset = () => {
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   button: {
-    backgroundColor: '#E4644B', // coral red or any theme color
+    backgroundColor: '#E4644B', 
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 8,

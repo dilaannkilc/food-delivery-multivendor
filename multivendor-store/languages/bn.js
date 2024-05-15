@@ -1,12 +1,11 @@
 export const bn = {
-  // Navigation
+
   continue: "চালিয়ে যান",
   Wallet: "ওয়ালেট",
   Home: "হোম",
   Earnings: "আয়",
   Profile: "প্রোফাইল",
 
-  // FAQs
   faq1: "আমি কীভাবে অর্ডার করব?",
   faq1Description:
     "অর্ডার করতে, আমাদের মেনু ব্রাউজ করুন, আপনি যে আইটেমগুলি অর্ডার করতে চান তা নির্বাচন করুন এবং চেকআউটে এগিয়ে যান। আপনার অর্ডার নিশ্চিত করার আগে আপনি আপনার পছন্দের পেমেন্ট পদ্ধতি এবং ডেলিভারি ঠিকানা বেছে নিতে পারেন।",
@@ -29,7 +28,6 @@ export const bn = {
   faq7Description:
     "দুর্ভাগ্যবশত, আপনি একই অর্ডারের মধ্যে একাধিক রেস্তোরাঁ থেকে বেছে নিতে পারবেন না। তবে, আপনি একই সময়ে বিভিন্ন রেস্তোরাঁ থেকে আলাদা আলাদা অর্ডার দিতে পারেন।",
 
-  // Earnings
   "Earnings Summary": "আয়ের সারাংশ",
   Deliveries: "ডেলিভারি",
   "Total Earnings": "মোট আয়",
@@ -39,13 +37,11 @@ export const bn = {
   "Order Date": "অর্ডারের তারিখ",
   "Earnings Order Details": "আয়ের অর্ডার বিবরণ",
 
-  // Flash messages
   "Order placed successfully": "অর্ডার সফলভাবে দেওয়া হয়েছে",
   "Order cancelled successfully": "অর্ডার সফলভাবে বাতিল হয়েছে",
   "Error while placing order": "অর্ডার দিতে ত্রুটি হয়েছে",
   "Error while cancelling order": "অর্ডার বাতিল করতে ত্রুটি হয়েছে",
 
-  // Other messages
   "Please enter your name": "আপনার নাম লিখুন",
   "Please enter your email": "আপনার ইমেল লিখুন",
   "Please enter your password": "আপনার পাসওয়ার্ড লিখুন",

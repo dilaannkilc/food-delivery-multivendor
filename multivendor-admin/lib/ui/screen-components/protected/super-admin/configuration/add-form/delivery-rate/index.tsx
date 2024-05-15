@@ -1,23 +1,17 @@
 'use client';
-// Core
+
 import { Form, Formik } from 'formik';
 
-// Components
 import ConfigCard from '../../view/card';
 
-// Toast
 import useToast from '@/lib/hooks/useToast';
 
-// Hooks
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Interfaces and Types
 import { IDeliveryRateForm } from '@/lib/utils/interfaces/configurations.interface';
 
-// Utils and Constants
 import { DeliverytRateValidationSchema } from '@/lib/utils/schema';
 
-// GraphQL
 import {
   GET_CONFIGURATION,
   SAVE_DELIVERY_RATE_CONFIGURATION,
@@ -26,7 +20,7 @@ import { useMutation } from '@apollo/client';
 import CustomNumberField from '@/lib/ui/useable-components/number-input-field';
 
 const DeliveryRateAddForm = () => {
-  // Hooks
+
   const { DELIVERY_RATE, COST_TYPE } = useConfiguration();
   const { showToast } = useToast();
 

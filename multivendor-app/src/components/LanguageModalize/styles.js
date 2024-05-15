@@ -18,7 +18,7 @@ const styles = (props = null) => {
       position: 'absolute',
       bottom: 0,
       width: '100%',
-      // height: 'auto',
+
       backgroundColor: props !== null ? props?.cardBackground : '#FFF',
       borderTopLeftRadius: scale(20),
       borderTopRightRadius: scale(20),
@@ -29,7 +29,7 @@ const styles = (props = null) => {
       borderColor: props !== null ? props?.customBorder : '#E5E7EB',
       justifyContent: 'center',
       flex: 1,
-      // ...alignment.Psmall,
+
     },
     subContainer: {
       height: 500,

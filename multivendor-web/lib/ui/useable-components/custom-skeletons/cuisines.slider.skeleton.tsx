@@ -13,10 +13,10 @@ const responsiveOptions = [
 const CardSkeleton = () => {
   return (
     <div className="max-w-[402px] max-h-[272px] md:w-[180px] lg:w-[180px] xl:w-[270px] 2xl:w-[380px] rounded-md shadow-md m-2 mb-6 animate-pulse">
-      {/* Image Skeleton */}
+      {}
       <div className="relative w-full h-[140px] bg-gray-300 rounded-t-md"></div>
 
-      {/* Content Skeleton */}
+      {}
       <div className="p-2 flex flex-col">
         <div className="flex justify-between items-center border-b border-dashed pb-1">
           <div className="w-[70%]">

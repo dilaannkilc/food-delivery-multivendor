@@ -21,7 +21,6 @@ const TinyTiles: React.FC<TilesData> = ({ image, heading, buttonText, backColor,
     Router.push(link)
   }
 
-  // get theme from local storage
   const [theme, setTheme] = useState("light");
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");

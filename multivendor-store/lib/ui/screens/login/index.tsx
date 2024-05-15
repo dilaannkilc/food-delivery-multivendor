@@ -1,8 +1,8 @@
-// Core
+
 import { Formik } from "formik";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-// React Native
+
 import {
   KeyboardAvoidingView,
   Platform,
@@ -12,14 +12,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-// Components
-// Icon
+
+
 import Icon from "react-native-vector-icons/FontAwesome6";
-// Schemas
+
 import { SignInSchema } from "@/lib/utils/schema";
-// Hook
+
 import useLogin from "@/lib/hooks/useLogin";
-// Interface
+
 import { useApptheme } from "@/lib/context/theme.context";
 import { ILoginInitialValues } from "@/lib/utils/interfaces";
 import { useTranslation } from "react-i18next";
@@ -31,18 +31,16 @@ const initial: ILoginInitialValues = {
 };
 
 const LoginScreen = () => {
-  // States
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [initialValues, setInitialValues] = useState(initial);
 
-  // Hooks
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const { onLogin, creds } = useLogin();
 
-  // Handlers
   const onLoginHandler = async (creds: ILoginInitialValues) => {
-    // TODO: Implement login logic
+
     try {
       await onLogin(creds.username, creds.password);
     } catch (err: unknown) {
@@ -55,7 +53,6 @@ const LoginScreen = () => {
     setInitialValues(creds);
   };
 
-  // Use Effect
   useEffect(() => {
     onInit();
   }, [creds]);
@@ -73,7 +70,7 @@ const LoginScreen = () => {
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
-          // contentContainerStyle={{ height: height * 1 }}
+
         >
           <Formik
             initialValues={initialValues}
@@ -84,10 +81,10 @@ const LoginScreen = () => {
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => {
               return (
                 <View className="mt-24 p-5 items-center gap-y-2">
-                  {/* Icon */}
+                  {}
                   <Icon name="envelope" size={30} color={appTheme.primary} />
 
-                  {/* Title */}
+                  {}
                   <Text
                     className="text-center text-xl font-semibold"
                     style={{ color: appTheme.fontMainColor }}
@@ -101,7 +98,7 @@ const LoginScreen = () => {
                     {t("We'll check if you have an account")}
                   </Text>
 
-                  {/* Email Input */}
+                  {}
 
                   <View
                     className="flex-row items-center border rounded-lg px-3  mb-[-4]"
@@ -132,7 +129,7 @@ const LoginScreen = () => {
                     </Text>
                   )}
 
-                  {/* Password Input */}
+                  {}
                   <View
                     className="flex-row items-center border rounded-lg px-3 mb-[-4]"
                     style={{
@@ -173,27 +170,12 @@ const LoginScreen = () => {
                     </Text>
                   )}
 
-                  {/* Login Button */}
+                  {}
                   <CustomContinueButton
                     title={t("Login")}
                     onPress={() => handleSubmit()}
                   />
-                  {/* <TouchableOpacity
-                    className="h-12 rounded-3xl py-3 mt-10 w-full"
-                    style={{ backgroundColor: appTheme.primary }}
-                    onPress={() => handleSubmit()}
-                  >
-                    {isLogging ? (
-                      <SpinnerComponent />
-                    ) : (
-                      <Text
-                        className="text-center  text-lg font-medium"
-                        style={{ color: appTheme.fontMainColor }}
-                      >
-                        {t("Login")}
-                      </Text>
-                    )}
-                  </TouchableOpacity> */}
+                  {}
                 </View>
               );
             }}

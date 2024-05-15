@@ -1,4 +1,4 @@
-// WithdrawRequestForm.tsx
+
 import { useContext } from 'react';
 import { Sidebar } from 'primereact/sidebar';
 import { Form, Formik } from 'formik';
@@ -63,7 +63,7 @@ export default function WithdrawRequestForm({
       onHide={() => setVisible(false)}
       position="right"
       className="w-full max-w-md dark:text-white dark:bg-dark-950 border dark:border-dark-600"
-      showCloseIcon={false} // Hide default close icon
+      showCloseIcon={false} 
     >
       <div className="flex items-center justify-between border-b pb-4">
         <h2 className="text-xl font-semibold">Bank Details</h2>

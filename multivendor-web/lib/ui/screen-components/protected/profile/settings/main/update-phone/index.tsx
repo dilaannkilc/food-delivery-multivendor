@@ -1,23 +1,20 @@
 "use client";
-// Interfaces
+
 import {
   IUpdateUserPhoneArguments,
   IUpdateUserResponse,
 } from "@/lib/utils/interfaces";
 
-// Hooks
 import { useAuth } from "@/lib/context/auth/auth.context";
 import { useEffect, useState } from "react";
 import useVerifyOtp from "@/lib/hooks/useVerifyOtp";
 import { useTranslations } from "next-intl";
 
-// Components
 import useToast from "@/lib/hooks/useToast";
 import CustomDialog from "@/lib/ui/useable-components/custom-dialog";
 import PhoneEntry from "./phone";
 import VerificationPhone from "./verification-phone";
 
-// Api
 import { GET_USER_PROFILE, UPDATE_USER } from "@/lib/api/graphql";
 import { ApolloError, useLazyQuery, useMutation } from "@apollo/client";
 import useDebounceFunction from "@/lib/hooks/useDebounceForFunction";
@@ -39,26 +36,22 @@ export default function UpdatePhoneModal({
 
   
 }: IUpdatePhoneModalProps) {
-  // States
+
   const [phoneOtp, setPhoneOtp] = useState("");
-  // const [activeStep, setActiveStep] = useState(ActiveStep);
-  
-    // Hooks
+
+
   const { sendOtpToPhoneNumber, setUser, user, setOtp, checkPhoneExists } = useAuth();
   const { showToast } = useToast();
   const { verifyOTP, error } = useVerifyOtp();
   const t = useTranslations();
 
-  // Queries and mutations 
 
-  // refetch user profile after updating phone number
    const [
       fetchProfile
     ] = useLazyQuery(GET_USER_PROFILE, {
       fetchPolicy: "network-only",
     });
-  
-    // update user phone number
+
     const [updateUser] = useMutation<
       IUpdateUserResponse,
       undefined | IUpdateUserPhoneArguments
@@ -74,9 +67,7 @@ export default function UpdatePhoneModal({
         });
       },
     });
-    
 
-  // Handlers
   const handleChange = (val:string) => {
     setUser((prev) => ({
       ...prev,
@@ -96,13 +87,12 @@ export default function UpdatePhoneModal({
     }
     const phoneExists = await checkPhoneExists(user?.phone);
 
-    // Only proceed with sending OTP if the phone number doesn't exist
-    // The checkPhoneExists function already shows a toast error if phone exists
+
     if (!phoneExists) {
       await sendOtpToPhoneNumber(user?.phone || "");
       setActiveStep(1);
     }
-    // If phoneExists is true, just return and don't proceed further
+
     
   } catch (error) {
     showToast({
@@ -112,7 +102,7 @@ export default function UpdatePhoneModal({
     });
   }
 },
-  500, // Debounce time in milliseconds
+  500, 
 )
 
     const handleSubmitAfterVerification = useDebounceFunction(async () => {
@@ -158,7 +148,7 @@ export default function UpdatePhoneModal({
         );
       }
     },
-      500, // Debounce time in milliseconds
+      500, 
   )
   
     const handleResendPhoneOtp = useDebounceFunction(() => {
@@ -172,10 +162,9 @@ export default function UpdatePhoneModal({
         });
       }
     },
-      500, // Debounce time in milliseconds
+      500, 
     )
-  
-    // useEffect for displaying otp verification error
+
     useEffect(() => {
       if (error) {
         showToast({

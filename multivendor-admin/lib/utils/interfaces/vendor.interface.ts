@@ -47,7 +47,6 @@ export interface IVendorMainComponentProps
   setSelectedResturantFilter?: (val: string) => void;
 }
 
-// Vendors Respect
 
 export interface IVendorReponse {
   unique_id: string;
@@ -91,11 +90,8 @@ export interface ICreateVendorResponseGraphQL {
   createVendor: ICreateVendorResponse;
 }
 
-/* Vendor User */
-// 1. Restaurants
 export interface IVendorRestaurantsMainComponentProps {}
 
-// Vendor Profile
 export interface IVendorUpdateFormComponentProps extends IGlobalComponentProps {
   position?: TVendorFormPosition;
   vendorFormVisible?: boolean;

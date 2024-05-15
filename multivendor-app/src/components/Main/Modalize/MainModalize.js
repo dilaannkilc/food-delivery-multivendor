@@ -75,7 +75,7 @@ const MainModalize = ({
               
               <View style={styles(currentTheme).addressTextContainer}>
                   <TextDefault
-                    // style={{ ...alignment.PLlarge }}
+
                     textColor={currentTheme.fontSecondColor}
                     small
                   >

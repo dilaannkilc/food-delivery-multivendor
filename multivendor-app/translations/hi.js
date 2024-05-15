@@ -347,7 +347,7 @@ export const hi = {
     statusAssigned: 'नियत',
     statusPicked: 'उठाया गया',
     statusDelivered: 'डिलीवर किया गया',
-    ///
+
     selectLocation: 'स्थान चुनें',
     languageSetting: 'भाषा सेटिंग',
     receiveOfferByEmail: 'मैं हमारे विशेष ऑफर और प्रचार ईमेल के माध्यम से प्राप्त करना चाहता हूं',

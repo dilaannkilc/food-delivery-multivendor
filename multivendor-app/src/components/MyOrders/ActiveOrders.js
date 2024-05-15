@@ -88,20 +88,17 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
     `,
     { variables: { id: item._id } }
   )
-  
-  // Add useEffect to update the remaining time every second
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       const updatedTime = calulateRemainingTime(item)
       setRemainingTimeState(updatedTime)
-      
-      // Clear interval if time reaches zero
+
       if (updatedTime <= 0) {
         clearInterval(intervalId)
       }
     }, 1000)
-    
-    // Clean up interval on unmount
+
     return () => clearInterval(intervalId)
   }, [item])
   
@@ -154,7 +151,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
             style={{
               flex: 1,
               flexDirection: currentTheme?.isRTL ? 'row-reverse' : 'row',
-              //alignItems: 'center',
+
               justifyContent: 'center',
               ...alignment.Mmedium,
               ...alignment.MTlarge,
@@ -180,7 +177,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
                 </TextDefault>
                 <TextDefault
                   numberOfLines={2}
-                  // style={{ ...alignment.MTxSmall }}
+
                   style={styles(currentTheme).orderInfo}
                   textColor={currentTheme.fontMainColor}
                   bolder
@@ -193,7 +190,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
             </View>
             <View style={styles(currentTheme).subContainerRight}>
               <TextDefault
-                //numberOfLines={1}
+
                 textColor={currentTheme.fontMainColor}
                 bolder
                 isRTL

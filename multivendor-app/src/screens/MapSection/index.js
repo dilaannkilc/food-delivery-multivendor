@@ -69,8 +69,8 @@ export default function MapSection() {
         zoomEnabled={true}
         zoomControlEnabled={true}
         rotateEnabled={false}
-        // provider={PROVIDER_DEFAULT}
-        // customMapStyle={mapStyle}
+
+
         initialRegion={{
           latitude: restaurants?.length
             ? parseFloat(restaurants[0].location?.coordinates[1])

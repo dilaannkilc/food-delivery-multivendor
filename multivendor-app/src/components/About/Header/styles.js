@@ -35,11 +35,11 @@ const styles = (props = null) =>
       left: scale(30)
     },
     overlayContainer: {},
-    // touchArea: {
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
-    //   width: scale(20)
-    // },
+
+
+
+
+
     deliveryBoxContainer: {
       ...alignment.PTsmall,
       ...alignment.PLxSmall

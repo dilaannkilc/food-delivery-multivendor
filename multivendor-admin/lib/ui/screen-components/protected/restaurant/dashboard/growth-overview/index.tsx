@@ -1,7 +1,6 @@
-// Core
+
 import { useEffect, useMemo, useState, useContext } from 'react';
 
-// Prime React
 import { Chart } from 'primereact/chart';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { GET_DASHBOARD_RESTAURANT_SALES_ORDER_COUNT_DETAILS_BY_YEAR } from '@/lib/api/graphql';
@@ -13,22 +12,18 @@ import DashboardUsersByYearStatsSkeleton from '@/lib/ui/useable-components/custo
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 import { useTranslations } from 'next-intl';
 
-// Dummy
 
 export default function GrowthOverView() {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const {
     restaurantLayoutContextData: { restaurantId },
   } = useContext(RestaurantLayoutContext);
 
-  // States
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
 
-  // Query
   const { data, loading } = useQueryGQL(
     GET_DASHBOARD_RESTAURANT_SALES_ORDER_COUNT_DETAILS_BY_YEAR,
     {
@@ -57,7 +52,6 @@ export default function GrowthOverView() {
     };
   }, [data]);
 
-  // Handlers
   const onChartDataChange = () => {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
@@ -137,7 +131,7 @@ export default function GrowthOverView() {
     setChartData(data);
     setChartOptions(options);
   };
-  // Use Effect
+
   useEffect(() => {
     onChartDataChange();
   }, [dashboardSalesOrderCountDetailsByYear]);

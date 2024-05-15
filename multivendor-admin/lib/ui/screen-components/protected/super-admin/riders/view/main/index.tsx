@@ -1,37 +1,29 @@
 'use client';
 
-// Core
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 
-// Prime React
 import { FilterMatchMode } from 'primereact/api';
 
-// Interface and Types
 import {
   IRiderResponse,
   IRidersDataResponse,
   IRidersMainComponentsProps,
 } from '@/lib/utils/interfaces/rider.interface';
 
-// UI Components
 import RidersTableHeader from '../header/table-header';
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
 import Table from '@/lib/ui/useable-components/table';
 import { RIDER_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/rider-columns';
 
-// Utilities and Data
 import { IActionMenuItem } from '@/lib/utils/interfaces/action-menu.interface';
 
-// Hooks
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import useToast from '@/lib/hooks/useToast';
 
-// GraphQL and Utilities
 import { DELETE_RIDER, GET_RIDERS } from '@/lib/api/graphql';
 import { IQueryResult } from '@/lib/utils/interfaces';
 
-// Data
 import { generateDummyRiders } from '@/lib/utils/dummy';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
@@ -40,12 +32,11 @@ export default function RidersMain({
   setIsAddRiderVisible,
   setRider,
 }: IRidersMainComponentsProps) {
-  // Hooks
+
   const t = useTranslations();
   const { showToast } = useToast();
   const router = useRouter();
 
-  // State - Table
   const [deleteId, setDeleteId] = useState('');
   const [selectedProducts, setSelectedProducts] = useState<IRiderResponse[]>(
     []
@@ -55,13 +46,11 @@ export default function RidersMain({
     global: { value: '' as string | null, matchMode: FilterMatchMode.CONTAINS },
   });
 
-  // Query
   const { data, loading } = useQueryGQL(GET_RIDERS, {}) as IQueryResult<
     IRidersDataResponse | undefined,
     undefined
   >;
 
-  //Mutation
   const [mutateDelete, { loading: mutationLoading }] = useMutation(
     DELETE_RIDER,
     {
@@ -69,7 +58,6 @@ export default function RidersMain({
     }
   );
 
-  // For global search
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const _filters = { ...filters };

@@ -11,7 +11,7 @@ const styles = (props = null) =>
     },
     topbrandsSec: {
       gap: scale(8),
-      // ...alignment.PLmedium
+
       marginHorizontal: scale(10)
     },
     topbrandsHeading:{
@@ -20,7 +20,7 @@ const styles = (props = null) =>
     },
     brandImg: {
       width: '100%',
-      // aspectRatio: 18/8,
+
       height: scale(70),
       objectFit: 'cover',
       borderRadius: 8,
@@ -28,7 +28,7 @@ const styles = (props = null) =>
     topbrandsContainer: {
       flexGrow: 1,
       width: scale(90),
-      // marginTop: scale(7),
+
       ...alignment.MRmedium
     },
     brandImgContainer: {
@@ -36,7 +36,7 @@ const styles = (props = null) =>
       borderWidth: 1,
       borderColor: '#767676',
       borderRadius: 8
-      // padding:scale(8),
+
     },
     brandName: {
       marginTop: scale(5),
@@ -65,8 +65,8 @@ const styles = (props = null) =>
       flexDirection: props?.isRTL ? 'row-reverse' : 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      // ...alignment.MRmedium,
-      // marginHorizontal: scale(10),
+
+
     },
     seeAllBtn: {
       backgroundColor: props != null ? props?.newButtonBackground : '#F3FFEE',

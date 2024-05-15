@@ -5,7 +5,7 @@ import { AntDesign } from '@expo/vector-icons'
 const navigationOptions = props => {
   return {
     title: null,
-    // eslint-disable-next-line react/display-name
+
     headerRight: () => (
       <AntDesign
         onPress={() =>
@@ -20,7 +20,7 @@ const navigationOptions = props => {
         style={styles().headerRightIcon}
       />
     ),
-    // eslint-disable-next-line react/display-name
+
     headerLeft: null,
     headerStyle: {
       backgroundColor: props?.backColor

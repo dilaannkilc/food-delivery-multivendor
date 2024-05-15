@@ -1,20 +1,16 @@
-// Core
+
 import React, { useContext, useRef } from 'react';
 
-// PrimeReact Components
 import { Sidebar } from 'primereact/sidebar';
 import { Stepper } from 'primereact/stepper';
 import { StepperPanel } from 'primereact/stepperpanel';
 
-// Context
 import { ProfileContext } from '@/lib/context/restaurant/profile.context';
 
-// Custom Components
 import UpdateRestaurantDetails from './update-profile-detail';
 import UpdateRestaurantLocation from './update-restaurant-location';
 import UpdateTiming from './update-timing';
 
-// Interfaces & Types
 import { IRestaurantsAddFormComponentProps } from '@/lib/utils/interfaces';
 import { useTranslations } from 'next-intl';
 import UpdateBusinessDetails from './update-bussiness-details';
@@ -22,13 +18,11 @@ import UpdateBusinessDetails from './update-bussiness-details';
 const UpdateRestaurantsProfileForm = ({
   position = 'right',
 }: IRestaurantsAddFormComponentProps) => {
-  // Hooks
+
   const t = useTranslations();
 
-  // Refs
   const stepperRef = useRef(null);
 
-  // Contexts
   const {
     isUpdateProfileVisible,
     setIsUpdateProfileVisible,
@@ -36,7 +30,6 @@ const UpdateRestaurantsProfileForm = ({
     onActiveStepChange,
   } = useContext(ProfileContext);
 
-  // Handlers
   const onHandleStepChange = (order: number) => {
     console.log('next step', order);
     onActiveStepChange(order);

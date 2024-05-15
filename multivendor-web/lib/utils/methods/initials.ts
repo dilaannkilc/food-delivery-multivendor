@@ -1,15 +1,13 @@
 export const getInitials = (name: string | null | undefined): string => {
-  // Handle null or undefined input
+
   if (name == null) {
     return '';
   }
 
-  // Ensure input is a string
   const nameToParse = String(name);
 
   const words = nameToParse.trim().split(/\s+/);
 
-  // Handle empty string after trimming
   if (words.length === 0) {
     return '';
   }

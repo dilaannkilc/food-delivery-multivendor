@@ -1,19 +1,15 @@
 import React, { useState, useMemo } from 'react';
 
-// Prime React
 import { DataTableRowClickEvent } from 'primereact/datatable';
 import { generateDummyUsers } from '@/lib/utils/dummy';
 
-// Interface and Types
 import {
   IUserResponse,
   IUsersDataResponse,
 } from '@/lib/utils/interfaces/users.interface';
 
-// Components
 import Table from '@/lib/ui/useable-components/table';
 
-// GraphQL
 import { useQuery } from '@apollo/client';
 import { GET_USERS } from '@/lib/api/graphql/queries/user';
 import { IDropdownSelectItem } from '@/lib/utils/interfaces';

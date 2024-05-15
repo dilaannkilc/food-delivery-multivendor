@@ -1,4 +1,4 @@
-// Components
+
 import NodeMailerAddForm from '../../add-form/nodemailer';
 import StripeAddForm from '../../add-form/stripe';
 import PayPalAddForm from '../../add-form/paypal';

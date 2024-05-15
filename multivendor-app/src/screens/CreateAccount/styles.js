@@ -3,7 +3,6 @@ import { Dimensions, StyleSheet, Platform } from 'react-native'
 import { alignment } from '../../utils/alignment'
 const { height, width } = Dimensions.get('window')
 
-// Responsive scaling based on screen height
 const getResponsiveSize = (baseSize) => {
   if (height < 680) return baseSize * 0.9
   if (height > 800) return baseSize * 1.1
@@ -17,10 +16,9 @@ const styles = (props = null) =>
     },
     mainContainer: {
       flex: 1
-      // backgroundColor: props !== null ? props?.themeBackground : '#FFF'
+
     },
 
-    // GIF Container
     gifContainer: {
       flex: 1,
       width: '100%'
@@ -30,7 +28,6 @@ const styles = (props = null) =>
       height: '100%'
     },
 
-    // Welcome Section
     welcomeSection: {
       paddingHorizontal: scale(20),
       paddingVertical: getResponsiveSize(scale(10)),
@@ -49,19 +46,16 @@ const styles = (props = null) =>
       textAlign: 'center'
     },
 
-    // Buttons Container
     buttonsContainer: {
       paddingHorizontal: scale(20),
       gap: getResponsiveSize(scale(10))
     },
 
-    // Guest Button
     guestButton: {
       alignItems: 'center',
       paddingVertical: getResponsiveSize(scale(12))
     },
 
-    // Loading State
     loadingContainer: {
       justifyContent: 'center',
       alignItems: 'center'

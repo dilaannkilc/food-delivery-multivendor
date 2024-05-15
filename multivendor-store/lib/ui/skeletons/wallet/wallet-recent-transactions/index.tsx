@@ -1,7 +1,6 @@
-// Hooks
+
 import { useApptheme } from "@/lib/context/theme.context";
 
-// Moti
 import { MotiScrollView, MotiView } from "moti";
 import { Skeleton } from "moti/skeleton";
 export default function WalletRecentTransactionSkeleton() {

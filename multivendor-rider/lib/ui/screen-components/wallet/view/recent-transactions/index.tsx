@@ -1,12 +1,10 @@
-// Interfaces
+
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { IRiderTransaction } from "@/lib/utils/interfaces/rider.interface";
 
-// Icons
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 
-// Core
 import { Text, View } from "react-native";
 
 export default function RecentTransaction({
@@ -16,11 +14,10 @@ export default function RecentTransaction({
   transaction: IRiderTransaction;
   isLast: boolean;
 }) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
-  // Constants
   const date = new Date(transaction.createdAt);
   return (
     <View

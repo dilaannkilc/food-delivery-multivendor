@@ -1,12 +1,11 @@
 export const tr = {
-  // Navigation
+
   continue: "Devam Et",
   Wallet: "Cüzdan",
   Home: "Ana Sayfa",
   Earnings: "Kazançlar",
   Profile: "Profil",
 
-  // FAQs
   faq1: "Nasıl sipariş verebilirim?",
   faq1Description:
     "Sipariş vermek için menümüzde gezinin, sipariş etmek istediğiniz ürünleri seçin ve ödemeye geçin. Siparişinizi onaylamadan önce tercih ettiğiniz ödeme yöntemini ve teslimat adresini seçebilirsiniz.",
@@ -29,7 +28,6 @@ export const tr = {
   faq7Description:
     "Maalesef aynı sipariş içinde birden fazla restorandan seçim yapamazsınız. Ancak aynı anda farklı restoranlardan ayrı siparişler verebilirsiniz.",
 
-  // Earnings
   "Earnings Summary": "Kazanç Özeti",
   Deliveries: "Teslimatlar",
   "Total Earnings": "Toplam Kazanç",
@@ -39,13 +37,11 @@ export const tr = {
   "Order Date": "Sipariş Tarihi",
   "Earnings Order Details": "Kazanç Sipariş Detayları",
 
-  // Flash messages
   "Order placed successfully": "Sipariş başarıyla verildi",
   "Order cancelled successfully": "Sipariş başarıyla iptal edildi",
   "Error while placing order": "Sipariş verilirken hata oluştu",
   "Error while cancelling order": "Sipariş iptal edilirken hata oluştu",
 
-  // Other messages
   "Please enter your name": "Lütfen adınızı girin",
   "Please enter your email": "Lütfen e-posta adresinizi girin",
   "Please enter your password": "Lütfen şifrenizi girin",
@@ -238,7 +234,7 @@ export const tr = {
   "No new orders yet!": "Henüz yeni sipariş yok!",
   "You don't have any orders yet!": "Henüz hiç siparişiniz yok!",
   "No delivered orders yet!": "Henüz teslim edilmiş sipariş yok!",
-  // Vehicle Screen
+
   "Vehicle Details": "Araç Detayları",
   "Vehicle Number": "Araç Numarası",
   "Vehicle Color": "Araç Rengi",
@@ -285,21 +281,18 @@ export const tr = {
   "Vehicle documents too large": "Araç belgeleri çok büyük",
   "Vehicle documents format not supported": "Araç belgeleri formatı desteklenmiyor",
 
-  // Chat Screen
   "Contact Customer": "Müşteriyle İletişime Geç",
   "Type a message": "Bir mesaj yazın",
   "Send": "Gönder",
   "Message sent": "Mesaj gönderildi",
   "Message failed": "Mesaj gönderilemedi",
 
-  // Earnings Screen
   "Please select a date range": "Lütfen bir tarih aralığı seçin",
   "Please select a start date": "Lütfen bir başlangıç tarihi seçin",
   "Please select an end date": "Lütfen bir bitiş tarihi seçin",
   "Start date cannot be after end date": "Başlangıç tarihi bitiş tarihinden sonra olamaz",
   "Please log in to view your earnings": "Kazançlarınızı görüntülemek için lütfen giriş yapın",
 
-  // Profile Forms
   "Unable to update availability": "Müsaitlik güncellenemedi",
   "rider name": "Kurye Adı",
   "rider id": "Kurye ID",

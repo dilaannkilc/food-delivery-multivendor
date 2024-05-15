@@ -1,27 +1,21 @@
 import { ApolloError, useMutation } from '@apollo/client';
 import { useContext, useMemo, useState } from 'react';
 
-// Prime React
 import { Dialog } from 'primereact/dialog';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomDropdownComponent from '@/lib/ui/useable-components/custom-dropdown';
 
-// Context
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Hooks
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 
-// API
 import {
   DUPLICATE_RESTAURANT,
   GET_CLONED_RESTAURANTS,
   GET_VENDORS,
 } from '@/lib/api/graphql';
 
-// Interface and Types
 import {
   IDropdownSelectItem,
   IQueryResult,
@@ -36,19 +30,16 @@ const RestaurantDuplicateDialog = ({
   visible,
   onHide,
 }: IRestaurantDuplicateDialogComponentProps) => {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const { showToast } = useContext(ToastContext);
 
-  // States
   const [vendor, setSelectedVendor] = useState<IDropdownSelectItem>({
     label: '',
     code: '',
   });
 
-  // API
   const vendorResponse = useQueryGQL(
     GET_VENDORS,
     { fetchPolicy: 'network-only' },
@@ -93,7 +84,6 @@ const RestaurantDuplicateDialog = ({
     }
   );
 
-  // Memoized Data
   const vendorsDropdown = useMemo(
     () =>
       vendorResponse?.data?.vendors?.map((vendorItem: IVendorReponse) => {
@@ -102,7 +92,6 @@ const RestaurantDuplicateDialog = ({
     [vendorResponse?.data?.vendors]
   );
 
-  // Handlers
   const handleDuplicate = async () => {
     try {
       if (!vendor.code) {

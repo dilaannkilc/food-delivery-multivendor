@@ -1,6 +1,5 @@
 "use client";
 
-// Components
 import { PaddingContainer } from "@/lib/ui/useable-components/containers";
 import GoogleMapTrackingComponent from "@/lib/ui/screen-components/protected/order-tracking/components/gm-tracking-comp";
 import TrackingOrderDetails from "../../../../screen-components/protected/order-tracking/components/tracking-order-details";
@@ -8,7 +7,6 @@ import TrackingHelpCard from "../../../../screen-components/protected/order-trac
 import TrackingStatusCard from "@/lib/ui/screen-components/protected/order-tracking/components/tracking-status-card";
 import TrackingOrderDetailsDummy from "../../../../screen-components/protected/order-tracking/components/tracking-order-details-dummy";
 
-// Services
 import useLocation from "@/lib/ui/screen-components/protected/order-tracking/services/useLocation";
 import useTracking from "@/lib/ui/screen-components/protected/order-tracking/services/useTracking";
 import { useEffect, useMemo, useState } from "react";
@@ -29,12 +27,11 @@ interface IOrderTrackingScreenProps {
 export default function OrderTrackingScreen({
   orderId,
 }: IOrderTrackingScreenProps) {
-  //states
+
   const [showRatingModal, setShowRatingModal] = useState<boolean>(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showChat, setShowChat] = useState(false)
 
-  //Queries and Mutations
   const {
     isLoaded,
     origin,
@@ -74,11 +71,9 @@ export default function OrderTrackingScreen({
     });
 
 
-    // Add a small delay before navigation
-    // Use window.location for a hard redirect
     setTimeout(() => {
       window.location.href = "/profile/order-history";
-    }, 1000); // Increased timeout to ensure toast has time to display
+    }, 1000); 
   }
 
   function onError() {
@@ -89,7 +84,7 @@ export default function OrderTrackingScreen({
       duration: 3000,
     });
   }
-  // Merge subscription data with order tracking details
+
   let mergedOrderDetails =
     orderTrackingDetails && subscriptionData ?
       {
@@ -110,17 +105,14 @@ export default function OrderTrackingScreen({
     };
   }
 
-  // Get restaurant ID for reviews query
   const restaurantId = useMemo(
     () => mergedOrderDetails?.restaurant?._id,
     [mergedOrderDetails?.restaurant?._id]
   );
 
-  // Fetch reviews data for the specified restaurant
   const { data: reviewsData, refetch } = useReviews(restaurantId);
 
-  // Check if the user has already reviewed the order
-  // Memoize the check for existing user review
+
   const hasUserReview = useMemo(() => {
     if (
       !reviewsData?.reviewsByRestaurant?.reviews ||
@@ -139,7 +131,6 @@ export default function OrderTrackingScreen({
     orderId,
   ]);
 
-  // Handlers
   const onInitDirectionCacheSet = () => {
     try {
       const stored_direction = onUseLocalStorage(
@@ -149,7 +140,7 @@ export default function OrderTrackingScreen({
       if (stored_direction) {
         setDirections(JSON.parse(stored_direction));
       }
-      setIsCheckingCache(false); // done checking
+      setIsCheckingCache(false); 
     } catch (err) {
       setIsCheckingCache(false);
     } finally {
@@ -157,7 +148,6 @@ export default function OrderTrackingScreen({
     }
   };
 
-  // handle submit rating
   const handleSubmitRating = async (
     orderId: string | undefined,
     ratingValue: number,
@@ -168,7 +158,6 @@ export default function OrderTrackingScreen({
     const reviewComments =
       aspects?.filter(Boolean).join(", ") || undefined;
 
-    // Here you would  call an API to save the rating
     try {
       await mutate({
         variables: {
@@ -182,35 +171,30 @@ export default function OrderTrackingScreen({
       console.error("Error submitting rating:", error);
     }
 
-    // Close the modal
     setShowRatingModal(false);
   };
 
-  //useEffects
 
-  // useEffect to handle order status changes
   useEffect(() => {
     if (mergedOrderDetails?.orderStatus == 'PICKED') {
       setShowChat(true)
     }
 
     if (mergedOrderDetails?.orderStatus == "DELIVERED") {
-      // add timer
+
       const timer = setTimeout(() => {
         setShowRatingModal(true);
-      }, 4000); // 4 seconds delay before showing the modal
-      return () => clearTimeout(timer); // Clear timeout on component unmount
+      }, 4000); 
+      return () => clearTimeout(timer); 
     } else if (mergedOrderDetails?.orderStatus == "ACCEPTED") {
       setShowConfetti(true);
 
-      // Reset confetti after a longer delay
       setTimeout(() => {
         setShowConfetti(false);
       }, 5000);
     }
   }, [mergedOrderDetails?.orderStatus]);
 
-  // useEffect to handle subscription data changes
   useEffect(() => {
     if (mergedOrderDetails?.restaurant?._id) {
       refetch();
@@ -257,7 +241,7 @@ export default function OrderTrackingScreen({
       />
       <div className="w-screen h-full flex flex-col pb-20 dark:bg-gray-900 dark:text-gray-100">
         <div className="scrollable-container flex-1">
-          {/* Google Map for Tracking */}
+          {}
           <GoogleMapTrackingComponent
             isLoaded={isLoaded}
             origin={origin}
@@ -269,19 +253,19 @@ export default function OrderTrackingScreen({
             riderId={mergedOrderDetails?.rider?._id}
           />
 
-          {/* Main Content with increased gap from map */}
+          {}
           <div className="mt-8 md:mt-10">
             <PaddingContainer>
-              {/* Status Card and Help Card in the same row */}
+              {}
               <div className="flex flex-col md:flex-row md:items-start items-center justify-between gap-6 mb-8">
-                {/* Order Status Card */}
+                {}
                 {!isOrderTrackingDetailsLoading && mergedOrderDetails && (
                   <TrackingStatusCard
                     orderTrackingDetails={mergedOrderDetails}
                   />
                 )}
 
-                {/* Help Card - positioned on the left */}
+                {}
                 <div className="md:ml-0 w-full md:w-auto md:flex-none">
                   <TrackingHelpCard />
                   {showChat &&
@@ -291,7 +275,7 @@ export default function OrderTrackingScreen({
                 </div>
               </div>
 
-              {/* Order Details - Full width to match status card */}
+              {}
               <div className="flex justify-center md:justify-start">
                 {isOrderTrackingDetailsLoading ?
                   <TrackingOrderDetailsDummy />

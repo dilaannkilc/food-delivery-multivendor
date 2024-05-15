@@ -1,9 +1,7 @@
 "use client";
 
-// Interfaces
 import { IUserAddress, IUserAddressProps } from "@/lib/utils/interfaces";
 
-// Core
 import React, { ReactNode, useContext } from "react";
 
 const UserAddressContext = React.createContext({} as IUserAddressProps);

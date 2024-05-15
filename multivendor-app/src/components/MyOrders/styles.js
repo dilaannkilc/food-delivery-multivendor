@@ -16,7 +16,7 @@ const styles = (props = null) =>
       },
       shadowOpacity: 0.5,
       shadowRadius: verticalScale(1),
-      //flexDirection: 'row',
+
       justifyContent: 'space-between',
       ...alignment.MRsmall,
       ...alignment.MLsmall,
@@ -156,7 +156,7 @@ const styles = (props = null) =>
       justifyContent: 'space-between',
       width: '100%',
       height: scale(50)
-      //backgroundColor: props !== null ? props?.gray200 : '#F3F4F6'
+
     },
     starsStyle: {
       borderColor: props !== null ? props?.newheaderColor : '#90E36D',

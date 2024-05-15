@@ -14,5 +14,5 @@ export interface IVendorProfileContextData extends IGlobalComponentProps {
   >;
   activeIndex: number;
   onActiveStepChange: (activeStep: number) => void;
-  refetchVendorProfile: () => Promise<void>; // Add this line
+  refetchVendorProfile: () => Promise<void>; 
 }

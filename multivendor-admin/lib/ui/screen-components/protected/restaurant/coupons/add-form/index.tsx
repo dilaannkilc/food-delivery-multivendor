@@ -1,30 +1,23 @@
-// Core
+
 import { useContext } from 'react';
 import { Form, Formik, FormikHelpers } from 'formik';
 
-// Prime React
 import { Sidebar } from 'primereact/sidebar';
 
-// Interface and Types
 import { ICouponRestaurantForm } from '@/lib/utils/interfaces/forms/coupon-restaurant.form.interface';
 import { ICouponRestaurantAddFormComponentProps } from '@/lib/utils/interfaces/coupons-restaurant.interface';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import CustomNumberField from '@/lib/ui/useable-components/number-input-field';
 import Toggle from '@/lib/ui/useable-components/toggle';
 
-// Context
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 
-// Utilities and Constants
 import { CouponRestaurantFormSchema } from '@/lib/utils/schema';
 
-//Toast
 import useToast from '@/lib/hooks/useToast';
 
-//GraphQL
 import { useMutation } from '@apollo/client';
 import {
   CREATE_RESTAURANT_COUPON,
@@ -39,11 +32,10 @@ export default function CouponsAddForm({
   position = 'right',
   isAddCouponVisible,
 }: ICouponRestaurantAddFormComponentProps) {
-  // Context
+
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
 
-  // State
   const initialValues: ICouponRestaurantForm = {
     title: '',
     discount: null,
@@ -51,11 +43,9 @@ export default function CouponsAddForm({
     ...coupon,
   };
 
-  // Hooks
   const t = useTranslations();
   const { showToast } = useToast();
 
-  // Mutation
   const mutation = coupon ? EDIT_RESTAURANT_COUPON : CREATE_RESTAURANT_COUPON;
   const [mutate, { loading: mutationLoading }] = useMutation(mutation, {
     refetchQueries: [
@@ -63,7 +53,6 @@ export default function CouponsAddForm({
     ],
   });
 
-  // Form Submission
   const handleSubmit = (
     values: ICouponRestaurantForm,
     { resetForm }: FormikHelpers<ICouponRestaurantForm>

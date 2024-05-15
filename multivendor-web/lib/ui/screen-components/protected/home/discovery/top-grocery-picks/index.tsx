@@ -1,9 +1,9 @@
-// slider card
+
 "use client"
 
 import SliderCard from "@/lib/ui/useable-components/slider-card";
-// hook
-// loading skeleton
+
+
 import SliderSkeleton from "@/lib/ui/useable-components/custom-skeletons/slider.loading.skeleton";
 import useMostOrderedRestaurants from "@/lib/hooks/useMostOrderedRestaurants";
 

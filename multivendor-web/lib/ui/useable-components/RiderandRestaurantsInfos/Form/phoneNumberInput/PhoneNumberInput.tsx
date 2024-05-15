@@ -6,7 +6,7 @@ const PhoneNumberInput = () => {
   return (
     <div>
       <PhoneInput
-      // default country pakistan "pk"
+
       country={"pk"}
      
       value={field.value}
@@ -28,7 +28,7 @@ const PhoneNumberInput = () => {
           />
 
       <style jsx global>{`
-        /* Light mode */
+        
         .custom-phone-input .flag-dropdown {
           background-color: white;
           border: 2px solid #e5e7eb;
@@ -37,7 +37,7 @@ const PhoneNumberInput = () => {
 
         .custom-phone-input .form-control {
           background-color: white;
-          color: #111827; /* gray-900 */
+          color: #111827; 
         }
 
         .custom-phone-input .country-list {
@@ -46,16 +46,16 @@ const PhoneNumberInput = () => {
           border: 1px solid #d1d5db;
         }
 
-        /* Dark mode */
+        
         html.dark .custom-phone-input .form-control {
-          background-color: #374151 !important; /* gray-700 */
-          color: #f9fafb !important; /* gray-50 */
-          border: 1px solid #4b5563 !important; /* gray-600 */
+          background-color: #374151 !important; 
+          color: #f9fafb !important; 
+          border: 1px solid #4b5563 !important; 
         }
 
         html.dark .custom-phone-input .flag-dropdown {
-          background-color: #374151 !important; /* gray-700 */
-          border: 1px solid #4b5563 !important; /* gray-600 */
+          background-color: #374151 !important; 
+          border: 1px solid #4b5563 !important; 
         }
 
         html.dark .custom-phone-input .selected-flag {
@@ -63,39 +63,39 @@ const PhoneNumberInput = () => {
         }
 
         html.dark .custom-phone-input .country-list {
-          background-color: #1f2937 !important; /* gray-800 */
+          background-color: #1f2937 !important; 
           color: #f9fafb !important;
-          border: 1px solid #374151 !important; /* gray-700 */
+          border: 1px solid #374151 !important; 
         }
 
         html.dark .custom-phone-input .country-list .country:hover {
-          background-color: #374151 !important; /* gray-700 */
+          background-color: #374151 !important; 
         }
 
         html.dark .custom-phone-input .country-list .country.highlight {
-          background-color: #94e469 !important; /* theme green */
-          color: #111827 !important; /* gray-900 text */
+          background-color: #94e469 !important; 
+          color: #111827 !important; 
         }
 
-        /* ✅ RTL fixes */
+        
         html[dir="rtl"] .custom-phone-input .flag-dropdown {
-          right: 0; /* stick to right */
-          left: auto !important; /* override default left */
-          border-radius: 0 0.5rem 0.5rem 0; /* rounded corners on right */
-          border: 2px solid #e5e7eb; /* dark gray border for dark mode */
+          right: 0; 
+          left: auto !important; 
+          border-radius: 0 0.5rem 0.5rem 0; 
+          border: 2px solid #e5e7eb; 
            
-          padding-right: 8px; /* keep flag and dropdown inside container */
+          padding-right: 8px; 
         }
 
         html[dir="rtl"] .custom-phone-input .selected-flag {
           right: 0;
           left: auto !important;
-          padding-right: 0.5rem; /* spacing so flag doesn’t touch border */
+          padding-right: 0.5rem; 
         }
 
-        /* ✅ RTL Arrow Fix */
+        
         html[dir="rtl"] .custom-phone-input .selected-flag .arrow {
-          right: 20px !important; /* place arrow inside the box */
+          right: 20px !important; 
           left: auto !important;
           display: block !important;
           position: absolute;

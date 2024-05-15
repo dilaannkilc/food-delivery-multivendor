@@ -6,7 +6,7 @@ export default StyleSheet.create({
     borderTopRightRadius: 25,
     marginHorizontal: 5,
     zIndex: 1,
-    // elevation: 1,
+
     backgroundColor: theme.themeBackground,
     marginTop: -100
   }),
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     padding: 15,
     width: '100%',
     backgroundColor: theme.themeBackground,
-    // elevation: 1
+
     borderBottomWidth: 1,
     borderBottomColor: '#fff'
   }),

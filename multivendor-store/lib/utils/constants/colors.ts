@@ -1,7 +1,4 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
+
 
 export const Colors = {
   light: {
@@ -42,30 +39,30 @@ export const Colors = {
     error: "#ef4444",
   },
   dark: {
-    primary: "#A5C616", // Slightly darker green to avoid too much brightness
-    themeBackground: "black", // Dark gray for background
+    primary: "#A5C616", 
+    themeBackground: "black", 
     screenBackground: "black",
-    iconColor: "black", // Light gray for icons
-    tagColor: "#8CA30D", // Muted green for tags
+    iconColor: "black", 
+    tagColor: "#8CA30D", 
     iconPink: "#8CA30D",
-    radioColor: "#1E1E1E", // Matches the dark background
+    radioColor: "#1E1E1E", 
     radioOuterColor: "#A5C616",
     spinnerColor: "#A5C616",
-    orderComplete: "#6F8B05", // Muted green
-    orderUncomplete: "#FF6B6B", // Softer red for dark mode
-    horizontalLine: "#444444", // Dark gray for dividers
-    buttonBackground: "#8CA30D", // Darker green for buttons
-    buttonText: "#FFFF", // Light text for buttons
+    orderComplete: "#6F8B05", 
+    orderUncomplete: "#FF6B6B", 
+    horizontalLine: "#444444", 
+    buttonBackground: "#8CA30D", 
+    buttonText: "#FFFF", 
     buttonBackgroundPink: "#8CA30D",
     buttonTextPink: "#1E1E1E",
-    textErrorColor: "#FF8A50", // Softer orange for errors
-    headerBackground: "#2A2A2A", // Darker gray for headers
-    headerText: "#E0E0E0", // Light gray for text
-    fontMainColor: "#E0E0E0", // Light gray for main text
-    fontSecondColor: "#B0B0B0", // Medium gray for secondary text
-    cartContainer: "#1E1E1E", // Matches the dark background
+    textErrorColor: "#FF8A50", 
+    headerBackground: "#2A2A2A", 
+    headerText: "#E0E0E0", 
+    fontMainColor: "#E0E0E0", 
+    fontSecondColor: "#B0B0B0", 
+    cartContainer: "#1E1E1E", 
     startColor: "#8CA30D",
-    white: "#E0E0E0", // Light gray instead of pure white
+    white: "#E0E0E0", 
     black: "#000",
     secondaryTextColor: "#4B5563",
     lowOpacityPrimaryColor: "gray",

@@ -13,15 +13,13 @@ import React, { useContext } from 'react';
 export default function VendorLiveMonitor({
   dateFilter,
 }: IVendorLiveMonitorProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // Contexts
   const {
     vendorLayoutContextData: { vendorId },
   } = useContext(VendorLayoutContext);
 
-  // Queries
   const { data } = useQueryGQL(
     GET_VENDOR_LIVE_MONITOR,
     {
@@ -37,7 +35,6 @@ export default function VendorLiveMonitor({
     }
   ) as IQueryResult<IVendorLiveMonitorResponseGraphQL | undefined, undefined>;
 
-  // Constants
   const {
     online_stores = 0,
     cancelled_orders = 0,

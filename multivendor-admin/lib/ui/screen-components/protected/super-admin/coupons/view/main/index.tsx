@@ -1,11 +1,9 @@
-// CSS
+
 import './index.module.css';
 
-// GraphQL
 import { DELETE_COUPON, GET_COUPONS } from '@/lib/api/graphql';
 import { useLazyQueryQL } from '@/lib/hooks/useLazyQueryQL';
 
-// Interfaces
 import {
   IActionMenuItem,
   IEditState,
@@ -18,21 +16,17 @@ import {
 } from '@/lib/utils/interfaces/coupons.interface';
 import { IFilterType } from '@/lib/utils/interfaces/table.interface';
 
-// Prime react
 import { FilterMatchMode } from 'primereact/api';
 
-// Hooks
 import { useContext, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useMutation } from '@apollo/client';
 
-// Components
 import { ToastContext } from '@/lib/context/global/toast.context';
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
 import Table from '@/lib/ui/useable-components/table';
 import CouponTableHeader from '../header/table-header';
 
-// Constants
 import { generateDummyCoupons } from '@/lib/utils/dummy';
 import { COUPONS_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/coupons-columns';
 
@@ -41,13 +35,11 @@ export default function CouponsMain({
   isEditing,
   setIsEditing,
 }: ICouponMainProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // Toast
   const { showToast } = useContext(ToastContext);
 
-  // States
   const [selectedData, setSelectedData] = useState<ICoupon[]>([]);
   const [isDeleting, setIsDeleting] = useState<IEditState<ICoupon>>({
     bool: false,
@@ -66,7 +58,6 @@ export default function CouponsMain({
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Filters
   const filters: IFilterType = {
     global: { value: globalFilterValue, matchMode: FilterMatchMode.CONTAINS },
 
@@ -79,14 +70,12 @@ export default function CouponsMain({
     },
   };
 
-  // Queries
   const { data, fetch } = useLazyQueryQL(GET_COUPONS, {
     fetchPolicy: 'network-only',
     debounceMs: 5000,
     onCompleted: () => setIsLoading(false),
   }) as ILazyQueryResult<IGetCouponsData | undefined, undefined>;
 
-  // Mutations
   const [deleteCoupon, { loading: deleteCouponLoading }] = useMutation(
     DELETE_COUPON,
     {
@@ -111,7 +100,6 @@ export default function CouponsMain({
     }
   );
 
-  // Delete Item
   async function deleteItem() {
     await deleteCoupon({
       variables: {
@@ -133,7 +121,6 @@ export default function CouponsMain({
     });
   }
 
-  // Menu Items
   const menuItems: IActionMenuItem<ICoupon>[] = [
     {
       label: t('Edit'),
@@ -167,7 +154,6 @@ export default function CouponsMain({
     },
   ];
 
-  // UseEffects
   useEffect(() => {
     if (isEditing.bool) {
       setVisible(true);

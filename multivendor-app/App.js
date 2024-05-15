@@ -1,7 +1,7 @@
 import { ApolloProvider } from '@apollo/client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import 'react-native-get-random-values';
-// import 'expo-dev-client'
+
 import * as Device from 'expo-device'
 import * as Font from 'expo-font'
 import * as Notifications from 'expo-notifications'
@@ -10,7 +10,7 @@ import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { ActivityIndicator, BackHandler, I18nManager, LogBox, Platform, SafeAreaView, StatusBar, StyleSheet, Text, View, useColorScheme } from 'react-native'
 import FlashMessage from 'react-native-flash-message'
 import 'react-native-gesture-handler'
-// import * as Sentry from '@sentry/react-native';
+
 import useEnvVars, { isProduction } from './environment'
 import setupApolloClient from './src/apollo/index'
 import { MessageComponent } from './src/components/FlashMessage/MessageComponent'
@@ -37,16 +37,14 @@ import { ErrorBoundary } from './src/components/ErrorBoundary'
 import * as Clarity from '@microsoft/react-native-clarity';
 
 
-// LogBox.ignoreLogs([
-//   // 'Warning: ...',
-//   // 'Sentry Logger ',
-//   'Constants.deviceYearClass'
-// ]) // Ignore log notification by message
-// LogBox.ignoreAllLogs() // Ignore all log notifications
+
+
+
+
 
 
 Clarity.initialize('mcdyi6urgs', {
-  logLevel: Clarity.LogLevel.Verbose, // Note: Use "LogLevel.Verbose" value while testing to debug initialization issues.
+  logLevel: Clarity.LogLevel.Verbose, 
 });
 
 Notifications.setNotificationHandler({
@@ -63,45 +61,43 @@ export default function App() {
   const reviewModalRef = useRef()
   const [appIsReady, setAppIsReady] = useState(false)
   const [location, setLocation] = useState(null)
-  // const responseListener = useRef()
+
   const [orderId, setOrderId] = useState()
   const [isUpdating, setIsUpdating] = useState(false)
-  // const { SENTRY_DSN } = useEnvVars()
+
   const client = setupApolloClient()
 
   useKeepAwake()
-  // useWatchLocation()
 
-  // Use system theme
+
   const systemTheme = useColorScheme()
   const [theme, themeSetter] = useReducer(ThemeReducer, systemTheme === 'dark' ? 'Dark' : 'Pink')
   useEffect(() => {
     try {
       themeSetter({ type: systemTheme === 'dark' ? 'Dark' : 'Pink' })
     } catch (error) {
-      // Error retrieving data
+
       console.log('Theme Error : ', error.message)
     }
   }, [systemTheme])
 
-  // For Fonts, etc
   useEffect(() => {
     const loadAppData = async () => {
-      // try {
-      //   await SplashScreen.preventAutoHideAsync()
-      // } catch (e) {
-      //   console.warn(e)
-      // }
-      // await i18n.initAsync()
+
+
+
+
+
+
       await Font.loadAsync({
         MuseoSans300: require('./src/assets/font/MuseoSans/MuseoSans300.ttf'),
         MuseoSans500: require('./src/assets/font/MuseoSans/MuseoSans500.ttf'),
         MuseoSans700: require('./src/assets/font/MuseoSans/MuseoSans700.ttf')
       })
-      // await permissionForPushNotificationsAsync()
+
       await getActiveLocation()
-      // get stored theme
-      // await getStoredTheme()
+
+
       setAppIsReady(true)
     }
 
@@ -124,7 +120,6 @@ export default function App() {
     hideSplashScreen()
   }, [appIsReady])
 
-  // For Location
   useEffect(() => {
     if (!location) return
     const saveLocation = async () => {
@@ -133,29 +128,23 @@ export default function App() {
     saveLocation()
   }, [location])
 
-  // For Permission
-/*   useEffect(() => {
-    requestTrackingPermissions()
-  }, []) */
 
-  // For Sentry
-  // useEffect(() => {
-  //   // if (SENTRY_DSN) {
-  //   if (false) {
-  //     Sentry.init({
-  //       dsn: SENTRY_DSN,
-  //       enableInExpoDevelopment: !isProduction ? true : false,
-  //       environment: isProduction ? 'production' : 'development',
-  //       debug: !isProduction,
-  //       tracesSampleRate: 1.0,
-  //       enableTracing: true
-  //     })
-  //   }
-  // }, [SENTRY_DSN])
 
-  // For App Update
+
+
+
+
+
+
+
+
+
+
+
+
+
   useEffect(() => {
-    // eslint-disable-next-line no-undef
+
     if (__DEV__) return
     ;(async () => {
       const { isAvailable } = await Updates.checkForUpdateAsync()
@@ -175,9 +164,8 @@ export default function App() {
     })()
   }, [])
 
-  // For Push Notification
   useEffect(() => {
-    // registerForPushNotificationsAsync()
+
 
     const notifSub  = Notifications.addNotificationReceivedListener((notification) => {
       if (notification?.request?.content?.data?.type === NOTIFICATION_TYPES.REVIEW_ORDER) {
@@ -204,8 +192,7 @@ export default function App() {
     }
   }, [])
 
-  // Handlers
-  // get active location
+
   async function getActiveLocation() {
     try {
       const locationStr = await AsyncStorage.getItem('location')
@@ -217,23 +204,21 @@ export default function App() {
     }
   }
 
-  // get stored theme
-  // const getStoredTheme = async () => {
-  //   try {
-  //     const storedTheme = await AsyncStorage.getItem('appTheme')
-  //     if (storedTheme) {
-  //       console.log('Retrieved theme from storage:', storedTheme)
-  //       themeSetter({ type: storedTheme })
-  //     } else {
-  //       console.log('No theme found in storage, using default.')
-  //       await AsyncStorage.setItem('appTheme', 'Dark') // Set default theme to Pink
-  //     }
-  //   } catch (error) {
-  //     console.log('Error retrieving theme from storage:', error)
-  //   }
-  // }
 
-  // set stored theme
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const setStoredTheme = async (newTheme) => {
     try {
       await AsyncStorage.setItem('appTheme', newTheme)
@@ -242,7 +227,6 @@ export default function App() {
     }
   }
 
-  // set modal close
   const onOverlayPress = () => {
     reviewModalRef?.current?.close()
   }
@@ -263,16 +247,16 @@ export default function App() {
     <AnimatedSplashScreen>
       <ApolloProvider client={client}>
         <ThemeContext.Provider
-          // use default theme
+
           value={{ ThemeValue: theme, dispatch: themeSetter }}
-          // use stored theme
-          // value={{
-          //   ThemeValue: theme,
-          //   dispatch: (action) => {
-          //     themeSetter(action)
-          //     setStoredTheme(action.type) // Save the theme in AsyncStorage when it changes
-          //   }
-          // }}
+
+
+
+
+
+
+
+
         >
           <StatusBar backgroundColor={Theme[theme].menuBar} barStyle={theme === 'Dark' ? 'light-content' : 'dark-content'} />
           <LocationProvider>
@@ -330,14 +314,13 @@ async function registerForPushNotificationsAsync() {
   }
 }
 
-// async function schedulePushNotification() {
-//   await Notifications.scheduleNotificationAsync({
-//     content: {
-//       title: "You've got mail! 📬",
-//       body: 'Here is the notification body',
-//       data: { type: NOTIFICATION_TYPES.REVIEW_ORDER, _id: '65e068b2150aab288f2b821f' }
-//     },
-//     trigger: { seconds: 10 }
-//   })
-// }
+
+
+
+
+
+
+
+
+
 

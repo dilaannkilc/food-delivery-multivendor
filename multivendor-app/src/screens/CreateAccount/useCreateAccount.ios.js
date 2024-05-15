@@ -1,26 +1,26 @@
-// useCreateAccount.ios.js
+
 
 import { useEffect, useState, useContext } from 'react';
 import { StatusBar, Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import Constants from 'expo-constants';
-import useEnvVars from '../../../environment'; // Adjust path if necessary
+import useEnvVars from '../../../environment'; 
 import gql from 'graphql-tag';
-import { login } from '../../apollo/mutations'; // Adjust path if necessary
-import ThemeContext from '../../ui/ThemeContext/ThemeContext'; // Adjust path if necessary
-import { theme } from '../../utils/themeColors'; // Adjust path if necessary
+import { login } from '../../apollo/mutations'; 
+import ThemeContext from '../../ui/ThemeContext/ThemeContext'; 
+import { theme } from '../../utils/themeColors'; 
 import { useMutation } from '@apollo/client';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
-import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'; // Adjust path if necessary
-import analytics from '../../utils/analytics'; // Adjust path if necessary
-import AuthContext from '../../context/Auth'; // Adjust path if necessary
+import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'; 
+import analytics from '../../utils/analytics'; 
+import AuthContext from '../../context/Auth'; 
 import { useTranslation } from 'react-i18next';
 import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google'; // iOS-specific Google import
-WebBrowser.maybeCompleteAuthSession(); // Important for Expo Auth Session
+import * as Google from 'expo-auth-session/providers/google'; 
+WebBrowser.maybeCompleteAuthSession(); 
 
 
 const LOGIN = gql`
@@ -49,16 +49,13 @@ export const useCreateAccount = () => {
   } = useEnvVars();
 
 
-  // Google Auth Request for iOS (using expo-auth-session)
-  // Hardcoded client IDs as per your provided iOS code block
   const [request, response, promptAsync] = Google.useAuthRequest({
-    clientId: "650001300965-9ochl634tuvv6iguei6dl57jkmfto6r9.apps.googleusercontent.com", // Web client ID for Expo
-    androidClientId: "650001300965-ii3nafver2uiu4qat9gbde9rkmhmvj0j.apps.googleusercontent.com", // Android client ID
-    iosClientId: "650001300965-dkji7jutv8gc5m4n7cdg3nft87sauhn7.apps.googleusercontent.com", // iOS client ID
+    clientId: "650001300965-9ochl634tuvv6iguei6dl57jkmfto6r9.apps.googleusercontent.com", 
+    androidClientId: "650001300965-ii3nafver2uiu4qat9gbde9rkmhmvj0j.apps.googleusercontent.com", 
+    iosClientId: "650001300965-dkji7jutv8gc5m4n7cdg3nft87sauhn7.apps.googleusercontent.com", 
     scopes: ['profile', 'email', 'openid'],
   });
 
-  // Effect to handle the Google authentication response
   useEffect(() => {
     if (response?.type === 'success') {
       const { authentication } = response;
@@ -75,7 +72,6 @@ export const useCreateAccount = () => {
     }
   }, [response]);
 
-  // Fetches user information from Google API after successful token acquisition
   const fetchUserInfo = async (accessToken) => {
     try {
       const response = await fetch('https://www.googleapis.com/userinfo/v2/me', {
@@ -105,7 +101,6 @@ export const useCreateAccount = () => {
     }
   };
 
-  // Google Sign-In Function for iOS
   const signIn = async () => {
     try {
       loginButtonSetter('Google');
@@ -120,8 +115,8 @@ export const useCreateAccount = () => {
       }
 
       await promptAsync({
-        useProxy: false, // Recommended for standalone apps
-        windowFeatures: 'popup', // Not strictly needed for mobile but harmless
+        useProxy: false, 
+        windowFeatures: 'popup', 
       });
     } catch (e) {
       console.error('Error during sign-in prompt: ' + e.message, e);
@@ -131,7 +126,6 @@ export const useCreateAccount = () => {
     }
   };
 
-  // --- Common Navigation Functions ---
   const navigateToLogin = () => {
     navigation.navigate('Login');
   };
@@ -154,7 +148,6 @@ export const useCreateAccount = () => {
     });
   };
 
-  // --- Common Login Mutation Function ---
   async function mutateLogin(user) {
     try {
  
@@ -200,7 +193,6 @@ export const useCreateAccount = () => {
     }
   }
 
-  // --- Common Apple Authentication Check (will only be true on iOS devices) ---
   useEffect(() => {
     checkIfSupportsAppleAuthentication();
   }, []);
@@ -218,7 +210,6 @@ export const useCreateAccount = () => {
     }
   }
 
-  // --- Common Login Success Handler ---
   async function onCompleted(data) {
 
     if (data.login.isActive === false) {
@@ -247,7 +238,6 @@ export const useCreateAccount = () => {
     }
   }
 
-  // --- Common Login Error Handler ---
   function onError(error) {
     console.error('❌ [Login Debug] Login mutation error occurred');
     console.error('❌ [Login Debug] Error message:', error.message);
@@ -263,16 +253,14 @@ export const useCreateAccount = () => {
     loginButtonSetter(null);
   }
 
-  // --- Common Focus Effect for Status Bar ---
   useFocusEffect(() => {
-    // StatusBar.setBackgroundColor is typically Android only
-    // On iOS, you control the style
+
+
     StatusBar.setBarStyle(
       themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
     );
   });
 
-  // --- Common Link Handlers ---
   const openTerms = () => {
     Linking.openURL(TERMS_AND_CONDITIONS);
   };
@@ -296,6 +284,6 @@ export const useCreateAccount = () => {
     openPrivacyPolicy,
     navigateToMain,
     navigation,
-    signIn, // iOS-specific signIn function
+    signIn, 
   };
 };

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+
 import { ResizeMode, Video } from "expo-av";
 import { StyleSheet } from "react-native";
 import { useRef, useState } from "react";

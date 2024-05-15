@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 import { getTimeInMinutesFromString } from '../methods/time-in-minute';
 
-// Helper function to convert "HH:mm" to minutes
 
 export const TimingSchema = Yup.array()
   .of(
@@ -37,18 +36,16 @@ export const TimingSchema = Yup.array()
           'is-sequential',
           'Time slots must be in sequence',
           function (timeSlots) {
-            if (!timeSlots || timeSlots.length === 0) return true; // Allow empty or null
+            if (!timeSlots || timeSlots.length === 0) return true; 
 
             for (let i = 0; i < timeSlots.length; i++) {
               const { startTime, endTime } = timeSlots[i];
 
-              // Ensure both startTime and endTime are defined
               if (!startTime || !endTime) return false;
 
               const startMinutes = getTimeInMinutesFromString(startTime);
               const endMinutes = getTimeInMinutesFromString(endTime);
 
-              // Check if the current time slot is valid
               if (endMinutes !== null && startMinutes !== null) {
                 if (endMinutes <= startMinutes) {
                   return this.createError({

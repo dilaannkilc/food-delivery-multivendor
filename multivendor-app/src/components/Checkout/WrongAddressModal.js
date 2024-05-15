@@ -17,7 +17,7 @@ export const WrongAddressModal = ({
 
   return (
     <Modal animationType="slide" visible={modalVisible} transparent={true}>
-      {/* <View style={styles.layout}> */}
+      {}
       <Pressable style={styles.backdrop} onPress={setModalVisible}>
           <View style={styles.modalContainer}>
             <View style={{ ...alignment.MBsmall }}>
@@ -52,7 +52,7 @@ export const WrongAddressModal = ({
 
           </View>
       </Pressable>
-      {/* </View> */}
+      {}
     </Modal>
   )
 }

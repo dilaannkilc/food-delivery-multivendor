@@ -1,11 +1,10 @@
-// Expo
+
 import { Stack } from 'expo-router'
 
-// Hooks
 import { useTranslation } from 'react-i18next'
 
 export default function Layout() {
-  // Hooks
+
   const { t } = useTranslation()
   return (
     <Stack
@@ -16,7 +15,7 @@ export default function Layout() {
       }}
     >
       <Stack.Screen
-        name="index" // This is the name of the page and must match the url from root
+        name="index" 
         options={{
           title: t('Language'),
         }}

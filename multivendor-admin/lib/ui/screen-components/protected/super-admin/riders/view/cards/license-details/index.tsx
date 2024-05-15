@@ -1,10 +1,8 @@
-// Interfaces
+
 import { IRiderDetailsProps } from '@/lib/utils/interfaces';
 
-// PrimeReact Components
 import { Skeleton } from 'primereact/skeleton';
 
-// Localization
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
@@ -17,9 +15,9 @@ const LicenseDetails = ({ loading, rider }: IRiderDetailsProps) => {
         {t('license_details')}
       </header>
 
-      {/* columns */}
+      {}
       <div className="grid grid-cols-2 py-5 px-6">
-        {/* left-column */}
+        {}
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-1">
             <span className="text-xs">{t('license_number')}</span>
@@ -45,7 +43,7 @@ const LicenseDetails = ({ loading, rider }: IRiderDetailsProps) => {
           </div>
         </div>
 
-        {/* right-column */}
+        {}
         <div className="flex flex-col gap-5">
           {loading ? (
             <div className="pl-5 h-full flex items-center">
@@ -56,15 +54,15 @@ const LicenseDetails = ({ loading, rider }: IRiderDetailsProps) => {
               <Image
                 fill
                 src={
-                  rider?.vehicleDetails?.image?.startsWith('http') // Check if it's an absolute URL
+                  rider?.vehicleDetails?.image?.startsWith('http') 
                     ? rider?.vehicleDetails?.image
-                    : `https://static.vecteezy.com/system/resources/previews/003/415/255/non_2x/drivers-license-a-plastic-identity-card-outline-vector.jpg` // Add the base URL if it's a relative path
+                    : `https://static.vecteezy.com/system/resources/previews/003/415/255/non_2x/drivers-license-a-plastic-identity-card-outline-vector.jpg` 
                 }
                 alt="license image"
               />
             </div>
           ) : (
-            <span>-</span> // Updated from string to span for better semantics
+            <span>-</span> 
           )}
         </div>
       </div>

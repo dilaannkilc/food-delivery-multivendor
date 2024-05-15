@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+
 import { EDIT_RIDER } from "@/lib/apollo/mutations/rider.mutation";
 import { RIDER_PROFILE } from "@/lib/apollo/queries";
 import { useApptheme } from "@/lib/context/global/theme.context";
@@ -25,10 +25,9 @@ import {
 } from "react-native";
 
 export default function VehicleTypeMainScreen() {
-  // Context
+
   const { dataProfile } = useUserContext();
 
-  // Hooks
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
@@ -39,22 +38,18 @@ export default function VehicleTypeMainScreen() {
     pickup_truck: <TruckIcon color={appTheme.fontMainColor} />,
   };
 
-  // State
   const [selectedCode, setSelectedCode] = useState<string>(
     VEHICLE_TYPE.find((vt) => vt.code === dataProfile?.vehicleType)?.code || "",
   );
 
-  // API Hook
   const [mutate, { loading: mutationLoading }] = useMutation(EDIT_RIDER, {
     refetchQueries: [
       { query: RIDER_PROFILE, variables: { id: dataProfile?._id } },
     ],
   });
 
-  // Hook
   const { width } = useWindowDimensions();
 
-  // Components
   const renderItem = ({ item }: { item: IVehicleTypeItem }) => {
     const isSelected = item.code === selectedCode;
     return (
@@ -93,13 +88,12 @@ export default function VehicleTypeMainScreen() {
     );
   };
 
-  // Form Submission
   const onHandlerSubmit = () => {
     mutate({
       variables: {
         riderInput: {
           _id: dataProfile?._id,
-          name: dataProfile?.name, //
+          name: dataProfile?.name, 
           username: dataProfile?.username,
           password: dataProfile?.password,
           phone: dataProfile?.phone?.toString(),

@@ -1,9 +1,8 @@
 "use client";
-// Core
+
 import { useLayoutEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-// Methods
 import { onUseLocalStorage } from "../utils/methods/local-storage";
 
 const AuthGuard = <T extends object>(Component: React.ComponentType<T>) => {
@@ -39,7 +38,7 @@ const AuthGuard = <T extends object>(Component: React.ComponentType<T>) => {
     };
 
     useLayoutEffect(() => {
-      // Check if logged in
+
       onHandleUserAuthenticate();
     }, []);
 

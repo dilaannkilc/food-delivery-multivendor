@@ -4,7 +4,6 @@ import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import { Platform } from "react-native";
 
-// Import language files
 import { en } from "./languages/en";
 import { de } from "./languages/de";
 import { fr } from "./languages/fr";
@@ -37,7 +36,6 @@ import { uz } from "./languages/uz";
 import { az } from "./languages/az";
 import { nl } from "./languages/nl";
 
-// Define language resources
 export const languageResources: { [key: string]: { translation: object } } = {
   en: { translation: en },
   zh: { translation: zh },
@@ -72,7 +70,6 @@ export const languageResources: { [key: string]: { translation: object } } = {
   nl: { translation: nl },
 };
 
-// Function to get stored language from AsyncStorage or fallback to device locale
 const getStoredLanguage = async (): Promise<void> => {
   try {
     const storedLang = await AsyncStorage.getItem("enatega-language");
@@ -85,17 +82,14 @@ const getStoredLanguage = async (): Promise<void> => {
       resources: languageResources,
     });
 
-    // Apply the initial language
     await i18next.changeLanguage(initialLang);
   } catch (error) {
     console.log("Error initializing language:", error);
   }
 };
 
-// Initialize language
 getStoredLanguage();
 
-// Additional iOS-specific configuration (if necessary)
 if (Platform.OS === "ios") {
   const iosLang = Localization.getLocales()[0]?.languageCode || "en";
 

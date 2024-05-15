@@ -1,19 +1,14 @@
-// Interfaces
+
 import { IActionMenuProps, IShopType } from '@/lib/utils/interfaces';
 
-
-// Components
 import CustomInputSwitch from '../../custom-input-switch';
 import ActionMenu from '../../action-menu';
 
-// Hooks
 import { useContext, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-//GraphQL
 import { GET_COUPONS, UPDATE_SHOP_TYPE } from '@/lib/api/graphql';
 
-// Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -24,18 +19,16 @@ export const SHOP_TYPES_TABLE_COLUMNS = ({
 }: {
   menuItems: IActionMenuProps<IShopType>['items'];
 }) => {
-  // Hooks
+
   const { showToast } = useContext(ToastContext);
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const [editShopTypeLoading, setEditShopTypeLoading] = useState({
     _id: '',
     bool: false,
   });
 
-  // Mutations
   const [editShopType, { loading }] = useMutation(UPDATE_SHOP_TYPE, {
     refetchQueries: [{ query: GET_COUPONS }],
     onCompleted: () => {
@@ -67,7 +60,6 @@ export const SHOP_TYPES_TABLE_COLUMNS = ({
     },
   });
 
-  // Handlers
   async function handleEnableField(rowData: IShopType) {
     setEditShopTypeLoading({
       bool: true,
@@ -86,9 +78,6 @@ export const SHOP_TYPES_TABLE_COLUMNS = ({
     });
   }
 
-
-
-  // Columns
   const shop_type_columns = useMemo(
     () => [
         {

@@ -83,7 +83,7 @@ export interface IProfileContextData extends IGlobalComponentProps {
   >;
   activeIndex: number;
   onActiveStepChange: (activeStep: number) => void;
-  refetchRestaurantProfile: () => Promise<void>; // Add this line
+  refetchRestaurantProfile: () => Promise<void>; 
 }
 
 export interface IEditRestaurant extends IGlobalComponentProps {
@@ -117,7 +117,6 @@ export interface IEditRestaurant extends IGlobalComponentProps {
   };
 }
 
-// The two interfaces are identical. There are no differences between them.
 export interface IEditRestaurantResponse {
   data?: {
     editRestaurant?: IEditRestaurant;

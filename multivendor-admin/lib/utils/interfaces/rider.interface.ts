@@ -1,4 +1,4 @@
-// Interfaces
+
 import { TSideBarFormPosition } from '../types/sidebar';
 import { IGlobalComponentProps } from './global.interface';
 
@@ -49,7 +49,7 @@ export interface IBusinessDetails {
 
 export interface ILicenseDetails {
   number: string;
-  expiryDate: string; // ISO date string (e.g., "2024-12-31T00:00:00Z")
+  expiryDate: string; 
   image: string;
 }
 
@@ -58,7 +58,6 @@ export interface IVehicleDetails {
   image: string;
 }
 
-// Define the structure of the query result object
 export interface IRidersDataResponse {
   riders: IRiderResponse[];
 }

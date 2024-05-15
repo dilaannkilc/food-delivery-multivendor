@@ -1,23 +1,20 @@
 "use client";
-// Interfaces
+
 import {
   IAuthFormData,
   IAuthModalProps,
   ILoginProfile,
 } from "@/lib/utils/interfaces";
 
-// Hooks
 import { useAuth } from "@/lib/context/auth/auth.context";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useEffect, useRef, useState } from "react";
-// import { useTranslations } from "next-intl";
 
-//Prime React
+
 import { Dialog } from "primereact/dialog";
 import { Stepper } from "primereact/stepper";
 import { StepperPanel } from "primereact/stepperpanel";
 
-// Components
 import { useConfig } from "@/lib/context/configuration/configuration.context";
 import useToast from "@/lib/hooks/useToast";
 import EmailVerification from "./email-verification";
@@ -39,7 +36,7 @@ export default function AuthModal({
   isAuthModalVisible,
   handleModalToggle,
 }: IAuthModalProps) {
-  // States
+
   const [emailOtp, setEmailOtp] = useState("");
   const [phoneOtp, setPhoneOtp] = useState("");
   const [formData, setFormData] = useState<IAuthFormData>({
@@ -59,13 +56,11 @@ export default function AuthModal({
       });
     }
   }, [isAuthModalVisible]);
-  // get the RTL direction
+
   const direction = document.documentElement.getAttribute("dir") || "ltr";
 
-  // Refs
   const authenticationPanelRef = useRef(null);
 
-  // Hooks
   const {
     handleUserLogin,
     activePanel,
@@ -79,7 +74,6 @@ export default function AuthModal({
   const t = useTranslations();
   const { SKIP_EMAIL_VERIFICATION, SKIP_MOBILE_VERIFICATION } = useConfig();
 
-  // Login With Google
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       setIsLoading(true);
@@ -112,11 +106,10 @@ export default function AuthModal({
           setActivePanel(0);
           setIsAuthModalVisible(false);
 
-          // showToast({
-          //   type: "success",
-          //   title: t("login_success"),
-          //   message: t("login_success_message"),
-          // });
+
+
+
+
         }
         setIsLoading(false);
         console.log("userLoginResponse", userLoginResponse);
@@ -128,7 +121,6 @@ export default function AuthModal({
     },
   });
 
-  // Handlers
   const handleChangePanel = (index: number) => {
     setActivePanel(index);
   };
@@ -146,7 +138,7 @@ export default function AuthModal({
 
   const handleSubmitAfterVerification = () => {
     setActivePanel(9);
-    // setIsAuthModalVisible(false);
+
     showToast({
       type: "success",
       title: t("password_recovery_label"),
@@ -175,7 +167,7 @@ export default function AuthModal({
       closeOnEscape={activePanel <= 3}
       showHeader={false}
     >
-      {/* close icon to close the modal */}
+      {}
       <button
         onClick={handleModalToggle}
         className={` ${direction === "rtl" ? "left-0" : "right-0"} tooltip tooltip-left absolute top-3  z-10 transition-all duration-300 rounded-full p-2 dark:text-gray-300`}

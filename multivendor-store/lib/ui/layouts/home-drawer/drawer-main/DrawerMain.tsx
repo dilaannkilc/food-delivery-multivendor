@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native";
 
 export default function DrawerMain() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   return (

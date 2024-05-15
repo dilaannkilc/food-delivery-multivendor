@@ -1,4 +1,4 @@
-// Components
+
 import { useApptheme } from "@/lib/context/theme.context";
 import { View } from "react-native";
 import ProfileHeader from "../../screen-components/profile/header";
@@ -9,7 +9,7 @@ export default function ComponentName() {
   return (
     <View
       className="w-full h-full"
-      // edges={{ bottom: "off", top: "additive" }}
+
       style={{
         backgroundColor: appTheme.themeBackground,
       }}

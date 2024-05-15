@@ -1,4 +1,4 @@
-// Components
+
 import CommissionRateMain from '@/lib/ui/screen-components/protected/super-admin/commission-rate/view/main';
 import CommissionRateHeader from '@/lib/ui/screen-components/protected/super-admin/commission-rate/view/header/screen-header';
 

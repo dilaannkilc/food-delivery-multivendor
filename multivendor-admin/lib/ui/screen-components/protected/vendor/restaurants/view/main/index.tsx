@@ -1,16 +1,13 @@
-// Core
+
 import { useContext } from 'react';
 
-// UI Components
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import CustomRestaurantCardSkeleton from '@/lib/ui/useable-components/custom-skeletons/restaurant.card.skeleton';
 
-// Context
 import { VendorLayoutRestaurantContext } from '@/lib/context/vendor/restaurant.context';
 
-// Icons
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import NoData from '@/lib/ui/useable-components/no-data';
 import VendorsLayoutRestaurantCard from '@/lib/ui/useable-components/vendors-layout-resturant-card';
@@ -23,7 +20,7 @@ export default function VendorRestaurantsMain() {
     restaurantContextData,
     onSetRestaurantContextData,
   } = useContext(VendorLayoutRestaurantContext);
-  // Hooks
+
   const t = useTranslations();
   const restaurants = restaurantContextData?.globalFilter
     ? restaurantContextData?.filtered
@@ -32,7 +29,7 @@ export default function VendorRestaurantsMain() {
   return (
     <div className="flex flex-grow flex-col overflow-hidden sm:flex-row">
       <div className={`flex-1 overflow-y-auto border-l border-gray-200 dark:border-dark-600 px-2`}>
-        {/* Header for Restaurants section */}
+        {}
         <div className="border-b dark:border-dark-600 pb-2 pt-3">
           <div className="mb-4 flex items-center justify-between">
             <div className="hidden sm:block">
@@ -65,11 +62,7 @@ export default function VendorRestaurantsMain() {
                 }
               />
             </div>
-            {/* <CustomTab
-              options={options}
-              selectedTab={selectedRestaurantFilter}
-              setSelectedTab={setSelectedResturantFilter}
-            /> */}
+            {}
           </div>
         </div>
 

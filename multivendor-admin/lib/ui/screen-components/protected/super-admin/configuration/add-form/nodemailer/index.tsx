@@ -1,30 +1,24 @@
 'use client';
-// Core
+
 import { Form, Formik } from 'formik';
 
-// Components
 import ConfigCard from '../../view/card';
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 
-// Toast
 import useToast from '@/lib/hooks/useToast';
 
-// Hooks
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Interfaces and Types
 import { INodeMailerForm } from '@/lib/utils/interfaces/configurations.interface';
 
-// Utils and Constants
 import { NodeMailerValidationSchema } from '@/lib/utils/schema';
 
-// GraphQL
 import { useMutation } from '@apollo/client';
 import { GET_CONFIGURATION, SAVE_EMAIL_CONFIGURATION } from '@/lib/api/graphql';
 
 const NodeMailerAddForm = () => {
-  // Hooks
+
   const { EMAIL_NAME, EMAIL, PASSWORD, ENABLE_EMAIL } = useConfiguration();
   const { showToast } = useToast();
 

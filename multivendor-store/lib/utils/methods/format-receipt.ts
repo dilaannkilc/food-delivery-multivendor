@@ -13,17 +13,11 @@ const wrapAddress = (address, maxLength = 48) => {
   }
 
   if (currentLine.trim()) lines.push(currentLine.trim());
-  return lines; // returns an array
+  return lines; 
 };
 
 export const formatReceiptOld = (order) => {
-  /**
-   * Breaks text into lines for thermal printers.
-   * - maxChars: chars per full line (48 for 80mm standard)
-   * - indentSpaces: number of spaces to prefix to every line except the first
-   *
-   * Guarantees: every new line (except the first) begins with indentSpaces spaces.
-   */
+  
   const breakIntoLines = (
     text: string,
     maxChars = 48,
@@ -32,10 +26,10 @@ export const formatReceiptOld = (order) => {
     if (!text) return "";
 
     const indent = " ".repeat(indentSpaces);
-    const words = text.split(/\s+/); // split by whitespace
-    const segments: string[] = []; // raw lines (without indentation)
+    const words = text.split(/\s+/); 
+    const segments: string[] = []; 
     let current = "";
-    let lineIndex = 0; // 0-based: first line is index 0
+    let lineIndex = 0; 
 
     const limitForIndex = (index: number) =>
       index === 0 ? maxChars : maxChars - indentSpaces;
@@ -43,12 +37,10 @@ export const formatReceiptOld = (order) => {
     for (let w = 0; w < words.length; w++) {
       const word = words[w];
 
-      // If current is empty, try placing word directly (maybe word itself > limit)
       let limit = limitForIndex(lineIndex);
 
-      // If the word itself is longer than the current limit, we must split the word.
       if (word.length > limit) {
-        // If there is any content in current, flush it first.
+
         if (current.length > 0) {
           segments.push(current.trim());
           current = "";
@@ -56,11 +48,10 @@ export const formatReceiptOld = (order) => {
           limit = limitForIndex(lineIndex);
         }
 
-        // Now split the long word into chunks:
-        // first chunk uses the current limit (could be full maxChars if this is the first line),
-        // subsequent chunks use (maxChars - indentSpaces) since they will be indented.
+
+
         let start = 0;
-        // first chunk uses 'limit'
+
         let firstChunkSize = limit;
         segments.push(word.slice(start, start + firstChunkSize));
         start += firstChunkSize;
@@ -74,23 +65,21 @@ export const formatReceiptOld = (order) => {
           lineIndex++;
         }
 
-        // continue to next word
         continue;
       }
 
-      // Try adding the word to the current line
       const candidate = current.length === 0 ? word : `${current} ${word}`;
       if (candidate.length <= limit) {
         current = candidate;
       } else {
-        // flush current
+
         if (current.length > 0) {
           segments.push(current.trim());
-          current = word; // start new line with this word
+          current = word; 
           lineIndex++;
         } else {
-          // current empty but word didn't fit (shouldn't happen due to split above),
-          // fallback: push the word and move on
+
+
           segments.push(word);
           lineIndex++;
           current = "";
@@ -102,7 +91,6 @@ export const formatReceiptOld = (order) => {
       segments.push(current.trim());
     }
 
-    // Now apply indentation to every line except the first
     return segments
       .map((seg, idx) => (idx === 0 ? seg : indent + seg))
       .join("\n");
@@ -141,12 +129,7 @@ export const formatReceiptOld = (order) => {
 
       const addonsSection = addonsText ? `\n     + ${addonsText}` : "";
 
-      const itemPrice = item.variation.price; /*+
-        item.addons
-          .map((addon) =>
-            addon.options.reduce((sum, option) => sum + option.price, 0)
-          )
-          .reduce((sum, val) => sum + val, 0); */
+      const itemPrice = item.variation.price; 
 
       return `${item.quantity}x ${String(item.title)}${variationText}   ${currencySymbol}${itemPrice.toFixed(
         2
@@ -224,12 +207,7 @@ export const formatReceipt = (order) => {
 
       const addonsSection = addonsText ? `\n - ${addonsText}` : "";
 
-      const itemPrice = item.variation.price; /*+
-        item.addons
-          .map((addon) =>
-            addon.options.reduce((sum, option) => sum + option.price, 0)
-          )
-          .reduce((sum, val) => sum + val, 0); */
+      const itemPrice = item.variation.price; 
 
       return `${item.quantity}x ${String(item.title)}${variationText}   [R]${currencySymbol}${itemPrice.toFixed(
         2

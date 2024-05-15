@@ -7,7 +7,7 @@ export const OPTION_TABLE_COLUMNS = ({
 }: {
   menuItems: IActionMenuProps<IOptions>['items'];
 }) => {
-  // Hooks
+
   const t = useTranslations();
   return [
     { headerName: t('Title'), propertyName: 'title' },

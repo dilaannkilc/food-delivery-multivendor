@@ -17,8 +17,8 @@ interface OrderTableProps {
     nextPage: number | null;
   } | undefined;
   loading: boolean;
-  isInitialLoad: boolean; // New prop
-  handleRowClick: (event: DataTableRowClickEvent) => void; // Changed type
+  isInitialLoad: boolean; 
+  handleRowClick: (event: DataTableRowClickEvent) => void; 
   selectedData: IExtendedOrder[];
   setSelectedData: React.Dispatch<React.SetStateAction<IExtendedOrder[]>>;
   first: number;
@@ -31,7 +31,7 @@ interface OrderTableProps {
 export default function OrderTable({
   data,
   loading,
-  isInitialLoad, // Destructure new prop
+  isInitialLoad, 
   handleRowClick,
   selectedData,
   setSelectedData,
@@ -39,7 +39,7 @@ export default function OrderTable({
   onPage,
   filters,
 }: OrderTableProps) {
-  // Removed const t = useTranslations();
+
 
 
   const [lastValidOrders, setLastValidOrders] = useState<IOrder[]>([]);
@@ -51,10 +51,10 @@ export default function OrderTable({
   }, [loading, data?.orders]);
 
   const displayData: TOrderRowData[] = useMemo(() => {
-    if (loading && isInitialLoad) { // Only show skeleton on initial load
-      return OrderTableSkeleton({ rowCount: 10 }); // Display 10 skeleton rows while loading
+    if (loading && isInitialLoad) { 
+      return OrderTableSkeleton({ rowCount: 10 }); 
     }
-    // If loading but not initial load, return last valid orders
+
     if (loading && !isInitialLoad && !data?.orders) {
       return lastValidOrders.map(
         (order: IOrder): IExtendedOrder => ({
@@ -70,7 +70,7 @@ export default function OrderTable({
         })
       );
     }
-    // If not loading, or initial load is complete, return current data
+
     if (!data?.orders) return [];
 
     return data.orders.map(
@@ -86,7 +86,7 @@ export default function OrderTable({
         DateCreated: order?.createdAt?.toString()?.slice(0, 10),
       })
     );
-  }, [data, loading, isInitialLoad, lastValidOrders]); // Add lastValidOrders to dependencies
+  }, [data, loading, isInitialLoad, lastValidOrders]); 
 
   return (
     <Table

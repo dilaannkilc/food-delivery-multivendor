@@ -1,15 +1,14 @@
 "use client";
 import type React from "react";
 import { useRef, useState, useEffect } from "react";
-//components
+
 import CustomButton from "@/lib/ui/useable-components/button";
-// Icons
+
 import useDebounceFunction from "@/lib/hooks/useDebounceForFunction";
 import useToast from "@/lib/hooks/useToast";
 import { IVerificationEmailForChangePasswordProps } from "@/lib/utils/interfaces";
 import EmailIcon from "@/public/assets/images/svgs/email";
 
-// Hooks
 import useVerifyOtp from "@/lib/hooks/useVerifyOtp";
 import { useTranslations } from "next-intl";
 
@@ -25,10 +24,8 @@ const VerificationEmailForChangePassword = ({
   const { showToast } = useToast();
   const { verifyOTP, error } = useVerifyOtp();
 
-  // Hooks
   const t = useTranslations();
 
-  // useEffect to handle resend email otp on first render
   const isFirstRender = useRef(true);
   useEffect(() => {
     if (formData?.email && isFirstRender.current) {
@@ -36,60 +33,51 @@ const VerificationEmailForChangePassword = ({
       isFirstRender.current = false;
     }
   }, [formData?.email]);
-  // Initialize refs array
+
   useEffect(() => {
     inputRefs.current = inputRefs.current.slice(0, 6);
 
-    // Set initial values from phoneOtp if it exists
     if (emailOtp) {
       const otpArray = emailOtp.split("").slice(0, 6);
       setOtp(otpArray.concat(Array(6 - otpArray.length).fill("")));
     }
   }, []);
 
-  // Update parent component's phoneOtp when our local otp changes
   useEffect(() => {
     setEmailOtp(otp.join(""));
   }, [otp, setEmailOtp]);
 
-  // Handle input change
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const value = e.target.value;
 
-    // Only accept single digit numbers
     if (!/^\d*$/.test(value)) return;
 
-    // Update the OTP array
     const newOtp = [...otp];
-    newOtp[index] = value.slice(-1); // Take only the last character
+    newOtp[index] = value.slice(-1); 
     setOtp(newOtp);
 
-    // Auto-focus next input if a digit was entered
     if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
   };
 
-  // Handle backspace key
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
-      // Focus previous input when backspace is pressed on an empty input
+
       inputRefs.current[index - 1]?.focus();
     }
   };
 
-  // Handle paste event
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text/plain").trim();
 
-    // Only accept digits
     const digits = pastedData.replace(/\D/g, "").slice(0, 6);
 
     if (digits) {
@@ -99,13 +87,11 @@ const VerificationEmailForChangePassword = ({
       });
       setOtp(newOtp);
 
-      // Focus the next empty input or the last input
       const lastFilledIndex = Math.min(digits.length, 5);
       inputRefs.current[lastFilledIndex]?.focus();
     }
   };
 
-  // Handle form submission
   const handleSubmit = useDebounceFunction(
     async () => {
       try {
@@ -133,10 +119,9 @@ const VerificationEmailForChangePassword = ({
         });
       }
     },
-    500 // Debounce time in milliseconds
+    500 
   );
 
-  // useEffect for displaying otp verification error
   useEffect(() => {
     if (error) {
       showToast({

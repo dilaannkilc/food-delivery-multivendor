@@ -6,8 +6,8 @@ const styles = (backColor) =>
   StyleSheet.create({
     leftIconPadding: {
       ...alignment.MLsmall
-      // ...alignment.PTxSmall,
-      // ...alignment.PBxSmall
+
+
     },
     rightContainer: {
       position: 'relative',

@@ -43,7 +43,7 @@ const OrderCard: FC<IOrderCardProps> = ({
 
   const handleReorder = useCallback((order: IOrder) => {
     setSelectedOrder(order);
-    // ✅ Prefill all item IDs so all checkboxes are checked initially
+
     setSelectedItems(
       order.items
         ?.map((item) => item._id)
@@ -55,7 +55,7 @@ const OrderCard: FC<IOrderCardProps> = ({
 
   function cleanReorderItems(items: any[]): CartItem[] {
     return items.map((item) => {
-      // Calculate option titles from addons
+
       const optionTitles: string[] = [];
       let totalPrice = item.variation?.price ?? 0;
 
@@ -64,14 +64,14 @@ const OrderCard: FC<IOrderCardProps> = ({
           if (option.title) {
             optionTitles.push(option.title);
           }
-          // Add option price to total
+
           totalPrice += option.price ?? 0;
         });
       });
 
       return {
         _id: item.food ?? "",
-        key: crypto.randomUUID(), // or any unique string generator
+        key: crypto.randomUUID(), 
         quantity: item.quantity ?? 1,
         variation: {
           _id:
@@ -81,14 +81,14 @@ const OrderCard: FC<IOrderCardProps> = ({
           _id: addon._id,
           options: (addon.options ?? []).map((opt: any) => ({
             _id: opt._id,
-            title: opt.title, // Include title for display purposes
+            title: opt.title, 
           })),
         })),
         image: item.image ?? "/default-image.jpg",
         foodTitle: item.title ?? "",
         variationTitle: item.variation?.title ?? "",
-        optionTitles, // Include option titles
-        price: totalPrice.toFixed(2), // Include addon prices in total
+        optionTitles, 
+        price: totalPrice.toFixed(2), 
         specialInstructions: item.specialInstructions ?? "",
         title: `${item.title ?? ""}(${item.variation?.title ?? ""})`,
       };
@@ -102,17 +102,16 @@ const OrderCard: FC<IOrderCardProps> = ({
       selectedItems.includes(item._id ?? ""),
     );
 
-    // Check if cart has items from a different restaurant
     if (
       cart.length > 0 &&
       selectedOrder.restaurant?._id !== localStorage.getItem("restaurant")
     ) {
-      // Show confirmation dialog to clear cart
+
       setPendingReorderItems(itemsToReorder);
       setShowClearCartDialog(true);
       return;
     }
-    // Process reorder directly if same restaurant or cart is empty
+
     processReorder(itemsToReorder);
   };
 
@@ -121,10 +120,8 @@ const OrderCard: FC<IOrderCardProps> = ({
 
     console.log("Selected items raw:", itemsToReorder);
 
-    // Clean items first to match CartItem structure exactly
     const cleanedItems = cleanReorderItems(itemsToReorder);
 
-    // Then transform with food info if needed
     const transformed = transformCartWithFoodInfo(
       cleanedItems,
       selectedOrder as any,
@@ -138,10 +135,10 @@ const OrderCard: FC<IOrderCardProps> = ({
           localStorage.removeItem("restaurant");
         } else {
           localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-          // localStorage.setItem(
-          //   "restaurant",
-          //   selectedOrder.restaurant?._id ?? ""
-          // );
+
+
+
+
           setCartRestaurant(selectedOrder.restaurant?._id ?? "");
           localStorage.setItem(
             "restaurant-slug",
@@ -153,7 +150,7 @@ const OrderCard: FC<IOrderCardProps> = ({
               ? "store"
               : "restaurant",
           );
-          // Save restaurant data for checkout page
+
           try {
             localStorage.setItem(
               "restaurantData",
@@ -180,13 +177,12 @@ const OrderCard: FC<IOrderCardProps> = ({
   };
 
   const handleClearCartAndReorder = () => {
-    // Clear the cart
+
     setCart([]);
     if (typeof window !== "undefined") {
       localStorage.removeItem("cartItems");
     }
 
-    // Save restaurant data before processing reorder
     if (typeof window !== "undefined" && selectedOrder) {
       try {
         localStorage.setItem(
@@ -198,10 +194,8 @@ const OrderCard: FC<IOrderCardProps> = ({
       }
     }
 
-    // Process the reorder
     processReorder(pendingReorderItems);
 
-    // Close the confirmation dialog
     setShowClearCartDialog(false);
     setPendingReorderItems([]);
   };
@@ -221,7 +215,6 @@ const OrderCard: FC<IOrderCardProps> = ({
     handleRateOrderClicked?.(order?._id);
   };
 
-  // ✅ Calculate total based only on selected items including addons
   const calculateSelectedTotal = (
     order: IOrder,
     selected: string[],
@@ -230,7 +223,7 @@ const OrderCard: FC<IOrderCardProps> = ({
       order.items
         ?.filter((item) => selected.includes(item._id ?? ""))
         .reduce((sum, item) => {
-          // Calculate addon total for this item
+
           const addonTotal = (item.addons ?? []).reduce((addonSum, addon) => {
             return (
               addonSum +
@@ -239,7 +232,7 @@ const OrderCard: FC<IOrderCardProps> = ({
               }, 0)
             );
           }, 0);
-          // Add item variation price + addon total, multiplied by quantity
+
           return (
             sum +
             ((item.variation?.price ?? 0) + addonTotal) * (item.quantity ?? 0)
@@ -257,7 +250,7 @@ const OrderCard: FC<IOrderCardProps> = ({
       )}
     >
       <div className="flex flex-col md:flex-row gap-4">
-        {/* Restaurant Info */}
+        {}
         <div className="flex items-start gap-4 flex-1">
           <div className="w-16 h-16 relative flex-shrink-0">
             <Image
@@ -302,7 +295,7 @@ const OrderCard: FC<IOrderCardProps> = ({
           </div>
         </div>
 
-        {/* Price and Action */}
+        {}
         <div className="flex md:flex-col md:items-end justify-between gap-2">
           <div className="font-semibold text-lg dark:text-gray-100">
             {CURRENCY_SYMBOL}
@@ -329,7 +322,7 @@ const OrderCard: FC<IOrderCardProps> = ({
         </div>
       </div>
 
-      {/* Rating for past orders */}
+      {}
       {type === "past" && order.orderStatus === "DELIVERED" && (
         <div className="mt-4 pt-4 dark:border-gray-700">
           <div className="flex items-center justify-between">
@@ -348,7 +341,7 @@ const OrderCard: FC<IOrderCardProps> = ({
         </div>
       )}
 
-      {/* Reorder Dialog */}
+      {}
       <CustomDialog
         visible={isDialogVisible}
         onHide={handleCloseDialog}
@@ -356,7 +349,7 @@ const OrderCard: FC<IOrderCardProps> = ({
       >
         {selectedOrder && (
           <div className="space-y-5">
-            {/* Restaurant Info */}
+            {}
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <Image
                 src={
@@ -377,7 +370,7 @@ const OrderCard: FC<IOrderCardProps> = ({
               </div>
             </div>
 
-            {/* Order Info with Checkboxes */}
+            {}
             <div className="border-t pt-4">
               <h3 className="font-semibold text-gray-800 dark:text-white mb-2">
                 {t("order_details_subheading")} #{selectedOrder.orderId}
@@ -385,7 +378,7 @@ const OrderCard: FC<IOrderCardProps> = ({
               <ul className="space-y-2 max-h-48 overflow-y-auto pr-1">
                 {selectedOrder.items?.map((item) => {
                   const id = item._id ?? "";
-                  // Calculate addon total for this item
+
                   const addonTotal = (item.addons ?? []).reduce(
                     (sum, addon) => {
                       return (
@@ -433,7 +426,7 @@ const OrderCard: FC<IOrderCardProps> = ({
                           {itemTotal.toFixed(2)}
                         </span>
                       </div>
-                      {/* Display addons for this item */}
+                      {}
                       {(item.addons ?? []).length > 0 && (
                         <div className="ml-8 mt-1 space-y-1">
                           {item.addons?.map((addon, addonIndex) => (
@@ -474,7 +467,7 @@ const OrderCard: FC<IOrderCardProps> = ({
               </p>
             </div>
 
-            {/* Confirmation */}
+            {}
             <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t">
               <button
                 className="px-5 py-2 text-sm rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 w-full sm:w-auto transition"
@@ -487,15 +480,15 @@ const OrderCard: FC<IOrderCardProps> = ({
                 disabled={selectedItems.length === 0}
                 onClick={
                   handleConfirmReorder
-                  // const itemsToReorder = (selectedOrder?.items ?? []).filter((item) =>
-                  //   selectedItems.includes(item._id ?? "")
-                  // );
-                  // handleReOrderClicked?.(
-                  //   selectedOrder.restaurant?._id ?? "",
-                  //   selectedOrder.restaurant?.slug ?? "",
-                  //   selectedOrder.restaurant?.shopType ?? "",
-                  // );
-                  // handleCloseDialog();
+
+
+
+
+
+
+
+
+
                 }
               >
                 {t("confirm_reorder_button")}
@@ -504,7 +497,7 @@ const OrderCard: FC<IOrderCardProps> = ({
           </div>
         )}
       </CustomDialog>
-      {/* Clear Cart Confirmation Dialog */}
+      {}
       <CustomDialog
         visible={showClearCartDialog}
         onHide={handleCloseClearCartDialog}

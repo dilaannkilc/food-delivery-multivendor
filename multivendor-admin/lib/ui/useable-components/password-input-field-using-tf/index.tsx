@@ -1,30 +1,25 @@
-// Core
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
-// Prime React
 import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
 import { InputText } from 'primereact/inputtext';
 
-// Icons
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 
-// Interfaces
 import { IPasswordTextFieldProps } from '@/lib/utils/interfaces';
 
-// Prime React
 
-// Styles
 
 export default function CustomPasswordTextField({
   className,
-  //  iconProperties: { icon, position },
+
   placeholder,
   showLabel,
   ...props
 }: IPasswordTextFieldProps) {
-  // States
+
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const _icon = faEye;

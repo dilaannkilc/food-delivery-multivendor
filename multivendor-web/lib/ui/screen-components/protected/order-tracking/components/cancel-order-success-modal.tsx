@@ -1,6 +1,6 @@
 "use client";
 import { useTranslations } from "next-intl";
-// import { useRouter } from "next/navigation";
+
 import { Dialog } from "primereact/dialog";
 import React from "react";
 
@@ -8,25 +8,24 @@ interface CancelOrderSuccessModalProps {
   visible: boolean;
   onHide: () => void;
 }
-//  const theme = useTheme();
+
 function CancelOrderSuccessModal({
   visible,
   onHide,
 }: CancelOrderSuccessModalProps) {
-  // const router = useRouter();
-  // create a function when user onHide then it will redirect to discover screen
+
+
   const handleOnHide = () => {
     onHide();
-    // router.push("/discovery");
+
   };
 
-  // useEffect(() => {
-  //   if (visible) {
-  //     setTimeout(() => {
-  //       handleOnHide();
-  //     }, 7000);
-  //   }
-  // }, [visible]);
+
+
+
+
+
+
 
   const t = useTranslations();
   return (
@@ -42,7 +41,7 @@ function CancelOrderSuccessModal({
       dismissableMask
       style={
         {
-        // backgroundColor: "white",
+
         borderRadius: "10px",
         padding: "15px",
       }}

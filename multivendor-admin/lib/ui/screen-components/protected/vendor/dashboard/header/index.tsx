@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 
 export default function DashboardHeader() {
   const { vendorProfileResponse } = useContext(ProfileContext);
-  // Hooks
+
   const t = useTranslations();
 
   return (

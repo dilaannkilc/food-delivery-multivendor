@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+
 import { Dispatch } from "react";
 import { SetStateAction } from "react";
 import {

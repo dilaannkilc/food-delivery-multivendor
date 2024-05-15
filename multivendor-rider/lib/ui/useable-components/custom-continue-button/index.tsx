@@ -7,7 +7,7 @@ export default function CustomContinueButton({
   style,
   ...props
 }: { title: string } & TouchableOpacityProps) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   return (
     <TouchableOpacity

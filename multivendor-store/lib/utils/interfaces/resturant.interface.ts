@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+
 import { TPolygonPoints } from "../types/restaurant";
 import { IGlobalProviderProps } from "./global.interface";
 

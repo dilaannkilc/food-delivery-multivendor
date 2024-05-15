@@ -1,15 +1,13 @@
-// React import
+
 import React from 'react';
 
-// Third-party imports
 import { ProgressSpinner } from 'primereact/progressspinner';
 
-// Local imports
 import { CustomProgressIndicatorComponentProps } from '@/lib/utils/interfaces';
 
 const CustomLoader: React.FC<CustomProgressIndicatorComponentProps> = ({
   size = '20px',
-  strokeWidth = '5', // Changed to a static color (white)
+  strokeWidth = '5', 
   animationDuration = '.5s',
 }) => {
   return (

@@ -25,10 +25,10 @@ const CustomTimeInput = ({
         type="time"
         className={`h-10 w-full dark:text-white rounded-lg border border-gray-300 px-8 text-sm outline-none focus:shadow-none focus:outline-none ${className}`}
         placeholder={placeholder}
-        // 'HH:MM' format
+
         value={value ?? ''}
         onChange={(e) => {
-          onChange(e.target.value); // Pass the time string "HH:MM"
+          onChange(e.target.value); 
         }}
         {...props}
       />

@@ -1,4 +1,4 @@
-// Components
+
 import { useApptheme } from "@/lib/context/theme.context";
 import { SafeAreaView } from "react-native-safe-area-context";
 import WithdrawRquestSuccessMain from "../../screen-components/withdrawrequest-success/view/main";

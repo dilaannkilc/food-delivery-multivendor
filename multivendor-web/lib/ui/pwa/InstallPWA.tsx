@@ -32,9 +32,9 @@ export default function InstallPWA() {
 
   const handleInstallClick = async () => {
     if (deferredPrompt && 'prompt' in deferredPrompt) {
-      // @ts-ignore
+
       deferredPrompt.prompt();
-      // @ts-ignore
+
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') {
         setShowPrompt(false);

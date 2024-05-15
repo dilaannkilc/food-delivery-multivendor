@@ -1,8 +1,7 @@
-// Components
+
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import StatsCard from '@/lib/ui/useable-components/stats-card';
 
-// Icons
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 
 import { useTranslations } from 'next-intl';
@@ -11,7 +10,7 @@ import { IEarningsRestaurantHeaderComponentProps } from '@/lib/utils/interfaces/
 const EarningsRestaurantHeader = ({
   earnings,
 }: IEarningsRestaurantHeaderComponentProps) => {
-  // Hooks
+
   const t = useTranslations();
 
   return (

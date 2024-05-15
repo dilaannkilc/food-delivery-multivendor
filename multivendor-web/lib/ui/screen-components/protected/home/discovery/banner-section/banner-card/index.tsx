@@ -1,7 +1,7 @@
-// core
+
 import React from "react";
 import Image from "next/image";
-// interface
+
 import { IBannerItemProps } from "@/lib/utils/interfaces";
 import { useRouter } from "next/navigation";
 
@@ -42,8 +42,8 @@ const BannerCard: React.FC<IBannerItemProps> = ({ item }) => {
             preload="none"
             style={{ borderRadius: 12 }}
             className="carousel-banner"
-            // onError={(e) => console.error('Video error:', e.currentTarget.error)}
-            // onCanPlay={() => console.log('Video can play:', item?.file)}
+
+
           >
             <source src={item?.file} type="video/mp4" />
             <source src={item?.file} type="video/webm" />

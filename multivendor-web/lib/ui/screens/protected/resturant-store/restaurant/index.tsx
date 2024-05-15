@@ -9,15 +9,12 @@ import { ADD_FAVOURITE_RESTAURANT } from "@/lib/api/graphql/mutations/restaurant
 import { GET_USER_PROFILE } from "@/lib/api/graphql";
 import { useQuery } from "@apollo/client";
 
-// Context & Hooks
 import useUser from "@/lib/hooks/useUser";
 import useRestaurant from "@/lib/hooks/useRestaurant";
 
-// Icons
 import { ClockSvg, HeartSvg, InfoSvg, RatingSvg } from "@/lib/utils/assets/svg";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 
-// Components
 import Spacer from "@/lib/ui/useable-components/spacer";
 import { PaddingContainer } from "@/lib/ui/useable-components/containers";
 import CustomIconTextField from "@/lib/ui/useable-components/input-icon-field";
@@ -27,17 +24,15 @@ import ClearCartModal from "@/lib/ui/useable-components/clear-cart-modal";
 import Confetti from "react-confetti";
 import { useConfig } from "@/lib/context/configuration/configuration.context";
 import EmptySearch from "@/lib/ui/useable-components/empty-search-results";
-// Interface
+
 import { ICategory, IFood, IOpeningTime } from "@/lib/utils/interfaces";
 
-// Methods
 import { toSlug } from "@/lib/utils/methods";
 import ChatSvg from "@/lib/utils/assets/svg/chat";
 import ReviewsModal from "@/lib/ui/useable-components/reviews-modal";
 import InfoModal from "@/lib/ui/useable-components/info-modal";
 import { onUseLocalStorage } from "@/lib/utils/methods/local-storage";
 
-// Queries
 import { GET_POPULAR_SUB_CATEGORIES_LIST } from "@/lib/api/graphql";
 import { Dialog } from "primereact/dialog";
 import Loader from "@/app/(localized)/mapview/[slug]/components/Loader";
@@ -47,7 +42,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 export default function RestaurantDetailsScreen() {
-  // Access the UserContext via our custom hook
+
   const {
     cart,
     transformCartWithFoodInfo,
@@ -56,17 +51,13 @@ export default function RestaurantDetailsScreen() {
     clearCart,
   } = useUser();
 
-  // Params from route
   const { id, slug }: { id: string; slug: string } = useParams();
 
-  // Refs
   const categoryRefs = useRef<Record<string, HTMLElement | null>>({});
   const selectedCategoryRef = useRef<string>("");
 
-  // get the RTL direction
   const direction = document.documentElement.getAttribute("dir") || "ltr";
 
-  // State
   const [filter, setFilter] = useState("");
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [selectedFood, setSelectedFood] = useState<IFood | null>(null);
@@ -78,13 +69,10 @@ export default function RestaurantDetailsScreen() {
   const { CURRENCY_SYMBOL } = useConfig();
   const [isModalOpen, setIsModalOpen] = useState({ value: false, id: "" });
 
-  // Get user profile from context
   const { profile } = useUser();
 
-  // Fetch restaurant data
   const { data, loading } = useRestaurant(id, decodeURIComponent(slug));
 
-  // fetch popular deals id
   const { data: popularSubCategoriesList } = useQuery(
     GET_POPULAR_SUB_CATEGORIES_LIST,
     {
@@ -93,7 +81,7 @@ export default function RestaurantDetailsScreen() {
       },
     },
   );
-  // Transform cart items when restaurant data is loaded - only once when dependencies change
+
   useEffect(() => {
     if (data?.restaurant && cart.length > 0) {
       const transformedCart = transformCartWithFoodInfo(cart, data.restaurant);
@@ -103,12 +91,10 @@ export default function RestaurantDetailsScreen() {
     }
   }, [data?.restaurant, cart?.length, transformCartWithFoodInfo, updateCart]);
 
-  // Filter food categories based on search term
   const allDeals = data?.restaurant?.categories?.filter(
     (cat: ICategory) => cat.foods.length,
   );
 
-  // Check if restaurant is favorited when profile is loaded
   useEffect(() => {
     if (profile?.favourite) {
       const isFavorite = profile.favourite.includes(id);
@@ -116,7 +102,6 @@ export default function RestaurantDetailsScreen() {
     }
   }, [profile, id]);
 
-  // Handle update is modal open if restaurant is not active
   const handleUpdateIsModalOpen = useCallback(
     (value: boolean, id: string) => {
       if (isModalOpen.value !== value || isModalOpen.id !== id) {
@@ -149,10 +134,9 @@ export default function RestaurantDetailsScreen() {
           ...c,
           index,
           foods: c.foods.filter((food) => {
-            // If filter is empty, include all foods
+
             if (filter.trim() === "") return true;
 
-            // Include food if title or description matches filter
             return (
               food.title.toLowerCase().includes(filter.toLowerCase()) ||
               (food.description &&
@@ -162,25 +146,21 @@ export default function RestaurantDetailsScreen() {
         }))
         .filter((c: ICategory) => c.foods.length > 0) || [];
 
-    // Flatten all foods from all categories
     const allFoods = filteredDeals.flatMap((cat: ICategory) => cat.foods);
 
-    // Filter foods that are in popularDealsIds
     const popularFoods = allFoods.filter((food: IFood) =>
       popularDealsIds?.includes(food._id),
     );
 
-    // Create a "Popular Deals" category if there are matching foods
     const popularDealsCategory: ICategory | null = popularFoods.length
       ? {
           _id: "popular-deals",
           title: "Popular Deals",
           foods: popularFoods,
-          // index can be used for custom ordering if needed
+
         }
       : null;
 
-    // Add the new category at the top
     return popularDealsCategory
       ? [popularDealsCategory, ...filteredDeals]
       : filteredDeals;
@@ -190,7 +170,7 @@ export default function RestaurantDetailsScreen() {
 
   useEffect(() => {
     if (deals.length > 0 && !selectedCategory) {
-      setSelectedCategory(toSlug(deals[0]?.title)); // first category selected by default
+      setSelectedCategory(toSlug(deals[0]?.title)); 
     }
   }, [deals, selectedCategory]);
 
@@ -201,19 +181,17 @@ export default function RestaurantDetailsScreen() {
         const wasLiked = isLiked;
         setIsLiked(!isLiked);
 
-        // Only show confetti when adding a favorite (not removing)
         if (!wasLiked) {
           setShowConfetti(true);
 
-          // Reset confetti after a longer delay
           setTimeout(() => {
             setShowConfetti(false);
-          }, 5000); // Increased from 3000ms to 5000ms
+          }, 5000); 
         }
       },
       onError: (error) => {
         console.error("Error adding favorite:", error);
-        setIsLiked((prev) => !prev); // Revert the like state on error
+        setIsLiked((prev) => !prev); 
       },
       refetchQueries: [{ query: GET_USER_PROFILE }],
     },
@@ -222,7 +200,7 @@ export default function RestaurantDetailsScreen() {
   const t = useTranslations();
   const handleFavoriteClick = () => {
     if (!profile) {
-      // // Handle case where user is not logged in
+
       return;
     }
 
@@ -233,7 +211,6 @@ export default function RestaurantDetailsScreen() {
     });
   };
 
-  // Restaurant info
   const headerData = {
     name: data?.restaurant?.name ?? "...",
     averageReview: data?.restaurant?.reviewData?.ratings ?? "...",
@@ -274,19 +251,17 @@ export default function RestaurantDetailsScreen() {
     MinimumOrder: data?.restaurant?.MinimumOrder ?? 0,
   };
 
-  // States
-  const [visibleItems, setVisibleItems] = useState(10); // Default visible items
+  const [visibleItems, setVisibleItems] = useState(10); 
   const [showAll, setShowAll] = useState(false);
-  const [headerHeight, setHeaderHeight] = useState("64px"); // Default for desktop
+  const [headerHeight, setHeaderHeight] = useState("64px"); 
   const [showReviews, setShowReviews] = useState<boolean>(false);
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>(false);
 
-  // Function to check weather time exisis
   const isWithinOpeningTime = (openingTimes: IOpeningTime[]): boolean => {
     const now = new Date();
     const currentDay = now
       .toLocaleString("en-US", { weekday: "short" })
-      .toUpperCase(); // e.g., "MON", "TUE", ...
+      .toUpperCase(); 
     const currentHour = now.getHours();
     const currentMinute = now.getMinutes();
 
@@ -305,7 +280,6 @@ export default function RestaurantDetailsScreen() {
     });
   };
 
-  // Function to handle clicking on a restaurant
   const handleRestaurantClick = (food: IFood) => {
     if (food.isOutOfStock) return;
     if (
@@ -313,35 +287,33 @@ export default function RestaurantDetailsScreen() {
       !restaurantInfo?.isActive ||
       !isWithinOpeningTime(restaurantInfo?.openingTimes)
     ) {
-      // Store the action we want to perform after cart confirmation
+
       handleUpdateIsModalOpen(true, food?._id);
       return;
     }
-    // Check if there's a different restaurant in the cart
+
     if (cart.length > 0 && cartRestaurant && id !== cartRestaurant) {
-      // Store the action we want to perform after cart confirmation
+
       setPendingRestaurantAction({
         type: "foodModal",
         payload: food,
       });
-      // Show clear cart confirmation
+
       setShowClearCartModal(true);
     } else {
-      // No conflict, open food modal directly
+
       handleOpenFoodModal(food);
     }
   };
 
-  // Function to handle clear cart confirmation
   const handleClearCartConfirm = async () => {
     await clearCart();
 
-    // Execute the pending action
     if (pendingRestaurantAction) {
       if (pendingRestaurantAction.type === "foodModal") {
         handleOpenFoodModal(pendingRestaurantAction.payload);
       }
-      // Reset the pending action
+
       setPendingRestaurantAction(null);
     }
 
@@ -353,11 +325,9 @@ export default function RestaurantDetailsScreen() {
       data?.restaurant?.shopType === "restaurant" ? "restaurant" : "store",
     );
 
-    // Hide the modal
     setShowClearCartModal(false);
   };
 
-  // Handlers
   const handleScroll = (id: string) => {
     setSelectedCategory(id);
     selectedCategoryRef.current = id;
@@ -376,9 +346,8 @@ export default function RestaurantDetailsScreen() {
     }
   };
 
-  // Function to handle opening the food item modal
   const handleOpenFoodModal = (food: IFood) => {
-    // Add restaurant ID to the food item
+
     setSelectedFood({
       ...food,
       restaurant: restaurantInfo._id,
@@ -387,44 +356,40 @@ export default function RestaurantDetailsScreen() {
     console.log("Food ModAL dETAISL", food);
   };
 
-  // Function to close the food item modal
   const handleCloseFoodModal = () => {
     setShowDialog(false);
     setSelectedFood(null);
   };
 
-  // Function to handle the logic for seeing reviews
   const handleSeeReviews = () => {
     setShowReviews(true);
   };
 
-  // Function to handle the logic for seeing more information
   const handleSeeMoreInfo = () => {
     setShowMoreInfo(true);
   };
 
-  // Function to show all categories
   useEffect(() => {
-    // Adjust visible items based on screen width
+
     const updateVisibleItems = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        setVisibleItems(3); // Small screens
+        setVisibleItems(3); 
       } else if (width < 1024) {
-        setVisibleItems(4); // Medium screens
+        setVisibleItems(4); 
       } else {
-        setVisibleItems(5); // Large screens
+        setVisibleItems(5); 
       }
     };
 
     const updateHeight = () => {
       if (window.innerWidth >= 1024)
-        setHeaderHeight("64px"); // lg (desktop)
+        setHeaderHeight("64px"); 
       else if (window.innerWidth >= 768)
-        setHeaderHeight("80px"); // md (tablet)
+        setHeaderHeight("80px"); 
       else if (window.innerWidth >= 640)
-        setHeaderHeight("100px"); // sm (larger phones)
-      else setHeaderHeight("120px"); // xs (small phones)
+        setHeaderHeight("100px"); 
+      else setHeaderHeight("120px"); 
     };
 
     updateHeight();
@@ -438,7 +403,6 @@ export default function RestaurantDetailsScreen() {
     };
   }, []);
 
-  // Highlight categories on scroll observer
   useEffect(() => {
     const handleScrollUpdate = () => {
       const container = document.body;
@@ -471,22 +435,22 @@ export default function RestaurantDetailsScreen() {
 
   return (
     <>
-      {/* Reviews Modal */}
+      {}
       <ReviewsModal
         restaurantId={id}
         visible={showReviews && !loading}
         onHide={() => setShowReviews(false)}
       />
 
-      {/* See More Info Modal */}
+      {}
       <InfoModal
         restaurantInfo={restaurantInfoModalProps}
-        // make sure data is not loading because if configuration data is not available it can cause error on google map due to unavailability of api key
+
         visible={showMoreInfo && !loading}
         onHide={() => setShowMoreInfo(false)}
       />
 
-      {/* Clear Cart Modal */}
+      {}
       <ClearCartModal
         isVisible={showClearCartModal}
         onHide={() => setShowClearCartModal(false)}
@@ -505,7 +469,7 @@ export default function RestaurantDetailsScreen() {
               justifyContent: "center",
               alignItems: "center",
               pointerEvents: "none",
-              zIndex: 10000, // Increased z-index
+              zIndex: 10000, 
             }}
           >
             <Confetti
@@ -516,11 +480,11 @@ export default function RestaurantDetailsScreen() {
               gravity={0.3}
             />
           </div>
-          {/* Backdrop overlay to ensure confetti is visible on all backgrounds */}
+          {}
         </>
       )}
 
-      {/* Banner */}
+      {}
       <div className="relative">
         {loading ? (
           <Skeleton width="100%" height="18rem" borderRadius="0" />
@@ -533,7 +497,7 @@ export default function RestaurantDetailsScreen() {
               height={300}
               className="w-full h-72 object-cover"
             />
-            {/* Dark overlay */}
+            {}
             <div className="absolute inset-0 bg-black/10" />
           </div>
         )}
@@ -574,11 +538,11 @@ export default function RestaurantDetailsScreen() {
           )}
         </button>
       </div>
-      {/* Restaurant Info */}
+      {}
       <div className="bg-gray-50 dark:bg-gray-800 shadow-[0px_1px_3px_rgba(0,0,0,0.1)] p-3 h-[80px] flex justify-between items-center">
         <PaddingContainer>
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-            {/* Time */}
+            {}
             <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300 font-inter font-normal text-sm sm:text-base md:text-lg leading-5 sm:leading-6 md:leading-7 tracking-[0px] align-middle">
               <ClockSvg />
               {loading ? (
@@ -588,7 +552,7 @@ export default function RestaurantDetailsScreen() {
               )}
             </span>
 
-            {/* Rating */}
+            {}
             <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300  font-inter font-normal text-sm sm:text-base md:text-lg leading-5 sm:leading-6 md:leading-7 tracking-[0px] align-middle">
               <RatingSvg />
               {loading ? (
@@ -598,7 +562,7 @@ export default function RestaurantDetailsScreen() {
               )}
             </span>
 
-            {/* Info Link */}
+            {}
             <a
               className="flex items-center gap-2 text-secondary-color dark:text-sky-400 font-inter font-normal text-sm sm:text-base md:text-lg leading-5 sm:leading-6 md:leading-7 tracking-[0px] align-middle"
               href="#"
@@ -615,7 +579,7 @@ export default function RestaurantDetailsScreen() {
               )}
             </a>
 
-            {/* Review Link */}
+            {}
             <a
               className="flex items-center gap-2 text-secondary-color dark:text-sky-400 font-inter font-normal text-sm sm:text-base md:text-lg leading-5 sm:leading-6 md:leading-7 tracking-[0px] align-middle"
               href="#"
@@ -635,7 +599,7 @@ export default function RestaurantDetailsScreen() {
         </PaddingContainer>
       </div>
 
-      {/* Category Section */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -644,7 +608,7 @@ export default function RestaurantDetailsScreen() {
       >
         <PaddingContainer height={headerHeight}>
           <div className="p-3 h-full w-full flex flex-col md:flex-row gap-2 items-center justify-between">
-            {/* Category List - Full Width on Small Screens, 80% on Larger Screens */}
+            {}
             <div className="relative w-full md:w-[80%]">
               <div
                 className="h-12 w-full overflow-x-auto overflow-y-hidden flex items-center 
@@ -687,7 +651,7 @@ export default function RestaurantDetailsScreen() {
               </div>
             </div>
 
-            {/* Search Input - 20% Width on Large Screens, Full Width on Small Screens */}
+            {}
             <div className="h-full w-full md:w-[20%]">
               {
                 <CustomIconTextField
@@ -713,7 +677,7 @@ export default function RestaurantDetailsScreen() {
 
       <Spacer height="20px" />
 
-      {/* Food Categories and Items */}
+      {}
       <PaddingContainer className="pb-10">
         {loading ? (
           <FoodCategorySkeleton />
@@ -742,7 +706,7 @@ export default function RestaurantDetailsScreen() {
                       className="flex gap-4 rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm bg-white dark:bg-gray-800 p-3 relative cursor-pointer transition-transform duration-300 hover:scale-105 hover:shadow-lg"
                       onClick={() => handleRestaurantClick(meal)}
                     >
-                      {/* Text Content */}
+                      {}
                       <div className="flex-grow text-left md:text-left space-y-2">
                         <div className="flex flex-col lg:flex-row justify-between flex-wrap">
                           <h3 className="text-gray-900 dark:text-gray-100  text-lg font-semibold font-inter">
@@ -766,7 +730,7 @@ export default function RestaurantDetailsScreen() {
                         </div>
                       </div>
 
-                      {/* Image */}
+                      {}
                       <div className="flex-shrink-0 w-24 h-24 md:w-28 md:h-28">
                         <Image
                           alt={meal.title}
@@ -777,14 +741,14 @@ export default function RestaurantDetailsScreen() {
                         />
                       </div>
 
-                      {/* Add Button */}
+                      {}
                       <div
                         className={`${direction === "rtl" ? "left-2" : "right-2"} absolute top-2`}
                       >
                         <button
                           className="bg-secondary-color rounded-full shadow-md w-6 h-6 flex items-center justify-center"
                           onClick={(e) => {
-                            e.stopPropagation(); // Prevent triggering parent onClick
+                            e.stopPropagation(); 
                             handleRestaurantClick(meal);
                           }}
                           type="button"
@@ -793,7 +757,7 @@ export default function RestaurantDetailsScreen() {
                         </button>
                       </div>
 
-                      {/* create a modal that will be show that this restaurant is closed do want to see menu or want to close if click on the see menu then will move to the next page other wise modal will be closed */}
+                      {}
                       <CustomDialog
                         className="max-w-[300px]"
                         visible={
@@ -828,20 +792,20 @@ export default function RestaurantDetailsScreen() {
         )}
       </PaddingContainer>
 
-      {/* Food Item Detail Modal */}
+      {}
       <Dialog
         contentClassName="dark:bg-gray-800 dark:text-gray-300"
         headerClassName="dark:bg-gray-800 dark:text-gray-300"
         visible={!!showDialog}
-        className="mx-3 sm:mx-4 md:mx-0 " // Adds margin on small screens
+        className="mx-3 sm:mx-4 md:mx-0 " 
         onHide={handleCloseFoodModal}
         showHeader={false}
         contentStyle={{
           borderTopLeftRadius: "4px",
           borderTopRightRadius: "4px",
           padding: "0px",
-        }} // Rounds top corners
-        style={{ borderRadius: "1rem" }} // Rounds full box including top corners
+        }} 
+        style={{ borderRadius: "1rem" }} 
       >
         {selectedFood && (
           <FoodItemDetail

@@ -7,7 +7,7 @@ import {
 } from "@/lib/apollo/queries";
 import { useQuery } from "@apollo/client";
 export default function WalletScreen() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const [refreshing, setRefreshing] = useState(false);
 
@@ -26,7 +26,7 @@ export default function WalletScreen() {
   }, [refetch]);
 
   return (
-    // fix background color of scrollview
+
     <SafeAreaView style={{ flex: 1, backgroundColor: appTheme.screenBackground }}>
     <ScrollView
       contentContainerStyle={{ flex: 1, backgroundColor: appTheme.screenBackground }}

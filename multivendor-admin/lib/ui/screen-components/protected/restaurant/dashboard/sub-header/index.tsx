@@ -6,7 +6,7 @@ export default function DashboardSubHeader({
   dateFilter,
   handleDateFilter,
 }: IDashboardSubHeaderComponentsProps) {
-  // Hooks
+
   const t = useTranslations();
   return (
     <div className="flex flex-row items-center justify-between px-4 py-3 bg-white dark:bg-dark-950 rounded-lg ">

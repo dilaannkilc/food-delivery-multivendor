@@ -1,7 +1,4 @@
-/*****************************
- * environment.js
- * path: '/environment.js' (root of your project)
- ******************************/
+
 
 import * as Updates from "expo-updates";
 import { useContext } from "react";

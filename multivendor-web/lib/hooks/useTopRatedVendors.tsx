@@ -1,10 +1,10 @@
-// Queries
+
 import { TOP_RATED_VENDORS } from "@/lib/api/graphql";
-// useQuery
+
 import { useQuery } from "@apollo/client";
-// interfaces
+
 import { ITopRatedVendorData } from "@/lib/utils/interfaces";
-// context
+
 import { useLocationContext } from "../context/Location/Location.context";
 
 function useTopRatedVendors(enabled = true) {

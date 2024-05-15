@@ -27,10 +27,9 @@ export default function EarningTableHeader({
 }: IEarningTableHeaderProps) {
   const [errors, setErrors] = useState({ startDate: '', endDate: '' });
   const [userType, setUserType] = useState<UserTypeEnum>();
-  // Hooks
+
   const t = useTranslations();
 
-  // Query
   const { data } = useQueryGQL(GET_STORE_RIDER, {
     fetchPolicy: 'network-only',
   }) as IQueryResult<IStoreRidersResponse | undefined, undefined>;
@@ -51,7 +50,6 @@ export default function EarningTableHeader({
     [data?.riders]
   );
 
-  // Constants
   const userTypes = [
     { label: t('All'), value: UserTypeEnum.ALL },
     { label: t('Rider'), value: UserTypeEnum.RIDER },
@@ -71,7 +69,6 @@ export default function EarningTableHeader({
     { label: t('Stripe'), value: PaymentMethodEnum.STRIPE },
   ];
 
-  // Handlers
   const handleStartDateChange = (e: { value: Date | null }) => {
     const newStartDate = e.value ? e.value.toISOString() : '';
     if (

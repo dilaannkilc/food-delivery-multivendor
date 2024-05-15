@@ -14,10 +14,9 @@ import { useTranslations } from 'next-intl';
 import React, { useMemo } from 'react';
 
 export default function StatesTable() {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const { CURRENCY_CODE } = useConfiguration();
 
   const { data, loading } = useQueryGQL(GET_DASHBOARD_ORDERS_BY_TYPE, {
@@ -39,7 +38,6 @@ export default function StatesTable() {
     undefined
   >;
 
-  // Memoize the data
   const dashboardOrdersByType = useMemo(() => {
     if (!data) return null;
     return data?.getDashboardOrdersByType;

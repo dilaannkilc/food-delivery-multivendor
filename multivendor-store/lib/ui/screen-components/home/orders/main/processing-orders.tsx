@@ -7,17 +7,15 @@ import {
   Text,
   View,
 } from "react-native";
-// UI
+
 import CustomTab from "@/lib/ui/useable-components/custom-tab";
 import Spinner from "@/lib/ui/useable-components/spinner";
-// Constants
+
 import { NO_ORDER_PROMPT, ORDER_DISPATCH_TYPE } from "@/lib/utils/constants";
 
-// Interface
 import { IOrderTabsComponentProps } from "@/lib/utils/interfaces";
 import { IOrder } from "@/lib/utils/interfaces/order.interface";
 
-// Hook
 import { useApptheme } from "@/lib/context/theme.context";
 import useOrders from "@/lib/hooks/useOrders";
 import Order from "@/lib/ui/useable-components/order";
@@ -28,10 +26,9 @@ import { useTranslation } from "react-i18next";
 const { height } = Dimensions.get("window");
 
 function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
-  // Props
+
   const { route } = props;
 
-  // Hooks
   const { t } = useTranslation();
   const { appTheme } = useApptheme();
   const {
@@ -44,14 +41,11 @@ function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
     setCurrentTab,
   } = useOrders();
 
-  // const { loading: mutateLoading } = useAcceptOrder();
 
-  // States
   const [refreshing, setRefreshing] = useState(false);
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [showDetails, setShowDetails] = useState<Record<string, boolean>>({});
 
-  // Handlers
   const onInitOrders = () => {
     if (loading || error) return;
     if (!data) return;
@@ -74,19 +68,17 @@ function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
     setShowDetails((prev) => ({ ...prev, [itemId]: !prev[itemId] }));
   };
 
-  // Use Effect
   useEffect(() => {
     onInitOrders();
   }, [data?.restaurantOrders, route.key, currentTab]);
 
   useEffect(() => {
-    // Trigger refetch when orders length changes
+
     if (orders?.length === 0) {
       refetch();
     }
   }, [orders?.length]);
 
-  // Calculate the marginBottom dynamically
   const marginBottom = Platform.OS === "ios" ? height * 0.4 : height * 0.35;
 
   return (
@@ -118,9 +110,9 @@ function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
           showsVerticalScrollIndicator={false}
           refreshing={refreshing}
           onRefresh={onRefresh}
-          initialNumToRender={20} // render more items up front
-          maxToRenderPerBatch={20} // reduce batching delays
-          windowSize={5} // keep more items around viewport
+          initialNumToRender={20} 
+          maxToRenderPerBatch={20} 
+          windowSize={5} 
           renderItem={({ item }: { item: IOrder }) => (
             <Order
               tab={route.key as ORDER_TYPE}

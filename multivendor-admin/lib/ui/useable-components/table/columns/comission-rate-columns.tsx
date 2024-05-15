@@ -1,12 +1,10 @@
-// Core
+
 import React from 'react';
 import { Form, Formik } from 'formik';
 
-// Custom Components
 import CustomCommissionTextField from '../../custom-commission-input';
 import CustomButton from '../../button';
 
-// Interfaces and Types
 import {
   ICommissionColumnProps,
   ICommissionRateRestaurantResponse,
@@ -18,7 +16,7 @@ export const COMMISSION_RATE_COLUMNS = ({
   handleCommissionRateChange,
   loadingRestaurant,
 }: ICommissionColumnProps & { loadingRestaurant: string | null }) => {
-  // Hooks
+
   const t = useTranslations();
   return [
     {

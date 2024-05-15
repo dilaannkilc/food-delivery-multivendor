@@ -1,30 +1,24 @@
-// Hooks
+
 import { useState, useContext, useEffect } from 'react';
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 import { useTranslations } from 'next-intl';
 
-// Components
 import PaymentCard from '@/lib/ui/useable-components/PaymentCard';
 import PaymentCardSkeleton from '@/lib/ui/useable-components/custom-skeletons/payment.card.skeleton';
 
-// Contexts
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Icons
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
 
-// Interfaces
 import { IPaymentMethod } from '@/lib/utils/interfaces/payment.card.interface';
 import { ProfileContext } from '@/lib/context/restaurant/profile.context';
 
 export default function PaymentMain() {
 
-  // Hooks
   const { SERVER_URL } = useConfiguration();
   const t = useTranslations()
 
-  // Contexts
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const {restaurantProfileResponse} = useContext(ProfileContext)
   const { showToast } = useContext(ToastContext);
@@ -60,7 +54,7 @@ export default function PaymentMain() {
 
 
   const fetchPaymentMethods = () => {
-    // Simulating a fetch call to load payment methods
+
     setTimeout(() => {
       setPaymentMethods([
         {

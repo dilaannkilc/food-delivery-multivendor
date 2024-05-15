@@ -1,8 +1,7 @@
-// Path: /lib/api/graphql/queries/supportTickets/index.ts
+
 
 import { gql } from '@apollo/client';
 
-// Get users who have support tickets WITH their latest ticket info
 export const GET_TICKET_USERS_WITH_LATEST = gql`
   query GetTicketUsersWithLatest($input: FiltersInput) {
     getTicketUsersWithLatest(input: $input) {
@@ -32,7 +31,6 @@ export const GET_TICKET_USERS_WITH_LATEST = gql`
   }
 `;
 
-// Original queries unchanged
 export const GET_TICKET_USERS = gql`
   query GetTicketUsers($input: FiltersInput) {
     getTicketUsers(input: $input) {

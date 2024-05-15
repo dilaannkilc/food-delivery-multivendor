@@ -1,23 +1,18 @@
 'use client';
 
-// Core imports
 import { useContext, useRef } from 'react';
 
-// Interfaces
 import {
   IRestaurantContextData,
   IRestaurantsAddFormComponentProps,
 } from '@/lib/utils/interfaces';
 
-// PrimeReact components
 import { Sidebar } from 'primereact/sidebar';
 import { Stepper } from 'primereact/stepper';
 import { StepperPanel } from 'primereact/stepperpanel';
 
-// Context
 import { VendorLayoutRestaurantContext } from '@/lib/context/vendor/restaurant.context';
 
-// Local components
 import RestaurantDetails from './restaurant-details';
 import RestaurantLocation from './restaurant-location';
 import RestaurantTiming from './restaurant-timing';
@@ -26,13 +21,11 @@ import { useTranslations } from 'next-intl';
 const VendorRestaurantsForm = ({
   position = 'right',
 }: IRestaurantsAddFormComponentProps) => {
-  // Hooks
+
   const t = useTranslations();
 
-  // Ref
   const stepperRef = useRef(null);
 
-  // Context
   const {
     isRestaurantFormVisible,
     onSetRestaurantFormVisible,
@@ -41,12 +34,11 @@ const VendorRestaurantsForm = ({
     onSetRestaurantContextData,
   } = useContext(VendorLayoutRestaurantContext);
 
-  // Handlers
   const onHandleStepChange = (order: number) => {
     onActiveStepChange(order);
   };
   const onSidebarHideHandler = () => {
-    // Clean Context State
+
     onActiveStepChange(0);
     onSetRestaurantFormVisible(false);
     onSetRestaurantContextData({} as IRestaurantContextData);

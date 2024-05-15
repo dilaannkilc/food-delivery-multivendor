@@ -1,13 +1,12 @@
-// Interfaces
+
 import { ILazyQueryResult } from "@/lib/utils/interfaces";
 import {
   IRiderByIdResponse,
   IRiderCurrentWithdrawRequestResponse,
-  // IRiderEarningsResponse,
+
   IRiderTransactionHistoryResponse,
 } from "@/lib/utils/interfaces/rider.interface";
 
-// Components
 import {
   CustomContinueButton,
   FlashMessageComponent,
@@ -16,14 +15,12 @@ import {
 import WithdrawModal from "../form";
 import RecentTransaction from "../recent-transactions";
 
-// Hooks
 import { useUserContext } from "@/lib/context/global/user.context";
 import { useLazyQueryQL } from "@/lib/hooks/useLazyQueryQL";
 import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-// GraphQL
 import { CREATE_WITHDRAW_REQUEST } from "@/lib/apollo/mutations/withdraw-request.mutation";
 import {
   RIDER_BY_ID,
@@ -32,27 +29,22 @@ import {
 } from "@/lib/apollo/queries";
 import { GraphQLError } from "graphql";
 
-// Expo
 import { router } from "expo-router";
 
-// Core
 import { Alert, ScrollView, Text, View } from "react-native";
 
-// Skeletons
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { WalletScreenMainLoading } from "@/lib/ui/skeletons";
 
 export default function WalletMain() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
-  // States
   const [isBottomModalOpen, setIsBottomModalOpen] = useState(false);
   const [amountErrMsg, setAmountErrMsg] = useState("");
   const { userId } = useUserContext();
 
-  // Queries
 
   const {
     data: riderTransactionData,
@@ -99,7 +91,6 @@ export default function WalletMain() {
     }
   >;
 
-  // Mutaions
   const [createWithDrawRequest, { loading: createWithDrawRequestLoading }] =
     useMutation(CREATE_WITHDRAW_REQUEST, {
       onCompleted: () => {
@@ -107,7 +98,7 @@ export default function WalletMain() {
           message: t("Successfully created the withdraw request"),
         });
         setIsBottomModalOpen(false);
-        // setIsModalVisible(true)
+
         router.push({
           pathname: "/(tabs)/wallet/(routes)/success",
         });
@@ -143,7 +134,6 @@ export default function WalletMain() {
       ],
     });
 
-  // Handlers
   async function handleFormSubmission(withdrawAmount: number) {
     const currentAmount = riderProfileData?.rider.currentWalletAmount || 0;
     if (withdrawAmount > (currentAmount || 0)) {
@@ -166,24 +156,22 @@ export default function WalletMain() {
     } catch (error) {
       const err = error as GraphQLError;
 
-      // FlashMessageComponent({
-      //   message:
-      //     err.message || JSON.stringify(error) || t("Something went wrong"),
-      // });
+
+
+
 
       console.log("error wallet", err);
     }
   }
-  // Loading state
+
   const isLoading =
     createWithDrawRequestLoading ||
     isRiderProfileLoading ||
     isRiderTransactionLoading ||
     isRiderCurrentWithdrawRequestLoading;
 
-  // UseEffects
   useEffect(() => {
-    // fetchRiderEarnings();
+
     if (userId) {
       fetchRiderProfile();
       fetchRiderTransactions();

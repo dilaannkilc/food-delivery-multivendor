@@ -36,7 +36,7 @@ const Cities = () => {
           <div className="text-[#111827] dark:text-white text-xl font-semibold ">
            {t('selectCity')}
           </div>
-          {/* <div className="flex flex-wrap gap-6 items-center  my-[30px]"> */}
+          {}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-center my-[30px]">
             {loading ?
               [...Array(8)].map((_, index) => (

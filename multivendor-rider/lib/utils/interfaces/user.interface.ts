@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+
 import { Dispatch, SetStateAction } from "react";
 import { IGlobalProviderProps } from "./global.interface";
 import {

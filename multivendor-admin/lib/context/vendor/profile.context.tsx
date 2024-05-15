@@ -1,7 +1,6 @@
-// Core
+
 import React, { createContext, useState, useEffect, useContext } from 'react';
 
-// Interfaces and Types
 import {
   IQueryResult,
   IProfileProviderProps,
@@ -10,11 +9,9 @@ import {
 
 import { IVendorProfileContextData } from '@/lib/utils/interfaces/profile/vendor.profile.interface';
 
-// Context
 import { ToastContext } from '@/lib/context/global/toast.context';
 import { VendorLayoutContext } from './layout-vendor.context';
 
-// GraphQL
 import { GET_VENDOR_BY_ID } from '@/lib/api/graphql';
 import { useQueryGQL } from '../../hooks/useQueryQL';
 
@@ -39,7 +36,7 @@ export const ProfileProvider: React.FC<IProfileProviderProps> = ({
       fetchPolicy: 'network-only',
       debounceMs: 300,
       onCompleted: () => {
-        // You can perform any actions with the fetched data here
+
       },
       onError: () => {
         showToast({

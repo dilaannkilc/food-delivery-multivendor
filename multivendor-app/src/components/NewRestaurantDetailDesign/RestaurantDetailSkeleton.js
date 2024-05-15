@@ -47,9 +47,9 @@ const SkeletonPlaceholder = ({ style, duration = 1500, currentTheme }) => {
 const RestaurantDetailSkeleton = ({ currentTheme }) => {
   return (
     <View style={styles.container}>
-      {/* Header Skeleton */}
+      {}
       <View style={[styles.headerSkeleton, { backgroundColor: currentTheme.cardBackground }]}>
-        {/* Main image */}
+        {}
         <View style={styles.imageContainer}>
           <SkeletonPlaceholder
             currentTheme={currentTheme}
@@ -59,7 +59,7 @@ const RestaurantDetailSkeleton = ({ currentTheme }) => {
             }}
           />
           
-          {/* Header icons overlay */}
+          {}
           <View style={styles.headerIconsContainer}>
             <View style={[styles.iconButton, { backgroundColor: 'rgba(0, 0, 0, 0.5)' }]}>
               <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: scale(17), height: scale(17), borderRadius: scale(8.5) }} />
@@ -75,7 +75,7 @@ const RestaurantDetailSkeleton = ({ currentTheme }) => {
             </View>
           </View>
 
-          {/* Delivery details overlay */}
+          {}
           <View style={styles.deliveryDetailsOverlay}>
             <View style={[styles.detailPill, { backgroundColor: currentTheme.themeBackground || 'white' }]}>
               <SkeletonPlaceholder
@@ -102,7 +102,7 @@ const RestaurantDetailSkeleton = ({ currentTheme }) => {
         </View>
         
         <View style={styles.contentContainer}>
-          {/* Restaurant title and logo section */}
+          {}
           <View style={styles.titleContainer}>
             <View style={styles.titleInner}>
               <View style={styles.logoContainer}>
@@ -115,7 +115,7 @@ const RestaurantDetailSkeleton = ({ currentTheme }) => {
             </View>
           </View>
 
-          {/* Cuisine */}
+          {}
           <View style={styles.cuisineContainer}>
             <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: scale(200), height: scale(16), borderRadius: scale(3) }} />
             <View style={{ width: scale(25), height: scale(25), alignItems: 'center', justifyContent: 'center' }}>
@@ -123,7 +123,7 @@ const RestaurantDetailSkeleton = ({ currentTheme }) => {
             </View>
           </View>
 
-          {/* Ratings section */}
+          {}
           <View style={styles.infoContainer}>
             <View style={styles.ratingBox}>
               <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: scale(20), height: scale(20), borderRadius: scale(10) }} />
@@ -135,7 +135,7 @@ const RestaurantDetailSkeleton = ({ currentTheme }) => {
             </View>
           </View>
 
-          {/* Timing section */}
+          {}
           <View style={styles.infoContainer}>
             <View style={styles.ratingBox}>
               <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: scale(21), height: scale(21), borderRadius: scale(10.5) }} />
@@ -146,7 +146,7 @@ const RestaurantDetailSkeleton = ({ currentTheme }) => {
             </View>
           </View>
 
-          {/* Delivery time */}
+          {}
           <View style={styles.deliveryContainer}>
             <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: scale(24), height: scale(24), borderRadius: scale(12) }} />
             <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: scale(70), height: scale(16), borderRadius: scale(3) }} />
@@ -154,7 +154,7 @@ const RestaurantDetailSkeleton = ({ currentTheme }) => {
         </View>
       </View>
 
-      {/* Popular Section Skeleton */}
+      {}
       <View style={[styles.sectionSkeleton, { backgroundColor: currentTheme.themeBackground }]}>
         <View style={styles.sectionHeaderSkeleton}>
           <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: scale(80), height: scale(22), borderRadius: scale(4) }} />
@@ -169,7 +169,7 @@ const RestaurantDetailSkeleton = ({ currentTheme }) => {
                 { backgroundColor: currentTheme.popularitemcard || currentTheme.cardBackground || '#FFFFFF' }
               ]}
             >
-              {/* Plus button in actual position */}
+              {}
               <View style={[
                 styles.plusButtonSkeleton, 
                 { backgroundColor: currentTheme.plusIcon || '#AAC810' }
@@ -177,10 +177,10 @@ const RestaurantDetailSkeleton = ({ currentTheme }) => {
                 <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: scale(16), height: scale(16), borderRadius: scale(8) }} />
               </View>
               
-              {/* Image area */}
+              {}
               <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: '100%', height: scale(100) }} />
               
-              {/* Content area */}
+              {}
               <View style={styles.itemDetails}>
                 <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: scale(60), height: scale(16), borderRadius: scale(3) }} />
                 <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: scale(80), height: scale(14), borderRadius: scale(3), marginTop: scale(4) }} />
@@ -190,7 +190,7 @@ const RestaurantDetailSkeleton = ({ currentTheme }) => {
         </View>
       </View>
 
-      {/* Categories Section Skeleton */}
+      {}
       <View style={[styles.sectionSkeleton, { backgroundColor: currentTheme.themeBackground }]}>
         <SkeletonPlaceholder currentTheme={currentTheme} style={{ width: scale(140), height: scale(22), borderRadius: scale(4), marginBottom: scale(15) }} />
         

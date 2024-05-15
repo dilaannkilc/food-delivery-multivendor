@@ -1,9 +1,9 @@
-// Components
+
 import HeaderText from '@/lib/ui/useable-components/header-text';
 import { useTranslations } from 'use-intl';
 
 const TransactionHistoryRestaurantHeader = () => {
- // Hooks
+
  const t = useTranslations();
 
   return (

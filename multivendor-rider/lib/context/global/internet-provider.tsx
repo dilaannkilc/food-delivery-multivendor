@@ -13,7 +13,7 @@ const InternetContext = createContext<InternetContextProps | undefined>(
 );
 
 export const useInternet = (): InternetContextProps => {
-  // Hooks
+
 
   const context = useContext(InternetContext);
   if (!context) {
@@ -33,13 +33,11 @@ const InternetProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsConnected(networkState.isConnected)
     }
 
-    // Initial check
     checkConnection()
 
-    // Optional: Poll every few seconds (no event listener in expo-network)
     const interval = setInterval(checkConnection, 5000)
 
-    return () => clearInterval(interval) // Clean up
+    return () => clearInterval(interval) 
   }, [])
 
   if (!isConnected) {

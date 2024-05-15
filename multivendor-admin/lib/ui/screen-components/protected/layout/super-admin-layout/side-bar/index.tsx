@@ -1,19 +1,15 @@
 'use client';
 
-// Core
 import { useContext } from 'react';
 
-// Context
 import { LayoutContext } from '@/lib/context/global/layout.context';
 
-// Interface & Types
 import {
   IGlobalComponentProps,
   ISidebarMenuItem,
   LayoutContextProps,
 } from '@/lib/utils/interfaces';
 
-// Icons
 import {
   faCog,
   faHome,
@@ -22,16 +18,14 @@ import {
   faWallet,
 } from '@fortawesome/free-solid-svg-icons';
 
-// Constants and Utiils
 import useCheckAllowedRoutes from '@/lib/hooks/useCheckAllowedRoutes';
 
-// Components
 import SidebarItem from './side-bar-item';
 import { useTranslations } from 'next-intl';
 import { faHeadset } from '@fortawesome/free-solid-svg-icons/faHeadset';
 
 function SuperAdminSidebar({ children }: IGlobalComponentProps) {
-  // Contexts
+
   const { isSuperAdminSidebarVisible } =
     useContext<LayoutContextProps>(LayoutContext);
 
@@ -52,10 +46,9 @@ function SuperAdminSidebar({ children }: IGlobalComponentProps) {
 }
 
 export default function MakeSidebar() {
-  // Hooks
+
   const t = useTranslations();
 
-  // Contexts
   const { isSuperAdminSidebarVisible } =
     useContext<LayoutContextProps>(LayoutContext);
 

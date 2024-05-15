@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { View, Image } from 'react-native'
-// import { TouchableOpacity } from 'react-native-gesture-handler'
+
 import { TouchableOpacity } from 'react-native'
 import ShimmerImage from '../../ShimmerImage/ShimmerImage'
 import {
@@ -11,12 +11,10 @@ import {
 } from '@expo/vector-icons'
 import { IconButton } from 'react-native-paper'
 
-// Components
 import TextDefault from '../../Text/TextDefault/TextDefault'
 import FavoriteButton from '../../FavButton/FavouriteButton'
 import Bicycle from '../../../assets/SVG/Bicycle'
 
-// Utils
 import { scale } from '../../../utils/scaling'
 import styles from './styles'
 
@@ -60,7 +58,7 @@ function RestaurantDetailHeader({
           style={styles(currentTheme).mainRestaurantImg}
         />
 
-        {/* Header icons overlay */}
+        {}
         <View style={styles(currentTheme).headerIconsContainer}>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -101,7 +99,7 @@ function RestaurantDetailHeader({
           </View>
         </View>
 
-        {/* Delivery details overlay */}
+        {}
         <View style={styles(currentTheme).deliveryDetailsOverlay}>
           <View style={styles(currentTheme).detailPill}>
             <TextDefault textColor={currentTheme.fontMainColor}>
@@ -120,7 +118,7 @@ function RestaurantDetailHeader({
       </View>
 
       <View style={styles(currentTheme).contentContainer}>
-        {/* Rest of the content remains the same */}
+        {}
         <View style={styles(currentTheme).subContainer}>
           <View style={styles(currentTheme).titleContainer}>
             <Image

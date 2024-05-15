@@ -1,13 +1,11 @@
-// Components
+
 import CustomButton from "@/lib/ui/useable-components/button";
 import CustomPasswordTextField from "@/lib/ui/useable-components/password-input-field";
 
-// Hooks
 import { useAuth } from "@/lib/context/auth/auth.context";
 import useToast from "@/lib/hooks/useToast";
 import { useTranslations } from "next-intl";
 
-// Interfaces
 import { IEnterPasswordProps } from "@/lib/utils/interfaces";
 
 export default function ChangePassword({
@@ -15,12 +13,12 @@ export default function ChangePassword({
   setFormData,
   formData,
 }: IEnterPasswordProps) {
-  // Hooks
+
   const t = useTranslations();
   const { handlePasswordReset, isLoading } =
     useAuth();
   const { showToast } = useToast();
-  // Handlers
+
   const handleSubmit = async () => {
     if (!formData?.password || formData?.password?.length < 6) {
       return showToast({
@@ -30,7 +28,7 @@ export default function ChangePassword({
       });
     }
     try {
-      // update the password
+
       await handlePasswordReset(
         formData?.password || '',
         formData?.email || '',

@@ -15,8 +15,8 @@ const styles = (props = null) =>
       width: '100%'
     },
     card: {
-      width: windowWidth / 2 - 30, // assuming 20 is the total margin/padding
-      borderRadius: 8, // adjust border radius as per your requirement
+      width: windowWidth / 2 - 30, 
+      borderRadius: 8, 
       paddingTop: scale(17),
       paddingLeft: scale(17),
       paddingRight: scale(17),

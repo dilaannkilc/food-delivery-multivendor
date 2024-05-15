@@ -5,8 +5,6 @@ import {
 } from "@/lib/utils/interfaces";
 
 
-// translation
-
 
 export const PasswordErrors = [
   "At_least_6_characters_label",

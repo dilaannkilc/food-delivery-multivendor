@@ -1,18 +1,14 @@
-// Core
+
 import { useContext, useState } from 'react';
 
-// Custom Components
 import ActionMenu from '@/lib/ui/useable-components/action-menu';
 import CustomInputSwitch from '../../custom-input-switch';
 
-// Interfaces and Types
 import { IActionMenuProps } from '@/lib/utils/interfaces/action-menu.interface';
 import { ICouponRestaurantResponse } from '@/lib/utils/interfaces/coupons-restaurant.interface';
 
-// Context
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 
-// GraphQL
 import { useMutation } from '@apollo/client';
 import { EDIT_RESTAURANT_COUPON } from '@/lib/api/graphql/mutations/coupons-restaurant';
 import { GET_RESTAURANT_COUPONS } from '@/lib/api/graphql/queries/coupons-restaurant';
@@ -24,23 +20,19 @@ export const COUPONS_RESTAURANT_TABLE_COLUMNS = ({
 }: {
   menuItems: IActionMenuProps<ICouponRestaurantResponse>['items'];
 }) => {
-  // Hooks
+
   const t = useTranslations();
 
-  // Context
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
 
-  // For showing loader to appropriate coupon
   const [selectedCouponId, setSelectedCouponId] = useState<string | null>(null);
 
-  // GraphQL mutation hook
   const [mutateToggle, { loading }] = useMutation(EDIT_RESTAURANT_COUPON, {
     refetchQueries: [{ query: GET_RESTAURANT_COUPONS }],
     awaitRefetchQueries: true,
   });
 
-  // Handle availability toggle
   const onHandleBannerStatusChange = async (
     enabled: boolean,
     coupon: ICouponRestaurantResponse
@@ -69,7 +61,7 @@ export const COUPONS_RESTAURANT_TABLE_COLUMNS = ({
     { headerName: t('Name'), propertyName: '__typename' },
     { headerName: t('Code'), propertyName: 'title' },
     { headerName: t('Discount'), propertyName: 'discount' },
-    // add column for endDate and lifeTimeActive
+
     {
       headerName: t('Enabled'),
       propertyName: 'enabled',

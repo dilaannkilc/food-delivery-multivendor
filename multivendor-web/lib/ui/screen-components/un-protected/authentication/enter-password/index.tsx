@@ -1,14 +1,12 @@
-// Components
+
 import CustomButton from "@/lib/ui/useable-components/button";
 import CustomPasswordTextField from "@/lib/ui/useable-components/password-input-field";
 
-// Hooks
 import { useAuth } from "@/lib/context/auth/auth.context";
 import useToast from "@/lib/hooks/useToast";
 import { useTranslations } from "next-intl";
 import { FcGoogle } from "react-icons/fc";
 
-// Interfaces
 import { useConfig } from "@/lib/context/configuration/configuration.context";
 import { IAuthFormData, IEnterPasswordProps } from "@/lib/utils/interfaces";
 import PasswordIcon from "@/lib/utils/assets/svg/password";
@@ -18,7 +16,7 @@ export default function EnterPassword({
   setFormData,
   formData,
 }: IEnterPasswordProps) {
-  // Hooks
+
   const t = useTranslations();
   const {
     handleUserLogin,
@@ -30,7 +28,6 @@ export default function EnterPassword({
   const { showToast } = useToast();
   const { SKIP_EMAIL_VERIFICATION, SKIP_MOBILE_VERIFICATION } = useConfig();
 
-  // Handlers
   const handleSubmit = async () => {
     if (!formData?.password) {
       return showToast({
@@ -40,7 +37,6 @@ export default function EnterPassword({
       });
     }
 
-    // Check if the password is correct
     const userData = await handleUserLogin({
       type: "default",
       password: formData?.password,
@@ -54,23 +50,23 @@ export default function EnterPassword({
         message: t("please_enter_valid_password_message"),
       });
     } else {
-      // Check for email & phone verification
+
       if (!user?.emailIsVerified && !SKIP_EMAIL_VERIFICATION) {
         if (user?.email) {
           sendOtpToEmailAddress(user?.email);
-          // re-direct to email-otp verification
+
           handleChangePanel(3);
         } else {
-          // save the email address first
+
           handleChangePanel(5);
         }
       } else if (!user?.phoneIsVerified && !SKIP_MOBILE_VERIFICATION) {
         if (user?.phone) {
           sendOtpToPhoneNumber(user?.phone);
-          // re-direct to phone-otp verification
+
           handleChangePanel(4);
         } else {
-          // save the phone number first
+
           handleChangePanel(6);
         }
       } else {

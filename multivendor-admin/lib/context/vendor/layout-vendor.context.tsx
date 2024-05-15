@@ -1,18 +1,15 @@
 'use client';
 
-// Core
 import { createContext, useState } from 'react';
 
-// Interface
 import {
   IProvider,
   VendorLayoutContextData,
   VendorLayoutContextProps,
 } from '@/lib/utils/interfaces';
 
-// Costants
 import { SELECTED_VENDOR } from '@/lib/utils/constants';
-// Methods
+
 import { onUseLocalStorage } from '@/lib/utils/methods';
 
 export const VendorLayoutContext = createContext<VendorLayoutContextProps>(
@@ -25,7 +22,6 @@ export const VendorLayoutProvider = ({ children }: IProvider) => {
       vendorId: onUseLocalStorage('get', SELECTED_VENDOR),
     } as VendorLayoutContextData);
 
-  // Handlers
 
   const onSetVendorLayoutContextData = (
     data: Partial<VendorLayoutContextData>

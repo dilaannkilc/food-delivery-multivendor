@@ -1,11 +1,10 @@
-// core
+
 import React, { useCallback, useState } from "react";
 
-// hooks
 import useNearByRestaurantsPreview from "@/lib/hooks/useNearByRestaurantsPreview";
-// card component
+
 import Card from "@/lib/ui/useable-components/card";
-// loading skeleton
+
 import SliderSkeleton from "@/lib/ui/useable-components/custom-skeletons/slider.loading.skeleton";
 
 function RestaurantsMainSection() {

@@ -10,7 +10,6 @@ import VideoBanner from './VideoBanner'
 import { BANNER_PARAMETERS } from '../../../utils/banner-routes'
 import { scale } from '../../../utils/scaling'
 
-// Helper function to get media type from URL
 const getMediaTypeFromUrl = (url) => {
   const extension = url?.split('.').pop().toLowerCase()
   const videoExtensions = ['mp4']
@@ -39,19 +38,13 @@ const Banner = ({ banners }) => {
         _id: banner.screen
       })
     } else {
-      /* 
       
-         navigation?.getState()?.routeNames?.includes(banner.screen)
-          ? banner.screen
-          : name,
-          
-      */
 
       const { name, selectedType, queryType } = BANNER_PARAMETERS[banner?.screen]
       navigation.navigate(name, {
-        // Pass navigation parameters
-        selectedType: selectedType ?? 'restaurant', // Use selectedType if provided, otherwise default to 'restaurant'
-        queryType: queryType ?? 'restaurant' // Use queryType if provided, otherwise default to 'restaurant'
+
+        selectedType: selectedType ?? 'restaurant', 
+        queryType: queryType ?? 'restaurant' 
       })
     }
   }
@@ -76,7 +69,7 @@ const Banner = ({ banners }) => {
       windowSize={3}
       showPagination
       data={banners ?? []}
-      snapToInterval={width} // Ensures only one image is visible at a time
+      snapToInterval={width} 
       snapToAlignment='center'
       paginationStyle={styles().pagination}
       paginationActiveColor={currentTheme.main}

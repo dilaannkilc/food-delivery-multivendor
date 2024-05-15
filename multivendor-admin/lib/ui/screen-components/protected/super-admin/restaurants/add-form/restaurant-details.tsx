@@ -1,12 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-// Core
+
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { Form, Formik } from 'formik';
 import { useContext, useMemo } from 'react';
 
-// Interface and Types
 import {
   ICreateRestaurant,
   ICreateRestaurantResponse,
@@ -15,7 +14,6 @@ import {
   IRestaurantsResponseGraphQL,
 } from '@/lib/utils/interfaces';
 
-// Component
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomDropdownComponent from '@/lib/ui/useable-components/custom-dropdown';
 import CustomMultiSelectComponent from '@/lib/ui/useable-components/custom-multi-select';
@@ -25,21 +23,17 @@ import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-
 import ShopTypesForm from '@/lib/ui/screen-components/protected/super-admin/shop-types/form';
 import CuisineForm from '@/lib/ui/screen-components/protected/super-admin/cuisines/form';
 
-// Constants
 import {
   MAX_LANSDCAPE_FILE_SIZE,
   MAX_SQUARE_FILE_SIZE,
   RestaurantErrors,
 } from '@/lib/utils/constants';
 
-// Interface
 import { IRestaurantForm } from '@/lib/utils/interfaces';
 import { IEditState, IShopType } from '@/lib/utils/interfaces';
 
-// Methods
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 
-// Schemas
 import {
   CREATE_RESTAURANT,
   GET_CUISINES,
@@ -87,7 +81,7 @@ const initialValues: IRestaurantForm = {
 export default function RestaurantDetailsForm({
   stepperProps,
 }: IRestaurantsAddRestaurantComponentProps) {
-  // Hooks
+
   const t = useTranslations();
   const [isAddShopTypeVisible, setIsAddShopTypeVisible] = useState(false);
   const [isEditShopType, setIsEditShopType] = useState<IEditState<IShopType>>({
@@ -113,20 +107,18 @@ export default function RestaurantDetailsForm({
     },
   });
 
-  // Props
   const { onStepChange, order } = stepperProps ?? {
     onStepChange: () => {},
     type: '',
     order: -1,
   };
-  // Context
+
   const { showToast } = useContext(ToastContext);
   const { restaurantsContextData, onSetRestaurantsContextData } =
     useContext(RestaurantsContext);
 
-  // API
   const { data: restaurantData } = useQuery(GET_RESTAURANTS);
-  // Mutation
+
   const [createRestaurant] = useMutation(CREATE_RESTAURANT, {
     onError,
     onCompleted: ({
@@ -167,7 +159,6 @@ export default function RestaurantDetailsForm({
     transform_to_dropdown_list: true,
   });
 
-  // Memoized Constants
   const cuisinesDropdown = useMemo(
     () =>
       cuisineResponse.data?.cuisines?.map((cuisin: ICuisine) => {
@@ -176,7 +167,6 @@ export default function RestaurantDetailsForm({
     [cuisineResponse.data?.cuisines]
   );
 
-  // Handlers
   const onCreateRestaurant = async (data: IRestaurantForm) => {
     try {
       const vendorId = restaurantsContextData?.vendor?._id?.code;
@@ -190,7 +180,6 @@ export default function RestaurantDetailsForm({
         return;
       }
 
-      // check if values.name is present in restaurantData and show error toast
       const existingRestaurant = restaurantData?.restaurants.find(
         (restaurant: IRestaurantForm) =>
           restaurant.name.toLowerCase() === data.name.toLowerCase()
@@ -277,10 +266,7 @@ export default function RestaurantDetailsForm({
     <div className="flex h-full w-full items-center justify-start dark:text-white dark:bg-dark-950">
       <div className="h-full w-full">
         <div className="flex flex-col gap-2">
-          {/* <div className="flex flex-col mb-2">
-            <span className="text-lg">Add Restaurant</span>
-          </div>
- */}
+          {}
           <div>
             <Formik
               initialValues={initialValues}
@@ -398,14 +384,14 @@ export default function RestaurantDetailsForm({
                           mask="999-999-9999"
                           name="phoneNumber"
                           showLabel={true}
-                          // placeholder="Phone Number"
+
                           onChange={(e) => {
-                            // console.log("phone number format ==> ", e, code);
+
                             setFieldValue('phoneNumber', e);
-                            // setCountryCode(code);
+
                           }}
                           value={values.phoneNumber}
-                          // value={values.phoneNumber?.toString().match(/\(\+(\d+)\)\s(.+)/)?.[2]}
+
                           type="text"
                           className="rounded-[6px] border-[#D1D5DB]"
                           style={{

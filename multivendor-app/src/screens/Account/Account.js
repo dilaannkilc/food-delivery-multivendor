@@ -192,9 +192,9 @@ function Account(props) {
     if (lang) {
       setselectedLanguage(lang)
     } else {
-      // Find the language value based on the system language code
+
       const matchedLanguage = languageTypes.find((langType) => langType.code === systemLangCode)
-      // Set to the language value if found, otherwise default to 'English'
+
       setselectedLanguage(matchedLanguage ? matchedLanguage.value : 'English')
     }
   }
@@ -277,7 +277,7 @@ function Account(props) {
       navigation.reset({
         routes: [{ name: 'Main' }]
       })
-      // navigation.closeDrawer()
+
       FlashMessage({ message: t('logoutMessage') })
     } catch (error) {
       console.error('Error during logout:', error)
@@ -327,7 +327,6 @@ function Account(props) {
       return
     }
 
-    // Request permission if not granted
     const permission = await requestPermission()
 
     if (permission !== 'granted') {
@@ -339,7 +338,6 @@ function Account(props) {
       return
     }
 
-    // Get push token if not available
     if (!profile.notificationToken) {
       try {
         const token = await Notifications.getExpoPushTokenAsync({
@@ -483,7 +481,7 @@ function Account(props) {
                     >
                       <View style={styles(currentTheme).notificationChekboxContainer}>
                         <TextDefault
-                          // numberOfLines={1}
+
                           textColor={currentTheme.darkBgFont}
                           style={alignment.MLsmall}
                           isRTL
@@ -563,15 +561,7 @@ function Account(props) {
                   />
                 </View>
 
-                {/* <View style={styles().padding}>
-                  <TextDefault
-                    H2
-                    bolder
-                    textColor={currentTheme.fontThirdColor}
-                  >
-                    {t('legal')}
-                  </TextDefault>
-                </View> */}
+                {}
 
                 <View style={styles(currentTheme).containerButton}>
                   <TouchableOpacity activeOpacity={0.5} style={styles(currentTheme).addButton} onPress={logoutClick}>

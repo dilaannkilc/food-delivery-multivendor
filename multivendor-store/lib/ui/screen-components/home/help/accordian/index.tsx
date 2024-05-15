@@ -12,7 +12,7 @@ export default function HelpAccordian({
   children: ReactNode;
   isLast: boolean;
 }) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);

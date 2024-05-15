@@ -1,15 +1,12 @@
-// CSS
+
 import classes from './table-header.module.css';
 
-// Components
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
 import { IWithdrawRequestsTableHeaderProps } from '@/lib/utils/interfaces';
 
-// Icons
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 
-// Prime react
 import { Checkbox } from 'primereact/checkbox';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { useRef, useState } from 'react';
@@ -28,32 +25,30 @@ export default function WithdrawRequestSuperAdminTableHeader({
   selectedActions,
   setSelectedActions,
 }: IWithdrawRequestsTableHeaderProps) {
-  // Refs
-  // const statusOverlayRef = useRef<OverlayPanel>(null);
+
+
   const userTypeOverlayRef = useRef<OverlayPanel>(null);
 
-  // States
   const [searchValue, setSearchValue] = useState('');
 
-  // Translations
   const t = useTranslations();
   const {theme} = useTheme()
   const filterOptions: FilterOption[] = [
-    // {
-    //   label: 'Transferred',
-    //   value: 'TRANSFERRED',
-    //   type: 'status',
-    // },
-    // {
-    //   label: 'Cancelled',
-    //   value: 'CANCELLED',
-    //   type: 'status',
-    // },
-    // {
-    //   label: 'Requested',
-    //   value: 'REQUESTED',
-    //   type: 'status',
-    // },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     {
       label: t('Rider'),
       value: 'RIDER',
@@ -120,7 +115,7 @@ export default function WithdrawRequestSuperAdminTableHeader({
           />
         </div>
 
-        {/* User Type Filter */}
+        {}
         <div className="mx-4 flex items-center">
           <TextIconClickable
             className={`${selectedActions.find(

@@ -36,7 +36,6 @@ export function calculatePolygonCentroid(coordinates: number[][]): LatLng {
       centroidY += (y1 + y2) * step;
     }
 
-    // Close the polygon by adding the last point with the first one
     const [x1, y1] = coordinates[n - 1];
     const [x2, y2] = coordinates[0];
     const step = x1 * y2 - x2 * y1;
@@ -44,7 +43,6 @@ export function calculatePolygonCentroid(coordinates: number[][]): LatLng {
     centroidX += (x1 + x2) * step;
     centroidY += (y1 + y2) * step;
 
-    // Finalize calculations
     area *= 0.5;
     centroidX /= 6 * area;
     centroidY /= 6 * area;

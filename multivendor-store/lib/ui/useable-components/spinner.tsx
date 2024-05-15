@@ -1,7 +1,7 @@
 import { ActivityIndicator } from "react-native";
-// Constants
+
 import { Colors } from "@/lib/utils/constants";
-//Interface
+
 import { ISpinnerComponentProps } from "@/lib/utils/interfaces";
 function SpinnerComponent(props: ISpinnerComponentProps) {
   return (

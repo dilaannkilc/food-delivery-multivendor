@@ -11,7 +11,7 @@ const CustomTab = ({
   deliveryCount,
   pickupCount,
 }: ICustomTabProps) => {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 

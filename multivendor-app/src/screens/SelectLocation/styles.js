@@ -98,7 +98,7 @@ const styles = (props = null) =>
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: scale(18),
-      // marginRight: scale(16)
+
     },
     line: {
       borderBottomWidth: scale(1),

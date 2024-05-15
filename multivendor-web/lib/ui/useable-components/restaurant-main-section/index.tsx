@@ -19,7 +19,7 @@ function MainSection({
   search,
   hasMore,
   queryData
-  // onLoadMore, // 🔹 added callback from parent
+
 }: IMainSectionProps ) {
   const router = useRouter();
   const t = useTranslations();
@@ -71,7 +71,7 @@ function MainSection({
           />
         )}
       </div>
-        {/* if queryData.length not zero then show */}
+        {}
       {data?.length > 0 && queryData?.length !== 0 ? (
         <>
           <div
@@ -91,7 +91,7 @@ function MainSection({
             ))}
           </div>
 
-          {/* Loader for pagination */}
+          {}
           {loading && hasMore && (
             <div className="flex justify-center mt-6">
             <div className="flex items-center gap-2 text-gray-500">
@@ -120,16 +120,7 @@ function MainSection({
           </div>
           )}
 
-          {/* Fallback "Load More" button in case scroll listener misses
-          {hasMore && !loading && onLoadMore && (
-            <div className="flex justify-center mt-6">
-              <CustomButton
-                label={t("load_more")}
-                onClick={onLoadMore}
-                className="px-6 py-2 bg-blue-500 text-white rounded-lg"
-              />
-            </div>
-          )} */}
+          {}
         </>
       ) : (
         <div className="text-center py-6 flex flex-col items-center justify-center text-gray-500 dark:text-gray-400">

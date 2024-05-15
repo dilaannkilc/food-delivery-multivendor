@@ -43,7 +43,7 @@ function MainRestaurantCard(props) {
               textColor={currentTheme.fontFourthColor}
               bolder
               H4
-            // style={styles().ItemTitle}
+
             >
               {t(props?.title)}
             </TextDefault>

@@ -23,14 +23,12 @@ export default function RestaurantsScreen() {
 
   const { loading: cuisinesloading, restaurantCuisinesData } = useGetCuisines();
 
-  // ✅ Initial load
   useEffect(() => {
     if (page === 1 && queryData?.length) {
       setItems(queryData);
     }
   }, [queryData, page]);
 
-  // ✅ Load more
   const loadMore = useCallback(async () => {
     if (!hasMore || loading) return;
 
@@ -52,7 +50,6 @@ export default function RestaurantsScreen() {
     }
   }, [page, hasMore, fetchMore, loading]);
 
-  // ✅ Scroll listener (your tested one)
   useEffect(() => {
     if (!fetchMore || !hasMore) return;
 
@@ -79,12 +76,12 @@ export default function RestaurantsScreen() {
       headingTitle={t("RestaurantPage.headingTitle")}
       cuisineSectionTitle={t("RestaurantPage.cuisineSectionTitle")}
       mainSectionTitle={t("RestaurantPage.mainSectionTitle")}
-      mainData={items} // ✅ pass paginated items
+      mainData={items} 
       cuisineDataFromHook={restaurantCuisinesData}
       loading={loading}
       cuisinesloading={cuisinesloading}
       error={!!error}
-      hasMore={hasMore} // ✅ pass down so MainSection can show "No more"
+      hasMore={hasMore} 
     />
   );
 }

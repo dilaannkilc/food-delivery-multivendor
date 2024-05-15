@@ -1,11 +1,10 @@
-// Hooks
+
 import { useApptheme } from "@/lib/context/theme.context";
 
-// Expo
 import { Stack } from "expo-router";
 
 export default function ProfileLayout() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   return (
     <Stack

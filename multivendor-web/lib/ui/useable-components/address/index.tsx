@@ -1,5 +1,5 @@
-/* eslint-disable max-lines */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 
 "use client";
 
@@ -20,7 +20,6 @@ import { AutoComplete, AutoCompleteSelectEvent } from "primereact/autocomplete";
 import { throttle } from "lodash";
 import parse from "autosuggest-highlight/parse";
 
-// SVG
 import {
   ApartmentSvg,
   HomeSvg,
@@ -28,24 +27,20 @@ import {
   OtherSvg,
 } from "@/lib/utils/assets/svg";
 
-// Components
 import CustomButton from "../button";
 import CustomLoader from "../custom-progress-indicator";
 import CustomDropdownComponent from "../custom-dropdown";
 
-// Context
 import { useUserAddress } from "@/lib/context/address/address.context";
 import { GoogleMapsContext } from "@/lib/context/global/google-maps.context";
 import { useLocationContext } from "@/lib/context/Location/Location.context";
 
-// Hook
 import useUser from "@/lib/hooks/useUser";
 import useLocation from "@/lib/hooks/useLocation";
 import useGeocoding from "@/lib/hooks/useGeocoding";
 import useToast from "@/lib/hooks/useToast";
 import useSetUserCurrentLocation from "@/lib/hooks/useSetUserCurrentLocation";
 
-// Interface
 import {
   IDropdownSelectItem,
   IPlaceSelectedOption,
@@ -53,7 +48,6 @@ import {
   IUserAddressComponentProps,
 } from "@/lib/utils/interfaces";
 
-// API
 import {
   CREATE_ADDRESS,
   EDIT_ADDRESS,
@@ -88,10 +82,9 @@ const autocompleteService: {
 export default function UserAddressComponent(
   props: IUserAddressComponentProps
 ) {
-  // Props
+
   const { visible, onHide, editAddress, confirmYourAddress } = props;
 
-  // States
   const [modifiyingId, setModifyingId] = useState("");
   const [[index, direction], setIndex] = useState<[number, number]>([0, 0]);
   const [selectedCity, setSelectedCity] = useState<IDropdownSelectItem | null>(
@@ -107,7 +100,6 @@ export default function UserAddressComponent(
   const [selectedPlaceObject, setSelectedPlaceObject] =
     useState<IPlaceSelectedOption | null>(null);
 
-  // Hook
   const { profile, loadingProfile } = useUser();
   const { theme } = useTheme();
   const { getCurrentLocation } = useLocation();
@@ -116,11 +108,9 @@ export default function UserAddressComponent(
   const { isLocationFetching, onSetUserLocation } = useSetUserCurrentLocation();
   const { showToast } = useToast();
 
-  // Context
   const { isLoaded } = useContext(GoogleMapsContext);
   const { cities } = useLocationContext();
 
-  // API
   const [changeUserSelectedAddress, { loading }] = useMutation(SELECT_ADDRESS);
   const [mutate, { loading: modifyingAddressLoading }] = useMutation(
     editAddress?._id ? EDIT_ADDRESS : CREATE_ADDRESS,
@@ -130,13 +120,11 @@ export default function UserAddressComponent(
     }
   );
 
-  // Locatl Storage Constaints
   const hasCurrentLocation = !!onUseLocalStorage(
     "get",
     USER_CURRENT_LOCATION_LS_KEY
   );
 
-  // Memo
   const cities_dropdown = useMemo(() => {
     return cities?.map((city) => {
       return {
@@ -155,7 +143,6 @@ export default function UserAddressComponent(
     []
   );
 
-  // Handlers
   const onHandleEditAddressInit = () => {
     if (!editAddress) return;
 
@@ -194,13 +181,12 @@ export default function UserAddressComponent(
   const paginate = (newDirection: number) => {
     const total = COMPONENTS_LIST.length;
 
-    // Calculate the new index and wrap around using modulo
     let newIndex = index + newDirection;
 
     if (newIndex < 0) {
-      newIndex = total - 1; // go to last item if negative overflow
+      newIndex = total - 1; 
     } else if (newIndex >= total) {
-      newIndex = 0; // go to first item if positive overflow
+      newIndex = 0; 
     }
 
     setIndex([newIndex, newDirection]);
@@ -266,10 +252,10 @@ export default function UserAddressComponent(
     }
 
     setInputValue(formattedAddress);
-    //set isDragged to true to enable save_address button
+
     setIsDragged(true);
-    // setIsDragged(true); // to enable save_address button
-    // console.log("isDragged set to true", isDragged);
+
+
     setUserAddress({
       _id: "",
       deliveryAddress: formattedAddress,
@@ -330,7 +316,6 @@ export default function UserAddressComponent(
     },
   ];
 
-  // Define constants
   const ADDRESS_TYPES = {
     OFFICE: "Office",
     HOUSE: "House",
@@ -354,7 +339,6 @@ export default function UserAddressComponent(
     mutate({ variables: { addressInput } });
   };
 
-  // API Handlers
   function onCompleted({ createAddress, editAddress }) {
     const address_response: IUserAddress = (
       createAddress || editAddress
@@ -411,14 +395,10 @@ export default function UserAddressComponent(
     });
   }
 
-  /*
-  ################
-  Templates
-  ################
-  */
+  
   const CHOOSE_ADDRESS = (
     <div className="w-full space-y-4 flex flex-col items-center">
-      {/* Header */}
+      {}
       <div className="w-full">
         {confirmYourAddress ? (
           <span className="font-inter font-bold text-[25px] tracking-normal">
@@ -566,13 +546,13 @@ export default function UserAddressComponent(
 
   const ADD_ADDRESS = (
     <div className="w-full space-y-2">
-      {/* Header */}
+      {}
       <div className="w-full">
         <span className="font-inter font-semibold text-[18px] tracking-normal">
           {t("Add_new_address")}
         </span>
       </div>
-      {/* Google Maps */}
+      {}
       {isLoaded && (
         <div className="w-full">
           <GoogleMap
@@ -756,13 +736,13 @@ export default function UserAddressComponent(
 
   const EDIT_ADDRESS_UI = (
     <div className="w-full space-y-2">
-      {/* Header */}
+      {}
       <div className="w-full">
         <span className="font-inter font-semibold text-[18px] tracking-normal">
           {t("Add_new_address")}
         </span>
       </div>
-      {/* Google Maps */}
+      {}
       {isLoaded && (
         <div className="w-full">
           <GoogleMap
@@ -955,7 +935,6 @@ export default function UserAddressComponent(
     editAddress ? EDIT_ADDRESS_UI : ADD_ADDRESS,
   ];
 
-  // Effects
   useEffect(() => {
     if (
       !autocompleteService.current &&
@@ -1032,7 +1011,7 @@ export default function UserAddressComponent(
           animate="center"
           exit="exit"
           transition={{ duration: 0.2 }}
-          className="w-full relative flex justify-between px-4 dark:bg-gray-900 dark:text-white" // changed from absolute to relative
+          className="w-full relative flex justify-between px-4 dark:bg-gray-900 dark:text-white" 
         >
           {COMPONENTS_LIST[index]}
         </motion.div>

@@ -19,7 +19,7 @@ export const storeSearch = async (searchTerm) => {
   } catch (error) {
     console.log('Error storing search:', error)
   }
-  return searchesArray; // Return the updated searches array
+  return searchesArray; 
 }
 
 export const getRecentSearches = async () => {

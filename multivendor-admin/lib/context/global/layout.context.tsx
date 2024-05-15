@@ -1,12 +1,9 @@
 'use client';
 
-// Core
 import { createContext, useState, useEffect } from 'react';
 
-// Interface
 import { IProvider } from '@/lib/utils/interfaces';
 
-// Types
 import { LayoutContextProps } from '@/lib/utils/interfaces';
 
 import { onUseLocalStorage } from '@/lib/utils/methods';
@@ -24,7 +21,7 @@ export const LayoutProvider = ({ children }: IProvider) => {
     useState<boolean>(true);
 
   useEffect(() => {
-    // Check if routeStack exists; if not, initialize it as an empty stack
+
     const existingRouteStack = onUseLocalStorage('get', 'routeStack');
     if (!existingRouteStack) {
       onUseLocalStorage('save', 'routeStack', JSON.stringify([]));
@@ -48,13 +45,13 @@ export const LayoutProvider = ({ children }: IProvider) => {
   };
 
   const value: LayoutContextProps = {
-    // Super Admin
+
     isSuperAdminSidebarVisible,
     showSuperAdminSidebar: onShowSuperAdminSidebarHandler,
-    // Restaurant
+
     isRestaurantSidebarVisible,
     showRestaurantSidebar: onShowRestaurantSidebarHandler,
-    // Vendor
+
     isVendorSidebarVisible,
     showVendorSidebar: onShowVendorSidebarHandler,
   };

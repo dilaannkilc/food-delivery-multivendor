@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-// icons
+
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CustomButton from "../button";
@@ -36,7 +36,7 @@ function HomeHeadingSection({
               onClick={onPress}
               className="text-secondary-color transition-colors duration-200 text-sm md:text-base hidden sm:block"
             />
-            {/* Filter Buttons */}
+            {}
             <div className="relative w-8 h-8" onClick={onPress}>
               {(appliedFilters ?? 0) > 0 && (
                 <span className="absolute -top-1 -right-1 bg-secondary-color text-white text-[10px] px-1.5 py-[1px] rounded-full z-10">

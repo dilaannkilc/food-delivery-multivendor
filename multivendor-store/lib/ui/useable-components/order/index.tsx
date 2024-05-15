@@ -11,7 +11,6 @@ import CountdownTimer from "../custom-timer";
 import SpinnerComponent from "../spinner";
 import { TimeLeftIcon } from "../svg";
 
-// Hooks
 import { useApptheme } from "@/lib/context/theme.context";
 import useCancelOrder from "@/lib/hooks/useCancelOrder";
 import useOrderPickedUp from "@/lib/hooks/useOrderPickedUp";
@@ -33,30 +32,25 @@ const Order = ({
   onToggleDetails,
 }: IOrderProps) => {
   if (!order) {
-    return null; // Return early if order is not available
+    return null; 
   }
 
-  // Hooks can be called safely now
   const { appTheme } = useApptheme();
   const configuration = useContext(ConfigurationContext);
   const { t } = useTranslation();
 
   if (!configuration) {
-    return null; // Configuration context is not available yet
+    return null; 
   }
   const { cancelOrder, loading: loadingCancelOrder } = useCancelOrder();
   const { pickedUp, loading: loadingPicked } = useOrderPickedUp();
 
-  // Ref
   const timer = useRef<NodeJS.Timeout>();
 
-  // States
   const [isAcceptButtonVisible, setIsAcceptButtonVisible] = useState(
     getIsAcceptButtonVisible(order?.orderDate),
   );
 
-
-  // Timer
   const timeNow = new Date();
   const date = new Date(order.orderDate);
   const acceptanceTime = moment(date).diff(timeNow, "seconds");
@@ -65,7 +59,6 @@ const Order = ({
     .add(MAX_TIME, "seconds")
     .diff(timeNow, "seconds");
 
-  // Preparation Time
   const prep = new Date(order.preparationTime ?? "2023-08-16T08:00:00.000Z");
   const diffTime = prep.getTime() - timeNow.getTime();
   const totalPrep = diffTime > 0 ? diffTime / 1000 : 0;
@@ -80,7 +73,6 @@ const Order = ({
     remainingTime = 0;
   }
 
-  // Handlers
   const onCancelOrderHandler = () => {
     cancelOrder(order._id, "not available");
   };
@@ -89,7 +81,6 @@ const Order = ({
     pickedUp(order._id);
   };
 
-  // Use Effects
   useEffect(() => {
     let isSubscribed = true;
     (() => {
@@ -119,7 +110,7 @@ const Order = ({
           borderColor: appTheme.borderLineColor,
         }}
       >
-        {/* Status */}
+        {}
         <View className="flex-1 flex-row justify-between items-center">
           <Text
             style={{
@@ -156,7 +147,7 @@ const Order = ({
           </View>
         </View>
 
-        {/* Order ID */}
+        {}
         <View className="flex-1 flex-row justify-between items-center">
           <Text
             style={{
@@ -179,7 +170,7 @@ const Order = ({
           </Text>
         </View>
 
-        {/* Order Items */}
+        {}
         <View className="flex-1 flex-row justify-between items-center">
           <Text
             style={{
@@ -203,7 +194,7 @@ const Order = ({
 
         <View>
           {order?.items?.filter(Boolean).map((item) => {
-            // Ensure variation is an object, default to empty if undefined.
+
             const variation = item.variation || {};
             const itemPrice = variation.price ?? 0;
             const itemTotal = itemPrice * (item.quantity ?? 1);
@@ -213,9 +204,9 @@ const Order = ({
                 key={item._id}
                 className="flex-1 flex-row justify-between items-start mb-6"
               >
-                {/* Left Side: Image and Details */}
+                {}
                 <View className="flex-row gap-x-2 flex-1">
-                  {/* Image */}
+                  {}
                   <View
                     className="w-[60px] h-[70px] rounded-[8px] overflow-hidden"
                     style={{
@@ -228,7 +219,7 @@ const Order = ({
                     />
                   </View>
 
-                  {/* Item Details */}
+                  {}
                   <View className="flex-1 justify-between">
                     <View>
                       <Text
@@ -258,7 +249,7 @@ const Order = ({
                       </Text>
                     </View>
 
-                    {/* Toggle and Collapsible Details */}
+                    {}
                     <View className="mt-2">
                       {(variation.title || (item?.addons && item?.addons.length > 0)) && (
                         <TouchableOpacity
@@ -341,7 +332,7 @@ const Order = ({
                   </View>
                 </View>
 
-                {/* Right Side: Price */}
+                {}
                 <View className="w-auto items-end">
                   <Text style={{ color: appTheme.fontMainColor, fontWeight: "600" }}>
                     {`${configuration?.currencySymbol}${itemTotal.toFixed(2)}`}
@@ -352,13 +343,13 @@ const Order = ({
           })}
         </View>
 
-        {/* Divider */}
+        {}
         <View
           className="h-0.5 mb-4 mt-4"
           style={{ backgroundColor: appTheme.borderLineColor }}
         />
 
-        {/* Sub Total */}
+        {}
         <View className="flex-row justify-between">
           <Text
             style={{
@@ -381,7 +372,7 @@ const Order = ({
           </Text>
         </View>
 
-        {/* Tip */}
+        {}
         <View className="flex-row justify-between">
           <Text
             style={{
@@ -404,7 +395,7 @@ const Order = ({
           </Text>
         </View>
 
-        {/* Tax */}
+        {}
         <View className="flex-row justify-between">
           <Text
             style={{
@@ -427,7 +418,7 @@ const Order = ({
           </Text>
         </View>
 
-        {/* Discount Amount */}
+        {}
         {order?.discountAmount > 0 && (         
         <View className="flex-row justify-between">
           <Text
@@ -452,7 +443,7 @@ const Order = ({
         </View>
         )}
 
-        {/* Delivery */}
+        {}
         {!order?.isPickedUp && <View className="flex-row justify-between">
           <Text
             style={{
@@ -475,7 +466,7 @@ const Order = ({
           </Text>
         </View>}
 
-        {/* Total Amount */}
+        {}
         <View className="flex-row justify-between">
           <Text
             style={{
@@ -498,7 +489,7 @@ const Order = ({
           </Text>
         </View>
 
-        {/* Order Instructions */}
+        {}
         {order?.instructions && (
           <View
             className="rounded-[4px] p-2"
@@ -526,11 +517,11 @@ const Order = ({
           </View>
         )}
 
-        {/* New Order */}
+        {}
         {order?.orderStatus === "PENDING" && (
           <View>
             <View className="flex-row gap-x-4 w-full mt-10">
-              {/* Decline */}
+              {}
               <TouchableOpacity
                 className="flex-1 h-16 items-center justify-center rounded-[30px]"
                 style={{ borderWidth: 1, borderColor: "#ef4444" }}
@@ -551,7 +542,7 @@ const Order = ({
                 )}
               </TouchableOpacity>
 
-              {/* Accept */}
+              {}
               {handlePresentModalPress && (
                 <TouchableOpacity
                   className="flex-1 h-16 items-center justify-center rounded-[30px]"
@@ -577,7 +568,7 @@ const Order = ({
           </View>
         )}
 
-        {/* Processing */}
+        {}
         {["ACCEPTED", "ASSIGNED", "PICKED"].includes(
           order?.orderStatus ?? "",
         ) && (
@@ -603,35 +594,13 @@ const Order = ({
 
             {order.orderStatus === "ASSIGNED" && (
               <View className="flex-row gap-x-4 w-full mt-10">
-                {/* Hand Order to Rider */}
-                {/* <TouchableOpacity
-                  className="flex-1 h-16 items-center justify-center rounded-[30px]"
-                  style={{
-                    backgroundColor: appTheme.primary,
-                    borderWidth: 1,
-                    borderColor: appTheme.primary,
-                  }}
-                  onPress={() => onPickupOrder()}
-                >
-                  {loadingPicked ? (
-                    <SpinnerComponent color={appTheme.white} />
-                  ) : (
-                    <Text
-                      style={{
-                        color: appTheme.white,
-                        fontSize: 18,
-                        fontWeight: "500",
-                      }}
-                    >
-                      {t("Hand Order to Rider")}
-                    </Text>
-                  )}
-                </TouchableOpacity> */}
+                {}
+                {}
               </View>
             )}
             {order.orderStatus === "ACCEPTED" && order.isPickedUp && (
               <View className="flex-row gap-x-4 w-full mt-10">
-                {/* Hand Order to Rider */}
+                {}
                 <TouchableOpacity
                   className="flex-1 h-16 items-center justify-center rounded-[30px]"
                   style={{

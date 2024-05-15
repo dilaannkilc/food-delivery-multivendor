@@ -35,7 +35,7 @@ function PhoneNumber(props) {
   return (
     <SafeAreaView edges={['bottom', 'left', 'right']} style={[styles().flex, { backgroundColor: currentTheme.themeBackground }]}>
       <KeyboardAvoidingView
-        // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+
         style={styles().flex}
       >
         <ScrollView style={styles().flex} contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false} alwaysBounceVertical={false}>
@@ -80,7 +80,7 @@ function PhoneNumber(props) {
                         <>
                           <CountryPicker countryCode={countryCode} onSelect={(country) => onCountrySelect(country)} withAlphaFilter withFilter />
                           <TextDefault textColor={currentTheme.newFontcolor} style={{ marginTop: Platform.OS === 'android' ? 8 : 10 }}>
-                            {/* {country?.cca2} */}+{country?.callingCode[0]}
+                            {}+{country?.callingCode[0]}
                           </TextDefault>
                         </>
                     }

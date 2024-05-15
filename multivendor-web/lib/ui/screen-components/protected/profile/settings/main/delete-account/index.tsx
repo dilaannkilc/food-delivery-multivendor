@@ -16,7 +16,7 @@ export default function DeleteAccountDialog({
   setDeleteReason,
   loading = false,
 }: IDeleteAccountDialogProps) {
-  const [screenWidth, setScreenWidth] = useState(1024); // Default to desktop size
+  const [screenWidth, setScreenWidth] = useState(1024); 
 
   const t = useTranslations();
   const reasonOptions = [
@@ -31,7 +31,7 @@ export default function DeleteAccountDialog({
   ];
 
   useEffect(() => {
-    // Only run in browser environment
+
     if (typeof window !== "undefined") {
       setScreenWidth(window.innerWidth);
 
@@ -52,7 +52,7 @@ export default function DeleteAccountDialog({
       className="delete-account-dialog md:h-[710px]"
     >
       <div className="p-6 flex flex-col items-center">
-        {/* Illustration */}
+        {}
         <div className="relative">
           <LaptopSvg
             height={screenWidth < 768 ? 300 : 380}
@@ -61,12 +61,12 @@ export default function DeleteAccountDialog({
           />
         </div>
 
-        {/* Title */}
+        {}
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 self-start">
           {t("delete_account_title")}
         </h2>
 
-        {/* Message */}
+        {}
         <p className="text-gray-700 dark:text-gray-300 text-start mb-6 text-xl">
           {userName} {t("delete_account_message")}
         </p>
@@ -122,7 +122,7 @@ export default function DeleteAccountDialog({
 
         </div>
 
-        {/* Buttons */}
+        {}
         <div className="flex w-full gap-4">
           <CustomButton
             label={t("cancel_label")}

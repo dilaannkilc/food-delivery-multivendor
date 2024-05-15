@@ -1,11 +1,10 @@
-// Expo
+
 import { Stack } from "expo-router";
 
-// Hooks
 import { useTranslation } from "react-i18next";
 
 export default function ProfileLayout() {
-  // Hooks
+
   const { t } = useTranslation();
   return (
     <Stack

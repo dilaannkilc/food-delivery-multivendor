@@ -32,7 +32,7 @@ export const ProfileProvider: React.FC<IProfileProviderProps> = ({
       fetchPolicy: 'network-only',
       debounceMs: 300,
       onCompleted: () => {
-        // You can perform any actions with the fetched data here
+
       },
       onError: () => {
         showToast({

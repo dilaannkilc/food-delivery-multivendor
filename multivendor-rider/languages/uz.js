@@ -1,12 +1,11 @@
 export const uz = {
-  // Navigation
+
   continue: "Davom etish",
   Wallet: "Hamyon",
   Home: "Bosh sahifa",
   Earnings: "Daromad",
   Profile: "Profil",
 
-  // FAQs
   faq1: "Buyurtmani qanday berish mumkin?",
   faq1Description:
     "Buyurtma berish uchun menyumiz orqali ko'rib chiqing, buyurtma bermoqchi bo'lgan mahsulotlarni tanlang va to'lovga o'ting. Buyurtmangizni tasdiqlashdan oldin o'zingizning yoqtirgan to'lov usulingiz va yetkazib berish manzilingizni tanlashingiz mumkin.",
@@ -29,7 +28,6 @@ export const uz = {
   faq7Description:
     "Afsuski, bir xil buyurtma ichida bir nechta restorandan tanlov qila olmaysiz. Biroq, bir vaqtning o'zida turli restoranlardan alohida buyurtma berishingiz mumkin.",
 
-  // Earnings
   "Earnings Summary": "Daromad Xulosasi",
   Deliveries: "Yetkazib berishlar",
   "Total Earnings": "Jami Daromad",
@@ -39,13 +37,11 @@ export const uz = {
   "Order Date": "Buyurtma Sanasi",
   "Earnings Order Details": "Daromad Buyurtma Tafsilotlari",
 
-  // Flash messages
   "Order placed successfully": "Buyurtma muvaffaqiyatli berildi",
   "Order cancelled successfully": "Buyurtma muvaffaqiyatli bekor qilindi",
   "Error while placing order": "Buyurtma berishda xatolik",
   "Error while cancelling order": "Buyurtmani bekor qilishda xatolik",
 
-  // Other messages
   "Please enter your name": "Iltimos, ismingizni kiriting",
   "Please enter your email": "Iltimos, elektron pochtangizni kiriting",
   "Please enter your password": "Iltimos, parolingizni kiriting",
@@ -238,7 +234,7 @@ export const uz = {
   "No new orders yet!": "Hali yangi buyurtmalar yo'q!",
   "You don't have any orders yet!": "Sizda hali buyurtmalar yo'q!",
   "No delivered orders yet!": "Hali yetkazib berilgan buyurtmalar yo'q!",
-  // Vehicle Screen
+
   "Vehicle Details": "Transport Vositasi Tafsilotlari",
   "Vehicle Number": "Transport Vositasi Raqami",
   "Vehicle Color": "Transport Vositasi Rangi",
@@ -285,21 +281,18 @@ export const uz = {
   "Vehicle documents too large": "Transport vositasi hujjatlari juda katta",
   "Vehicle documents format not supported": "Transport vositasi hujjatlari formati qo'llab-quvvatlanmaydi",
 
-  // Chat Screen
   "Contact Customer": "Mijoz bilan Bog'lanish",
   "Type a message": "Xabar yozing",
   "Send": "Yuborish",
   "Message sent": "Xabar yuborildi",
   "Message failed": "Xabar yuborilmadi",
 
-  // Earnings Screen
   "Please select a date range": "Iltimos, sana oralig'ini tanlang",
   "Please select a start date": "Iltimos, boshlanish sanasini tanlang",
   "Please select an end date": "Iltimos, tugash sanasini tanlang",
   "Start date cannot be after end date": "Boshlanish sanasi tugash sanasidan keyin bo'lishi mumkin emas",
   "Please log in to view your earnings": "Daromadingizni ko'rish uchun iltimos, tizimga kiring",
 
-  // Profile Forms
   "Unable to update availability": "Mavjudlikni yangilab bo'lmadi",
   "rider name": "Kuryer Ismi",
   "rider id": "Kuryer ID",

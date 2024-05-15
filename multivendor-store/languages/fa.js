@@ -1,12 +1,11 @@
 export const fa = {
-  // Navigation
+
   continue: "ادامه",
   Wallet: "کیف پول",
   Home: "خانه",
   Earnings: "درآمد",
   Profile: "پروفایل",
 
-  // FAQs
   faq1: "چطور می‌توانم سفارش ثبت کنم؟",
   faq1Description:
     "برای ثبت سفارش، کافیست منوی ما را ببینید، موارد مورد نظر خود را انتخاب کرده و به پرداخت بروید. قبل از تأیید سفارش می‌توانید روش پرداخت و آدرس تحویل مورد نظر خود را انتخاب کنید.",
@@ -29,7 +28,6 @@ export const fa = {
   faq7Description:
     "متأسفانه نمی‌توانید در یک سفارش از چندین رستوران انتخاب کنید. با این حال، می‌توانید همزمان سفارش‌های جداگانه از رستوران‌های مختلف ثبت کنید.",
 
-  // Earnings
   "Earnings Summary": "خلاصه درآمد",
   Deliveries: "تحویل‌ها",
   "Total Earnings": "کل درآمد",
@@ -39,13 +37,11 @@ export const fa = {
   "Order Date": "تاریخ سفارش",
   "Earnings Order Details": "جزئیات سفارش درآمد",
 
-  // Flash messages
   "Order placed successfully": "سفارش با موفقیت ثبت شد",
   "Order cancelled successfully": "سفارش با موفقیت لغو شد",
   "Error while placing order": "خطا در ثبت سفارش",
   "Error while cancelling order": "خطا در لغو سفارش",
 
-  // Other messages
   "Please enter your name": "لطفاً نام خود را وارد کنید",
   "Please enter your email": "لطفاً ایمیل خود را وارد کنید",
   "Please enter your password": "لطفاً رمز عبور خود را وارد کنید",

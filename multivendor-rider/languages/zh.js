@@ -1,12 +1,11 @@
 export const zh = {
-  // 导航
+
   continue: "继续",
   Wallet: "钱包",
   Home: "主页",
   Earnings: "收入",
   Profile: "个人资料",
 
-  // 常见问题
   faq1: "我如何下订单？",
   faq1Description:
     "要下订单，只需浏览我们的菜单，选择您想要的商品，然后继续结账。在确认订单之前，您可以选择首选的支付方式和送货地址。",
@@ -29,7 +28,6 @@ export const zh = {
   faq7Description:
     "很遗憾，您无法在同一个订单中选择多个餐厅。但是，您可以同时从不同的餐厅下多个订单。",
 
-  // 收入
   "Earnings Summary": "收入概览",
   Deliveries: "配送",
   "Total Earnings": "总收入",
@@ -39,13 +37,11 @@ export const zh = {
   "Order Date": "订单日期",
   "Earnings Order Details": "收入订单详情",
 
-  // 快速消息
   "Order placed successfully": "订单成功下单",
   "Order cancelled successfully": "订单取消成功",
   "Error while placing order": "下单时出错",
   "Error while cancelling order": "取消订单时出错",
 
-  // 其他信息
   "Please enter your name": "请输入您的姓名",
   "Please enter your email": "请输入您的电子邮件",
   "Please enter your password": "请输入您的密码",
@@ -244,7 +240,6 @@ export const zh = {
   "You don't have any orders yet!": "您还没有任何订单！",
   "No delivered orders yet!": "暂无已送达订单！",
 
-  // Chat Screen
   "Contact Customer": "联系客户",
   "Type a message": "输入消息",
   "Send": "发送",
@@ -256,7 +251,7 @@ export const zh = {
   "Start date cannot be after end date": "开始日期不能晚于结束日期",
   "Please log in to view your earnings": "请登录查看您的收入",
   "Tips": "小费",
-  // Profile Forms
+
   "Unable to update availability": "无法更新可用性",
   "rider name": "骑手姓名",
   "rider id": "骑手ID",

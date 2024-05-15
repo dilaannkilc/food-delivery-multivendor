@@ -1,11 +1,10 @@
-// Interfaces
+
 import { IEarningStackProps } from "@/lib/utils/interfaces/earning.interface";
-// SVG
+
 import { RightChevron } from "@/lib/ui/useable-components/svg";
 
 import { useTranslation } from "react-i18next";
 
-// Core
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { Text, TouchableOpacity, View } from "react-native";
 
@@ -18,11 +17,10 @@ export default function EarningStack({
   tip,
   totalDeliveries,
 }: IEarningStackProps) {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
-  // Handlers
   function handleForwardPress() {
     setModalVisible({
       bool: true,

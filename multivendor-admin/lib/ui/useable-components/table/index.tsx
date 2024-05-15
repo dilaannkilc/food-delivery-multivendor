@@ -1,10 +1,9 @@
-// Interface and Types
+
 import {
   IDataTableProps,
   ITableExtends,
 } from '@/lib/utils/interfaces/table.interface';
 
-// Prime React
 import { Column } from 'primereact/column';
 import {
   DataTable,
@@ -32,7 +31,7 @@ const Table = <T extends ITableExtends>({
   className,
   scrollable = true,
   scrollHeight = '420px',
-  // Server-side pagination props
+
   totalRecords,
   onPageChange,
   currentPage = 1,
@@ -47,13 +46,11 @@ const Table = <T extends ITableExtends>({
     }
   };
 
-  // Hooks
   const t = useTranslations();
 
-  // Handlers
   const handlePageChange = (event: DataTablePageEvent) => {
     if (onPageChange) {
-      // Calculate page number (PrimeReact uses 0-based indexing for first)
+
       const page = Math.floor(event.first / event.rows) + 1;
       onPageChange(page, event.rows);
     }
@@ -76,7 +73,6 @@ const Table = <T extends ITableExtends>({
     return `${className} ${handleRowClick ? 'hover-clickable-row' : ''}`;
   };
 
-  // Prepare pagination props based on server pagination status
   const paginationProps = isServerPaginated
     ? {
         lazy: true,

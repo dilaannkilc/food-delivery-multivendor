@@ -1,39 +1,35 @@
-// core
+
 import React, { useCallback, useState } from "react";
-// card component
+
 import Card from "@/lib/ui/useable-components/card";
-// loading skeleton
+
 import SliderSkeleton from "@/lib/ui/useable-components/custom-skeletons/slider.loading.skeleton";
-// useParams
+
 import { useParams } from "next/navigation";
-// heading component
+
 import HomeHeadingSection from "@/lib/ui/useable-components/home-heading-section";
-// interface
+
 import { IRestaurant } from "@/lib/utils/interfaces/restaurants.interface";
-// hooks
+
 import useNearByRestaurantsPreview from "@/lib/hooks/useNearByRestaurantsPreview";
 
 function CuisineSelectionSection() {
   const params = useParams() as Record<string, string | string[]>;
 
-  // Safely pick the dynamic segment (supports /category/[id], /[slug], etc.)
   const pickParam = (key: string) =>
     Array.isArray(params[key]) ? (params[key] as string[])[0] : (params[key] as string | undefined);
 
   const rawParam =
-    pickParam("category") ?? // e.g., /category/[id]
-    pickParam("slug") ??     // e.g., /cuisine/[slug]
-    pickParam("id") ??       // fallback if route uses [id]
+    pickParam("category") ?? 
+    pickParam("slug") ??     
+    pickParam("id") ??       
     "";
 
-  // Decode `%D7%...` etc. and prepare human-readable slug
   const decoded = decodeURIComponent(rawParam);
   const slugWithSpaces = decoded.replace(/-/g, " ").trim();
 
-  // Normalize for reliable matching across scripts (Hebrew, etc.)
   const normalizedSlug = slugWithSpaces.normalize("NFKC").toLocaleLowerCase();
 
-  // Title (avoid forcing Latin-style capitalization)
   const title = `${slugWithSpaces} near you`;
 
   const [isModalOpen, setIsModalOpen] = useState({ value: false, id: "" });

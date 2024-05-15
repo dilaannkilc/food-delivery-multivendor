@@ -34,21 +34,21 @@ const styles = (props = null) => {
     activeLabel: {
       flex: 1,
       justifyContent: 'flex-end',
-      // borderBottomWidth: 1,
-      // borderBottomColor: props !== null ? props.tagColor : 'transparent',
+
+
       height: scale(35),
       alignItems: 'center'
-      // marginRight: scale(-15),
+
     },
     labelButton: {
       flex: 1,
-      // borderWidth: StyleSheet.hairlineWidth,
-      // borderColor: props !== null ? props.horizontalLine : 'transparent',
+
+
       justifyContent: 'flex-end',
       height: scale(35),
       alignItems: 'center',
       borderRadius: scale(10)
-      // marginRight: scale(-15),
+
     },
     iosDateFormat: {
       fontSize: 16

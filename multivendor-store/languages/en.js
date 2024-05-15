@@ -1,12 +1,11 @@
 export const en = {
-  // Navigation
+
   continue: "Continue",
   Wallet: "Wallet",
   Home: "Home",
   Earnings: "Earnings",
   Profile: "Profile",
 
-  // FAQs
   faq1: "How do I place an order?",
   faq1Description:
     "To place an order, simply browse through our menu, select the items you'd like to order, and proceed to checkout. You can choose your preferred payment method and delivery address before confirming your order.",
@@ -29,7 +28,6 @@ export const en = {
   faq7Description:
     "Unfortunately, you can't choose from multiple restaurants within the same order. However, you can place separate orders from different restaurants at the same time.",
 
-  // Earnings
   "Earnings Summary": "Earnings Summary",
   Deliveries: "Deliveries",
   "Total Earnings": "Total Earnings",
@@ -39,13 +37,11 @@ export const en = {
   "Order Date": "Order Date",
   "Earnings Order Details": "Earnings Order Details",
 
-  // Flash messages
   "Order placed successfully": "Order placed successfully",
   "Order cancelled successfully": "Order cancelled successfully",
   "Error while placing order": "Error while placing order",
   "Error while cancelling order": "Error while cancelling order",
 
-  // Other messages
   "Please enter your name": "Please enter your name",
   "Please enter your email": "Please enter your email",
   "Please enter your password": "Please enter your password",

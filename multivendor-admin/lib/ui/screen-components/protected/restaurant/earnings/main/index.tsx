@@ -19,10 +19,9 @@ import useDebounce from '@/lib/hooks/useDebounce';
 export default function EarningsRestaurantMain({
   setTotalEarnings,
 }: IEarningsRestaurantMainComponentProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const [selectedEarnings, setSelectedEarnings] = useState<IEarning[]>([]);
   const [globalFilterValue, setGlobalFilterValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,7 +33,6 @@ export default function EarningsRestaurantMain({
     },
   });
 
-  // Hooks
   const debouncedSearch = useDebounce(globalFilterValue);
 
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
@@ -71,7 +69,6 @@ export default function EarningsRestaurantMain({
     },
   });
 
-  // Global search handler
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const _filters = { ...filters };
@@ -80,7 +77,6 @@ export default function EarningsRestaurantMain({
     setGlobalFilterValue(value);
   };
 
-  // Handle page change
   const onPageChange = (page: number, size: number) => {
     setCurrentPage(page);
     setPageSize(size);
@@ -90,8 +86,8 @@ export default function EarningsRestaurantMain({
     {
       label: t('View Details'),
       command: () => {
-        // Handle view details action
-        // console.log('View details for:', data); removing consoles please uncomment when continuing
+
+
       },
     },
   ];

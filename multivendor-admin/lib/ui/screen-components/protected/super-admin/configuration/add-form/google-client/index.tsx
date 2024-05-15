@@ -1,24 +1,18 @@
 'use client';
-// Core
+
 import { Form, Formik } from 'formik';
 
-// Components
 import ConfigCard from '../../view/card';
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 
-// Toast
 import useToast from '@/lib/hooks/useToast';
 
-// Hooks
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Interfaces and Types
 import { IGoogleClientForm } from '@/lib/utils/interfaces/configurations.interface';
 
-// Utils and Constants
 import { GoogleClientValidationSchema } from '@/lib/utils/schema';
 
-// GraphQL
 import {
   GET_CONFIGURATION,
   SAVE_GOOGLE_CLIENT_ID_CONFIGURATION,
@@ -34,7 +28,6 @@ const GoogleClientAddForm = () => {
   } = useConfiguration();
   const { showToast } = useToast();
 
-  // Set initial values using the configuration
   const initialValues = {
     webClientID: GOOGLE_CLIENT_ID || '',
     androidClientID: GOOGLE_CLIENT_ID_ANDRIOD || '',

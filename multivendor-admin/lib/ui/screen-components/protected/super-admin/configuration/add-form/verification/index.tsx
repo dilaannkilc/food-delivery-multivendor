@@ -1,20 +1,15 @@
 'use client';
-// Core
+
 import { Form, Formik } from 'formik';
 
-// Components
 import ConfigCard from '../../view/card';
 
-// Toast
 import useToast from '@/lib/hooks/useToast';
 
-// Hooks
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 
-// Interfaces and Types
 import { IVerificationConfigForm } from '@/lib/utils/interfaces/configurations.interface';
 
-// GraphQL
 import {
   GET_CONFIGURATION,
   SAVE_VERIFICATION_CONFIGURATION,
@@ -23,7 +18,7 @@ import { useMutation } from '@apollo/client';
 import CustomInputSwitch from '@/lib/ui/useable-components/custom-input-switch';
 
 const VerificationAddForm = () => {
-  // Hooks
+
   const {
     SKIP_EMAIL_VERIFICATION,
     SKIP_MOBILE_VERIFICATION,
@@ -31,14 +26,12 @@ const VerificationAddForm = () => {
   } = useConfiguration();
   const { showToast } = useToast();
 
-  // Set initial values using the useConfiguration hook
   const initialValues = {
     skipEmailVerification: SKIP_EMAIL_VERIFICATION ?? false,
     skipMobileVerification: SKIP_MOBILE_VERIFICATION ?? false,
     skipWhatsAppOTP: SKIP_WHATSAPP_OTP ?? false,
   };
 
-  // Mutation for saving the app configuration
   const [mutate, { loading: mutationLoading }] = useMutation(
     SAVE_VERIFICATION_CONFIGURATION,
     {
@@ -46,7 +39,6 @@ const VerificationAddForm = () => {
     }
   );
 
-  // Handle form submission
   const handleSubmit = (values: IVerificationConfigForm) => {
     mutate({
       variables: {

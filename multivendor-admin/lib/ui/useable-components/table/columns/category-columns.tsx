@@ -16,7 +16,6 @@ interface ColumnDefinition {
   body?: (data: ICategory) => ReactNode;
 }
 
-// Component for the subcategory column
 const SubcategoryCell = ({ categoryId }: { categoryId: string }) => {
   const [subcategories, setSubcategories] = useState<ISubCategory[]>([]);
   const { data, loading } = useQueryGQL(
@@ -60,12 +59,9 @@ export const CATEGORY_TABLE_COLUMNS = ({
     }>
   >;
 }) => {
-  // Hooks
+
   const t = useTranslations();
 
-
-
-  // Define base columns
   const columns: ColumnDefinition[] = [];
 
   if (shopType === 'grocery') {
@@ -82,9 +78,7 @@ export const CATEGORY_TABLE_COLUMNS = ({
     })
   }
   columns.push({ headerName: t('Title'), propertyName: 'title' })
-  
-  
-  // Add subcategories column if shop type is grocery
+
   if (shopType === 'grocery') {
     columns.push({
       headerName: t('Subcategories'),
@@ -92,8 +86,7 @@ export const CATEGORY_TABLE_COLUMNS = ({
       body: (category: ICategory) => <SubcategoryCell categoryId={category._id} />
     });
   }
-  
-  // Add actions column
+
   columns.push({
     propertyName: 'actions',
     headerName: '',

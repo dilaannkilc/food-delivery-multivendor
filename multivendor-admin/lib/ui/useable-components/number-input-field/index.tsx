@@ -1,11 +1,9 @@
-// Interfaces
+
 import { INumberTextFieldProps } from '@/lib/utils/interfaces';
 
-// Prime React
 import { InputNumber, InputNumberChangeEvent } from 'primereact/inputnumber';
 import InputSkeleton from '../custom-skeletons/inputfield.skeleton';
 
-// Hooks
 import useToast from '@/lib/hooks/useToast';
 
 export default function CustomNumberField({
@@ -21,7 +19,7 @@ export default function CustomNumberField({
   max,
   ...props
 }: INumberTextFieldProps) {
-  // Toast
+
   const { showToast } = useToast();
 
   const onNumberChangeHandler = (e: InputNumberChangeEvent) => {
@@ -58,7 +56,7 @@ export default function CustomNumberField({
                 'As Discount is a %age field, please choose a value from 0 to 100.',
             });
           }
-          // prevent floating point numbers. only allow numbers
+
           if ((e.key === '.' || e.key === 'e' || e.key === '-')) {
             e.preventDefault();
           }

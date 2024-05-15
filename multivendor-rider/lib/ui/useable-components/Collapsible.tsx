@@ -10,10 +10,9 @@ export function Collapsible({
   children,
   title,
 }: PropsWithChildren & { title: string }) {
-  // States
+
   const [isOpen, setIsOpen] = useState(false);
 
-  // Hooks
   const { appTheme } = useApptheme();
   return (
     <ThemedView>

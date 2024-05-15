@@ -1,9 +1,8 @@
-// Core
+
 import { Formik } from "formik";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-// React Native
 import {
   KeyboardAvoidingView,
   Platform,
@@ -14,20 +13,14 @@ import {
   View,
 } from "react-native";
 
-// Components
 
-// Icon
 import { FontAwesome, FontAwesome6 } from '@expo/vector-icons';
 
-
-// Schemas
 import { SignInSchema } from "@/lib/utils/schema";
 import { useTranslation } from "react-i18next";
 
-// Hooks
 import useLogin from "@/lib/hooks/useLogin";
 
-// Interface
 import setupApollo from "@/lib/apollo";
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { ILoginInitialValues } from "@/lib/utils/interfaces";
@@ -40,20 +33,18 @@ const initial: ILoginInitialValues = {
 };
 
 const LoginScreen = () => {
-  // States
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [initialValues, setInitialValues] = useState(initial);
 
-  // Hooks
   const { appTheme } = useApptheme();
   const client = setupApollo();
   const { t } = useTranslation();
   const { onLogin, creds, isLogging } = useLogin();
   const [loading, setLoading] = useState(false);
 
-  // Handlers
   const onLoginHandler = async (creds: ILoginInitialValues) => {
-    // TODO: Implement login logic
+
     try {
       setLoading(true);
       await onLogin(creds.username.toLowerCase(), creds.password);
@@ -77,7 +68,6 @@ const LoginScreen = () => {
     }
   };
 
-  // Use Effect
   useEffect(() => {
     onInit();
   }, [creds]);
@@ -99,7 +89,7 @@ const LoginScreen = () => {
       <SafeAreaView>
         <ScrollView
           showsVerticalScrollIndicator={false}
-        // contentContainerStyle={{ height: height * 1 }}
+
         >
           <Formik
             initialValues={initialValues}
@@ -110,14 +100,14 @@ const LoginScreen = () => {
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => {
               return (
                 <View className="mt-24 p-5 items-center justify-between gap-y-2">
-                  {/* Icon */}
+                  {}
                   <FontAwesome
                     name="envelope"
                     size={30}
                     color={appTheme.fontMainColor}
                   />
 
-                  {/* Title */}
+                  {}
                   <Text
                     className="text-center text-xl font-semibold "
                     style={{ color: appTheme.fontMainColor }}
@@ -131,7 +121,7 @@ const LoginScreen = () => {
                     {t("We'll check if you have an account")}
                   </Text>
 
-                  {/* Email Input */}
+                  {}
 
                   <View
                     className="flex-row items-center border rounded-lg px-3  mb-[-4]"
@@ -158,7 +148,7 @@ const LoginScreen = () => {
                     </Text>
                   )}
 
-                  {/* Password Input */}
+                  {}
                   <View
                     className="flex-row items-center border  rounded-lg px-3  mb-[-4]"
                     style={{
@@ -194,27 +184,13 @@ const LoginScreen = () => {
                     </Text>
                   )}
 
-                  {/* Login Button */}
+                  {}
                   <CustomContinueButton
                     title={t("Login")}
                     onPress={() => handleSubmit()}
                     className="self-center"
                   />
-                  {/* <TouchableOpacity
-                    className="h-12 rounded-3xl py-2 mt-10 w-full"
-                    style={{ backgroundColor: appTheme.primary }}
-                    onPress={() => handleSubmit()}
-                  >
-                    {isLogging ?
-                      <SpinnerComponent />
-                    : <Text
-                        className="text-center text-lg font-medium"
-                        style={{ color: appTheme.black }}
-                      >
-                        {t("Login")}
-                      </Text>
-                    }
-                  </TouchableOpacity> */}
+                  {}
                 </View>
               );
             }}

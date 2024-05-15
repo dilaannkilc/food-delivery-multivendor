@@ -30,10 +30,8 @@ export default function UpdateBusinessDetails({
     order: -1,
   };
 
-  // Hooks
   const t = useTranslations();
 
-  // Contexts
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const { restaurantId } = restaurantLayoutContextData;
 

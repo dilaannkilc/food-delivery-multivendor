@@ -1,19 +1,15 @@
 'use client';
 
-// Core
 import React, { useCallback, useEffect, useState } from 'react';
 
-// Interfaces§
 import {
   IConfiguration,
   IConfigurationProviderProps,
   ILazyQueryResult,
 } from '@/lib/utils/interfaces';
 
-// API
 import { GET_CONFIGURATION } from '@/lib/api/graphql';
 
-// Hooks
 import { useLazyQueryQL } from '@/lib/hooks/useLazyQueryQL';
 
 export const ConfigurationContext = React.createContext<
@@ -88,7 +84,7 @@ export const ConfigurationProvider: React.FC<IConfigurationProviderProps> = ({
   const [configuration, setConfiguration] = useState<
     IConfiguration | undefined
   >();
-  // API
+
 
   const { fetch, loading, error, data } = useLazyQueryQL(GET_CONFIGURATION, {
     debounceMs: 300,
@@ -97,7 +93,6 @@ export const ConfigurationProvider: React.FC<IConfigurationProviderProps> = ({
     undefined
   >;
 
-  // Handlers
   const onFetchConfiguration = () => {
     const configuration: IConfiguration | undefined =
       loading || error || !data
@@ -171,7 +166,6 @@ export const ConfigurationProvider: React.FC<IConfigurationProviderProps> = ({
     fetch();
   }, [fetch]);
 
-  // Use Effect
   useEffect(() => {
     fetchConfiguration();
   }, []);

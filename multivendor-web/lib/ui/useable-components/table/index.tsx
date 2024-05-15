@@ -1,7 +1,6 @@
-// Interface and Types
+
 import { IDataTableProps, ITableExtends } from "@/lib/utils/interfaces";
 
-// Prime React
 import { Column } from "primereact/column";
 import {
   DataTable,
@@ -26,12 +25,12 @@ const Table = <T extends ITableExtends>({
   rowsPerPage = 10,
   onPage,
   className,
-  // For Store table
+
   sortField,
   sortOrder,
   scrollable = true,
   scrollHeight = "420px",
-  // New pagination props
+
   totalRecords,
   onPageChange,
   currentPage = 1,
@@ -42,13 +41,11 @@ const Table = <T extends ITableExtends>({
     setSelectedData(e.value);
   };
 
-  // Hooks
   const t = useTranslations();
 
-  // Handlers
   const handlePageChange = (event: DataTablePageEvent) => {
     if (onPageChange) {
-      // Add 1 to first because PrimeReact uses 0-based indexing for pages
+
       const page = Math.floor(event.first / event.rows) + 1;
       onPageChange(page, event.rows);
     }
@@ -71,7 +68,6 @@ const Table = <T extends ITableExtends>({
     return `${className} ${handleRowClick ? "hover-clickable-row" : ""}`;
   };
 
-  // Prepare pagination props based on server pagination status
   const paginationProps =
     isServerPaginated ?
       {
@@ -112,7 +108,7 @@ const Table = <T extends ITableExtends>({
         rowClassName={rowClassName}
         onRowClick={handleRowClick}
         emptyMessage={t("No Data Available")}
-        {...paginationProps} // Spread pagination props conditionally
+        {...paginationProps} 
       >
         {isSelectable && (
           <Column

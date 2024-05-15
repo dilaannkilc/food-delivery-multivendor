@@ -1,13 +1,10 @@
-// Components
+
 import StatsCard from '@/lib/ui/useable-components/stats-card';
 
-// GraphQL Queries
 import { GET_DASHBOARD_USERS } from '@/lib/api/graphql';
 
-// Hooks
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 
-// Icons
 import {
   IDashboardUsersResponseGraphQL,
   IQueryResult,
@@ -23,13 +20,12 @@ import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
 export default function UserStats() {
-  // Queries
+
   const { data, loading } = useQueryGQL(GET_DASHBOARD_USERS, {
     fetchPolicy: 'network-only',
     debounceMs: 300,
   }) as IQueryResult<IDashboardUsersResponseGraphQL | undefined, undefined>;
 
-  // Hooks
   const t = useTranslations();
 
   const dashboardUsers = useMemo(() => {

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+
 import { IGlobalProps, IGlobalProviderProps } from "./global.interface";
 
 export interface IConfigurationContextProps extends IGlobalProps {}

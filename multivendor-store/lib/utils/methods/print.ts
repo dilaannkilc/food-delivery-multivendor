@@ -4,7 +4,7 @@ import { formatReceipt } from "./format-receipt";
 export const printAsync = async (order, printerUrl) => {
   try {
     return await Print.printAsync({
-      width: 576, // 80mm=302px,
+      width: 576, 
       orientation: Print.Orientation.portrait,
       html: formatReceipt(order),
       printerUrl,
@@ -18,7 +18,7 @@ export const printAsync = async (order, printerUrl) => {
 export const printToFileAsync = async (order) => {
   try {
     return await Print.printToFileAsync({
-      width: 576, // 80mm=302px,
+      width: 576, 
       html: formatReceipt(order),
     });
   } catch (error) {

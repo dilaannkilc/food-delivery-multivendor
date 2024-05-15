@@ -13,7 +13,7 @@ export default StyleSheet.create({
   }),
   chatButton: theme => ({
     paddingVertical: scale(25),
-    // paddingHorizontal: scale(100),
+
     backgroundColor: theme.themeBackground,
     borderRadius: scale(20),
     flexDirection: theme?.isRTL ? 'row-reverse' : 'row'

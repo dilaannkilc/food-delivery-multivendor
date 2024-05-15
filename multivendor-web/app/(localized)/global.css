@@ -1,6 +1,6 @@
 @layer tailwind-base, primereact, tailwind-utilities;
 
-/* IMPORTANT: In "styled" mode you must add the PrimeReact Theme here. Do NOT include in "unstyled" mode */
+
 @import "primereact/resources/themes/lara-light-blue/theme.css"
   layer(primereact);
 @layer tailwind-base {
@@ -34,7 +34,7 @@ body,
   overflow-x: hidden !important;
 }
 
-/* Optional: Set box-sizing to border-box globally for consistent sizing */
+
 *,
 *::before,
 *::after {
@@ -54,24 +54,24 @@ body {
 .p-sidebar-left {
   justify-content: flex-end !important;
 }
-/* Screen Container */
-/* Start Generation Here */
+
+
 .screen-container {
   display: flex;
   flex-direction: column;
   height: 90dvh;
   overflow-y: auto;
 }
-/* End Generation Here */
 
-/* Layout */
+
+
 
 .layout-top-bar {
   z-index: 997;
   position: absolute;
 }
 
-/* Add this to your global CSS or scoped module */
+
 .p-dialog .p-dialog-header,
 .p-dialog .p-dialog-footer {
   border: none !important;
@@ -82,7 +82,7 @@ body {
 
 .layout-top-container {
   position: sticky;
-  /* height: 64px; */
+  
   z-index: 997;
   left: 0;
   top: 0;
@@ -91,13 +91,13 @@ body {
 }
 
 .layout-main-container {
-  /* height: 92%; */
+  
   display: flex;
-  /* overflow: hidden; */
+  
 }
 
 .layout-main {
-  /* height: 100%; */
+  
   width: 100%;
   position: relative;
 }
@@ -107,7 +107,7 @@ body {
   gap: 10px;
 }
 
-/* Text Component */
+
 .custom-text {
   font-feature-settings:
     "liga" off,
@@ -155,7 +155,7 @@ body {
   line-height: 20px;
 }
 
-/* Card */
+
 .card {
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -184,25 +184,25 @@ body {
   font-weight: 400;
 }
 
-/* Scroll Bar  */
+
 ::-webkit-scrollbar {
   width: 7px;
-  height: 7px; /* Added height for horizontal scrollbars */
+  height: 7px; 
   background: rgba(
     255,
     255,
     255,
     0.8
-  ); /* Light gray background for better visibility */
+  ); 
 }
 ::-webkit-scrollbar-thumb {
-  background: #d3d3d3; /* A more lighter gray color for the scrollbar thumb */
+  background: #d3d3d3; 
   border-radius: 7px;
 }
 
 
 
-/* Global Dialog Styling Auth Dialog */
+
 :root {
   --dialog-max-width-narrow: 500px;
   --dialog-max-width-wide: 600px;
@@ -219,7 +219,7 @@ body {
   max-width: var(--dialog-max-width-wide);
 }
 
-/* Responsive Tweaks */
+
 @media (max-width: 768px) {
   .auth-dialog {
     max-width: 90% !important;
@@ -236,11 +236,11 @@ body {
   }
 }
 
-/* Optional: Tailwind style to test tooltip visibility */
 
-/* ------------- Prime React ------------- */
-/* OTP Input */
-/* OTP Input */
+
+
+
+
 .p-inputotp {
   display: flex;
   gap: 2px;
@@ -257,7 +257,7 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-/* Medium screens (tablets) */
+
 @media (max-width: 768px) {
   .p-inputotp-input,
   .p-inputotp > .p-inputtext {
@@ -267,7 +267,7 @@ body {
   }
 }
 
-/* Small screens (phones) */
+
 @media (max-width: 480px) {
   .p-inputotp-input,
   .p-inputotp > .p-inputtext {
@@ -279,7 +279,7 @@ body {
 
 
 
-/* Dropdown */
+
 
 .p-multiselect {
   box-shadow: none;
@@ -287,7 +287,7 @@ body {
 
 .p-multiselect-token {
   background-color: var(--primary-color);
-  color: white; /* optional: change the text color to white for better contrast */
+  color: white; 
 }
 
 .p-multiselect-filter-container {
@@ -307,7 +307,7 @@ body {
 
 .p-multiselect-item > .p-multiselect-checkbox > .p-checkbox > .p-checkbox-box {
   border: 1px solid lightgray;
-  /* background-color: var(--secondary-color); */
+  
 }
 
 .p-dropdown {
@@ -322,11 +322,11 @@ body {
 }
 
 .p-dropdown-label {
-  font-size: 0.875rem /* 14px */;
-  line-height: 1.25rem /* 20px */;
+  font-size: 0.875rem ;
+  line-height: 1.25rem ;
 }
 
-/* Input Number */
+
 .p-inputnumber {
   box-shadow: none;
   outline: none;
@@ -344,9 +344,9 @@ body {
   box-shadow: none;
   outline: none;
 }
-/* ------------------------ */
 
-/* Text Icon Clickable */
+
+
 .text-icon-clickable-container {
   height: 40px;
   padding: 0.4rem 0.6rem;
@@ -359,12 +359,12 @@ body {
 }
 
 .text-icon-clickable-container > span {
-  font-size: 0.2rem; /* equivalent to text-xs */
-  font-weight: 400; /* equivalent to font-normal */
-  line-height: 1.5rem; /* equivalent to leading-6 */
+  font-size: 0.2rem; 
+  font-weight: 400; 
+  line-height: 1.5rem; 
 }
 
-/* Data Table */
+
 .p-datatable-header {
   padding: 0;
 }
@@ -416,7 +416,7 @@ body {
   font-size: 14px;
 }
 
-/* Input Mask */
+
 .p-inputmask.p-inputtext.p-component::placeholder,
 .p-dropdown-label.p-inputtext.p-placeholder {
   color: #adacac;
@@ -431,7 +431,7 @@ body {
   box-shadow: none;
 }
 
-/* Password */
+
 .p-password > .p-icon-field {
   width: 100%;
 }
@@ -450,13 +450,13 @@ body {
 }
 
 .p-datatable-header .p-component::placeholder {
-  font-size: 14px; /* Adjust the font size as needed */
+  font-size: 14px; 
   color: #adacac;
-  /* font-weight: 500; */
+  
 }
 
 .p-datatable-header .p-component {
-  font-size: 14px; /* Adjust the font size as needed */
+  font-size: 14px; 
   font-weight: lighter;
 }
 
@@ -524,7 +524,7 @@ body {
   margin-top: -2px;
 }
 
-/* Stepper */
+
 .p-stepper-title {
   font-size: 12px;
 }
@@ -534,14 +534,14 @@ body {
   background-color: var(--primary-color);
 }
 
-/* Sidebar */
+
 .p-stepper-panels {
   padding: 0;
 }
 
 
 
-/* Auto Complet */
+
 .p-autocomplete {
   padding: 0;
   border: 0;
@@ -553,7 +553,7 @@ body {
   outline: none;
   box-shadow: none;
   border: 1px solid lightgray;
-  /* border-right: 0; */
+  
 }
 
 .p-autocomplete-panel {
@@ -570,7 +570,7 @@ body {
   margin-top: 1px;
 }
 
-/* Fieldset */
+
 .p-fieldset {
   border: 1px dashed black;
   padding: 8px;
@@ -619,35 +619,35 @@ body {
     var(--tw-shadow);
 }
 
-/* .p-inputmask.p-inputtext.p-component.p-filled */
+
 .p-password-input.p-inputtext.p-component.p-filled .p-input-icon svg {
   margin-right: -20px;
 }
 
 .icon-right .p-icon-field.p-icon-field-right svg {
-  /* margin-right: -90px; */
+  
   position: absolute;
   right: -35px;
 }
 
-/* Data View */
+
 .p-dataview-header {
   background-color: transparent;
   padding: 0;
 }
 
 .p-dataview-header .p-component::placeholder {
-  font-size: 14px; /* Adjust the font size as needed */
+  font-size: 14px; 
   color: #adacac;
-  /* font-weight: 500; */
+  
 }
 
 .p-dataview-header .p-component {
-  font-size: 14px; /* Adjust the font size as needed */
+  font-size: 14px; 
   font-weight: lighter;
 }
 
-/*Data Table */
+
 .row-assigned {
   background-color: lightyellow !important;
 }
@@ -658,7 +658,7 @@ body {
 }
 
 .hover-clickable-row:hover {
-  background-color: rgba(0, 0, 0, 0.05); /* Light hover effect */
+  background-color: rgba(0, 0, 0, 0.05); 
 }
 
 .react-international-phone-input-container
@@ -666,27 +666,23 @@ body {
   height: 40px;
 }
 
-/* 
-################################################
-Discovery Caurousal 
-################################################
-*/
-/* Target only this specific carousel */
+
+
 .carousel-item {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Responsive Image Styling */
+
 .carousel-banner {
   width: 100%;
-  height: 340px; /* Default height */
+  height: 340px; 
   object-fit: cover;
   border-radius: 12px;
 }
 
-/* Adjust image height for smaller screens */
+
 @media (max-width: 1024px) {
   .carousel-banner {
     height: 300px;
@@ -705,7 +701,7 @@ Discovery Caurousal
   }
 }
 
-/* Navigation Buttons */
+
 .discovery-carousel {
   position: relative;
 }
@@ -727,7 +723,7 @@ Discovery Caurousal
   position: absolute;
 }
 
-/* Adjust navigation button positions for responsiveness */
+
 .discovery-carousel .p-carousel-prev {
   left: -10px;
 }
@@ -736,7 +732,7 @@ Discovery Caurousal
   right: -10px;
 }
 
-/* Remove button on smaller screens */
+
 @media (max-width: 768px) {
   .discovery-carousel .p-carousel-prev,
   .discovery-carousel .p-carousel-next {
@@ -744,7 +740,7 @@ Discovery Caurousal
   }
 }
 
-/* Reduce height for carousel items on smaller screens */
+
 .discovery-carousel .p-carousel-items .p-carousel-item {
   height: 100px !important;
 }
@@ -761,15 +757,10 @@ Discovery Caurousal
   }
 }
 
-/* 
-########################################################
-  Card Slider
 
-########################################################
-*/
-/* Container */
 
-/* Header */
+
+
 .slider-header {
   display: flex;
   justify-content: space-between;
@@ -777,22 +768,22 @@ Discovery Caurousal
   margin-bottom: 16px;
 }
 
-/* ScrollPanel Styling (Horizontal) */
+
 .scroll-container {
   width: 100%;
-  height: 350px; /* Adjust height as needed */
-  overflow-x: auto; /* Enable horizontal scrolling */
+  height: 350px; 
+  overflow-x: auto; 
   overflow-y: hidden;
-  white-space: nowrap; /* Prevent items from wrapping */
+  white-space: nowrap; 
 }
 
-/* Scroll Content */
+
 .scroll-content {
   display: flex;
   gap: 12px;
 }
 
-/* Items */
+
 .slider-item {
   flex: 0 0 auto;
   width: 300px;
@@ -805,22 +796,22 @@ Discovery Caurousal
   border-radius: 8px;
 }
 
-/* styles/globals.css */
+
 @layer components {
-  /* Make Accordion container, header, and content transparent */
+  
   .custom-accordion .p-accordion,
   .custom-accordion .p-accordion-header,
   .custom-accordion .p-accordion-content {
     background-color: transparent !important;
-    box-shadow: none !important; /* Remove shadows */
-    border: none !important; /* Remove borders if desired */
+    box-shadow: none !important; 
+    border: none !important; 
     padding-left: 0;
   }
 
-  /* Make AccordionTab header (the one inside each AccordionTab) transparent */
+  
   .custom-accordion .p-accordion-header {
     background-color: transparent !important;
-    box-shadow: none !important; /* Remove any shadow on the header */
+    box-shadow: none !important; 
   }
 
   .custom-accordion .p-accordion-header-link {
@@ -833,14 +824,14 @@ Discovery Caurousal
     display: none;
   }
 }
-/* Panel Menu */
+
 
 .p-panelmenu .p-panelmenu-header.p-highlight .p-menuitem-text,
 .p-panelmenu .p-panelmenu-header.p-highlight .p-panelmenu-header-link {
   color: var(--primary-color) !important;
 }
 
-/* Remove background color on hover for menu items */
+
 .p-panelmenu .p-menuitem-link:hover {
   background: transparent !important;
   color: white !important;
@@ -850,21 +841,16 @@ Discovery Caurousal
 .p-stepper-nav {
   display: none !important;
 }
-/* Change border color */
+
 .p-checkbox-box {
   border: 2px solid #9ca3af !important;
 }
 
-/* Change border color when checked */
-/* .p-checkbox-box.p-highlight {
-  border-color: green !important; 
-  background: green !important;
-} */
 
-/* Optional: change the checkmark color */
-/* .p-checkbox-icon {
-  color: white !important;
-} */
+
+
+
+
 
 .p-highlight {
   background: var(--primary-color) !important;
@@ -875,7 +861,7 @@ Discovery Caurousal
   border-radius: 32px;
 }
 
-/* 3D Text Effect */
+
 .text-3d-effect {
   transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(1deg)
     rotateY(1deg) rotateZ(1deg);
@@ -905,7 +891,7 @@ Discovery Caurousal
 }
 
  .message-left .rce-mbox-text {
-  background-color: var(--primary-color); /* Light green for current user */
+  background-color: var(--primary-color); 
   border-radius: 3px;
   padding: 5px;
   color:white;
@@ -913,26 +899,26 @@ Discovery Caurousal
 }
 
 .message-right {
-  /* background-color: #f1f1f1;; Light green for current user */
+  
   border-radius: 10px;
   padding: 4px;  
 
 }
 
-/* 🔹 Dark mode Dropdown wrapper (the white container around filter) */
+
 .dark .p-dropdown-panel {
-  background-color: #1f2937 !important; /* gray-800 */
-  color: #f9fafb !important;           /* gray-100 */
-  border-color: #4b5563 !important;    /* gray-600 */
+  background-color: #1f2937 !important; 
+  color: #f9fafb !important;           
+  border-color: #4b5563 !important;    
 }
 
-/* 🔹 The header above items (where filter input lives) */
+
 .dark .p-dropdown-header {
-  background-color: #1f2937 !important; /* gray-800 */
+  background-color: #1f2937 !important; 
   border-bottom: 1px solid #4b5563 !important;
 }
 
-/* 🔹 Ensure dropdown items match dark theme */
+
 .dark .p-dropdown-items-wrapper {
   background-color: #1f2937 !important;
 }
@@ -948,78 +934,78 @@ Discovery Caurousal
 
 
 .dark .p-dropdown-panel .p-dropdown-filter {
-  background-color: #1f2937; /* gray-800 */
-  color: #f9fafb;           /* gray-100 */
+  background-color: #1f2937; 
+  color: #f9fafb;           
   border: 1px solid #4b5563;
 }
 
-/* 🔹 Selected option text box (closed dropdown) */
+
 .dark .p-dropdown .p-dropdown-label {
-  background-color: #1f2937 !important; /* gray-800 */
-  color: #f9fafb !important;            /* gray-100 */
-  border-color: #4b5563 !important;     /* gray-600 */
+  background-color: #1f2937 !important; 
+  color: #f9fafb !important;            
+  border-color: #4b5563 !important;     
 }
 
-/* 🔹 Placeholder text */
+
 .dark .p-dropdown .p-dropdown-label.p-placeholder {
-  color: #9ca3af !important; /* gray-400 */
+  color: #9ca3af !important; 
 }
 
 
-/* 🔹 Input field (already partly handled by Tailwind) */
+
 .dark .p-autocomplete-input {
-  background-color: #1f2937 !important; /* gray-800 */
-  color: #f9fafb !important;           /* gray-100 */
-  border-color: #4b5563 !important;    /* gray-600 */
+  background-color: #1f2937 !important; 
+  color: #f9fafb !important;           
+  border-color: #4b5563 !important;    
 }
 
-/* 🔹 Suggestion panel (the floating dropdown) */
+
 .dark .p-autocomplete-panel {
-  background-color: #1f2937 !important; /* gray-800 */
-  border: 1px solid #4b5563 !important; /* gray-600 */
+  background-color: #1f2937 !important; 
+  border: 1px solid #4b5563 !important; 
   color: #f9fafb !important;
 }
 
-/* 🔹 Each suggestion */
+
 .dark .p-autocomplete-item {
   background-color: #1f2937 !important;
   color: #f9fafb !important;
 }
 
-/* 🔹 Highlight (hover / arrow-selected item) */
+
 .dark .p-autocomplete-item.p-highlight {
-  background-color: #374151 !important; /* gray-700 */
+  background-color: #374151 !important; 
   color: #ffffff !important;
 }
 
-/* === Autofill styles (Chrome, Safari, Edge) === */
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:active {
-  /* -webkit-box-shadow: 0 0 0px 1000px #374151 inset !important; gray-800 bg for dark */
-  -webkit-text-fill-color: #f3f4f6 !important; /* gray-100 text for dark */
+  
+  -webkit-text-fill-color: #f3f4f6 !important; 
   transition: background-color 5000s ease-in-out 0s;
 }
 
-/* === Dark mode autofill === */
+
  input:-webkit-autofill,
  input:-webkit-autofill:hover,
  input:-webkit-autofill:focus,
  input:-webkit-autofill:active {
-  /* -webkit-box-shadow: 0 0 0px 1000px #374151 inset !important; gray-700 bg */
-  -webkit-text-fill-color: #000000 !important; /* gray-100 text */
-  caret-color: #000000 !important; /* keeps cursor visible */
+  
+  -webkit-text-fill-color: #000000 !important; 
+  caret-color: #000000 !important; 
 }
 
 
-/* === Dark mode autofill === */
+
 .dark input:-webkit-autofill,
 .dark input:-webkit-autofill:hover,
 .dark input:-webkit-autofill:focus,
 .dark input:-webkit-autofill:active {
-  /* -webkit-box-shadow: 0 0 0px 1000px #374151 inset !important; gray-700 bg */
-  -webkit-text-fill-color: #f3f4f6 !important; /* gray-100 text */
-  caret-color: #f3f4f6 !important; /* keeps cursor visible */
+  
+  -webkit-text-fill-color: #f3f4f6 !important; 
+  caret-color: #f3f4f6 !important; 
 }
 
 [dir = "rtl"] .p-icon-field-right > .p-input-icon:last-of-type {
@@ -1028,7 +1014,7 @@ input:-webkit-autofill:active {
 }
 
 .rtl-carousel .p-carousel-container {
-  direction: ltr !important; /* Force LTR for animation */
+  direction: ltr !important; 
 }
 
 

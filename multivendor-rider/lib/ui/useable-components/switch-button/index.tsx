@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Switch, TouchableOpacity, View } from "react-native";
 
 const CustomSwitch = ({ value, onToggle, isDisabled }: CustomSwitchProps) => {
-  // Hooks
+
   const { appTheme } = useApptheme();
   return (
     <TouchableOpacity

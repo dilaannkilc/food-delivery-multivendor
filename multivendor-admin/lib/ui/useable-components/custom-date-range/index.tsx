@@ -10,23 +10,21 @@ export default function CustomDateRange({
   dateFilter,
   setDateFilter,
 }: IDashboardDateFilterComponentsProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // State
   const [localDateFilter, setLocalDateFilter] = useState({
     startDate: dateFilter.startDate,
     endDate: dateFilter.endDate,
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  // Handlers
   const onApply = () => {
     setIsLoading(true);
     setTimeout(() => {
       setDateFilter({ dateKeyword: 'Custom', ...localDateFilter });
       setIsLoading(false);
-    }, 1000); // 1 second delay
+    }, 1000); 
   };
 
   if (dateFilter.dateKeyword !== 'Custom') return <></>;

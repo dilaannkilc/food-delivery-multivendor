@@ -33,7 +33,6 @@ const TrackingRider = ({ id, onLocationUpdate }: TrackingRiderProps) => {
     return unsubscribe;
   }, [id, subscribeToMore]);
 
-  // Calculate rider coordinates (memoized to prevent unnecessary recalculations)
   const riderCoordinates = useMemo(() => {
     if (!data?.rider?.location?.coordinates ||
       data.rider.location.coordinates.length < 2) {
@@ -50,14 +49,12 @@ const TrackingRider = ({ id, onLocationUpdate }: TrackingRiderProps) => {
     return { lat, lng };
   }, [data?.rider?.location?.coordinates]);
 
-  // Notify parent of location updates - this hook must be called before any conditional returns
   useEffect(() => {
     if (onLocationUpdate && riderCoordinates) {
       onLocationUpdate(riderCoordinates);
     }
   }, [riderCoordinates, onLocationUpdate]);
 
-  // Early returns after all hooks
   if (loading) return null;
   if (error) {
     console.error("Error fetching rider data:", error);

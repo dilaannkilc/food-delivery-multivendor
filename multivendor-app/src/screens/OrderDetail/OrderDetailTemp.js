@@ -89,7 +89,7 @@ function OrderDetail(props) {
     return (rhours > 0 ? rhours + ' hr(s) ' + rminutes : rminutes) + ' min(s) '
   }
   function lastTime() {
-    const finalTime = parseInt(order.expectedTime) + remainingTime * 60000 // time in millisecond with remainingTime added
+    const finalTime = parseInt(order.expectedTime) + remainingTime * 60000 
     const time = new Date(finalTime).toLocaleTimeString() + ' - ' + new Date().toDateString()
     return time
   }
@@ -105,7 +105,7 @@ function OrderDetail(props) {
   }
   if (loadingOrders || !order) return <Spinner />
   if (errorOrders) return <TextError text={t('error')} />
-  // const remainingTime = Math.floor((order.completionTime - Date.now()) / 1000 / 60)
+
   return (
     <>
       <ScrollView style={[styles().flex, { backgroundColor: currentTheme.themeBackground }]}>

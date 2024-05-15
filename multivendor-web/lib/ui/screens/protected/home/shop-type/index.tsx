@@ -4,13 +4,13 @@ import { useState, useEffect, useCallback } from "react";
 import useNearByRestaurantsPreview from "@/lib/hooks/useNearByRestaurantsPreview";
 import useGetCuisines from "@/lib/hooks/useGetCuisines";
 import GenericListingComponent from "@/lib/ui/screen-components/protected/home/GenericListingComponent";
-// import { useTranslations } from "next-intl";
+
 import { useParams } from "next/navigation";
 
 export default function ShopTypeScreen() {
     const params = useParams();
     const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
-  // const t = useTranslations();
+
   const limit = 10;
 
   const [page, setPage] = useState(1);
@@ -26,14 +26,12 @@ export default function ShopTypeScreen() {
 
   const { loading: cuisinesloading, queryData:CuisineData } = useGetCuisines(true, slug);
 
-  // ✅ Initial load
   useEffect(() => {
     if (page === 1 && queryData?.length) {
       setItems(queryData);
     }
   }, [queryData, page]);
 
-  // ✅ Load more
   const loadMore = useCallback(async () => {
     if (!hasMore || loading) return;
 
@@ -55,7 +53,6 @@ export default function ShopTypeScreen() {
     }
   }, [page, hasMore, fetchMore, loading]);
 
-  // ✅ Scroll listener (your tested one)
   useEffect(() => {
     if (!fetchMore || !hasMore) return;
 
@@ -82,12 +79,12 @@ return (
         headingTitle={`${slug.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())} near you`}
         cuisineSectionTitle={"Browse Categories"}
         mainSectionTitle={"All Shops"}
-        mainData={items} // ✅ pass paginated items
+        mainData={items} 
         cuisineDataFromHook={CuisineData || []}
         loading={loading}
         cuisinesloading={cuisinesloading}
         error={!!error}
-        hasMore={hasMore} // ✅ pass down so MainSection can show "No more"
+        hasMore={hasMore} 
     />
 );
 }

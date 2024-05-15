@@ -1,17 +1,15 @@
-// Components
+
 import { UPDATE_BUSINESS_DETAILS } from "@/lib/apollo/mutations/rider.mutation";
 import { STORE_PROFILE } from "@/lib/apollo/queries/store.query";
 import { useUserContext } from "@/lib/context/global/user.context";
 import { useApptheme } from "@/lib/context/theme.context";
 import { CustomContinueButton } from "@/lib/ui/useable-components";
 
-// Hooks
 import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, FlatList, KeyboardAvoidingView } from "react-native";
 
-// Core
 import {
   Keyboard,
   Text,
@@ -22,14 +20,12 @@ import {
 import { showMessage } from "react-native-flash-message";
 
 export default function BankManagementMain() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
 
-  // Contexts
   const { userId, dataProfile } = useUserContext();
 
-  // states
   const [isError, setIsError] = useState({
     field: "",
     message: "",
@@ -61,7 +57,7 @@ export default function BankManagementMain() {
       keyboardDidHideListener.remove();
     };
   }, []);
-  // Mutations
+
   const [mutateBankDetails, { loading: areBankDetailsLoading }] = useMutation(
     UPDATE_BUSINESS_DETAILS,
     {
@@ -90,7 +86,6 @@ export default function BankManagementMain() {
     },
   );
 
-  // Handlers
   const handleChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value });
   };
@@ -153,7 +148,6 @@ export default function BankManagementMain() {
     }
   };
 
-  // UseEffect
   useEffect(() => {
     if (
       !areBankDetailsLoading &&
@@ -174,10 +168,7 @@ export default function BankManagementMain() {
   return (
     <View className="w-[95%] mx-auto">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        {/* <ScrollView
-          scrollEnabled={keyboardVisible}
-          contentContainerClassName={`flex flex-col justify-between items-center w-full ${keyboardVisible ? "h-[100%]" : "h-[85%]"} my-6 px-4`}
-        > */}
+        {}
         <KeyboardAvoidingView
           className={`${keyboardVisible ? "h-[100%] " : "h-[85%"}`}
         >
@@ -279,7 +270,7 @@ export default function BankManagementMain() {
             renderItem={({ item }) => item}
           />
         </KeyboardAvoidingView>
-        {/* </ScrollView> */}
+        {}
       </TouchableWithoutFeedback>
     </View>
   );

@@ -7,7 +7,6 @@ import {
 } from "@react-google-maps/api";
 import React, { useState, useCallback, useEffect, useRef } from "react";
 
-// Assets
 import HomeIcon from "../../../../../assets/home_icon.png";
 import RestIcon from "../../../../../assets/rest_icon.png";
 import Image from "next/image";
@@ -48,17 +47,15 @@ function GoogleMapTrackingComponent({
   riderId,
 
 }: IGoogleMapTrackingComponent) {
-  // State to track rider's live location
+
   const [riderLocation, setRiderLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [riderDirections, setRiderDirections] = useState<google.maps.DirectionsResult | null>(null);
   const [needsRiderDirections, setNeedsRiderDirections] = useState(false);
   const prevOrderStatusRef = useRef<string>(orderStatus);
 
-  // Debounce interval for rider directions requests (in milliseconds)
-  const DIRECTIONS_DEBOUNCE_INTERVAL = 30000; // 30 seconds
+  const DIRECTIONS_DEBOUNCE_INTERVAL = 30000; 
   const lastDirectionsRequestTimeRef = useRef<number>(0);
 
-  // Determine which markers to show based on order status
   const showRestaurantMarker = ["PENDING", "ACCEPTED", "ASSIGNED"].includes(
     orderStatus
   );
@@ -66,21 +63,19 @@ function GoogleMapTrackingComponent({
   const showRiderMarker = ["PICKED", "ASSIGNED"].includes(orderStatus);
   const { theme } = useTheme();
 
-  // Reset directions when transitioning to PICKED status
   useEffect(() => {
     if (prevOrderStatusRef.current !== orderStatus && orderStatus === "PICKED") {
-      // Order just changed to PICKED, reset directions to trigger new route calculation
+
       setRiderDirections(null);
       setNeedsRiderDirections(true);
-      lastDirectionsRequestTimeRef.current = Date.now(); // Reset debounce timer
+      lastDirectionsRequestTimeRef.current = Date.now(); 
     }
     prevOrderStatusRef.current = orderStatus;
   }, [orderStatus]);
 
-  // Callback for when rider location updates (with time-based debouncing)
   const onRiderLocationUpdate = useCallback((location: { lat: number; lng: number }) => {
     setRiderLocation(location);
-    // When rider location updates during PICKED status, request new directions only if debounce interval has passed
+
     if (orderStatus === "PICKED") {
       const now = Date.now();
       const timeSinceLastRequest = now - lastDirectionsRequestTimeRef.current;
@@ -92,7 +87,6 @@ function GoogleMapTrackingComponent({
     }
   }, [orderStatus]);
 
-  // Callback for rider directions
   const riderDirectionsCallback = useCallback(
     (result: google.maps.DirectionsResult | null, status: string) => {
       if (status === google.maps.DirectionsStatus.OK && result) {
@@ -103,12 +97,10 @@ function GoogleMapTrackingComponent({
     []
   );
 
-  // Determine which origin to use based on order status
   const mapOrigin = showRiderMarker ? riderLocation : origin;
   const mapDestination = destination;
   const mapCenter = showRiderMarker && riderLocation ? riderLocation : (showRiderMarker ? destination : origin);
 
-  // Determine which directions to display
   const activeDirections = showRiderMarker ? riderDirections : directions;
   const shouldRequestRiderDirections = showRiderMarker && needsRiderDirections && riderLocation && !riderDirections;
 
@@ -127,7 +119,7 @@ function GoogleMapTrackingComponent({
           center={mapCenter}
           zoom={13}
         >
-          {/* Restaurant Marker - show only before rider pickup */}
+          {}
           {showRestaurantMarker && origin && (
             <Marker
               position={origin}
@@ -138,7 +130,7 @@ function GoogleMapTrackingComponent({
             />
           )}
 
-          {/* Home Marker - always show */}
+          {}
           <Marker
             position={mapDestination}
             icon={{
@@ -147,7 +139,7 @@ function GoogleMapTrackingComponent({
             }}
           />
 
-          {/* Rider Marker - show only after pickup */}
+          {}
           {showRiderMarker && riderId && (
             <TrackingRider
               id={riderId}
@@ -155,7 +147,7 @@ function GoogleMapTrackingComponent({
             />
           )}
 
-          {/* Directions from restaurant to destination (before pickup) */}
+          {}
           {!showRiderMarker && !directions && !isCheckingCache && mapOrigin && (
             <DirectionsService
               options={{
@@ -167,7 +159,7 @@ function GoogleMapTrackingComponent({
             />
           )}
 
-          {/* Directions from rider to destination (after pickup) */}
+          {}
           {shouldRequestRiderDirections && riderLocation && (
             <DirectionsService
               options={{
@@ -184,7 +176,7 @@ function GoogleMapTrackingComponent({
               directions={activeDirections}
               options={{
                 directions: activeDirections,
-                suppressMarkers: true, // Hide default markers
+                suppressMarkers: true, 
                 polylineOptions: {
                   strokeColor: "#5AC12F",
                   strokeOpacity: 0.8,

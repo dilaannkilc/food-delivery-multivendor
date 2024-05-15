@@ -33,13 +33,10 @@ function SeeAllSection() {
   const [hasMore, setHasMore] = useState(true);
   const limit = 10;
 
-
-  // Title from slug
   const title = slug
     ? slug.replaceAll("-", " ").replace(/^./, (str) => str.toUpperCase())
     : "";
 
-  // --- Favourites ---
   const {
     data: FavouriteRestaurantsData,
     loading: isFavouriteRestaurantsLoading,
@@ -47,20 +44,17 @@ function SeeAllSection() {
     fetchPolicy: "network-only",
   });
 
-  // --- Main data ---
   const { data, loading, error, fetchMore } = useQueryBySlug(slug, page, limit);
 
-  // Reset when slug changes
   useEffect(() => {
     setItems([]);
     setPage(1);
     setHasMore(true);
   }, [slug]);
 
-  // Append new data when it arrives
   useEffect(() => {
     if (Array.isArray(data) && data.length > 0) {
-      // @ts-ignore
+
       setItems((prev) => {
         const ids = new Set(prev.map((i) => i._id));
         const appended = data.filter((i) => !ids.has(i._id));
@@ -73,7 +67,6 @@ function SeeAllSection() {
     }
   }, [data, limit]);
 
-  // Debounced click handler for fav cards
   const handleClickFavRestaurant = useDebounceFunction(
     (
       FavRestaurantId: string | undefined,
@@ -96,7 +89,6 @@ function SeeAllSection() {
     [isModalOpen]
   );
 
-  // Infinite scroll
   useEffect(() => {
     if (!fetchMore || !hasMore) return;
 
@@ -128,7 +120,6 @@ function SeeAllSection() {
     return () => document.body.removeEventListener("scroll", handleScroll);
   }, [fetchMore, hasMore, loading, page]);
 
-  // --- Guarded favourites section ---
   const ProtectedLayout = ({ children }: { children: React.ReactNode }) => (
     <div className="protected-container">{children}</div>
   );
@@ -184,7 +175,7 @@ function SeeAllSection() {
             ))}
         </div>
 
-        {/* Infinite scroll loader */}
+        {}
         {loading && hasMore && (
           <div className="flex justify-center mt-6">
             <div className="flex items-center gap-2 text-gray-500">

@@ -26,7 +26,7 @@ const CategoryPageHeader = ({
   return (
     <SafeAreaView style={styles(currentTheme).container} edges={['top']}>
       <View style={styles(currentTheme).headerContainer}>
-        {/* Left Section - Back Button */}
+        {}
         <View style={styles(currentTheme).leftSection}>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -41,14 +41,14 @@ const CategoryPageHeader = ({
           </TouchableOpacity>
         </View>
 
-        {/* Middle Section - Restaurant Info */}
+        {}
         <View style={styles(currentTheme).restaurantInfoContainer}>
           <TextDefault
             H6
             bolder
             textColor={currentTheme.fontMainColor}
-            numberOfLines={1} // Ensures text truncation
-            ellipsizeMode='tail' // Adds "..." if text is too long
+            numberOfLines={1} 
+            ellipsizeMode='tail' 
           >
             {restaurantName}
           </TextDefault>
@@ -57,7 +57,7 @@ const CategoryPageHeader = ({
           </TextDefault>
         </View>
 
-        {/* Right Section - Search Icon */}
+        {}
         <View style={styles(currentTheme).rightSection}>
           <TouchableOpacity
             activeOpacity={0.7}

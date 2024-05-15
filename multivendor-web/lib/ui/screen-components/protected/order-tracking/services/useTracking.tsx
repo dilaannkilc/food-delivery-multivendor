@@ -16,19 +16,17 @@ function useTracking({ orderId }: { orderId: string }) {
     },
   });
 
-  // Subscribe to order updates
   const { data: subscriptionData } = useSubscription(SUBSCRIPTION_ORDER, {
     variables: { id: orderId },
     onSubscriptionData: ({ subscriptionData }) => {
       console.log("Order subscription data:", subscriptionData);
-      // Refetch the order details when subscription data comes in
+
       if (subscriptionData.data) {
         refetch();
       }
     },
   });
 
-  // Update the order tracking details when subscription data changes
   useEffect(() => {
     if (subscriptionData?.subscriptionOrder) {
       console.log(

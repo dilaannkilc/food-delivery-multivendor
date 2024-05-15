@@ -53,8 +53,8 @@ export default function CurrentLocation() {
       setLoading(false)
       navigation.replace('Main')
     } else if (status === 'denied') {
-      // Permission denied but can ask again
-      // Show the Allow Location screen
+
+
     } else if (status === 'blocked') {
       Alert.alert('Location Permission Blocked', 'Please enable location services in your device settings.', [
         { text: 'Cancel', style: 'cancel' },
@@ -101,8 +101,8 @@ export default function CurrentLocation() {
     console.log('calling checkCityMatch', new_location)
     const cl_p = new_location || currentLocation
     if (!cl_p || !cities.length) return
-    // console.log("Checking city match for location:", currentLocation);
-    // console.log("Cities list:", cities);
+
+
 
     setIsCheckingZone(true)
 
@@ -110,7 +110,7 @@ export default function CurrentLocation() {
     if (matchingCity) {
       try {
         const response = await getAddress(cl_p.latitude, cl_p.longitude)
-        // console.log("Fetched Address Data:", response);
+
         const locationData = {
           label: 'Location',
           deliveryAddress: response.formattedAddress,
@@ -125,11 +125,11 @@ export default function CurrentLocation() {
           navigation.navigate('Main')
         }, 100)
       } catch (error) {
-        // console.error('Error getting address:', error)
+
         setIsCheckingZone(false)
       }
     } else {
-      // console.warn("No matching city found for this location.");
+
       setIsCheckingZone(false)
     }
   }
@@ -138,7 +138,6 @@ export default function CurrentLocation() {
     console.log('calling getCurrentLocationOnStart', permissionState)
     setLoading(true)
 
-    // Handle permission request result
     if (!permissionState) return
 
     if (!permissionState?.granted) {
@@ -146,23 +145,21 @@ export default function CurrentLocation() {
       return
     }
 
-    // Permission is granted, continue with location logic
     const { error, coords } = await getCurrentLocation()
 
     if (error) {
-      // console.log("Location error:",message, error)
+
       setLoading(false)
       return
     }
 
-    // console.log("Fetched Location:", coords);
     const userLocation = {
       latitude: coords.latitude,
       longitude: coords.longitude
     }
 
     setCurrentLocation(userLocation)
-    // console.log("Current Location before rendering Marker:", currentLocation);
+
     setLoading(false)
   }
 
@@ -171,14 +168,12 @@ export default function CurrentLocation() {
 
     setPermissionState(permission_response)
 
-
-    // ❌ Permanently denied (cannot ask again)
     if (!permission_response?.canAskAgain) {
-      // Optionally prompt user to open settings
+
       if (Platform.OS === 'ios') {
-        Linking.openURL('app-settings:') // iOS deep link to app settings
+        Linking.openURL('app-settings:') 
       } else {
-        Linking.openSettings() // Android
+        Linking.openSettings() 
       }
 
       return
@@ -208,11 +203,10 @@ export default function CurrentLocation() {
     checkCityMatch()
   }, [currentLocation, cities])
 
-  // Add a small delay to prevent flashing of permission screen
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsInitialLoading(false)
-    }, 1000) // Wait 1 second before showing permission screen
+    }, 1000) 
 
     return () => clearTimeout(timer)
   }, [])

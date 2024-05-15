@@ -21,7 +21,7 @@ function PickUp(props) {
   const { t } = useTranslation()
 
   const datePickerOptions = {
-    // Note that on Android, minimumDate only works for date mode because TimePicker does not support this.
+
     minimumDate: new Date(currentDate),
     mode: 'time',
     display: 'spinner',

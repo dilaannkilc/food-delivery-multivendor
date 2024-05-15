@@ -1,9 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { IGlobalComponentProps } from './global.interface';
 
-// Componentns
 
-// Super Admin
 export interface IDashboardStatsTableComponentsProps
   extends IGlobalComponentProps {
   amountConfig?: {
@@ -15,7 +13,6 @@ export interface IDashboardStatsTableComponentsProps
   data: { label: string; value: number }[];
 }
 
-// Restaurant & Vendor
 
 export interface IDashboardDateFilterComponentsProps {
   dateFilter: IDateFilter;
@@ -52,9 +49,7 @@ export interface IDashboardRestaurantStatsTableComponentsProps
   data: IDashboardRestaurantOrderSalesDetailsByPaymentMethodData;
 }
 
-// API
 
-// Super Admin
 export interface IDashboardUsersResponseGraphQL {
   getDashboardUsers: {
     usersCount: number;
@@ -87,7 +82,6 @@ export interface IDashboardSalesByTypeResponseGraphQL {
   }[];
 }
 
-// Restaurant
 
 export interface IDashboardRestaurantOrdersSalesStatsResponseGraphQL {
   getRestaurantDashboardOrdersSalesStats: {
@@ -125,7 +119,6 @@ export interface IDashboardOrderSalesDetailsByPaymentMethodResponseGraphQL {
   };
 }
 
-//  Vendor
 export interface IDashboardSubHeaderComponentsProps {
   isStoreView?: boolean;
   dateFilter: IDateFilter;
@@ -133,7 +126,6 @@ export interface IDashboardSubHeaderComponentsProps {
   handleDateFilter: (dateFilter: IDateFilter) => void;
 }
 
-// Restaurant & Vendor
 
 export interface IDashboardMainComponentProps {
   isStoreView: boolean;
@@ -148,7 +140,6 @@ export interface IDashboardVendorGrowthOverViewTabularComponentsProps {
   dateFilter: IDateFilter;
 }
 
-//  Vendor
 
 export interface IVendorStoreDetails {
   _id: string;

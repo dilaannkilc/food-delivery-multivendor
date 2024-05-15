@@ -1,16 +1,14 @@
-// Moti
+
 import { MotiView } from "moti";
 
-// Components
 import EarningHeadingSkeleton from "./earning-heading";
 import EarningStackSkeleton from "./earning-stack";
 import EarningTopChartSkeleton from "./earning-top-chart";
 
-// Hooks
 import { useApptheme } from "@/lib/context/global/theme.context";
 
 export default function EarningScreenMainLoading() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   return (
     <MotiView

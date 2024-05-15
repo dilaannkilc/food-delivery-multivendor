@@ -20,10 +20,10 @@ const OrderSuperAdminTableHeader: React.FC<IOrderSuperAdminHeaderProps> = ({
   dateFilter,
   handleDateFilter,
 }) => {
-  // Hooks
+
   const t = useTranslations();
   const {theme} = useTheme()
-  // Refs
+
   const overlayPanelRef = useRef<OverlayPanel>(null);
 
   const toggleAction = (action: string) => {

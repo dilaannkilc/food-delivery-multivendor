@@ -1,12 +1,9 @@
 'use client';
 
-// Core
 import { useRouter } from 'next/navigation';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 
-// Prime React
 import { Card } from 'primereact/card';
 import { Divider } from 'primereact/divider';
 

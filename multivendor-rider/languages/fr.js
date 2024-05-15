@@ -1,12 +1,11 @@
 export const fr = {
-  // Navigation
+
   continue: "Continuer",
   Wallet: "Portefeuille",
   Home: "Accueil",
   Earnings: "Revenus",
   Profile: "Profil",
 
-  // FAQs
   faq1: "Comment passer une commande ?",
   faq1Description:
     "Pour passer une commande, parcourez simplement notre menu, sélectionnez les articles souhaités et procédez au paiement. Avant de confirmer votre commande, vous pouvez choisir votre mode de paiement préféré et l'adresse de livraison.",
@@ -29,7 +28,6 @@ export const fr = {
   faq7Description:
     "Malheureusement, vous ne pouvez pas choisir plusieurs restaurants dans une seule commande. Cependant, vous pouvez passer plusieurs commandes distinctes auprès de différents restaurants en même temps.",
 
-  // Revenus
   "Earnings Summary": "Résumé des revenus",
   Deliveries: "Livraisons",
   "Total Earnings": "Gains",
@@ -39,13 +37,11 @@ export const fr = {
   "Order Date": "Date de commande",
   "Earnings Order Details": "Détails de la commande",
 
-  // Messages rapides
   "Order placed successfully": "Commande passée avec succès",
   "Order cancelled successfully": "Commande annulée avec succès",
   "Error while placing order": "Erreur lors de la passation de la commande",
   "Error while cancelling order": "Erreur lors de l'annulation de la commande",
 
-  // Autres messages
   "Please enter your name": "Veuillez entrer votre nom",
   "Please enter your email": "Veuillez entrer votre adresse e-mail",
   "Please enter your password": "Veuillez entrer votre mot de passe",
@@ -309,22 +305,18 @@ export const fr = {
   "Vehicle documents too large": "Documents du véhicule trop volumineux",
   "Vehicle documents format not supported": "Format de documents non supporté",
 
-  // Chat Screen
   "Contact Customer": "Contacter le client",
   "Type a message": "Tapez un message",
   "Send": "Envoyer",
   "Message sent": "Message envoyé",
   "Message failed": "Échec de l'envoi",
 
-  // Earnings Screen
   "Please select a date range": "Veuillez sélectionner une plage de dates",
   "Please select a start date": "Veuillez sélectionner une date de début",
   "Please select an end date": "Veuillez sélectionner une date de fin",
   "Start date cannot be after end date": "La date de début ne peut pas être après la date de fin",
   "Please log in to view your earnings": "Veuillez vous connecter pour voir vos gains",
 
-
-  // Profile Forms
   "Unable to update availability": "Impossible de mettre à jour la disponibilité",
   "rider name": "Nom du livreur",
   "rider id": "ID du livreur",

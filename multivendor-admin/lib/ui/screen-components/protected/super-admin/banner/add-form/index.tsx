@@ -1,10 +1,9 @@
 
-// import { createBanner, editBanner } from '@/lib/api/graphql/mutation/banners';
 import { CREATE_BANNER, EDIT_BANNER,  GET_RESTAURANTS_DROPDOWN } from '@/lib/api/graphql';
 import { GET_BANNERS } from '@/lib/api/graphql/queries/banners';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import useToast from '@/lib/hooks/useToast';
-// import useToast from '@/lib/hooks/useToast';
+
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomDropdownComponent from '@/lib/ui/useable-components/custom-dropdown';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
@@ -35,23 +34,21 @@ const BannersAddForm = ({
   banner,
   position = 'right',
 }: IBannersAddFormComponentProps) => {
-  // Queries
+
   const { data } = useQueryGQL(GET_RESTAURANTS_DROPDOWN, {
     fetchPolicy: 'cache-and-network',
   }) as IQueryResult<IRestaurantsResponseGraphQL | undefined, undefined>;
 
-  // Hooks
   const t = useTranslations();
   
   const RESTAURANT_NAMES = useMemo(() => {
-    // @ts-ignore
+
     return data?.restaurants?.map((v) => ({
       label: v.name,
       code: v._id,
-    })) ?? []; // Using nullish coalescing operator
+    })) ?? []; 
   }, [data]);
-  
-  //State
+
   const initialValues: IBannersForm = {
     title: banner?.title || '',
     description: banner?.description || '',
@@ -77,7 +74,6 @@ const BannersAddForm = ({
     file: banner?.file || '',
   };
 
-  // Hooks
   const { showToast } = useToast();
 
   const mutation = banner ? EDIT_BANNER : CREATE_BANNER;
@@ -85,7 +81,6 @@ const BannersAddForm = ({
     refetchQueries: [{ query: GET_BANNERS }],
   });
 
-  // Form Submission
   const handleSubmit = (
     values: IBannersForm,
     { resetForm }: FormikHelpers<IBannersForm>
@@ -151,8 +146,8 @@ const BannersAddForm = ({
                 validationSchema={BannerSchema}
                 onSubmit={handleSubmit}
                 enableReinitialize
-                validateOnChange={false} // Disable validation on change
-                validateOnBlur={false} // Disable validation on blur
+                validateOnChange={false} 
+                validateOnBlur={false} 
               >
                 {({
                   values,
@@ -240,7 +235,7 @@ const BannersAddForm = ({
                             }
                             showLabel={true}
                             name="screen"
-                            // loading={loading}
+
                             selectedItem={values.screen}
                             setSelectedItem={setFieldValue}
                             style={{

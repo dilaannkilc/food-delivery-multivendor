@@ -1,12 +1,11 @@
 export const gu = {
-  // Navigation
+
   continue: "ચાલુ રાખો",
   Wallet: "વૉલેટ",
   Home: "હોમ",
   Earnings: "કમાણી",
   Profile: "પ્રોફાઇલ",
 
-  // FAQs
   faq1: "હું ઓર્ડર કેવી રીતે મૂકી શકું?",
   faq1Description:
     "ઓર્ડર મૂકવા માટે, ફક્ત અમારા મેનુમાં બ્રાઉઝ કરો, તમે ઓર્ડર કરવા માંગો છો તે આઇટમ્સ પસંદ કરો અને ચેકઆઉટ પર આગળ વધો. તમારો ઓર્ડર કન્ફર્મ કરવા પહેલાં તમે તમારી પસંદગીની પેમેન્ટ મેથડ અને ડિલિવરી એડ્રેસ પસંદ કરી શકો છો.",
@@ -29,7 +28,6 @@ export const gu = {
   faq7Description:
     "દુર્ભાગ્યવશ, તમે એ જ ઓર્ડરમાં બહુવિધ રેસ્ટોરન્ટમાંથી પસંદગી ન કરી શકો. જો કે, તમે એક સાથે વિવિધ રેસ્ટોરન્ટમાંથી અલગ ઓર્ડર મૂકી શકો છો.",
 
-  // Earnings
   "Earnings Summary": "કમાણી સારાંશ",
   Deliveries: "ડિલિવરી",
   "Total Earnings": "કુલ કમાણી",
@@ -39,13 +37,11 @@ export const gu = {
   "Order Date": "ઓર્ડર તારીખ",
   "Earnings Order Details": "કમાણી ઓર્ડર વિગતો",
 
-  // Flash messages
   "Order placed successfully": "ઓર્ડર સફળતાપૂર્વક મૂકવામાં આવ્યો",
   "Order cancelled successfully": "ઓર્ડર સફળતાપૂર્વક રદ થયો",
   "Error while placing order": "ઓર્ડર મૂકતી વખતે ભૂલ",
   "Error while cancelling order": "ઓર્ડર રદ કરતી વખતે ભૂલ",
 
-  // Other messages
   "Please enter your name": "કૃપા કરીને તમારું નામ દાખલ કરો",
   "Please enter your email": "કૃપા કરીને તમારું ઇમેઇલ દાખલ કરો",
   "Please enter your password": "કૃપા કરીને તમારો પાસવર્ડ દાખલ કરો",
@@ -238,7 +234,7 @@ export const gu = {
   "No new orders yet!": "હજી સુધી કોઈ નવા ઓર્ડર નથી!",
   "You don't have any orders yet!": "તમારી પાસે હજી સુધી કોઈ ઓર્ડર નથી!",
   "No delivered orders yet!": "હજી સુધી કોઈ ડિલિવર થયેલ ઓર્ડર નથી!",
-  // Vehicle Screen
+
   "Vehicle Details": "વાહન વિગતો",
   "Vehicle Number": "વાહન નંબર",
   "Vehicle Color": "વાહન રંગ",
@@ -285,21 +281,18 @@ export const gu = {
   "Vehicle documents too large": "વાહન દસ્તાવેજો ખૂબ મોટા છે",
   "Vehicle documents format not supported": "વાહન દસ્તાવેજો ફોર્મેટ સપોર્ટેડ નથી",
 
-  // Chat Screen
   "Contact Customer": "ગ્રાહકનો સંપર્ક કરો",
   "Type a message": "સંદેશ લખો",
   "Send": "મોકલો",
   "Message sent": "સંદેશ મોકલવામાં આવ્યો",
   "Message failed": "સંદેશ નિષ્ફળ",
 
-  // Earnings Screen
   "Please select a date range": "કૃપા કરીને તારીખની રેન્જ પસંદ કરો",
   "Please select a start date": "કૃપા કરીને શરૂઆતની તારીખ પસંદ કરો",
   "Please select an end date": "કૃપા કરીને અંતિમ તારીખ પસંદ કરો",
   "Start date cannot be after end date": "શરૂઆતની તારીખ અંતિમ તારીખ પછી ન હોઈ શકે",
   "Please log in to view your earnings": "તમારી કમાણી જોવા માટે કૃપા કરીને લૉગિન કરો",
 
-  // Profile Forms
   "Unable to update availability": "ઉપલબ્ધતા અપડેટ કરવામાં અસમર્થ",
   "rider name": "રાઈડર નામ",
   "rider id": "રાઈડર આઈડી",

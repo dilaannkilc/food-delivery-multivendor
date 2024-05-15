@@ -2,7 +2,6 @@
 
 import AuthGuard from "@/lib/hoc/auth.guard";
 
-// Layout
 import ProfileLayoutScreen from "@/lib/ui/layouts/protected/profile";
 
 export default function ProfileRootLayout({

@@ -3,16 +3,13 @@ import { useRoute } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
 import { Alert } from "react-native";
 
-// Context
 import UserContext from "../context/global/user.context";
 
-// API
 import { SEND_CHAT_MESSAGE } from "@/lib/apollo/mutations/chat.mutation";
 import { CHAT } from "@/lib/apollo/queries";
 import { SUBSCRIPTION_NEW_MESSAGE } from "@/lib/apollo/subscriptions";
 import { IMessage } from "react-native-gifted-chat";
 
-// Interface
 
 export const useChatScreen = () => {
   const route = useRoute();
@@ -21,22 +18,20 @@ export const useChatScreen = () => {
 
   const { dataProfile } = useContext(UserContext);
 
-  // States
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [image, setImage] = useState([]);
 
-  // API
   const { subscribeToMore: subscribeToMessages, data: chatData } = useQuery(
     CHAT,
     {
       variables: { order: orderId },
       fetchPolicy: "network-only",
-      //, onError,
+
     },
   );
   const [send] = useMutation(SEND_CHAT_MESSAGE, {
-    onCompleted /* , onError */,
+    onCompleted ,
   });
 
   function onCompleted({
@@ -48,11 +43,7 @@ export const useChatScreen = () => {
       Alert.alert("Error", messageResult.message);
     }
   }
-  /* function onError() {
-    Alert.alert("Error", error.message);
-  } */
 
-  //Handler
   const onSend = () => {
     send({
       variables: {
@@ -70,7 +61,6 @@ export const useChatScreen = () => {
     setImage([]);
   };
 
-  // Use Effect
   useEffect(() => {
     const unsubscribe = subscribeToMessages({
       document: SUBSCRIPTION_NEW_MESSAGE,

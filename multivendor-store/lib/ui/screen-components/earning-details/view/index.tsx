@@ -1,51 +1,42 @@
-// Core
+
 import { View } from "react-native";
 
-// Interfaces
 import {
   IEarningDetailsMainProps,
   IStoreEarnings,
   IStoreEarningsResponse,
 } from "@/lib/utils/interfaces/rider-earnings.interface";
 
-// Hooks
 import { useUserContext } from "@/lib/context/global/user.context";
 import { QueryResult, useQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-// GraphQL
 import { STORE_EARNINGS_GRAPH } from "@/lib/apollo/queries/earnings.query";
 
-// Components
 import EarningDetailsHeader from "../header";
 import EarningsDetailStacks from "./earnings";
 
-// Skeletons
 import { EarningsSummaryMainLoading } from "@/lib/ui/skeletons";
 import EarningDetailsDateFilter from "../date-filter";
 
-// React Native Flash Message
 import { showMessage } from "react-native-flash-message";
 
 export default function EarningDetailsMain({
   dateFilter,
   setDateFilter,
 }: IEarningDetailsMainProps) {
-  // Hooks
+
   const { t } = useTranslation();
 
-  // States
   const [isFiltering, setIsFiltering] = useState(false);
   const [isDateFilterVisible, setIsDateFilterVisible] = useState(false);
   const [storeEarnings, setStoreEarnings] = useState<IStoreEarnings[]>(
     [] as IStoreEarnings[],
   );
 
-  // Contexts
   const { setModalVisible, userId } = useUserContext();
 
-  // Queries
   const {
     loading: isStoreEarningsLoading,
     refetch: fetchStoreEarnings,
@@ -74,10 +65,9 @@ export default function EarningDetailsMain({
     }
   >;
 
-  // Handlers
   async function handleDateFilterSubmit() {
     setIsFiltering(true);
-    // Validation
+
     if (!dateFilter.startDate) {
       setIsFiltering(false);
       return showMessage({
@@ -109,13 +99,12 @@ export default function EarningDetailsMain({
       });
     }
 
-    // Fetch with filters
     await fetchStoreEarnings({
       storeId: userId,
       startDate: dateFilter.startDate,
       endDate: dateFilter.endDate,
-      // page: pagination.page,
-      // limit: pagination.limit,
+
+
     });
 
     setIsFiltering(false);
@@ -135,7 +124,7 @@ export default function EarningDetailsMain({
       setStoreEarnings(sortedEarnings);
     }
   }, [sortedEarnings.length]);
-  // If loading
+
   if (isStoreEarningsLoading || isFiltering)
     return <EarningsSummaryMainLoading />;
   return (

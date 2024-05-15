@@ -1,7 +1,7 @@
 import { DirectionProvider } from "@/lib/context/direction/DirectionContext";
 import { ThemeProvider } from "@/lib/providers/ThemeProvider";
 import { DirectionHandler } from "@/lib/ui/layouts/global/rtl/DirectionHandler";
-// import InstallPWA from "@/lib/ui/pwa/InstallPWA";
+
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import Script from "next/script";
@@ -23,8 +23,8 @@ export default async function RootLayout({
     rtlLocales.includes(locale) || rtlLocales.includes(baseLocale)
       ? "rtl"
       : "ltr";
-  //Providing all messages to the client
-  //side is the easiest way to get started
+
+
 
   const messages = await getMessages({ locale });
 
@@ -32,7 +32,7 @@ export default async function RootLayout({
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" href="/favicon.png" />
-        {/* 🔥 Inline theme script to prevent flash of wrong theme */}
+        {}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -52,7 +52,7 @@ export default async function RootLayout({
           strategy="beforeInteractive"
         />
 
-        {/* Microsoft Clarity */}
+        {}
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`
             (function(c,l,a,r,i,t,y){
@@ -68,14 +68,14 @@ export default async function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
-        {/* Apple splash screen for specific device */}
+        {}
         <link
           rel="apple-touch-startup-image"
           href="/splash-screen.png"
           media="(device-width: 390px) and (device-height: 844px)
           and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
         />
-        {/* Add more media queries for other device sizes if needed */}
+        {}
       </head>
       <body className={dir === "rtl" ? "rtl" : ""}>
         <ThemeProvider>
@@ -83,7 +83,7 @@ export default async function RootLayout({
             <DirectionProvider dir={dir}>
               <DirectionHandler />
               {children}
-              {/* <InstallPWA/> */}
+              {}
             </DirectionProvider>
           </NextIntlClientProvider>
         </ThemeProvider>

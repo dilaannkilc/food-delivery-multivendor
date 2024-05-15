@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 import SpinnerComponent from "../../useable-components/spinner";
 
 export default function RootStackLayout() {
-  // Hooks
+
   const { appTheme } = useApptheme();
 
   return (
@@ -22,7 +22,7 @@ export default function RootStackLayout() {
       <Stack.Screen
         name="order-detail"
         options={{
-          // headerShown: false,
+
           headerTintColor: appTheme.fontMainColor,
         }}
       />

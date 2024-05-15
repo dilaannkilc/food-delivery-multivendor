@@ -1,9 +1,7 @@
 'use client';
 
-// Core
 import { createContext, useContext, useEffect, useState } from 'react';
 
-// Interface
 import {
   IProvider,
   IQueryResult,
@@ -18,17 +16,16 @@ import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { onFilterObjects } from '@/lib/utils/methods';
 import { VendorLayoutContext } from './layout-vendor.context';
 
-// Types
 
 export const VendorLayoutRestaurantContext =
   createContext<IRestaurantContextProps>({} as IRestaurantContextProps);
 
 export const VendorLayoutRestaurantProvider = ({ children }: IProvider) => {
-  // Context
+
   const {
     vendorLayoutContextData: { vendorId },
   } = useContext(VendorLayoutContext);
-  // States
+
   const [restaurantContextData, setRestaurantContextData] =
     useState<IVendorLayoutRestaurantContextData>({
       id: '',
@@ -40,11 +37,10 @@ export const VendorLayoutRestaurantProvider = ({ children }: IProvider) => {
 
   const [isRestaurantFormVisible, setRestaurantFormVisible] =
     useState<boolean>(false);
-  // Form Flow
+
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isRestaurantModifed, setRestaurantModifed] = useState<boolean>(false);
 
-  // API
   const restaurantByOwnerResponse = useQueryGQL(
     GET_RESTAURANTS_BY_OWNER,
     {
@@ -95,7 +91,6 @@ export const VendorLayoutRestaurantProvider = ({ children }: IProvider) => {
     });
   };
 
-  // Use Effect
   useEffect(() => {
     onHandlerFilterData();
   }, [restaurantContextData?.globalFilter, isRestaurantModifed]);
@@ -105,16 +100,16 @@ export const VendorLayoutRestaurantProvider = ({ children }: IProvider) => {
   }, [vendorId]);
 
   const value: IRestaurantContextProps = {
-    // Vendor Information
+
     vendorId,
-    // Form Visibility
+
     isRestaurantFormVisible,
     onSetRestaurantFormVisible,
-    // Restaurant Data
+
     restaurantByOwnerResponse,
     restaurantContextData,
     onSetRestaurantContextData,
-    // Navigation and State Management
+
     activeIndex,
     onActiveStepChange,
     onClearRestaurntsData,

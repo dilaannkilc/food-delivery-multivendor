@@ -30,13 +30,13 @@ const styles = (props = null) =>
       width: '90%',
       paddingLeft: 10
     },
-    // mapMainContainer: {
-    //   backgroundColor: props != null ? props.themeBackground : 'white',
-    //   flexGrow: 1,
-    //   ...alignment.PTlarge,
-    //   ...alignment.PLmedium,
-    //   ...alignment.PRmedium
-    // },
+
+
+
+
+
+
+
 
     location: {
       marginLeft: scale(3)
@@ -106,7 +106,7 @@ const styles = (props = null) =>
       marginVertical: scale(8)
     },
     timingContainer: {
-      // alignSelf: 'center',
+
       width: '100%',
       ...alignment.PTmedium
     },
@@ -118,26 +118,26 @@ const styles = (props = null) =>
       ...alignment.PTsmall,
       ...alignment.PBxSmall
     },
-    // navigationContainer: {
-    //   flexDirection: props?.isRTL ? 'row-reverse' : 'row',
-    //   alignItems: 'flex-start',
-    //   justifyContent: 'center',
-    //   width: '100%',
-    //   zIndex: 999
-    // },
-    // tab: {
-    //   backgroundColor: '#E4FFD9',
-    //   width: '48%',
-    //   height: verticalScale(35),
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
-    //   borderRadius: scale(10),
-    //   margin: scale(-10)
-    // },
-    // selectedTab: {
-    //   backgroundColor: props != null ? props.main : '#90EA93',
-    //   borderRadius: scale(10)
-    // },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     timingRow: {
       flexDirection: props?.isRTL ? 'row-reverse' : 'row',
       alignItems: 'center',

@@ -1,13 +1,13 @@
-// Queries
+
 import {
-  // GET_CUISINES,
+
   NEAR_BY_RESTAURANTS_CUISINES,
 } from "../api/graphql/queries";
-// useQuery
+
 import { useQuery } from "@apollo/client";
-// interfaces
+
 import { ICuisinesResponse, ICuisinesData } from "@/lib/utils/interfaces";
-// context
+
 import { useUserAddress } from "../context/address/address.context";
 import { toFloatIfNeeded } from "../utils/methods/helpers";
 

@@ -1,7 +1,6 @@
-// Interfaces
+
 import { ITextFieldProps } from '@/lib/utils/interfaces';
 
-// Prime React
 import { InputText } from 'primereact/inputtext';
 import InputSkeleton from '../custom-skeletons/inputfield.skeleton';
 

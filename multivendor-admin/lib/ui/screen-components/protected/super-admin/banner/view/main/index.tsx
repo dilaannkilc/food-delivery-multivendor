@@ -1,27 +1,22 @@
-// Core
+
 import { useEffect, useState } from 'react';
 
-// PrimeReact
 import { FilterMatchMode } from 'primereact/api';
 
-// Hooks
 import useToast from '@/lib/hooks/useToast';
 
-// Custom Components
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
 import Table from '@/lib/ui/useable-components/table';
 import { BANNERS_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/banners-columns';
 import { IActionMenuItem } from '@/lib/utils/interfaces/action-menu.interface';
 import BannerTableHeader from '../header/table-header';
 
-// Interfaces and Types
 import {
   IBannersDataResponse,
   IBannersMainComponentsProps,
   IBannersResponse,
 } from '@/lib/utils/interfaces';
 
-// GraphQL
 import { DELETE_BANNER } from '@/lib/api/graphql';
 import { GET_BANNERS } from '@/lib/api/graphql/queries/banners';
 import { generateDummyBanners } from '@/lib/utils/dummy';
@@ -32,11 +27,10 @@ export default function BannersMain({
   setIsAddBannerVisible,
   setBanner,
 }: IBannersMainComponentsProps) {
-  // Hooks
+
   const { showToast } = useToast();
   const t = useTranslations();
 
-  // State - Table
   const [deleteId, setDeleteId] = useState('');
   const [selectedProducts, setSelectedProducts] = useState<IBannersResponse[]>(
     []
@@ -54,7 +48,6 @@ export default function BannersMain({
     },
   };
 
-  //Query
   const {
     data,
     loading,
@@ -71,7 +64,6 @@ export default function BannersMain({
     },
   });
 
-  //Mutation
   const [mutateDelete, { loading: mutationLoading }] = useMutation(
     DELETE_BANNER,
     {
@@ -103,13 +95,11 @@ export default function BannersMain({
     },
   ];
 
-  // Handlers
-  // const onPageChange = (page: number, size: number) => {
-  //   setCurrentPage(page);
-  //   setPageSize(size);
-  // };
 
-  // UseEffects
+
+
+
+
   useEffect(() => {
     refetchBanners({
       page: currentPage,

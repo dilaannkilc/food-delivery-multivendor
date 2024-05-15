@@ -30,7 +30,6 @@ function NewRestaurantDetailDesign(props) {
   const navigation = useNavigation()
   const configuration = useContext(ConfigurationContext)
 
-  // Extract restaurant data from route params
   const restaurant = props?.route.params
   const restaurantId = restaurant?._id
 
@@ -41,10 +40,8 @@ function NewRestaurantDetailDesign(props) {
     ...theme[themeContext.ThemeValue]
   }
 
-  // Animation for cart button
   const scaleValue = useRef(new Animated.Value(1)).current
 
-  // Add effect to animate when cartCount changes
   useEffect(() => {
     if (cartCount > 0) {
       Animated.sequence([
@@ -62,17 +59,14 @@ function NewRestaurantDetailDesign(props) {
     }
   }, [cartCount])
 
-  // Add search overlay state
   const [isSearchVisible, setIsSearchVisible] = useState(false)
   const { data: restaurantData, loading } = useRestaurant(restaurantId)
 
-  // Use both route params and API data to determine if restaurant is closed
   const isRestaurantOpen =
     restaurant?.isOpen ?? restaurantData?.restaurant?.isOpen
   const isAvailable =
     restaurant?.isAvailable ?? restaurantData?.restaurant?.isAvailable
 
-  // Calculate header animation values
   const headerHeight = scrollOffsetY.interpolate({
     inputRange: [0, HEADER_SCROLL_DISTANCE],
     outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
@@ -91,12 +85,10 @@ function NewRestaurantDetailDesign(props) {
     extrapolate: 'clamp'
   })
 
-  // Handler for opening search overlay
   const handleOpenSearch = () => {
     setIsSearchVisible(true)
   }
 
-  // Handler for closing search overlay
   const handleCloseSearch = () => {
     setIsSearchVisible(false)
   }
@@ -107,7 +99,6 @@ function NewRestaurantDetailDesign(props) {
     })
   }
 
-  // Merge restaurant data from route params and API
   const mergedRestaurant = {
     ...(restaurantData?.restaurant || {}),
     ...restaurant,
@@ -121,7 +112,6 @@ function NewRestaurantDetailDesign(props) {
     isAvailable: isAvailable
   }
 
-  // Render the skeleton loader when data is loading
   if (loading) {
     return (
       <SafeAreaView
@@ -149,7 +139,7 @@ function NewRestaurantDetailDesign(props) {
         translucent={true}
       />
 
-      {/* Main Header */}
+      {}
       <Animated.View
         style={[
           styles(currentTheme).headerContainer,
@@ -159,7 +149,7 @@ function NewRestaurantDetailDesign(props) {
           }
         ]}
       >
-        {/* Original Header */}
+        {}
         <Animated.View
           style={{ opacity: headerOpacity }}
           pointerEvents={collapsedHeaderOpacity._value > 0.1 ? 'none' : 'auto'}
@@ -174,7 +164,7 @@ function NewRestaurantDetailDesign(props) {
           />
         </Animated.View>
 
-        {/* Collapsed Header */}
+        {}
         <Animated.View
           pointerEvents={collapsedHeaderOpacity._value > 0.1 ? 'auto' : 'none'}
           style={[
@@ -199,7 +189,7 @@ function NewRestaurantDetailDesign(props) {
         </Animated.View>
       </Animated.View>
 
-      {/* Scrollable Content with Restaurant Sections */}
+      {}
       <Animated.ScrollView
         scrollEventThrottle={16}
         onScroll={Animated.event(
@@ -225,7 +215,7 @@ function NewRestaurantDetailDesign(props) {
         </View>
       </Animated.ScrollView>
 
-      {/* Search Overlay */}
+      {}
       <SearchOverlay
         isVisible={isSearchVisible}
         onClose={handleCloseSearch}

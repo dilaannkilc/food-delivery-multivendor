@@ -12,7 +12,6 @@ export default function SplashVideo({ onLoaded, onFinish }: SplashVideoProps) {
   const [hasFinished, setHasFinished] = useState<boolean>(false);
   const playerRef = useRef<VideoPlayer | null>(null);
 
-  // Create video player instance
   const player = useVideoPlayer(require("@/lib/assets/video/mobile-splash.mp4"), (player) => {
     playerRef.current = player;
     player.loop = false;
@@ -22,7 +21,7 @@ export default function SplashVideo({ onLoaded, onFinish }: SplashVideoProps) {
 
   useEffect(() => {
     const subscription = player.addListener('statusChange', (status) => {
-      console.log('Video status:', status); // Debug log
+      console.log('Video status:', status); 
       
       if (status.isLoaded && !hasLoaded) {
         setHasLoaded(true);
@@ -30,9 +29,8 @@ export default function SplashVideo({ onLoaded, onFinish }: SplashVideoProps) {
       }
     });
 
-    // Try multiple possible event names for video end
     const endSubscription1 = player.addListener('playToEnd', () => {
-      console.log('Video ended (playToEnd)'); // Debug log
+      console.log('Video ended (playToEnd)'); 
       if (!hasFinished) {
         setHasFinished(true);
         onFinish?.();
@@ -40,7 +38,7 @@ export default function SplashVideo({ onLoaded, onFinish }: SplashVideoProps) {
     });
 
     const endSubscription2 = player.addListener('playbackEnd', () => {
-      console.log('Video ended (playbackEnd)'); // Debug log
+      console.log('Video ended (playbackEnd)'); 
       if (!hasFinished) {
         setHasFinished(true);
         onFinish?.();
@@ -48,23 +46,21 @@ export default function SplashVideo({ onLoaded, onFinish }: SplashVideoProps) {
     });
 
     const endSubscription3 = player.addListener('didJustFinish', () => {
-      console.log('Video ended (didJustFinish)'); // Debug log
+      console.log('Video ended (didJustFinish)'); 
       if (!hasFinished) {
         setHasFinished(true);
         onFinish?.();
       }
     });
 
-    // Also try checking status changes for completion
     const statusSubscription = player.addListener('statusChange', (status) => {
       if (status.status === 'readyToPlay' && !hasLoaded) {
         setHasLoaded(true);
         onLoaded?.();
       }
-      
-      // Check if video has finished playing
+
       if ((status.status === 'idle' || status.didJustFinish) && hasLoaded && !hasFinished) {
-        console.log('Video ended via status change'); // Debug log
+        console.log('Video ended via status change'); 
         setHasFinished(true);
         onFinish?.();
       }

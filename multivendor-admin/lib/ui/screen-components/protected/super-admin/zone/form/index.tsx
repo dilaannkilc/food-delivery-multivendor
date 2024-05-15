@@ -1,28 +1,23 @@
-// Core
+
 import { Form, Formik, FormikHelpers } from 'formik';
 
-// Prime React
 import { Sidebar } from 'primereact/sidebar';
 
-// Interface and Types
 import {
   IQueryResult,
   IZoneAddFormComponentProps,
 } from '@/lib/utils/interfaces';
 import { IRiderZonesResponse } from '@/lib/utils/interfaces';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
-// Utilities and Constants
+
 import { ZoneErrors } from '@/lib/utils/constants';
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 import { ZoneSchema } from '@/lib/utils/schema';
 
-//Toast
 import useToast from '@/lib/hooks/useToast';
 
-//GraphQL
 import { CREATE_ZONE, EDIT_ZONE, GET_ZONES } from '@/lib/api/graphql';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { ApolloError, useMutation } from '@apollo/client';
@@ -42,7 +37,7 @@ export default function ZoneAddForm({
   position = 'right',
   isAddZoneVisible,
 }: IZoneAddFormComponentProps) {
-  // State
+
   const initialValues: IZoneForm = {
     _id: zone?._id ?? '',
     title: zone?.title || '',
@@ -50,19 +45,15 @@ export default function ZoneAddForm({
     coordinates: zone?.location?.coordinates ?? [[[]]],
   };
 
-  // Hooks
   const t = useTranslations();
   const { showToast } = useToast();
 
-  // Context
   const { isLoaded } = useContext(GoogleMapsContext);
 
-  // Query
   const { data } = useQueryGQL(GET_ZONES, {
     fetchPolicy: 'cache-and-network',
   }) as IQueryResult<IRiderZonesResponse | undefined, undefined>;
 
-  // Mutation
   const [createZone, { loading: mutationLoading }] = useMutation(
     zone ? EDIT_ZONE : CREATE_ZONE,
     {
@@ -70,7 +61,6 @@ export default function ZoneAddForm({
     }
   );
 
-  // Form Submission
   const handleSubmit = (
     values: IZoneForm,
     { resetForm }: FormikHelpers<IZoneForm>

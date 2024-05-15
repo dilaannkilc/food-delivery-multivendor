@@ -109,15 +109,15 @@ export const RECOMMENDATIONS: Recommendation[] = [
 export const SIDEBAR_CATEGORY = [
   {
     label: "Files",
-    // icon: "pi pi-file",
+
     items: [
       {
         label: "Documents",
-        // icon: "pi pi-file",
+
       },
       {
         label: "Images",
-        // icon: "pi pi-image",
+
       },
     ],
   },
@@ -160,11 +160,11 @@ export const SIDEBAR_CATEGORY = [
 
   {
     label: "Devices",
-    // icon: "pi pi-desktop",
+
     items: [
       {
         label: "Phone",
-        // icon: "pi pi-mobile"
+
       },
       { label: "Desktop", icon: "pi pi-desktop" },
       { label: "Tablet", icon: "pi pi-tablet" },
@@ -253,7 +253,7 @@ export const SIDEBAR_CATEGORY = [
   },
   {
     label: "Logout",
-    // icon: "pi pi-sign-out",
+
   },
 ];
 

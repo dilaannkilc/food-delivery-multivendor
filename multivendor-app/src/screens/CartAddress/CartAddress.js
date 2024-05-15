@@ -84,7 +84,7 @@ function CartAddresses(props) {
 
   useEffect(() => {
     if (profile?.addresses) {
-      // Find the last saved address
+
       const lastSavedAddress = profile?.addresses?.slice().reverse().find(address => address.selected)
       if (lastSavedAddress) {
         setSelectedAddress(lastSavedAddress)
@@ -186,13 +186,7 @@ function CartAddresses(props) {
                     >
                       {address.deliveryAddress}
                     </TextDefault>
-                    {/* <TextDefault
-                      line={3}
-                      textColor={currentTheme.fontSecondColor}
-                      bold
-                    >
-                      {address.details}
-                    </TextDefault> */}
+                    {}
                   </View>
                 </View>
               </TouchableOpacity>

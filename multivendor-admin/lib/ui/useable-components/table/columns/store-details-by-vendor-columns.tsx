@@ -1,9 +1,9 @@
-// Interfaces and Types
+
 import { IVendorStoreDetails } from '@/lib/utils/interfaces';
 import { useTranslations } from 'next-intl';
 
 export const VENDOR_STORE_DETAILS_COLUMN = () => {
-  // Hooks
+
   const t = useTranslations();
 
   return [

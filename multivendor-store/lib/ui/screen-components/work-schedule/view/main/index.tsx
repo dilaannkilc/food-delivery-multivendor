@@ -36,7 +36,6 @@ const daysOfWeek: TWeekDays[] = [
   "SUN",
 ];
 
-// Generate 24-hour time slots (every 15 minutes)
 const generateTimeSlots = () => {
   const times = [];
   for (let h = 0; h < 24; h++) {
@@ -50,10 +49,10 @@ const generateTimeSlots = () => {
 const timeOptions = generateTimeSlots();
 
 export default function WorkScheduleMain() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
-  // States
+
   const [schedule, setSchedule] = useState<WorkSchedule[]>();
   const [dropdown, setDropdown] = useState<{
     dayIndex: number;
@@ -62,15 +61,12 @@ export default function WorkScheduleMain() {
   } | null>(null);
   const [isTogglingDay, setIsTogglingDay] = useState<number>(-1);
 
-  // Animation refs
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const translateYAnim = useRef(new Animated.Value(20)).current;
   const parallaxAnim = useRef(new Animated.Value(0)).current;
 
-  // Context
   const { dataProfile } = useUserContext();
 
-  // API Hook
   const [updateSchedule, { loading: isUpatingSchedule }] = useMutation(
     UPDATE_WORK_SCHEDULE,
     {
@@ -83,17 +79,16 @@ export default function WorkScheduleMain() {
     }
   );
 
-  // Handler
   const onHandlerSubmit = async () => {
     try {
-      // Check for overlapping slots
+
       const overlapping_day = hasOverlappingSlots(schedule ?? []);
       if (overlapping_day) {
         return showMessage({
           message: `${t(overlapping_day)} ${t("has overlapping slots")}.`,
         });
       }
-      // Clean the work schedule before submitting
+
       const cleanedWorkSchedule =
         schedule?.map(({ ...day }) => ({
           ...day,
@@ -132,12 +127,11 @@ export default function WorkScheduleMain() {
     }
   };
 
-  // Handlers
   const toggleDay = (index: number) => {
     setIsTogglingDay(index);
 
     const updatedSchedule = [...(schedule ?? [])];
-    // If times array is empty, add default time slot
+
     if (updatedSchedule[index].times.length === 0) {
       updatedSchedule[index].times = [
         {
@@ -146,7 +140,7 @@ export default function WorkScheduleMain() {
         },
       ];
     } else {
-      // If times exist, clear them
+
       updatedSchedule[index].times = [];
     }
     setSchedule(updatedSchedule);
@@ -164,7 +158,7 @@ export default function WorkScheduleMain() {
           daySchedule.times.length === 0
             ? []
             : daySchedule.times.map((slot) => {
-                // Ensure we're working with string format first
+
                 const startTimeStr = Array.isArray(slot.startTime)
                   ? slot.startTime.join(":")
                   : slot.startTime;
@@ -172,7 +166,6 @@ export default function WorkScheduleMain() {
                   ? slot.endTime.join(":")
                   : slot.endTime;
 
-                // Ensure proper splitting of hours and minutes
                 const [startHours = "00", startMinutes = "00"] =
                   typeof startTimeStr === "string" && startTimeStr
                     ? startTimeStr.split(":")
@@ -193,11 +186,10 @@ export default function WorkScheduleMain() {
 
   const hasOverlappingSlots = (schedule: WorkSchedule[]): string => {
     for (const daySchedule of schedule) {
-      if (daySchedule.times.length === 0) continue; // Skip days with no times
+      if (daySchedule.times.length === 0) continue; 
 
       const times = daySchedule.times;
 
-      // Sort slots by start time to ensure proper order
       const sortedSlots = [...times].sort(
         (a, b) =>
           timeToMinutes(a.startTime.join(":")) -
@@ -208,7 +200,6 @@ export default function WorkScheduleMain() {
         const currentEnd = timeToMinutes(sortedSlots[i].endTime.join(":"));
         const nextStart = timeToMinutes(sortedSlots[i + 1].startTime.join(":"));
 
-        // If the next slot starts before the current one ends, there's an overlap
         if (nextStart < currentEnd) {
           return daySchedule.day;
         }
@@ -232,7 +223,6 @@ export default function WorkScheduleMain() {
 
       const [hours = "00", minutes = "00"] = value.split(":");
 
-      // Validate start and end times
       const newTime = timeToMinutes(value);
 
       if (type === "startTime") {
@@ -255,7 +245,6 @@ export default function WorkScheduleMain() {
         }
       }
 
-      // Check for overlapping slots
       const isOverlapping = updatedSchedule[dayIndex].times.some(
         (otherSlot, idx) => {
           if (idx === slotIndex) return false;
@@ -285,7 +274,6 @@ export default function WorkScheduleMain() {
         });
       }
 
-      // Update the time value as an array [HH, MM]
       if (type === "startTime") {
         updatedSchedule[dayIndex].times[slotIndex].startTime = [hours, minutes];
       } else {
@@ -300,8 +288,8 @@ export default function WorkScheduleMain() {
   const addSlot = (dayIndex: number) => {
     const updatedSchedule = schedule ? [...schedule] : [];
     updatedSchedule[dayIndex].times.push({
-      startTime: ["09", "00"], // Properly initialize with hours and minutes
-      endTime: ["17", "00"], // Properly initialize with hours and minutes
+      startTime: ["09", "00"], 
+      endTime: ["17", "00"], 
     });
     setSchedule(updatedSchedule);
   };
@@ -326,12 +314,11 @@ export default function WorkScheduleMain() {
           useNativeDriver: true,
         }),
       ]).start(() => {
-        setDropdown(null); // Hide dropdown after animation
+        setDropdown(null); 
       });
     }
   };
 
-  // Handle dropdown animations
   useEffect(() => {
     if (dropdown) {
       Animated.parallel([
@@ -414,7 +401,7 @@ export default function WorkScheduleMain() {
           onHandlerSubmit={onHandlerSubmit}
           width={width}
         />
-        {/* Animated Dropdown */}
+        {}
         {dropdown && (
           <Animated.View
             className="mb-[6rem]"
@@ -435,8 +422,8 @@ export default function WorkScheduleMain() {
                 { translateY: translateYAnim },
                 {
                   translateY: parallaxAnim.interpolate({
-                    inputRange: [0, 300], // Adjust based on your dropdown height
-                    outputRange: [0, -30], // Parallax effect range
+                    inputRange: [0, 300], 
+                    outputRange: [0, -30], 
                     extrapolate: "clamp",
                   }),
                 },

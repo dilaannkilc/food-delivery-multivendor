@@ -144,7 +144,7 @@ function EditAddress(props) {
     FlashMessage({
       message: t('addressUpdated')
     })
-    // show message here
+
     props?.navigation.goBack()
   }
 

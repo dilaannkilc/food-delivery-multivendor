@@ -1,4 +1,4 @@
-/* eslint-disable react/display-name */
+
 import React, { useRef, useContext, useLayoutEffect, useState, useEffect } from 'react'
 import { View, SafeAreaView, TouchableOpacity, Animated, StatusBar, Platform, RefreshControl } from 'react-native'
 import { Modalize } from 'react-native-modalize'
@@ -62,7 +62,7 @@ function Main(props) {
     onError
   })
 
-  const { onScroll /* Event handler */, containerPaddingTop /* number */, scrollIndicatorInsetTop /* number */, translateY } = useCollapsibleSubHeader()
+  const { onScroll , containerPaddingTop , scrollIndicatorInsetTop , translateY } = useCollapsibleSubHeader()
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
@@ -267,7 +267,6 @@ function Main(props) {
     return data
   }
 
-  // Flatten the array. That is important for data sequence
   const restaurantSections = sections.map((sec) => ({
     ...sec,
     restaurants: sec.restaurants.map((id) => restaurants.filter((res) => res._id === id)).flat()

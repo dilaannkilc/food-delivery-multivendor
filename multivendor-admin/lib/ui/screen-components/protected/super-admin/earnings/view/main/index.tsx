@@ -28,7 +28,6 @@ export default function EarningsMain({
     
   });
 
-  // Hooks
   const debouncedSearch = useDebounce(globalFilterValue);
 
   const [dateFilters, setDateFilters] = useState<IEarningFilters>({
@@ -66,7 +65,6 @@ export default function EarningsMain({
 
   console.log('Earnings data:', data);
 
-  // Global search handler
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const _filters = { ...filters };
@@ -75,7 +73,6 @@ export default function EarningsMain({
     setGlobalFilterValue(value);
   };
 
-  // Handle page change
   const onPageChange = (page: number, size: number) => {
     setCurrentPage(page);
     setPageSize(size);
@@ -85,8 +82,8 @@ export default function EarningsMain({
     {
       label: 'View Details',
       command: () => {
-        // Handle view details action
-        // console.log('View details for:', data);
+
+
       },
     },
   ];

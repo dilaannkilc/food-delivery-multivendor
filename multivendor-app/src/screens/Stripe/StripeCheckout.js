@@ -32,7 +32,7 @@ function StripeCheckout(props) {
   }, [props?.navigation])
 
   function onClose(flag) {
-    // showMessage here
+
     props?.navigation.goBack()
   }
   useEffect(() => {
@@ -61,7 +61,7 @@ function StripeCheckout(props) {
       })
     } else if (data.url.includes('stripe/cancel')) {
       props?.navigation.goBack()
-      // goBack on Payment Screen
+
     }
   }
 
@@ -69,7 +69,7 @@ function StripeCheckout(props) {
     <View style={{ flex: 1 }}>
       <WebView
         javaScriptEnabled={true}
-        // scrollEnabled={false}
+
         bounces={false}
         onLoad={() => {
           loadingSetter(false)

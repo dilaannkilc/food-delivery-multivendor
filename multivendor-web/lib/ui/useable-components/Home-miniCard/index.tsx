@@ -7,8 +7,6 @@ import { HomeMiniCardProps } from '@/lib/utils/interfaces/Home-interfaces'
 
 const HomeMiniCard: React.FC<HomeMiniCardProps> = ({ image, heading, subText, headingColor, backColor, darkBackColor }) => {
 
-
-  // get theme from local storage
   const [theme, setTheme] = useState("light");
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");

@@ -1,32 +1,26 @@
-// Core
+
 import { Form, Formik, FormikHelpers } from 'formik';
 
-// Prime React
 import { Sidebar } from 'primereact/sidebar';
 
-// Interface and Types
 import {
   IDropdownSelectItem,
   IStaffAddFormComponentProps,
 } from '@/lib/utils/interfaces';
 import { IStaffForm } from '@/lib/utils/interfaces/forms/staff.form.interface';
 
-// Components
 import CustomButton from '@/lib/ui/useable-components/button';
 import CustomMultiSelectComponent from '@/lib/ui/useable-components/custom-multi-select';
 import CustomTextField from '@/lib/ui/useable-components/input-field';
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 import Toggle from '@/lib/ui/useable-components/toggle';
 
-// Utilities and Constants
 import { PERMISSIONS, StaffErrors } from '@/lib/utils/constants';
 import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 import { StaffSchema } from '@/lib/utils/schema/staff';
 
-//Toast
 import useToast from '@/lib/hooks/useToast';
 
-//GraphQL
 import { CREATE_STAFF, EDIT_STAFF } from '@/lib/api/graphql/mutations/staff';
 import { GET_STAFFS } from '@/lib/api/graphql/queries/staff';
 import { useMutation } from '@apollo/client';
@@ -39,10 +33,9 @@ export default function StaffAddForm({
   position = 'right',
   isAddStaffVisible,
 }: IStaffAddFormComponentProps) {
-  // Hooks
+
   const t = useTranslations();
 
-  // States
   const initialValues: IStaffForm = {
     name: '',
     email: '',
@@ -58,16 +51,13 @@ export default function StaffAddForm({
       : [],
   };
 
-  // Hooks
   const { showToast } = useToast();
 
-  // Mutation
   const mutation = staff ? EDIT_STAFF : CREATE_STAFF;
   const [mutate, { loading: mutationLoading }] = useMutation(mutation, {
     refetchQueries: [{ query: GET_STAFFS }],
   });
 
-  // Form Submission
   const handleSubmit = (
     values: IStaffForm,
     { resetForm }: FormikHelpers<IStaffForm>
@@ -260,28 +250,26 @@ export default function StaffAddForm({
                         <div>
                           <CustomMultiSelectComponent
                             onChange={(selected: IDropdownSelectItem[]) => {
-                              // Check if "Admin" is currently selected
+
                               const isAdminSelected = selected.some(
                                 (perm) => perm.code === 'Admin'
                               );
 
-                              // Check if "Admin" was previously selected
                               const wasAdminPreviouslySelected =
                                 values.permissions.some(
                                   (perm: IDropdownSelectItem) =>
                                     perm.code === 'Admin'
                                 );
 
-                              // If "Admin" is selected, select all permissions
                               if (isAdminSelected) {
-                                setFieldValue('permissions', PERMISSIONS); // Select all permissions
+                                setFieldValue('permissions', PERMISSIONS); 
                               } else {
-                                // If "Admin" is not selected
+
                                 if (wasAdminPreviouslySelected) {
-                                  // If "Admin" was previously selected, uncheck all permissions
-                                  setFieldValue('permissions', []); // Uncheck all permissions
+
+                                  setFieldValue('permissions', []); 
                                 } else {
-                                  // Keep the selected ones but remove "Admin"
+
                                   const newPermissions = selected.filter(
                                     (perm) => perm.code !== 'Admin'
                                   );

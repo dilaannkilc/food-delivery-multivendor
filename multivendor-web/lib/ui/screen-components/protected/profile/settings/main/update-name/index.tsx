@@ -3,15 +3,15 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import { InputText } from "primereact/inputtext";
-// Api
+
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { GET_USER_PROFILE, UPDATE_USER } from "@/lib/api/graphql";
-// Components
+
 import CustomDialog from "@/lib/ui/useable-components/custom-dialog";
 import CustomButton from "@/lib/ui/useable-components/button";
-// Icons
+
 import { LaptopSvg } from "@/lib/utils/assets/svg";
-// Hooks
+
 import useToast from "@/lib/hooks/useToast";
 import useDebounceFunction from "@/lib/hooks/useDebounceForFunction";
 import { useTranslations } from "next-intl";
@@ -30,7 +30,6 @@ export default function NameUpdateModal({
   existedName: string;
 }) {
 
-  // States
   const nameParts = existedName?.trim().split(" ") || [];
   const [firstName, ...rest] = nameParts;
   const lastName = rest.join(" ");
@@ -39,12 +38,9 @@ export default function NameUpdateModal({
     lastName: "",
   });
 
-  // Hooks    
   const { showToast } = useToast();
 
-  // Queries and Mutations
 
-  // refetch user profile after updating name
   const [
     fetchProfile
   ] = useLazyQuery(GET_USER_PROFILE, {
@@ -52,7 +48,7 @@ export default function NameUpdateModal({
   });
 
   const t = useTranslations()
-  // Update user muattion 
+
   const [updateUser] = useMutation(UPDATE_USER, {
     onCompleted: () => {
       fetchProfile()
@@ -72,14 +68,12 @@ export default function NameUpdateModal({
     },
   });
 
-  // handlers
-  // Handle input change
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // handle submit
   const handleSubmit = useDebounceFunction(() => {
     const fullName = `${formData.firstName} ${formData.lastName}`.trim();
     updateUser({
@@ -88,12 +82,11 @@ export default function NameUpdateModal({
       },
     });
   },
-    500 // Debounce time in milliseconds
+    500 
   );
 
-  // Handle cancel
   const handleCancel = () => {
-    // Reset form or navigate back
+
     setFormData({
       firstName: firstName || "",
       lastName: lastName || "",
@@ -101,7 +94,6 @@ export default function NameUpdateModal({
     handleUpdateNameModal?.()
   };
 
-  // useeffects
 
   useEffect(() => {
     setFormData({

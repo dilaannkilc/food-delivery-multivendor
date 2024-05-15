@@ -1,11 +1,9 @@
-// libraries
+
 import React from 'react'
 
-// component
 import MoveableCard from '@/lib/ui/useable-components/Moveable-Card'
 import TranparentButton from '@/lib/ui/useable-components/Home-Buttons/TranparentButton'
 
-//images 
 import Banner3 from '@/public/assets/images/png/Banner3.png'
 import { useTranslations } from 'next-intl'
 

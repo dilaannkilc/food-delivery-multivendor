@@ -90,7 +90,7 @@ const styles = (props = null) =>
     },
     btn: {
       position: 'relative',
-      // marginTop: '55%',
+
       width: '70%',
       alignItems: 'center',
       backgroundColor: props !== null ? props?.black : '#000',

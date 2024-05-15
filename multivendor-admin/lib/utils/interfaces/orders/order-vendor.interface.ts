@@ -42,7 +42,6 @@ export interface IOrder extends IGlobalComponentProps {
   orderStatus: string;
 }
 
-// Create a new interface that extends IOrder with the additional properties
 export interface IExtendedOrder extends IOrder {
   paidAmount?: number;
   paymentMethod?: ReactNode;

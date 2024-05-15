@@ -84,7 +84,7 @@ const styles = (props = null) =>
     btn: {
       marginBottom: scale(20),
       position: 'relative',
-      // marginTop: '55%',
+
       width: '100%',
       alignItems: 'center',
       backgroundColor: props !== null ? props?.main : '#000',

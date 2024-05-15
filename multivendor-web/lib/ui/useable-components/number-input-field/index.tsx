@@ -1,11 +1,9 @@
-// Interfaces
+
 import { INumberTextFieldProps } from '@/lib/utils/interfaces';
 
-// Prime React
 import { InputNumber, InputNumberChangeEvent } from 'primereact/inputnumber';
 import InputSkeleton from '../custom-skeletons/inputfield.skeleton';
 
-// Hooks
 import useToast from '@/lib/hooks/useToast';
 
 export default function CustomNumberField({
@@ -21,7 +19,7 @@ export default function CustomNumberField({
   max,
   ...props
 }: INumberTextFieldProps) {
-  // Toast
+
   const { showToast } = useToast();
 
   const onNumberChangeHandler = (e: InputNumberChangeEvent) => {

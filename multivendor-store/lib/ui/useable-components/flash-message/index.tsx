@@ -14,30 +14,29 @@ export default function FlashMessageComponent(
       marginLeft: 20,
       marginRight: 20,
       marginTop: 30,
-      minHeight: 40, // force consistent height
-      paddingVertical: 10, // add padding
+      minHeight: 40, 
+      paddingVertical: 10, 
     },
     titleStyle: {
       color: Colors.light.fontMainColor,
-      fontSize: 14, // force consistent font size
+      fontSize: 14, 
       textAlign: "center",
     },
-    floating: true, // removes platform-based default margins
+    floating: true, 
   });
 
-  // showMessage({
-  //   message: props.message,
-  //   backgroundColor: Colors.light.primary,
-  //   position: "top",
-  //   style: {
-  //     borderRadius: 40,
-  //     marginLeft: 20,
-  //     marginRight: 20,
-  //     marginTop: 30,
-  //     minHeight: 20,
-  //   },
-  //   titleStyle: {
-  //     color: Colors.light.fontMainColor,
-  //   },
-  // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

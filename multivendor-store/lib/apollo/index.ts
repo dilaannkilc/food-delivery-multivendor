@@ -29,7 +29,7 @@ const setupApollo = () => {
       timeout: 30000,
     },
   });
-  const cache = new InMemoryCache(); // eslint-disable-next-line new-cap
+  const cache = new InMemoryCache(); 
   const httpLink = createHttpLink({
     uri: GRAPHQL_URL,
   });
@@ -81,15 +81,14 @@ const setupApollo = () => {
       }),
   );
 
-  // const terminatingLink = split(({ query }) => {
-  //   const {
-  //     kind,
-  //     operation,
-  //   }: OperationDefinitionNode | FragmentDefinitionNode =
-  //     getMainDefinition(query);
-  //   return kind === "OperationDefinition" && operation === "subscription";
-  // }, wsLink);
-  // Terminating Link
+
+
+
+
+
+
+
+
 
   const terminatingLink = split(({ query }) => {
     const definition = getMainDefinition(query) as

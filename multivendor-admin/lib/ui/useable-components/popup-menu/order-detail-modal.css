@@ -1,7 +1,7 @@
-/* Custom modal size and style */
+
 .custom-modal {
-  width: 600px; /* Fixed size for modal */
-  max-width: 600px; /* Ensure it doesn't expand beyond this width */
+  width: 600px; 
+  max-width: 600px; 
 }
 
 .order-details-container {
@@ -51,10 +51,10 @@
   font-weight: bold;
 }
 
-/* Payment Method Section */
+
 .payment-section {
-  text-align: center; /* Center the payment method text */
-  margin-bottom: 20px; /* Add space between payment method and paid amount */
+  text-align: center; 
+  margin-bottom: 20px; 
 }
 
 .payment-type {
@@ -65,10 +65,10 @@
   color: #fff;
   padding: 5px 15px;
   border-radius: 20px;
-  display: inline-block; /* Make the text box tighter */
+  display: inline-block; 
 }
 
-/* Paid Amount Section */
+
 .paid-amount {
   display: flex;
   justify-content: space-between;
@@ -86,7 +86,7 @@
   flex-grow: 1;
 }
 
-/* Delivery Address Section */
+
 .delivery-address {
   margin-top: 10px;
   font-size: 16px;

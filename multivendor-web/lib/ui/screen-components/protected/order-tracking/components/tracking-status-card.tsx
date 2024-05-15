@@ -9,7 +9,7 @@ interface TrackingStatusCardProps {
 
 function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
   const t = useTranslations();
-  // Helper to determine the step status
+
   const getStepStatus = (stepIndex: number) => {
     const STATUS_ORDER = [
       "PENDING",
@@ -24,7 +24,6 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
       return "inactive";
     }
 
-    // Special case: When order is DELIVERED, mark all steps as completed
     if (currentStatus === "DELIVERED" || currentStatus === "COMPLETED") {
       return "completed";
     }
@@ -34,15 +33,14 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
     if (currentStatusIndex === -1) return "inactive";
 
     if (stepIndex < currentStatusIndex) {
-      return "completed"; // Steps before current status
+      return "completed"; 
     } else if (stepIndex === currentStatusIndex) {
-      return "active"; // Current step
+      return "active"; 
     } else {
-      return "inactive"; // Future steps
+      return "inactive"; 
     }
   };
 
-  // Get dynamic estimated delivery time
   const getEstimatedDeliveryTime = () => {
     const d = orderTrackingDetails;
     if (!d?.createdAt) return "20 - 30 min";
@@ -54,7 +52,7 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
         new Date(d.acceptedAt).getTime();
       prep = Math.round(diff / 60000);
     }
-    const deliveryBuffer = 10; // add extra 10 min for delivery after prep
+    const deliveryBuffer = 10; 
 
     const formatTime = (ts: string | number | Date) =>
       new Date(ts).toLocaleTimeString([], {
@@ -209,9 +207,9 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
         )}
       </div>
 
-      {/* Status indicator with icon */}
+      {}
       <div className="flex items-center mb-3">
-        {/* Status icon based on order status */}
+        {}
         <div className="mr-3 rtl:ml-3">
           {orderTrackingDetails.orderStatus === "PENDING" && (
             <div className="w-8 h-8 flex items-center justify-center bg-orange-100 dark:bg-orange-900 rounded-full">
@@ -310,7 +308,7 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
         </div>
       </div>
 
-      {/* Segmented Progress Bars */}
+      {}
       <div className="grid grid-cols-5 gap-2 mb-4">
         {[0, 1, 2, 3, 4].map((index) => {
           const status = getStepStatus(index);
@@ -344,7 +342,7 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
         {getStatusMessage()}
       </p>
 
-      {/* Real-time update indicator */}
+      {}
       {orderTrackingDetails.orderStatus !== "DELIVERED" &&
         orderTrackingDetails.orderStatus !== "COMPLETED" &&
         orderTrackingDetails.orderStatus !== "CANCELLED" && (

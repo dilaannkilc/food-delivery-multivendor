@@ -32,7 +32,6 @@ import { isOpen } from '../../utils/customFunctions'
 
 const { height } = Dimensions.get('screen')
 
-// Animated Section List component
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList)
 const TOP_BAR_HEIGHT = height * 0.05
 const HEADER_MAX_HEIGHT = Platform.OS === 'android' ? height * 0.65 : height * 0.61
@@ -47,7 +46,6 @@ const FOOD = gql`
   ${food}
 `
 
-// const concat = (...args) => args.join('')
 function Restaurant(props) {
   const { _id: restaurantId } = props.route.params
   const Analytics = analytics()
@@ -105,7 +103,7 @@ function Restaurant(props) {
 
   useEffect(() => {
     if (search === '') {
-      // setFilterData([])
+
       const filteredData = []
       deals?.forEach((category) => {
         category?.data?.forEach((deals) => {
@@ -171,11 +169,10 @@ function Restaurant(props) {
     }
   }, [data])
 
-  // Fixed zIndexAnimation with integer values
   const zIndexAnimation = useAnimatedStyle(() => {
     const zIndex = interpolate(translationY.value, [0, TOP_BAR_HEIGHT, SCROLL_RANGE / 2], [-1, 1, 99], Extrapolation.CLAMP)
     return {
-      zIndex: Math.round(zIndex) // Ensure integer values
+      zIndex: Math.round(zIndex) 
     }
   })
 
@@ -236,7 +233,6 @@ function Restaurant(props) {
     return wrappedContent.join('\n')
   }
 
-  // navigate every item to itemDetails screen
   const addToCart = async (food, clearFlag) => {
     if (clearFlag) await clearCart()
 
@@ -268,13 +264,12 @@ function Restaurant(props) {
   const scaleValue = useSharedValue(1)
 
   const scaleStyles = useAnimatedStyle(() => ({
-    transform: [{ scale: Math.max(0.1, scaleValue.value) }] // Ensure minimum scale
+    transform: [{ scale: Math.max(0.1, scaleValue.value) }] 
   }))
 
-  // Fixed button animation with safety checks
   function animate() {
     scaleValue.value = withRepeat(withTiming(1.5, { duration: 250 }), 2, true, () => {
-      // Ensure value returns to 1 after animation
+
       scaleValue.value = 1
     })
   }
@@ -333,10 +328,9 @@ function Restaurant(props) {
     buttonClickedSetter(false)
   }
 
-  // Fixed scroll handler with safety checks
   const scrollHandler = useAnimatedScrollHandler((event) => {
     const offsetY = event.contentOffset.y
-    // Clamp the value to prevent extremely small or negative values
+
     translationY.value = Math.max(0, offsetY)
   })
 
@@ -374,25 +368,22 @@ function Restaurant(props) {
   const iconTouchHeight = scale(30)
   const iconTouchWidth = scale(30)
 
-  // Fixed circle size - using constants instead of interpolation to prevent precision errors
   const circleSize = scale(18)
   const radiusSize = scale(9)
 
-  // If you need animation for the circle, use transform scale instead
   const animatedCircleStyles = useAnimatedStyle(() => {
     const progress = circle.value
     const scaleValue = interpolate(progress, [0, 0.5, 1], [1, 1.33, 1], Extrapolation.CLAMP)
 
     return {
-      transform: [{ scale: Math.max(0.1, scaleValue) }] // Ensure minimum scale
+      transform: [{ scale: Math.max(0.1, scaleValue) }] 
     }
   })
 
-  // Fixed font styles with safer interpolation
   const fontStyles = useAnimatedStyle(() => {
     const fontSize = interpolate(circle.value, [0, 0.5, 1], [8, 12, 8], Extrapolation.CLAMP)
     return {
-      fontSize: Math.max(8, Math.round(fontSize)) // Ensure minimum and integer font size
+      fontSize: Math.max(8, Math.round(fontSize)) 
     }
   })
 
@@ -492,13 +483,13 @@ function Restaurant(props) {
                 <View key={index}>
                   <TouchableOpacity
                     style={
-                      // styles(currentTheme).searchDealSection
+
                       (styles(currentTheme).searchDealSection, { opacity: item.isOutOfStock ? 0.5 : 1 })
                     }
                     activeOpacity={0.7}
                     onPress={() => {
                       if (item.isOutOfStock) {
-                        // Display an alert if the item is out of stock
+
                         Alert.alert('Currently Unavailable', 'Item Out of Stock')
                       } else {
                         onPressItem({
@@ -553,7 +544,7 @@ function Restaurant(props) {
                         <MaterialIcons name='add' size={scale(20)} color={currentTheme.themeBackground} />
                       </View>
                     </View>
-                    {/* )} */}
+                    {}
                     {tagCart(item?._id)}
                   </TouchableOpacity>
                 </View>
@@ -568,7 +559,7 @@ function Restaurant(props) {
                   marginTop: HEADER_MIN_HEIGHT,
                   zIndex: -1
                 }
-                // zIndexAnimation
+
               ]}
               contentContainerStyle={{
                 paddingBottom: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
@@ -586,11 +577,11 @@ function Restaurant(props) {
               }}
               onScroll={scrollHandler}
               keyExtractor={(item, index) => item + index}
-              // contentContainerStyle={{ paddingBottom: 150 }}
+
               renderSectionHeader={({ section: { title, data } }) => {
                 if (title === 'Popular') {
                   if (!dataList || dataList?.length === 0) {
-                    return null // Don't render the section header if dataList is empty
+                    return null 
                   }
                   return (
                     <View style={styles(currentTheme).restaurantItems}>
@@ -620,7 +611,7 @@ function Restaurant(props) {
                             item={item}
                             onPressItem={() => {
                               if (item?.isOutOfStock) {
-                                // Display an alert if the item is out of stock
+
                                 Alert.alert('Currently Unavailable', 'Item Out of Stock')
                                 return
                               }
@@ -639,7 +630,7 @@ function Restaurant(props) {
                     </View>
                   )
                 }
-                // Render other section headers as usual
+
                 return (
                   <View style={[styles(currentTheme).sectionHeader, { marginBottom: scale(20) }]}>
                     <TextDefault style={styles(currentTheme).sectionHeaderText} textColor={currentTheme.fontFourthColor} bolder isRTL>
@@ -659,13 +650,13 @@ function Restaurant(props) {
                 return (
                   <TouchableOpacity
                     style={
-                      // styles(currentTheme).dealSection
+
                       [{ paddingHorizontal: scale(12) }, (styles(currentTheme).dealSection, { opacity: item.isOutOfStock ? 0.5 : 1 })]
                     }
                     activeOpacity={0.7}
                     onPress={() => {
                       if (item?.isOutOfStock) {
-                        // Display an alert if the item is out of stock
+
                         Alert.alert('Currently Unavailable', 'Item Out of Stock')
                       } else {
                         onPressItem({
@@ -719,14 +710,14 @@ function Restaurant(props) {
                         <MaterialIcons name='add' size={scale(20)} color={currentTheme.themeBackground} />
                       </View>
                     </View>
-                    {/* )} */}
+                    {}
                     {tagCart(item?._id)}
                   </TouchableOpacity>
                 )
               }}
             />
           )}
-          {/* </View> */}
+          {}
 
           {cartCount > 0 && (
             <View style={styles(currentTheme).buttonContainer}>
@@ -740,7 +731,7 @@ function Restaurant(props) {
                         height: circleSize,
                         borderRadius: radiusSize
                       },
-                      animatedCircleStyles, // Use the safer animation
+                      animatedCircleStyles, 
                       scaleStyles
                     ]}
                   >

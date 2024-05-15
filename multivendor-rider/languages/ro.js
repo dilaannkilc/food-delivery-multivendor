@@ -1,12 +1,11 @@
 export const ro = {
-  // Navigation
+
   continue: "Continuă",
   Wallet: "Portofel",
   Home: "Acasă",
   Earnings: "Câștiguri",
   Profile: "Profil",
 
-  // FAQs
   faq1: "Cum pot plasa o comandă?",
   faq1Description:
     "Pentru a plasa o comandă, navigați prin meniul nostru, selectați articolele pe care doriți să le comandați și continuați la finalizare. Puteți alege metoda de plată preferată și adresa de livrare înainte de a confirma comanda.",
@@ -29,7 +28,6 @@ export const ro = {
   faq7Description:
     "Din păcate, nu puteți alege de la mai multe restaurante în cadrul aceleiași comenzi. Cu toate acestea, puteți plasa comenzi separate de la diferite restaurante în același timp.",
 
-  // Earnings
   "Earnings Summary": "Rezumat Câștiguri",
   Deliveries: "Livrări",
   "Total Earnings": "Câștiguri Totale",
@@ -39,13 +37,11 @@ export const ro = {
   "Order Date": "Data Comenzii",
   "Earnings Order Details": "Detalii Comandă - Câștiguri",
 
-  // Flash messages
   "Order placed successfully": "Comandă plasată cu succes",
   "Order cancelled successfully": "Comandă anulată cu succes",
   "Error while placing order": "Eroare la plasarea comenzii",
   "Error while cancelling order": "Eroare la anularea comenzii",
 
-  // Other messages
   "Please enter your name": "Vă rugăm să introduceți numele",
   "Please enter your email": "Vă rugăm să introduceți adresa de email",
   "Please enter your password": "Vă rugăm să introduceți parola",
@@ -259,7 +255,7 @@ export const ro = {
   "No new orders yet!": "Încă nu sunt comenzi noi!",
   "You don't have any orders yet!": "Încă nu aveți comenzi!",
   "No delivered orders yet!": "Încă nu sunt comenzi livrate!",
-  // Vehicle Screen
+
   "Vehicle Details": "Detalii Vehicul",
   "Vehicle Number": "Număr Vehicul",
   "Vehicle Color": "Culoare Vehicul",
@@ -311,14 +307,12 @@ export const ro = {
   "Vehicle documents format not supported":
     "Format documente vehicul neacceptat",
 
-  // Chat Screen
   "Contact Customer": "Contactează Clientul",
   "Type a message": "Scrieți un mesaj",
   Send: "Trimite",
   "Message sent": "Mesaj trimis",
   "Message failed": "Mesaj eșuat",
 
-  // Earnings Screen
   "Please select a date range": "Vă rugăm să selectați un interval de date",
   "Please select a start date": "Vă rugăm să selectați o dată de început",
   "Please select an end date": "Vă rugăm să selectați o dată de sfârșit",
@@ -327,7 +321,6 @@ export const ro = {
   "Please log in to view your earnings":
     "Vă rugăm să vă autentificați pentru a vă vizualiza câștigurile",
 
-  // Profile Forms
   "Unable to update availability": "Imposibil de actualizat disponibilitatea",
   "rider name": "Nume Curier",
   "rider id": "ID Curier",

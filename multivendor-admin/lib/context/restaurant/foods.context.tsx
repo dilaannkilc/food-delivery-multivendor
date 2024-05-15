@@ -1,9 +1,7 @@
 'use client';
 
-// Core
 import { createContext, useState } from 'react';
 
-// Interface
 import {
   IFoodContextPropData,
   IFoodContextProps,
@@ -12,12 +10,11 @@ import {
   IVariationForm,
 } from '@/lib/utils/interfaces';
 
-// Types
 
 export const FoodsContext = createContext({} as IFoodContextProps);
 
 export const FoodsProvider = ({ children }: IFoodProvider) => {
-  // Form Visibility
+
   const [isFoodFormVisible, setFoodFormVisible] = useState<boolean>(false);
 
   const [foodContextData, setFoodContextData] =
@@ -30,10 +27,8 @@ export const FoodsProvider = ({ children }: IFoodProvider) => {
       isEditing: false,
     });
 
-  // Form Flow
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
-  // Functions
   const onFoodFormVisible = (status: boolean) => {
     setFoodFormVisible(status);
   };
@@ -64,15 +59,15 @@ export const FoodsProvider = ({ children }: IFoodProvider) => {
   };
 
   const value: IFoodContextProps = {
-    // Form Visibility
+
     isFoodFormVisible,
     onFoodFormVisible,
-    // Active Step
+
     activeIndex,
     onActiveStepChange,
-    // Clear
+
     onClearFoodData,
-    // Context Data
+
     foodContextData,
     onSetFoodContextData,
   };

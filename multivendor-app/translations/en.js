@@ -347,7 +347,7 @@ export const en = {
   statusAssigned: 'Assigned',
   statusPicked: 'Picked',
   statusDelivered: 'Delivered',
-  ///
+
   selectLocation: ' Select Location',
   languageSetting: 'Language Setting',
   receiveOfferByEmail: 'I want to receive special offers and promotions from us via email',

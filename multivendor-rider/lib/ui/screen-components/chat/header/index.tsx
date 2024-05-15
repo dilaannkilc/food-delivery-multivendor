@@ -1,20 +1,17 @@
-// Core
+
 import { Text, TouchableOpacity, View } from "react-native";
 
-// Components
 import { CallIcon, CircleCrossIcon } from "@/lib/ui/useable-components/svg";
 
-// Methods
 import { callNumber } from "@/lib/utils/methods";
 
-// Hooks
 import { useApptheme } from "@/lib/context/global/theme.context";
 import { useRoute } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 
 export default function ChatHeader() {
-  // Hooks
+
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
   const route = useRoute();

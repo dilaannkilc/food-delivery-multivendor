@@ -1,12 +1,11 @@
 export const az = {
-  // Navigation
+
   continue: "Davam et",
   Wallet: "Pul kisəsi",
   Home: "Əsas səhifə",
   Earnings: "Qazanc",
   Profile: "Profil",
 
-  // FAQs
   faq1: "Sifarişi necə verim?",
   faq1Description:
     "Sifariş vermək üçün menyumuzda gəzin, sifariş etmək istədiyiniz məhsulları seçin və kassaya keçin. Sifarişi təsdiqləməzdən əvvəl üstünlük verdiyiniz ödəniş üsulunu və çatdırılma ünvanını seçə bilərsiniz.",
@@ -29,7 +28,6 @@ export const az = {
   faq7Description:
     "Təəssüf ki, eyni sifariş daxilində bir neçə restorandan seçim edə bilməzsiniz. Lakin eyni zamanda müxtəlif restoranlardan ayrı-ayrı sifarişlər verə bilərsiniz.",
 
-  // Earnings
   "Earnings Summary": "Qazanc Xülasəsi",
   Deliveries: "Çatdırılmalar",
   "Total Earnings": "Ümumi Qazanc",
@@ -39,13 +37,11 @@ export const az = {
   "Order Date": "Sifariş Tarixi",
   "Earnings Order Details": "Qazanc Sifariş Detalları",
 
-  // Flash messages
   "Order placed successfully": "Sifariş uğurla verildi",
   "Order cancelled successfully": "Sifariş uğurla ləğv edildi",
   "Error while placing order": "Sifariş verərkən xəta baş verdi",
   "Error while cancelling order": "Sifarişi ləğv edərkən xəta baş verdi",
 
-  // Other messages
   "Please enter your name": "Adınızı daxil edin",
   "Please enter your email": "E-poçtunuzu daxil edin",
   "Please enter your password": "Şifrənizi daxil edin",

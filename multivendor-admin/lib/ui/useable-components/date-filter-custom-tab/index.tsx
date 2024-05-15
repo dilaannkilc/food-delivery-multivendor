@@ -1,4 +1,4 @@
-// Interface
+
 import { IDateFilterCustomTabProps } from '@/lib/utils/interfaces';
 import { useTranslations } from 'next-intl';
 
