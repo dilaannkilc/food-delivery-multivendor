@@ -71,15 +71,15 @@ NOTE: Email provider has been only been tested for gmail accounts
 
 ## :computer: Project Setup Guide <a id="heading-15"></a>
 
-This section provides detailed instructions for setting up and running each component of the Enatega Multi-vendor Food Delivery Solution.
+This section provides detailed instructions for setting up and running each component of the  Multi-vendor Food Delivery Solution.
 
-### Enatega Admin Dashboard (Next.js)
+### Admin Dashboard (Next.js)
 
 The admin dashboard allows you to manage restaurants, orders, riders, and more.
 
 ```bash
 # Navigate to the admin dashboard directory
-cd enatega-multivendor-admin
+cd multivendor-admin
 
 # Install dependencies
 npm install
@@ -90,13 +90,13 @@ npm run dev
 
 After running these commands, open your browser and navigate to [http://localhost:3000](http://localhost:3000) to access the admin dashboard. You can also CTRL+click on the localhost link that appears in your terminal.
 
-### Enatega Customer Web (React.js)
+### Customer Web (React.js)
 
 The customer web application allows users to browse restaurants and place orders through a web browser.
 
 ```bash
 # Navigate to the customer web directory
-cd enatega-multivendor-web
+cd multivendor-web
 
 # Install dependencies
 npm install
@@ -107,13 +107,13 @@ npm start
 
 After running these commands, the application will be available at [http://localhost:3000](http://localhost:3000) in your web browser.
 
-### Enatega Customer App (React Native)
+### Customer App (React Native)
 
 The customer mobile application allows users to browse restaurants and place orders on their mobile devices.
 
 ```bash
 # Navigate to the customer app directory
-cd enatega-multivendor-app
+cd multivendor-app
 
 # Install dependencies
 npm install
@@ -131,13 +131,13 @@ npm start -c
    - Android: Open the Expo Go app and scan the QR code
    - iOS: Use the device's camera app to scan the QR code
 
-### Enatega Rider App (React Native)
+### Rider App (React Native)
 
 The rider app allows delivery personnel to manage and complete deliveries.
 
 ```bash
 # Navigate to the rider app directory
-cd enatega-multivendor-rider
+cd multivendor-rider
 
 # Install dependencies
 npm install
@@ -155,13 +155,13 @@ npm start -c
    - Android: Open the Expo Go app and scan the QR code
    - iOS: Use the device's camera app to scan the QR code
 
-### Enatega Restaurant App (React Native)
+### Restaurant App (React Native)
 
 The restaurant app allows restaurant owners to manage orders and their menu.
 
 ```bash
 # Navigate to the restaurant app directory
-cd enatega-multivendor-restaurant
+cd multivendor-restaurant
 
 # Install dependencies
 npm install
