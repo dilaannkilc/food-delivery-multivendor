@@ -16,6 +16,7 @@ import * as Linking from 'expo-linking'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import Analytics from '../../utils/analytics'
 import AuthContext from '../../context/Auth'
+
 const config = getEnvVars()
 const {
   IOS_CLIENT_ID_GOOGLE,
@@ -26,6 +27,7 @@ const {
 const LOGIN = gql`
   ${login}
 `
+
 export const useCreateAccount = () => {
   const navigation = useNavigation()
   const [mutate] = useMutation(LOGIN, { onCompleted, onError })
@@ -35,7 +37,6 @@ export const useCreateAccount = () => {
   const { setTokenAsync } = useContext(AuthContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-
   const [
     googleRequest,
     googleResponse,
@@ -88,7 +89,7 @@ export const useCreateAccount = () => {
   const googleSignUp = () => {
     if (googleResponse?.type === 'success') {
       const { authentication } = googleResponse
-      ;(async() => {
+      ;(async () => {
         const userInfoResponse = await fetch(
           'https://www.googleapis.com/oauth2/v1/userinfo?alt=json',
           {
@@ -122,39 +123,44 @@ export const useCreateAccount = () => {
   }
 
   async function onCompleted(data) {
-    try {
-      if (data.login.inNewUser) {
-        await Analytics.identify(
-          {
-            userId: data.login.userId
-          },
-          data.login.userId
-        )
-        await Analytics.track(Analytics.events.USER_CREATED_ACCOUNT, {
-          userId: data.login.userId,
-          name: data.login.name,
-          email: data.login.email
-        })
-      } else {
-        await Analytics.identify(
-          {
-            userId: data.login.userId
-          },
-          data.login.userId
-        )
-        await Analytics.track(Analytics.events.USER_LOGGED_IN, {
-          userId: data.login.userId,
-          name: data.login.name,
-          email: data.login.email
-        })
-      }
-      setTokenAsync(data.login.token)
-      // eslint-disable-next-line no-unused-expressions
-      data.login?.phone === '' ? navigateToPhone() : navigateToMain()
-    } catch (e) {
-      console.log(e)
-    } finally {
+    if (data.login.isActive == false) {
+      FlashMessage({ message: "Can't Login, This Account is Deleted!" })
       setLoading(false)
+    } else {
+      try {
+        if (data.login.inNewUser) {
+          await Analytics.identify(
+            {
+              userId: data.login.userId
+            },
+            data.login.userId
+          )
+          await Analytics.track(Analytics.events.USER_CREATED_ACCOUNT, {
+            userId: data.login.userId,
+            name: data.login.name,
+            email: data.login.email
+          })
+        } else {
+          await Analytics.identify(
+            {
+              userId: data.login.userId
+            },
+            data.login.userId
+          )
+          await Analytics.track(Analytics.events.USER_LOGGED_IN, {
+            userId: data.login.userId,
+            name: data.login.name,
+            email: data.login.email
+          })
+        }
+        setTokenAsync(data.login.token)
+        // eslint-disable-next-line no-unused-expressions
+        data.login?.phone === '' ? navigateToPhone() : navigateToMain()
+      } catch (e) {
+        console.log(e)
+      } finally {
+        setLoading(false)
+      }
     }
   }
 

@@ -94,27 +94,30 @@ export const useLogin = () => {
       })
     }
   }
-
   async function onLoginCompleted(data) {
-    try {
-      await Analytics.identify(
-        {
-          userId: data.login.userId
-        },
-        data.login.userId
-      )
-      await Analytics.track(Analytics.events.USER_LOGGED_IN, {
-        userId: data.login.userId,
-        name: data.login.name,
-        email: data.login.email
-      })
-      setTokenAsync(data.login.token)
-      navigation.navigate({
-        name: 'Main',
-        merge: true
-      })
-    } catch (e) {
-      console.log(e)
+    if (data.login.isActive == false) {
+      FlashMessage({ message: "Can't Login, This Account is Deleted!" })
+    } else {
+      try {
+        await Analytics.identify(
+          {
+            userId: data.login.userId
+          },
+          data.login.userId
+        )
+        await Analytics.track(Analytics.events.USER_LOGGED_IN, {
+          userId: data.login.userId,
+          name: data.login.name,
+          email: data.login.email
+        })
+        setTokenAsync(data.login.token)
+        navigation.navigate({
+          name: 'Main',
+          merge: true
+        })
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
   function onLoginError(error) {
