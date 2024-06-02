@@ -63,9 +63,13 @@ function EditAddress(props) {
     props.route.params.label ?? labelValues[0].value
   )
   const [region, setRegion] = useState({
-    latitude: parseFloat(props.route.params.location.coordinates[1] ?? null),
+    latitude: props.route.params.location
+      ? parseFloat(props.route.params.location.coordinates[1] ?? null)
+      : props.route.params.regionChange.latitude,
     latitudeDelta: LATITUDE_DELTA,
-    longitude: parseFloat(props.route.params.location.coordinates[0] ?? null),
+    longitude: props.route.params.location
+      ? parseFloat(props.route.params.location.coordinates[0] ?? '')
+      : props.route.params.regionChange.longitude,
     longitudeDelta: LONGITUDE_DELTA
   })
   const [deliveryAddress, setDeliveryAddress] = useState(
@@ -97,8 +101,11 @@ function EditAddress(props) {
   useEffect(() => {
     if (regionObj !== null) regionChange(regionObj)
   }, [regionObj])
-  useEffect(async() => {
-    await analytics.track(analytics.events.NAVIGATE_TO_EDITADDRESS)
+  useEffect(() => {
+    async function Track() {
+      await analytics.track(analytics.events.NAVIGATE_TO_EDITADDRESS)
+    }
+    Track()
   }, [])
   function regionChange(region) {
     Location.reverseGeocodeAsync({ ...region })

@@ -6,9 +6,9 @@
 import * as Updates from 'expo-updates'
 const ENV = {
   development: {
-    GRAPHQL_URL: 'https://enatega-multivendor.up.railway.app/graphql',
-    WS_GRAPHQL_URL: 'wss://enatega-multivendor.up.railway.app/graphql',
-    SERVER_URL: 'https://enatega-multivendor.up.railway.app/', // put / at the end of server url
+    GRAPHQL_URL: 'http://10.97.16.62:8001/graphql',
+    WS_GRAPHQL_URL: 'ws://10.97.16.62:8001/graphql',
+    SERVER_URL: 'http://10.97.16.62:8001/', // put / at the end of server url
     IOS_CLIENT_ID_GOOGLE:
       '967541328677-uq7f7odvmeea2pb2sq0l7q320ds86536.apps.googleusercontent.com',
     ANDROID_CLIENT_ID_GOOGLE:
@@ -16,7 +16,7 @@ const ENV = {
     AMPLITUDE_API_KEY: '2114f5db4c014dc7ad4ed2ad747341b5',
     GOOGLE_MAPS_KEY: 'AIzaSyCzNP5qQql2a5y8lOoO-1yj1lj_tzjVImA',
     EXPO_CLIENT_ID:
-      '967541328677-d46sl62t52g5r3o5m0mnl2hpptr242nl.apps.googleusercontent.com',
+      '630195385603-82e52jpb722a8l0huhkspq3tqh2d6r6f.apps.googleusercontent.com',
     SENTRY_DSN:
       'https://91b55f514a2c4708845789d6e79abf10@o1103026.ingest.sentry.io/6131933',
     TERMS_AND_CONDITIONS: 'https://enatega.ninjascode.com/privacy-policy',
@@ -25,7 +25,7 @@ const ENV = {
     GOOGLE_PACES_API_BASE_URL: 'https://maps.googleapis.com/maps/api/place'
   },
   staging: {
-        GRAPHQL_URL: 'https://stagingenategamultivendorapi.herokuapp.com/graphql',
+    GRAPHQL_URL: 'https://stagingenategamultivendorapi.herokuapp.com/graphql',
     WS_GRAPHQL_URL: 'wss://stagingenategamultivendorapi.herokuapp.com/graphql',
     SERVER_URL: 'https://stagingenategamultivendorapi.herokuapp.com/', // put / at the end of server url
     IOS_CLIENT_ID_GOOGLE:

@@ -1,6 +1,9 @@
 # Enatega Multi-vendor
 
-[![Demo video](https://i.imgur.com/araSrCj.png)](https://www.youtube.com/watch?v=8sE7ivnFyo0&feature=youtu.be&ab_channel=NinjasCode)
+<!-- ![Project thumbnail](./assets/thumbnail.png) -->
+<!-- <img src="./assets/thumbnail.png" width="600"/> -->
+
+[![Demo video](https://i.imgur.com/araSrCj.png)](https://www.youtube.com/watch?v=oeMfEUvnazs&ab_channel=NinjasCode)
 
 <br/>
 
