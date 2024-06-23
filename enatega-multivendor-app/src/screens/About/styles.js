@@ -8,13 +8,21 @@ const styles = (props = null) =>
       flex: 1
     },
     MB15: {
-      ...alignment.MBmedium
+      padding: 10,
+      ...alignment.MBmedium,
+      backgroundColor: 'white',
+      borderRadius: 10,
+      shadowOffset: { width: 2, height: 4 },
+      shadowColor: 'black',
+      shadowOpacity: 0.1,
+      shadowRadius: 10,
     },
     width10: {
       width: '10%'
     },
     width90: {
-      width: '90%'
+      width: '90%',
+      paddingLeft: 10
     },
     mapMainContainer: {
       flexGrow: 1,
@@ -23,21 +31,16 @@ const styles = (props = null) =>
       ...alignment.PRmedium
     },
     inlineFloat: {
-      width: '100%',
-      backgroundColor: 'white',
       flexDirection: 'row',
-      alignItems: 'center'
+      alignItems: 'center',
+      width: '100%'
     },
     mapContainer: {
-      marginTop: 10,
-      borderRadius: scale(10),
-      borderColor: 'white',
-      borderWidth: 2,
-      height: '30%',
-      backgroundColor: 'white'
+      height: '40%',
+      backgroundColor: 'transparent'
     },
     mainContainer: {
-      backgroundColor: props != null ? '#F5F5F5' : 'white'
+      backgroundColor: props != null ? props.cartContainer : 'white'
     },
     restaurantContainer: {
       width: '100%',
@@ -67,10 +70,8 @@ const styles = (props = null) =>
       alignItems: 'center'
     },
     timingContainer: {
-      alignItems: 'center'
-
-      // marginLeft: scale(30),
-      // marginBottom: scale(20)
+      marginLeft: scale(30),
+      marginBottom: scale(20),
     },
     dateReview: {
       marginTop: -8,
@@ -83,32 +84,29 @@ const styles = (props = null) =>
     navigationContainer: {
       flexDirection: 'row',
       alignItems: 'flex-start',
-      justifyContent: 'center',
       width: '100%',
-      marginTop: scale(-15)
+      ...alignment.MTlarge
     },
     tab: {
-      backgroundColor: 'white',
-      width: scale(170),
-      borderRadius: 10,
+      width: "50%",
       height: verticalScale(35),
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      ...alignment.MRsmall
     },
     selectedTab: {
-      backgroundColor: props != null ? props.main : 'lightgrey',
-      borderBottomColor: props != null ? props.tagColor : 'red'
-      //marginLeft: scale(-5)
-      //borderBottomWidth: StyleSheet.hairlineWidth * 4
+      backgroundColor: '#90EA93',
+      borderRadius: 10
     },
     timingRow: {
       flexDirection: 'row',
-      alignItems: 'center',
-      backgroundColor: props != null ? props.main : '#90EA93',
-      marginBottom: 5,
-      width: '60%',
-      padding: 8,
-      borderRadius: 20
+      alignItems: 'flex-end',
+      alignSelf: 'center',
+      backgroundColor: '#90EA93',
+      borderRadius: 30,
+      padding: 10,
+      marginBottom: 10,
+      width: '90%'
     }
   })
 export default styles

@@ -71,81 +71,50 @@ function About(props) {
   function AboutTab() {
     return (
       <View style={styles().mapMainContainer}>
-        <View
-          style={[
-            styles().inlineFloat,
-            styles().MB15,
-            { paddingTop: 16, paddingBottom: 16, borderRadius: scale(10) }
-          ]}>
-          <EvilIcons
-            name="location"
-            size={scale(25)}
-            color={currentTheme.darkGreen}
-            style={[styles().width32, { padding: 5 }]}
-          />
-          <TextDefault style={styles().width90} large bolder>
+        <View style={[styles().inlineFloat, styles().MB15]}>
+        <MaterialIcons name="location-on" size={30} color="#3C8F7C" />
+          <TextDefault style={styles().width90} large bold>
             {RestAbout.address}
           </TextDefault>
         </View>
-        <View
-          style={{
-            width: '100%',
-            backgroundColor: 'white',
-            padding: 8,
-            borderRadius: scale(10)
-          }}>
-          <View style={[styles().inlineFloat, alignment.MBsmall]}>
-            <EvilIcons
-              name="clock"
-              size={scale(25)}
-              color={currentTheme.darkGreen}
-              style={styles().width10}
-            />
-            <TextDefault large bolder>
-              {'Opening times'}
-            </TextDefault>
-          </View>
+        <View style={[styles().MB15]}>
+        <View style={[styles().inlineFloat, alignment.MBxSmall]}>
+        <MaterialIcons name="access-time" size={30} color="#3C8F7C" />
+          <TextDefault style = {{paddingLeft: 10}}bold>{'Opening times'}</TextDefault>
+        </View>
 
-          <View style={styles().timingContainer}>
-            {restaurantObject.openingTimes.map((v, index) => (
-              <View key={index} style={styles().timingRow}>
-                <TextDefault
-                  style={{ width: scale(45) }}
-                  textColor={currentTheme.fontMainColor}
-                  bolder
-                  small>
-                  {v.day}{' '}
+        <View style={styles().timingContainer}>
+          {restaurantObject.openingTimes.map((v, index) => (
+            <View key={index} style={styles().timingRow}>
+              <TextDefault
+                style={{ width: scale(140) }}
+                textColor='black'
+                large>
+                {v.day}{' '}
+              </TextDefault>
+              {v.times.length < 1 ? (
+                <TextDefault key={index + 8} small bold center>
+                  {'Closed all day'}
                 </TextDefault>
-                {v.times.length < 1 ? (
-                  <TextDefault key={index + 8} small bold center>
-                    {'Closed all day'}
+              ) : (
+                v.times.map(t => (
+                  <TextDefault
+                    key={index + 8}
+                    textColor='black'
+                    large>
+                    {t.startTime[0]}:{t.startTime[1]}
+                    {' - '}
+                    {t.endTime[0]}:{t.endTime[1]}
                   </TextDefault>
-                ) : (
-                  v.times.map(t => (
-                    <TextDefault
-                      key={index + 8}
-                      textColor={currentTheme.fontMainColor}
-                      small
-                      bold
-                      right
-                      style={{ width: '70%' }}>
-                      {t.startTime[0]}:{t.startTime[1]}
-                      {' - '}
-                      {t.endTime[0]}:{t.endTime[1]}
-                    </TextDefault>
-                  ))
-                )}
-              </View>
-            ))}
-          </View>
+                ))
+              )}
+            </View>
+          ))}
+        </View>
         </View>
         <View style={styles().mapContainer}>
           <MapView
-            style={[
-              styles().flex,
-              { borderRadius: scale(10), borderColor: 'white', borderWidth: 2 }
-            ]}
-            mapType="terrain"
+            style={styles().flex}
             scrollEnabled={false}
             zoomEnabled={false}
             zoomControlEnabled={false}
@@ -263,7 +232,7 @@ function About(props) {
         iconBackColor={currentTheme.white}
       />
       <View style={[styles().flex, styles(currentTheme).mainContainer]}>
-        {/* <View style={styles(currentTheme).restaurantContainer}>
+        <View style={styles(currentTheme).restaurantContainer}>
           <TextDefault
             numberOfLines={1}
             style={styles().restaurantTitle}
@@ -281,8 +250,8 @@ function About(props) {
               </TextDefault>
             </TextDefault>
           </View>
-        </View> */}
-        {/* <View style={[styles(currentTheme).line]} /> */}
+        </View>
+        <View style={[styles(currentTheme).line]} />
 
         <View style={styles().navigationContainer}>
           <TouchableOpacity
@@ -290,12 +259,10 @@ function About(props) {
             onPress={() => pagerSetter(true)}
             style={[styles().tab, pager && styles(currentTheme).selectedTab]}>
             <TextDefault
-              textColor={
-                pager ? currentTheme.black : currentTheme.fontMainColor
-              }
+              textColor='black'
               bolder
               uppercase
-              Large>
+              large>
               About
             </TextDefault>
           </TouchableOpacity>
@@ -303,18 +270,12 @@ function About(props) {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => pagerSetter(false)}
-            style={[
-              styles().tab,
-              !pager && styles(currentTheme).selectedTab,
-              { marginLeft: scale(-10) }
-            ]}>
+            style={[styles().tab, !pager && styles(currentTheme).selectedTab]}>
             <TextDefault
-              textColor={
-                !pager ? currentTheme.black : currentTheme.fontMainColor
-              }
+              textColor='black'
               bolder
               uppercase
-              Large>
+              large>
               Reviews
             </TextDefault>
           </TouchableOpacity>
