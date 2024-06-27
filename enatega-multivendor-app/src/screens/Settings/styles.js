@@ -43,6 +43,7 @@ const styles = (props = null) =>
     },
     notificationContainer: {
       width: '100%',
+      backgroundColor: props !== null ? props.cartContainer : '#FFF',
       flexDirection: 'row',
       justifyContent: 'space-between',
       ...alignment.PTmedium,

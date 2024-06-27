@@ -17,13 +17,11 @@ const styles = (props = null) =>
         width: 0,
         height: verticalScale(0)
       },
-      borderRadius: 25,
-      // shadowOpacity: 0.3,
-      // shadowRadius: verticalScale(3),
+      shadowOpacity: 0.3,
+      shadowRadius: verticalScale(3),
       height: scale(220),
       width: '99%',
-      padding: 15,
-      //...alignment.Psmall,
+      ...alignment.Psmall,
       ...alignment.MBsmall
     },
     imageContainer: {
@@ -33,8 +31,7 @@ const styles = (props = null) =>
     },
     img: {
       width: '100%',
-      height: '100%',
-      borderRadius: 18
+      height: '100%'
     },
     overlayRestaurantContainer: {
       position: 'absolute',
@@ -46,8 +43,8 @@ const styles = (props = null) =>
     },
     favOverlay: {
       position: 'absolute',
-      top: 10,
-      right: 12,
+      top: 5,
+      right: 5,
       width: scale(30),
       height: scale(30),
       borderRadius: scale(15),
@@ -58,9 +55,9 @@ const styles = (props = null) =>
     },
     deliveryRestaurantOverlay: {
       position: 'absolute',
-      bottom: 15,
-      left: 10,
-      width: scale(45),
+      bottom: 5,
+      left: 5,
+      width: scale(50),
       height: scale(20),
       borderRadius: scale(10),
       backgroundColor: props != null ? props.menuBar : 'white',
@@ -76,7 +73,7 @@ const styles = (props = null) =>
     descriptionContainer: {
       height: '30%',
       width: '100%',
-      padding: 10
+      ...alignment.PTsmall
     },
     offerCategoty: {
       ...alignment.MTxSmall,

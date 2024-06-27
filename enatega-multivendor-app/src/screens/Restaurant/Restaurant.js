@@ -183,7 +183,7 @@ function Restaurant(props) {
           },
           {
             text: 'OK',
-            onPress: async () => {
+            onPress: async() => {
               await addToCart(food, true)
             }
           }
@@ -192,18 +192,8 @@ function Restaurant(props) {
       )
     }
   }
-  function wrapContentAfterWords(content, numWords) {
-    const words = content.split(' ')
-    const wrappedContent = []
 
-    for (let i = 0; i < words.length; i += numWords) {
-      wrappedContent.push(words.slice(i, i + numWords).join(' '))
-    }
-
-    return wrappedContent.join('\n')
-  }
-
-  const addToCart = async (food, clearFlag) => {
+  const addToCart = async(food, clearFlag) => {
     if (
       food.variations.length === 1 &&
       food.variations[0].addons.length === 0
@@ -495,7 +485,6 @@ function Restaurant(props) {
   }))
 
   return (
-    <>
     <SafeAreaView style={styles().flex}>
       <Animated.View style={styles().flex}>
         <ImageHeader
@@ -520,11 +509,10 @@ function Restaurant(props) {
           ref={scrollRef}
           sections={deals}
           style={{
-            backgroundColor: "white",
             flexGrow: 1,
             zIndex: -1,
             paddingTop: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT,
-            marginTop: HEADER_MIN_HEIGHT,
+            marginTop: HEADER_MIN_HEIGHT
           }}
           // Important
           contentContainerStyle={{
@@ -536,9 +524,9 @@ function Restaurant(props) {
           refreshing={networkStatus === 4}
           onRefresh={() => networkStatus === 7 && refetch()}
           onViewableItemsChanged={onViewableItemsChanged}
-          onScrollEndDrag={event => {
-            onScrollEndSnapToEdge(event)
-          }}
+          // onScrollEndDrag={event => {
+          //   onScrollEndSnapToEdge(event)
+          // }}
           onMomentumScrollEnd={event => {
             onScrollEndSnapToEdge(event)
           }}
@@ -595,11 +583,10 @@ function Restaurant(props) {
                   </TextDefault>
                   <View style={styles().dealDescription}>
                     <TextDefault
-                      style={{ width: '100%', wordWrap: 'break-word' }}
-                      
-                      small
-                    >
-                      {wrapContentAfterWords(item.description, 5)}
+                      style={{ width: '100%' }}
+                      textColor={currentTheme.fontSecondColor}
+                      small>
+                      {item.description}
                     </TextDefault>
                     <View style={styles().dealPrice}>
                       <TextDefault
@@ -678,7 +665,6 @@ function Restaurant(props) {
         )}
       </Animated.View>
     </SafeAreaView>
-    </>
   )
 }
 

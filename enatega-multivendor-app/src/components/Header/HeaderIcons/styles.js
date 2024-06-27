@@ -15,8 +15,7 @@ const styles = backColor =>
       height: '100%',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'transparent',
-      paddingLeft: 5
+      backgroundColor: 'transparent'
     },
     favContainer: {
       height: '100%',

@@ -17,13 +17,12 @@ const styles = (props = null) =>
       ...alignment.MTmedium
     },
     formSubContainer: {
-      borderRadius: 30,
       width: '95%',
-      backgroundColor: 'white',
+      backgroundColor: props !== null ? props.themeBackground : 'transparent',
       alignSelf: 'center',
       shadowOffset: { width: 2, height: 4 },
       shadowColor: props !== null ? props.shadowColor : 'transparent',
-      shadowOpacity: 0.1,
+      shadowOpacity: 0.6,
       shadowRadius: 10,
       elevation: 15,
       borderWidth:

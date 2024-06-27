@@ -11,8 +11,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
-  StatusBar, 
-  Text
+  StatusBar
 } from 'react-native'
 import { useMutation } from '@apollo/client'
 import gql from 'graphql-tag'
@@ -33,7 +32,6 @@ import screenOptions from './screenOptions'
 import { useFocusEffect } from '@react-navigation/native'
 import Analytics from '../../utils/analytics'
 import { Feather } from '@expo/vector-icons'
-import { MaterialIcons } from '@expo/vector-icons';
 const UPDATEUSER = gql`
   ${updateUser}
 `
@@ -55,7 +53,6 @@ function Profile(props) {
     onCompleted,
     onError
   })
-
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor(currentTheme.headerBackground)
@@ -88,8 +85,6 @@ function Profile(props) {
       viewHideAndShow()
     }
   }, [backScreen])
-
-  
 
   function viewHideAndShow() {
     setToggleView(prev => !prev)
@@ -163,16 +158,14 @@ function Profile(props) {
             {profile.phone}
           </TextDefault>
           {profile.phone !== '' && (
-            <Text
-            textColor={
-              profile.phoneIsVerified
-                ? 'black'
-                : currentTheme.textErrorColor
-            }
-              style={{backgroundColor:  profile.phoneIsVerified ? '#90EA93' : 'F8A492', padding: 5, paddingLeft: 20, paddingRight: 20}}
-              >
+            <TextDefault
+              textColor={
+                profile.phoneIsVerified
+                  ? currentTheme.iconColorPink
+                  : currentTheme.textErrorColor
+              }>
               {profile.phoneIsVerified ? 'Verified' : 'UnVerified'}
-            </Text>
+            </TextDefault>
           )}
         </View>
       </View>
@@ -186,7 +179,6 @@ function Profile(props) {
           setModalVisible(false)
         }}
       />
-      <Text style={{padding: 25, fontSize: 20, fontWeight: '600'}}>Personal details</Text>
       <View style={styles(currentTheme).formContainer}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : null}
@@ -210,7 +202,14 @@ function Profile(props) {
                       activeOpacity={0.3}
                       style={styles().headingButton}
                       onPress={viewHideAndShow}>
-                      <MaterialIcons name="edit" size={25} color="black" />
+                      <TextDefault
+                        textColor={currentTheme.tagColor}
+                        small
+                        B700
+                        bolder
+                        uppercase>
+                        Edit
+                      </TextDefault>
                     </TouchableOpacity>
                   </View>
                 )}
@@ -334,7 +333,6 @@ function Profile(props) {
           </ScrollView>
         </KeyboardAvoidingView>
       </View>
-       
     </>
   )
 }
