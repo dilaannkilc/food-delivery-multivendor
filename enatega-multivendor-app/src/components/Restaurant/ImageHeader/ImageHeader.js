@@ -87,15 +87,25 @@ function ImageTextCenterHeader(props, ref) {
             ? 'transparent'
             : currentTheme.headerBackground
         }
-      ]}>
+      ]}
+      >
       <Animated.View
         style={{ height: Animated.sub(props.height, TOP_BAR_HEIGHT) }}>
         <Animated.Image
           resizeMode="cover"
           source={{ uri: aboutObject.restaurantImage }}
-          style={[styles().flex, { opacity: props.opacity }]}
+          style={[
+            styles().flex,
+            {
+              opacity: props.opacity,
+              //borderBottomLeftRadius: 25,
+              //borderBottomRightRadius: 25
+            }
+          ]}
         />
-        <Animated.View style={styles().overlayContainer}>
+        <Animated.View 
+        style={styles().overlayContainer}
+        >
           <View style={styles().fixedViewNavigation}>
             <View style={styles().fixedIcons}>
               <AnimatedBorderless
@@ -107,15 +117,16 @@ function ImageTextCenterHeader(props, ref) {
                     backgroundColor: props.iconBackColor,
                     borderRadius: props.iconRadius,
                     height: props.iconTouchHeight,
-                    width: props.iconTouchWidth
+                    width: 60
                   }
                 ]}
-                onPress={() => navigation.goBack()}>
+                onPress={() => navigation.goBack()}
+                >
                 <AnimatedIon
                   name="ios-arrow-back"
                   style={{
-                    color: props.iconColor,
-                    fontSize: props.iconSize
+                    color: "black",
+                    fontSize: 30
                   }}
                 />
               </AnimatedBorderless>
@@ -127,7 +138,8 @@ function ImageTextCenterHeader(props, ref) {
                     opacity: Animated.sub(1, props.opacity),
                     marginBottom: props.headerTextFlex
                   }
-                ]}>
+                ]}
+                >
                 Delivery {aboutObject.deliveryTime} Minute{' '}
               </Animated.Text>
               {!props.loading && (
@@ -151,11 +163,12 @@ function ImageTextCenterHeader(props, ref) {
                       },
                       tab: true
                     })
-                  }}>
+                  }}
+                  >
                   <AnimatedIon
                     name="ios-information-circle-outline"
                     style={{
-                      color: props.iconColor,
+                      color: "black",
                       fontSize: props.iconSize
                     }}
                   />

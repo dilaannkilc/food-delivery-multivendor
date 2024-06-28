@@ -11,9 +11,12 @@ const styles = (props = null) =>
       color: props != null ? props.fontMainColor : 'black'
     },
     mainContainerHolder: {
+      zIndex: 333,
       width: '100%',
       alignItems: 'center',
-      backgroundColor: props != null ? props.headerMenuBackground : '#fafafa',
+      borderBottomLeftRadius: 25,
+      borderBottomRightRadius: 25,
+      backgroundColor: props != null ? '#90EA93' : '#fafafa',
       shadowColor: props != null ? props.shadowColor : 'black',
       shadowOffset: {
         width: 0,
@@ -25,10 +28,11 @@ const styles = (props = null) =>
     },
     mainContainer: {
       width: '90%',
-      height: scale(60),
+      height: scale(50),
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
+      borderRadius: 40,
       backgroundColor: props != null ? props.cartContainer : 'white',
       shadowColor: props != null ? props.shadowColor : 'black',
       shadowOffset: {

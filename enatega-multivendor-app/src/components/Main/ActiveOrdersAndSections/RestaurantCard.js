@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useContext } from 'react'
-import { TouchableOpacity, View, Image } from 'react-native'
+import { TouchableOpacity, View, Image, Text } from 'react-native'
 import ConfigurationContext from '../../../context/Configuration'
 import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { alignment } from '../../../utils/alignment'
@@ -26,23 +26,22 @@ function RestaurantCard(props) {
           <Image
             resizeMode="cover"
             source={{ uri: props.image }}
-            style={{ width: scale(220), height: '100%' }}
+            style={{
+              width: scale(220),
+              height: '100%',
+              borderRadius: 25,
+              marginTop: 5
+            }}
           />
           <View style={styles().overlayContainer}>
             <View style={styles(currentTheme).deliveryOverlay}>
               <TextDefault
                 textColor={currentTheme.fontMainColor}
-                numberOfLines={2}
+                numberOfLines={1}
                 smaller
-                center>
-                {props.deliveryTime}
-              </TextDefault>
-              <TextDefault
-                textColor={currentTheme.fontMainColor}
                 bold
-                smaller
                 center>
-                {'MIN'}
+                {props.deliveryTime + ' min'}
               </TextDefault>
             </View>
           </View>
@@ -57,7 +56,7 @@ function RestaurantCard(props) {
               {props.name}
             </TextDefault>
             <View style={[styles().aboutRestaurant, { width: '23%' }]}>
-              <Ionicons name="md-star" size={scale(10)} color="blue" />
+              <Ionicons name="md-star" size={scale(12)} color="#448B7B" />
               <TextDefault
                 textColor={currentTheme.fontMainColor}
                 style={{ marginLeft: 2 }}
@@ -85,13 +84,13 @@ function RestaurantCard(props) {
           <TextDefault
             textColor={currentTheme.fontMainColor}
             numberOfLines={1}
-            style={{ marginTop: 3 }}
+            style={{ marginTop: 3,fontSize: 15}}
             bold
             small>
             {configuration.currencySymbol} {props.minimumOrder}
             <TextDefault textColor={currentTheme.fontSecondColor} small>
               {' '}
-              minimum
+              Min
             </TextDefault>
           </TextDefault>
         </View>
