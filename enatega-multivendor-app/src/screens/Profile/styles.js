@@ -17,12 +17,13 @@ const styles = (props = null) =>
       ...alignment.MTmedium
     },
     formSubContainer: {
+      borderRadius: 30,
       width: '95%',
-      backgroundColor: props !== null ? props.themeBackground : 'transparent',
+      backgroundColor: 'white',
       alignSelf: 'center',
       shadowOffset: { width: 2, height: 4 },
       shadowColor: props !== null ? props.shadowColor : 'transparent',
-      shadowOpacity: 0.6,
+      shadowOpacity: 0.1,
       shadowRadius: 10,
       elevation: 15,
       borderWidth:
@@ -59,14 +60,21 @@ const styles = (props = null) =>
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'flex-end',
+      borderRadius: scale(7),
       ...alignment.MTmedium,
       ...alignment.PRmedium,
       ...alignment.PLmedium
     },
+    verifiedButton: {
+      padding: 5,
+      paddingLeft: 20,
+      paddingRight: 20,
+      borderRadius: scale(6)
+    },
     // Model for password changing
     modalContainer: {
       backgroundColor: props !== null ? props.cartContainer : '#FFF',
-      borderRadius: scale(2),
+      borderRadius: scale(14),
       justifyContent: 'center',
       alignItems: 'center',
       ...alignment.PTmedium,

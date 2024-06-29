@@ -48,6 +48,7 @@ import { ActiveOrdersAndSections } from '../../components/Main/ActiveOrdersAndSe
 import { alignment } from '../../utils/alignment'
 import Spinner from '../../components/Spinner/Spinner'
 import Analytics from '../../utils/analytics'
+import MapSection from '../MapSection/index'
 
 const RESTAURANTS = gql`
   ${restaurantList}
@@ -106,10 +107,10 @@ function Main(props) {
   useLayoutEffect(() => {
     navigation.setOptions(
       navigationOptions({
-        headerMenuBackground: currentTheme.headerMenuBackground,
-        horizontalLine: currentTheme.horizontalLine,
+        headerMenuBackground: currentTheme.headerColor,
+        horizontalLine: currentTheme.headerColor,
         fontMainColor: currentTheme.fontMainColor,
-        iconColorPink: currentTheme.iconColorPink,
+        iconColorPink: currentTheme.black,
         open: onOpen
       })
     )
@@ -145,7 +146,7 @@ function Main(props) {
     modalRef.current.close()
   }
 
-  const setCurrentLocation = async() => {
+  const setCurrentLocation = async () => {
     setBusy(true)
     const { error, coords } = await getCurrentLocation()
     if (error) navigation.navigate('SelectLocation')
@@ -335,7 +336,9 @@ function Main(props) {
   }))
   return (
     <>
-      <SafeAreaView edges={['bottom', 'left', 'right']} style={styles().flex}>
+      <SafeAreaView
+        edges={['bottom', 'left', 'right']}
+        style={[styles().flex, { backgroundColor: 'black' }]}>
         <View style={[styles().flex, styles(currentTheme).screenBackground]}>
           <View style={styles().flex}>
             <View style={styles().mainContentContainer}>
@@ -371,8 +374,9 @@ function Main(props) {
                   data={search ? searchRestaurants(search) : restaurants}
                   renderItem={({ item }) => <Item item={item} />}
                 />
-                <CollapsibleSubHeaderAnimator translateY={translateY}>
+                <CollapsibleSubHeaderAnimator translateY={translateY}>                  
                   <Search setSearch={setSearch} search={search} />
+                  <MapSection location={location} restaurants={restaurants} />
                 </CollapsibleSubHeaderAnimator>
               </View>
             </View>
@@ -428,12 +432,12 @@ function Main(props) {
                       !['Current Location', 'Selected Location'].includes(
                         location.label
                       ) && (
-                      <MaterialIcons
-                        name="check"
-                        size={scale(15)}
-                        color={currentTheme.iconColorPink}
-                      />
-                    )}
+                        <MaterialIcons
+                          name="check"
+                          size={scale(15)}
+                          color={currentTheme.iconColorPink}
+                        />
+                      )}
                   </View>
                 </View>
               )
