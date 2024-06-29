@@ -9,31 +9,14 @@ const styles = (props = null) =>
     },
     pT20: {
       ...alignment.PTmedium,
-      ...alignment.PBmedium,
-      ...alignment.PRmedium,
-      backgroundColor: 'white',
-      borderRadius: 20
-    },
-    paymentMethod: {
-      backgroundColor: '#F3F4F8',
-      borderRadius: 20,
-      padding: 10,
-      display: 'flex',
-      alignItems: 'center',
-      width: '80%',
-      justifyContent: 'space-between',
-      flexDirection: 'row'
+      ...alignment.PBmedium
     },
     mainContainer: {
-      //backgroundColor: props !== null ? props.themeBackground : 'transparent',
-      backgroundColor: '#6FCF97',
-      borderBottomRightRadius: 35,
-      borderBottomLeftRadius: 35,
+      backgroundColor: props !== null ? props.themeBackground : 'transparent',
       ...alignment.PTlarge,
-      //...alignment.PBlarge,
+      ...alignment.PBlarge,
       ...alignment.PLsmall,
-      ...alignment.PRsmall,
-      paddingBottom: 25
+      ...alignment.PRsmall
     },
     radioContainer: {
       width: '15%',
@@ -53,7 +36,7 @@ const styles = (props = null) =>
     },
     iconStyle: {
       height: verticalScale(20),
-      width: verticalScale(25)
+      width: verticalScale(35)
     }
   })
 export default styles

@@ -1,4 +1,4 @@
-import { verticalScale, scale } from '../../../utils/scaling'
+import { verticalScale } from '../../../utils/scaling'
 import { Dimensions, StyleSheet } from 'react-native'
 const { height } = Dimensions.get('window')
 
@@ -9,10 +9,8 @@ const styles = (props = null) =>
     },
     mainContainer: {
       width: '100%',
-      height: height * 0.09,
+      height: height * 0.07,
       elevation: 1,
-      borderTopRightRadius: 25,
-      borderTopLeftRadius: 25,
       shadowColor: props !== null ? props.shadowColor : '#fefefe',
       shadowOffset: {
         width: 0,
@@ -32,29 +30,17 @@ const styles = (props = null) =>
       flexDirection: 'row'
     },
     icon: {
-      width: '8%',
-      height: '55%',
-      backgroundColor: 'black',
+      width: '10%',
+      height: '100%',
       justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: scale(15)
-    },
-    quantity: {
-      borderWidth: 1,
-      paddingLeft: 18,
-      paddingRight: 18,
-      paddingTop: 10,
-      paddingBottom: 10,
-      borderRadius: 10,
-      borderColor: 'black'
+      alignItems: 'center'
     },
     btnContainer: {
       width: '60%',
-      height: '90%',
-      backgroundColor: props !== null ? props.main : 'black',
+      height: '80%',
+      backgroundColor: props !== null ? props.horizontalLine : 'black',
       justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 10
+      alignItems: 'center'
     }
   })
 export default styles

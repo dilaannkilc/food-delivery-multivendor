@@ -38,7 +38,7 @@ function RadioComponent(props) {
               onPress={onPress.bind(this, option)}
             />
             <TextDefault
-              textColor={currentTheme.fontMainColor}
+              textColor={currentTheme.fontSecondColor}
               style={alignment.MLsmall}
               H5
               bold>
@@ -47,7 +47,7 @@ function RadioComponent(props) {
           </View>
           <View style={styles.rightContainer}>
             <TextDefault
-              textColor={currentTheme.fontMainColor}
+              textColor={currentTheme.fontSecondColor}
               H5
               bold>{`${configuration.currencySymbol} ${option.price}`}</TextDefault>
           </View>

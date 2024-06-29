@@ -22,9 +22,6 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { TextField } from 'react-native-material-textfield'
 import { scale } from '../../utils/scaling'
 import Analytics from '../../utils/analytics'
-import { HeaderBackButton } from '@react-navigation/elements'
-import { MaterialIcons } from '@expo/vector-icons';
-import navigationService from '../../routes/navigationService'
 
 function ItemDetail(props) {
   const { food, addons, options, restaurant } = props.route.params
@@ -77,31 +74,7 @@ function ItemDetail(props) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: null,
-      title: 'Customize',
-      headerRight: null,
-      headerTitleContainerStyle: {
-        marginBottom: 10,
-        paddingLeft: 20,
-        paddingRight: 20,
-        backgroundColor: 'black',
-        borderRadius: 30,
-        marginLeft: 0,
-      },
-      headerTransparent: true,
-      headerTitleAlign: 'center',
-      headerRight: null,
-          headerLeft: () => (
-            <HeaderBackButton
-            backImage={() =>
-              <View style={{backgroundColor: 'white', borderRadius: 50 , marginLeft: 10, width: 55, alignItems: 'center'}}>
-              <MaterialIcons name="arrow-back" size={30} color="black" />
-              </View>
-            }
-            onPress={() => {
-              navigationService.goBack()
-            }}
-          />
-          ),
+      title: 'Customize'
     })
   }, [navigation])
 
@@ -144,7 +117,7 @@ function ItemDetail(props) {
             },
             {
               text: 'OK',
-              onPress: async () => {
+              onPress: async() => {
                 await addToCart(quantity, true)
               }
             }
@@ -155,7 +128,7 @@ function ItemDetail(props) {
     }
   }
 
-  const addToCart = async (quantity, clearFlag) => {
+  const addToCart = async(quantity, clearFlag) => {
     const addons = selectedAddons.map(addon => ({
       ...addon,
       options: addon.options.map(({ _id }) => ({
@@ -166,35 +139,35 @@ function ItemDetail(props) {
     const cartItem = clearFlag
       ? null
       : cart.find(cartItem => {
-          if (
-            cartItem._id === food._id &&
+        if (
+          cartItem._id === food._id &&
             cartItem.variation._id === selectedVariation._id
-          ) {
-            if (cartItem.addons.length === addons.length) {
-              if (addons.length === 0) return true
-              const addonsResult = addons.every(newAddon => {
-                const cartAddon = cartItem.addons.find(
-                  ad => ad._id === newAddon._id
+        ) {
+          if (cartItem.addons.length === addons.length) {
+            if (addons.length === 0) return true
+            const addonsResult = addons.every(newAddon => {
+              const cartAddon = cartItem.addons.find(
+                ad => ad._id === newAddon._id
+              )
+
+              if (!cartAddon) return false
+              const optionsResult = newAddon.options.every(newOption => {
+                const cartOption = cartAddon.options.find(
+                  op => op._id === newOption._id
                 )
 
-                if (!cartAddon) return false
-                const optionsResult = newAddon.options.every(newOption => {
-                  const cartOption = cartAddon.options.find(
-                    op => op._id === newOption._id
-                  )
-
-                  if (!cartOption) return false
-                  return true
-                })
-
-                return optionsResult
+                if (!cartOption) return false
+                return true
               })
 
-              return addonsResult
-            }
+              return optionsResult
+            })
+
+            return addonsResult
           }
-          return false
-        })
+        }
+        return false
+      })
 
     if (!cartItem) {
       await setCartRestaurant(restaurant)
@@ -317,9 +290,9 @@ function ItemDetail(props) {
               <HeadingComponent
                 title={food.title}
                 price={calculatePrice()}
-                //desc={food.description}
+                desc={food.description}
               />
-
+              <View style={styles(currentTheme).line}></View>
               {food.variations.length > 1 && (
                 <View>
                   <TitleComponent
@@ -358,19 +331,18 @@ function ItemDetail(props) {
                 status="Optional"
               />
               <TextField
-                style={styles(currentTheme).input}
                 placeholder={'E.g No mayo'}
-                textAlignVertical="center"
                 value={specialInstructions}
                 onChangeText={setSpecialInstructions}
-                labelFontSize={scale(6)}
+                labelFontSize={scale(12)}
                 fontSize={scale(12)}
                 labelHeight={10}
                 maxLength={144}
+                multiline
                 textColor={currentTheme.fontMainColor}
-                baseColor={currentTheme.lightHorizontalLine}
+                baseColor={currentTheme.fontSecondColor}
                 errorColor={currentTheme.textErrorColor}
-                tintColor={currentTheme.themeBackground}
+                tintColor={currentTheme.iconColorPink}
               />
             </View>
           </ScrollView>

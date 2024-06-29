@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
 import { alignment } from '../../../utils/alignment'
-import { theme } from '../../../utils/themeColors'
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -9,15 +8,10 @@ const styles = StyleSheet.create({
     ...alignment.MBxSmall
   },
   leftContainer: {
-    width: '75%'
+    width: '70%'
   },
   rightContainer: {
-    height: '45%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '25%',
-    backgroundColor: theme.Pink.buttonBackground,
-    borderRadius: 20
+    width: '30%'
   }
 })
 export default styles
