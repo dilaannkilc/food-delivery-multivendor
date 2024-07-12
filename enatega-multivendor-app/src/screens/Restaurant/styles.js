@@ -2,7 +2,6 @@ import { scale, verticalScale } from '../../utils/scaling'
 import { StyleSheet } from 'react-native'
 import { alignment } from '../../utils/alignment'
 import { textStyles } from '../../utils/textStyles'
-import { theme } from '../../utils/themeColors'
 
 const styles = (props = null) =>
   StyleSheet.create({
@@ -24,66 +23,53 @@ const styles = (props = null) =>
     },
     sectionHeaderText: {
       textTransform: 'capitalize',
-     // backgroundColor: props != null ? props.cartContainer : 'white',
+      backgroundColor: props != null ? props.cartContainer : 'white',
       ...alignment.PLlarge,
-      ...alignment.PTlarge,
-      ...alignment.PBlarge,
+      ...alignment.PTsmall,
+      ...alignment.PBsmall
     },
     deal: {
       width: '100%',
       flexDirection: 'row',
-
-      // ...alignment.PTsmall,
-      // ...alignment.PBsmall
+      justifyContent: 'space-between',
+      ...alignment.PTsmall,
+      ...alignment.PBsmall
     },
     dealSection: {
       position: 'relative',
       backgroundColor: props != null ? props.cartContainer : 'white',
       ...alignment.PLlarge,
-      ...alignment.PRxSmall,
-      borderRadius: 25
+      ...alignment.PRxSmall
     },
     dealDescription: {
       flex: 1,
-      //justifyContent: 'space-between',
+      justifyContent: 'space-between',
       backgroundColor: 'transparent',
-      ...alignment.PRxSmall,
+      ...alignment.PRxSmall
     },
     dealPrice: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      overflow: 'hidden',
+      overflow: 'hidden'
     },
     priceText: {
-      fontSize: 15,
-      paddingTop: 10,
-      maxWidth: '100%',
-      ...alignment.MRxSmall
-    },
-    headerText: {
-      fontSize: 18,
-      paddingTop: 5,
       maxWidth: '100%',
       ...alignment.MRxSmall
     },
     listSeperator: {
       borderBottomWidth: StyleSheet.hairlineWidth,
-      borderColor: theme.Pink.black,
-      paddingTop: scale(15),
-      marginBottom: scale(15),
-      width: "90%",
-      alignSelf: 'center'
+      borderColor: props != null ? props.lightHorizontalLine : 'grey'
     },
     sectionSeparator: {
       width: '100%',
       height: scale(15),
-      backgroundColor: props != null ? props.themeBackground : 'white',
+      backgroundColor: props != null ? props.themeBackground : 'white'
     },
     buttonContainer: {
       position: 'absolute',
       bottom: 0,
       width: '100%',
-      height: scale(50),
+      height: scale(40),
       backgroundColor: props != null ? props.themeBackground : 'white',
       justifyContent: 'center',
       alignItems: 'center'
@@ -94,14 +80,12 @@ const styles = (props = null) =>
       alignItems: 'center',
       backgroundColor: props != null ? props.buttonBackgroundPink : 'red',
       height: '100%',
-      width: '95%',
-      borderRadius: scale(15),
-      ...alignment.PLmedium,
-      ...alignment.PRmedium,
+      width: '100%',
+      ...alignment.PLsmall,
+      ...alignment.PRsmall
     },
     buttonText: {
-      width: '30%',
-      
+      width: '30%'
     },
     buttonTextRight: {
       width: '35%'

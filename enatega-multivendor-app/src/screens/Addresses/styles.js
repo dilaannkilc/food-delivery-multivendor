@@ -12,8 +12,7 @@ const styles = (props = null) =>
       flex: 1,
       alignItems: 'center',
       backgroundColor: props !== null ? props.themeBackground : 'transparent',
-      position: 'relative',
-      padding: scale(10)
+      position: 'relative'
     },
     subContainerImage: {
       width: '100%',
@@ -55,9 +54,7 @@ const styles = (props = null) =>
     containerSpace: {
       backgroundColor: props !== null ? props.cartContainer : 'transparent',
       ...alignment.PBmedium,
-      ...alignment.PTmedium,
-      ...alignment.MBsmall,
-      borderRadius: scale(20)
+      ...alignment.PTmedium
     },
     width100: {
       width: '100%'
@@ -86,7 +83,7 @@ const styles = (props = null) =>
     line: {
       width: '80%',
       alignSelf: 'flex-end',
-      borderBottomColor: props !== null ? 'transparent' : 'transparent',
+      borderBottomColor: props !== null ? props.horizontalLine : 'transparent',
       borderBottomWidth: StyleSheet.hairlineWidth
     }
   })

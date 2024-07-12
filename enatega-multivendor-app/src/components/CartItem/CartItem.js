@@ -20,7 +20,11 @@ const cartItem = props => {
           activeOpacity={0.7}
           style={styles(currentTheme).actionContainerBtns}
           onPress={props.removeQuantity}>
-          <AntDesign name="minus" size={scale(10)} color={currentTheme.black} />
+          <AntDesign
+            name="minus"
+            size={scale(14)}
+            color={currentTheme.iconColorPink}
+          />
         </TouchableOpacity>
         <View style={styles(currentTheme).actionContainerView}>
           <TextDefault textColor={currentTheme.fontMainColor}>
@@ -31,15 +35,19 @@ const cartItem = props => {
           activeOpacity={0.7}
           style={styles(currentTheme).actionContainerBtns}
           onPress={props.addQuantity}>
-          <AntDesign name="plus" size={scale(10)} color={currentTheme.black} />
+          <AntDesign
+            name="plus"
+            size={scale(14)}
+            color={currentTheme.iconColorPink}
+          />
         </TouchableOpacity>
       </View>
-      <View style={[alignment.PLsmall, { width: '42%' }]}>
+      <View style={[alignment.PLsmall, { width: '50%' }]}>
         <TextDefault
           numberOfLines={1}
-          textColor={currentTheme.primery}
-          bolder
-          medium>
+          textColor={currentTheme.fontSecondColor}
+          bold
+          small>
           {props.dealName}
         </TextDefault>
         {props.optionsTitle.map((option, index) => (
@@ -55,10 +63,11 @@ const cartItem = props => {
       <TextDefault
         numberOfLines={1}
         textColor={currentTheme.fontMainColor}
-        style={{ width: '30%', marginRight: 10 }}
-        bolder
+        style={{ width: '30%' }}
+        small
         right>
-        {configuration.currencySymbol} {parseFloat(props.dealPrice).toFixed(2)}
+        {configuration.currencySymbol}
+        {parseFloat(props.dealPrice).toFixed(2)}
       </TextDefault>
     </View>
   )

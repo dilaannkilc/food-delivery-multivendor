@@ -49,7 +49,7 @@ const styles = (props = null) =>
     subContainer: {
       flex: 1,
       backgroundColor: props !== null ? props.cartContainer : '#FFF',
-      borderRadius: scale(10),
+      borderRadius: scale(5),
       elevation: 3,
       shadowColor: 'black',
       shadowOffset: {
@@ -63,45 +63,24 @@ const styles = (props = null) =>
       ...alignment.MRsmall,
       ...alignment.MLsmall,
       ...alignment.MTsmall,
-      ...alignment.PTxSmall,
-      ...alignment.PBxSmall,
-      ...alignment.PRsmall,
-      ...alignment.PLxSmall
-    },
-    restaurantImage: {
-      height: '100%',
-      width: '28%',
-      borderRadius: 10
-    },
-    textContainer: {
-      width: '58%',
       ...alignment.PTsmall,
-      //...alignment.PBlarge,
+      ...alignment.PBsmall,
+      ...alignment.PRsmall,
       ...alignment.PLsmall
     },
     subContainerLeft: {
-      width: '100%'
+      width: '60%'
     },
     subContainerRight: {
-      ...alignment.PTsmall,
-      width: '15%',
+      width: '40%',
       justifyContent: 'space-between'
     },
     subContainerButton: {
       backgroundColor: props !== null ? props.buttonBackground : 'grey',
       ...alignment.MTxSmall,
-      borderRadius: 10,
-      width: scale(80),
-      height: verticalScale(25),
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-    subContainerReviewButton: {
-      backgroundColor: props !== null ? props.secondaryBackground : 'grey',
-      ...alignment.MTxSmall,
-      borderRadius: 10,
-      width: scale(80),
-      height: verticalScale(25),
+      width: scale(65),
+      height: verticalScale(20),
+      alignSelf: 'flex-end',
       alignItems: 'center',
       justifyContent: 'center'
     }

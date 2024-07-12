@@ -59,9 +59,9 @@ function Item(props) {
   function onCompleted() {
     FlashMessage({ message: 'Favourite list updated.' })
   }
+
   return (
     <TouchableOpacity
-      style={{ padding: 10 }}
       activeOpacity={1}
       onPress={() => navigation.navigate('Restaurant', { ...item })}>
       <View key={item._id} style={styles().mainContainer}>
@@ -135,17 +135,17 @@ function Item(props) {
                 {item.name}
               </TextDefault>
               <View style={[styles().aboutRestaurant, { width: '23%' }]}>
-                <Ionicons name="md-star" size={scale(15)} color="#448B7B" />
+                <Ionicons name="md-star" size={scale(11)} color="#4165b9" />
                 <TextDefault
                   textColor={currentTheme.fontMainColor}
-                  style={{ marginLeft: 2, fontSize: 12 }}
+                  style={{ marginLeft: 2 }}
                   bolder
                   smaller>
                   {item.reviewData.ratings}
                 </TextDefault>
                 <TextDefault
                   textColor={currentTheme.fontSecondColor}
-                  style={{ marginLeft: 2, fontSize: 12 }}
+                  style={{ marginLeft: 2 }}
                   bold
                   smaller>
                   ({item.reviewData.reviews.length})
@@ -169,7 +169,7 @@ function Item(props) {
                 {configuration.currencySymbol + ' ' + item.minimumOrder}{' '}
                 <TextDefault textColor={currentTheme.fontSecondColor} small>
                   {' '}
-                  {'Min'}
+                  {'minimum'}
                 </TextDefault>
               </TextDefault>
               <View style={styles(currentTheme).verticalLine} />

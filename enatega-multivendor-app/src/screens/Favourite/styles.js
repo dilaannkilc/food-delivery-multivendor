@@ -40,7 +40,6 @@ const styles = (props = null) =>
       width: '60%',
       height: scale(40),
       backgroundColor: props !== null ? props.buttonBackground : 'transparent',
-      borderRadius: scale(10),
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center'

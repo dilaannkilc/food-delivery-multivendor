@@ -55,7 +55,6 @@ export const en = {
   titlePayment: 'Payment',
   totalOrderAmount: 'Total Order Amount',
   reOrder: 'Reorder',
-  previous: 'Previous Order',
   unReadNotifications: 'No unread notifications',
   upload: 'Upload',
   saveBtn: 'Save',

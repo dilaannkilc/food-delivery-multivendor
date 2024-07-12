@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
 import { alignment } from '../../utils/alignment'
-import { theme } from '../../utils/themeColors'
 
 const styles = (props = null) =>
   StyleSheet.create({
@@ -19,17 +18,10 @@ const styles = (props = null) =>
       alignSelf: 'center'
     },
     line: {
-      marginLeft: 10,
-      width: '95%',
+      width: '100%',
       height: StyleSheet.hairlineWidth,
       ...alignment.MBsmall,
-      backgroundColor: props !== null ? props.black : 'black'
-    },
-    input: {
-      backgroundColor: theme.Pink.lightHorizontalLine,
-      borderRadius: 10,
-      height: 50,
-      paddingLeft: 10
+      backgroundColor: props !== null ? props.horizontalLine : 'black'
     }
   })
 export default styles

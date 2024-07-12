@@ -7,7 +7,7 @@ const styles = (props = null) =>
     container: {
       flex: 1,
       backgroundColor: props !== null ? props.cartContainer : '#FFF',
-      borderRadius: scale(8),
+      borderRadius: scale(5),
       elevation: 3,
       shadowColor: 'black',
       shadowOffset: {
@@ -18,30 +18,21 @@ const styles = (props = null) =>
       shadowRadius: verticalScale(1),
       flexDirection: 'row',
       justifyContent: 'space-between',
-      ...alignment.MRsmall,
-      ...alignment.MLsmall,
-      ...alignment.MTsmall,
-      ...alignment.PTxSmall,
-      ...alignment.PBxSmall,
-      ...alignment.PRsmall,
-      ...alignment.PLxSmall
-    },
-    image: {
-      height: '100%',
-      width: '25%',
-      borderRadius: 10
-    },
-    textContainer: {
-      width: '55%',
       ...alignment.PTlarge,
       ...alignment.PBlarge,
-      ...alignment.PLsmall
+      ...alignment.PRsmall,
+      ...alignment.PLsmall,
+      ...alignment.MRsmall,
+      ...alignment.MLsmall,
+      ...alignment.MTsmall
     },
     leftContainer: {
-      width: '100%'
+      width: '75%',
+      ...alignment.PRxSmall,
+      ...alignment.PLxSmall
     },
     rightContainer: {
-      width: '20%',
+      width: '25%',
       justifyContent: 'center',
       alignItems: 'center'
     },
@@ -49,11 +40,9 @@ const styles = (props = null) =>
       width: '100%',
       flexDirection: 'row',
       justifyContent: 'center',
-      backgroundColor: 'white',
       alignItems: 'center',
       ...alignment.PTlarge,
-      ...alignment.PBlarge,
-      ...alignment.MTsmall
+      ...alignment.PBlarge
     },
     line: {
       borderRightWidth: StyleSheet.hairlineWidth,

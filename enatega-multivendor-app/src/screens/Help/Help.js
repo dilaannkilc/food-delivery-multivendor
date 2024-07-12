@@ -6,10 +6,6 @@ import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import Analytics from '../../utils/analytics'
-import { HeaderBackButton } from '@react-navigation/elements'
-import { MaterialIcons } from '@expo/vector-icons'
-import navigationService from '../../routes/navigationService'
-
 const links = [
   {
     title: 'Product Page',
@@ -39,37 +35,7 @@ function Help(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: null,
-      headerTitle: 'Help Center',
-      headerRight: null,
-      headerTitleContainerStyle: {
-        marginBottom: 10,
-        paddingLeft: 20,
-        paddingRight: 20,
-        backgroundColor: 'black',
-        borderRadius: 30,
-        marginLeft: 0
-      },
-      headerStyle: {
-        backgroundColor: '#F5F5F5'
-      },
-      headerTitleAlign: 'center',
-      headerRight: null,
-      headerLeft: () => (
-        <HeaderBackButton
-          backImage={() => (
-            <View style={styles(currentTheme).backButton}>
-              <MaterialIcons
-                name="arrow-back"
-                size={30}
-                color={currentTheme.black}
-              />
-            </View>
-          )}
-          onPress={() => {
-            navigationService.goBack()
-          }}
-        />
-      )
+      headerTitle: 'Help Center'
     })
   }, [props.navigation])
 
@@ -82,20 +48,18 @@ function Help(props) {
         backgroundColor={currentTheme.headerBackground}
       />
       <View style={styles(currentTheme).flex}>
-        <View style={styles().mainContainer}>
-          {links.map(({ title, url }, index) => (
-            <TouchableOpacity
-              onPress={() =>
-                props.navigation.navigate('HelpBrowser', { title, url })
-              }
-              style={styles(currentTheme).itemContainer}
-              key={index}>
-              <TextDefault textColor={currentTheme.fontMainColor} bolder>
-                {title}
-              </TextDefault>
-            </TouchableOpacity>
-          ))}
-        </View>
+        {links.map(({ title, url }, index) => (
+          <TouchableOpacity
+            onPress={() =>
+              props.navigation.navigate('HelpBrowser', { title, url })
+            }
+            style={styles(currentTheme).itemContainer}
+            key={index}>
+            <TextDefault textColor={currentTheme.fontMainColor} bold>
+              {title}
+            </TextDefault>
+          </TouchableOpacity>
+        ))}
       </View>
     </SafeAreaView>
   )

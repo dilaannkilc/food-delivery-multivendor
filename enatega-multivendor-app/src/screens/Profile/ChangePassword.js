@@ -69,7 +69,7 @@ function ChangePassword(props) {
       <View style={styles(currentTheme).modalContainer}>
         <View style={styles().modalContent}>
           <View style={styles().titleContainer}>
-            <TextDefault textColor={currentTheme.fontMainColor} B700 bolder H4>
+            <TextDefault textColor={currentTheme.fontMainColor} B700 bolder H5>
               Change password
             </TextDefault>
           </View>
@@ -148,7 +148,7 @@ function ChangePassword(props) {
             <TextDefault
               textColor={currentTheme.tagColor}
               bolder
-              B800
+              B700
               uppercase
               small>
               {newPassword !== '' && oldPassword !== ''

@@ -8,12 +8,6 @@ const styles = (props = null) =>
       backgroundColor: props !== null ? props.themeBackground : 'transparent',
       justifyContent: 'space-between'
     },
-    mainContainer: {
-      backgroundColor: 'white',
-      margin: scale(8),
-      paddingBottom: scale(8),
-      borderRadius: scale(15)
-    },
     buttonContainer: {
       width: '100%',
       backgroundColor: props !== null ? props.menuBar : 'transparent',
@@ -32,8 +26,7 @@ const styles = (props = null) =>
       paddingVertical: scale(15),
       backgroundColor: props !== null ? props.buttonBackgroundPink : '#6FCF97',
       justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: scale(10)
+      alignItems: 'center'
     },
     priceContainer: {
       flex: 1,

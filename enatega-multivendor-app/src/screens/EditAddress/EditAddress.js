@@ -10,8 +10,7 @@ import {
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
-  ScrollView,
-  Image
+  ScrollView
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import i18n from '../../../i18n'
@@ -34,9 +33,6 @@ import CustomMarker from '../../assets/SVG/imageComponents/CustomMarker'
 import AddressText from '../../components/Address/AddressText'
 import SearchModal from '../../components/Address/SearchModal'
 import analytics from '../../utils/analytics'
-import { MaterialIcons } from '@expo/vector-icons';
-import { HeaderBackButton } from '@react-navigation/elements'
-import navigationService from '../../routes/navigationService'
 
 const EDIT_ADDRESS = gql`
   ${editAddress}
@@ -99,33 +95,7 @@ function EditAddress(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: null,
-      title: i18n.t('editAddress'),
-      headerStyle: {
-        backgroundColor: currentTheme.headerColor,
-        borderRadius: 25, // Add border radius here
-      },
-  headerTitleContainerStyle: {
-    marginBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    backgroundColor: 'black',
-    borderRadius: 30,
-    marginLeft: 0,
-  },
-  headerTitleAlign: 'center',
-  headerRight: null,
-      headerLeft: () => (
-        <HeaderBackButton
-        backImage={() =>
-          <View style={{backgroundColor: 'white', borderRadius: 50 , marginLeft: 10, width: 55, alignItems: 'center'}}>
-          <MaterialIcons name="arrow-back" size={30} color="black" />
-          </View>
-        }
-        onPress={() => {
-          navigationService.goBack()
-        }}
-      />
-      ),
+      title: i18n.t('editAddress')
     })
   }, [props.navigation])
   useEffect(() => {
@@ -246,10 +216,12 @@ function EditAddress(props) {
                 alignItems: 'center',
                 transform: [{ translateX: -25 }, { translateY: -25 }]
               }}>
-              <Image
-                  source={require('../../assets/images/user.png')}
-                  width={20}
-                />     
+              <CustomMarker
+                width={40}
+                height={40}
+                transform={[{ translateY: -20 }]}
+                translateY={-20}
+              />
             </View>
           </View>
           <ScrollView
@@ -259,7 +231,7 @@ function EditAddress(props) {
             <View style={styles().upperContainer}>
               <View style={styles().addressContainer}>
                 <View style={styles().geoLocation}>
-                  <View style={{ width: '100%' }}>
+                  <View style={{ width: '90%' }}>
                     <OutlinedTextField
                       error={deliveryAddressError}
                       ref={addressRef}
@@ -267,11 +239,6 @@ function EditAddress(props) {
                       label={i18n.t('fullDeliveryAddress')}
                       labelFontSize={scale(12)}
                       fontSize={scale(12)}
-                      renderRightAccessory={() => (                                                   
-                        <TouchableOpacity onPress={onOpen}>                                                      
-                          <MaterialIcons name="edit" size={18} color={currentTheme.tagColor} />
-                        </TouchableOpacity>
-                      )}
                       maxLength={100}
                       textColor={currentTheme.fontMainColor}
                       baseColor={currentTheme.fontSecondColor}
@@ -295,7 +262,11 @@ function EditAddress(props) {
                         )
                       }}
                     />
-                  </View>                  
+                  </View>
+                  <AddressText
+                    deliveryAddress={deliveryAddress}
+                    onPress={onOpen}
+                  />
                 </View>
                 <View style={{ ...alignment.MTlarge }}></View>
                 <OutlinedTextField
@@ -332,9 +303,8 @@ function EditAddress(props) {
               </View>
               <View style={styles().labelButtonContainer}>
                 <View style={styles().labelTitleContainer}>
-                <View style={styles().horizontalLine} />
                   <TextDefault textColor={currentTheme.fontMainColor} H5 bolder>
-                  Add Label
+                    Label as
                   </TextDefault>
                 </View>
                 <View style={styles().buttonInline}>
@@ -353,7 +323,7 @@ function EditAddress(props) {
                       <TextDefault
                         textColor={
                           selectedLabel === label.value
-                            ? currentTheme.white
+                            ? currentTheme.tagColor
                             : currentTheme.fontMainColor
                         }
                         bold
@@ -399,7 +369,7 @@ function EditAddress(props) {
               }}
               activeOpacity={0.5}
               style={styles(currentTheme).saveBtnContainer}>
-               <TextDefault textColor={currentTheme.black} H5 bold>
+              <TextDefault textColor={currentTheme.buttonText} H4 bold>
                 {i18n.t('saveContBtn')}
               </TextDefault>
             </TouchableOpacity>
@@ -413,7 +383,7 @@ function EditAddress(props) {
       />
       <View
         style={{
-          paddingBottom: 80,
+          paddingBottom: inset.bottom,
           backgroundColor: currentTheme.themeBackground
         }}
       />

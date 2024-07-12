@@ -15,8 +15,7 @@ const styles = backColor =>
       height: '100%',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'transparent',
-      paddingLeft: 5
+      backgroundColor: 'transparent'
     },
     favContainer: {
       height: '100%',
@@ -52,7 +51,7 @@ const styles = backColor =>
       width: '100%',
       justifyContent: 'center',
       alignItems: 'flex-start',
-      borderRadius: scale(10),
+      borderRadius: scale(2),
       ...alignment.PLmedium
     },
     passwordContainer: {

@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
 import { alignment } from '../../utils/alignment'
-import { scale } from '../../utils/scaling'
 
 const styles = (props = null) =>
   StyleSheet.create({
@@ -10,17 +9,16 @@ const styles = (props = null) =>
       width: '100%'
     },
     actionContainer: {
-      width: '27%',
+      width: '20%',
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: props !== null ? props.cartContainer : 'transparent'
     },
     actionContainerBtns: {
-      width: '24%',
-      backgroundColor: props !== null ? props.main : 'transparent',
+      width: '33%',
+      backgroundColor: props !== null ? props.cartContainer : 'transparent',
       justifyContent: 'center',
-      borderRadius: scale(20),
       alignItems: 'center',
       ...alignment.PTxSmall,
       ...alignment.PBxSmall
@@ -29,11 +27,7 @@ const styles = (props = null) =>
       width: '33%',
       backgroundColor: props !== null ? props.cartContainer : 'transparent',
       justifyContent: 'center',
-      alignItems: 'center',
-      borderWidth: 0.2,
-      borderRadius: 5,
-      padding: 5,
-      margin: 8
+      alignItems: 'center'
     }
   })
 export default styles

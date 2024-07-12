@@ -49,7 +49,7 @@ The required credentials and keys have been set already. You can setup your own 
 
 The version of nodejs should be between 14.0 to 16.0
 
--[Link to Video tutorial/demonstration of Setup](https://enatega-1.gitbook.io/enatega-multivendor/configurations/google-maps-api-keys)
+-[Link to Video tutorial/demonstration of Setup](https://enatega.com/multivendor-documentation/)
 
 ## Prerequisites:
 
@@ -172,4 +172,4 @@ The frontend source code for our solution is completely open source. However, th
 
 ## Contact Us:
 
-sales@ninjascode.com
+sales@enatega.com
