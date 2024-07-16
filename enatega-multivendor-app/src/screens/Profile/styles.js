@@ -17,18 +17,19 @@ const styles = (props = null) =>
       ...alignment.MTmedium
     },
     formSubContainer: {
+      borderRadius: scale(18),
       width: '95%',
-      backgroundColor: props !== null ? props.themeBackground : 'transparent',
+      backgroundColor: 'white',
       alignSelf: 'center',
       shadowOffset: { width: 2, height: 4 },
       shadowColor: props !== null ? props.shadowColor : 'transparent',
-      shadowOpacity: 0.6,
+      shadowOpacity: 0.1,
       shadowRadius: 10,
       elevation: 15,
       borderWidth:
         props !== null && props.themeBackground !== '#FAFAFA' ? 2 : 0,
       borderColor: props !== null ? props.shadowColor : 'transparent',
-      ...alignment.MBlarge,
+      // ...alignment.MBlarge,
       ...alignment.MTsmall,
       ...alignment.Pmedium
     },
@@ -54,19 +55,28 @@ const styles = (props = null) =>
       ...alignment.PLmedium
     },
     saveContainer: {
-      // width: '30%',
-      backgroundColor: props !== null ? props.buttonBackground : 'black',
+      backgroundColor: props !== null ? '#90EA93' : 'black',
       justifyContent: 'center',
       alignItems: 'center',
-      alignSelf: 'flex-end',
-      ...alignment.MTmedium,
-      ...alignment.PRmedium,
-      ...alignment.PLmedium
+      borderRadius: scale(6),
+      padding: 5,
+      paddingLeft: 20,
+      paddingRight: 20,
+      width: '28%'
+    },
+    verifiedButton: {
+      padding: 5,
+      paddingLeft: 20,
+      paddingRight: 20,
+      borderRadius: scale(6),
+      width: '28%',
+      height: 30,
+      marginTop: 10
     },
     // Model for password changing
     modalContainer: {
       backgroundColor: props !== null ? props.cartContainer : '#FFF',
-      borderRadius: scale(2),
+      borderRadius: scale(14),
       justifyContent: 'center',
       alignItems: 'center',
       ...alignment.PTmedium,

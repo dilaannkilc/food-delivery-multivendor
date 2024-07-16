@@ -4,8 +4,10 @@ import {
   FlatList,
   TouchableOpacity,
   StatusBar,
-  Platform
+  Platform,
+  Image
 } from 'react-native'
+import { Entypo } from '@expo/vector-icons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import ActiveOrders from '../../components/MyOrders/ActiveOrders'
 import Spinner from '../../components/Spinner/Spinner'
@@ -22,6 +24,9 @@ import SearchFood from '../../assets/SVG/imageComponents/SearchFood'
 import { scale } from '../../utils/scaling'
 import analytics from '../../utils/analytics'
 import OrdersContext from '../../context/Orders'
+import { HeaderBackButton } from '@react-navigation/elements'
+import i18n from '../../../i18n'
+
 const orderStatusActive = ['PENDING', 'PICKED', 'ACCEPTED', 'ASSIGNED']
 const orderStatusInactive = ['DELIVERED', 'COMPLETED']
 
@@ -35,7 +40,6 @@ function MyOrders(props) {
     fetchMoreOrdersFunc,
     networkStatusOrders
   } = useContext(OrdersContext)
-
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const inset = useSafeAreaInsets()
@@ -53,7 +57,46 @@ function MyOrders(props) {
   })
 
   useLayoutEffect(() => {
-    props.navigation.setOptions(screenOptions(currentTheme.headerText))
+    // props.navigation.setOptions(screenOptions(currentTheme.headerText))
+    props.navigation.setOptions({
+      title: i18n.t('titleCart'),
+      headerRight: null,
+      headerTitleAlign: 'center',
+      headerTitleContainerStyle: {
+        marginBottom: scale(10),
+        paddingLeft: scale(20),
+        paddingRight: scale(20),
+        backgroundColor: currentTheme.black,
+        borderRadius: scale(10),
+        borderColor: currentTheme.white,
+        borderWidth: 1,
+        marginLeft: 0
+      },
+      headerStyle: {
+        backgroundColor: currentTheme.headerColor,
+        shadowColor: 'transparent',
+        shadowRadius: 0
+      },
+      headerLeft: () => (
+        <HeaderBackButton
+          backImage={() => (
+            <View
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 50,
+                marginLeft: 10,
+                width: 55,
+                alignItems: 'center'
+              }}>
+              <Entypo name="cross" size={30} color="black" />
+            </View>
+          )}
+          onPress={() => {
+            navigationService.goBack()
+          }}
+        />
+      )
+    })
   }, [props.navigation])
 
   const getItems = items => {
@@ -165,82 +208,102 @@ function MyOrders(props) {
               })
             }>
             <View style={styles(currentTheme).subContainer}>
-              <View style={styles().subContainerLeft}>
-                <TextDefault
-                  textColor={currentTheme.fontMainColor}
-                  uppercase
-                  style={alignment.MBxSmall}>
-                  {' '}
-                  {item.restaurant.name}
-                </TextDefault>
-                <TextDefault
-                  numberOfLines={1}
-                  style={{ ...alignment.MTxSmall }}
-                  textColor={currentTheme.fontSecondColor}
-                  small>
-                  {' '}
-                  {getItems(item.items)}
-                </TextDefault>
-                <TextDefault
-                  numberOfLines={1}
-                  style={{ ...alignment.MTxSmall }}
-                  textColor={currentTheme.fontSecondColor}
-                  small>
-                  {' '}
-                  {new Date(item.createdAt).toDateString()}
-                </TextDefault>
+              <Image
+                style={styles(currentTheme).restaurantImage}
+                resizeMode="cover"
+                source={{ uri: item.restaurant.image }}
+              />
+              <View style={styles(currentTheme).textContainer}>
+                <View style={styles().subContainerLeft}>
+                  <TextDefault
+                    textColor={currentTheme.fontMainColor}
+                    uppercase
+                    bolder
+                    style={alignment.MBxSmall}>
+                    {' '}
+                    {item.restaurant.name}
+                  </TextDefault>
+                  <TextDefault
+                    numberOfLines={1}
+                    style={{ ...alignment.MTxSmall }}
+                    textColor={currentTheme.fontSecondColor}
+                    small>
+                    {' '}
+                    {new Date(item.createdAt).toDateString()}
+                  </TextDefault>
+                  <TextDefault
+                    numberOfLines={1}
+                    style={{ ...alignment.MTxSmall }}
+                    textColor={currentTheme.fontMainColor}
+                    bolder
+                    small>
+                    {' '}
+                    {getItems(item.items)}
+                  </TextDefault>
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      marginTop: 10,
+                      marginBottom: 10,
+                      justifyContent: 'space-around',
+                      alignItems: 'flex-end'
+                    }}>
+                    {!item.review && (
+                      <TouchableOpacity
+                        activeOpacity={0.7}
+                        style={styles(currentTheme).subContainerReviewButton}
+                        onPress={() =>
+                          props.navigation.navigate('OrderDetail', {
+                            _id: item._id,
+                            currencySymbol: configuration.currencySymbol,
+                            restaurant: item.restaurant,
+                            user: item.user
+                          })
+                        }>
+                        <TextDefault
+                          textColor={currentTheme.Black}
+                          smaller
+                          bolder
+                          B700
+                          center
+                          uppercase>
+                          {' '}
+                          Rate Order
+                        </TextDefault>
+                      </TouchableOpacity>
+                    )}
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      style={styles(currentTheme).subContainerButton}
+                      onPress={() =>
+                        props.navigation.navigate('Reorder', { item })
+                      }>
+                      <TextDefault
+                        textColor={currentTheme.white}
+                        smaller
+                        bolder
+                        B700
+                        center
+                        uppercase>
+                        {' '}
+                        Reorder
+                      </TextDefault>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
               <View style={styles().subContainerRight}>
                 <TextDefault
                   numberOfLines={1}
-                  textColor={currentTheme.fontSecondColor}
+                  textColor={currentTheme.fontMainColor}
                   small
-                  right>
+                  right
+                  bolder>
                   {' '}
                   {configuration.currencySymbol}
                   {parseFloat(item.orderAmount).toFixed(2)}
                 </TextDefault>
-                {!item.review && (
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    style={styles(currentTheme).subContainerButton}
-                    onPress={() =>
-                      props.navigation.navigate('OrderDetail', {
-                        _id: item._id,
-                        currencySymbol: configuration.currencySymbol,
-                        restaurant: item.restaurant,
-                        user: item.user
-                      })
-                    }>
-                    <TextDefault
-                      textColor={currentTheme.buttonText}
-                      smaller
-                      bolder
-                      B700
-                      center
-                      uppercase>
-                      {' '}
-                      Review
-                    </TextDefault>
-                  </TouchableOpacity>
-                )}
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  style={styles(currentTheme).subContainerButton}
-                  onPress={() =>
-                    props.navigation.navigate('Reorder', { item })
-                  }>
-                  <TextDefault
-                    textColor={currentTheme.buttonText}
-                    smaller
-                    bolder
-                    B700
-                    center
-                    uppercase>
-                    {' '}
-                    Reorder
-                  </TextDefault>
-                </TouchableOpacity>
               </View>
             </View>
           </TouchableOpacity>

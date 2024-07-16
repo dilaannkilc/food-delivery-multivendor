@@ -2,13 +2,15 @@ export const theme = {
   Pink: {
     black: '#000',
     white: '#FFF',
+    primery: '#3C8F7C',
     themeBackground: '#FAFAFA',
     menuBar: '#FFF',
     iconColor: '#333333',
     iconColorPink: '#6FCF97',
     itemCardColor: '#FFF',
+    headerColor: '#6FCF97',
     tagColor: '#6FCF97',
-    radioColor: '#6FCF97',
+  radioColor: '#6FCF97',
     radioOuterColor: '#949393',
     startColor: '#6FCF97',
     startOutlineColor: '#6FCF97',
@@ -34,7 +36,6 @@ export const theme = {
     titleComponentText: 'rgba(39,111,191,0.8)',
     titleTextError: '#FFF',
     statusSecondColor: '#5A5858',
-    starColor: '#4165b9',
     rippleColor: '#6FCF97',
     backIcon: '#fff',
     backIconBackground: '#000',
@@ -42,9 +43,11 @@ export const theme = {
     main: '#90EA93',
     secondaryBackground: '#ECECEC',
     shadow: '#707070',
-    starRating: '#E2C077',
     errorInputBack: '#F7E7E5',
-    errorInputBorder: '#DB4A39'
+    errorInputBorder: '#DB4A39',
+    starRating: '#E2C077',
+    inputPlaceHolder: '#F3F4F8',
+    transparent: '#00000000'
   },
   Dark: {
     black: '#000',
@@ -90,6 +93,8 @@ export const theme = {
     secondaryBackground: '#ECECEC',
     shadow: '#707070',
     errorInputBack: '#F7E7E5',
-    errorInputBorder: '#DB4A39'
+    errorInputBorder: '#DB4A39',
+    inputPlaceHolder: '#F3F4F8',
+    transparent: '#ff000080'
   }
 }

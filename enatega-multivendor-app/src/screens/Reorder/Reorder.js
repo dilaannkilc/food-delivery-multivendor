@@ -10,6 +10,11 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import styles from './styles'
 import UserContext from '../../context/User'
 import analytics from '../../utils/analytics'
+import i18n from '../../../i18n'
+import { scale } from '../../utils/scaling'
+import { HeaderBackButton } from '@react-navigation/elements'
+import navigationService from '../../routes/navigationService'
+import { MaterialIcons, Entypo } from '@expo/vector-icons'
 function Reorder(props) {
   const order = props.route.params.item
   const themeContext = useContext(ThemeContext)
@@ -20,8 +25,47 @@ function Reorder(props) {
   const [selectedItems, setItems] = useState([])
 
   useLayoutEffect(() => {
-    props.navigation.setOptions(screenOptions(currentTheme.headerText))
+    props.navigation.setOptions({
+      title: i18n.t('previous'),
+      headerRight: null,
+      headerTitleAlign: 'center',
+      headerTitleContainerStyle: {
+        marginBottom: scale(10),
+        paddingLeft: scale(20),
+        paddingRight: scale(20),
+        backgroundColor: 'black',
+        borderRadius: 30,
+        marginLeft: 0
+      },
+      headerStyle: {
+        backgroundColor: currentTheme.headerColor,
+        shadowColor: 'transparent',
+        shadowRadius: 0
+      },
+      headerTitleAlign: 'center',
+      headerRight: null,
+      headerLeft: () => (
+        <HeaderBackButton
+          backImage={() => (
+            <View
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 50,
+                marginLeft: 10,
+                width: 55,
+                alignItems: 'center'
+              }}>
+              <Entypo name="cross" size={30} color="black" />
+            </View>
+          )}
+          onPress={() => {
+            navigationService.goBack()
+          }}
+        />
+      )
+    })
   }, [props.navigation])
+
   useEffect(() => {
     async function Track() {
       await analytics.track(analytics.events.NAVIGATE_TO_REORDER)
@@ -37,7 +81,7 @@ function Reorder(props) {
     }
   }
 
-  const onAddToCart = async() => {
+  const onAddToCart = async () => {
     await setCartRestaurant(order.restaurant._id)
     selectedItems.forEach(async index => {
       const item = order.items[index]
@@ -66,11 +110,11 @@ function Reorder(props) {
         showsVerticalScrollIndicator={false}
         alwaysBounceVertical={false}
         contentContainerStyle={styles(currentTheme).scrollViewStyle}>
-        <View>
+        <View style={styles().mainContainer}>
           <TextDefault
             style={[alignment.MLmedium, alignment.MTmedium]}
             bolder
-            H5
+            H4
             textColor={currentTheme.fontMainColor}>
             Select Items
           </TextDefault>
@@ -93,7 +137,7 @@ function Reorder(props) {
                 <View style={{ width: '50%' }}>
                   <TextDefault
                     numberOfLines={1}
-                    textColor={currentTheme.fontSecondColor}>
+                    textColor={currentTheme.fontMainColor}>
                     {item.title}
                   </TextDefault>
                   {item.addons.map((addon, index) => {
@@ -129,9 +173,9 @@ function Reorder(props) {
               selectedItems.length > 0
                 ? styles(currentTheme).buttonStyles
                 : {
-                  ...styles(currentTheme).buttonStyles,
-                  backgroundColor: currentTheme.horizontalLine
-                }
+                    ...styles(currentTheme).buttonStyles,
+                    backgroundColor: currentTheme.horizontalLine
+                  }
             }
             onPress={onAddToCart}>
             <TextDefault bolder textColor={currentTheme.white}>

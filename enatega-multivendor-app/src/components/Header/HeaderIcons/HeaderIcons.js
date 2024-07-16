@@ -4,7 +4,8 @@ import {
   EvilIcons,
   MaterialIcons,
   MaterialCommunityIcons,
-  AntDesign
+  AntDesign,
+  Feather
 } from '@expo/vector-icons'
 import { scale } from '../../../utils/scaling'
 import styles from './styles'
@@ -39,7 +40,7 @@ function BackButton(props) {
     return (
       <Ionicons
         name="ios-menu"
-        size={16}
+        size={30}
         style={styles().leftIconPadding}
         color={props.iconColor}
       />
@@ -48,7 +49,7 @@ function BackButton(props) {
     return (
       <MaterialCommunityIcons
         name="dots-vertical"
-        size={16}
+        size={25}
         color={props.iconColor}
       />
     )
@@ -57,7 +58,7 @@ function BackButton(props) {
       <MaterialIcons name="my-location" size={16} color={props.iconColor} />
     )
   } else if (props.icon === 'fav') {
-    return <AntDesign name="hearto" size={16} color={props.iconColor} />
+    return <AntDesign name="hearto" size={20} color="black" />
   } else {
     return (
       <EvilIcons
@@ -154,14 +155,11 @@ function RightButton(props) {
   function cartIcon() {
     return (
       <View style={[styles().rightContainer, { ...alignment.PRsmall }]}>
-        <CartIcon width={16} height={16} />
+        <Feather name="shopping-bag" size={25} color="black" />
         <View
           style={
-            styles(
-              route.name === 'Main'
-                ? currentTheme.iconColorPink
-                : currentTheme.white
-            ).absoluteContainer
+            styles(route.name === 'Main' ? 'black' : currentTheme.white)
+              .absoluteContainer
           }>
           <TextDefault
             textColor={
@@ -169,9 +167,9 @@ function RightButton(props) {
                 ? currentTheme.fontWhite
                 : currentTheme.black
             }
-            style={{ fontSize: scale(7) }}
+            style={{ fontSize: scale(12) }}
             center
-            bold>
+            bolder>
             {cartCount}
           </TextDefault>
         </View>

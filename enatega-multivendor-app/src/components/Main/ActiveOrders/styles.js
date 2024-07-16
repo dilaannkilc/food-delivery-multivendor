@@ -25,12 +25,12 @@ const styles = (props = null) =>
     },
     statusContainer: {
       overflow: 'hidden',
-      width: scale(270),
+      width: '95%',
       alignSelf: 'center',
-      backgroundColor: props !== null ? props.cartContainer : 'white',
-      marginTop: verticalScale(5),
-      marginBottom: verticalScale(10),
-      marginLeft: scale(15),
+      backgroundColor: '#90EA93',
+      borderRadius: scale(12),
+      marginTop: verticalScale(10),
+      // marginBottom: verticalScale(10),
       elevation: 7,
       shadowColor: props != null ? props.shadowColor : 'grey',
       shadowOffset: {
@@ -40,26 +40,25 @@ const styles = (props = null) =>
       shadowOpacity: 0.3,
       shadowRadius: verticalScale(3),
       borderWidth: 1,
-      borderColor: '#FFF',
-      paddingBottom: scale(15)
+      borderColor: '#FFF'
     },
-    cardViewContainer: {
-      width: '98%',
-      alignSelf: 'center',
-      height: verticalScale(180),
-      marginTop: verticalScale(2),
-      marginBottom: verticalScale(10),
-      elevation: 7,
-      shadowColor: props !== null ? props.shadowColor : 'transparent',
-      shadowOffset: {
-        width: 0,
-        height: verticalScale(3)
-      },
-      shadowOpacity: 1,
-      shadowRadius: verticalScale(4),
-      borderWidth: 1,
-      borderColor: props !== null ? props.white : '#FFF'
-    },
+    // cardViewContainer: {
+    //   width: '98%',
+    //   alignSelf: 'center',
+    //   height: verticalScale(180),
+    //   marginTop: verticalScale(2),
+    //   marginBottom: verticalScale(10),
+    //   elevation: 7,
+    //   shadowColor: props !== null ? props.shadowColor : 'transparent',
+    //   shadowOffset: {
+    //     width: 0,
+    //     height: verticalScale(3)
+    //   },
+    //   shadowOpacity: 1,
+    //   shadowRadius: verticalScale(4),
+    //   borderWidth: 1,
+    //   borderColor: props !== null ? props.white : '#FFF'
+    // },
     imgCard: {
       position: 'relative',
       flex: 1,
@@ -74,20 +73,24 @@ const styles = (props = null) =>
     },
     title: {
       color: props !== null ? props.statusSecondColor : 'grey',
-      fontSize: verticalScale(16),
+      fontSize: verticalScale(15),
       fontFamily: fontStyles.MuseoSans500
     },
     description: {
       color: props !== null ? props.fontMainColor : '#000',
-      fontSize: verticalScale(18),
+      fontSize: verticalScale(15),
       fontFamily: fontStyles.MuseoSans500,
-      marginTop: scale(2)
+      paddingLeft: scale(5),
+      paddingTop: scale(3),
+      fontWeight: '700'
     },
     statusText: {
       color: props !== null ? props.statusSecondColor : 'grey',
       fontSize: verticalScale(13),
       fontFamily: fontStyles.MuseoSans500,
-      marginBottom: scale(10)
+      marginBottom: scale(10),
+      paddingLeft: 40,
+      fontWeight: '500'
     },
     timeText: {
       color: props !== null ? props.iconColorPink : 'red',
@@ -99,6 +102,24 @@ const styles = (props = null) =>
       marginRight: scale(5),
       marginBottom: scale(5),
       marginTop: scale(5)
+    },
+    viewAllButton: {
+      paddingTop: 0,
+      paddingBottom: 10
+    },
+    btncontainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    button: {
+      padding: 10,
+      borderRadius: 5
+    },
+    buttonText: {
+      color: 'black',
+      fontSize: 16,
+      fontWeight: 'bold'
     }
   })
 

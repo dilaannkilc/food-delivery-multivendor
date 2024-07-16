@@ -76,16 +76,13 @@ function ImageTextCenterHeader(props, ref) {
       </View>
     )
   }
-
   return (
     <Animated.View
       style={[
         styles(currentTheme).mainContainer,
         {
           height: props.height,
-          backgroundColor: props.loading
-            ? 'transparent'
-            : currentTheme.headerBackground
+          backgroundColor: props.loading ? 'transparent' : null
         }
       ]}>
       <Animated.View
@@ -93,7 +90,12 @@ function ImageTextCenterHeader(props, ref) {
         <Animated.Image
           resizeMode="cover"
           source={{ uri: aboutObject.restaurantImage }}
-          style={[styles().flex, { opacity: props.opacity }]}
+          style={[
+            styles().flex,
+            {
+              opacity: props.opacity
+            }
+          ]}
         />
         <Animated.View style={styles().overlayContainer}>
           <View style={styles().fixedViewNavigation}>
@@ -107,14 +109,14 @@ function ImageTextCenterHeader(props, ref) {
                     backgroundColor: props.iconBackColor,
                     borderRadius: props.iconRadius,
                     height: props.iconTouchHeight,
-                    width: props.iconTouchWidth
+                    width: 60
                   }
                 ]}
                 onPress={() => navigation.goBack()}>
                 <AnimatedIon
                   name="ios-arrow-back"
                   style={{
-                    color: props.iconColor,
+                    color: props.black,
                     fontSize: props.iconSize
                   }}
                 />
@@ -151,11 +153,12 @@ function ImageTextCenterHeader(props, ref) {
                       },
                       tab: true
                     })
+                    // console.log('button pressed')
                   }}>
                   <AnimatedIon
                     name="ios-information-circle-outline"
                     style={{
-                      color: props.iconColor,
+                      color: props.black,
                       fontSize: props.iconSize
                     }}
                   />

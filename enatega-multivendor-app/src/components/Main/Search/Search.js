@@ -17,14 +17,14 @@ function Search(props) {
             <View style={styles().searchContainer}>
               <Ionicons
                 name="ios-search"
-                color={currentTheme.iconColorPink}
+                color="black"
                 size={scale(20)}
               />
             </View>
             <View style={styles().inputContainer}>
               <TextInput
                 style={styles(currentTheme).bodyStyleOne}
-                placeholder="Cuisine or a restaurant name"
+                placeholder="Search for restaurants"
                 placeholderTextColor={currentTheme.fontSecondColor}
                 onChangeText={text => props.setSearch(text)}
                 // onSubmitEditing={props.onEnter}

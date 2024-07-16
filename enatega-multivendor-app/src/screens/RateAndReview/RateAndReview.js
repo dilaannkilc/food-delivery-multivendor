@@ -1,7 +1,8 @@
 import React, { useState, useContext, useLayoutEffect, useEffect } from 'react'
-import { View, TextInput, TouchableOpacity } from 'react-native'
+import { View, TextInput, TouchableOpacity, SafeAreaView } from 'react-native'
 import gql from 'graphql-tag'
 import Spinner from '../../components/Spinner/Spinner'
+import ImageHeader from '../../components/CustomizeComponents/ImageHeader/ImageHeader'
 import styles from './styles'
 import { reviewOrder } from '../../apollo/mutations'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -12,9 +13,13 @@ import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
-import { EvilIcons } from '@expo/vector-icons'
+
 import { scale } from '../../utils/scaling'
 import Analytics from '../../utils/analytics'
+import { HeaderBackButton } from '@react-navigation/elements'
+import { MaterialIcons } from '@expo/vector-icons'
+import navigationService from '../../routes/navigationService'
+
 // constants
 const REVIEWORDER = gql`
   ${reviewOrder}
@@ -35,7 +40,37 @@ function RateAndReview(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerTitle: i18n.t('rateAndReview'),
-      headerRight: null
+      headerRight: null,
+      headerTitleContainerStyle: {
+        marginBottom: scale(10),
+        paddingLeft: scale(20),
+        paddingRight: scale(20),
+        backgroundColor: 'black',
+        borderRadius: 30,
+        marginLeft: 0
+      },
+      headerTransparent: true,
+      headerTitleAlign: 'center',
+      headerRight: null,
+      headerLeft: () => (
+        <HeaderBackButton
+          backImage={() => (
+            <View
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 50,
+                marginLeft: 10,
+                width: 55,
+                alignItems: 'center'
+              }}>
+              <MaterialIcons name="arrow-back" size={30} color="black" />
+            </View>
+          )}
+          onPress={() => {
+            navigationService.goBack()
+          }}
+        />
+      )
     })
   }, [props.navigation])
   useEffect(() => {
@@ -80,19 +115,20 @@ function RateAndReview(props) {
           styles().flex,
           { backgroundColor: currentTheme.themeBackground }
         ]}>
+        <ImageHeader image={props.route.params.restaurant.image} />
         <View style={styles().reviewTextContainer}>
           <View style={styles().reviewTextSubContainer}>
             <View style={styles().reviewTextContainerText}>
-              <TextDefault textColor={currentTheme.fontMainColor} H4 bold>
-                {i18n.t('writeAReview')}
+              <TextDefault
+                textColor={currentTheme.fontMainColor}
+                H3
+                bolder
+                style={styles().reviewText}>
+                How was your meal?
               </TextDefault>
-            </View>
-            <View style={styles().reviewTextContainerImage}>
-              <EvilIcons
-                name="pencil"
-                size={scale(35)}
-                color={currentTheme.iconColorPink}
-              />
+              <TextDefault textColor={currentTheme.fontMainColor} H5>
+                Was it nice or bad,Lets talk about it
+              </TextDefault>
             </View>
           </View>
         </View>
@@ -108,6 +144,21 @@ function RateAndReview(props) {
             />
           </View>
         </View>
+        <View
+          style={{
+            backgroundColor: 'black',
+            height: 0.5,
+            width: '90%',
+            alignSelf: 'center'
+          }}></View>
+
+        <TextDefault
+          textColor={currentTheme.fontMainColor}
+          H3
+          bolder
+          style={{ padding: 20, marginTop: 20 }}>
+          Tell about your Experience
+        </TextDefault>
         <View style={styles().inputContainer}>
           <View style={styles(currentTheme).inputSubContainer}>
             <TextInput
@@ -117,6 +168,11 @@ function RateAndReview(props) {
               ]}
               placeholderTextColor={currentTheme.fontSecondColor}
               onChangeText={onChangeText}
+              labelFontSize={scale(6)}
+              multiline={true}
+              fontSize={scale(12)}
+              labelHeight={10}
+              maxLength={144}
               placeholder={i18n.t('reviewPlaceholder')}
             />
           </View>

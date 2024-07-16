@@ -48,6 +48,7 @@ import { ActiveOrdersAndSections } from '../../components/Main/ActiveOrdersAndSe
 import { alignment } from '../../utils/alignment'
 import Spinner from '../../components/Spinner/Spinner'
 import Analytics from '../../utils/analytics'
+import MapSection from '../MapSection/index'
 
 const RESTAURANTS = gql`
   ${restaurantList}
@@ -91,7 +92,7 @@ function Main(props) {
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.menuBar)
+      StatusBar.setBackgroundColor(currentTheme.headerColor)
     }
     StatusBar.setBarStyle(
       themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
@@ -105,13 +106,15 @@ function Main(props) {
   }, [])
   useLayoutEffect(() => {
     navigation.setOptions(
-      navigationOptions({
-        headerMenuBackground: currentTheme.headerMenuBackground,
-        horizontalLine: currentTheme.horizontalLine,
-        fontMainColor: currentTheme.fontMainColor,
-        iconColorPink: currentTheme.iconColorPink,
-        open: onOpen
-      })
+      navigationOptions(
+        {
+          headerMenuBackground: currentTheme.headerColor,
+          horizontalLine: currentTheme.headerColor,
+          fontMainColor: currentTheme.fontMainColor,
+          iconColorPink: currentTheme.black,
+          open: onOpen
+        }
+      )
     )
   }, [navigation, currentTheme])
 
@@ -145,7 +148,7 @@ function Main(props) {
     modalRef.current.close()
   }
 
-  const setCurrentLocation = async() => {
+  const setCurrentLocation = async () => {
     setBusy(true)
     const { error, coords } = await getCurrentLocation()
     if (error) navigation.navigate('SelectLocation')
@@ -162,7 +165,7 @@ function Main(props) {
   }
 
   const modalHeader = () => (
-    <View style={[styles().content, styles().addressbtn]}>
+    <View style={[styles().addressbtn]}>
       <TouchableOpacity
         style={[styles(currentTheme).addressContainer]}
         activeOpacity={0.7}
@@ -170,8 +173,8 @@ function Main(props) {
         <View style={styles().addressSubContainer}>
           <MaterialCommunityIcons
             name="target"
-            size={scale(15)}
-            color={currentTheme.iconColorPink}
+            size={scale(25)}
+            color={currentTheme.black}
           />
           <View style={styles().mL5p} />
           <TextDefault bold>Current Location</TextDefault>
@@ -186,7 +189,10 @@ function Main(props) {
           />
         )}
         {busy && (
-          <Spinner size={'small'} backColor={currentTheme.cartContainer} />
+          <Spinner
+            size={'small'}
+            backColor={currentTheme.lightHorizontalLine}
+          />
         )}
       </View>
     </View>
@@ -229,7 +235,7 @@ function Main(props) {
             <AntDesign
               name="pluscircleo"
               size={scale(12)}
-              color={currentTheme.iconColorPink}
+              color={currentTheme.black}
             />
             <View style={styles().mL5p} />
             <TextDefault bold>Add New Address</TextDefault>
@@ -335,11 +341,13 @@ function Main(props) {
   }))
   return (
     <>
-      <SafeAreaView edges={['bottom', 'left', 'right']} style={styles().flex}>
+      <SafeAreaView
+        edges={['bottom', 'left', 'right']}
+        style={[styles().flex, { backgroundColor: 'black' }]}>
         <View style={[styles().flex, styles(currentTheme).screenBackground]}>
           <View style={styles().flex}>
             <View style={styles().mainContentContainer}>
-              <View style={styles().flex}>
+              <View style={[styles().flex, styles().subContainer]}>
                 <Animated.FlatList
                   contentInset={{ top: containerPaddingTop }}
                   contentContainerStyle={{
@@ -373,6 +381,7 @@ function Main(props) {
                 />
                 <CollapsibleSubHeaderAnimator translateY={translateY}>
                   <Search setSearch={setSearch} search={search} />
+                  <MapSection location={location} restaurants={restaurants} />
                 </CollapsibleSubHeaderAnimator>
               </View>
             </View>
@@ -409,7 +418,7 @@ function Main(props) {
                       <SimpleLineIcons
                         name={addressIcons[address.label]}
                         size={scale(12)}
-                        color={currentTheme.iconColorPink}
+                        color={currentTheme.black}
                       />
                       <View style={styles().mL5p} />
                       <TextDefault bold>{address.label}</TextDefault>
@@ -428,12 +437,12 @@ function Main(props) {
                       !['Current Location', 'Selected Location'].includes(
                         location.label
                       ) && (
-                      <MaterialIcons
-                        name="check"
-                        size={scale(15)}
-                        color={currentTheme.iconColorPink}
-                      />
-                    )}
+                        <MaterialIcons
+                          name="check"
+                          size={scale(25)}
+                          color={currentTheme.iconColorPink}
+                        />
+                      )}
                   </View>
                 </View>
               )

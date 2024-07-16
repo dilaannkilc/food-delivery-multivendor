@@ -21,7 +21,7 @@ import RestaurantMarker from '../../assets/SVG/restaurant-marker'
 import CustomerMarker from '../../assets/SVG/customer-marker'
 import TrackingRider from '../../components/OrderDetail/TrackingRider/TrackingRider'
 import OrdersContext from '../../context/Orders'
-import { mapStyles } from './mapStyles'
+import { mapStyle } from '../../utils/mapStyle'
 const { height: HEIGHT } = Dimensions.get('screen')
 
 function OrderDetail(props) {
@@ -58,7 +58,7 @@ function OrderDetail(props) {
   const subTotal = total - tip - tax - deliveryCharges
 
   return (
-    <SafeAreaView style={styles().flex}>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
@@ -75,7 +75,7 @@ function OrderDetail(props) {
           zoomEnabled={true}
           zoomControlEnabled={true}
           rotateEnabled={false}
-          customMapStyle={mapStyles}
+          customMapStyle={mapStyle}
           provider={PROVIDER_GOOGLE}>
           <Marker
             coordinate={{
@@ -106,7 +106,11 @@ function OrderDetail(props) {
         />
 
         {order.orderStatus === 'DELIVERED' && !order.review && (
-          <View style={styles().review}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around'
+            }}>
             <TouchableOpacity
               activeOpacity={0.7}
               style={[styles().floatView, { justifyContent: 'center' }]}
