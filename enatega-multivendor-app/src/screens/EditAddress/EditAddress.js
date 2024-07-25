@@ -382,7 +382,7 @@ function EditAddress(props) {
                           <TextDefault
                             textColor={
                               selectedLabel === label.value
-                                ? currentTheme.iconColorPink
+                                ? currentTheme.white
                                 : currentTheme.fontMainColor
                             }
                             bold

@@ -40,7 +40,7 @@ const EDIT_ADDRESS = gql`
 
 const labelValues = [
   {
-    title: '',
+    title: 'Home',
     value: 'Home'
   },
   {
