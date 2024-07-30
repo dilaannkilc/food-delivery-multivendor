@@ -16,6 +16,7 @@ function RestaurantCard(props) {
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
 
+
   return (
     <View style={{ ...alignment.PRsmall }}>
       <TouchableOpacity
@@ -51,11 +52,7 @@ function RestaurantCard(props) {
               {props.name}
             </TextDefault>
             <View style={[styles().aboutRestaurant, { width: '23%' }]}>
-              <Ionicons
-                name="md-star"
-                size={scale(12)}
-                color={currentTheme.primery}
-              />
+              <Ionicons name="md-star" size={scale(12)} color="#448B7B" />
               <TextDefault
                 textColor={currentTheme.fontMainColor}
                 style={styles().restaurantRatingContainer}

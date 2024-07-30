@@ -255,8 +255,10 @@ function Restaurant(props) {
       duration: 500,
       easing: EasingNode.inOut(EasingNode.ease)
     }).start()
-    circle.setValue(0)
+    circle.setValue(0) // important for animation next time.
   }
+
+  // Section and Flatlist fucntion  => related to topbar styling and scrolling
 
   const scrollToSection = index => {
     if (scrollRef.current != null) {
@@ -346,17 +348,60 @@ function Restaurant(props) {
   })
 
   const iconColor = currentTheme.iconColorPink
+  // const iconColor = color(
+  //   interpolate(animation, {
+  //     inputRange: [0, SCROLL_RANGE],
+  //     outputRange: [111, 255],
+  //     extrapolate: Extrapolate.CLAMP
+  //   }),
+  //   interpolate(animation, {
+  //     inputRange: [0, SCROLL_RANGE],
+  //     outputRange: [207, 255],
+  //     extrapolate: Extrapolate.CLAMP
+  //   }),
+  //   interpolate(animation, {
+  //     inputRange: [0, SCROLL_RANGE],
+  //     outputRange: [151, 255],
+  //     extrapolate: Extrapolate.CLAMP
+  //   }),
+  //   1
+  // )
 
   const iconBackColor = currentTheme.white
-
+  // const iconBackColor = color(
+  //   255,
+  //   255,
+  //   255,
+  //   interpolate(animation, {
+  //     inputRange: [0, 70, SCROLL_RANGE - TOP_BAR_HEIGHT],
+  //     outputRange: [1, 0.7, 0],
+  //     extrapolate: Extrapolate.CLAMP
+  //   })
+  // )
   const iconRadius = scale(15)
-
+  // const iconRadius = interpolate(animation, {
+  //   inputRange: [0, 70, SCROLL_RANGE],
+  //   outputRange: [scale(15), scale(7), scale(0)],
+  //   extrapolate: Extrapolate.CLAMP
+  // })
   const iconSize = scale(20)
-
+  // const iconSize = interpolate(animation, {
+  //   inputRange: [0, 70, SCROLL_RANGE],
+  //   outputRange: [scale(20), scale(25), scale(30)],
+  //   extrapolate: Extrapolate.CLAMP
+  // })
   const iconTouchHeight = scale(30)
-
+  // const iconTouchHeight = interpolate(animation, {
+  //   inputRange: [0, 70, SCROLL_RANGE],
+  //   outputRange: [scale(30), scale(40), scale(50)],
+  //   extrapolate: Extrapolate.CLAMP
+  // })
   const iconTouchWidth = scale(30)
-
+  // const iconTouchWidth = interpolate(animation, {
+  //   inputRange: [0, 70, SCROLL_RANGE],
+  //   outputRange: [scale(30), scale(35), scale(40)],
+  //   extrapolate: Extrapolate.CLAMP
+  // })
   const headerTextFlex = concat(
     interpolateNode(animation, {
       inputRange: [0, 80, SCROLL_RANGE],
@@ -425,7 +470,7 @@ function Restaurant(props) {
               Animation={props => (
                 <Fade
                   {...props}
-                  style={{ backgroundColor: currentTheme.fontSecondColor }}
+                  style={{ backgroundColor: '#B8B8B8' }}
                   duration={600}
                 />
               )}
@@ -491,6 +536,9 @@ function Restaurant(props) {
             refreshing={networkStatus === 4}
             onRefresh={() => networkStatus === 7 && refetch()}
             onViewableItemsChanged={onViewableItemsChanged}
+            // onScrollEndDrag={event => {
+            //   onScrollEndSnapToEdge(event)
+            // }}
             onMomentumScrollEnd={event => {
               onScrollEndSnapToEdge(event)
             }}
@@ -528,6 +576,7 @@ function Restaurant(props) {
               <TouchableOpacity
                 style={styles(currentTheme).dealSection}
                 activeOpacity={0.7}
+                // Link here screen with itemDetail screen by passing food as parameter.
                 onPress={() =>
                   onPressItem({
                     ...item,

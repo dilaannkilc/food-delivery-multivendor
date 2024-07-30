@@ -47,7 +47,14 @@ function Tip(props) {
       headerLeft: () => (
         <HeaderBackButton
           backImage={() => (
-            <View style={styles().bacKButton}>
+            <View
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 50,
+                marginLeft: 10,
+                width: 55,
+                alignItems: 'center'
+              }}>
               <Entypo name="cross" size={30} color="black" />
             </View>
           )}
@@ -72,11 +79,39 @@ function Tip(props) {
     } else navigation.navigate('Cart', { tipAmount: Number(tipAmount) })
   }
 
-  const HeaderLine = props => {}
+  const HeaderLine = props => {
+    // return (
+    //   <View style={styles().headerlineContainer}>
+    //     <View
+    //       style={[styles(currentTheme).headerLine, { width: props.lineWidth }]}
+    //     />
+    //     <TextDefault
+    //       textColor={currentTheme.fontMainColor}
+    //       style={[
+    //         alignment.PTsmall,
+    //         alignment.PBsmall,
+    //         { width: props.textWidth }
+    //       ]}
+    //       large
+    //       bolder
+    //       center
+    //       uppercase>
+    //       {props.headerName}
+    //     </TextDefault>
+    //     <View
+    //       style={[styles(currentTheme).headerLine, { width: props.lineWidth }]}
+    //     />
+    //   </View>
+    // )
+  }
   return (
     <>
       <View style={[styles().flex, styles(currentTheme).mainContainer]}>
-        <HeaderLine textWidth="45%" lineWidth="25%" />
+        <HeaderLine
+          // headerName="Tipping Amount"
+          textWidth="45%"
+          lineWidth="25%"
+        />
         <View style={styles().upperContainer}>
           <View style={styles().innerContainer}>
             <OutlinedTextField

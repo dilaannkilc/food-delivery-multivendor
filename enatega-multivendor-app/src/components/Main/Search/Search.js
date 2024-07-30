@@ -17,7 +17,7 @@ function Search(props) {
             <View style={styles().searchContainer}>
               <Ionicons
                 name="ios-search"
-                color={currentTheme.black}
+                color="black"
                 size={scale(20)}
               />
             </View>
@@ -27,6 +27,7 @@ function Search(props) {
                 placeholder="Search for restaurants"
                 placeholderTextColor={currentTheme.fontSecondColor}
                 onChangeText={text => props.setSearch(text)}
+                // onSubmitEditing={props.onEnter}
                 value={props.search}
               />
             </View>

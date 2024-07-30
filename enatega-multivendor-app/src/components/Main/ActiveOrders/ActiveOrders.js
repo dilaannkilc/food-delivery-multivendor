@@ -70,6 +70,7 @@ const ActiveOrders = () => {
   if (errorOrders && !orders) return <TextError text={errorOrders.message} />
   return (
     <>
+      {/* <View> */}
       <FlatList
         contentContainerStyle={{ paddingRight: scale(10) }}
         showsVerticalScrollIndicator={false}
@@ -101,6 +102,7 @@ const ActiveOrders = () => {
           </>
         )}
       </View>
+      {/* </View> */}
     </>
   )
 }
@@ -146,7 +148,8 @@ const Item = ({ navigation, configuration, currentTheme, item }) => {
                 {item.restaurant.name}
               </Text>
             </View>
-            <View style={styles().activeOrdersContainer}>
+            <View
+              style={styles().activeOrdersContainer}>
               {Array(checkStatus(item.orderStatus).status)
                 .fill(0)
                 .map((item, index) => (

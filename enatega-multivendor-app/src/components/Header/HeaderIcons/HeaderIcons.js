@@ -58,7 +58,7 @@ function BackButton(props) {
       <MaterialIcons name="my-location" size={16} color={props.iconColor} />
     )
   } else if (props.icon === 'fav') {
-    return <AntDesign name="hearto" size={20} color={props.iconColor} />
+    return <AntDesign name="hearto" size={20} color="black" />
   } else {
     return (
       <EvilIcons
@@ -155,7 +155,7 @@ function RightButton(props) {
   function cartIcon() {
     return (
       <View style={[styles().rightContainer, { ...alignment.PLsmall }]}>
-        <Feather name="shopping-bag" size={25} color={props.iconColor} />
+        <Feather name="shopping-bag" size={25} color="black" />
         <View
           style={
             styles(route.name === 'Main' ? 'black' : currentTheme.white)

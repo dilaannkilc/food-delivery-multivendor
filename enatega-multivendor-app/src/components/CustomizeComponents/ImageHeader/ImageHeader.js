@@ -1,7 +1,6 @@
 import React from 'react'
 import { ImageBackground, Text } from 'react-native'
 import styles from './styles'
-import { scale } from '../../../utils/scaling'
 
 function ImageHeader(props) {
   return (
@@ -11,7 +10,9 @@ function ImageHeader(props) {
       borderBottomRightRadius={scale(25)}
       resizeMode="cover"
       source={{ uri: props.image }}
-      defaultSource={require('../../../assets/images/food_placeholder.png')}></ImageBackground>
+      
+      defaultSource={require('../../../assets/images/food_placeholder.png')}>
+      </ImageBackground>
   )
 }
 

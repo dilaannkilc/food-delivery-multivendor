@@ -17,11 +17,13 @@ const styles = (props = null) =>
         width: 0,
         height: verticalScale(0)
       },
-      borderRadius: scale(25),
+      borderRadius: 25,
+      // shadowOpacity: 0.3,
+      // shadowRadius: verticalScale(3),
       height: scale(220),
       width: '99%',
-      padding: scale(15),
-
+      padding: 15,
+      //...alignment.Psmall,
       ...alignment.MBsmall
     },
     imageContainer: {
@@ -32,7 +34,7 @@ const styles = (props = null) =>
     img: {
       width: '100%',
       height: '100%',
-      borderRadius: scale(18)
+      borderRadius: 18
     },
     overlayRestaurantContainer: {
       position: 'absolute',
@@ -74,7 +76,7 @@ const styles = (props = null) =>
     descriptionContainer: {
       height: '30%',
       width: '100%',
-      padding: scale(10)
+      padding: 10
     },
     offerCategoty: {
       ...alignment.MTxSmall,

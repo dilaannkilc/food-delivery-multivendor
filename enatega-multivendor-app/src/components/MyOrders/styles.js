@@ -29,7 +29,7 @@ const styles = (props = null) =>
     image: {
       height: '100%',
       width: '25%',
-      borderRadius: scale(10)
+      borderRadius: 10
     },
     textContainer: {
       width: '55%',

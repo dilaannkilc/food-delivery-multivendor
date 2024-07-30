@@ -97,8 +97,8 @@ function ImageTextCenterHeader(props, ref) {
             styles().flex,
             {
               opacity: props.opacity,
-              borderBottomLeftRadius: scale(20),
-              borderBottomRightRadius: scale(20)
+              borderBottomLeftRadius: 20,
+              borderBottomRightRadius: 20
             }
           ]}
         />
@@ -114,7 +114,7 @@ function ImageTextCenterHeader(props, ref) {
                     backgroundColor: props.iconBackColor,
                     borderRadius: props.iconRadius,
                     height: props.iconTouchHeight,
-                    width: scale(60)
+                    width: 60
                   }
                 ]}
                 onPress={() => navigation.goBack()}>

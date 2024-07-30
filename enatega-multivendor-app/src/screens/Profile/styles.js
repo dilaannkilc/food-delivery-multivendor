@@ -1,7 +1,6 @@
 import { scale } from '../../utils/scaling'
 import { StyleSheet } from 'react-native'
-import { alignment } from '../../utils/themeColors'
-import { theme } from '../../utils/themeColors'
+import { alignment } from '../../utils/alignment'
 
 const styles = (props = null) =>
   StyleSheet.create({
@@ -20,7 +19,7 @@ const styles = (props = null) =>
     formSubContainer: {
       borderRadius: scale(18),
       width: '95%',
-      backgroundColor: theme.Pink.white,
+      backgroundColor: 'white',
       alignSelf: 'center',
       shadowOffset: { width: 2, height: 4 },
       shadowColor: props !== null ? props.shadowColor : 'transparent',
@@ -30,6 +29,7 @@ const styles = (props = null) =>
       borderWidth:
         props !== null && props.themeBackground !== '#FAFAFA' ? 2 : 0,
       borderColor: props !== null ? props.shadowColor : 'transparent',
+      // ...alignment.MBlarge,
       ...alignment.MTsmall,
       ...alignment.Pmedium
     },
@@ -55,30 +55,23 @@ const styles = (props = null) =>
       ...alignment.PLmedium
     },
     saveContainer: {
-      backgroundColor: theme.Pink.main,
+      backgroundColor: props !== null ? '#90EA93' : 'black',
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: scale(6),
-      padding: scale(5),
-      paddingLeft: scale(20),
-      paddingRight: scale(20),
+      padding: 5,
+      paddingLeft: 20,
+      paddingRight: 20,
       width: '28%'
     },
-    bacKButton: {
-      backgroundColor: 'white',
-      borderRadius: scale(50),
-      marginLeft: scale(10),
-      width: scale(55),
-      alignItems: 'center'
-    },
     verifiedButton: {
-      padding: scale(5),
-      paddingLeft: scale(20),
-      paddingRight: scale(20),
+      padding: 5,
+      paddingLeft: 20,
+      paddingRight: 20,
       borderRadius: scale(6),
       width: '28%',
-      height: scale(30),
-      marginTop: scale(10)
+      height: 30,
+      marginTop: 10
     },
     // Model for password changing
     modalContainer: {
@@ -107,13 +100,10 @@ const styles = (props = null) =>
       ...alignment.PBxSmall
     },
     titleContainer: {
-      padding: scale(25),
-      fontSize: scale(20),
-      fontWeight: '600'
+      padding: scale(25), fontSize: scale(20), fontWeight: '600'
     },
     phoneDetailsContainer: {
-      display: 'flex',
-      flexDirection: 'row'
+      display: 'flex', flexDirection: 'row'
     }
   })
 export default styles

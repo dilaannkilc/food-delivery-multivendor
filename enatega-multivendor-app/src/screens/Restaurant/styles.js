@@ -8,13 +8,13 @@ const styles = (props = null) =>
   StyleSheet.create({
     flex: {
       flex: 1,
-      backgroundColor: theme.Pink.white
+      backgroundColor: 'white'
     },
     navbarContainer: {
       paddingBottom: 0,
       height: '5%',
       elevation: 4,
-      shadowColor: theme.Pink.black,
+      shadowColor: '#000',
       shadowOffset: {
         width: 0,
         height: verticalScale(2)
@@ -25,6 +25,7 @@ const styles = (props = null) =>
     },
     sectionHeaderText: {
       textTransform: 'capitalize',
+      // backgroundColor: props != null ? props.cartContainer : 'white',
       ...alignment.PLlarge,
       ...alignment.PTlarge,
       ...alignment.PBlarge
@@ -32,14 +33,16 @@ const styles = (props = null) =>
     deal: {
       width: '100%',
       flexDirection: 'row'
+      // ...alignment.PTsmall,
+      // ...alignment.PBsmall
     },
     dealSection: {
       position: 'relative',
       backgroundColor: props != null ? props.cartContainer : 'white',
       ...alignment.PLlarge,
       ...alignment.PRxSmall,
-      borderRadius: scale(25),
-      paddingVertical: scale(10)
+      borderRadius: 25,
+      paddingVertical: 10
     },
     dealDescription: {
       flex: 1,
@@ -53,13 +56,13 @@ const styles = (props = null) =>
     },
     priceText: {
       fontSize: 15,
-      paddingTop: scale(10),
+      paddingTop: 10,
       maxWidth: '100%',
       ...alignment.MRxSmall
     },
     headerText: {
       fontSize: 18,
-      paddingTop: scale(5),
+      paddingTop: 5,
       maxWidth: '100%',
       ...alignment.MRxSmall
     },
@@ -76,7 +79,15 @@ const styles = (props = null) =>
       height: scale(15),
       backgroundColor: props != null ? props.themeBackground : 'white'
     },
-
+    // buttonContainer: {
+    //   position: 'absolute',
+    //   bottom: 0,
+    //   width: '100%',
+    //   height: scale(50),
+    //   backgroundColor: props != null ? props.themeBackground : 'white',
+    //   justifyContent: 'center',
+    //   alignItems: 'center'
+    // },
     buttonContainer: {
       width: '100%',
       height: '10%',

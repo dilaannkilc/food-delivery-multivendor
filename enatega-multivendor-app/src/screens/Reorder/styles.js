@@ -1,6 +1,5 @@
 import { scale } from '../../utils/scaling'
 import { StyleSheet } from 'react-native'
-import { theme } from '../../utils/themeColors'
 
 const styles = (props = null) =>
   StyleSheet.create({
@@ -25,7 +24,7 @@ const styles = (props = null) =>
         height: -3
       },
       shadowOpacity: 0.5,
-      shadowRadius: scale(2)
+      shadowRadius: 2
     },
     buttonStyles: {
       margin: scale(10),
@@ -35,13 +34,6 @@ const styles = (props = null) =>
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: scale(10)
-    },
-    backButton: {
-      backgroundColor: theme.Pink.white,
-      borderRadius: scale(50),
-      marginLeft: scale(10),
-      width: scale(55),
-      alignItems: 'center'
     },
     priceContainer: {
       flex: 1,
