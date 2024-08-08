@@ -15,30 +15,40 @@ function TitleComponent(props) {
         <TextDefault
           numberOfLines={1}
           textColor={currentTheme.fontMainColor}
-          H4
+          H5
           bolder>
           {props.title}
         </TextDefault>
         <TextDefault
           numberOfLines={1}
           textColor={currentTheme.fontSecondColor}
-          H6
-          bold>
+          H5
+          style={{ marginVertical: 10 }}
+          bolder>
           {props.subTitle}
         </TextDefault>
       </View>
       <View style={styles.rightContainer}>
-        <TextDefault
-          textColor={
-            props.error === true
-              ? currentTheme.titleTextError
-              : currentTheme.black
-          }
-          H6
-          bold
-          center>
-          {props.status}
-        </TextDefault>
+        <View
+          style={{
+            backgroundColor:
+              props.error === true
+                ? currentTheme.textErrorColor
+                : currentTheme.darkBackground,
+            borderRadius: 10,
+            padding: 2
+          }}>
+          <TextDefault
+            textColor={
+              props.error === true
+                ? currentTheme.titleTextError
+                : currentTheme.menuBar
+            }
+            H6
+            center>
+            {props.status}
+          </TextDefault>
+        </View>
       </View>
     </View>
   )

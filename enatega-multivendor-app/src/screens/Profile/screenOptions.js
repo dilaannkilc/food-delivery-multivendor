@@ -18,7 +18,7 @@ const navigationOptions = props => ({
       titlePosition={option => {
         props.passwordButton(option)
       }}
-      textColor="black"
+      textColor={props.fontColor}
       textBackColor={props.backColor}
     />
   ),
@@ -31,6 +31,7 @@ const navigationOptions = props => ({
     ...textStyles.Bolder
   },
   headerTitleContainerStyle: {
+    marginLeft: 0,
     marginRight: props.passChecker ? scale(100) : scale(35)
   },
   headerLeft: () => (

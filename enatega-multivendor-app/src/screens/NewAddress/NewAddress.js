@@ -1,22 +1,15 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  useContext,
-  useLayoutEffect
-} from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import {
   View,
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
-  ScrollView,
-  Image
+  ScrollView
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import i18n from '../../../i18n'
 import styles from './styles'
-import { OutlinedTextField } from 'react-native-material-textfield'
+import { FilledTextField } from 'react-native-material-textfield'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import * as Location from 'expo-location'
 import gql from 'graphql-tag'
@@ -28,13 +21,15 @@ import { theme } from '../../utils/themeColors'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
+import { textStyles } from '../../utils/textStyles'
 import { LocationContext } from '../../context/Location'
-import { mapStyle } from '../../utils/mapStyle'
+import { MapStyles } from '../../utils/mapStyle'
+import CustomMarker from '../../assets/SVG/imageComponents/CustomMarker'
 import SearchModal from '../../components/Address/SearchModal'
 import Analytics from '../../utils/analytics'
-import { MaterialIcons, Entypo, Foundation } from '@expo/vector-icons'
-import { HeaderBackButton } from '@react-navigation/elements'
-import navigationService from '../../routes/navigationService'
+import { FontAwesome5, MaterialIcons } from '@expo/vector-icons'
+import BackArrowBlackBg from '../../assets/SVG/back-arrow-black-bg'
+
 const CREATE_ADDRESS = gql`
   ${createAddress}
 `
@@ -43,17 +38,17 @@ const labelValues = [
   {
     title: 'Home',
     value: 'Home',
-    icon: <Entypo name="home" size={24} />
+    icon: <FontAwesome5 name="home" size={24} color="black" />
   },
   {
     title: 'Work',
     value: 'Work',
-    icon: <MaterialIcons name="work" size={24} />
+    icon: <MaterialIcons name="work" size={24} color="black" />
   },
   {
     title: 'Other',
     value: 'Other',
-    icon: <Foundation name="heart" size={24} />
+    icon: <MaterialIcons name="favorite" size={24} color="black" />
   }
 ]
 
@@ -83,49 +78,20 @@ function NewAddress(props) {
   const regionObj = props.route.params ? props.route.params.regionChange : null
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-  useEffect(() => {
-    async function Track() {
-      await Analytics.track(Analytics.events.NAVIGATE_TO_NEWADDRESS)
-    }
-    Track()
+  useEffect(async() => {
+    await Analytics.track(Analytics.events.NAVIGATE_TO_NEWADDRESS)
   }, [])
-  useLayoutEffect(() => {
+  // useLayoutEffect(() => {
+  //   props.navigation.setOptions({
+  //     headerRight: null,
+  //     title: i18n.t('addAddress')
+  //   })
+  // }, [props.navigation])
+  useEffect(() => {
     props.navigation.setOptions({
-      headerRight: null,
-      title: i18n.t('addAddress'),
-      headerStyle: {
-        backgroundColor: currentTheme.headerColor,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20
-      },
-      headerTitleContainerStyle: {
-        marginTop: '1%',
-        marginLeft: '10%',
-        paddingLeft: scale(20),
-        paddingRight: scale(20),
-        height: '75%',
-        borderRadius: scale(10),
-        backgroundColor: currentTheme.black,
-        borderColor: currentTheme.white,
-        borderWidth: 1
-      },
-      headerTitleAlign: 'center',
-      headerRight: null,
-      headerLeft: () => (
-        <HeaderBackButton
-          backImage={() => (
-            <View
-              style={styles(currentTheme).headerBackBtnContainer}>
-              <MaterialIcons name="arrow-back" size={30} color="black" />
-            </View>
-          )}
-          onPress={() => {
-            navigationService.goBack()
-          }}
-        />
-      )
+      headerShown: false
     })
-  }, [props.navigation])
+  }, [])
 
   useEffect(() => {
     if (!regionObj) return regionChange(region)
@@ -150,7 +116,7 @@ function NewAddress(props) {
             .join(' ')
           setDeliveryAddress(deliveryAddress)
           setRegion(region)
-          addressRef.current.setValue(deliveryAddress)
+          addressRef?.current.setValue(deliveryAddress)
         } else console.log('location not recognized')
       })
       .catch(error => {
@@ -171,7 +137,7 @@ function NewAddress(props) {
     })
     if (cartAddress === 'Cart') {
       props.navigation.navigate('Cart')
-    } else props.navigation.goBack()
+    } else props.navigation.pop(2)
   }
 
   function onError(error) {
@@ -181,9 +147,6 @@ function NewAddress(props) {
     })
   }
 
-  const onOpen = () => {
-    setModalVisible(true)
-  }
   const onClose = () => {
     setModalVisible(false)
   }
@@ -204,81 +167,102 @@ function NewAddress(props) {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'android' ? 20 : 0}
-        style={styles(currentTheme).flex}
+        style={styles().flex}
         enabled={!modalVisible}>
-        <View style={styles().flex}>
-          <View style={styles(currentTheme).mapContainer}>
-            <MapView
-              style={styles().flex}
-              scrollEnabled={false}
-              zoomEnabled={false}
-              zoomControlEnabled={false}
-              rotateEnabled={false}
-              cacheEnabled={true}
-              showsUserLocation={false}
-              customMapStyle={mapStyle}
-             
-              initialRegion={{
-                latitude: LATITUDE,
-                latitudeDelta: LATITUDE_DELTA,
-                longitude: LONGITUDE,
-                longitudeDelta: LONGITUDE_DELTA
-              }}
-              region={region}
-              provider={PROVIDER_GOOGLE}
-              onPress={() => {
-                props.navigation.navigate('FullMap', {
-                  latitude: region.latitude,
-                  longitude: region.longitude,
-                  currentScreen: 'NewAddress'
-                })
-              }}></MapView>
-            <View
-              style={styles().imageContainer}>
-              <Image
-                source={require('../../assets/images/user.png')}
-                width={20}
-              />
-            </View>
-          </View>
+        <ScrollView
+          style={styles().flex}
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}>
+          <View style={styles().flex}>
+            <View style={styles().mapContainer}>
+              <MapView
+                style={styles().flex}
+                scrollEnabled={false}
+                zoomEnabled={false}
+                zoomControlEnabled={false}
+                rotateEnabled={false}
+                cacheEnabled={true}
+                showsUserLocation={false}
+                initialRegion={{
+                  latitude: LATITUDE,
+                  latitudeDelta: LATITUDE_DELTA,
+                  longitude: LONGITUDE,
+                  longitudeDelta: LONGITUDE_DELTA
+                }}
+                region={region}
+                provider={PROVIDER_GOOGLE}
+                onPress={() => {
+                  props.navigation.navigate('FullMap', {
+                    latitude: region.latitude,
+                    longitude: region.longitude,
+                    currentScreen: 'NewAddress'
+                  })
+                }}
+                customMapStyle={MapStyles}></MapView>
 
-          <ScrollView
-            style={{ flex: 1 }}
-            contentContainerStyle={{ flexGrow: 1 }}
-            showsVerticalScrollIndicator={false}>
-            <View style={styles(currentTheme).subContainer}>
+              <View
+                style={{
+                  width: 50,
+                  height: 50,
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  zIndex: 1,
+                  translateX: -25,
+                  translateY: -25,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  transform: [{ translateX: -25 }, { translateY: -25 }]
+                }}>
+                <CustomMarker
+                  width={40}
+                  height={40}
+                  transform={[{ translateY: -20 }]}
+                  translateY={-20}
+                />
+              </View>
+            </View>
+
+            <View
+              style={[
+                styles(currentTheme).subContainer,
+                { backgroundColor: currentTheme.white, marginTop: -10 }
+              ]}>
               <View style={styles().upperContainer}>
                 <View style={styles().addressContainer}>
+                  <TextDefault bolder>Add a new address</TextDefault>
+
                   <View style={styles().geoLocation}>
-                    <View style={{ width: '100%' }}>
-                      <OutlinedTextField
-                        placeholder="Delivery Address"
+                    <View
+                      style={{
+                        width: '100%',
+                        ...alignment.MTmedium,
+                        ...alignment.MBmedium
+                      }}>
+                      <FilledTextField
+                        editable={false}
                         error={deliveryAddressError}
                         ref={addressRef}
                         value={deliveryAddress}
                         label={i18n.t('fullDeliveryAddress')}
-                        labelFontSize={scale(12)}
-                        fontSize={scale(12)}
-                        renderRightAccessory={() => (
-                          <TouchableOpacity onPress={onOpen}>
-                            <MaterialIcons
-                              name="edit"
-                              size={18}
-                              color={currentTheme.fontSecondColor}
-                            />
-                          </TouchableOpacity>
-                        )}
+                        labelFontSize={scale(8)}
+                        fontSize={scale(10)}
+                        inputContainerStyle={{
+                          borderRadius: 5,
+                          backgroundColor: currentTheme.inputBackground
+                        }}
+                        lineWidth={0}
+                        activeLineWidth={0}
+                        lineType="none"
                         maxLength={100}
                         textColor={currentTheme.fontMainColor}
-                        baseColor={currentTheme.fontSecondColor}
+                        baseColor={currentTheme.fontMainColor}
                         errorColor={currentTheme.textErrorColor}
                         tintColor={
-                          !deliveryAddressError ? currentTheme.tagColor : 'red'
+                          !deliveryAddressError
+                            ? currentTheme.fontMainColor
+                            : 'red'
                         }
-                        labelTextStyle={{
-                          fontSize: scale(12),
-                          paddingTop: scale(1)
-                        }}
                         onChangeText={text => {
                           setDeliveryAddress(text)
                         }}
@@ -292,28 +276,31 @@ function NewAddress(props) {
                       />
                     </View>
                   </View>
-                  <View style={{ ...alignment.MTlarge }}></View>
-                  <OutlinedTextField
-                    placeholder="Apt / Floor"
+                  <FilledTextField
                     error={deliveryDetailsError}
+                    value={deliveryDetails}
                     label={i18n.t('deliveryDetails')}
-                    labelFontSize={scale(12)}
-                    fontSize={scale(12)}
+                    labelFontSize={scale(8)}
+                    lineWidth={0}
+                    activeLineWidth={0}
+                    fontSize={scale(10)}
                     textAlignVertical="top"
+                    inputContainerStyle={{
+                      borderRadius: 5,
+                      backgroundColor: currentTheme.inputBackground
+                    }}
                     multiline={false}
                     maxLength={30}
                     textColor={currentTheme.fontMainColor}
                     baseColor={currentTheme.fontSecondColor}
                     errorColor={currentTheme.textErrorColor}
                     tintColor={
-                      !deliveryDetailsError ? currentTheme.tagColor : 'red'
+                      !deliveryDetailsError ? currentTheme.fontMainColor : 'red'
                     }
-                    labelOffset={{ y1: -5 }}
                     labelTextStyle={{
-                      fontSize: scale(12),
+                      ...textStyles.Normal,
                       paddingTop: scale(1)
                     }}
-                    value={deliveryDetails}
                     onChangeText={text => {
                       setDeliveryDetails(text)
                     }}
@@ -326,112 +313,114 @@ function NewAddress(props) {
                     }}
                   />
                 </View>
-
+                <View
+                  style={{
+                    width: '80%',
+                    height: 1,
+                    backgroundColor: currentTheme.main,
+                    marginVertical: '5%'
+                  }}
+                />
                 <View style={styles().labelButtonContainer}>
                   <View style={styles().labelTitleContainer}>
-                    <View style={styles().horizontalLine} />
                     <TextDefault
                       textColor={currentTheme.fontMainColor}
-                      h5
+                      B700
                       bolder>
                       Add Label
                     </TextDefault>
                   </View>
                   <View style={styles().buttonInline}>
                     {labelValues.map((label, index) => (
-                      <>
-                        <TouchableOpacity
-                          activeOpacity={0.5}
-                          key={index}
-                          style={
-                            selectedLabel === label.value
-                              ? styles(currentTheme).activeLabel
-                              : styles(currentTheme).labelButton
-                          }
-                          onPress={() => {
-                            setSelectedLabel(label.value)
-                          }}>
-                          <TextDefault
-                            textColor={
-                              selectedLabel === label.value
-                                ? currentTheme.iconColorPink
-                                : currentTheme.fontMainColor
-                            }
-                            bold
-                            center>
-                            {label.icon}
-                          </TextDefault>
-                        </TouchableOpacity>
-                      </>
-                    ))}
-                  </View>
-
-                  <View style={styles().textbuttonInline}>
-                    {labelValues.map((label, index) => (
-                      <>
+                      <TouchableOpacity
+                        activeOpacity={0.5}
+                        key={index}
+                        style={
+                          selectedLabel === label.value
+                            ? styles(currentTheme).activeLabel
+                            : styles(currentTheme).labelButton
+                        }
+                        onPress={() => {
+                          setSelectedLabel(label.value)
+                        }}>
+                        {label.icon}
                         <TextDefault
-                          style={styles().titlebuttonInline}
-                          textColor={currentTheme.black}
-                          bold
+                          style={
+                            (selectedLabel === label.value && {
+                              ...textStyles.Bolder
+                            },
+                            {
+                              ...alignment.MTsmall
+                            })
+                          }
+                          textColor={currentTheme.fontMainColor}
+                          small
                           center>
                           {label.title}
                         </TextDefault>
-                      </>
+                      </TouchableOpacity>
                     ))}
                   </View>
                 </View>
               </View>
-            </View>
+              <TouchableOpacity
+                disabled={loading}
+                onPress={() => {
+                  const deliveryAddressError = !deliveryAddress.trim().length
+                    ? 'Delivery address is required'
+                    : null
+                  const deliveryDetailsError = !deliveryDetails.trim().length
+                    ? 'Delivery details is required'
+                    : null
 
-            <TouchableOpacity
-              disabled={loading}
-              onPress={() => {
-                const deliveryAddressError = !deliveryAddress.trim().length
-                  ? 'Delivery address is required'
-                  : null
-                const deliveryDetailsError = !deliveryDetails.trim().length
-                  ? 'Delivery details is required'
-                  : null
+                  setDeliveryAddressError(deliveryAddressError)
+                  setDeliveryDetailsError(deliveryDetailsError)
 
-                setDeliveryAddressError(deliveryAddressError)
-                setDeliveryDetailsError(deliveryDetailsError)
-
-                if (
-                  deliveryAddressError === null &&
-                  deliveryDetailsError === null
-                ) {
-                  mutate({
-                    variables: {
-                      addressInput: {
-                        latitude: `${region.latitude}`,
-                        longitude: `${region.longitude}`,
-                        deliveryAddress: deliveryAddress.trim(),
-                        details: deliveryDetails.trim(),
-                        label: selectedLabel
+                  if (
+                    deliveryAddressError === null &&
+                    deliveryDetailsError === null
+                  ) {
+                    mutate({
+                      variables: {
+                        addressInput: {
+                          latitude: `${region.latitude}`,
+                          longitude: `${region.longitude}`,
+                          deliveryAddress: deliveryAddress.trim(),
+                          details: deliveryDetails.trim(),
+                          label: selectedLabel
+                        }
                       }
-                    }
-                  })
-                }
-              }}
-              activeOpacity={0.5}
-              style={styles(currentTheme).saveBtnContainer}>
-              <TextDefault textColor={currentTheme.black} H5 bold>
-                {i18n.t('saveContBtn')}
-              </TextDefault>
-            </TouchableOpacity>
-          </ScrollView>
+                    })
+                  }
+                }}
+                activeOpacity={0.5}
+                style={styles(currentTheme).saveBtnContainer}>
+                <TextDefault textColor={currentTheme.fontMainColor} H5 bold>
+                  {'save and continue'}
+                </TextDefault>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
+        <View
+          style={[styles().header, { backgroundColor: currentTheme.black }]}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={props.navigation.goBack}>
+            <BackArrowBlackBg />
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
-      <SearchModal
-        visible={modalVisible}
-        onClose={onClose}
-        onSubmit={onSubmit}
-      />
       <View
         style={{
           paddingBottom: inset.bottom,
           backgroundColor: currentTheme.themeBackground
         }}
+      />
+      <SearchModal
+        visible={modalVisible}
+        onClose={onClose}
+        onSubmit={onSubmit}
       />
     </>
   )

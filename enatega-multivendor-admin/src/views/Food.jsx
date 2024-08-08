@@ -26,7 +26,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import TableHeader from '../components/TableHeader'
-import Alert from '../components/Alert'
 
 const GET_FOODS = gql`
   ${getRestaurantDetail}
@@ -38,11 +37,10 @@ const Food = props => {
   const [editModal, setEditModal] = useState(false)
   const [food, setFood] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
-  const [isOpen, setIsOpen] = useState(false)
   const onChangeSearch = e => setSearchQuery(e.target.value)
   const restaurantId = localStorage.getItem('restaurantId')
 
-  const [/*mutate*/, { loading }] = useMutation(DELETE_FOOD, {
+  const [mutate, { loading }] = useMutation(DELETE_FOOD, {
     refetchQueries: [{ query: GET_FOODS, variables: { id: restaurantId } }]
   })
   const { data, error: errorQuery, loading: loadingQuery, refetch } = useQuery(
@@ -145,12 +143,7 @@ const Food = props => {
               <MenuItem
                 onClick={e => {
                   e.preventDefault()
-                  //uncomment this for paid version
-                  //toggleModal(row)
-                  setIsOpen(true)
-                  setTimeout(() => {
-                    setIsOpen(false)
-                  }, 5000)
+                  toggleModal(row)
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
@@ -161,18 +154,13 @@ const Food = props => {
               <MenuItem
                 onClick={e => {
                   e.preventDefault()
-                  //uncomment this for paid version
-                  // mutate({
-                  //   variables: {
-                  //     id: row._id,
-                  //     restaurant: restaurantId,
-                  //     categoryId: row.categoryId
-                  //   }
-                  // })
-                  setIsOpen(true)
-                  setTimeout(() => {
-                    setIsOpen(false)
-                  }, 5000)
+                  mutate({
+                    variables: {
+                      id: row._id,
+                      restaurant: restaurantId,
+                      categoryId: row.categoryId
+                    }
+                  })
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
@@ -234,12 +222,6 @@ const Food = props => {
     <>
       <Header />
       {/* Page content */}
-      {isOpen && (
-            <Alert
-              message="This feature will available after purchasing product"
-              severity="warning"
-              />
-          )}
       <Container className={globalClasses.flex} fluid>
         <FoodComponent />
         {errorQuery && <span>`Error! ${errorQuery.message}`</span>}

@@ -31,11 +31,8 @@ export default function FullMap(props) {
     longitudeDelta: LONGITUDE_DELTA
   })
   const backScreen = props.route.params.currentScreen ?? null
-  useEffect(() => {
-    async function Track() {
-      await Analytics.track(Analytics.events.NAVIGATE_TO_FORGOTPASSWORD)
-    }
-    Track()
+  useEffect(async() => {
+    await Analytics.track(Analytics.events.NAVIGATE_TO_FORGOTPASSWORD)
   }, [])
   useLayoutEffect(() => {
     props.navigation.setOptions({
@@ -72,14 +69,26 @@ export default function FullMap(props) {
           onRegionChangeComplete={setRegion}
           showsUserLocation={true}
           provider={PROVIDER_GOOGLE}
-          customMapStyle={mapStyle}
+          customMapStyle={themeContext.ThemeValue === 'Dark' ? mapStyle : null}
           showsMyLocationButton
           onMapReady={setMargin}
           showsTraffic={false}
           region={region}
         />
         <View
-          style={styles().customMarkerContainer}>
+          style={{
+            width: 50,
+            height: 50,
+            position: 'absolute',
+            top: '46%',
+            left: '50%',
+            zIndex: 1,
+            translateX: -25,
+            translateY: -25,
+            justifyContent: 'center',
+            alignItems: 'center',
+            transform: [{ translateX: -25 }, { translateY: -25 }]
+          }}>
           <CustomMarker
             width={40}
             height={40}

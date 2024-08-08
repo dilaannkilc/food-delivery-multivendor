@@ -31,7 +31,6 @@ const UPDATE_LOCATION = gql`
 const UserContext = React.createContext({})
 
 export const UserProvider = props => {
-  console.log('riderOrders', riderOrders)
   const locationListener = useRef(null)
   const { locationPermission } = useLocationContext()
 
@@ -42,7 +41,7 @@ export const UserProvider = props => {
   } = useQuery(PROFILE, {
     fetchPolicy: 'network-only',
     onCompleted,
-    pollInterval: 10000,
+    pollInterval: 30000,
     onError: error1
   })
 
@@ -79,7 +78,7 @@ export const UserProvider = props => {
   }, [dataProfile])
 
   useEffect(() => {
-    const trackRiderLocation = async () => {
+    const trackRiderLocation = async() => {
       locationListener.current = await watchPositionAsync(
         { accuracy: LocationAccuracy.BestForNavigation, distanceInterval: 100 },
         async location => {
@@ -100,8 +99,6 @@ export const UserProvider = props => {
   }, [locationPermission])
 
   function onCompleted({ rider, assignedOrders }) {
-    console.log(rider)
-    console.log(assignedOrders)
     console.log('onCompleted context')
   }
 

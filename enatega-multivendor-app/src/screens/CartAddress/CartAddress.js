@@ -15,10 +15,7 @@ import styles from './styles'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import { LocationContext } from '../../context/Location'
-import { HeaderBackButton } from '@react-navigation/elements'
 import Analytics from '../../utils/analytics'
-import navigationService from '../../routes/navigationService'
-import { Entypo } from '@expo/vector-icons'
 
 const SELECT_ADDRESS = gql`
   ${selectAddress}
@@ -36,51 +33,11 @@ function CartAddresses(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: null,
-      title: i18n.t('myAddresses'),
-      headerTitleAlign: 'center',
-      headerTitleContainerStyle: {
-        marginTop: '1%',
-        paddingLeft: scale(25),
-        paddingRight: scale(25),
-        height: '75%',
-        borderRadius: scale(10),
-        backgroundColor: currentTheme.black,
-        borderColor: currentTheme.white,
-        borderWidth: 1
-      },
-      headerStyle: {
-        backgroundColor: currentTheme.headerColor,
-        shadowColor: 'transparent',
-        shadowRadius: 0
-      },
-      headerTitleAlign: 'center',
-      headerRight: null,
-      headerLeft: () => (
-        <HeaderBackButton
-          backImage={() => (
-            <View
-              style={{
-                backgroundColor: 'white',
-                borderRadius: 50,
-                marginLeft: 10,
-                width: 55,
-                alignItems: 'center'
-              }}>
-              <Entypo name="cross" size={30} color="black" />
-            </View>
-          )}
-          onPress={() => {
-            navigationService.goBack()
-          }}
-        />
-      )
+      title: i18n.t('myAddresses')
     })
   }, [props.navigation])
-  useEffect(() => {
-    async function Track() {
-      await Analytics.track(Analytics.events.NAVIGATE_TO_CARTADDRESS)
-    }
-    Track()
+  useEffect(async() => {
+    await Analytics.track(Analytics.events.NAVIGATE_TO_CARTADDRESS)
   }, [])
   function onError(error) {
     console.log(error)
@@ -107,10 +64,10 @@ function CartAddresses(props) {
             backgroundColor: currentTheme.themeBackground,
             ...alignment.PTlarge
           }}>
-          <View style={styles().addressContainer}>
+          <View style={styles().width100}>
             <TouchableOpacity
               activeOpacity={0.7}
-              style={styles().addressContainer}
+              style={styles().width100}
               onPress={() => {
                 props.navigation.navigate('NewAddress', { location })
               }}>
@@ -119,7 +76,6 @@ function CartAddresses(props) {
                   <View style={[styles().homeIcon]}>
                     <RadioButton
                       size={13}
-
                       outerColor={currentTheme.radioOuterColor}
                       innerColor={currentTheme.radioColor}
                       animation={'bounceIn'}
@@ -159,6 +115,7 @@ function CartAddresses(props) {
               </View>
             </TouchableOpacity>
           </View>
+          <View style={styles().line} />
         </View>
       )}
       <FlatList
@@ -166,12 +123,10 @@ function CartAddresses(props) {
         data={profile.addresses}
         keyExtractor={item => item._id}
         contentContainerStyle={{ flexGrow: 1 }}
-        ItemSeparatorComponent={() => (
-          <View style={{ ...alignment.MBmedium }} />
-        )}
+        ItemSeparatorComponent={() => <View style={styles().line} />}
         ListHeaderComponent={() => <View style={{ ...alignment.MTmedium }} />}
         renderItem={({ item: address }) => (
-          <View style={styles().addressContainer}>
+          <View style={styles().width100}>
             <TouchableOpacity
               activeOpacity={0.7}
               style={styles().width100}

@@ -1,32 +1,45 @@
 import { verticalScale, scale } from '../../../utils/scaling'
 import { StyleSheet } from 'react-native'
 import { alignment } from '../../../utils/alignment'
-import { theme } from '../../../utils/themeColors'
 
-const styles = (props = null) =>
+const styles = (currentTheme, index) =>
   StyleSheet.create({
     ML20: {
       ...alignment.MLlarge
+    },
+    MT5: {
+      ...alignment.MTxSmall
     },
     offerScroll: {
       height: scale(230),
       width: '100%'
     },
     offerContainer: {
-      backgroundColor: props != null ? props.cartContainer : 'white',
+      backgroundColor:
+        currentTheme != null
+          ? index % 2 === 0
+            ? currentTheme.main
+            : currentTheme.black
+          : 'white',
       elevation: 3,
-      shadowColor: theme.Pink.white,
-
-      height: scale(200),
-      borderRadius: 25,
-      width: scale(228),
+      shadowColor: currentTheme != null ? currentTheme.iconColor : 'grey',
+      shadowOffset: {
+        width: 0,
+        height: verticalScale(0)
+      },
+      shadowOpacity: 0.3,
+      shadowRadius: verticalScale(3),
+      height: scale(210),
+      width: scale(130),
+      borderRadius: 20,
       ...alignment.MBmedium,
       ...alignment.MTxSmall
     },
     imageContainer: {
       position: 'relative',
-      alignItems: 'center',
-      height: '60%'
+      height: '60%',
+      width: scale(130),
+      marginTop: 2.5
     },
     overlayContainer: {
       position: 'absolute',
@@ -34,19 +47,49 @@ const styles = (props = null) =>
       top: 0,
       height: '100%',
       backgroundColor: 'rgba(0, 0, 0, 0)',
-      width: scale(230)
+      width: scale(130)
     },
     deliveryOverlay: {
       position: 'absolute',
-      top: 12,
-      right: 18,
-      width: scale(44),
-      height: scale(19),
+      top: 0,
+      left: 0,
+      width: scale(55),
+      height: scale(20),
       justifyContent: 'center',
       alignItems: 'center',
       zIndex: 1,
-      borderRadius: scale(10),
-      backgroundColor: props != null ? props.menuBar : 'white'
+      backgroundColor: currentTheme != null ? currentTheme.menuBar : 'white',
+      borderRadius: 20,
+      ...alignment.MxSmall,
+      elevation: 3
+    },
+    labelOverlay: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      width: scale(55),
+      height: scale(20),
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 1,
+      backgroundColor: currentTheme != null ? currentTheme.menuBar : 'white',
+      borderRadius: 20,
+      ...alignment.MxSmall,
+      elevation: 3
+    },
+    favouriteOverlay: {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      width: scale(20),
+      height: scale(20),
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 1,
+      backgroundColor: currentTheme != null ? currentTheme.menuBar : 'white',
+      borderRadius: 20,
+      ...alignment.MxSmall,
+      elevation: 3
     },
     featureOverlay: {
       height: '90%',
@@ -64,46 +107,35 @@ const styles = (props = null) =>
       ...alignment.PRsmall,
       ...alignment.PTxSmall,
       ...alignment.PBxSmall,
-      backgroundColor: props != null ? props.iconColorPink : 'red'
+      backgroundColor: currentTheme != null ? currentTheme.iconColorPink : 'red'
     },
     descriptionContainer: {
       paddingTop: verticalScale(10),
-      paddingBottom: verticalScale(5),
+      paddingBottom: verticalScale(10),
       paddingLeft: scale(10),
       paddingRight: scale(10),
       height: '40%',
-      width: '100%'
+      width: '100%',
+      alignItems: 'center'
     },
     aboutRestaurant: {
-      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    rating: {
       flexDirection: 'row',
-      justifyContent: 'flex-end'
+      alignItems: 'center'
     },
     offerCategoty: {
-      width: '100%',
       ...alignment.MTxSmall,
       ...alignment.MBxSmall
     },
-    mainContainer: {
-      paddingTop: scale(15),
-      marginBottom: scale(15),
-      borderTopLeftRadius: scale(20),
-      borderTopRightRadius: scale(20),
-      borderTopColor: '#ebebeb',
-      borderTopWidth: scale(3)
-    },
-    restaurantImage: {
-      width: scale(220),
-      height: '100%',
-      borderRadius: scale(25),
+    statusCircle: {
+      marginRight: scale(5),
+      marginBottom: scale(5),
       marginTop: scale(5)
-    },
-    restaurantRatingContainer: {
-      marginLeft: scale(2)
-    },
-    restaurantPriceContainer: {
-      marginTop: scale(3),
-      fontSize: 15
     }
   })
 

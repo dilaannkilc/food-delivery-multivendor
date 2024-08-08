@@ -120,7 +120,6 @@ export default function Status({
           </>
         )}
       </View>
-      <View style={styles.line2(theme)}></View>
     </View>
   )
 }

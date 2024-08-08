@@ -4,8 +4,7 @@ import {
   EvilIcons,
   MaterialIcons,
   MaterialCommunityIcons,
-  AntDesign,
-  Feather
+  AntDesign
 } from '@expo/vector-icons'
 import { scale } from '../../../utils/scaling'
 import styles from './styles'
@@ -40,7 +39,7 @@ function BackButton(props) {
     return (
       <Ionicons
         name="ios-menu"
-        size={30}
+        size={16}
         style={styles().leftIconPadding}
         color={props.iconColor}
       />
@@ -49,7 +48,7 @@ function BackButton(props) {
     return (
       <MaterialCommunityIcons
         name="dots-vertical"
-        size={25}
+        size={16}
         color={props.iconColor}
       />
     )
@@ -58,7 +57,7 @@ function BackButton(props) {
       <MaterialIcons name="my-location" size={16} color={props.iconColor} />
     )
   } else if (props.icon === 'fav') {
-    return <AntDesign name="hearto" size={20} color="black" />
+    return <AntDesign name="hearto" size={16} color={props.iconColor} />
   } else {
     return (
       <EvilIcons
@@ -154,12 +153,15 @@ function RightButton(props) {
 
   function cartIcon() {
     return (
-      <View style={[styles().rightContainer, { ...alignment.PLsmall }]}>
-        <Feather name="shopping-bag" size={25} color="black" />
+      <View style={[styles().rightContainer, { ...alignment.PRsmall }]}>
+        <CartIcon width={16} height={16} />
         <View
           style={
-            styles(route.name === 'Main' ? 'black' : currentTheme.white)
-              .absoluteContainer
+            styles(
+              route.name === 'Main'
+                ? currentTheme.iconColorPink
+                : currentTheme.white
+            ).absoluteContainer
           }>
           <TextDefault
             textColor={
@@ -167,9 +169,9 @@ function RightButton(props) {
                 ? currentTheme.fontWhite
                 : currentTheme.black
             }
-            style={{ fontSize: scale(12) }}
+            style={{ fontSize: scale(7) }}
             center
-            bolder>
+            bold>
             {cartCount}
           </TextDefault>
         </View>
@@ -218,7 +220,8 @@ function RightButton(props) {
     )
   } else if (props.icon === 'cart') {
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View
+        style={[cartCount < 1 && alignment.PRxSmall, { flexDirection: 'row' }]}>
         <HeaderBackButton
           pressColorAndroid={route.name === 'Main' && rippleColor}
           labelVisible={false}
@@ -227,14 +230,13 @@ function RightButton(props) {
               {BackButton({ iconColor: props.iconColor, icon: 'fav' })}
             </View>
           )}
-          bolder
           onPress={() =>
             isLoggedIn && profile
               ? navigation.navigate('Favourite')
               : navigation.navigate('CreateAccount')
           }
         />
-        {cartCount >= 0 && (
+        {cartCount > 0 && (
           <HeaderBackButton
             pressColorAndroid={route.name === 'Main' && rippleColor}
             labelVisible={false}
@@ -250,7 +252,7 @@ function RightButton(props) {
         pressColorAndroid={rippleColor}
         labelVisible={false}
         backImage={() => (
-          <View style={[styles().rightContainer]}>
+          <View style={[styles().rightContainer, { ...alignment.PRsmall }]}>
             {BackButton({ iconColor: props.iconColor, icon: 'target' })}
           </View>
         )}

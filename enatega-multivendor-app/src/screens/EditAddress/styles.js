@@ -1,38 +1,27 @@
 import { verticalScale, scale } from '../../utils/scaling'
 import { StyleSheet } from 'react-native'
 import { alignment } from '../../utils/alignment'
-import { theme } from '../../utils/themeColors'
 
 const styles = (props = null) =>
   StyleSheet.create({
     flex: {
       flex: 1,
-      backgroundColor: props !== null ? props.white : '#FFF'
+      backgroundColor: '#FAFAFA'
     },
     subContainer: {
-      flex: 1,
       flexGrow: 1,
       alignItems: 'center',
+      borderWidth: scale(0.3),
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
       borderColor: 'grey',
       justifyContent: 'space-between',
-      backgroundColor: props !== null ? props.white : 'transparent',
-      shadowColor: '#00000026',
-      shadowRadius: 11,
+      backgroundColor: props !== null ? props.themeBackground : 'transparent',
       ...alignment.PTlarge
     },
     upperContainer: {
       width: '90%',
       alignItems: 'center'
-    },
-    horizontalLine: {
-      borderBottomColor: theme.Pink.tagColor,
-      borderBottomWidth: 1,
-      marginVertical: 10, // Adjust this value to control the spacing above and below the line
-      width: '90%',
-      alignSelf: 'center',
-      marginBottom: 30
     },
     addressContainer: {
       paddingTop: 0,
@@ -41,7 +30,7 @@ const styles = (props = null) =>
     },
     labelButtonContainer: {
       ...alignment.PxSmall,
-      width: '80%'
+      width: '100%'
     },
     labelTitleContainer: {
       ...alignment.PTsmall,
@@ -49,59 +38,32 @@ const styles = (props = null) =>
     },
     buttonInline: {
       width: '100%',
-      alignItems: 'center',
       flexDirection: 'row',
-      justifyContent: 'space-between',
-      color: 'black'
-    },
-    textbuttonInline: {
-      width: '100%',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      color: 'black'
-    },
-    titlebuttonInline: {
-      paddingLeft: 10,
-      paddingRight: 12,
-      justifyContent: 'space-between',
-      ...alignment.PxSmall
+      justifyContent: 'space-between'
     },
     labelButton: {
-      width: 60,
-      height: 60,
+      width: '30%',
       borderWidth: 1,
-      borderColor: props !== null ? props.tagColor : 'transparent',
-      borderRadius: 8,
+      borderColor: props !== null ? props.shadowColor : 'transparent',
+      borderRadius: 30,
       justifyContent: 'center',
-      ...alignment.PxSmall,
-      backgroundColor: theme.Pink.tagColor
-    },
-    textlabelButton: {
-      justifyContent: 'center',
-      ...alignment.PxSmall,
-      backgroundColor: theme.Pink.tagColor
+      ...alignment.PxSmall
     },
     activeLabel: {
-      width: 60,
-      height: 60,
+      width: '30%',
       borderWidth: 1,
-      borderRadius: 8,
+      borderRadius: 30,
       justifyContent: 'center',
       color: props !== null ? props.tagColor : 'transparent',
-      borderColor: props !== null ? props.black : 'transparent',
-      backgroundColor: theme.Pink.black,
+      borderColor: props !== null ? props.tagColor : 'transparent',
       ...alignment.PxSmall
     },
     saveBtnContainer: {
-      width: '80%',
+      width: '100%',
       height: verticalScale(40),
-      borderRadius: 20,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: props !== null ? props.buttonBackground : 'transparent',
-      alignSelf: 'center',
-      marginTop: 20,
-      marginBottom: 20
+      backgroundColor: props !== null ? props.buttonBackground : 'transparent'
     },
     fakeMarkerContainer: {
       position: 'absolute',
@@ -125,32 +87,6 @@ const styles = (props = null) =>
     },
     geoLocation: {
       flexDirection: 'row'
-    },
-    editAddressImageContainer: {
-      width: scale(50),
-      height: scale(50),
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      zIndex: 1,
-      translateX: scale(-25),
-      translateY: scale(-25),
-      justifyContent: 'center',
-      alignItems: 'center',
-      transform: [{ translateX: -25 }, { translateY: -25 }]
-    },
-    editOldAddressImageContainer: {
-      width: scale(50),
-      height: scale(50),
-      position: 'absolute',
-      top: '46%',
-      left: '50%',
-      zIndex: 1,
-      translateX: scale(-25),
-      translateY: scale(-25),
-      justifyContent: 'center',
-      alignItems: 'center',
-      transform: [{ translateX: -25 }, { translateY: -25 }]
     }
   })
 export default styles

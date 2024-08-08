@@ -20,14 +20,14 @@ function DrawerItems(props) {
           <SimpleLineIcons
             name={props.icon}
             size={verticalScale(16)}
-            color={currentTheme.black}
+            color={currentTheme.iconColorPink}
           />
         </View>
         <View style={styles.rightContainer}>
           <TextDefault
-            style={styles.drawerContainer}
-            textColor={currentTheme.fontMainColor}
-            small
+            style={{ alignSelf: 'flex-start' }}
+            textColor={currentTheme.menuBar}
+            medium
             bold>
             {props.title}
           </TextDefault>

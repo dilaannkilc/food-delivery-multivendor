@@ -1,5 +1,7 @@
-import { verticalScale, scale } from '../../../utils/scaling'
+import { scale, verticalScale } from '../../../utils/scaling'
 import { Dimensions, StyleSheet } from 'react-native'
+import { alignment } from '../../../utils/alignment'
+import { textStyles } from '../../../utils/textStyles'
 const { height } = Dimensions.get('window')
 
 const styles = (props = null) =>
@@ -9,10 +11,8 @@ const styles = (props = null) =>
     },
     mainContainer: {
       width: '100%',
-      height: height * 0.09,
+      height: height * 0.07,
       elevation: 1,
-      borderTopRightRadius: scale(25),
-      borderTopLeftRadius: scale(25),
       shadowColor: props !== null ? props.shadowColor : '#fefefe',
       shadowOffset: {
         width: 0,
@@ -20,8 +20,7 @@ const styles = (props = null) =>
       },
       shadowOpacity: 0.8,
       shadowRadius: verticalScale(2),
-      elevation: 10,
-      backgroundColor: props !== null ? props.themeBackground : '#a92d2d',
+      backgroundColor: props !== null ? props.themeBackground : 'transparent',
       justifyContent: 'center',
       alignItems: 'center'
     },
@@ -33,29 +32,87 @@ const styles = (props = null) =>
       flexDirection: 'row'
     },
     icon: {
-      width: '8%',
-      height: '55%',
-      backgroundColor: 'black',
+      width: '10%',
+      height: '100%',
       justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: scale(15)
-    },
-    quantity: {
-      borderWidth: 1,
-      paddingLeft: scale(18),
-      paddingRight: scale(18),
-      paddingTop: scale(10),
-      paddingBottom: scale(10),
-      borderRadius: scale(10),
-      borderColor: 'black'
+      alignItems: 'center'
     },
     btnContainer: {
       width: '60%',
-      height: '90%',
-      backgroundColor: props !== null ? props.main : 'black',
+      height: '80%',
+      backgroundColor: props !== null ? props.horizontalLine : 'black',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    buttonContainer: {
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
       justifyContent: 'center',
       alignItems: 'center',
+      overflow: 'hidden',
+      backgroundColor: 'transparent'
+    },
+    button: {
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: props != null ? props.themeBackground : 'red',
+      height: '100%',
+      width: '100%',
+      ...alignment.PTmedium,
+      ...alignment.PLsmall,
+      ...alignment.PRsmall,
+      elevation: 4,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 2,
+        height: verticalScale(2)
+      },
+      borderTopLeftRadius: scale(10),
+      borderTopRightRadius: scale(10),
+      shadowOpacity: 0.6,
+      shadowRadius: verticalScale(2),
+      zIndex: 1
+    },
+    buttonText: {
+      width: '60%',
+      ...alignment.MBmedium,
+      ...alignment.PTmedium,
+      ...alignment.PBmedium,
       borderRadius: scale(10)
+    },
+    buttontLeft: {
+      width: '40%',
+      justifyContent: 'center',
+      ...alignment.MBmedium,
+      alignItems: 'center'
+    },
+    buttonLeftCircle: {
+      backgroundColor: props != null ? props.buttonTextPink : 'white',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    buttonTextLeft: {
+      ...textStyles.Bold,
+      ...textStyles.Center,
+      ...textStyles.Smaller,
+      fontSize: 20,
+      ...alignment.MLxSmall,
+      ...alignment.MRxSmall,
+      backgroundColor: 'transparent',
+      color: props != null ? props.backIconBackground : 'black'
+    },
+    two: {
+      borderWidth: 1,
+      borderColor: props != null ? props.backIconBackground : 'black',
+      ...alignment.Psmall,
+      borderRadius: scale(5)
+    },
+    round: {
+      backgroundColor: props != null ? props.backIconBackground : 'black',
+      padding: 2,
+      borderRadius: 20
     }
   })
 export default styles

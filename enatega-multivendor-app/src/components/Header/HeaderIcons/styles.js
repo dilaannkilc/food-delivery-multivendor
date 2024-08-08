@@ -6,6 +6,7 @@ const styles = backColor =>
   StyleSheet.create({
     leftIconPadding: {
       ...alignment.PLsmall,
+      ...alignment.PRsmall,
       ...alignment.PTxSmall,
       ...alignment.PBxSmall
     },
@@ -14,26 +15,29 @@ const styles = backColor =>
       height: '100%',
       justifyContent: 'center',
       alignItems: 'center',
-      ...alignment.PRsmall
+      backgroundColor: 'transparent'
     },
     favContainer: {
       height: '100%',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'transparent',
+      ...alignment.PLxSmall
     },
     imgContainer: {
       width: verticalScale(20),
       height: verticalScale(20)
     },
     absoluteContainer: {
-      width: verticalScale(15),
-      height: verticalScale(15),
+      width: verticalScale(10),
+      height: verticalScale(10),
       backgroundColor: backColor !== null ? backColor : 'white',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: verticalScale(15),
+      borderRadius: verticalScale(5),
       position: 'absolute',
       right: scale(5),
-      bottom: scale(2)
+      top: scale(5)
     },
     touchAreaPassword: {
       width: '40%',
@@ -47,7 +51,7 @@ const styles = backColor =>
       width: '100%',
       justifyContent: 'center',
       alignItems: 'flex-start',
-      borderRadius: scale(10),
+      borderRadius: scale(2),
       ...alignment.PLmedium
     },
     passwordContainer: {

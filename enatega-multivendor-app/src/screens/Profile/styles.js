@@ -1,8 +1,7 @@
 import { scale } from '../../utils/scaling'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import { alignment } from '../../utils/alignment'
-import { theme } from '../../utils/themeColors'
-
+const { height } = Dimensions.get('window')
 const styles = (props = null) =>
   StyleSheet.create({
     flex: {
@@ -11,36 +10,87 @@ const styles = (props = null) =>
     formContainer: {
       flex: 1,
       width: '100%',
-      backgroundColor: props !== null ? props.themeBackground : 'transparent'
+      backgroundColor:
+        props !== null ? props.secondaryBackground : 'transparent'
     },
     containerInfo: {
       width: '100%',
       ...alignment.MTmedium
     },
+    upperContainer: {
+      height: height * 0.3,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor:
+        props !== null ? props.secondaryBackground : 'transparent'
+    },
+    lowerContainer: {
+      height: height * 0.7,
+      ...alignment.Psmall
+    },
+    avatar: {
+      backgroundColor: props !== null ? props.tagColor : 'transparent',
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 2,
+      borderColor: props !== null ? props.themeBackground : 'transparent'
+    },
+    backgroundImage: {
+      width: 180,
+      height: 180,
+      position: 'relative',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
     formSubContainer: {
-      borderRadius: scale(18),
-      width: '95%',
-      backgroundColor: theme.Pink.white,
+      backgroundColor: props !== null ? props.themeBackground : 'transparent',
       alignSelf: 'center',
-      shadowOffset: { width: 2, height: 4 },
-      shadowColor: props !== null ? props.shadowColor : 'transparent',
-      shadowOpacity: 0.1,
-      shadowRadius: 10,
-      elevation: 15,
+      width: '100%',
+      borderRadius: 20,
+      height: '100%',
       borderWidth:
         props !== null && props.themeBackground !== '#FAFAFA' ? 2 : 0,
       borderColor: props !== null ? props.shadowColor : 'transparent',
+      ...alignment.MBlarge,
       ...alignment.MTsmall,
       ...alignment.Pmedium
     },
     flexRow: {
-      display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-between'
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      ...alignment.MTsmall
+    },
+    icon: {
+      padding: 8,
+      width: '20%',
+      alignItems: 'center'
+    },
+    details: {
+      backgroundColor: '#ECECEC',
+      ...alignment.Psmall,
+      width: '60%',
+      borderRadius: 10
+    },
+
+    phoneDetails: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#ECECEC',
+      ...alignment.Psmall,
+      width: '60%',
+      borderRadius: 10
     },
     containerHeading: {
       flexDirection: 'row',
-      alignContent: 'space-between'
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: props !== null ? props.tagColor : 'black',
+      ...alignment.Plarge,
+      borderRadius: 20
     },
     headingTitle: {
       width: '50%'
@@ -52,38 +102,26 @@ const styles = (props = null) =>
     },
     headingButton: {
       justifyContent: 'center',
-      ...alignment.PLmedium
+      backgroundColor: props !== null ? props.secondaryBackground : 'black',
+      alignItems: 'center',
+      borderRadius: 5,
+      ...alignment.PxSmall
     },
     saveContainer: {
-      backgroundColor: theme.Pink.main,
+      backgroundColor: props !== null ? props.buttonBackground : 'black',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: scale(6),
-      padding: scale(5),
-      paddingLeft: scale(20),
-      paddingRight: scale(20),
-      width: '28%'
-    },
-    bacKButton: {
-      backgroundColor: 'white',
-      borderRadius: scale(50),
-      marginLeft: scale(10),
-      width: scale(55),
-      alignItems: 'center'
-    },
-    verifiedButton: {
-      padding: scale(5),
-      paddingLeft: scale(20),
-      paddingRight: scale(20),
-      borderRadius: scale(6),
-      width: '28%',
-      height: scale(30),
-      marginTop: scale(10)
+      alignSelf: 'center',
+      ...alignment.MTlarge,
+      ...alignment.PRmedium,
+      ...alignment.PLmedium,
+      borderRadius: 10,
+      width: 100
     },
     // Model for password changing
     modalContainer: {
       backgroundColor: props !== null ? props.cartContainer : '#FFF',
-      borderRadius: scale(14),
+      borderRadius: scale(2),
       justifyContent: 'center',
       alignItems: 'center',
       ...alignment.PTmedium,
@@ -105,15 +143,6 @@ const styles = (props = null) =>
       ...alignment.MTlarge,
       ...alignment.PTxSmall,
       ...alignment.PBxSmall
-    },
-    titleContainer: {
-      padding: scale(25),
-      fontSize: scale(20),
-      fontWeight: '600'
-    },
-    phoneDetailsContainer: {
-      display: 'flex',
-      flexDirection: 'row'
     }
   })
 export default styles
