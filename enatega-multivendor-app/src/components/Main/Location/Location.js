@@ -3,18 +3,14 @@ import { View, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import TextDefault from '../../Text/TextDefault/TextDefault'
 import { LocationContext } from '../../../context/Location'
-import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
-import { theme } from '../../../utils/themeColors'
 
 function Location(props) {
-  const themeContext = useContext(ThemeContext)
-  const currentTheme = theme[themeContext.ThemeValue]
   const { location } = useContext(LocationContext)
 
   return (
-    <View>
-      <View style={styles(currentTheme).headerTitleContainer}>
-        <View style={styles(currentTheme).headerContainer}>
+    <>
+      <View style={styles.headerTitleContainer}>
+        <View style={styles.headerContainer}>
           <TextDefault textColor={props.style.color} left>
             {''}
             {location.label}
@@ -34,7 +30,7 @@ function Location(props) {
           </TouchableOpacity>
         </View>
       </View>
-      </View>
+    </>
   )
 }
 

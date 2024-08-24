@@ -8,7 +8,7 @@ const styles = (props = null) =>
   StyleSheet.create({
     flex: {
       flex: 1,
-      backgroundColor: props != null ? props.themeBackground : 'white'
+      backgroundColor: theme.Pink.white
     },
     navbarContainer: {
       paddingBottom: 0,
@@ -31,12 +31,11 @@ const styles = (props = null) =>
     },
     deal: {
       width: '100%',
-      flexDirection: 'row',
-      backgroundColor: props != null ? props.radioOuterColor : 'white',
+      flexDirection: 'row'
     },
     dealSection: {
       position: 'relative',
-      backgroundColor: props != null ? props.radioOuterColor : 'white',
+      backgroundColor: props != null ? props.cartContainer : 'white',
       ...alignment.PLlarge,
       ...alignment.PRxSmall,
       borderRadius: scale(25),
@@ -44,8 +43,7 @@ const styles = (props = null) =>
     },
     dealDescription: {
       flex: 1,
-      backgroundColor: props != null ? props.radioOuterColor : 'white',
-      
+      backgroundColor: 'transparent',
       ...alignment.PRxSmall
     },
     dealPrice: {
@@ -54,7 +52,6 @@ const styles = (props = null) =>
       overflow: 'hidden'
     },
     priceText: {
-      color: props != null ? props.darkBgFont : 'white',
       fontSize: 15,
       paddingTop: scale(10),
       maxWidth: '100%',
@@ -64,8 +61,7 @@ const styles = (props = null) =>
       fontSize: 18,
       paddingTop: scale(5),
       maxWidth: '100%',
-      ...alignment.MRxSmall,
-      backgroundColor: props != null ? props.radioOuterColor : 'white',
+      ...alignment.MRxSmall
     },
     listSeperator: {
       borderBottomWidth: StyleSheet.hairlineWidth,

@@ -27,7 +27,6 @@ import { MaterialIcons } from '@expo/vector-icons'
 import navigationService from '../../routes/navigationService'
 
 function ItemDetail(props) {
-  
   const { food, addons, options, restaurant } = props.route.params
   const navigation = useNavigation()
 
@@ -72,7 +71,6 @@ function ItemDetail(props) {
         foodName: food.title,
         foodRestaurantName: food.restaurantName
       })
-      
     }
     Track()
   })
@@ -354,7 +352,7 @@ function ItemDetail(props) {
               ))}
             </View>
             <View style={styles(currentTheme).line}></View>
-            <View style={styles(currentTheme).inputContainer}>
+            <View style={styles().inputContainer}>
               <TitleComponent
                 title="Special instructions"
                 subTitle="Any specific preferences?"

@@ -77,8 +77,8 @@ function Tip(props) {
     <>
       <View style={[styles().flex, styles(currentTheme).mainContainer]}>
         <HeaderLine textWidth="45%" lineWidth="25%" />
-        <View style={styles(currentTheme).upperContainer}>
-          <View style={styles(currentTheme).innerContainer}>
+        <View style={styles().upperContainer}>
+          <View style={styles().innerContainer}>
             <OutlinedTextField
               ref={tipRef}
               label={'Other amount'}
@@ -88,8 +88,8 @@ function Tip(props) {
               textAlignVertical="top"
               multiline={false}
               maxLength={30}
-              textColor={currentTheme.darkBgFont}
-              baseColor={currentTheme.darkBgFont}
+              textColor={currentTheme.fontMainColor}
+              baseColor={currentTheme.fontSecondColor}
               errorColor={currentTheme.textErrorColor}
               tintColor={currentTheme.iconColorPink}
               labelOffset={{ y1: -5 }}

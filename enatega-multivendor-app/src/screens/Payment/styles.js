@@ -12,8 +12,7 @@ const styles = (props = null) =>
       ...alignment.PTmedium,
       ...alignment.PBmedium,
       ...alignment.PRmedium,
-      ...alignment.MTmedium,
-      backgroundColor: props != null? props.radioOuterColor : 'white',
+      backgroundColor: theme.Pink.white,
       borderRadius: scale(20)
     },
     paymentMethod: {
@@ -27,7 +26,7 @@ const styles = (props = null) =>
       flexDirection: 'row'
     },
     mainContainer: {
-      backgroundColor: props != null? props.themeBackground : 'white',
+      backgroundColor: theme.Pink.startColor,
       borderBottomRightRadius: scale(35),
       borderBottomLeftRadius: scale(35),
       ...alignment.PTlarge,
@@ -50,8 +49,7 @@ const styles = (props = null) =>
     radioGroup: {
       flexDirection: 'row',
       width: '100%',
-      alignItems: 'center',
- 
+      alignItems: 'center'
     },
     iconContainer: {
       width: '25%',

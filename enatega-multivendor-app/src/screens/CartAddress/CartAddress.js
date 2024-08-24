@@ -107,14 +107,14 @@ function CartAddresses(props) {
             backgroundColor: currentTheme.themeBackground,
             ...alignment.PTlarge
           }}>
-          <View style={styles(currentTheme).addressContainer}>
+          <View style={styles().addressContainer}>
             <TouchableOpacity
               activeOpacity={0.7}
-              style={styles(currentTheme).addressContainer}
+              style={styles().addressContainer}
               onPress={() => {
                 props.navigation.navigate('NewAddress', { location })
               }}>
-              <View style={styles(currentTheme).width100}>
+              <View style={styles().width100}>
                 <View style={[styles().titleAddress, styles().width100]}>
                   <View style={[styles().homeIcon]}>
                     <RadioButton
@@ -171,7 +171,7 @@ function CartAddresses(props) {
         )}
         ListHeaderComponent={() => <View style={{ ...alignment.MTmedium }} />}
         renderItem={({ item: address }) => (
-          <View style={styles(currentTheme).addressContainer}>
+          <View style={styles().addressContainer}>
             <TouchableOpacity
               activeOpacity={0.7}
               style={styles().width100}
@@ -183,7 +183,7 @@ function CartAddresses(props) {
                   <View style={[styles().homeIcon]}>
                     <RadioButton
                       size={13}
-                      outerColor={currentTheme.darkBgFont}
+                      outerColor={currentTheme.radioOuterColor}
                       innerColor={currentTheme.radioColor}
                       animation={'bounceIn'}
                       isSelected={address._id === location._id}

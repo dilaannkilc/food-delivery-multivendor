@@ -31,7 +31,7 @@ function Chat() {
         marginLeft: 0
       },
       headerStyle: {
-        backgroundColor: currentTheme.themeBackground
+        backgroundColor: currentTheme.firstHeaderBackground
       },
       headerTitleAlign: 'center',
       headerRight: null,

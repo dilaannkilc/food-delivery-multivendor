@@ -87,19 +87,19 @@ function Payment(props) {
   }
   return (
     <>
-      <View style={styles(currentTheme).mainContainer}>
-        <View style={{ backgroundColor: currentTheme.themeBackground, borderRadius: 20 }}>
+      <View style={[styles(currentTheme).mainContainer]}>
+        <View style={{ backgroundColor: 'white', borderRadius: 20 }}>
           {CASH.map((item, index) => (
             <TouchableOpacity
-              style={[styles(currentTheme).radioGroup, styles(currentTheme).pT20]}
+              style={[styles().radioGroup, styles().pT20]}
               key={index.toString()}
               onPress={() => {
                 onSelectPayment(item)
               }}>
-              <View style={styles(currentTheme).radioContainer}>
+              <View style={styles().radioContainer}>
                 <RadioButton
                   animation={'bounceIn'}
-                  outerColor={currentTheme.darkBgFont}
+                  outerColor={currentTheme.radioOuterColor}
                   innerColor={currentTheme.radioColor}
                   isSelected={paymentMethod.index === item.index}
                   onPress={() => {
@@ -107,14 +107,14 @@ function Payment(props) {
                   }}
                 />
               </View>
-              <View style={styles(currentTheme).paymentMethod}>
+              <View style={styles().paymentMethod}>
                 <TextDefault
                   numberOfLines={1}
-                  textColor={currentTheme.fontSecondColor}
+                  textColor={currentTheme.fontMainColor}
                   style={{ width: '60%' }}>
                   {item.label}
                 </TextDefault>
-                <View style={styles(currentTheme).iconContainer}>
+                <View style={styles().iconContainer}>
                   {item.icon1 && (
                     <Image
                       resizeMode="cover"

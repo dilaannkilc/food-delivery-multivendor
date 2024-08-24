@@ -15,15 +15,17 @@ import i18n from '../../../i18n'
 const links = [
   {
     title: 'Product Page',
-    url: 'https://enatega.com/'
+    url:
+      'https://enatega.com/enatega-multivendor-open-source-food-delivery-solution/'
   },
   {
     title: 'Docs',
-    url: 'https://enatega-multi.gitbook.io/enatega-multivendor/'
+    url: 'https://enatega.com/multivendor-documentation/'
   },
   {
     title: 'Blog',
-    url: 'https://ninjascode.com/ninjas-code-blogs/'
+    url:
+      'https://enatega.com/blogs-enatega-open-source-food-delivery-solutions/'
   },
   { title: 'About Us', url: 'https://ninjascode.com/pages/ourteam.html' }
 ]
@@ -58,8 +60,7 @@ function Help(props) {
       headerLeft: () => (
         <HeaderBackButton
           backImage={() => (
-            <View
-              style={styles(currentTheme).backImageContainer}>
+            <View style={styles(currentTheme).backImageContainer}>
               <MaterialIcons name="arrow-back" size={30} color="black" />
             </View>
           )}
@@ -80,7 +81,7 @@ function Help(props) {
         backgroundColor={currentTheme.themeBackground}
       />
       <View style={styles(currentTheme).flex}>
-        <View style={styles(currentTheme).mainContainer}>
+        <View style={styles().mainContainer}>
           {links.map(({ title, url }, index) => (
             <TouchableOpacity
               style={styles(currentTheme).itemContainer}
@@ -93,7 +94,7 @@ function Help(props) {
                   {title}{' '}
                 </TextDefault>
               </View>
-              <MaterialIcons name="arrow-forward" size={20} color={currentTheme.darkBgFont} />
+              <MaterialIcons name="arrow-forward" size={20} color="black" />
             </TouchableOpacity>
           ))}
         </View>

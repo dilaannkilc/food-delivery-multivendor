@@ -29,7 +29,7 @@ const styles = (props = null) =>
       width: '90%',
       alignSelf: 'center',
       borderRadius: scale(10),
-      backgroundColor: props != null ? props.radioOuterColor : 'white',
+      backgroundColor: 'white',
       ...alignment.PTsmall,
       ...alignment.PBsmall
     },

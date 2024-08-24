@@ -144,7 +144,7 @@ const Circle = ({ children, color, size, style }) => {
 
 const StatusRow = ({ theme, number, status, time, isEta, showLine }) => {
   return (
-    <View style={{backgroundColor: theme.themeBackground}}>
+    <View>
       <View style={styles.statusRow}>
         <Circle
           style={styles.icon}

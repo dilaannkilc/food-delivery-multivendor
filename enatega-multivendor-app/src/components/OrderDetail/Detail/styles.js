@@ -5,7 +5,7 @@ const { width: WIDTH } = Dimensions.get('window')
 export default StyleSheet.create({
   container: theme => ({
     alignItems: 'center',
-    backgroundColor: theme.themeBackground
+    backgroundColor: theme.white
   }),
   line: theme => ({
     height: 1,
@@ -23,10 +23,9 @@ export default StyleSheet.create({
     fontFamily: fontStyles.MuseoSans500
   }),
 
-  orderDetailsContainer: theme => ({
-    paddingVertical: 20,
-    backgroundColor: theme.themeBackground
-  }),
+  orderDetailsContainer: {
+    paddingVertical: 20
+  },
   addressContainer: {
     width: WIDTH - 20,
     paddingLeft: scale(15)

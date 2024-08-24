@@ -20,8 +20,7 @@ const styles = (props = null) => {
       ...alignment.MBxsmall
     },
     iconContainer: {
-      backgroundColor: theme.Pink.deleteButton,
-    
+      backgroundColor: theme.Pink.deleteButton
     }
   })
 }

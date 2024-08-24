@@ -57,7 +57,7 @@ function MyOrders(props) {
   })
 
   useLayoutEffect(() => {
-    props.navigation.setOptions(screenOptions([currentTheme.headerText, currentTheme.darkBgFont]))
+    props.navigation.setOptions(screenOptions(currentTheme.headerText))
   }, [props.navigation])
 
   const getItems = items => {
@@ -140,7 +140,7 @@ function MyOrders(props) {
         }
         showsVerticalScrollIndicator={false}
         style={styles(currentTheme).container}
-        contentContainerStyle={styles(currentTheme).contentContainer}
+        contentContainerStyle={styles().contentContainer}
         ListEmptyComponent={emptyView()}
         ListHeaderComponent={
           <ActiveOrders
