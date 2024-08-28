@@ -2,12 +2,9 @@
   "expo": {
     "name": "Enatega Multivendor",
     "scheme": "enategamultivendor",
-    "version": "1.0.32",
+    "version": "1.0.30",
     "description": "Enatega is a starter kit food ordering app built in React Native using Expo for IOS and Android. It's made keeping good aesthetics in mind as well keeping the best coding practices in mind. Its fully customisable to easily help you in your next food delivery project. https://market.nativebase.io/view/react-native-food-delivery-backend-app",
-    "slug": "expo.dev/@ninjas_code/enategamultivendor",
-    "owner": "ninjas_code",
-    "currentFullName": "@ninjas_code/enategamultivendor",
-    "originalFullName": "@ninjas_code/enategamultivendor",
+    "slug": "enategamultivendor",
     "privacy": "public",
     "androidStatusBar": {
       "backgroundColor": "#000"
@@ -49,7 +46,7 @@
       "androidCollapsedTitle": "Enatega Multivendor"
     },
     "android": {
-      "versionCode": 32,
+      "versionCode": 30,
       "package": "com.enatega.multivendor",
       "googleServicesFile": "./google-services.json",
       "config": {
@@ -58,9 +55,11 @@
         }
       },
       "permissions": [
-        "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
         "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.FOREGROUND_SERVICE"
       ]
     },
@@ -84,12 +83,6 @@
         }
       ],
       [
-        "expo-updates",
-        {
-          "username": "ninjas_code"
-        }
-      ],
-      [
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
@@ -107,12 +100,6 @@
       "eas": {
         "projectId": "331d4e5b-b12a-434a-92ec-d6d283dc0e46"
       }
-    },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/331d4e5b-b12a-434a-92ec-d6d283dc0e46"
     }
   }
 }

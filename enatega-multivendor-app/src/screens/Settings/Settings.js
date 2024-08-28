@@ -431,7 +431,7 @@ function Settings(props) {
         </View>
         <View style={styles().versionContainer}>
           <TextDefault textColor={currentTheme.statusSecondColor}>
-            Version: {Constants.expoConfig.version}
+            Version: {Constants.manifest.version}
           </TextDefault>
         </View>
       </View>
