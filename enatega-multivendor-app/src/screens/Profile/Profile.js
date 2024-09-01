@@ -260,13 +260,17 @@ function Profile(props) {
                 {
                   backgroundColor: profile.phoneIsVerified
                     ? currentTheme.main
-                    : currentTheme.buttonText,
+                    : currentTheme.buttonText
                 }
               ]}>
-              <TextDefault
-                textColor={currentTheme.white}
-              >
-                {profile.phoneIsVerified ? "Verified" : 'Unverified'}</TextDefault>
+              <Text
+                textColor={
+                  profile.phoneIsVerified
+                    ? 'black'
+                    : currentTheme.textErrorColor
+                }>
+                {profile.phoneIsVerified ? 'Verified' : 'UnVerified'}
+              </Text>
             </View>
           )}
         </View>
