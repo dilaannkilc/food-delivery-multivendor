@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import {
   View,
   TouchableOpacity,
@@ -32,8 +32,6 @@ function PhoneNumber(props) {
     currentTheme,
     loading
   } = usePhoneNumber()
- 
- console.log(country)
 
   useLayoutEffect(() => {
     props.navigation.setOptions(
@@ -99,7 +97,6 @@ function PhoneNumber(props) {
                       styles(currentTheme).textField,
                       styles().countryCode
                     ]}>
-                     
                     <CountryPicker
                       countryCode={countryCode}
                       onSelect={country => onCountrySelect(country)}
