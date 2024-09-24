@@ -289,7 +289,7 @@ function Settings(props) {
                 <TextDefault
                   numberOfLines={1}
                   textColor={currentTheme.fontSecondColor}>
-                  {i18n.t('languageSetting')}
+                  Language Setting
                 </TextDefault>
               </View>
               <TouchableOpacity
@@ -322,10 +322,9 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {i18n.t('receiveSpecialOffers')}
-                {' '}
+                Receive Special Offers{' '}
               </TextDefault>
-              <View>
+              <View style={{ paddingLeft: '44%' }}>
                 <CheckboxBtn
                   checked={offerNotification}
                   onPress={() => {
@@ -361,10 +360,9 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {i18n.t('getUpdates')}
-                {' '}
+                Get updates on your order status!{' '}
               </TextDefault>
-              <View>
+              <View style={{ paddingLeft: '24%' }}>
                 <CheckboxBtn
                   checked={orderNotification}
                   onPress={() => {
@@ -397,10 +395,9 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {i18n.t('turnOnDarkTheme')}
-                {' '}
+                Turn on Dark Theme
               </TextDefault>
-              <View>
+              <View style={{ paddingLeft: '48%' }}>
                 <CheckboxBtn
                   checked={darkTheme}
                   onPress={() => toggleTheme()}
@@ -428,7 +425,7 @@ function Settings(props) {
                   }}>
                   <Ionicons name="trash-outline" size={30} color={'white'} />
                   <Text style={styles(currentTheme).deleteButtonText}>
-                    {i18n.t('DELETEACCOUNT')}
+                    DELETE ACCOUNT
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -454,7 +451,7 @@ function Settings(props) {
             bolder
             H5
             style={alignment.MBsmall}>
-            {i18n.t('selectLanguage')}
+            Select Language
           </TextDefault>
 
           {languageTypes.map((item, index) => (
@@ -503,7 +500,7 @@ function Settings(props) {
                 bolder
                 uppercase
                 small>
-                {i18n.t('Select')}
+                Select
               </TextDefault>
             </TouchableOpacity>
           </View>

@@ -82,7 +82,7 @@ export default function Status({
               theme={theme}
               isEta={false}
               number={1}
-              status={i18n.t('statusOrderPalced')}
+              status={'Order palced'}
               time={formatTime(createdAt)}
               showLine={true}
             />
@@ -90,7 +90,7 @@ export default function Status({
               theme={theme}
               isEta={STATUS_ORDER.indexOf(orderStatus) < 1}
               number={2}
-              status={i18n.t('statusAccepted')}
+              status={'Accepted'}
               time={acceptedAt ? formatTime(acceptedAt) : '--:--'}
               showLine={true}
             />
@@ -98,7 +98,7 @@ export default function Status({
               theme={theme}
               isEta={STATUS_ORDER.indexOf(orderStatus) < 2}
               number={3}
-              status={i18n.t('statusAssigned')}
+              status={'Assigned'}
               time={assignedAt ? formatTime(assignedAt) : '--:--'}
               showLine={true}
             />
@@ -106,7 +106,7 @@ export default function Status({
               theme={theme}
               isEta={STATUS_ORDER.indexOf(orderStatus) < 3}
               number={4}
-              status={i18n.t('statusPicked')}
+              status={'Picked'}
               time={pickedAt ? formatTime(pickedAt) : '--:--'}
               showLine={true}
             />
@@ -114,7 +114,7 @@ export default function Status({
               theme={theme}
               isEta={STATUS_ORDER.indexOf(orderStatus) < 4}
               number={5}
-              status={i18n.t('statusDelivered')}
+              status={'Delivered'}
               time={deliveredAt ? formatTime(deliveredAt) : '--:--'}
               showLine={false}
             />
@@ -161,7 +161,7 @@ const StatusRow = ({ theme, number, status, time, isEta, showLine }) => {
             {status}
           </TextDefault>
           <TextDefault textColor={theme.secondaryText} bold>
-            {isEta ? i18n.t('ETA') : ''}
+            {isEta ? 'ETA ' : ''}
             {time}
           </TextDefault>
         </View>

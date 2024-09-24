@@ -10,8 +10,7 @@ const styles = StyleSheet.create({
     ...alignment.MBxSmall
   },
   leftContainer: {
-    width: '75%',
-    alignItems: 'flex-start'
+    width: '75%'
   },
   rightContainer: {
     height: '45%',

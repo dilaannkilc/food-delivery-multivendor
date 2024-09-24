@@ -80,7 +80,7 @@ function ItemDetail(props) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: null,
-      title: i18n.t('titleCustomize'),
+      title: 'Customize',
       headerTitleContainerStyle: {
         marginTop: scale(10),
         paddingLeft: scale(15),
@@ -325,20 +325,18 @@ function ItemDetail(props) {
               />
 
               {food.variations.length > 1 && (
-               <>
-                  <View>
-                    <TitleComponent
-                      title={i18n.t('SelectVariation')}
-                      subTitle={i18n.t('SelectOne')}
-                      status={i18n.t('Required')}
-                    />
-                    <RadioComponent
-                      options={food.variations}
-                      selected={selectedVariation}
-                      onPress={onSelectVariation}
-                    />
-                  </View>
-               </>
+                <View>
+                  <TitleComponent
+                    title="Select Variation"
+                    subTitle="Select one"
+                    status="Required"
+                  />
+                  <RadioComponent
+                    options={food.variations}
+                    selected={selectedVariation}
+                    onPress={onSelectVariation}
+                  />
+                </View>
               )}
               {selectedVariation.addons.map(addon => (
                 <View key={addon._id}>

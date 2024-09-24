@@ -40,22 +40,18 @@ const EDIT_ADDRESS = gql`
 
 const labelValues = [
   {
-    title: 'Home',
-    value: 'Home',
-    icon: <Entypo name="home" size={24} />
+    title: '',
+    value: 'Home'
   },
   {
     title: 'Work',
-    value: 'Work',
-    icon: <MaterialIcons name="work" size={24} />
+    value: 'Work'
   },
   {
     title: 'Other',
-    value: 'Other',
-    icon: <Foundation name="heart" size={24} />
+    value: 'Other'
   }
 ]
-
 const LATITUDE_DELTA = 0.0022
 const LONGITUDE_DELTA = 0.0021
 
@@ -249,7 +245,7 @@ function EditAddress(props) {
                       onBlur={() => {
                         setDeliveryAddressError(
                           !deliveryAddress.trim().length
-                            ? i18n.t('DeliveryAddressIsRequired')
+                            ? 'Delivery address is required'
                             : null
                         )
                       }}
@@ -332,7 +328,7 @@ function EditAddress(props) {
               disabled={loading}
               onPress={() => {
                 const deliveryAddressError = !deliveryAddress.trim().length
-                  ? i18n.t('DeliveryAddressIsRequired')
+                  ? 'Delivery address is required'
                   : null
                 const deliveryDetailsError = !deliveryDetails.trim().length
                   ? 'Delivery details is required'

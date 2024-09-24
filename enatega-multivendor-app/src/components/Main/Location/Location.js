@@ -5,23 +5,11 @@ import TextDefault from '../../Text/TextDefault/TextDefault'
 import { LocationContext } from '../../../context/Location'
 import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../../utils/themeColors'
-import i18n from '../../../../i18n'
 
 function Location(props) {
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const { location } = useContext(LocationContext)
-
-  let translatedLabel;
-  if (location.label === 'Current Location') {
-    translatedLabel = i18n.t('currentLocation');
-  } else {
-    translatedLabel = i18n.t(location.label);
-  }
-  const translatedAddress =
-    location.deliveryAddress === 'Current Location'
-      ? i18n.t('currentLocation')
-      : (location.deliveryAddress);
 
   return (
     <View>
@@ -29,7 +17,7 @@ function Location(props) {
         <View style={styles(currentTheme).headerContainer}>
           <TextDefault textColor={props.style.color} left>
             {''}
-            {translatedLabel}
+            {location.label}
           </TextDefault>
           <TouchableOpacity
             activeOpacity={1}
@@ -41,7 +29,7 @@ function Location(props) {
               H5
               bolder>
               {''}
-              {translatedAddress}
+              {location.deliveryAddress}
             </TextDefault>
           </TouchableOpacity>
         </View>

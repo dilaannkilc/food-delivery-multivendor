@@ -89,7 +89,7 @@ const Item = ({ item, navigation, currentTheme }) => {
         <View style={styles().rightContainer}>
           <TextDefault textColor={currentTheme.iconColorPink} bold center>
             {' '}
-            {i18n.t(item.orderStatus)}
+            {item.orderStatus}
           </TextDefault>
         </View>
       </View>

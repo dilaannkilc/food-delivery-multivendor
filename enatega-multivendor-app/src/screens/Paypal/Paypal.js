@@ -7,7 +7,6 @@ import getEnvVars from '../../../environment'
 import { useApolloClient } from '@apollo/client'
 import UserContext from '../../context/User'
 import Analytics from '../../utils/analytics'
-import i18n from '../../../i18n'
 const { SERVER_URL } = getEnvVars()
 
 const MYORDERS = gql`
@@ -28,7 +27,7 @@ function Paypal(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: null,
-      title: i18n.t('paypalCheckout')
+      title: 'Paypal Checkout'
     })
   }, [props.navigation])
 

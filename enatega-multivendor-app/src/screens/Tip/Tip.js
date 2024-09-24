@@ -26,7 +26,7 @@ function Tip(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: null,
-      title: i18n.t('titleTipping'),
+      title: 'Tipping',
       headerTitleAlign: 'center',
       headerTitleContainerStyle: {
         marginTop: '1%',

@@ -104,7 +104,6 @@ function Main(props) {
       await Analytics.track(Analytics.events.NAVIGATE_TO_MAIN)
     }
     Track()
-  // }, [i18n.language])
   }, [])
   useLayoutEffect(() => {
     navigation.setOptions(
@@ -168,7 +167,7 @@ function Main(props) {
           else {
             modalRef.current.close()
             setLocation({
-              label: ('currentLocation'),
+              label: i18n.t('currentLocation'),
               latitude: coords.latitude,
               longitude: coords.longitude,
               deliveryAddress: address
@@ -251,7 +250,7 @@ function Main(props) {
               color={currentTheme.black}
             />
             <View style={styles().mL5p} />
-            <TextDefault bold>{i18n.t('addAddress')}</TextDefault>
+            <TextDefault bold>Add New Address</TextDefault>
           </View>
         </TouchableOpacity>
       </View>

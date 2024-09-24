@@ -217,7 +217,7 @@ function NewAddress(props) {
               cacheEnabled={true}
               showsUserLocation={false}
               customMapStyle={mapStyle}
-
+             
               initialRegion={{
                 latitude: LATITUDE,
                 latitudeDelta: LATITUDE_DELTA,
@@ -250,7 +250,7 @@ function NewAddress(props) {
               <View style={styles(currentTheme).upperContainer}>
                 <View style={styles(currentTheme).addressContainer}>
                   <View style={styles(currentTheme).geoLocation}>
-                    <View style={{ width: '100%' }}>
+                    <View style={{ width: '100%'}}>
                       <OutlinedTextField
                         placeholder={i18n.t('deliveryAddress')}
                         error={deliveryAddressError}
@@ -285,7 +285,7 @@ function NewAddress(props) {
                         onBlur={() => {
                           setDeliveryAddressError(
                             !deliveryAddress.trim().length
-                              ? i18n.t('DeliveryAddressIsRequired')
+                              ? 'Delivery address is required'
                               : null
                           )
                         }}
@@ -387,10 +387,10 @@ function NewAddress(props) {
               disabled={loading}
               onPress={() => {
                 const deliveryAddressError = !deliveryAddress.trim().length
-                  ? i18n.t('DeliveryAddressIsRequired')
+                  ? 'Delivery address is required'
                   : null
                 const deliveryDetailsError = !deliveryDetails.trim().length
-                  ? i18n.t('DeliveryAddressIsRequired')
+                  ? 'Delivery details is required'
                   : null
 
                 setDeliveryAddressError(deliveryAddressError)

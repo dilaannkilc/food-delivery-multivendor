@@ -58,7 +58,7 @@ function About(props) {
           style={{ ...alignment.PBxSmall }}
           textColor={currentTheme.fontMainColor}
           bolder>
-          {restaurantObject.total} {i18n.t('Reviews')}
+          {restaurantObject.total} Reviews
         </TextDefault>
         {line()}
       </>
@@ -100,10 +100,10 @@ function About(props) {
               {restaurantObject.openingTimes.map((v, index) => (
                 <View key={index} style={styles().timingRow}>
                   <TextDefault
-                    style={styles().timingText}
+                    style={{ width: scale(140) }}
                     textColor={currentTheme.black}
                     large>
-                    {i18n.t(v.day)}{' '}
+                    {v.day}{' '}
                   </TextDefault>
                   {v.times.length < 1 ? (
                     <TextDefault key={index + 8} small bold center>

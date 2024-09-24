@@ -159,7 +159,7 @@ function ChangePassword(props) {
               small>
               {newPassword !== '' && oldPassword !== ''
                 ? i18n.t('apply')
-                : i18n.t('Cancel')}
+                : 'Cancel'}
             </TextDefault>
           </TouchableOpacity>
         </View>

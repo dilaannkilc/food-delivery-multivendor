@@ -1,12 +1,11 @@
 import React, { useState, useContext } from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, I18nManager } from 'react-native'
 import styles from './styles'
 import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../../utils/themeColors'
 import TextDefault from '../../Text/TextDefault/TextDefault'
 import { AntDesign } from '@expo/vector-icons'
 import { scale } from '../../../utils/scaling'
-import i18n from '../../../../i18n'
 
 function CartComponent(props) {
   const [quantity, setQuantity] = useState(1)
@@ -55,7 +54,7 @@ function CartComponent(props) {
                 }
           }>
           <TextDefault textColor={currentTheme.black} H5 bolder center>
-            {i18n.t('addToCart')}
+            {i18n.t('addTodCart')}
           </TextDefault>
         </TouchableOpacity>
       </View>

@@ -59,7 +59,6 @@ const labelValues = [
     icon: <Foundation name="heart" size={24} />
   }
 ]
-
 const LATITUDE_DELTA = 0.0022
 const LONGITUDE_DELTA = 0.0021
 
@@ -301,7 +300,7 @@ function EditAddress(props) {
                         onBlur={() => {
                           setDeliveryAddressError(
                             !deliveryAddress.trim().length
-                              ? i18n.t('DeliveryAddressIsRequired')
+                              ? 'Delivery address is required'
                               : null
                           )
                         }}
@@ -336,7 +335,7 @@ function EditAddress(props) {
                     onBlur={() => {
                       setDeliveryDetailsError(
                         !deliveryDetails.trim().length
-                          ? i18n.t('DeliveryAddressIsRequired')
+                          ? 'Delivery details is required'
                           : null
                       )
                     }}
@@ -403,10 +402,10 @@ function EditAddress(props) {
               disabled={loading}
               onPress={() => {
                 const deliveryAddressError = !deliveryAddress.trim().length
-                  ? i18n.t('DeliveryAddressIsRequired')
+                  ? 'Delivery address is required'
                   : null
                 const deliveryDetailsError = !deliveryDetails.trim().length
-                  ? i18n.t('DeliveryAddressIsRequired')
+                  ? 'Delivery details is required'
                   : null
 
                 setDeliveryAddressError(deliveryAddressError)
