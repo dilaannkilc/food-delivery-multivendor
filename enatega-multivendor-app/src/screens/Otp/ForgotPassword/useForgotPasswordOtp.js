@@ -23,7 +23,7 @@ export const useForgotPasswordOtp = () => {
 
   function onCompleted(data) {
     FlashMessage({
-      message: i18n.t('otpResentToEmail')
+      message: 'OTP resent to your email.'
     })
   }
 

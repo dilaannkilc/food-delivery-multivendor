@@ -9,8 +9,6 @@ import TextDefault from '../../Text/TextDefault/TextDefault'
 import Animated from 'react-native-reanimated'
 import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../../utils/themeColors'
-import i18n from '../../../../i18n'
-
 const AnimatedIon = Animated.createAnimatedComponent(Ionicons)
 
 function ImageHeader(props) {
@@ -31,7 +29,10 @@ function ImageHeader(props) {
           activeOpacity={0.7}
           style={styles(props.iconBackColor).touchArea}
           onPress={() => navigation.goBack()}>
-          <AnimatedIon name="ios-arrow-back" size={25} />
+          <AnimatedIon
+            name="ios-arrow-back"
+            size={25}
+          />
         </TouchableOpacity>
         <View style={styles(currentTheme).deliveryBoxContainer}>
           <TextDefault
@@ -51,7 +52,7 @@ function ImageHeader(props) {
                 style={styles().deliveryBoxText}
                 textColor="white"
                 bold>
-                {i18n.t('delivery')} {props.deliveryTime} {i18n.t('Min')}
+                Delivery {props.deliveryTime} Minute
               </TextDefault>
             </View>
           )}

@@ -18,7 +18,6 @@ import {
 import { alignment } from '../../../utils/alignment'
 import TextError from '../../Text/TextError/TextError'
 import { textStyles } from '../../../utils/textStyles'
-import i18n from '../../../../i18n'
 
 const { height } = Dimensions.get('screen')
 const TOP_BAR_HEIGHT = height * 0.05
@@ -73,7 +72,7 @@ function ImageTextCenterHeader(props, ref) {
           justifyContent: 'center',
           alignItems: 'center'
         }}>
-        <TextError text={i18n.t('noItemsExists')} />
+        <TextError text="No items exists" />
       </View>
     )
   }
@@ -136,7 +135,7 @@ function ImageTextCenterHeader(props, ref) {
                     marginBottom: props.headerTextFlex
                   }
                 ]}>
-                {i18n.t('delivery')} {aboutObject.deliveryTime} {i18n.t('Min')}
+                Delivery {aboutObject.deliveryTime} Minute{' '}
               </Animated.Text>
               {!props.loading && (
                 <>
@@ -196,7 +195,7 @@ function ImageTextCenterHeader(props, ref) {
                     style={[alignment.PRxSmall, alignment.PLxSmall]}
                     textColor="white"
                     bold>
-                    {i18n.t('delivery')} {aboutObject.deliveryTime} {i18n.t('Min')}
+                    Delivery {aboutObject.deliveryTime} Minute
                   </TextDefault>
                 </View>
               )}

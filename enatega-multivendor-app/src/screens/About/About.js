@@ -15,7 +15,6 @@ import { mapStyle } from '../../utils/mapStyle'
 import CustomMarker from '../../assets/SVG/imageComponents/CustomMarker'
 import Analytics from '../../utils/analytics'
 import { ScrollView } from 'react-native-gesture-handler'
-import i18n from '../../../i18n'
 
 function About(props) {
   const { restaurantObject, tab } = props.route.params
@@ -43,7 +42,7 @@ function About(props) {
   function emptyView() {
     return (
       <TextError
-        text={i18n.t('noReviewYet')}
+        text="There are no reviews yet."
         backColor={currentTheme.cartContainer}
       />
     )
@@ -58,7 +57,7 @@ function About(props) {
           style={{ ...alignment.PBxSmall }}
           textColor={currentTheme.fontMainColor}
           bolder>
-          {restaurantObject.total} {i18n.t('Reviews')}
+          {restaurantObject.total} Reviews
         </TextDefault>
         {line()}
       </>
@@ -92,7 +91,7 @@ function About(props) {
                 color={currentTheme.darkBgFont}
               />
               <TextDefault style={{ paddingLeft: 10 }} bold textColor={currentTheme.darkBgFont}>
-                {i18n.t('Openingtimes')}
+                {'Opening times'}
               </TextDefault>
             </View>
 
@@ -100,14 +99,14 @@ function About(props) {
               {restaurantObject.openingTimes.map((v, index) => (
                 <View key={index} style={styles().timingRow}>
                   <TextDefault
-                    style={styles().timingText}
+                    style={{ width: scale(140) }}
                     textColor={currentTheme.black}
                     large>
-                    {i18n.t(v.day)}{' '}
+                    {v.day}{' '}
                   </TextDefault>
                   {v.times.length < 1 ? (
                     <TextDefault key={index + 8} small bold center>
-                      {i18n.t('ClosedAllDay')}
+                      {'Closed all day'}
                     </TextDefault>
                   ) : (
                     v.times.map(t => (
@@ -243,7 +242,7 @@ function About(props) {
             onPress={() => pagerSetter(true)}
             style={[styles(currentTheme).tab, pager && styles(currentTheme).selectedTab]}>
             <TextDefault textColor={pager ? currentTheme.black : currentTheme.darkBgFont} bolder uppercase large>
-              {i18n.t('About')}
+              About
             </TextDefault>
           </TouchableOpacity>
 
@@ -252,7 +251,7 @@ function About(props) {
             onPress={() => pagerSetter(false)}
             style={[styles(currentTheme).tab, !pager && styles(currentTheme).selectedTab]}>
             <TextDefault textColor={pager ? currentTheme.darkBgFont : currentTheme.black} bolder uppercase large>
-              {i18n.t('Reviews')}
+              Reviews
             </TextDefault>
           </TouchableOpacity>
         </View>

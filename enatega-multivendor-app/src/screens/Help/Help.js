@@ -1,70 +1,44 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, TouchableOpacity, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import styles from './styles';
-import ThemeContext from '../../ui/ThemeContext/ThemeContext';
-import { theme } from '../../utils/themeColors';
-import TextDefault from '../../components/Text/TextDefault/TextDefault';
-import Analytics from '../../utils/analytics';
-import { HeaderBackButton } from '@react-navigation/elements';
-import { MaterialIcons } from '@expo/vector-icons';
-import navigationService from '../../routes/navigationService';
-import { scale } from '../../utils/scaling';
-import i18n from '../../../i18n';
+import React, { useContext, useLayoutEffect, useEffect } from 'react'
+import { View, TouchableOpacity, StatusBar } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import styles from './styles'
+import ThemeContext from '../../ui/ThemeContext/ThemeContext'
+import { theme } from '../../utils/themeColors'
+import TextDefault from '../../components/Text/TextDefault/TextDefault'
+import Analytics from '../../utils/analytics'
+import { HeaderBackButton } from '@react-navigation/elements'
+import { MaterialIcons } from '@expo/vector-icons'
+import navigationService from '../../routes/navigationService'
+import { scale } from '../../utils/scaling'
+import i18n from '../../../i18n'
 
-const Help = (props) => {
-  const themeContext = useContext(ThemeContext);
-  const currentTheme = theme[themeContext.ThemeValue];
-
-  const [links, setLinks] = useState([
-    {
-      title: i18n.t('titleProductPage'),
-      url: 'https://enatega.com/enatega-multivendor-open-source-food-delivery-solution/',
-    },
-    {
-      title: i18n.t('titleDocs'),
-      url: 'https://enatega.com/multivendor-documentation/',
-    },
-    {
-      title: i18n.t('titleBlog'),
-      url: 'https://enatega.com/blogs-enatega-open-source-food-delivery-solutions/',
-    },
-    {
-      title: i18n.t('titleAboutUs'),
-      url: 'https://ninjascode.com/pages/ourteam.html',
-    },
-  ]);
-
+const links = [
+  {
+    title: 'Product Page',
+    url:
+      'https://enatega.com/enatega-multivendor-open-source-food-delivery-solution/'
+  },
+  {
+    title: 'Docs',
+    url: 'https://enatega.com/multivendor-documentation/'
+  },
+  {
+    title: 'Blog',
+    url:
+      'https://enatega.com/blogs-enatega-open-source-food-delivery-solutions/'
+  },
+  { title: 'About Us', url: 'https://ninjascode.com/pages/ourteam.html' }
+]
+function Help(props) {
+  const themeContext = useContext(ThemeContext)
+  const currentTheme = theme[themeContext.ThemeValue]
   useEffect(() => {
     async function Track() {
-      await Analytics.track(Analytics.events.NAVIGATE_TO_HELP);
+      await Analytics.track(Analytics.events.NAVIGATE_TO_HELP)
     }
-    Track();
-  }, []);
-
-  useEffect(() => {
-    // Update translations when the language changes
-    setLinks([
-      {
-        title: i18n.t('titleProductPage'),
-        url: 'https://enatega.com/enatega-multivendor-open-source-food-delivery-solution/',
-      },
-      {
-        title: i18n.t('titleDocs'),
-        url: 'https://enatega.com/multivendor-documentation/',
-      },
-      {
-        title: i18n.t('titleBlog'),
-        url: 'https://enatega.com/blogs-enatega-open-source-food-delivery-solutions/',
-      },
-      {
-        title: i18n.t('titleAboutUs'),
-        url: 'https://ninjascode.com/pages/ourteam.html',
-      },
-    ]);
-  }, [i18n.language]);
-
-  useEffect(() => {
+    Track()
+  }, [])
+  useLayoutEffect(() => {
     props.navigation.setOptions({
       headerTitle: i18n.t('titleHelp'),
       headerTitleAlign: 'center',
@@ -77,11 +51,12 @@ const Help = (props) => {
         borderRadius: scale(10),
         backgroundColor: currentTheme.black,
         borderWidth: 1,
-        borderColor: 'white',
+        borderColor: 'white'
       },
       headerStyle: {
-        backgroundColor: currentTheme.themeBackground,
+        backgroundColor: currentTheme.themeBackground
       },
+
       headerLeft: () => (
         <HeaderBackButton
           backImage={() => (
@@ -90,24 +65,30 @@ const Help = (props) => {
             </View>
           )}
           onPress={() => {
-            navigationService.goBack();
+            navigationService.goBack()
           }}
         />
-      ),
-    });
-  }, [props.navigation]);
+      )
+    })
+  }, [props.navigation])
 
   return (
-    <SafeAreaView edges={['bottom', 'right', 'left']} style={styles(currentTheme).flex}>
-      <StatusBar barStyle="light-content" backgroundColor={currentTheme.themeBackground} />
+    <SafeAreaView
+      edges={['bottom', 'right', 'left']}
+      style={styles(currentTheme).flex}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={currentTheme.themeBackground}
+      />
       <View style={styles(currentTheme).flex}>
         <View style={styles(currentTheme).mainContainer}>
           {links.map(({ title, url }, index) => (
             <TouchableOpacity
               style={styles(currentTheme).itemContainer}
-              onPress={() => props.navigation.navigate('HelpBrowser', { title, url })}
-              key={index}
-            >
+              onPress={() =>
+                props.navigation.navigate('HelpBrowser', { title, url })
+              }
+              key={index}>
               <View>
                 <TextDefault textColor={currentTheme.fontMainColor} bolder>
                   {title}{' '}
@@ -119,7 +100,7 @@ const Help = (props) => {
         </View>
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Help;
+export default Help

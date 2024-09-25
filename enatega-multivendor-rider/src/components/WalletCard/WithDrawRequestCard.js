@@ -4,7 +4,6 @@ import styles from './style'
 import TextDefault from '../Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
 import ConfigurationContext from '../../context/configuration'
-import i18n from '../../../i18n'
 
 const STATUS_COLORS = {
   CANCELLED: colors.orderUncomplete,
@@ -17,41 +16,41 @@ const RequestCard = ({ item }) => {
   return (
     <View style={[styles.container, styles.bgBlack]}>
       <TextDefault bold H4 textColor={colors.white}>
-        {i18n.t('requestID')}{' '}
+        {'Request ID:'}{' '}
         <TextDefault bolder H4 textColor={colors.primary}>
           {item?.requestId}
         </TextDefault>{' '}
       </TextDefault>
       <View style={styles.horizontalLine} />
       <RequestRow
-        label={i18n.t('name')}
+        label={'Name'}
         value={item?.rider.name}
         color={colors.white}
       />
       <RequestRow
-        label={i18n.t('email')}
+        label={'Email'}
         value={item?.rider.email}
         color={colors.white}
       />
       <RequestRow
-        label={i18n.t('accountNumber')}
+        label={'Account Number'}
         value={item?.rider.accountNumber}
         color={colors.white}
       />
       <RequestRow
-        label={i18n.t('requestAmount')}
+        label={'Request Amount'}
         value={`${configuration.currencySymbol} ${item?.requestAmount.toFixed(
           2
         )}`}
         color={colors.white}
       />
       <RequestRow
-        label={i18n.t('requestTime')}
+        label={'RequestTime'}
         value={new Date(item?.requestTime).toDateString()}
         color={colors.white}
       />
       <RequestRow
-        label={i18n.t('status')}
+        label={'Status'}
         value={item?.status}
         color={STATUS_COLORS[item?.status]}
       />

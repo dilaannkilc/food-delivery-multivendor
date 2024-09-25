@@ -6,7 +6,6 @@ import { theme } from '../../../utils/themeColors'
 import TextDefault from '../../Text/TextDefault/TextDefault'
 import { AntDesign } from '@expo/vector-icons'
 import { scale } from '../../../utils/scaling'
-import i18n from '../../../../i18n'
 
 function CartComponent(props) {
   const [quantity, setQuantity] = useState(1)
@@ -55,7 +54,7 @@ function CartComponent(props) {
                 }
           }>
           <TextDefault textColor={currentTheme.black} H5 bolder center>
-            {i18n.t('addToCart')}
+            Add To Cart
           </TextDefault>
         </TouchableOpacity>
       </View>

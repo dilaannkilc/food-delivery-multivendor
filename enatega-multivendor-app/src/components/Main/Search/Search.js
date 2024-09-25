@@ -5,7 +5,6 @@ import styles from './styles'
 import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../../utils/themeColors'
 import { scale } from '../../../utils/scaling'
-import i18n from '../../../../i18n'
 
 function Search(props) {
   const themeContext = useContext(ThemeContext)
@@ -25,7 +24,7 @@ function Search(props) {
             <View style={styles().inputContainer}>
               <TextInput
                 style={styles(currentTheme).bodyStyleOne}
-                placeholder={i18n.t('searchRestaurant')}
+                placeholder="Search for restaurants"
                 placeholderTextColor={currentTheme.fontSecondColor}
                 onChangeText={text => props.setSearch(text)}
                 value={props.search}

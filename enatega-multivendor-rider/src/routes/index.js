@@ -150,8 +150,6 @@ function Main() {
           drawerType="slide"
           drawerPosition="right"
           drawerContent={props => <Sidebar {...props} />}>
-          <Drawer.Screen name="SidebBar" component={Sidebar} />
-
           <Drawer.Screen name="noDrawer" component={NoDrawer} />
         </Drawer.Navigator>
       </SoundContextProvider>

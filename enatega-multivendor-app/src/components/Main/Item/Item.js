@@ -17,7 +17,6 @@ import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
 import Spinner from '../../Spinner/Spinner'
 import { FlashMessage } from '../../../ui/FlashMessage/FlashMessage'
-import i18n from '../../../../i18n'
 
 const ADD_FAVOURITE = gql`
   ${addFavouriteRestaurant}
@@ -58,7 +57,7 @@ function Item(props) {
   }
 
   function onCompleted() {
-    FlashMessage({ message: i18n.t('favouritelistUpdated') })
+    FlashMessage({ message: 'Favourite list updated.' })
   }
   return (
     <TouchableOpacity
@@ -109,7 +108,7 @@ function Item(props) {
                     small
                     bold
                     uppercase>
-                    {i18n.t('Closed')}
+                    Closed
                   </TextDefault>
                 </View>
               )}
@@ -120,8 +119,8 @@ function Item(props) {
                   small
                   bolder
                   center>
-                  {item.deliveryTime + ' '}
-                  {i18n.t('min')}
+                  {item.deliveryTime}
+                  {' min'}
                 </TextDefault>
               </View>
             </View>
@@ -174,7 +173,7 @@ function Item(props) {
                 {configuration.currencySymbol + ' ' + item.minimumOrder}{' '}
                 <TextDefault textColor={currentTheme.fontSecondColor} small>
                   {' '}
-                  {i18n.t('min')}
+                  {'Min'}
                 </TextDefault>
               </TextDefault>
             </View>

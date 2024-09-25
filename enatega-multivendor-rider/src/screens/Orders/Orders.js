@@ -13,7 +13,6 @@ import TextError from '../../components/Text/TextError/TextError'
 import LottieView from 'lottie-react-native'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
-import i18n from '../../../i18n'
 
 const Orders = ({ navigation }) => {
   const { setActive } = useContext(TabsContext)
@@ -35,13 +34,13 @@ const Orders = ({ navigation }) => {
       setOrders(
         assignedOrders.length > 0
           ? assignedOrders.filter(
-              o =>
-                ['PICKED', 'ACCEPTED', 'DELIVERED', 'ASSIGNED'].includes(
-                  o.orderStatus
-                ) &&
+            o =>
+              ['PICKED', 'ACCEPTED', 'DELIVERED', 'ASSIGNED'].includes(
+                o.orderStatus
+              ) &&
                 o.rider &&
                 dataProfile.rider._id === o.rider._id
-            )
+          )
           : []
       )
     }
@@ -63,7 +62,7 @@ const Orders = ({ navigation }) => {
           </View>
         ) : errorProfile || errorAssigned ? (
           <View style={styles.margin500}>
-            <TextError text={i18n.t('errorText')} />
+            <TextError text="Something went wrong. Please try again later!" />
           </View>
         ) : orders.length > 0 ? (
           <FlatList
@@ -110,7 +109,7 @@ const Orders = ({ navigation }) => {
               loop
             />
             <TextDefault bolder center H3 textColor={colors.fontSecondColor}>
-              {i18n.t('notAnyOrdersYet')}
+              You don&apos;t have any orders yet!
             </TextDefault>
           </View>
         )}

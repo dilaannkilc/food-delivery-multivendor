@@ -94,7 +94,7 @@ function Login(props) {
               <View style={styles().form}>
                 <View>
                   <TextInput
-                    placeholder={i18n.t('email')}
+                    placeholder="Email"
                     style={[
                       styles(currentTheme).textField,
                       emailError !== null ? styles(currentTheme).errorInput : {}
@@ -117,7 +117,7 @@ function Login(props) {
                     <View style={styles().passwordField}>
                       <TextInput
                         secureTextEntry={showPassword}
-                        placeholder={i18n.t('password')}
+                        placeholder="Password"
                         style={[
                           styles(currentTheme).textField,
                           styles().passwordInput,

@@ -407,8 +407,7 @@ function Cart(props) {
     }
     if (calculatePrice(deliveryCharges, true) < minimumOrder) {
       FlashMessage({
-        // message: `The minimum amount of (${configuration.currencySymbol} ${minimumOrder}) for your order has not been reached.`
-        message: `(${i18n.t(minAmount)}) (${configuration.currencySymbol} ${minimumOrder}) (${i18n.t(forYourOrder)})`
+        message: `The minimum amount of (${configuration.currencySymbol} ${minimumOrder}) for your order has not been reached.`
       })
       return false
     }
@@ -418,7 +417,7 @@ function Cart(props) {
     }
     if (!paymentMethod) {
       FlashMessage({
-        message: i18n.t('setPaymentMethod')
+        message: 'Set payment method before checkout'
       })
       return false
     }
@@ -428,7 +427,7 @@ function Cart(props) {
     }
     if (profile.phone.length > 0 && !profile.phoneIsVerified) {
       FlashMessage({
-        message: i18n.t('numberVerificationAlert')
+        message: 'Phone number is not verified. Kindly verify phone number.'
       })
       props.navigation.navigate('Profile')
       return false
@@ -559,7 +558,7 @@ function Cart(props) {
           setLoadingData(false)
           if (transformCart.length !== updatedItems.length) {
             FlashMessage({
-              message: i18n.t('itemNotAvailable')
+              message: 'One or more item is not available'
             })
           }
         }
@@ -740,7 +739,7 @@ function Cart(props) {
                         marginLeft: scale(20)
                       }}>
                       <TextDefault  textColor={currentTheme.darkBgFont} style={{ padding: 5 }} bolder>
-                        {isPickedUp ? i18n.t('pickUp') : i18n.t('delivery')}{' '}
+                        {isPickedUp ? 'Pick Up' : 'Delivery'}{' '}
                       </TextDefault>
                       <TextDefault
                         textColor={currentTheme.darkBgFont}
@@ -752,7 +751,7 @@ function Cart(props) {
                         onPress={onOpen}
                         style={styles(currentTheme).cartInnerContainer}>
                         <TextDefault bold textColor={'white'} center>
-                          {i18n.t('change')}
+                          change
                         </TextDefault>
                       </TouchableOpacity>
                     </View>
@@ -967,7 +966,7 @@ function Cart(props) {
                       bold
                       textColor={currentTheme.darkBgFont}
                       style={{ width: '30%' }}>
-                      {i18n.t('tip')}
+                      {'Tip'}
                     </TextDefault>
                     <View
                       numberOfLines={1}
@@ -1054,7 +1053,7 @@ function Cart(props) {
                           small
                           bold
                           center>
-                          {i18n.t('Custom')}
+                          {'Custom'}
                         </TextDefault>
                       </TouchableOpacity>
                     </View>
@@ -1073,7 +1072,7 @@ function Cart(props) {
                       textColor={currentTheme.fontMainColor}
                       style={{ width: '30%' }}
                       bolder>
-                      {i18n.t('total')}
+                      Total
                     </TextDefault>
                     <TextDefault
                       numberOfLines={1}
@@ -1247,7 +1246,7 @@ function Cart(props) {
                               }}>
                               <TextDefault bolder small>
                                 {' '}
-                                  {i18n.t('changeAddress')}
+                                change Address
                               </TextDefault>
                             </TouchableOpacity>
                           </View>
@@ -1474,7 +1473,7 @@ function Cart(props) {
                 alignSelf: 'center'
               }
             ]}>
-            <Text style={{ fontSize: 20, fontWeight: '500' }}>{i18n.t('apply')}</Text>
+            <Text style={{ fontSize: 20, fontWeight: '500' }}>Apply</Text>
           </TouchableOpacity>
         </Modalize>
       </View>

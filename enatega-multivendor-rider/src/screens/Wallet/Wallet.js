@@ -9,7 +9,6 @@ import UserContext from '../../context/user'
 import Spinner from '../../components/Spinner/Spinner'
 import { MIN_WITHDRAW_AMOUNT } from '../../utilities/constants'
 import ConfigurationContext from '../../context/configuration'
-import i18n from '../../../i18n'
 
 const Wallet = () => {
   const navigation = useNavigation()
@@ -28,7 +27,7 @@ const Wallet = () => {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TextDefault bold H5>
-          {i18n.t('errorFetchingRiderProfile')}
+          Error occured while fetching rider profile
         </TextDefault>
       </View>
     )
@@ -52,7 +51,7 @@ const Wallet = () => {
         />
         <View style={styles.textView}>
           <TextDefault bold H5>
-            {i18n.t('minAmountWithdrawl')}{' '}
+            Min amount for withdrawl is{' '}
           </TextDefault>
           <TextDefault H4 bolder>
             {configuration.currencySymbol} {MIN_WITHDRAW_AMOUNT.toFixed(2)}
@@ -64,7 +63,7 @@ const Wallet = () => {
             activeOpacity={0.8}
             style={[styles.btn, styles.withdrawBtn]}>
             <TextDefault bolder H5 center>
-              {i18n.t('withdrawMoney')}
+              Withdraw Money
             </TextDefault>
           </TouchableOpacity>
           <TouchableOpacity
@@ -74,7 +73,7 @@ const Wallet = () => {
             activeOpacity={0.8}
             style={[styles.btn, styles.historyBtn]}>
             <TextDefault bolder H5 center>
-              {i18n.t('walletHistory')}
+              Wallet History
             </TextDefault>
           </TouchableOpacity>
         </View>

@@ -3,7 +3,6 @@ import React, { useContext } from 'react'
 import styles from './style'
 import TextDefault from '../Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
-import i18n from '../../../i18n'
 
 import { RequestRow } from './WithDrawRequestCard'
 import ConfigurationContext from '../../context/configuration'
@@ -13,25 +12,25 @@ const WalletCard = ({ item }) => {
   return (
     <View style={[styles.container, styles.bgWhite]}>
       <TextDefault bold H4 textColor={colors.black}>
-        {i18n.t('orderID')}{' '}
+        {'Order ID:'}{' '}
         <TextDefault bolder H4 textColor={colors.primary}>
           {item?.orderId}
         </TextDefault>{' '}
       </TextDefault>
       <View style={styles.horizontalLine} />
       <RequestRow
-        label={i18n.t('deliveryFee')}
+        label={'Delivery Fee'}
         value={`${configuration.currencySymbol} ${item?.deliveryFee.toFixed(
           2
         )}`}
       />
       <RequestRow
-        label={i18n.t('deliveryTime')}
+        label={'Delivery Time'}
         value={new Date(item?.deliveryTime).toLocaleString()}
       />
-      <RequestRow label={i18n.t('paymentMethod')} value={item?.paymentMethod} />
+      <RequestRow label={'Payment Method'} value={item?.paymentMethod} />
       <RequestRow
-        label={i18n.t('orderStatus')}
+        label={'Order Status'}
         value={item?.orderStatus}
         color={colors.primary}
       />

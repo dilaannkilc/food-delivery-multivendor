@@ -10,7 +10,6 @@ import TextDefault from '../Text/TextDefault/TextDefault'
 import TextError from '../Text/TextError/TextError'
 import { alignment } from '../../utils/alignment'
 import styles from './styles'
-import i18n from '../../../i18n'
 
 const ActiveOrders = ({
   navigation,
@@ -31,7 +30,7 @@ const ActiveOrders = ({
   return (
     <React.Fragment>
       {showActiveHeader && (
-        <Heading headerName={i18n.t('ActiveOrder')} textWidth="90%" />
+        <Heading headerName="Active Order" textWidth="90%" />
       )}
       {activeOrders.map((item, index) => (
         <Item
@@ -41,9 +40,7 @@ const ActiveOrders = ({
           currentTheme={currentTheme}
         />
       ))}
-      {showPastHeader && (
-        <Heading headerName={i18n.t('PastOrder')} textWidth="90%" />
-      )}
+      {showPastHeader && <Heading headerName="Past Order" textWidth="90%" />}
     </React.Fragment>
   )
 }
@@ -80,8 +77,8 @@ const Item = ({ item, navigation, currentTheme }) => {
               small
               bold>
               {item.orderStatus === 'PENDING'
-                ? i18n.t('PenddingText')
-                : i18n.t('PenddingText1')}
+                ? "We're asking the restaurant how long it will take to deliver your food."
+                : 'The restaurant rider will be at your place around.'}
             </TextDefault>
           </View>
         </View>
@@ -89,7 +86,7 @@ const Item = ({ item, navigation, currentTheme }) => {
         <View style={styles().rightContainer}>
           <TextDefault textColor={currentTheme.iconColorPink} bold center>
             {' '}
-            {i18n.t(item.orderStatus)}
+            {item.orderStatus}
           </TextDefault>
         </View>
       </View>

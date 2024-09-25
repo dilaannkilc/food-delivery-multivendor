@@ -49,7 +49,7 @@ export default function Login() {
           </TextDefault>
           <TextInput
             style={[styles.textInput, usernameError && styles.errorInput]}
-            placeholder={i18n.t('username')}
+            placeholder="Username"
             value={username}
             onChangeText={e => setUsername(e)}
           />
@@ -64,7 +64,7 @@ export default function Login() {
           <View style={styles.passwordField}>
             <TextInput
               secureTextEntry={showPassword}
-              placeholder={i18n.t('password')}
+              placeholder="Password"
               style={[
                 styles.textInput,
                 styles.passwordInput,

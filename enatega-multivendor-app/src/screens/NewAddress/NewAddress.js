@@ -160,7 +160,7 @@ function NewAddress(props) {
 
   function onCompleted(data) {
     FlashMessage({
-      message: i18n.t('addressUpdated')
+      message: 'Address added'
     })
     const address = data.createAddress.addresses.find(a => a.selected)
     const cartAddress = props.route.params?.backScreen || null
@@ -177,7 +177,7 @@ function NewAddress(props) {
   function onError(error) {
     console.log(error)
     FlashMessage({
-      message: `${i18n.t('errorOccured')} ${error}`
+      message: `An error occured. Please try again. ${error}`
     })
   }
 
@@ -217,7 +217,7 @@ function NewAddress(props) {
               cacheEnabled={true}
               showsUserLocation={false}
               customMapStyle={mapStyle}
-
+             
               initialRegion={{
                 latitude: LATITUDE,
                 latitudeDelta: LATITUDE_DELTA,
@@ -250,9 +250,9 @@ function NewAddress(props) {
               <View style={styles(currentTheme).upperContainer}>
                 <View style={styles(currentTheme).addressContainer}>
                   <View style={styles(currentTheme).geoLocation}>
-                    <View style={{ width: '100%' }}>
+                    <View style={{ width: '100%'}}>
                       <OutlinedTextField
-                        placeholder={i18n.t('deliveryAddress')}
+                        placeholder="Delivery Address"
                         error={deliveryAddressError}
                         ref={addressRef}
                         value={deliveryAddress}
@@ -285,7 +285,7 @@ function NewAddress(props) {
                         onBlur={() => {
                           setDeliveryAddressError(
                             !deliveryAddress.trim().length
-                              ? i18n.t('DeliveryAddressIsRequired')
+                              ? 'Delivery address is required'
                               : null
                           )
                         }}
@@ -294,7 +294,7 @@ function NewAddress(props) {
                   </View>
                   <View style={{ ...alignment.MTlarge }}></View>
                   <OutlinedTextField
-                    placeholder={i18n.t('aptFloor')}
+                    placeholder="Apt / Floor"
                     error={deliveryDetailsError}
                     label={i18n.t('deliveryDetails')}
                     labelFontSize={scale(12)}
@@ -334,7 +334,7 @@ function NewAddress(props) {
                       textColor={currentTheme.fontMainColor}
                       h5
                       bolder>
-                      {i18n.t('addLabel')}
+                      Add Label
                     </TextDefault>
                   </View>
                   <View style={styles().buttonInline}>
@@ -374,7 +374,7 @@ function NewAddress(props) {
                           textColor={currentTheme.black}
                           bold
                           center>
-                          {i18n.t(label.title)}
+                          {label.title}
                         </TextDefault>
                       </>
                     ))}
@@ -387,10 +387,10 @@ function NewAddress(props) {
               disabled={loading}
               onPress={() => {
                 const deliveryAddressError = !deliveryAddress.trim().length
-                  ? i18n.t('DeliveryAddressIsRequired')
+                  ? 'Delivery address is required'
                   : null
                 const deliveryDetailsError = !deliveryDetails.trim().length
-                  ? i18n.t('DeliveryAddressIsRequired')
+                  ? 'Delivery details is required'
                   : null
 
                 setDeliveryAddressError(deliveryAddressError)

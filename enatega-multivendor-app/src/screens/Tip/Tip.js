@@ -26,7 +26,7 @@ function Tip(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: null,
-      title: i18n.t('titleTipping'),
+      title: 'Tipping',
       headerTitleAlign: 'center',
       headerTitleContainerStyle: {
         marginTop: '1%',
@@ -66,9 +66,9 @@ function Tip(props) {
   }, [])
   function onTipping() {
     const tipAmount = tipRef.current.value()
-    if (isNaN(tipAmount)) FlashMessage({ message: i18n.t('invalidAmount') })
+    if (isNaN(tipAmount)) FlashMessage({ message: 'Invalid Amount' })
     else if (Number(tipAmount) <= 0) {
-      FlashMessage({ message: i18n.t('amountMustBe') })
+      FlashMessage({ message: 'Amount must be greater than 0' })
     } else navigation.navigate('Cart', { tipAmount: Number(tipAmount) })
   }
 
@@ -81,8 +81,8 @@ function Tip(props) {
           <View style={styles(currentTheme).innerContainer}>
             <OutlinedTextField
               ref={tipRef}
-              label={i18n.t('otherAmount')}
-              placeholder={i18n.t('addOtherAmount')}
+              label={'Other amount'}
+              placeholder="Add other amount"
               labelFontSize={scale(12)}
               fontSize={scale(12)}
               textAlignVertical="top"

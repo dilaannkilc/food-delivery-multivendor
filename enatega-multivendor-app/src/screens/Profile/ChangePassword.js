@@ -54,11 +54,11 @@ function ChangePassword(props) {
     if (data.changePassword) {
       clearFields()
       FlashMessage({
-        message: i18n.t('updatePassword')
+        message: 'Password Updated'
       })
       props.hideModal()
     } else {
-      Alert.alert('Error', i18n.t('invalidPassword'))
+      Alert.alert('Error', 'Invalid password')
     }
   }
 
@@ -71,7 +71,7 @@ function ChangePassword(props) {
         <View style={styles(currentTheme).modalContent}>
           <View style={styles(currentTheme).titleContainer}>
             <TextDefault textColor={currentTheme.darkBgFont} B700 bolder H4>
-              {i18n.t('changePassword')}
+              Change password
             </TextDefault>
           </View>
 
@@ -79,7 +79,7 @@ function ChangePassword(props) {
             <View style={{ ...alignment.MTsmall }}>
               <OutlinedTextField
                 autoFocus={true}
-                label={i18n.t('changePassword')}
+                label="Current Password"
                 labelFontSize={scale(10)}
                 fontSize={scale(12)}
                 labelHeight={10}
@@ -93,7 +93,7 @@ function ChangePassword(props) {
                 onChangeText={setOldPassword}
                 onBlur={() => {
                   setOldPasswordError(
-                    !oldPassword ? i18n.t('passErr1') : ''
+                    !oldPassword ? 'Password is required' : ''
                   )
                 }}
               />
@@ -103,7 +103,7 @@ function ChangePassword(props) {
             <View style={{ ...alignment.MTsmall }}>
               <OutlinedTextField
                 autoFocus={true}
-                label={i18n.t('newPassword')}
+                label="New Password"
                 labelFontSize={scale(10)}
                 fontSize={scale(12)}
                 labelHeight={10}
@@ -123,7 +123,7 @@ function ChangePassword(props) {
                 onChangeText={setNewPassword}
                 onBlur={() => {
                   setNewPasswordError(
-                    !newPassword ? i18n.t('passErr1') : ''
+                    !newPassword ? 'Password is required' : ''
                   )
                 }}
               />
@@ -137,9 +137,9 @@ function ChangePassword(props) {
                 props.hideModal()
               }
               const newPasswordError =
-                newPassword === '' ? i18n.t('passErr1') : ''
+                newPassword === '' ? 'Password is required' : ''
               const oldPasswordError =
-                oldPassword === '' ? i18n.t('passErr1') : ''
+                oldPassword === '' ? 'Password is required' : ''
               setNewPasswordError(newPasswordError)
               setOldPasswordError(oldPasswordError)
 
@@ -159,7 +159,7 @@ function ChangePassword(props) {
               small>
               {newPassword !== '' && oldPassword !== ''
                 ? i18n.t('apply')
-                : i18n.t('Cancel')}
+                : 'Cancel'}
             </TextDefault>
           </TouchableOpacity>
         </View>

@@ -51,7 +51,7 @@ export const useResetYourPassword = () => {
 
   function onCompleted(data) {
     FlashMessage({
-      message: i18n.t('passwordResetSuccessfully')
+      message: 'Password Reset successfully!'
     })
     navigation.navigate('Login')
   }
@@ -73,7 +73,7 @@ export const useResetYourPassword = () => {
       if (password === confirmPassword) {
         mutate({ variables: { password, email: email.toLowerCase().trim() } })
       } else {
-        setConfirmPasswordError(i18n.t('passwordMustMatch'))
+        setConfirmPasswordError('Password must match with confirm password')
       }
     }
   }

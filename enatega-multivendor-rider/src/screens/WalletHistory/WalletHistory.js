@@ -10,7 +10,6 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
 import RequestCard from '../../components/WalletCard/WithDrawRequestCard'
 import UserContext from '../../context/user'
-import i18n from '../../../i18n'
 
 const WALLET_HISTORY = gql`
   ${riderWithdrawRequest}
@@ -35,7 +34,9 @@ const WalletHistory = () => {
   if (errorProfile) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <TextDefault>{i18n.t('errorFetchingRider')}</TextDefault>
+        <TextDefault>
+          an error occured while fetching rider information
+        </TextDefault>
       </View>
     )
   }
@@ -45,14 +46,14 @@ const WalletHistory = () => {
         <Spinner />
       ) : error ? (
         <TextDefault center H5 textColor={colors.fontSecondColor}>
-          {i18n.t('errorOccured')}
+          An Error occured!
         </TextDefault>
       ) : (
         <FlatList
           style={styles.transactionHistory}
           ListHeaderComponent={
             <Amount
-              text={i18n.t('totalEarned')}
+              text="Total Earned"
               amount={dataProfile.rider.totalWalletAmount}
             />
           }

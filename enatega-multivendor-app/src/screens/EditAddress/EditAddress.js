@@ -59,7 +59,6 @@ const labelValues = [
     icon: <Foundation name="heart" size={24} />
   }
 ]
-
 const LATITUDE_DELTA = 0.0022
 const LONGITUDE_DELTA = 0.0021
 
@@ -180,7 +179,7 @@ function EditAddress(props) {
       })
     }
     FlashMessage({
-      message: i18n.t('addressUpdated')
+      message: 'Address updated'
     })
     // show message here
     props.navigation.goBack()
@@ -188,7 +187,7 @@ function EditAddress(props) {
 
   function onError(error) {
     FlashMessage({
-      message: `${i18n.t('errorOccured')} ${error}`
+      message: `An error occured. Please try again ${error}`
     })
   }
 
@@ -266,7 +265,7 @@ function EditAddress(props) {
                   <View style={styles(currentTheme).geoLocation}>
                     <View style={{ width: '100%' }}>
                       <OutlinedTextField
-                        placeholder={i18n.t('deliveryAddress')}
+                        placeholder="Delivery Address"
                         error={deliveryAddressError}
                         ref={addressRef}
                         value={deliveryAddress}
@@ -301,7 +300,7 @@ function EditAddress(props) {
                         onBlur={() => {
                           setDeliveryAddressError(
                             !deliveryAddress.trim().length
-                              ? i18n.t('DeliveryAddressIsRequired')
+                              ? 'Delivery address is required'
                               : null
                           )
                         }}
@@ -310,7 +309,7 @@ function EditAddress(props) {
                   </View>
                   <View style={{ ...alignment.MTlarge }}></View>
                   <OutlinedTextField
-                    placeholder={i18n.t('aptFloor')}
+                    placeholder="Apt / Floor"
                     error={deliveryDetailsError}
                     label={i18n.t('deliveryDetails')}
                     labelFontSize={scale(12)}
@@ -336,7 +335,7 @@ function EditAddress(props) {
                     onBlur={() => {
                       setDeliveryDetailsError(
                         !deliveryDetails.trim().length
-                          ? i18n.t('DeliveryAddressIsRequired')
+                          ? 'Delivery details is required'
                           : null
                       )
                     }}
@@ -350,7 +349,7 @@ function EditAddress(props) {
                       textColor={currentTheme.fontMainColor}
                       H5
                       bolder>
-                      {i18n.t('addLabel')}
+                      Add Label
                     </TextDefault>
                   </View>
                   <View style={styles().buttonInline}>
@@ -390,7 +389,7 @@ function EditAddress(props) {
                           textColor={currentTheme.black}
                           bold
                           center>
-                          {i18n.t(label.title)}
+                          {label.title}
                         </TextDefault>
                       </>
                     ))}
@@ -403,10 +402,10 @@ function EditAddress(props) {
               disabled={loading}
               onPress={() => {
                 const deliveryAddressError = !deliveryAddress.trim().length
-                  ? i18n.t('DeliveryAddressIsRequired')
+                  ? 'Delivery address is required'
                   : null
                 const deliveryDetailsError = !deliveryDetails.trim().length
-                  ? i18n.t('DeliveryAddressIsRequired')
+                  ? 'Delivery details is required'
                   : null
 
                 setDeliveryAddressError(deliveryAddressError)

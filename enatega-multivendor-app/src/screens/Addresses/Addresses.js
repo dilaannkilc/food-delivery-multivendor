@@ -117,14 +117,14 @@ function Addresses() {
           <View style={styles().descriptionEmpty}>
             <View style={styles().viewTitle}>
               <TextDefault textColor={currentTheme.fontMainColor} bolder>
-                {i18n.t('emptyHere')}
+                It&#39;s empty here.
               </TextDefault>
             </View>
             <View>
               <TextDefault textColor={currentTheme.fontMainColor} bold>
-                {i18n.t('emptyHereDecs1')}
+                You haven&#39;t saved any address yet.
                 {'\n'}
-                {i18n.t('emptyHereDecs2')}
+                Click Add New Address to get started
               </TextDefault>
             </View>
           </View>
@@ -154,8 +154,8 @@ function Addresses() {
                   <TextDefault
                     textColor={currentTheme.darkBgFont}
                     style={styles(currentTheme).labelStyle}>
-                    {i18n.t(address.label)}
-                  </TextDefault> 
+                    {address.label}
+                  </TextDefault>
                 </View>
                 <View style={{ ...alignment.MTxSmall }}></View>
 

@@ -47,7 +47,6 @@ import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
 import { MaterialIcons } from '@expo/vector-icons'
 import { scale } from '../../utils/scaling'
-
 const languageTypes = [
   { value: 'English', code: 'en', index: 0 },
   { value: 'français', code: 'fr', index: 1 },
@@ -227,7 +226,7 @@ function Settings(props) {
 
   function onCompleted() {
     FlashMessage({
-      message: i18n.t('notificationStatusUpdated')
+      message: 'Notification Status Updated'
     })
   }
 
@@ -236,14 +235,14 @@ function Settings(props) {
       FlashMessage({
         message: error.networkError.result.errors[0].message
       })
-    } catch (err) {}
+    } catch (err) { }
   }
 
   async function updateNotificationStatus(notificationCheck) {
     let orderNotify, offerNotify
     if (!Device.isDevice) {
       FlashMessage({
-        message: i18n.t('notificationNotWork')
+        message: 'Notification do not work on simulator'
       })
       return
     }
@@ -272,7 +271,7 @@ function Settings(props) {
   }
   if (errorProfile) {
     FlashMessage({
-      message: i18n.t('errorInProfile')
+      message: 'Error in profile'
     })
   }
   if (loadingProfile) return <Spinner />
@@ -289,7 +288,7 @@ function Settings(props) {
                 <TextDefault
                   numberOfLines={1}
                   textColor={currentTheme.fontSecondColor}>
-                  {i18n.t('languageSetting')}
+                  Language Setting
                 </TextDefault>
               </View>
               <TouchableOpacity
@@ -322,10 +321,9 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {i18n.t('receiveSpecialOffers')}
-                {' '}
+                Receive Special Offers{' '}
               </TextDefault>
-              <View>
+              <View style={{ paddingLeft: '44%' }}>
                 <CheckboxBtn
                   checked={offerNotification}
                   onPress={() => {
@@ -361,10 +359,9 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {i18n.t('getUpdates')}
-                {' '}
+                Get updates on your order status!{' '}
               </TextDefault>
-              <View>
+              <View style={{ paddingLeft: '24%' }}>
                 <CheckboxBtn
                   checked={orderNotification}
                   onPress={() => {
@@ -397,10 +394,9 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {i18n.t('turnOnDarkTheme')}
-                {' '}
+                Turn on Dark Theme
               </TextDefault>
-              <View>
+              <View style={{ paddingLeft: '48%' }}>
                 <CheckboxBtn
                   checked={darkTheme}
                   onPress={() => toggleTheme()}
@@ -427,9 +423,7 @@ function Settings(props) {
                     modalizeRef.current.open('top')
                   }}>
                   <Ionicons name="trash-outline" size={30} color={'white'} />
-                  <Text style={styles(currentTheme).deleteButtonText}>
-                    {i18n.t('DELETEACCOUNT')}
-                  </Text>
+                  <Text style={styles(currentTheme).deleteButtonText}>DELETE ACCOUNT</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -454,7 +448,7 @@ function Settings(props) {
             bolder
             H5
             style={alignment.MBsmall}>
-            {i18n.t('selectLanguage')}
+            Select Language
           </TextDefault>
 
           {languageTypes.map((item, index) => (
@@ -491,7 +485,7 @@ function Settings(props) {
                 small
                 bolder
                 uppercase>
-                {i18n.t('Cancel')}
+                Cancel
               </TextDefault>
             </TouchableOpacity>
             <TouchableOpacity
@@ -503,7 +497,7 @@ function Settings(props) {
                 bolder
                 uppercase
                 small>
-                {i18n.t('Select')}
+                Select
               </TextDefault>
             </TouchableOpacity>
           </View>
@@ -521,7 +515,7 @@ function Settings(props) {
         keyboardAvoidingBehavior="height">
         <View style={{ flex: 1, alignItems: 'center' }}>
           <TextDefault bolder H5 style={{ marginTop: 20 }}>
-            {i18n.t('DeleteConfirmation')}
+            Are you Sure you want to delete Account?
           </TextDefault>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -542,14 +536,14 @@ function Settings(props) {
               })
             }}>
             <TextDefault center bold>
-              {i18n.t('DeleteAccount')}
+              Delete Account
             </TextDefault>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.7}
             style={{ width: '100%', paddingTop: 30, paddingBottom: 40 }}
             onPress={() => onClose()}>
-            <TextDefault center> {i18n.t('Cancel')}</TextDefault>
+            <TextDefault center>Cancel</TextDefault>
           </TouchableOpacity>
         </View>
       </Modalize>

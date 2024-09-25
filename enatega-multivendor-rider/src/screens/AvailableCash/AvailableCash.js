@@ -10,7 +10,6 @@ import Spinner from '../../components/Spinner/Spinner'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
 import UserContext from '../../context/user'
-import i18n from '../../../i18n'
 const AVAILABLE_CASH = gql`
   ${riderEarnings}
 `
@@ -35,7 +34,9 @@ const AvailableCash = () => {
   if (errorProfile) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <TextDefault>{i18n.t('errorFetchingRider')}</TextDefault>
+        <TextDefault>
+          an error occured while fetching rider information
+        </TextDefault>
       </View>
     )
   }
@@ -45,7 +46,7 @@ const AvailableCash = () => {
         <Spinner />
       ) : error ? (
         <TextDefault center H5 textColor={colors.fontSecondColor}>
-          {i18n.t('errorOccured')}
+          An Error occured!
         </TextDefault>
       ) : (
         <FlatList
@@ -54,7 +55,7 @@ const AvailableCash = () => {
           style={styles.transactionHistory}
           ListHeaderComponent={
             <Amount
-              text={i18n.t('totalAmount')}
+              text="Total Amount"
               amount={dataProfile.rider.totalWalletAmount}
             />
           }

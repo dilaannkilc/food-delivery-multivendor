@@ -16,38 +16,37 @@ import RandomShape from '../../../assets/SVG/RandomShape'
 import Analytics from '../../../utils/analytics'
 import OrdersContext from '../../../context/Orders'
 import Spinner from '../../Spinner/Spinner'
-import i18n from '../../../../i18n'
 
 const orderStatuses = [
   {
     key: 'PENDING',
     status: 1,
-    statusText: 'pendingOrder'
+    statusText: 'Your order is still pending.'
   },
   {
     key: 'ACCEPTED',
     status: 2,
-    statusText: 'acceptedOrder'
+    statusText: 'Restaurant is preparing Food.'
   },
   {
     key: 'ASSIGNED',
     status: 3,
-    statusText: 'assignedOrder'
+    statusText: 'Assigned a rider.'
   },
   {
     key: 'PICKED',
     status: 4,
-    statusText: 'pickedOrder'
+    statusText: 'Rider is on the way.'
   },
   {
     key: 'DELIVERED',
     status: 5,
-    statusText: 'deliveredOrder'
+    statusText: 'Order is delivered.'
   },
   {
     key: 'COMPLETED',
     status: 6,
-    statusText: 'completedOrder'
+    statusText: 'Order is completed.'
   }
 ]
 
@@ -95,7 +94,7 @@ const ActiveOrders = () => {
                 onPress={() => setShowAll(!showAll)}
                 style={styles().button}>
                 <Text style={styles().buttonText}>
-                  {showAll ? i18n.t('viewLess') : i18n.t('viewAll')}
+                  {showAll ? 'View Less' : 'View All'}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -172,7 +171,7 @@ const Item = ({ navigation, configuration, currentTheme, item }) => {
                 ))}
             </View>
             <Text numberOfLines={1} style={styles(currentTheme).statusText}>
-              {i18n.t(checkStatus(item.orderStatus).statusText)}
+              {checkStatus(item.orderStatus).statusText}
             </Text>
           </View>
         </View>

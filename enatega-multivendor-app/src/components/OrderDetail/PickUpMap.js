@@ -5,7 +5,6 @@ import { scale } from '../../utils/scaling'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { linkToMapsApp } from '../../utils/links'
 import { mapStyle } from '../../utils/mapStyle'
-import i18n from '../../../i18n'
 
 const { width, height } = Dimensions.get('window')
 
@@ -67,7 +66,7 @@ const PickUpMap = ({ deliveryAddress, pickupAddress }) => {
         }}
         provider={PROVIDER_GOOGLE}>
         <Marker
-          title={i18n.t('pickUpAddress')}
+          title="PickUp Address"
           coordinate={{
             latitude: parseFloat(pickupAddress.location.coordinates[1]),
             longitude: parseFloat(pickupAddress.location.coordinates[0])

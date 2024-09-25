@@ -6,7 +6,6 @@ import { scale } from '../../../utils/scaling'
 import Spinner from '../../../components/Spinner/Spinner'
 import TextDefault from '../../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../../utils/alignment'
-import i18n from '../../../../i18n'
 
 const FdGoogleBtn = props => {
   return (
@@ -26,7 +25,7 @@ const FdGoogleBtn = props => {
             color="#FFF"
           />
           <TextDefault H4 textColor="#FFF" style={alignment.MLsmall} bold>
-            {i18n.t('ContinueWithGoogle')}
+            Continue with Google
           </TextDefault>
         </>
       )}

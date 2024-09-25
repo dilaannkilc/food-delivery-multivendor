@@ -4,7 +4,6 @@ import { TextDefault } from '..'
 import styles from './styles'
 import { colors } from '../../utilities'
 import { Badge } from 'react-native-elements'
-import {useTranslation} from 'react-i18next'
 
 export default function TabBars(props) {
   const { setActiveBar, newAmount, processingAmount } = props
@@ -14,7 +13,7 @@ export default function TabBars(props) {
   const handleDelivered = async () => {
     setActiveBar(2)
   }
-  const {t} = useTranslation()
+
   return (
     <View style={styles.barContainer}>
       <Pressable
@@ -37,10 +36,9 @@ export default function TabBars(props) {
 
         <TextDefault
           style={{ color: props.activeBar === 0 ? colors.green : 'black' }}>
-          {t('newOrders')}
+          New Orders
         </TextDefault>
       </Pressable>
-      
       <Pressable
         onPress={handleProcess}
         style={[
@@ -60,7 +58,7 @@ export default function TabBars(props) {
         ) : null}
         <TextDefault
           style={{ color: props.activeBar === 1 ? colors.green : 'black' }}>
-          {t('processing')}
+          Processing
         </TextDefault>
       </Pressable>
       <Pressable
@@ -73,7 +71,7 @@ export default function TabBars(props) {
         ]}>
         <TextDefault
           style={{ color: props.activeBar === 2 ? colors.green : 'black' }}>
-          {t('deliveredOrders')}
+          Delivered
         </TextDefault>
       </Pressable>
     </View>

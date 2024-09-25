@@ -50,7 +50,7 @@ export const useForgotPassword = () => {
 
   function onCompleted(data) {
     FlashMessage({
-      message: i18n.t('otpForResetPassword')
+      message: 'OTP for reset password has been sent to your email.'
     })
     navigation.navigate('ForgotPasswordOtp', { otp, email })
   }

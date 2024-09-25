@@ -7,7 +7,6 @@ import Spinner from '../../Spinner/Spinner'
 import TextError from '../../Text/TextError/TextError'
 import CountDown from 'react-native-countdown-component'
 import useDetails from './useDetails'
-import i18n from '../../../../i18n'
 
 const Details = ({ orderData, navigation, itemId, distance, duration }) => {
   const {
@@ -32,13 +31,13 @@ const Details = ({ orderData, navigation, itemId, distance, duration }) => {
         <>
           <View>
             <TextDefault H3 bolder center textColor={colors.black}>
-              {i18n.t('preparing')}
+              Preparing
             </TextDefault>
           </View>
           <View style={styles.horizontalLine} />
           <View style={styles.timeContainer}>
             <TextDefault center bold H5 textColor={colors.fontSecondColor}>
-              {i18n.t('timeLeftForMeal')}
+              Time Left To Prepare Meal
             </TextDefault>
             <CountDown
               until={preparationSeconds - currentSeconds}
@@ -53,7 +52,7 @@ const Details = ({ orderData, navigation, itemId, distance, duration }) => {
           {distance !== null ? (
             <View style={styles.timeContainer}>
               <TextDefault center bold H5 textColor={colors.fontSecondColor}>
-                {i18n.t('distanceToDestination')}
+                Distance to destination
               </TextDefault>
               <TextDefault center bolder H2>
                 {`${distance.toFixed(2)} km`}
@@ -63,7 +62,7 @@ const Details = ({ orderData, navigation, itemId, distance, duration }) => {
           {duration !== null ? (
             <View style={styles.timeContainer}>
               <TextDefault center bold H5 textColor={colors.fontSecondColor}>
-                {i18n.t('durationToDestination')}
+                Duration to reach destination
               </TextDefault>
               <TextDefault center bolder H2>
                 {`${duration.toFixed(0)} mins`}
@@ -79,11 +78,7 @@ const Details = ({ orderData, navigation, itemId, distance, duration }) => {
                 }}
                 style={[styles.btn, { backgroundColor: colors.black }]}>
                 <TextDefault center H5 bold textColor={colors.white}>
-                  {loadingAssignOrder ? (
-                    <Spinner size="small" />
-                  ) : (
-                    i18n.t('assignMe')
-                  )}
+                  {loadingAssignOrder ? <Spinner size="small" /> : 'Assign me'}
                 </TextDefault>
               </TouchableOpacity>
             </View>
@@ -99,11 +94,7 @@ const Details = ({ orderData, navigation, itemId, distance, duration }) => {
                 activeOpacity={0.8}
                 style={[styles.btn, { backgroundColor: colors.black }]}>
                 <TextDefault center bold H5 textColor={colors.white}>
-                  {loadingOrderStatus ? (
-                    <Spinner size="small" />
-                  ) : (
-                    i18n.t('pick')
-                  )}
+                  {loadingOrderStatus ? <Spinner size="small" /> : 'Pick'}
                 </TextDefault>
               </TouchableOpacity>
             </View>
@@ -126,7 +117,7 @@ const Details = ({ orderData, navigation, itemId, distance, duration }) => {
                   {loadingOrderStatus ? (
                     <Spinner size="small" color="transparent" />
                   ) : (
-                    i18n.t('markAsDelivered')
+                    'Mark as Delivered'
                   )}
                 </TextDefault>
               </TouchableOpacity>
@@ -137,7 +128,7 @@ const Details = ({ orderData, navigation, itemId, distance, duration }) => {
 
       <View style={styles.heading}>
         <TextDefault bolder H1 center textColor={colors.primary}>
-          {i18n.t('OrderDetail')}
+          Order Details
         </TextDefault>
       </View>
       <OrderDetails order={order} />
@@ -160,7 +151,7 @@ const OrderDetails = ({ order }) => {
           bold
           H5
           style={styles.col1}>
-          {i18n.t('yourOrderFrom')}
+          Your Order From
         </TextDefault>
         <TextDefault bolder H5 textColor={colors.black} style={styles.col2}>
           {order.restaurant.name}
@@ -172,7 +163,7 @@ const OrderDetails = ({ order }) => {
           bold
           H5
           style={styles.col1}>
-          {i18n.t('orderNo')}
+          Order No.
         </TextDefault>
         <TextDefault bolder H5 textColor={colors.black} style={styles.col2}>
           {order.orderId}
@@ -184,7 +175,7 @@ const OrderDetails = ({ order }) => {
           bold
           H5
           style={styles.col1}>
-          {i18n.t('deliveryAddress')}
+          Delivery Address
         </TextDefault>
         <TextDefault bolder H5 textColor={colors.black} style={styles.col2}>
           {order.deliveryAddress.deliveryAddress}
@@ -197,7 +188,7 @@ const OrderDetails = ({ order }) => {
 const ItemDetails = ({ order, dataConfig, loading, error }) => {
   let subTotal = 0
   if (loading) return <Spinner />
-  if (error) return <TextError text={i18n.t('errorText')} />
+  if (error) return <TextError text="Something went wrong. Try again later!" />
   return (
     <View style={styles.orderDetails}>
       {order.items.map(item => {
@@ -213,13 +204,13 @@ const ItemDetails = ({ order, dataConfig, loading, error }) => {
               </TextDefault>
               {item.addons
                 ? item.addons.map(addon => (
-                    <TextDefault
-                      key={addon._id}
-                      textColor={colors.fontSecondColor}
-                      bold>
-                      {addon.title}
-                    </TextDefault>
-                  ))
+                  <TextDefault
+                    key={addon._id}
+                    textColor={colors.fontSecondColor}
+                    bold>
+                    {addon.title}
+                  </TextDefault>
+                ))
                 : null}
             </View>
             <TextDefault
@@ -240,7 +231,7 @@ const ItemDetails = ({ order, dataConfig, loading, error }) => {
           bold
           H5
           style={[styles.coll2, { flex: 9 }]}>
-          {i18n.t('subTotal')}
+          Sub Total
         </TextDefault>
         <TextDefault
           bolder
@@ -257,7 +248,7 @@ const ItemDetails = ({ order, dataConfig, loading, error }) => {
           bold
           H5
           style={[styles.coll2, { flex: 9 }]}>
-          {i18n.t('tip')}
+          Tip
         </TextDefault>
         <TextDefault
           bolder
@@ -274,7 +265,7 @@ const ItemDetails = ({ order, dataConfig, loading, error }) => {
           bold
           H5
           style={[styles.coll2, { flex: 9 }]}>
-          {i18n.t('taxCharges')}
+          Tax Charges
         </TextDefault>
         <TextDefault
           bolder
@@ -291,7 +282,7 @@ const ItemDetails = ({ order, dataConfig, loading, error }) => {
           bold
           H5
           style={[styles.coll2, { flex: 9 }]}>
-          {i18n.t('delvieryCharges')}
+          Delivery Charges
         </TextDefault>
         <TextDefault
           bolder
@@ -309,7 +300,7 @@ const ItemDetails = ({ order, dataConfig, loading, error }) => {
           bold
           H5
           style={[styles.coll2, { flex: 9 }]}>
-          {i18n.t('total')}
+          TOTAL
         </TextDefault>
         <TextDefault
           bolder
@@ -335,7 +326,7 @@ const ChatWithCustomerButton = ({ navigation, order }) => (
     activeOpacity={0.8}
     style={[styles.btn, { backgroundColor: colors.black }]}>
     <TextDefault center H5 bold textColor={colors.white}>
-      {i18n.t('chatWithCustomer')}
+      Chat with Customer
     </TextDefault>
   </TouchableOpacity>
 )

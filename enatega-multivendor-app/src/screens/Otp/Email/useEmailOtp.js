@@ -11,7 +11,6 @@ import * as Device from 'expo-device'
 import * as Notifications from 'expo-notifications'
 import Analytics from '../../../utils/analytics'
 import AuthContext from '../../../context/Auth'
-import i18n from '../../../../i18n'
 
 const SEND_OTP_TO_EMAIL = gql`
   ${sendOtpToEmail}
@@ -46,7 +45,7 @@ const useEmailOtp = () => {
 
   function onCompleted(data) {
     FlashMessage({
-      message: i18n.t('otpSentToEmail')
+      message: 'OTP sent to your email.'
     })
   }
 
@@ -65,7 +64,7 @@ const useEmailOtp = () => {
   async function onCreateUserCompleted(data) {
     try {
       FlashMessage({
-        message: i18n.t('accountCreated')
+        message: 'Your account has been created.'
       })
       await Analytics.identify(
         {

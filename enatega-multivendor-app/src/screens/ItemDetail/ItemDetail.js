@@ -25,7 +25,6 @@ import Analytics from '../../utils/analytics'
 import { HeaderBackButton } from '@react-navigation/elements'
 import { MaterialIcons } from '@expo/vector-icons'
 import navigationService from '../../routes/navigationService'
-import i18n from '../../../i18n'
 
 function ItemDetail(props) {
   
@@ -80,7 +79,7 @@ function ItemDetail(props) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: null,
-      title: i18n.t('titleCustomize'),
+      title: 'Customize',
       headerTitleContainerStyle: {
         marginTop: scale(10),
         paddingLeft: scale(15),
@@ -325,20 +324,18 @@ function ItemDetail(props) {
               />
 
               {food.variations.length > 1 && (
-               <>
-                  <View>
-                    <TitleComponent
-                      title={i18n.t('SelectVariation')}
-                      subTitle={i18n.t('SelectOne')}
-                      status={i18n.t('Required')}
-                    />
-                    <RadioComponent
-                      options={food.variations}
-                      selected={selectedVariation}
-                      onPress={onSelectVariation}
-                    />
-                  </View>
-               </>
+                <View>
+                  <TitleComponent
+                    title="Select Variation"
+                    subTitle="Select one"
+                    status="Required"
+                  />
+                  <RadioComponent
+                    options={food.variations}
+                    selected={selectedVariation}
+                    onPress={onSelectVariation}
+                  />
+                </View>
               )}
               {selectedVariation.addons.map(addon => (
                 <View key={addon._id}>
@@ -359,13 +356,13 @@ function ItemDetail(props) {
             <View style={styles(currentTheme).line}></View>
             <View style={styles(currentTheme).inputContainer}>
               <TitleComponent
-                title={i18n.t('specialInstructions')}
-                subTitle={i18n.t('anySpecificPreferences')}
-                status={i18n.t('optional')}
+                title="Special instructions"
+                subTitle="Any specific preferences?"
+                status="Optional"
               />
               <TextField
                 style={styles(currentTheme).input}
-                placeholder={i18n.t('noMayo')}
+                placeholder={'E.g No mayo'}
                 textAlignVertical="center"
                 value={specialInstructions}
                 onChangeText={setSpecialInstructions}

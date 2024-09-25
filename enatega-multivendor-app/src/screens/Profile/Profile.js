@@ -125,7 +125,7 @@ function Profile(props) {
   function onCompleted({ updateUser }) {
     if (updateUser) {
       FlashMessage({
-        message: i18n.t('userInfoUpdated')
+        message: "User's Info Updated"
       })
       if (backScreen) {
         props.navigation.goBack()
@@ -141,7 +141,7 @@ function Profile(props) {
     if (name !== profile.name) {
       if (!name.trim()) {
         refName.current.focus()
-        setNameError(i18n.t('nameError'))
+        setNameError('Name is required')
         return false
       }
 
@@ -266,7 +266,7 @@ function Profile(props) {
               <TextDefault
                 textColor={currentTheme.white}
               >
-                {profile.phoneIsVerified ? i18n.t('verified') : i18n.t('unverified')}</TextDefault>
+                {profile.phoneIsVerified ? "Verified" : 'Unverified'}</TextDefault>
             </View>
           )}
         </View>
@@ -286,7 +286,7 @@ function Profile(props) {
           setModalVisible(false)
         }}
       />
-      <Text style={styles(currentTheme).titleContainer}>{i18n.t('profileDetail')}</Text>
+      <Text style={styles(currentTheme).titleContainer}>Personal details</Text>
       <View style={styles(currentTheme).formContainer}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : null}
@@ -296,8 +296,8 @@ function Profile(props) {
               {toggleNameView && (
                 <>
                   <View style={styles(currentTheme).headingTitle}>
-                    <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont} style={styles(currentTheme).textAlignLeft}>
-                      {i18n.t('name')}
+                    <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont}>
+                      Name
                     </TextDefault>
                   </View>
 
@@ -318,8 +318,8 @@ function Profile(props) {
               <View>
                 <View style={styles(currentTheme).containerHeading}>
                   <View style={styles(currentTheme).headingTitle}>
-                      <TextDefault H5 B700 bolder style={styles(currentTheme).textAlignLeft}>
-                        {i18n.t('name')}
+                    <TextDefault H5 B700 bolder >
+                      Name
                     </TextDefault>
                   </View>
                 </View>
@@ -342,7 +342,7 @@ function Profile(props) {
                   activeOpacity={0.7}
                   style={styles(currentTheme).saveContainer}
                   onPress={handleNamePressUpdate}>
-                    <TextDefault style={styles(currentTheme).textAlignLeft}>{i18n.t('update')}</TextDefault>
+                  <TextDefault>Update</TextDefault>
                 </TouchableOpacity>
               </View>
             )}
@@ -353,8 +353,8 @@ function Profile(props) {
             <View style={styles().containerHeading}>
               <>
                 <View style={styles().headingTitle}>
-                  <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont} style={styles(currentTheme).textAlignLeft}>
-                    {i18n.t('email')}
+                  <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont}>
+                    Email
                   </TextDefault>
                 </View>
               </>
@@ -367,8 +367,8 @@ function Profile(props) {
             <View style={styles().containerHeading}>
               <>
                 <View style={styles().headingTitle}>
-                  <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont} style={styles(currentTheme).textAlignLeft}>
-                    {i18n.t('password')}
+                  <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont}>
+                    Password
                   </TextDefault>
                 </View>
 
@@ -391,8 +391,8 @@ function Profile(props) {
               {toggleView && (
                 <>
                   <View style={styles().headingTitle}>
-                    <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont} style={styles(currentTheme).textAlignLeft}>
-                      {i18n.t('mobile')}
+                    <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont}>
+                      Mobile
                     </TextDefault>
                   </View>
                   <View style={styles().headingLink}>
@@ -420,9 +420,8 @@ function Profile(props) {
                       textColor={currentTheme.fontMainColor}
                       H5
                       B700
-                      bolder
-                        style={styles(currentTheme).textAlignLeft}>
-                        {i18n.t('mobile')}
+                      bolder>
+                      Mobile
                     </TextDefault>
                   </View>
                 </View>
@@ -454,10 +453,10 @@ function Profile(props) {
                                 : currentTheme.textErrorColor
                             }>
                             {profile.phone === ''
-                              ? i18n.t('addPhone')
+                              ? 'Add Phone'
                               : profile.phoneIsVerified
-                                ? i18n.t('verified')
-                                : i18n('verify')}
+                                ? 'Verified'
+                                : 'Verify?'}
                           </TextDefault>
                         </TouchableOpacity>
                       )}
