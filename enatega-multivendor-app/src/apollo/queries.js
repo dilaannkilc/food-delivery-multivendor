@@ -168,7 +168,6 @@ export const getConfiguration = `query Configuration{
     currency
     currencySymbol
     deliveryRate
-    twilioEnabled
   }
 }`
 
