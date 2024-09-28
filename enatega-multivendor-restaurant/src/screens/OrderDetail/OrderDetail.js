@@ -12,10 +12,10 @@ import moment from 'moment'
 import { useCancelOrder, useOrderPickedUp, useOrderRing } from '../../ui/hooks'
 import CountDown from 'react-native-countdown-component'
 import { useRestaurantContext } from '../../ui/context/restaurant'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 export default function OrderDetail({ navigation, route }) {
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const { activeBar, orderData, preparationTime, createdAt } = route.params
   const { _id, orderDate } = orderData
   const { cancelOrder, loading: cancelLoading } = useCancelOrder()
@@ -48,8 +48,8 @@ export default function OrderDetail({ navigation, route }) {
   const decision = !isAcceptButtonVisible
     ? acceptTime
     : remainingTime > 0
-    ? remainingTime
-    : 0
+      ? remainingTime
+      : 0
 
   // image path
   const order = data.restaurantOrders.find(o => o._id === _id)
@@ -122,7 +122,9 @@ export default function OrderDetail({ navigation, route }) {
             <View style={{ alignItems: 'center', marginTop: 20 }}>
               <View style={{ marginBottom: 20 }}>
                 {!isAcceptButtonVisible && (
-                  <TextDefault>{t('acceptOrderText')} </TextDefault>
+                  <TextDefault>
+                    {t('acceptOrderText')}{' '}
+                  </TextDefault>
                 )}
                 {activeBar === 0 && (
                   <CountDown
@@ -167,7 +169,7 @@ export default function OrderDetail({ navigation, route }) {
               {activeBar === 0 && isAcceptButtonVisible && (
                 <>
                   <Button
-                    title={t('acceptAndPrint')}
+                    title="Accept & Print"
                     buttonStyle={{
                       backgroundColor: colors.green,
                       borderRadius: 10,
@@ -181,7 +183,7 @@ export default function OrderDetail({ navigation, route }) {
                   />
 
                   <Button
-                    title={t('accept')}
+                    title="Accept"
                     buttonStyle={{
                       backgroundColor: 'black',
                       borderRadius: 10,
@@ -206,7 +208,7 @@ export default function OrderDetail({ navigation, route }) {
               {activeBar === 1 && (
                 <>
                   <Button
-                    title={t('delivered')}
+                    title="Delivered"
                     buttonStyle={{
                       backgroundColor: colors.green,
                       borderColor: colors.darkgreen,
@@ -229,7 +231,7 @@ export default function OrderDetail({ navigation, route }) {
               {activeBar !== 2 && (
                 <>
                   <Button
-                    title={t('reject')}
+                    title="Reject"
                     buttonStyle={{
                       borderColor: colors.orderUncomplete,
                       borderWidth: 1.5,
