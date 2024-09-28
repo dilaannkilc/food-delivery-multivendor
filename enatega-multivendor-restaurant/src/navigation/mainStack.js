@@ -13,9 +13,7 @@ import { colors } from '../utilities/colors'
 import { gql, useApolloClient } from '@apollo/client'
 import { orders } from '../apollo'
 import { useNavigation } from '@react-navigation/native'
-import { SelectLanguage } from '../screens/Setting'
 import moment from 'moment'
-import {useTranslation} from 'react-i18next'
 import { MAX_TIME } from '../utilities'
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -29,7 +27,6 @@ const Tabs = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
 export default function MainStack() {
-  const {t} = useTranslation()
   const client = useApolloClient()
   const navigation = useNavigation()
   const lastNotificationResponse = Notifications.useLastNotificationResponse()
@@ -106,16 +103,15 @@ function DrawerNavigator() {
   )
 }
 function TabNavigator() {
-  const {t} = useTranslation()
   return (
     <Tabs.Navigator
-      initialRouteName={t('titleHome')}
+      initialRouteName="Home"
       screenOptions={({ route }) => tabIcon(route)}
       tabBarLabelStyle={{
         color: colors.green
       }}>
       <Tabs.Screen
-        name={t('titleProfile')}
+        name="Profile"
         component={SideBar}
         listeners={({ navigation }) => ({
           tabPress: e => {
@@ -125,7 +121,7 @@ function TabNavigator() {
           }
         })}
       />
-      <Tabs.Screen name={t('titleHome')} component={StackNavigator} />
+      <Tabs.Screen name="Home" component={StackNavigator} />
     </Tabs.Navigator>
   )
 }
@@ -134,7 +130,6 @@ function StackNavigator() {
     <Stack.Navigator initialRouteName="Orders" screenOptions={screenOptions()}>
       <Stack.Screen name="Orders" component={OrdersScreen} />
       <Stack.Screen name="OrderDetail" component={OrderDetailScreen} />
-      <Stack.Screen name="SelectLanguage" component={SelectLanguage} />
     </Stack.Navigator>
   )
 }

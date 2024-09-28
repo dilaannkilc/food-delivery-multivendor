@@ -41,10 +41,9 @@ import styles from './styles'
 import { DAYS } from '../../utils/enums'
 import { alignment } from '../../utils/alignment'
 import TextError from '../../components/Text/TextError/TextError'
+import i18n from '../../../i18n'
 import Analytics from '../../utils/analytics'
 const { height } = Dimensions.get('screen')
-import {useTranslation} from 'react-i18next'
-
 // Animated Section List component
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList)
 const TOP_BAR_HEIGHT = height * 0.05
@@ -60,7 +59,6 @@ const config = to => ({
 })
 
 function Restaurant(props) {
-  const {t} = useTranslation()
   const scrollRef = useRef(null)
   const flatListRef = useRef(null)
   const navigation = useNavigation()
@@ -625,7 +623,7 @@ function Restaurant(props) {
                   center
                   bolder
                   small>
-                  {t('viewCart')}
+                  {i18n.t('viewCart')}
                 </TextDefault>
                 <View style={styles().buttonTextRight} />
               </TouchableOpacity>

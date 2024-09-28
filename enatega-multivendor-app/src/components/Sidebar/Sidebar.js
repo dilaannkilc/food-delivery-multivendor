@@ -2,13 +2,13 @@ import React, { useContext } from 'react'
 import { View } from 'react-native'
 import SideDrawerItems from '../Drawer/Items/DrawerItems'
 import SideDrawerProfile from '../Drawer/Profile/DrawerProfile'
+import i18n from '../../../i18n'
 import { theme } from '../../utils/themeColors'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import UserContext from '../../context/User'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import styles from './styles'
 import Analytics from '../../utils/analytics'
-import {useTranslation} from 'react-i18next'
 
 const datas = [
   {
@@ -56,7 +56,6 @@ const datas = [
 ]
 
 function SidebBar(props) {
-  const {t} = useTranslation()
   const inset = useSafeAreaInsets()
   const { isLoggedIn, logout } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
@@ -89,7 +88,7 @@ function SidebBar(props) {
                   }
                 }}
                 icon={dataItem.icon}
-                title={t(dataItem.title)}
+                title={i18n.t(dataItem.title)}
               />
             </View>
           ))}
@@ -104,7 +103,7 @@ function SidebBar(props) {
                   props.navigation.closeDrawer()
                 }}
                 icon={'logout'}
-                title={t('titleLogout')}
+                title={i18n.t('titleLogout')}
               />
             </View>
           )}

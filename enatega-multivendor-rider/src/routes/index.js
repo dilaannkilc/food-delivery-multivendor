@@ -30,13 +30,12 @@ import { AuthContext } from '../context/auth'
 import { SoundContextProvider } from '../context/sound'
 import { gql, useApolloClient } from '@apollo/client'
 import { riderOrders } from '../apollo/queries'
-import {useTranslation} from 'react-i18next'
+
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 const Tab = createBottomTabNavigator()
 
 function MyTabs() {
-  const {t} = useTranslation()
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -45,27 +44,22 @@ function MyTabs() {
       <Tab.Screen
         name="Home"
         component={NewOrders}
-        options={{ title: t('home') }}
+        options={{ title: 'Home' }}
       />
       <Tab.Screen
         name="MyOrders"
         component={Orders}
-        options={{ title: t('orders') }}
+        options={{ title: 'My Orders' }}
       />
       <Tab.Screen
         name="Wallet"
         component={Wallet}
-        options={{ title: t('wallet') }}
-      />
-      <Tab.Screen
-        name="Language"
-        component={Language}
-        options={{ title: t('language') }}
+        options={{ title: 'Wallet' }}
       />
       <Tab.Screen
         name="Profile"
         component={NoDrawer}
-        options={{ title: t('profile') }}
+        options={{ title: 'Profile' }}
         listeners={({ navigation }) => ({
           tabPress: e => {
             e.preventDefault()
@@ -156,8 +150,6 @@ function Main() {
           drawerType="slide"
           drawerPosition="right"
           drawerContent={props => <Sidebar {...props} />}>
-          {/*<Drawer.Screen name="SidebBar" component={Sidebar} />*/}
-
           <Drawer.Screen name="noDrawer" component={NoDrawer} />
         </Drawer.Navigator>
       </SoundContextProvider>

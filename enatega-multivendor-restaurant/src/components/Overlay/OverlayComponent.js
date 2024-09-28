@@ -5,10 +5,8 @@ import styles from './styles'
 import { colors, TIMES } from '../../utilities'
 import { Overlay } from 'react-native-elements'
 import { useAcceptOrder, usePrintOrder, useOrderRing } from '../../ui/hooks'
-import {useTranslation} from 'react-i18next'
 
 export default function OverlayComponent(props) {
-  const {t} = useTranslation()
   const { visible, toggle, order, print, navigation } = props
   const [selectedTime, setSelectedTime] = useState(TIMES[0])
   const { acceptOrder, loading } = useAcceptOrder()
@@ -35,9 +33,9 @@ export default function OverlayComponent(props) {
       <View style={styles.container}>
         <View style={styles.header}>
           <TextDefault H1 bolder>
-            {t('setTime')}
+            Set Time
           </TextDefault>
-          <TextDefault bold>{t('forPreparation')}</TextDefault>
+          <TextDefault bold>For Preparation</TextDefault>
         </View>
         <View style={styles.time}>
           <View
@@ -61,7 +59,7 @@ export default function OverlayComponent(props) {
                   style={{
                     color: selectedTime === time ? colors.darkgreen : 'black'
                   }}>
-                  {time + t('mins')}
+                  {time + ' mins '}
                 </TextDefault>
               </Pressable>
             ))}
@@ -72,7 +70,7 @@ export default function OverlayComponent(props) {
           style={styles.btn}
           onPress={btnPress}>
           <TextDefault bold style={{ color: colors.darkgreen }}>
-            {t('setAndAccept')}
+            Set & accept
           </TextDefault>
         </TouchableOpacity>
       </View>

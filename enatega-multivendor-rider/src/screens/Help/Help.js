@@ -7,23 +7,22 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
 import { useNavigation } from '@react-navigation/native'
 
-
 const links = [
   {
-    title: i18n.t('productPage'),
+    title: 'Product Page',
     url:
       'https://market.nativebase.io/view/enatega-multivendor-food-backend-app'
   },
   {
-    title: i18n.t('docs'),
+    title: 'Docs',
     url: 'https://enatega-multi.gitbook.io/enatega-multivendor/'
   },
   {
-    title: i18n.t('blog'),
+    title: 'Blog',
     url:
       'https://blog.geekyants.com/enatega-multivendor-foodpanda-clone-v1-0-0-e4b4f21ba1c1'
   },
-  { title: i18n.t('aboutUs'), url: 'https://ninjascode.com/pages/ourteam.html' }
+  { title: 'About Us', url: 'https://ninjascode.com/pages/ourteam.html' }
 ]
 function Help() {
   const navigation = useNavigation()

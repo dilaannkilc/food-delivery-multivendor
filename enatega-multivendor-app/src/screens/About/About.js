@@ -15,10 +15,8 @@ import { mapStyle } from '../../utils/mapStyle'
 import CustomMarker from '../../assets/SVG/imageComponents/CustomMarker'
 import Analytics from '../../utils/analytics'
 import { ScrollView } from 'react-native-gesture-handler'
-import {useTranslation} from 'react-i18next'
 
 function About(props) {
-  const {t} = useTranslation()
   const { restaurantObject, tab } = props.route.params
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
@@ -44,7 +42,7 @@ function About(props) {
   function emptyView() {
     return (
       <TextError
-        text={t('noReviewYet')}
+        text="There are no reviews yet."
         backColor={currentTheme.cartContainer}
       />
     )
@@ -59,7 +57,7 @@ function About(props) {
           style={{ ...alignment.PBxSmall }}
           textColor={currentTheme.fontMainColor}
           bolder>
-          {restaurantObject.total} {t('Reviews')}
+          {restaurantObject.total} Reviews
         </TextDefault>
         {line()}
       </>
@@ -93,7 +91,7 @@ function About(props) {
                 color={currentTheme.darkBgFont}
               />
               <TextDefault style={{ paddingLeft: 10 }} bold textColor={currentTheme.darkBgFont}>
-                {t('Openingtimes')}
+                {'Opening times'}
               </TextDefault>
             </View>
 
@@ -101,14 +99,14 @@ function About(props) {
               {restaurantObject.openingTimes.map((v, index) => (
                 <View key={index} style={styles().timingRow}>
                   <TextDefault
-                    style={styles().timingText}
+                    style={{ width: scale(140) }}
                     textColor={currentTheme.black}
                     large>
-                    {t(v.day)}{' '}
+                    {v.day}{' '}
                   </TextDefault>
                   {v.times.length < 1 ? (
                     <TextDefault key={index + 8} small bold center>
-                      {t('ClosedAllDay')}
+                      {'Closed all day'}
                     </TextDefault>
                   ) : (
                     v.times.map(t => (
@@ -244,7 +242,7 @@ function About(props) {
             onPress={() => pagerSetter(true)}
             style={[styles(currentTheme).tab, pager && styles(currentTheme).selectedTab]}>
             <TextDefault textColor={pager ? currentTheme.black : currentTheme.darkBgFont} bolder uppercase large>
-              {t('About')}
+              About
             </TextDefault>
           </TouchableOpacity>
 
@@ -253,7 +251,7 @@ function About(props) {
             onPress={() => pagerSetter(false)}
             style={[styles(currentTheme).tab, !pager && styles(currentTheme).selectedTab]}>
             <TextDefault textColor={pager ? currentTheme.darkBgFont : currentTheme.black} bolder uppercase large>
-              {t('Reviews')}
+              Reviews
             </TextDefault>
           </TouchableOpacity>
         </View>

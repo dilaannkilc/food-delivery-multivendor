@@ -9,7 +9,6 @@ import { useSubscription, gql } from '@apollo/client'
 import moment from 'moment'
 import { subscriptionOrder } from '../../apollo'
 import CountDown from 'react-native-countdown-component'
-import {useTranslation} from 'react-i18next'
 
 function HomeOrderDetails(props) {
   const { activeBar, navigation } = props
@@ -24,7 +23,7 @@ function HomeOrderDetails(props) {
     isRinged
   } = props?.order
   const timeNow = new Date()
-    const {t} = useTranslation()
+
   const date = new Date(orderDate)
   const acceptanceTime = moment(date).diff(timeNow, 'seconds')
   // current
@@ -115,25 +114,25 @@ function HomeOrderDetails(props) {
 
       <View style={styles.itemRowBar}>
         <TextDefault style={styles.heading} H5 bolder>
-          {t('orderId')}:
+          Order Id:
         </TextDefault>
         <TextDefault style={styles.text} H5 bolder>
           {orderId}
         </TextDefault>
       </View>
       <View style={styles.itemRowBar}>
-        <TextDefault style={styles.heading}>{t('orderAmount')}:</TextDefault>
+        <TextDefault style={styles.heading}>Order amount:</TextDefault>
         <TextDefault
           style={
             styles.text
-          }>{`${configuration.currencySymbol}${orderAmount}`}:</TextDefault>
+          }>{`${configuration.currencySymbol}${orderAmount}`}</TextDefault>
       </View>
       <View style={styles.itemRowBar}>
-        <TextDefault style={styles.heading}>{t('paymentMethod')}</TextDefault>
+        <TextDefault style={styles.heading}>Payment method:</TextDefault>
         <TextDefault style={styles.text}>{paymentMethod}</TextDefault>
       </View>
       <View style={styles.itemRowBar}>
-        <TextDefault style={styles.heading}>{t('time')}:</TextDefault>
+        <TextDefault style={styles.heading}>Time:</TextDefault>
         <TextDefault style={styles.text}>
           {moment(date).format('lll')}
         </TextDefault>
@@ -231,10 +230,10 @@ function HomeOrderDetails(props) {
                       : 'black'
               }}>
               {activeBar === 0
-                ? t('pending')
+                ? 'Pending'
                 : activeBar === 1
-                  ? t('reject')
-                  : t('delivered')}
+                  ? 'Reject'
+                  : 'Delivered'}
             </TextDefault>
           </Pressable>
         </View>

@@ -14,6 +14,7 @@ import {
   Image
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import i18n from '../../../i18n'
 import styles from './styles'
 import { OutlinedTextField } from 'react-native-material-textfield'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
@@ -34,8 +35,6 @@ import Analytics from '../../utils/analytics'
 import { MaterialIcons, Entypo, Foundation } from '@expo/vector-icons'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
-import {useTranslation} from 'react-i18next'
-
 const CREATE_ADDRESS = gql`
   ${createAddress}
 `
@@ -64,7 +63,6 @@ const LATITUDE_DELTA = 0.0022
 const LONGITUDE_DELTA = 0.0021
 
 function NewAddress(props) {
-  const {t} = useTranslation()
   const addressRef = useRef()
   const inset = useSafeAreaInsets()
   const [modalVisible, setModalVisible] = useState(false)
@@ -94,7 +92,7 @@ function NewAddress(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: null,
-      title: t('addAddress'),
+      title: i18n.t('addAddress'),
       headerStyle: {
         backgroundColor: currentTheme.headerBackground,
         borderBottomLeftRadius: 20,
@@ -162,7 +160,7 @@ function NewAddress(props) {
 
   function onCompleted(data) {
     FlashMessage({
-      message: t('addressUpdated')
+      message: 'Address added'
     })
     const address = data.createAddress.addresses.find(a => a.selected)
     const cartAddress = props.route.params?.backScreen || null
@@ -179,7 +177,7 @@ function NewAddress(props) {
   function onError(error) {
     console.log(error)
     FlashMessage({
-      message: `${t('errorOccured')} ${error}`
+      message: `An error occured. Please try again. ${error}`
     })
   }
 
@@ -219,7 +217,7 @@ function NewAddress(props) {
               cacheEnabled={true}
               showsUserLocation={false}
               customMapStyle={mapStyle}
-
+             
               initialRegion={{
                 latitude: LATITUDE,
                 latitudeDelta: LATITUDE_DELTA,
@@ -252,13 +250,13 @@ function NewAddress(props) {
               <View style={styles(currentTheme).upperContainer}>
                 <View style={styles(currentTheme).addressContainer}>
                   <View style={styles(currentTheme).geoLocation}>
-                    <View style={{ width: '100%' }}>
+                    <View style={{ width: '100%'}}>
                       <OutlinedTextField
-                        placeholder={t('deliveryAddress')}
+                        placeholder="Delivery Address"
                         error={deliveryAddressError}
                         ref={addressRef}
                         value={deliveryAddress}
-                        label={t('fullDeliveryAddress')}
+                        label={i18n.t('fullDeliveryAddress')}
                         labelFontSize={scale(12)}
                         fontSize={scale(12)}
                         renderRightAccessory={() => (
@@ -287,7 +285,7 @@ function NewAddress(props) {
                         onBlur={() => {
                           setDeliveryAddressError(
                             !deliveryAddress.trim().length
-                              ? t('DeliveryAddressIsRequired')
+                              ? 'Delivery address is required'
                               : null
                           )
                         }}
@@ -296,9 +294,9 @@ function NewAddress(props) {
                   </View>
                   <View style={{ ...alignment.MTlarge }}></View>
                   <OutlinedTextField
-                    placeholder={t('aptFloor')}
+                    placeholder="Apt / Floor"
                     error={deliveryDetailsError}
-                    label={t('deliveryDetails')}
+                    label={i18n.t('deliveryDetails')}
                     labelFontSize={scale(12)}
                     fontSize={scale(12)}
                     textAlignVertical="top"
@@ -336,7 +334,7 @@ function NewAddress(props) {
                       textColor={currentTheme.fontMainColor}
                       h5
                       bolder>
-                      {t('addLabel')}
+                      Add Label
                     </TextDefault>
                   </View>
                   <View style={styles().buttonInline}>
@@ -376,7 +374,7 @@ function NewAddress(props) {
                           textColor={currentTheme.black}
                           bold
                           center>
-                          {t(label.title)}
+                          {label.title}
                         </TextDefault>
                       </>
                     ))}
@@ -389,10 +387,10 @@ function NewAddress(props) {
               disabled={loading}
               onPress={() => {
                 const deliveryAddressError = !deliveryAddress.trim().length
-                  ? t('DeliveryAddressIsRequired')
+                  ? 'Delivery address is required'
                   : null
                 const deliveryDetailsError = !deliveryDetails.trim().length
-                  ? t('DeliveryAddressIsRequired')
+                  ? 'Delivery details is required'
                   : null
 
                 setDeliveryAddressError(deliveryAddressError)
@@ -418,7 +416,7 @@ function NewAddress(props) {
               activeOpacity={0.5}
               style={styles(currentTheme).saveBtnContainer}>
               <TextDefault textColor={currentTheme.black} H5 bold>
-                {t('saveContBtn')}
+                {i18n.t('saveContBtn')}
               </TextDefault>
             </TouchableOpacity>
           </ScrollView>

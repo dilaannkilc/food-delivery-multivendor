@@ -3,6 +3,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { scale } from '../../utils/scaling'
 import { alignment } from '../../utils/alignment'
+import i18n from '../../../i18n'
 import styles from './styles'
 import React, { useContext, useEffect } from 'react'
 import { View, ScrollView, Dimensions } from 'react-native'
@@ -22,7 +23,6 @@ import TrackingRider from '../../components/OrderDetail/TrackingRider/TrackingRi
 import OrdersContext from '../../context/Orders'
 import { mapStyle } from '../../utils/mapStyle'
 const { height: HEIGHT } = Dimensions.get('screen')
-import {useTranslation} from 'react-i18next'
 
 function OrderDetail(props) {
   const id = props.route.params ? props.route.params._id : null
@@ -31,7 +31,6 @@ function OrderDetail(props) {
   const configuration = useContext(ConfigurationContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-  const {t} = useTranslation()
   useEffect(() => {
     async function Track() {
       await Analytics.track(Analytics.events.NAVIGATE_TO_ORDER_DETAIL, {
@@ -128,7 +127,7 @@ function OrderDetail(props) {
                 style={[alignment.MBsmall, alignment.MTsmall, alignment.ML10]}
                 bolder
                 center>
-                {t('writeAReview')}
+                {i18n.t('writeAReview')}
               </TextDefault>
             </TouchableOpacity>
           </View>

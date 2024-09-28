@@ -9,15 +9,13 @@ import { phoneRegex } from '../../utils/regex'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import UserContext from '../../context/User'
 import countryCallingCodes from './countryCodes'
-import {useTranslation} from 'react-i18next'
-
+import i18n from '../../../i18n'
 
 const UPDATEUSER = gql`
   ${updateUser}
 `
 
 const useRegister = () => {
-  const {t} = useTranslation()
   const navigation = useNavigation()
   const route = useRoute()
   const [phone, setPhone] = useState('')
@@ -120,10 +118,10 @@ const useRegister = () => {
     let result = true
 
     if (!phone) {
-      setPhoneError(t('mobileErr1'))
+      setPhoneError(i18n.t('mobileErr1'))
       result = false
     } else if (!phoneRegex.test(phone)) {
-      setPhoneError(t('mobileErr2'))
+      setPhoneError(i18n.t('mobileErr2'))
       result = false
     }
     return result
@@ -131,7 +129,7 @@ const useRegister = () => {
 
   async function onCompleted(data) {
     FlashMessage({
-      message: t('numberAddedAlert')
+      message: 'Phone number has been added successfully!.'
     })
     await refetchProfile()
     navigation.navigate({ name: 'PhoneOtp', merge: true, params: route.params })

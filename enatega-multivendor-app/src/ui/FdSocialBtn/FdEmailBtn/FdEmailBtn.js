@@ -8,10 +8,8 @@ import { theme } from '../../../utils/themeColors'
 import ThemeContext from '../../ThemeContext/ThemeContext'
 import { alignment } from '../../../utils/alignment'
 import TextDefault from '../../../components/Text/TextDefault/TextDefault'
-import {useTranslation} from 'react-i18next'
 
 const FdEmailBtn = props => {
-  const {t} = useTranslation()
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   return (
@@ -34,7 +32,7 @@ const FdEmailBtn = props => {
             textColor={currentTheme.buttonTextPink}
             style={alignment.MLsmall}
             bold>
-            {t('ContinueWithEmail')}
+            Continue with Email
           </TextDefault>
         </>
       )}

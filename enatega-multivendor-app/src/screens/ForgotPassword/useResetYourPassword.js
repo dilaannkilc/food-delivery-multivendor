@@ -6,14 +6,13 @@ import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import { useRoute, useNavigation } from '@react-navigation/native'
-import {useTranslation} from 'react-i18next'
+import i18n from '../../../i18n'
 
 const RESET_PASSWORD = gql`
   ${resetPassword}
 `
 
 export const useResetYourPassword = () => {
-  const {t} = useTranslation()
   const route = useRoute()
   const navigation = useNavigation()
   const [password, setPassword] = useState('')
@@ -34,17 +33,17 @@ export const useResetYourPassword = () => {
     let result = true
     setPasswordError(null)
     if (!password) {
-      setPasswordError(t('passErr1'))
+      setPasswordError(i18n.t('passErr1'))
       result = false
     } else {
       const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{7,}$/
       if (passRegex.test(password) !== true) {
-        setPasswordError(t('passErr2'))
+        setPasswordError(i18n.t('passErr2'))
         result = false
       }
     }
     if (!confirmPassword) {
-      setConfirmPasswordError(t('confirmPassRequired'))
+      setConfirmPasswordError(i18n.t('confirmPassRequired'))
       result = false
     }
     return result
@@ -52,7 +51,7 @@ export const useResetYourPassword = () => {
 
   function onCompleted(data) {
     FlashMessage({
-      message: t('passwordResetSuccessfully')
+      message: 'Password Reset successfully!'
     })
     navigation.navigate('Login')
   }
@@ -74,7 +73,7 @@ export const useResetYourPassword = () => {
       if (password === confirmPassword) {
         mutate({ variables: { password, email: email.toLowerCase().trim() } })
       } else {
-        setConfirmPasswordError(t('passwordMustMatch'))
+        setConfirmPasswordError('Password must match with confirm password')
       }
     }
   }

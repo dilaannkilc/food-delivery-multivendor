@@ -12,9 +12,8 @@ import LocationPermission from '../../assets/SVG/imageComponents/LocationPermiss
 import { scale } from '../../utils/scaling'
 import Analytics from '../../utils/analytics'
 import Spinner from '../../components/Spinner/Spinner'
-import {useTranslation} from 'react-i18next'
+
 export default function CurrentLocation() {
-  const {t} = useTranslation()
   const [loading, setLoading] = useState(false)
   const inset = useSafeAreaInsets()
   const navigation = useNavigation()
@@ -35,7 +34,7 @@ export default function CurrentLocation() {
     if (status !== 'granted' && !canAskAgain) {
       FlashMessage({
         message:
-          t('locationPermissionMessage'),
+          'Tap on this message to open Settings then allow app to use location from permissions.',
         onPress: async() => {
           await Linking.openSettings()
         }
@@ -72,7 +71,7 @@ export default function CurrentLocation() {
             </View>
             <View style={styles().descriptionEmpty}>
               <TextDefault textColor={currentTheme.fontMainColor} bolder center>
-                {t('enategaUseYourLocationMessage')}
+                {'Enatega uses your location to show the restaurants near you!'}
               </TextDefault>
             </View>
             <TouchableOpacity
@@ -85,7 +84,7 @@ export default function CurrentLocation() {
                 bolder
                 center
                 uppercase>
-                {t('useCurrentLocation')}
+                {'use current location'}
               </TextDefault>
               {loading && (
                 <Spinner
@@ -107,7 +106,7 @@ export default function CurrentLocation() {
               H5
               bold
               center>
-              {t('selectAnotherLocation')}
+              {'Select another location'}
             </TextDefault>
           </TouchableOpacity>
         </View>
