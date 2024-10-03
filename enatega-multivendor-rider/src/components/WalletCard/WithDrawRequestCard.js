@@ -4,6 +4,7 @@ import styles from './style'
 import TextDefault from '../Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
 import ConfigurationContext from '../../context/configuration'
+import i18n from '../../../i18n'
 import {useTranslation} from 'react-i18next'
 
 const STATUS_COLORS = {

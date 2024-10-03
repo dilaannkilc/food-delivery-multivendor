@@ -10,20 +10,20 @@ import { useNavigation } from '@react-navigation/native'
 
 const links = [
   {
-    title: ('productPage'),
+    title: i18n.t('productPage'),
     url:
       'https://market.nativebase.io/view/enatega-multivendor-food-backend-app'
   },
   {
-    title: ('docs'),
+    title: i18n.t('docs'),
     url: 'https://enatega-multi.gitbook.io/enatega-multivendor/'
   },
   {
-    title: ('blog'),
+    title: i18n.t('blog'),
     url:
       'https://blog.geekyants.com/enatega-multivendor-foodpanda-clone-v1-0-0-e4b4f21ba1c1'
   },
-  { title: ('aboutUs'), url: 'https://ninjascode.com/pages/ourteam.html' }
+  { title: i18n.t('aboutUs'), url: 'https://ninjascode.com/pages/ourteam.html' }
 ]
 function Help() {
   const navigation = useNavigation()
@@ -45,7 +45,7 @@ function Help() {
             style={styles.itemContainer}
             key={index}>
             <TextDefault textColor={colors.fontMainColor} H4>
-              {i18n.t(title)}
+              {title}
             </TextDefault>
           </TouchableOpacity>
         ))}
