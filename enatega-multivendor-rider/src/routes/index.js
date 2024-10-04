@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useCallback, useContext, useEffect } from 'react'
+import { Platform } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -30,12 +31,13 @@ import { AuthContext } from '../context/auth'
 import { SoundContextProvider } from '../context/sound'
 import { gql, useApolloClient } from '@apollo/client'
 import { riderOrders } from '../apollo/queries'
-
+import {useTranslation} from 'react-i18next'
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 const Tab = createBottomTabNavigator()
 
 function MyTabs() {
+  const {t} = useTranslation()
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -44,22 +46,29 @@ function MyTabs() {
       <Tab.Screen
         name="Home"
         component={NewOrders}
-        options={{ title: 'Home' }}
+        options={{ title: t('home') }}
       />
       <Tab.Screen
         name="MyOrders"
         component={Orders}
-        options={{ title: 'My Orders' }}
+        options={{ title: t('orders') }}
       />
       <Tab.Screen
         name="Wallet"
         component={Wallet}
-        options={{ title: 'Wallet' }}
+        options={{ title: t('wallet') }}
       />
+      {
+        Platform.OS === 'ios'? null : <Tab.Screen
+        name="Language"
+        component={Language}
+        options={{ title: t('language') }}
+      />
+      }
       <Tab.Screen
         name="Profile"
         component={NoDrawer}
-        options={{ title: 'Profile' }}
+        options={{ title: t('profile') }}
         listeners={({ navigation }) => ({
           tabPress: e => {
             e.preventDefault()
@@ -150,6 +159,8 @@ function Main() {
           drawerType="slide"
           drawerPosition="right"
           drawerContent={props => <Sidebar {...props} />}>
+          {/*<Drawer.Screen name="SidebBar" component={Sidebar} />*/}
+
           <Drawer.Screen name="noDrawer" component={NoDrawer} />
         </Drawer.Navigator>
       </SoundContextProvider>

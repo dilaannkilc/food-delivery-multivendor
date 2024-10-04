@@ -168,19 +168,6 @@ export const getConfiguration = `query Configuration{
     currency
     currencySymbol
     deliveryRate
-    twilioEnabled
-    graphqlUrlApp
-    wsGraphqlUrlApp
-    serverUrlApp
-    androidClientID
-    iOSClientID
-    appAmplitudeApiKey
-    googleApiKey
-    expoClientID
-    customerAppSentryUrl
-    termsAndConditions
-    privacyPolicy
-    testOtp
   }
 }`
 
