@@ -11,16 +11,12 @@ import { useFocusEffect } from '@react-navigation/native'
 import styles from './styles'
 import UserContext from '../../context/User'
 import analytics from '../../utils/analytics'
+import i18n from '../../../i18n'
 import { scale } from '../../utils/scaling'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
 import { MaterialIcons, Entypo } from '@expo/vector-icons'
-import {useTranslation} from 'react-i18next'
-
-
 function Reorder(props) {
-
-  const {t} = useTranslation()
   const order = props.route.params.item
   const themeContext = useContext(ThemeContext)
   const { setCartRestaurant, addCartItem } = useContext(UserContext)
@@ -37,7 +33,7 @@ function Reorder(props) {
 
   useLayoutEffect(() => {
     props.navigation.setOptions({
-      title: t('previous'),
+      title: i18n.t('previous'),
       headerRight: null,
       headerTitleAlign: 'center',
       headerTitleContainerStyle: {
@@ -121,7 +117,7 @@ function Reorder(props) {
             bolder
             H4
             textColor={currentTheme.fontMainColor}>
-            {t('selectItems')}
+            Select Items
           </TextDefault>
           {order.items.map((item, index) => {
             return (
@@ -184,7 +180,7 @@ function Reorder(props) {
             }
             onPress={onAddToCart}>
             <TextDefault bolder textColor={currentTheme.black}>
-              {t('addToCart')}
+              ADD TO CART
             </TextDefault>
           </TouchableOpacity>
         </View>

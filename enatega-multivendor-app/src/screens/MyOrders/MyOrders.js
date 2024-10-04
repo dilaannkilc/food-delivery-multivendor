@@ -25,15 +25,13 @@ import { scale } from '../../utils/scaling'
 import analytics from '../../utils/analytics'
 import OrdersContext from '../../context/Orders'
 import { HeaderBackButton } from '@react-navigation/elements'
-import {useTranslation} from 'react-i18next'
-
+import i18n from '../../../i18n'
 
 const orderStatusActive = ['PENDING', 'PICKED', 'ACCEPTED', 'ASSIGNED']
 const orderStatusInactive = ['DELIVERED', 'COMPLETED']
 
 function MyOrders(props) {
   const configuration = useContext(ConfigurationContext)
-  const {t} = useTranslation()
   const {
     orders,
     loadingOrders,
@@ -96,7 +94,7 @@ function MyOrders(props) {
               bolder
               center
               H2>
-              {t('unReadOrders')}
+              No orders yet
             </TextDefault>
             <TextDefault
               textColor={currentTheme.fontMainColor}
@@ -104,7 +102,8 @@ function MyOrders(props) {
               center
               H5
               style={{ ...alignment.MBxLarge }}>
-              {t('dontHaveAnyOrderYet')}
+              You don&#39;t have any past order yet. Try one of our awesome
+              restaurants and place your first order!
             </TextDefault>
           </View>
           <TouchableOpacity
@@ -123,7 +122,7 @@ function MyOrders(props) {
               B700
               center
               uppercase>
-              {t('BrowseRESTAURANTS')}
+              Browse RESTAURANTS IN YOUR AREA
             </TextDefault>
           </TouchableOpacity>
         </View>
@@ -230,7 +229,7 @@ function MyOrders(props) {
                           center
                           uppercase>
                           {' '}
-                          {t('RateOrder')}
+                          Rate Order
                         </TextDefault>
                       </TouchableOpacity>
                     )}
@@ -248,7 +247,7 @@ function MyOrders(props) {
                         center
                         uppercase>
                         {' '}
-                        {t('reOrder')}
+                        Reorder
                       </TextDefault>
                     </TouchableOpacity>
                   </View>

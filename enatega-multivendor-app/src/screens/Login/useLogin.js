@@ -11,8 +11,7 @@ import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import Analytics from '../../utils/analytics'
 import AuthContext from '../../context/Auth'
 import { useNavigation } from '@react-navigation/native'
-import {useTranslation} from 'react-i18next'
-
+import i18n from '../../../i18n'
 
 const LOGIN = gql`
   ${login}
@@ -32,7 +31,6 @@ export const useLogin = () => {
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const { setTokenAsync } = useContext(AuthContext)
-  const {t} = useTranslation()
 
   const [EmailEixst, { loading }] = useMutation(EMAIL, {
     onCompleted,
@@ -55,17 +53,17 @@ export const useLogin = () => {
     setPasswordError(null)
 
     if (!email) {
-      setEmailError(t('emailErr1'))
+      setEmailError(i18n.t('emailErr1'))
       result = false
     } else {
       const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/
       if (emailRegex.test(email) !== true) {
-        setEmailError(t('emailErr2'))
+        setEmailError(i18n.t('emailErr2'))
         result = false
       }
     }
     if (!password && registeredEmail) {
-      setPasswordError(t('passErr1'))
+      setPasswordError(i18n.t('passErr1'))
       result = false
     }
     return result
@@ -82,7 +80,7 @@ export const useLogin = () => {
           setRegisteredEmail(true)
         } else {
           FlashMessage({
-            message: `${t('emailAssociatedWith')} ${emailExist.userType} ${t('continueWith')} ${emailExist.userType}`
+            message: `Your email is associated with ${emailExist.userType}. Kindly continue with ${emailExist.userType}`
           })
           navigation.navigate({ name: 'Main', merge: true })
         }
@@ -99,14 +97,14 @@ export const useLogin = () => {
       })
     } catch (e) {
       FlashMessage({
-        message: t('mailCheckingError')
+        message: 'Error while checking email. Try again later!'
       })
     }
   }
 
   async function onLoginCompleted(data) {
     if (data.login.isActive == false) {
-      FlashMessage({ message: t('accountDeactivated') })
+      FlashMessage({ message: 'Account Deactivated' })
     } else {
       try {
         await Analytics.identify(
@@ -137,7 +135,7 @@ export const useLogin = () => {
         message: error.graphQLErrors[0].message
       })
     } catch (e) {
-      FlashMessage({ message: t('errorInLoginError') })
+      FlashMessage({ message: 'Error in login Error' })
     }
   }
 
@@ -165,7 +163,7 @@ export const useLogin = () => {
       }
     } catch (e) {
       FlashMessage({
-        message: t('errorWhileLogging')
+        message: 'Error while logging in. Please try again later'
       })
     } finally {
     }

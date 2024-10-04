@@ -14,8 +14,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-around',
     padding: 10,
-    paddingRight: 30,
-    paddingLeft: 30,
     backgroundColor: colors.white,
     borderRadius: 10,
     shadowColor: '#000',

@@ -38,7 +38,7 @@ const styles = (props = null) =>
       ...alignment.PLsmall
     },
     leftContainer: {
-      width: '95%'
+      width: '100%'
     },
     rightContainer: {
       width: '20%',

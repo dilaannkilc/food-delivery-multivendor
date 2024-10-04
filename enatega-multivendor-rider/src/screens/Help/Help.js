@@ -7,23 +7,22 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
 import { useNavigation } from '@react-navigation/native'
 
-
 const links = [
   {
-    title: ('productPage'),
+    title: 'Product Page',
     url:
       'https://market.nativebase.io/view/enatega-multivendor-food-backend-app'
   },
   {
-    title: ('docs'),
+    title: 'Docs',
     url: 'https://enatega-multi.gitbook.io/enatega-multivendor/'
   },
   {
-    title: ('blog'),
+    title: 'Blog',
     url:
       'https://blog.geekyants.com/enatega-multivendor-foodpanda-clone-v1-0-0-e4b4f21ba1c1'
   },
-  { title: ('aboutUs'), url: 'https://ninjascode.com/pages/ourteam.html' }
+  { title: 'About Us', url: 'https://ninjascode.com/pages/ourteam.html' }
 ]
 function Help() {
   const navigation = useNavigation()
@@ -45,7 +44,7 @@ function Help() {
             style={styles.itemContainer}
             key={index}>
             <TextDefault textColor={colors.fontMainColor} H4>
-              {i18n.t(title)}
+              {title}
             </TextDefault>
           </TouchableOpacity>
         ))}

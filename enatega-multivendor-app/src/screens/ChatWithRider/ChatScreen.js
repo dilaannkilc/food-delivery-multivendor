@@ -6,8 +6,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { Ionicons, Entypo } from '@expo/vector-icons'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import styles from './styles'
-import {useTranslation} from 'react-i18next'
-
 const ChatScreen = ({ navigation, route }) => {
   const {
     messages,
@@ -23,7 +21,7 @@ const ChatScreen = ({ navigation, route }) => {
   const filterImages = src => {
     setImage(image.filter(item => item !== src))
   }
-  const {t} = useTranslation()
+
   const renderAccessory = props => {
     return (
       <View style={styles().rowDisplay}>
@@ -119,7 +117,7 @@ const ChatScreen = ({ navigation, route }) => {
         left: { color: currentTheme.statusSecondColor },
         right: { color: currentTheme.fontSecondColor }
       }}
-      placeholder={t('message')}
+      placeholder="Message"
       textInputStyle={{ paddingTop: 10 }}
       renderAccessory={image.length > 0 ? renderAccessory : null}
       text={inputMessage}

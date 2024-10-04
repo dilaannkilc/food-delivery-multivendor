@@ -12,6 +12,7 @@ import ImageHeader from '../../components/CustomizeComponents/ImageHeader/ImageH
 import styles from './styles'
 import { reviewOrder } from '../../apollo/mutations'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import i18n from '../../../i18n'
 import StarRating from 'react-native-star-rating'
 import { useMutation } from '@apollo/client'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
@@ -24,7 +25,6 @@ import Analytics from '../../utils/analytics'
 import { HeaderBackButton } from '@react-navigation/elements'
 import { MaterialIcons } from '@expo/vector-icons'
 import navigationService from '../../routes/navigationService'
-import {useTranslation} from 'react-i18next'
 
 // constants
 const REVIEWORDER = gql`
@@ -32,7 +32,6 @@ const REVIEWORDER = gql`
 `
 
 function RateAndReview(props) {
-  const {t} = useTranslation()
   const [id] = useState(props.route.params._id ?? null)
   const [rating, setRating] = useState(0)
   const [description, setDescription] = useState('')
@@ -122,7 +121,7 @@ function RateAndReview(props) {
               textColor={currentTheme.fontWhite}
               numberOfLines={1}
               ellipsizeMode="tail">
-              {t('RateYourOrder')}
+              Rate Your Order
             </TextDefault>
             {!props.loading && (
               <View style={{ padding: scale(5) }}>
@@ -149,10 +148,10 @@ function RateAndReview(props) {
                   H3
                   bolder
                   style={styles().reviewText}>
-                  {t('howWasMeal')}
+                  How was your meal?
                 </TextDefault>
                 <TextDefault textColor={currentTheme.fontMainColor} H5>
-                  {t('howWasMealP')}
+                  Was it nice or bad,Lets talk about it
                 </TextDefault>
               </View>
             </View>
@@ -176,7 +175,7 @@ function RateAndReview(props) {
             H3
             bolder
             style={{ padding: 20, marginTop: 20 }}>
-            {t('yourExperience')}
+            Tell about your Experience
           </TextDefault>
           <KeyboardAvoidingView style={styles().inputContainer}>
             <View style={styles(currentTheme).inputSubContainer}>
@@ -192,7 +191,7 @@ function RateAndReview(props) {
                 fontSize={scale(12)}
                 labelHeight={10}
                 maxLength={scale(144)}
-                placeholder={t('reviewPlaceholder')}
+                placeholder={i18n.t('reviewPlaceholder')}
               />
             </View>
           </KeyboardAvoidingView>
@@ -205,7 +204,7 @@ function RateAndReview(props) {
                   onPress={onSubmit}
                   style={styles(currentTheme).btnTouch}>
                   <TextDefault textColor={currentTheme.black} H3 bold>
-                    {t('submit')}
+                    {i18n.t('submit')}
                   </TextDefault>
                 </TouchableOpacity>
               )}
