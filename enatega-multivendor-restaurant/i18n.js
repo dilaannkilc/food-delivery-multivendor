@@ -8,7 +8,7 @@ import { fr } from './translations/fr'
 import { km } from './translations/km'
 import { zh } from './translations/zh'
 import { ar } from './translations/ar'
-import {sv} from './translations/sv'
+import { sv } from './translations/sv'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 export const languageResources = {
   en: { translation: en },
@@ -43,6 +43,4 @@ if (Platform.OS === 'ios') {
   console.log("language:", Localization.locale)
   i18next.changeLanguage(i18next.locale)
 }
-
 export default i18next;
-

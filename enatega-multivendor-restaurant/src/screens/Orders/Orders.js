@@ -9,8 +9,8 @@ import { TabBars } from '../../components/TabBars'
 import { HomeOrderDetails } from '../../components/HomeOrderDetails'
 import LottieView from 'lottie-react-native'
 import {useTranslation} from 'react-i18next'
-const { width, height } = Dimensions.get('window')
 import i18next from '../../../i18n'
+const { width, height } = Dimensions.get('window')
 const Orders = props => {
   const {
     loading,
