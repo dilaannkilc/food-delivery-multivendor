@@ -10,33 +10,35 @@ import UserContext from '../../context/User'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
 import { selectAddress } from '../../apollo/mutations'
+import i18n from '../../../i18n'
 import styles from './styles'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import { LocationContext } from '../../context/Location'
 import { HeaderBackButton } from '@react-navigation/elements'
-import Analytics from '../../utils/analytics'
+import analytics from '../../utils/analytics'
 import navigationService from '../../routes/navigationService'
 import { Entypo } from '@expo/vector-icons'
-import {useTranslation} from 'react-i18next'
 
 const SELECT_ADDRESS = gql`
   ${selectAddress}
 `
 
 function CartAddresses(props) {
+  const Analytics = analytics()
+
   const inset = useSafeAreaInsets()
   const { location, setLocation } = useContext(LocationContext)
   const { profile } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-  const {t} = useTranslation()
+
   const [mutate] = useMutation(SELECT_ADDRESS, { onError })
 
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: null,
-      title: t('myAddresses'),
+      title: i18n.t('myAddresses'),
       headerTitleAlign: 'center',
       headerTitleContainerStyle: {
         marginTop: '1%',
@@ -119,7 +121,6 @@ function CartAddresses(props) {
                   <View style={[styles().homeIcon]}>
                     <RadioButton
                       size={13}
-
                       outerColor={currentTheme.radioOuterColor}
                       innerColor={currentTheme.radioColor}
                       animation={'bounceIn'}
@@ -143,7 +144,7 @@ function CartAddresses(props) {
                       textColor={currentTheme.iconColorPink}
                       small
                       bolder>
-                      {t('save')}
+                      SAVE
                     </TextDefault>
                   </TouchableOpacity>
                 </View>
@@ -194,10 +195,10 @@ function CartAddresses(props) {
                   </View>
                   <TextDefault
                     textColor={currentTheme.fontMainColor}
-                    style={{ width: '70%', textAlign: 'left' }}
+                    style={{ width: '70%' }}
                     H5
                     bold>
-                    {t(address.label)}
+                    {address.label}
                   </TextDefault>
                   <TouchableOpacity
                     activeOpacity={0.7}

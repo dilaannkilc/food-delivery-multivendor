@@ -18,7 +18,6 @@ import {
 import { alignment } from '../../../utils/alignment'
 import TextError from '../../Text/TextError/TextError'
 import { textStyles } from '../../../utils/textStyles'
-import {useTranslation} from 'react-i18next'
 
 const { height } = Dimensions.get('screen')
 const TOP_BAR_HEIGHT = height * 0.05
@@ -30,7 +29,7 @@ function ImageTextCenterHeader(props, ref) {
   const navigation = useNavigation()
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-  const {t} = useTranslation()
+
   const aboutObject = {
     latitude: props.restaurant ? props.restaurant.location.coordinates[1] : '',
     longitude: props.restaurant ? props.restaurant.location.coordinates[0] : '',
@@ -73,7 +72,7 @@ function ImageTextCenterHeader(props, ref) {
           justifyContent: 'center',
           alignItems: 'center'
         }}>
-        <TextError text={t('noItemsExists')} />
+        <TextError text="No items exists" />
       </View>
     )
   }
@@ -136,7 +135,7 @@ function ImageTextCenterHeader(props, ref) {
                     marginBottom: props.headerTextFlex
                   }
                 ]}>
-                {t('delivery')} {aboutObject.deliveryTime} {t('Min')}
+                Delivery {aboutObject.deliveryTime} Minute{' '}
               </Animated.Text>
               {!props.loading && (
                 <>
@@ -196,7 +195,7 @@ function ImageTextCenterHeader(props, ref) {
                     style={[alignment.PRxSmall, alignment.PLxSmall]}
                     textColor="white"
                     bold>
-                    {t('delivery')} {aboutObject.deliveryTime} {t('Min')}
+                    Delivery {aboutObject.deliveryTime} Minute
                   </TextDefault>
                 </View>
               )}

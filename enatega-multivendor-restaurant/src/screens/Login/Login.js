@@ -13,7 +13,6 @@ import { useLogin } from '../../ui/hooks'
 import { colors } from '../../utilities'
 import styles from './styles'
 import { Image, Button, Input, Icon } from 'react-native-elements'
-import {useTranslation} from 'react-i18next'
 
 const { height } = Dimensions.get('window')
 export default function Login() {
@@ -28,7 +27,7 @@ export default function Login() {
     password
   } = useLogin()
   const [showPassword, setShowPassword] = useState(false)
-  const {t} = useTranslation()
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}
@@ -53,12 +52,12 @@ export default function Login() {
           <View style={styles.lowerContainer}>
             <View style={styles.headingText}>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                {t('signInWithEmail')}
+                Sign in with your email
               </Text>
             </View>
             <View style={{ flex: 0.5, alignSelf: 'center' }}>
               <Input
-                placeholder={t('email')}
+                placeholder="Email"
                 onChangeText={text => setUserName(text)}
                 inputContainerStyle={styles.inputStyle}
                 errorMessage={
@@ -73,7 +72,7 @@ export default function Login() {
                 style={{ paddingLeft: 8 }}
               />
               <Input
-                placeholder={t('password')}
+                placeholder="Password"
                 onChangeText={text => setPassword(text)}
                 inputContainerStyle={styles.inputStyle}
                 returnKeyType="go"
@@ -106,7 +105,7 @@ export default function Login() {
                 flex: 0.2
               }}>
               <Button
-                title={t('signIn')}
+                title="Sign in"
                 disabled={loading}
                 onPress={onLogin}
                 buttonStyle={{
@@ -133,7 +132,7 @@ export default function Login() {
                   <Spinner spinnerColor={colors.buttonText} />
                 ) : (
                   <TextDefault textColor={colors.buttonText} H3 bold>
-                    {t('login')}
+                    Login
                   </TextDefault>
                 )}
               </Button>

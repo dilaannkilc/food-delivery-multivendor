@@ -18,19 +18,14 @@ import { useAccount } from '../../ui/hooks'
 import { Image } from 'react-native-elements'
 import useNotification from '../../ui/hooks/useNotification'
 import { PRODUCT_URL, PRIVACY_URL, ABOUT_URL } from '../../utilities'
-import { useNavigation } from '@react-navigation/native';
-import i18next from '../../../i18n'
-import {useTranslation} from 'react-i18next'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 export default function SideBar() {
-  const {t} = useTranslation()
   const notificationRef = useRef(true)
   const openSettingsRef = useRef(false)
   const { logout, data, toggleSwitch, isAvailable } = useAccount()
   const [notificationStatus, setNotificationStatus] = useState(false)
   const appState = useRef(AppState.currentState)
-  const navigation = useNavigation();
+
   const {
     restaurantData,
     getPermission,
@@ -112,10 +107,6 @@ export default function SideBar() {
       sendTokenToBackend({ variables: { token: null, isEnabled: false } })
     }
   }
-  const handleSettingsClick = () => {
-  navigation.navigate('Language');
-  };
-
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground source={bg} resizeMode="cover" style={styles.image}>
@@ -144,11 +135,11 @@ export default function SideBar() {
         <View style={styles.middleContainer}>
           <View style={styles.status}>
             <TextDefault H4 bolder textColor="white">
-              {t('status')}
+              Status
             </TextDefault>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <TextDefault textColor="white" style={{ marginRight: 5 }}>
-                {isAvailable ? t('online') : t('closed')}
+                {isAvailable ? 'Online' : 'Closed'}
               </TextDefault>
               <Switch
                 trackColor={{
@@ -165,11 +156,11 @@ export default function SideBar() {
           </View>
           <View style={styles.status}>
             <TextDefault H4 bolder textColor="white">
-              {t('notifications')}
+              Notifications
             </TextDefault>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <TextDefault textColor="white" style={{ marginRight: 5 }}>
-                {notificationStatus ? t('onn') : t('off')}
+                {notificationStatus ? 'On' : 'Off'}
               </TextDefault>
               <Switch
                 trackColor={{
@@ -203,7 +194,7 @@ export default function SideBar() {
               />
             </View>
             <TextDefault H4 bolder style={styles.text}>
-              {t('productPage')}
+              Product page
             </TextDefault>
           </TouchableOpacity>
           <TouchableOpacity
@@ -223,7 +214,7 @@ export default function SideBar() {
             </View>
 
             <TextDefault H4 bolder style={styles.text}>
-              {t('privacyPolicy')}
+              Privacy policy
             </TextDefault>
           </TouchableOpacity>
           <TouchableOpacity
@@ -243,10 +234,9 @@ export default function SideBar() {
               />
             </View>
             <TextDefault H4 bolder style={styles.text}>
-              {t('aboutUs')}
+              About us
             </TextDefault>
           </TouchableOpacity>
-
         </View>
         <View style={styles.lowerContainer}>
           <TouchableOpacity style={styles.logout} onPress={logout}>
@@ -254,7 +244,7 @@ export default function SideBar() {
               <Icon type="entypo" color="white" name="log-out" size={26} />
             </View>
             <TextDefault H4 bolder style={styles.text}>
-            {t('titleLogout')}
+              Logout
             </TextDefault>
           </TouchableOpacity>
         </View>

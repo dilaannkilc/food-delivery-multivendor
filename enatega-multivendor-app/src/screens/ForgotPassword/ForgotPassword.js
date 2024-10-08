@@ -12,11 +12,13 @@ import Spinner from '../../components/Spinner/Spinner'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import screenOptions from './screenOptions'
-import Analytics from '../../utils/analytics'
+import analytics from '../../utils/analytics'
 import { useForgotPassword } from './useForgotPassword'
-import {useTranslation} from 'react-i18next'
+import i18n from '../../../i18n'
 
 function ForgotPassword(props) {
+  const Analytics = analytics()
+
   const {
     email,
     setEmail,
@@ -26,7 +28,7 @@ function ForgotPassword(props) {
     themeContext,
     loading
   } = useForgotPassword()
-  const {t} = useTranslation()
+
   useEffect(() => {
     async function Track() {
       await Analytics.track(Analytics.events.NAVIGATE_TO_FORGOTPASSWORD)
@@ -68,7 +70,7 @@ function ForgotPassword(props) {
                 ...alignment.MTlarge,
                 ...alignment.MBmedium
               }}>
-              {t('forgotPassword')}
+              {i18n.t('forgotPassword')}
             </TextDefault>
             <TextDefault
               H5
@@ -77,12 +79,12 @@ function ForgotPassword(props) {
               style={{
                 textAlign: 'center'
               }}>
-              {t('enterYourEmail')}
+              {i18n.t('enterYourEmail')}
             </TextDefault>
           </View>
           <View style={{ ...alignment.MTmedium }}>
             <TextInput
-              placeholder={t('email')}
+              placeholder="Email"
               style={[
                 styles(currentTheme).textField,
                 emailError !== null && styles(currentTheme).errorInput
@@ -113,7 +115,7 @@ function ForgotPassword(props) {
                   textColor={currentTheme.buttonTextPink}
                   style={alignment.MLsmall}
                   bold>
-                  {t('continueBtn')}
+                  {i18n.t('continueBtn')}
                 </TextDefault>
               </TouchableOpacity>
             )}
@@ -128,7 +130,7 @@ function ForgotPassword(props) {
               bold
               textColor={currentTheme.buttonBackgroundPink}
               style={alignment.MTsmall}>
-              {t('backToLogin')}
+              {i18n.t('backToLogin')}
             </TextDefault>
           </TouchableOpacity>
         </View>

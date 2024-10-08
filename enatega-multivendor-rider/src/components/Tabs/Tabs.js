@@ -5,10 +5,8 @@ import TextDefault from '../Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
 import { TabsContext } from '../../context/tabs'
 import UserContext from '../../context/user'
-import {useTranslation} from 'react-i18next'
 
 const Tabs = props => {
-  const {t} = useTranslation()
   const { active } = useContext(TabsContext)
   const { assignedOrders } = useContext(UserContext)
   const [ordersLength, setOrderslength] = useState(
@@ -52,32 +50,24 @@ const Tabs = props => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => props.navigation.navigate('Home')}
-        style={[
-          styles.row,
-          active === 'NewOrders' && styles.btn,
-          { width: '40%' }
-        ]}>
+        style={[styles.row, active === 'NewOrders' && styles.btn]}>
         <TextDefault
           bolder
           H5
           textColor={active === 'NewOrders' ? colors.black : colors.white}>
-          {t('NewOrders')}
+          New Orders
         </TextDefault>
       </TouchableOpacity>
 
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => props.navigation.navigate('MyOrders')}
-        style={[
-          styles.row,
-          active === 'MyOrders' && styles.btn,
-          { width: '45%' }
-        ]}>
+        style={[styles.row, active === 'MyOrders' && styles.btn]}>
         <TextDefault
           bolder
           H5
           textColor={active === 'MyOrders' ? colors.black : colors.white}>
-          {t('myorders')}
+          My Orders
         </TextDefault>
         {active === 'NewOrders' && (
           <View style={styles.rightBadge}>

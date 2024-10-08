@@ -8,7 +8,7 @@ import { alignment } from '../../../utils/alignment'
 import screenOptions from '../screenOptions'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import useEmailOtp from './useEmailOtp'
-import {useTranslation} from 'react-i18next'
+import i18n from '../../../../i18n'
 
 function EmailOtp(props) {
   const {
@@ -23,7 +23,7 @@ function EmailOtp(props) {
     currentTheme,
     themeContext
   } = useEmailOtp()
-  const {t} = useTranslation()
+
   useLayoutEffect(() => {
     props.navigation.setOptions(
       screenOptions({
@@ -61,7 +61,7 @@ function EmailOtp(props) {
                 ...alignment.MTlarge,
                 ...alignment.MBmedium
               }}>
-              {t('verifyEmail')}
+              {i18n.t('verifyEmail')}
             </TextDefault>
             <TextDefault
               H5
@@ -70,7 +70,7 @@ function EmailOtp(props) {
               style={{
                 textAlign: 'center'
               }}>
-              {t('otpSentToEmail')}
+              {i18n.t('otpSentToEmail')}
             </TextDefault>
           </View>
           <View>
@@ -97,7 +97,7 @@ function EmailOtp(props) {
                 style={styles(currentTheme).error}
                 bold
                 textColor={currentTheme.textErrorColor}>
-                {t('wrongOtp')}
+                {i18n.t('wrongOtp')}
               </TextDefault>
             )}
           </View>
@@ -118,7 +118,7 @@ function EmailOtp(props) {
                   textColor={currentTheme.buttonTextPink}
                   style={alignment.MLsmall}
                   bold>
-                  {t('resendBtn')}
+                  {i18n.t('resendBtn')}
                 </TextDefault>
               </TouchableOpacity>
             )}

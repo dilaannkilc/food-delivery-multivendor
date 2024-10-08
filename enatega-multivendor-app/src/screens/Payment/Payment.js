@@ -2,20 +2,20 @@ import React, { useContext, useEffect, useLayoutEffect } from 'react'
 import { View, Image, TouchableOpacity } from 'react-native'
 import RadioButton from '../../ui/FdRadioBtn/RadioBtn'
 import styles from './styles'
+import i18n from '../../../i18n'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
-import Analytics from '../../utils/analytics'
+import analytics from '../../utils/analytics'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
 import { Entypo } from '@expo/vector-icons'
 import { scale } from '../../utils/scaling'
-import {useTranslation} from 'react-i18next'
-
 function Payment(props) {
-  const {t} = useTranslation()
+  const Analytics = analytics()
+
   const { paymentMethod, coupon } = props.route.params
   const inset = useSafeAreaInsets()
   const themeContext = useContext(ThemeContext)
@@ -23,20 +23,20 @@ function Payment(props) {
   const CASH = [
     {
       payment: 'STRIPE',
-      label: t('creditCart'),
+      label: i18n.t('creditCart'),
       index: 0,
       icon: require('../../assets/images/masterIcon.png'),
       icon1: require('../../assets/images/visaIcon.png')
     },
     {
       payment: 'PAYPAL',
-      label: t('paypal'),
+      label: i18n.t('paypal'),
       index: 1,
       icon: require('../../assets/images/paypal.png')
     },
     {
       payment: 'COD',
-      label: t('cod'),
+      label: i18n.t('cod'),
       index: 2,
       icon: require('../../assets/images/cashIcon.png')
     }
@@ -45,7 +45,7 @@ function Payment(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: null,
-      title: t('titlePayment'),
+      title: i18n.t('titlePayment'),
       headerTitleAlign: 'center',
       headerStyle: {
         backgroundColor: currentTheme.headerColor,
@@ -90,10 +90,17 @@ function Payment(props) {
   return (
     <>
       <View style={styles(currentTheme).mainContainer}>
-        <View style={{ backgroundColor: currentTheme.themeBackground, borderRadius: 20 }}>
+        <View
+          style={{
+            backgroundColor: currentTheme.themeBackground,
+            borderRadius: 20
+          }}>
           {CASH.map((item, index) => (
             <TouchableOpacity
-              style={[styles(currentTheme).radioGroup, styles(currentTheme).pT20]}
+              style={[
+                styles(currentTheme).radioGroup,
+                styles(currentTheme).pT20
+              ]}
               key={index.toString()}
               onPress={() => {
                 onSelectPayment(item)

@@ -24,7 +24,6 @@ import { HeaderBackButton } from '@react-navigation/elements'
 import UserContext from '../../../context/User'
 import { alignment } from '../../../utils/alignment'
 import CartIcon from '../../../assets/SVG/imageComponents/CartIcon'
-import {useTranslation} from 'react-i18next'
 
 const rippleColor = '#6FCF97'
 function BackButton(props) {
@@ -137,8 +136,6 @@ function LeftButton(props) {
 }
 
 function RightButton(props) {
-
-  const {t} = useTranslation()
   const [password, setPassword] = useState(false)
   const navigation = useNavigation()
   const route = useRoute()
@@ -185,7 +182,7 @@ function RightButton(props) {
       navigation.navigate('Cart')
     } else {
       FlashMessage({
-        message: t('cartIsEmpty')
+        message: 'Cart is empty.'
       })
     }
   }
@@ -202,7 +199,7 @@ function RightButton(props) {
                 style={{ fontSize: scale(11) }}
                 textColor={currentTheme.fontMainColor}
                 bold>
-                {t('changePassword')}
+                Change password
               </TextDefault>
             </View>
           </TouchableOpacity>

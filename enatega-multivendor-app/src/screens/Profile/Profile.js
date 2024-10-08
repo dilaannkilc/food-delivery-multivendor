@@ -18,6 +18,7 @@ import gql from 'graphql-tag'
 import { TextField, OutlinedTextField } from 'react-native-material-textfield'
 import { scale } from '../../utils/scaling'
 import { updateUser, login } from '../../apollo/mutations'
+import i18n from '../../../i18n'
 import ChangePassword from './ChangePassword'
 import { theme } from '../../utils/themeColors'
 import UserContext from '../../context/User'
@@ -27,19 +28,18 @@ import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import { useFocusEffect } from '@react-navigation/native'
-import Analytics from '../../utils/analytics'
+import analytics from '../../utils/analytics'
 import { Feather } from '@expo/vector-icons'
 import { MaterialIcons } from '@expo/vector-icons'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
-import {useTranslation} from 'react-i18next'
-
 const UPDATEUSER = gql`
   ${updateUser}
 `
 
 function Profile(props) {
-  const {t} = useTranslation()
+  const Analytics = analytics()
+
   const refName = useRef()
   const [nameError, setNameError] = useState('')
   const [toggleEmailView, setToggleEmailView] = useState(true)
@@ -71,7 +71,7 @@ function Profile(props) {
   }, [])
   useLayoutEffect(() => {
     props.navigation.setOptions({
-      title: t('titleProfile'),
+      title: i18n.t('titleProfile'),
       headerRight: null,
       headerTitleAlign: 'center',
       headerTitleContainerStyle: {
@@ -127,7 +127,7 @@ function Profile(props) {
   function onCompleted({ updateUser }) {
     if (updateUser) {
       FlashMessage({
-        message: t('userInfoUpdated')
+        message: "User's Info Updated"
       })
       if (backScreen) {
         props.navigation.goBack()
@@ -143,7 +143,7 @@ function Profile(props) {
     if (name !== profile.name) {
       if (!name.trim()) {
         refName.current.focus()
-        setNameError(t('nameError'))
+        setNameError('Name is required')
         return false
       }
 
@@ -193,7 +193,7 @@ function Profile(props) {
           message: error.networkError.result.errors[0].message
         })
       }
-    } catch (err) { }
+    } catch (err) {}
   }
 
   function changeNameTab() {
@@ -262,13 +262,12 @@ function Profile(props) {
                 {
                   backgroundColor: profile.phoneIsVerified
                     ? currentTheme.main
-                    : currentTheme.buttonText,
+                    : currentTheme.buttonText
                 }
               ]}>
-              <TextDefault
-                textColor={currentTheme.white}
-              >
-                {profile.phoneIsVerified ? t('verified') : t('unverified')}</TextDefault>
+              <TextDefault textColor={currentTheme.white}>
+                {profile.phoneIsVerified ? 'Verified' : 'Unverified'}
+              </TextDefault>
             </View>
           )}
         </View>
@@ -288,7 +287,7 @@ function Profile(props) {
           setModalVisible(false)
         }}
       />
-      <Text style={styles(currentTheme).titleContainer}>{t('profileDetail')}</Text>
+      <Text style={styles(currentTheme).titleContainer}>Personal details</Text>
       <View style={styles(currentTheme).formContainer}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : null}
@@ -298,8 +297,12 @@ function Profile(props) {
               {toggleNameView && (
                 <>
                   <View style={styles(currentTheme).headingTitle}>
-                    <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont} style={styles(currentTheme).textAlignLeft}>
-                      {t('name')}
+                    <TextDefault
+                      H5
+                      B700
+                      bolder
+                      textColor={currentTheme.darkBgFont}>
+                      Name
                     </TextDefault>
                   </View>
 
@@ -308,7 +311,11 @@ function Profile(props) {
                       activeOpacity={0.3}
                       style={styles().headingButton}
                       onPress={handleNamePress}>
-                      <MaterialIcons name="edit" size={25} color={currentTheme.darkBgFont} />
+                      <MaterialIcons
+                        name="edit"
+                        size={25}
+                        color={currentTheme.darkBgFont}
+                      />
                     </TouchableOpacity>
                   </View>
                 </>
@@ -320,8 +327,8 @@ function Profile(props) {
               <View>
                 <View style={styles(currentTheme).containerHeading}>
                   <View style={styles(currentTheme).headingTitle}>
-                      <TextDefault H5 B700 bolder style={styles(currentTheme).textAlignLeft}>
-                        {t('name')}
+                    <TextDefault H5 B700 bolder>
+                      Name
                     </TextDefault>
                   </View>
                 </View>
@@ -344,7 +351,7 @@ function Profile(props) {
                   activeOpacity={0.7}
                   style={styles(currentTheme).saveContainer}
                   onPress={handleNamePressUpdate}>
-                    <TextDefault style={styles(currentTheme).textAlignLeft}>{t('update')}</TextDefault>
+                  <TextDefault>Update</TextDefault>
                 </TouchableOpacity>
               </View>
             )}
@@ -355,8 +362,12 @@ function Profile(props) {
             <View style={styles().containerHeading}>
               <>
                 <View style={styles().headingTitle}>
-                  <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont} style={styles(currentTheme).textAlignLeft}>
-                    {t('email')}
+                  <TextDefault
+                    H5
+                    B700
+                    bolder
+                    textColor={currentTheme.darkBgFont}>
+                    Email
                   </TextDefault>
                 </View>
               </>
@@ -369,8 +380,12 @@ function Profile(props) {
             <View style={styles().containerHeading}>
               <>
                 <View style={styles().headingTitle}>
-                  <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont} style={styles(currentTheme).textAlignLeft}>
-                    {t('password')}
+                  <TextDefault
+                    H5
+                    B700
+                    bolder
+                    textColor={currentTheme.darkBgFont}>
+                    Password
                   </TextDefault>
                 </View>
 
@@ -379,7 +394,11 @@ function Profile(props) {
                     activeOpacity={0.3}
                     style={styles().headingButton}
                     onPress={showModal}>
-                    <MaterialIcons name="edit" size={25} color={currentTheme.darkBgFont} />
+                    <MaterialIcons
+                      name="edit"
+                      size={25}
+                      color={currentTheme.darkBgFont}
+                    />
                   </TouchableOpacity>
                 </View>
               </>
@@ -393,8 +412,12 @@ function Profile(props) {
               {toggleView && (
                 <>
                   <View style={styles().headingTitle}>
-                    <TextDefault H5 B700 bolder textColor={currentTheme.darkBgFont} style={styles(currentTheme).textAlignLeft}>
-                      {t('mobile')}
+                    <TextDefault
+                      H5
+                      B700
+                      bolder
+                      textColor={currentTheme.darkBgFont}>
+                      Mobile
                     </TextDefault>
                   </View>
                   <View style={styles().headingLink}>
@@ -406,7 +429,11 @@ function Profile(props) {
                           prevScreen: 'Profile'
                         })
                       }>
-                      <MaterialIcons name="edit" size={25} color={currentTheme.darkBgFont} />
+                      <MaterialIcons
+                        name="edit"
+                        size={25}
+                        color={currentTheme.darkBgFont}
+                      />
                     </TouchableOpacity>
                   </View>
                 </>
@@ -422,9 +449,8 @@ function Profile(props) {
                       textColor={currentTheme.fontMainColor}
                       H5
                       B700
-                      bolder
-                        style={styles(currentTheme).textAlignLeft}>
-                        {t('mobile')}
+                      bolder>
+                      Mobile
                     </TextDefault>
                   </View>
                 </View>
@@ -456,10 +482,10 @@ function Profile(props) {
                                 : currentTheme.textErrorColor
                             }>
                             {profile.phone === ''
-                              ? t('addPhone')
+                              ? 'Add Phone'
                               : profile.phoneIsVerified
-                                ? t('verified')
-                                : t('verify')}
+                              ? 'Verified'
+                              : 'Verify?'}
                           </TextDefault>
                         </TouchableOpacity>
                       )}

@@ -4,20 +4,21 @@ import { TextField, OutlinedTextField } from 'react-native-material-textfield'
 import { scale } from '../../utils/scaling'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
+import i18n from '../../../i18n'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import styles from './styles'
 import { useNavigation } from '@react-navigation/native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import Analytics from '../../utils/analytics'
+import analytics from '../../utils/analytics'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
 import { Entypo } from '@expo/vector-icons'
-import {useTranslation} from 'react-i18next'
 
 function Tip(props) {
-  const {t} = useTranslation()
+  const Analytics = analytics()
+
   const navigation = useNavigation()
   const inset = useSafeAreaInsets()
   const tipRef = useRef(null)
@@ -27,7 +28,7 @@ function Tip(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: null,
-      title: t('titleTipping'),
+      title: 'Tipping',
       headerTitleAlign: 'center',
       headerTitleContainerStyle: {
         marginTop: '1%',
@@ -67,9 +68,9 @@ function Tip(props) {
   }, [])
   function onTipping() {
     const tipAmount = tipRef.current.value()
-    if (isNaN(tipAmount)) FlashMessage({ message: t('invalidAmount') })
+    if (isNaN(tipAmount)) FlashMessage({ message: 'Invalid Amount' })
     else if (Number(tipAmount) <= 0) {
-      FlashMessage({ message: t('amountMustBe') })
+      FlashMessage({ message: 'Amount must be greater than 0' })
     } else navigation.navigate('Cart', { tipAmount: Number(tipAmount) })
   }
 
@@ -82,8 +83,8 @@ function Tip(props) {
           <View style={styles(currentTheme).innerContainer}>
             <OutlinedTextField
               ref={tipRef}
-              label={t('otherAmount')}
-              placeholder={t('addOtherAmount')}
+              label={'Other amount'}
+              placeholder="Add other amount"
               labelFontSize={scale(12)}
               fontSize={scale(12)}
               textAlignVertical="top"
@@ -104,7 +105,7 @@ function Tip(props) {
             onPress={onTipping}
             style={styles(currentTheme).buttonContainer}>
             <TextDefault textColor={currentTheme.buttonText} H5 bold uppercase>
-              {t('apply')}
+              {i18n.t('apply')}
             </TextDefault>
           </TouchableOpacity>
         </View>

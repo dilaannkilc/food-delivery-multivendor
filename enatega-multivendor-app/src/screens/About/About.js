@@ -13,12 +13,11 @@ import TextError from '../../components/Text/TextError/TextError'
 import { alignment } from '../../utils/alignment'
 import { mapStyle } from '../../utils/mapStyle'
 import CustomMarker from '../../assets/SVG/imageComponents/CustomMarker'
-import Analytics from '../../utils/analytics'
+import analytics from '../../utils/analytics'
 import { ScrollView } from 'react-native-gesture-handler'
-import {useTranslation} from 'react-i18next'
 
 function About(props) {
-  const {t} = useTranslation()
+  const Analytics = analytics()
   const { restaurantObject, tab } = props.route.params
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
@@ -44,7 +43,7 @@ function About(props) {
   function emptyView() {
     return (
       <TextError
-        text={t('noReviewYet')}
+        text="There are no reviews yet."
         backColor={currentTheme.cartContainer}
       />
     )
@@ -59,7 +58,7 @@ function About(props) {
           style={{ ...alignment.PBxSmall }}
           textColor={currentTheme.fontMainColor}
           bolder>
-          {restaurantObject.total} {t('Reviews')}
+          {restaurantObject.total} Reviews
         </TextDefault>
         {line()}
       </>
@@ -75,25 +74,37 @@ function About(props) {
     return (
       <ScrollView style={{ ...alignment.MTmedium }}>
         <View style={styles(currentTheme).mapMainContainer}>
-          <View style={[styles(currentTheme).inlineFloat, styles(currentTheme).MB15]}>
+          <View
+            style={[
+              styles(currentTheme).inlineFloat,
+              styles(currentTheme).MB15
+            ]}>
             <MaterialIcons
               name="location-on"
               size={30}
               color={currentTheme.darkBgFont}
             />
-            <TextDefault style={styles(currentTheme).width90} large bold textColor={currentTheme.darkBgFont}>
+            <TextDefault
+              style={styles(currentTheme).width90}
+              large
+              bold
+              textColor={currentTheme.darkBgFont}>
               {RestAbout.address}
             </TextDefault>
           </View>
           <View style={[styles(currentTheme).MB15]}>
-            <View style={[styles(currentTheme).inlineFloat, alignment.MBxSmall]}>
+            <View
+              style={[styles(currentTheme).inlineFloat, alignment.MBxSmall]}>
               <MaterialIcons
                 name="access-time"
                 size={30}
                 color={currentTheme.darkBgFont}
               />
-              <TextDefault style={{ paddingLeft: 10 }} bold textColor={currentTheme.darkBgFont}>
-                {t('Openingtimes')}
+              <TextDefault
+                style={{ paddingLeft: 10 }}
+                bold
+                textColor={currentTheme.darkBgFont}>
+                {'Opening times'}
               </TextDefault>
             </View>
 
@@ -101,14 +112,14 @@ function About(props) {
               {restaurantObject.openingTimes.map((v, index) => (
                 <View key={index} style={styles().timingRow}>
                   <TextDefault
-                    style={styles().timingText}
+                    style={{ width: scale(140) }}
                     textColor={currentTheme.black}
                     large>
-                    {t(v.day)}{' '}
+                    {v.day}{' '}
                   </TextDefault>
                   {v.times.length < 1 ? (
                     <TextDefault key={index + 8} small bold center>
-                      {t('ClosedAllDay')}
+                      {'Closed all day'}
                     </TextDefault>
                   ) : (
                     v.times.map(t => (
@@ -165,8 +176,6 @@ function About(props) {
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <View style={styles(currentTheme).review}>
-
-
             <View style={styles().reviewerContainer}>
               <TextDefault
                 style={styles().reviewerName}
@@ -242,18 +251,32 @@ function About(props) {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => pagerSetter(true)}
-            style={[styles(currentTheme).tab, pager && styles(currentTheme).selectedTab]}>
-            <TextDefault textColor={pager ? currentTheme.black : currentTheme.darkBgFont} bolder uppercase large>
-              {t('About')}
+            style={[
+              styles(currentTheme).tab,
+              pager && styles(currentTheme).selectedTab
+            ]}>
+            <TextDefault
+              textColor={pager ? currentTheme.black : currentTheme.darkBgFont}
+              bolder
+              uppercase
+              large>
+              About
             </TextDefault>
           </TouchableOpacity>
 
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => pagerSetter(false)}
-            style={[styles(currentTheme).tab, !pager && styles(currentTheme).selectedTab]}>
-            <TextDefault textColor={pager ? currentTheme.darkBgFont : currentTheme.black} bolder uppercase large>
-              {t('Reviews')}
+            style={[
+              styles(currentTheme).tab,
+              !pager && styles(currentTheme).selectedTab
+            ]}>
+            <TextDefault
+              textColor={pager ? currentTheme.darkBgFont : currentTheme.black}
+              bolder
+              uppercase
+              large>
+              Reviews
             </TextDefault>
           </TouchableOpacity>
         </View>

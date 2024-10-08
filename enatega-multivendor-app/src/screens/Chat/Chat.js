@@ -2,24 +2,25 @@ import React, { useLayoutEffect, useContext, useEffect } from 'react'
 import { WebView } from 'react-native-webview'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { StatusBar, Platform, View } from 'react-native'
+import i18n from '../../../i18n'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
-import Analytics from '../../utils/analytics'
+import analytics from '../../utils/analytics'
 import { HeaderBackButton } from '@react-navigation/elements'
 import { MaterialIcons } from '@expo/vector-icons'
 import navigationService from '../../routes/navigationService'
 import { scale } from '../../utils/scaling'
-import {useTranslation} from 'react-i18next'
 
 function Chat() {
+  const Analytics = analytics()
+
   const navigation = useNavigation()
-  const {t} = useTranslation()
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: null,
-      headerTitle: t('titleChat'),
+      headerTitle: i18n.t('titleChat'),
       headerTitleContainerStyle: {
         marginTop: '1%',
         paddingLeft: scale(25),

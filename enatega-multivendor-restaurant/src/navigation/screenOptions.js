@@ -2,7 +2,6 @@ import React from 'react'
 import { Dimensions, View, Platform } from 'react-native'
 import { textStyles, scale, colors } from '../utilities'
 import { Icon } from 'react-native-elements'
-import {useTranslation} from 'react-i18next'
 
 const { height } = Dimensions.get('window')
 const screenOptions = props => ({
@@ -33,14 +32,10 @@ const tabIcon = route => ({
   },
   tabBarIcon: ({ color, size }) => {
     let iconName
-    const {t} = useTranslation()
-    if (route.name === t('titleHome')) {
+    if (route.name === 'Home') {
       iconName = 'home'
-    } else if (route.name === t('titleProfile')) {
+    } else if (route.name === 'Profile') {
       iconName = 'user'
-    }
-    else if (route.name === t('language')) {
-      iconName = 'language'
     }
     return (
       <View style={{ paddingTop: scale(10), paddingHorizontal: scale(12) }}>

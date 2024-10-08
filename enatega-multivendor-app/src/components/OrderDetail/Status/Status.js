@@ -6,15 +6,14 @@ import Rider from '../../../assets/SVG/rider'
 import ArrowsLoading from '../../../assets/SVG/arrows-loading'
 import RestaurantPreparing from '../../../assets/SVG/restaurant-preparing'
 import OrderDelivered from '../../../assets/SVG/order-delivered'
-import {useTranslation} from 'react-i18next'
 
 const STATUS_MESSAGES = {
-  PENDING: 'PENDINGStatusMessage',
-  ACCEPTED: 'ACCEPTEDStatusMessage',
-  ASSIGNED: 'ASSIGNEDStatusMessage',
-  PICKED: 'PICKEDStatusMessage',
-  DELIVERED: 'DELIVEREDStatusMessage',
-  CANCELLED: "CANCELLEDStatusMessage"
+  PENDING: 'Waiting for restaurant to accept',
+  ACCEPTED: 'Food is being prepared',
+  ASSIGNED: 'Assigned a rider',
+  PICKED: 'Rider on his way',
+  DELIVERED: 'Thank you!',
+  CANCELLED: "We're sorry, Your order was cancelled."
 }
 const STATUS_ORDER = [
   'PENDING',
@@ -38,7 +37,6 @@ export default function Status({
   cancelledAt,
   assignedAt
 }) {
-  const {t} = useTranslation()
   return (
     <View style={styles.container(theme)}>
       <View style={styles.statusBox(theme)}>
@@ -56,13 +54,13 @@ export default function Status({
             H4
             textColor={theme.fontWhite}
             bolder>
-            {t('yourOrderIs')} {t(orderStatus).toLowerCase()}
+            Your order is {orderStatus.toLowerCase()}
           </TextDefault>
           <TextDefault
             style={styles.text}
             small
             textColor={theme.secondaryText}>
-            {t(STATUS_MESSAGES[orderStatus])}
+            {STATUS_MESSAGES[orderStatus]}
           </TextDefault>
         </View>
       </View>
@@ -83,7 +81,7 @@ export default function Status({
               theme={theme}
               isEta={false}
               number={1}
-              status={t('statusOrderPalced')}
+              status={'Order palced'}
               time={formatTime(createdAt)}
               showLine={true}
             />
@@ -91,7 +89,7 @@ export default function Status({
               theme={theme}
               isEta={STATUS_ORDER.indexOf(orderStatus) < 1}
               number={2}
-              status={t('statusAccepted')}
+              status={'Accepted'}
               time={acceptedAt ? formatTime(acceptedAt) : '--:--'}
               showLine={true}
             />
@@ -99,7 +97,7 @@ export default function Status({
               theme={theme}
               isEta={STATUS_ORDER.indexOf(orderStatus) < 2}
               number={3}
-              status={t('statusAssigned')}
+              status={'Assigned'}
               time={assignedAt ? formatTime(assignedAt) : '--:--'}
               showLine={true}
             />
@@ -107,7 +105,7 @@ export default function Status({
               theme={theme}
               isEta={STATUS_ORDER.indexOf(orderStatus) < 3}
               number={4}
-              status={t('statusPicked')}
+              status={'Picked'}
               time={pickedAt ? formatTime(pickedAt) : '--:--'}
               showLine={true}
             />
@@ -115,7 +113,7 @@ export default function Status({
               theme={theme}
               isEta={STATUS_ORDER.indexOf(orderStatus) < 4}
               number={5}
-              status={t('statusDelivered')}
+              status={'Delivered'}
               time={deliveredAt ? formatTime(deliveredAt) : '--:--'}
               showLine={false}
             />
@@ -145,9 +143,6 @@ const Circle = ({ children, color, size, style }) => {
 }
 
 const StatusRow = ({ theme, number, status, time, isEta, showLine }) => {
-
-  const {t} = useTranslation()
-
   return (
     <View style={{backgroundColor: theme.themeBackground}}>
       <View style={styles.statusRow}>
@@ -165,7 +160,7 @@ const StatusRow = ({ theme, number, status, time, isEta, showLine }) => {
             {status}
           </TextDefault>
           <TextDefault textColor={theme.secondaryText} bold>
-            {isEta ? t('ETA') : ''}
+            {isEta ? 'ETA ' : ''}
             {time}
           </TextDefault>
         </View>

@@ -13,49 +13,46 @@ import { useSubscription } from '@apollo/client'
 import { subscriptionOrder } from '../../../apollo/subscriptions'
 import gql from 'graphql-tag'
 import RandomShape from '../../../assets/SVG/RandomShape'
-import Analytics from '../../../utils/analytics'
+import analytics from '../../../utils/analytics'
 import OrdersContext from '../../../context/Orders'
 import Spinner from '../../Spinner/Spinner'
-import {useTranslation} from 'react-i18next'
 
 const orderStatuses = [
   {
     key: 'PENDING',
     status: 1,
-    statusText: 'pendingOrder'
+    statusText: 'Your order is still pending.'
   },
   {
     key: 'ACCEPTED',
     status: 2,
-    statusText: 'acceptedOrder'
+    statusText: 'Restaurant is preparing Food.'
   },
   {
     key: 'ASSIGNED',
     status: 3,
-    statusText: 'assignedOrder'
+    statusText: 'Assigned a rider.'
   },
   {
     key: 'PICKED',
     status: 4,
-    statusText: 'pickedOrder'
+    statusText: 'Rider is on the way.'
   },
   {
     key: 'DELIVERED',
     status: 5,
-    statusText: 'deliveredOrder'
+    statusText: 'Order is delivered.'
   },
   {
     key: 'COMPLETED',
     status: 6,
-    statusText: 'completedOrder'
+    statusText: 'Order is completed.'
   }
 ]
 
 const orderStatusActive = ['PENDING', 'PICKED', 'ACCEPTED', 'ASSIGNED']
 
 const ActiveOrders = () => {
-
-  const {t} = useTranslation()
   const { loadingOrders, errorOrders, orders } = useContext(OrdersContext)
   const configuration = useContext(ConfigurationContext)
   const navigation = useNavigation()
@@ -97,7 +94,7 @@ const ActiveOrders = () => {
                 onPress={() => setShowAll(!showAll)}
                 style={styles().button}>
                 <Text style={styles().buttonText}>
-                  {showAll ? t('viewLess') : t('viewAll')}
+                  {showAll ? 'View Less' : 'View All'}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -108,13 +105,14 @@ const ActiveOrders = () => {
   )
 }
 const Item = ({ navigation, configuration, currentTheme, item }) => {
+  const Analytics = analytics()
   useSubscription(
     gql`
       ${subscriptionOrder}
     `,
     { variables: { id: item._id } }
   )
-  const {t} = useTranslation()
+
   const checkStatus = status => {
     const obj = orderStatuses.filter(x => {
       return x.key === status
@@ -174,7 +172,7 @@ const Item = ({ navigation, configuration, currentTheme, item }) => {
                 ))}
             </View>
             <Text numberOfLines={1} style={styles(currentTheme).statusText}>
-              {t(checkStatus(item.orderStatus).statusText)}
+              {checkStatus(item.orderStatus).statusText}
             </Text>
           </View>
         </View>

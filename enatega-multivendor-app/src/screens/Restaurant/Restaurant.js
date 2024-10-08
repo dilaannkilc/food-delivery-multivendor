@@ -41,10 +41,9 @@ import styles from './styles'
 import { DAYS } from '../../utils/enums'
 import { alignment } from '../../utils/alignment'
 import TextError from '../../components/Text/TextError/TextError'
-import Analytics from '../../utils/analytics'
+import i18n from '../../../i18n'
+import analytics from '../../utils/analytics'
 const { height } = Dimensions.get('screen')
-import {useTranslation} from 'react-i18next'
-
 // Animated Section List component
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList)
 const TOP_BAR_HEIGHT = height * 0.05
@@ -60,7 +59,8 @@ const config = to => ({
 })
 
 function Restaurant(props) {
-  const {t} = useTranslation()
+  const Analytics = analytics()
+
   const scrollRef = useRef(null)
   const flatListRef = useRef(null)
   const navigation = useNavigation()
@@ -213,7 +213,6 @@ function Restaurant(props) {
     ) {
       await setCartRestaurant(food.restaurant)
       const result = checkItemCart(food._id)
-      console.log(result)
       if (result.exist) await addQuantity(result.key)
       else await addCartItem(food._id, food.variations[0]._id, 1, [], clearFlag)
       animate()
@@ -540,15 +539,14 @@ function Restaurant(props) {
                 }>
                 <View style={styles(currentTheme).deal}>
                   <View style={styles(currentTheme).flex}>
-                 
                     <View style={styles(currentTheme).dealDescription}>
-                    <TextDefault
-                      textColor={currentTheme.fontMainColor}
-                      style={styles(currentTheme).headerText}
-                      numberOfLines={1}
-                      bolder>
-                      {item.title}
-                    </TextDefault>
+                      <TextDefault
+                        textColor={currentTheme.fontMainColor}
+                        style={styles(currentTheme).headerText}
+                        numberOfLines={1}
+                        bolder>
+                        {item.title}
+                      </TextDefault>
                       <TextDefault style={styles(currentTheme).priceText} small>
                         {wrapContentAfterWords(item.description, 5)}
                       </TextDefault>
@@ -626,7 +624,7 @@ function Restaurant(props) {
                   center
                   bolder
                   small>
-                  {t('viewCart')}
+                  {i18n.t('viewCart')}
                 </TextDefault>
                 <View style={styles().buttonTextRight} />
               </TouchableOpacity>

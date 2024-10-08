@@ -8,8 +8,7 @@ import { alignment } from '../../../utils/alignment'
 import screenOptions from '../screenOptions'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import { useForgotPasswordOtp } from './useForgotPasswordOtp'
-import {useTranslation} from 'react-i18next'
-
+import i18n from '../../../../i18n'
 
 function ForgotPasswordOtp(props) {
   const {
@@ -24,7 +23,6 @@ function ForgotPasswordOtp(props) {
     resendOtp
   } = useForgotPasswordOtp()
 
-    const {t} = useTranslation()
   useLayoutEffect(() => {
     props.navigation.setOptions(
       screenOptions({
@@ -62,7 +60,7 @@ function ForgotPasswordOtp(props) {
                 ...alignment.MTlarge,
                 ...alignment.MBmedium
               }}>
-              {t('forgotPassword')}
+              {i18n.t('forgotPassword')}
             </TextDefault>
             <TextDefault
               H5
@@ -71,7 +69,7 @@ function ForgotPasswordOtp(props) {
               style={{
                 textAlign: 'center'
               }}>
-              {t('otpSentToEmail')}
+              {i18n.t('otpSentToEmail')}
             </TextDefault>
           </View>
           <View>
@@ -98,7 +96,7 @@ function ForgotPasswordOtp(props) {
                 style={styles().error}
                 bold
                 textColor={currentTheme.textErrorColor}>
-                {t('wrongOtp')}
+                {i18n.t('wrongOtp')}
               </TextDefault>
             )}
           </View>
@@ -119,7 +117,7 @@ function ForgotPasswordOtp(props) {
                 {loading ? (
                   <Spinner backColor="transparent" size="small" />
                 ) : (
-                  t('resendBtn')
+                  i18n.t('resendBtn')
                 )}
               </TextDefault>
             </TouchableOpacity>

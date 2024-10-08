@@ -14,6 +14,7 @@ import {
   Image
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import i18n from '../../../i18n'
 import styles from './styles'
 import { OutlinedTextField, TextField } from 'react-native-material-textfield'
 import { scale } from '../../utils/scaling'
@@ -32,11 +33,10 @@ import { mapStyle } from '../../utils/mapStyle'
 import CustomMarker from '../../assets/SVG/imageComponents/CustomMarker'
 import AddressText from '../../components/Address/AddressText'
 import SearchModal from '../../components/Address/SearchModal'
-import analytics from '../../utils/analytics'
+import Analytics from '../../utils/analytics'
 import { MaterialIcons, Entypo, Foundation } from '@expo/vector-icons'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
-import {useTranslation} from 'react-i18next'
 
 const EDIT_ADDRESS = gql`
   ${editAddress}
@@ -59,12 +59,12 @@ const labelValues = [
     icon: <Foundation name="heart" size={24} />
   }
 ]
-
 const LATITUDE_DELTA = 0.0022
 const LONGITUDE_DELTA = 0.0021
 
 function EditAddress(props) {
-  const {t} = useTranslation()
+  const analytics = Analytics()
+
   const addressRef = useRef(null)
   const { location, setLocation } = useContext(LocationContext)
   const [_id] = useState(props.route.params._id ?? null)
@@ -104,7 +104,7 @@ function EditAddress(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: null,
-      title: t('editAddress'),
+      title: i18n.t('editAddress'),
       headerStyle: {
         backgroundColor: currentTheme.headerColor,
         borderBottomLeftRadius: 20,
@@ -181,7 +181,7 @@ function EditAddress(props) {
       })
     }
     FlashMessage({
-      message: t('addressUpdated')
+      message: 'Address updated'
     })
     // show message here
     props.navigation.goBack()
@@ -189,7 +189,7 @@ function EditAddress(props) {
 
   function onError(error) {
     FlashMessage({
-      message: `${t('errorOccured')} ${error}`
+      message: `An error occured. Please try again ${error}`
     })
   }
 
@@ -239,7 +239,6 @@ function EditAddress(props) {
               loadingIndicatorColor={currentTheme.iconColorPink}
               region={region}
               customMapStyle={mapStyle}
-      
               provider={PROVIDER_GOOGLE}
               onPress={() => {
                 props.navigation.navigate('FullMap', {
@@ -248,8 +247,7 @@ function EditAddress(props) {
                   currentScreen: 'EditAddress'
                 })
               }}></MapView>
-            <View
-              style={styles().editAddressImageContainer}>
+            <View style={styles().editAddressImageContainer}>
               <Image
                 source={require('../../assets/images/user.png')}
                 width={20}
@@ -267,11 +265,11 @@ function EditAddress(props) {
                   <View style={styles(currentTheme).geoLocation}>
                     <View style={{ width: '100%' }}>
                       <OutlinedTextField
-                        placeholder={t('deliveryAddress')}
+                        placeholder="Delivery Address"
                         error={deliveryAddressError}
                         ref={addressRef}
                         value={deliveryAddress}
-                        label={t('fullDeliveryAddress')}
+                        label={i18n.t('fullDeliveryAddress')}
                         labelFontSize={scale(12)}
                         fontSize={scale(12)}
                         renderRightAccessory={() => (
@@ -302,7 +300,7 @@ function EditAddress(props) {
                         onBlur={() => {
                           setDeliveryAddressError(
                             !deliveryAddress.trim().length
-                              ? t('DeliveryAddressIsRequired')
+                              ? 'Delivery address is required'
                               : null
                           )
                         }}
@@ -311,9 +309,9 @@ function EditAddress(props) {
                   </View>
                   <View style={{ ...alignment.MTlarge }}></View>
                   <OutlinedTextField
-                    placeholder={t('aptFloor')}
+                    placeholder="Apt / Floor"
                     error={deliveryDetailsError}
-                    label={t('deliveryDetails')}
+                    label={i18n.t('deliveryDetails')}
                     labelFontSize={scale(12)}
                     fontSize={scale(12)}
                     textAlignVertical="top"
@@ -337,7 +335,7 @@ function EditAddress(props) {
                     onBlur={() => {
                       setDeliveryDetailsError(
                         !deliveryDetails.trim().length
-                          ? t('DeliveryAddressIsRequired')
+                          ? 'Delivery details is required'
                           : null
                       )
                     }}
@@ -351,7 +349,7 @@ function EditAddress(props) {
                       textColor={currentTheme.fontMainColor}
                       H5
                       bolder>
-                      {t('addLabel')}
+                      Add Label
                     </TextDefault>
                   </View>
                   <View style={styles().buttonInline}>
@@ -391,7 +389,7 @@ function EditAddress(props) {
                           textColor={currentTheme.black}
                           bold
                           center>
-                          {t(label.title)}
+                          {label.title}
                         </TextDefault>
                       </>
                     ))}
@@ -404,10 +402,10 @@ function EditAddress(props) {
               disabled={loading}
               onPress={() => {
                 const deliveryAddressError = !deliveryAddress.trim().length
-                  ? t('DeliveryAddressIsRequired')
+                  ? 'Delivery address is required'
                   : null
                 const deliveryDetailsError = !deliveryDetails.trim().length
-                  ? t('DeliveryAddressIsRequired')
+                  ? 'Delivery details is required'
                   : null
 
                 setDeliveryAddressError(deliveryAddressError)
@@ -434,7 +432,7 @@ function EditAddress(props) {
               activeOpacity={0.5}
               style={styles(currentTheme).saveBtnContainer}>
               <TextDefault textColor={currentTheme.black} H5 bold>
-                {t('saveContBtn')}
+                {i18n.t('saveContBtn')}
               </TextDefault>
             </TouchableOpacity>
           </ScrollView>
