@@ -9,22 +9,19 @@ import { phoneRegex } from '../../utils/regex'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import UserContext from '../../context/User'
 import countryCallingCodes from './countryCodes'
+import {useTranslation} from 'react-i18next'
 
-import ConfigurationContext from '../../context/Configuration'
-import { useTranslation } from 'react-i18next'
 
 const UPDATEUSER = gql`
   ${updateUser}
 `
 
 const useRegister = () => {
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const navigation = useNavigation()
   const route = useRoute()
   const [phone, setPhone] = useState('')
   const [phoneError, setPhoneError] = useState(null)
-  const configuration = useContext(ConfigurationContext)
-  console.log(configuration)
 
   const [countryCode, setCountryCode] = useState('')
   const [currentCountry, setCurrentCountry] = useState(null)
@@ -133,29 +130,11 @@ const useRegister = () => {
   }
 
   async function onCompleted(data) {
-    if (configuration.twilioEnabled) {
-      FlashMessage({
-        message: 'Phone number has been added successfully!'
-      })
-      await refetchProfile()
-      navigation.navigate({
-        name: 'PhoneOtp',
-        merge: true,
-        params: route.params
-      })
-    } else {
-      mutate({
-        variables: {
-          name: profile.name,
-          phone: '+'.concat(country.callingCode[0]).concat(phone),
-          phoneIsVerified: true
-        }
-      })
-      navigation.navigate({
-        name: 'Main',
-        merge: true
-      })
-    }
+    FlashMessage({
+      message: t('numberAddedAlert')
+    })
+    await refetchProfile()
+    navigation.navigate({ name: 'PhoneOtp', merge: true, params: route.params })
   }
 
   function onError(error) {

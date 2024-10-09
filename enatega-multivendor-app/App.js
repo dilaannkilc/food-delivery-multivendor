@@ -20,7 +20,7 @@ import { theme as Theme } from './src/utils/themeColors'
 import { LocationContext } from './src/context/Location'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import 'expo-dev-client'
-import useEnvVars, { isProduction } from './environment'
+import getEnvVars, { isProduction } from './environment'
 import { requestTrackingPermissions } from './src/utils/useAppTrackingTrasparency'
 import { OrdersProvider } from './src/context/Orders'
 import { MessageComponent } from './src/components/FlashMessage/MessageComponent'
@@ -34,34 +34,29 @@ LogBox.ignoreAllLogs() // Ignore all log notifications
 
 // Default Theme
 const themeValue = 'Pink'
+const { SENTRY_DSN } = getEnvVars()
+const client = setupApolloClient()
+Sentry.init({
+  dsn: SENTRY_DSN,
+  enableInExpoDevelopment: true,
+  debug: !isProduction,
+  tracesSampleRate: 1.0 // to be changed to 0.2 in production
+})
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false)
   const [location, setLocation] = useState(null)
   // Theme Reducer
   const [theme, themeSetter] = useReducer(ThemeReducer, themeValue)
-
   useEffect(() => {
-    const loadAppData = async () => {
+    ;(async() => {
       try {
         await SplashScreen.preventAutoHideAsync()
       } catch (e) {
         console.warn(e)
       }
-      await i18n.initAsync()
-      await Font.loadAsync({
-        MuseoSans300: require('./src/assets/font/MuseoSans/MuseoSans300.ttf'),
-        MuseoSans500: require('./src/assets/font/MuseoSans/MuseoSans500.ttf'),
-        MuseoSans700: require('./src/assets/font/MuseoSans/MuseoSans700.ttf')
-      })
-      await permissionForPushNotificationsAsync()
-      await getActiveLocation()
-      BackHandler.addEventListener('hardwareBackPress', exitAlert)
-
-      setAppIsReady(true)
-    }
-
-    loadAppData()
+      loadAppData()
+    })()
 
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', exitAlert)
@@ -81,41 +76,34 @@ export default function App() {
 
   useEffect(() => {
     if (!appIsReady) return
-
-    const hideSplashScreen = async () => {
+    ;(async() => {
       await SplashScreen.hideAsync()
-    }
-
-    hideSplashScreen()
+    })()
   }, [appIsReady])
 
   useEffect(() => {
     if (!location) return
-
-    const saveLocation = async () => {
-      await AsyncStorage.setItem('location', JSON.stringify(location))
-    }
-
-    saveLocation()
+    ;(async() => {
+      AsyncStorage.setItem('location', JSON.stringify(location))
+    })()
   }, [location])
 
   useEffect(() => {
     requestTrackingPermissions()
   }, [])
+  async function loadAppData() {
+    await i18n.initAsync()
+    await Font.loadAsync({
+      MuseoSans300: require('./src/assets/font/MuseoSans/MuseoSans300.ttf'),
+      MuseoSans500: require('./src/assets/font/MuseoSans/MuseoSans500.ttf'),
+      MuseoSans700: require('./src/assets/font/MuseoSans/MuseoSans700.ttf')
+    })
+    await permissionForPushNotificationsAsync()
+    await getActiveLocation()
+    BackHandler.addEventListener('hardwareBackPress', exitAlert)
 
-  const { SENTRY_DSN } = useEnvVars()
-  const client = setupApolloClient()
-
-  useEffect(() => {
-    if (SENTRY_DSN) {
-      Sentry.init({
-        dsn: SENTRY_DSN,
-        enableInExpoDevelopment: true,
-        debug: !isProduction,
-        tracesSampleRate: 1.0 // to be changed to 0.2 in production
-      })
-    }
-  }, [SENTRY_DSN])
+    setAppIsReady(true)
+  }
 
   async function getActiveLocation() {
     try {

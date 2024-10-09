@@ -14,7 +14,7 @@ import Animated, {
   timing,
   useValue
 } from 'react-native-reanimated'
-import useEnvVars from '../../../environment'
+import getEnvVars from '../../../environment'
 import CloseIcon from '../../assets/SVG/imageComponents/CloseIcon'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { alignment } from '../../utils/alignment'
@@ -22,20 +22,18 @@ import { scale } from '../../utils/scaling'
 import { theme } from '../../utils/themeColors'
 import TextDefault from '../Text/TextDefault/TextDefault'
 import styles from './styles'
+import {useTranslation} from 'react-i18next'
 
-import { useTranslation } from 'react-i18next'
-
+const Constants = getEnvVars()
 const { height } = Dimensions.get('screen')
 
 export default function SearchModal({
   visible = false,
-  onClose = () => {},
-  onSubmit = () => {}
+  onClose = () => { },
+  onSubmit = () => { }
 }) {
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const animation = useValue(0)
-  const { GOOGLE_MAPS_KEY } = useEnvVars()
-  console.log('GOOGLE_MAPS_KEY', GOOGLE_MAPS_KEY)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
 
@@ -121,7 +119,7 @@ export default function SearchModal({
             }}
             query={{
               // available options: https://developers.google.com/places/web-service/autocomplete
-              key: GOOGLE_MAPS_KEY,
+              key: Constants.GOOGLE_MAPS_KEY,
               language: 'en' // language of the results
             }}
             styles={{
