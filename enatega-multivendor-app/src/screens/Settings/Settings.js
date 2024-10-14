@@ -41,14 +41,14 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import * as Device from 'expo-device'
 import AuthContext from '../../context/Auth'
-import Analytics from '../../utils/analytics'
+import analytics from '../../utils/analytics'
 import { Divider } from 'react-native-paper'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
 import { MaterialIcons } from '@expo/vector-icons'
 import { scale } from '../../utils/scaling'
 import i18next from '../../../i18next'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 const languageTypes = [
   { value: 'English', code: 'en', index: 0 },
@@ -73,6 +73,8 @@ const DEACTIVATE = gql`
 `
 
 function Settings(props) {
+  const Analytics = analytics()
+
   const { token, setToken } = useContext(AuthContext)
   const {
     profile,
@@ -83,7 +85,8 @@ function Settings(props) {
   } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-  const {t} = useTranslation()
+  console.log(themeContext.ThemeValue)
+  const { t } = useTranslation()
   const [languageName, languageNameSetter] = useState('English')
   const [orderNotification, orderNotificationSetter] = useState()
   const [offerNotification, offerNotificationSetter] = useState()
@@ -92,6 +95,7 @@ function Settings(props) {
   const [darkTheme, setDarkTheme] = useState(themeContext.ThemeValue === 'Dark')
   const [btnText, setBtnText] = useState(null)
   const navigation = useNavigation()
+  // eslint-disable-next-line no-unused-vars
   const [appState, setAppState] = useState(AppState.currentState)
   const [uploadToken] = useMutation(PUSH_TOKEN)
   const [mutate, { loading }] = useMutation(UPDATE_NOTIFICATION_TOKEN, {
@@ -148,7 +152,7 @@ function Settings(props) {
     })
     selectLanguage()
     checkPermission()
-  }, [props.navigation, languageName])
+  }, [props.navigation])
 
   async function deactivatewithemail() {
     deactivated({ variables: { isActive: false, email: profile.email } })
@@ -222,16 +226,10 @@ function Settings(props) {
         'enatega-language',
         languageTypes[languageInd].code
       )
-      var lang = await AsyncStorage.getItem('enatega-language');
-      if (lang) {
-        const defLang = languageTypes.findIndex(el => el.code === lang)
-        const langName = languageTypes[defLang].value
-       // activeRadioSetter(defLang)
-        languageNameSetter(langName)
-      }
-    i18next.changeLanguage(lang)
-    modalVisibleSetter(false)
-    Updates.reloadAsync()
+      i18next.changeLanguage(language)
+      var lang = await AsyncStorage.getItem('enatega-language')
+      console.log(lang)
+      Updates.reloadAsync()
     }
   }
 
@@ -332,8 +330,7 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {t('receiveSpecialOffers')}
-                {' '}
+                {t('receiveSpecialOffers')}{' '}
               </TextDefault>
               <View>
                 <CheckboxBtn
@@ -371,8 +368,7 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {t('getUpdates')}
-                {' '}
+                {t('getUpdates')}{' '}
               </TextDefault>
               <View>
                 <CheckboxBtn
@@ -407,8 +403,7 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {t('turnOnDarkTheme')}
-                {' '}
+                {t('turnOnDarkTheme')}{' '}
               </TextDefault>
               <View>
                 <CheckboxBtn

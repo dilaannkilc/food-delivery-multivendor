@@ -358,6 +358,5 @@ export const ar = {
   selectItems: 'اختر العناصر',
   dontHaveAnyOrderYet: "ليس لديك أي طلب سابق حتى الآن. جرب أحد مطاعمنا الرائعة وقدم طلبك الأول!",
   BrowseRESTAURANTS: 'تصفح المطاعم في منطقتك',
-  RateOrder: 'تقييم الطلب',
-  voucherCode: "أدخل رمز القسيمة الخاص بك"
+  RateOrder: 'تقييم الطلب'
 }

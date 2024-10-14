@@ -44,7 +44,7 @@ const Wallet = () => {
           paddingTop: 10
         }}>
         <Amount
-          text={t('enategaCash')}
+          text="Enatega Cash"
           amount={dataProfile.rider.currentWalletAmount.toFixed(2)}
           shadow
           icon

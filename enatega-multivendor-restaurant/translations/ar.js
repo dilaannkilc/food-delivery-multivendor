@@ -38,10 +38,10 @@ export const ar = {
   taxCharges: 'رسوم الضرائب',
   deliveryCharges: 'رسوم التوصيل',
   total: 'المجموع',
-  setTime: 'تحديد الوقت',
-  forPreparation: 'للتحضير',
-  setAndAccept: 'تحديد وقبول',
-  mins: 'دقائق',
+  setTime: 'Set Time',
+  forPreparation: 'For Preparation',
+  setAndAccept: 'Set & accept',
+  mins: 'mins',
   prepared: 'معدّ',
   preparing: 'يتم التحضير',
   accepted: 'مقبول',
@@ -49,6 +49,5 @@ export const ar = {
   timeLeft: 'الوقت المتبقي',
   orderDetail: 'تفاصيل الطلب',
   acceptAndPrint: 'قبول وطباعة',
-  accept: 'قبول',
-  language: 'لغة'
+  accept: 'قبول'
 }

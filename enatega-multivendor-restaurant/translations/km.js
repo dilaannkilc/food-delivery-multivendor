@@ -49,6 +49,5 @@ export const km = {
   timeLeft: 'ពេលវេលា​ដែលនៅសល់',
   orderDetail: 'ព័ត៌មាន​លម្អិត​អំពីការបញ្ជាទិញ',
   acceptAndPrint: 'ទទួលយក និង បោះពុម្ព',
-  accept: 'ទទួលយក',
-  language: 'ភាសា'
+  accept: 'ទទួលយក'
 }

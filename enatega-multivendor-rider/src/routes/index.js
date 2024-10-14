@@ -1,6 +1,5 @@
 /* eslint-disable react/display-name */
 import React, { useCallback, useContext, useEffect } from 'react'
-import { Platform } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -58,13 +57,11 @@ function MyTabs() {
         component={Wallet}
         options={{ title: t('wallet') }}
       />
-      {
-        Platform.OS === 'ios'? null : <Tab.Screen
+      <Tab.Screen
         name="Language"
         component={Language}
         options={{ title: t('language') }}
       />
-      }
       <Tab.Screen
         name="Profile"
         component={NoDrawer}

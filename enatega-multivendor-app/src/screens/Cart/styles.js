@@ -236,7 +236,7 @@ const styles = (props = null) =>
       display: 'flex',
       width: '100%',
       flexDirection: 'row',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       alignItems: 'center'
     },
     cartInnerContainer: {

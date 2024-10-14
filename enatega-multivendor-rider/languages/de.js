@@ -204,7 +204,4 @@ locationAccess: 'Standortzugriff',
     emptyUsernameError: 'Benutzername ist erforderlich!',
 emptyPasswordError: 'Passwort ist erforderlich!',
 loginFlashMsg: 'Angemeldet',
-enategaCash: 'Enatega Bargeld',
-assigned: "ZUGEWIESEN",
-  picked: "GEWÄHLT"
 }

@@ -49,6 +49,5 @@ export const sv = {
   timeLeft: 'Tid kvar',
   orderDetail: 'Orderdetaljer',
   acceptAndPrint: 'Acceptera och Skriv ut',
-  accept: 'Acceptera',
-  language: 'Språk'
+  accept: 'Acceptera'
 }

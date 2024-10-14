@@ -49,6 +49,5 @@ export const en = {
   timeLeft: 'Time Left',
   orderDetail: 'Order Detail',
   acceptAndPrint: 'Accept & Print',
-  accept: 'Accept',
-  language: 'Language'
+  accept: 'Accept'
 }
