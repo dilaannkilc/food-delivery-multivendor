@@ -50,10 +50,11 @@ import { RectButton } from 'react-native-gesture-handler'
 import { textStyles } from '../../utils/textStyles'
 import Pickup from '../../components/Pickup'
 import { calculateDistance } from '../../utils/customFunctions'
-import analytics from '../../utils/analytics'
+import Analytics from '../../utils/analytics'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
+
 
 // Constants
 const PLACEORDER = gql`
@@ -64,8 +65,6 @@ const TIPPING = gql`
 `
 
 function Cart(props) {
-  const Analytics = analytics()
-
   const configuration = useContext(ConfigurationContext)
   const {
     isLoggedIn,
@@ -82,7 +81,7 @@ function Cart(props) {
   const themeContext = useContext(ThemeContext)
   const { location } = useContext(LocationContext)
   const currentTheme = theme[themeContext.ThemeValue]
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const modalRef = useRef(null)
   const [loadingData, setLoadingData] = useState(true)
   const [minimumOrder, setMinimumOrder] = useState('')
@@ -410,9 +409,7 @@ function Cart(props) {
     if (calculatePrice(deliveryCharges, true) < minimumOrder) {
       FlashMessage({
         // message: `The minimum amount of (${configuration.currencySymbol} ${minimumOrder}) for your order has not been reached.`
-        message: `(${t(minAmount)}) (${
-          configuration.currencySymbol
-        } ${minimumOrder}) (${t(forYourOrder)})`
+        message: `(${t(minAmount)}) (${configuration.currencySymbol} ${minimumOrder}) (${t(forYourOrder)})`
       })
       return false
     }
@@ -722,7 +719,8 @@ function Cart(props) {
             <ScrollView
               showsVerticalScrollIndicator={false}
               style={[styles().flex]}>
-              <View style={[styles(currentTheme).headerContainer]}>
+              <View
+                style={[styles(currentTheme).headerContainer]}>
                 <View
                   style={[
                     styles(currentTheme).priceContainer,
@@ -730,7 +728,8 @@ function Cart(props) {
                     styles().mB10,
                     styles().pB10
                   ]}>
-                  <View style={styles(currentTheme).imageContainer}>
+                  <View
+                    style={styles(currentTheme).imageContainer}>
                     <View style={{ marginLeft: scale(10) }}>
                       <Image
                         resizeMode="cover"
@@ -741,10 +740,7 @@ function Cart(props) {
                       style={{
                         marginLeft: scale(20)
                       }}>
-                      <TextDefault
-                        textColor={currentTheme.darkBgFont}
-                        style={{ padding: 5 }}
-                        bolder>
+                      <TextDefault  textColor={currentTheme.darkBgFont} style={{ padding: 5 }} bolder>
                         {isPickedUp ? t('pickUp') : t('delivery')}{' '}
                       </TextDefault>
                       <TextDefault
@@ -782,11 +778,7 @@ function Cart(props) {
                       renderRightActions={(progress, dragX) =>
                         renderRightSwipe(progress, food.key)
                       }>
-                      <View
-                        style={[
-                          styles(currentTheme).itemContainer,
-                          styles().pB5
-                        ]}>
+                      <View style={[styles(currentTheme).itemContainer, styles().pB5]}>
                         <CartItem
                           quantity={food.quantity}
                           dealName={food.title}
@@ -1224,8 +1216,7 @@ function Cart(props) {
                                     textColor={
                                       currentTheme.darkBgFont
                                     }>{`${location.deliveryAddress}`}</TextDefault>
-                                  <TextDefault
-                                    textColor={currentTheme.darkBgFont}>
+                                  <TextDefault textColor={currentTheme.darkBgFont}>
                                     {' '}
                                     {location.details}
                                   </TextDefault>
@@ -1239,7 +1230,8 @@ function Cart(props) {
                               )}
                             </View>
                           </TouchableOpacity>
-                          <View style={styles().changeAddressContainer}>
+                          <View
+                            style={styles().changeAddressContainer}>
                             <TouchableOpacity
                               activeOpacity={0.7}
                               style={styles(currentTheme).changeAddressBtn}
@@ -1256,7 +1248,7 @@ function Cart(props) {
                               }}>
                               <TextDefault bolder small>
                                 {' '}
-                                {t('changeAddress')}
+                                  {t('changeAddress')}
                               </TextDefault>
                             </TouchableOpacity>
                           </View>
@@ -1483,9 +1475,7 @@ function Cart(props) {
                 alignSelf: 'center'
               }
             ]}>
-            <Text style={{ fontSize: 20, fontWeight: '500' }}>
-              {t('apply')}
-            </Text>
+            <Text style={{ fontSize: 20, fontWeight: '500' }}>{t('apply')}</Text>
           </TouchableOpacity>
         </Modalize>
       </View>

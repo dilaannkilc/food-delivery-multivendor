@@ -6,7 +6,7 @@ import {
   Platform,
   Linking,
   StatusBar,
-  ActivityIndicator,
+  Button,
   Text
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -41,14 +41,14 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import * as Device from 'expo-device'
 import AuthContext from '../../context/Auth'
-import analytics from '../../utils/analytics'
+import Analytics from '../../utils/analytics'
 import { Divider } from 'react-native-paper'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
 import { MaterialIcons } from '@expo/vector-icons'
 import { scale } from '../../utils/scaling'
 import i18next from '../../../i18next'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 const languageTypes = [
   { value: 'English', code: 'en', index: 0 },
@@ -73,8 +73,6 @@ const DEACTIVATE = gql`
 `
 
 function Settings(props) {
-  const Analytics = analytics()
-
   const { token, setToken } = useContext(AuthContext)
   const {
     profile,
@@ -85,14 +83,11 @@ function Settings(props) {
   } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-
-  const { t } = useTranslation()
-
+  const {t} = useTranslation()
   const [languageName, languageNameSetter] = useState('English')
   const [orderNotification, orderNotificationSetter] = useState()
   const [offerNotification, offerNotificationSetter] = useState()
   const [modalVisible, modalVisibleSetter] = useState(false)
-  const [loadinglang, setLoadingLang] = useState(false)
   const [activeRadio, activeRadioSetter] = useState(languageTypes[0].index)
   const [darkTheme, setDarkTheme] = useState(themeContext.ThemeValue === 'Dark')
   const [btnText, setBtnText] = useState(null)
@@ -219,30 +214,24 @@ function Settings(props) {
   }
 
   async function onSelectedLanguage() {
-    try {
-      // Display loading indicator
-      setLoadingLang(true)
-      const languageInd = activeRadio
-      if (Platform.OS === 'android') {
-        await AsyncStorage.setItem(
-          'enatega-language',
-          languageTypes[languageInd].code
-        )
-
-        var lang = await AsyncStorage.getItem('enatega-language')
-        if (lang) {
-          const defLang = languageTypes.findIndex(el => el.code === lang)
-          const langName = languageTypes[defLang].value
-          languageNameSetter(langName)
-        }
-        i18next.changeLanguage(lang)
-        modalVisibleSetter(false)
-        //Updates.reloadAsync()
+    const languageInd = activeRadio
+    if (Platform.OS === 'android') {
+      //const localization = await Localization.getLocalizationAsync()
+      //localization.locale = languageTypes[languageInd].code
+      await AsyncStorage.setItem(
+        'enatega-language',
+        languageTypes[languageInd].code
+      )
+      var lang = await AsyncStorage.getItem('enatega-language');
+      if (lang) {
+        const defLang = languageTypes.findIndex(el => el.code === lang)
+        const langName = languageTypes[defLang].value
+       // activeRadioSetter(defLang)
+        languageNameSetter(langName)
       }
-    } catch (error) {
-      console.error('Error during language selection:', error)
-    } finally {
-      setLoadingLang(false) // Hide loading indicator
+    i18next.changeLanguage(lang)
+    modalVisibleSetter(false)
+    Updates.reloadAsync()
     }
   }
 
@@ -343,7 +332,8 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {t('receiveSpecialOffers')}{' '}
+                {t('receiveSpecialOffers')}
+                {' '}
               </TextDefault>
               <View>
                 <CheckboxBtn
@@ -381,7 +371,8 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {t('getUpdates')}{' '}
+                {t('getUpdates')}
+                {' '}
               </TextDefault>
               <View>
                 <CheckboxBtn
@@ -416,7 +407,8 @@ function Settings(props) {
                 textColor={currentTheme.darkBgFont}
                 style={alignment.MLsmall}>
                 {' '}
-                {t('turnOnDarkTheme')}{' '}
+                {t('turnOnDarkTheme')}
+                {' '}
               </TextDefault>
               <View>
                 <CheckboxBtn
@@ -525,11 +517,6 @@ function Settings(props) {
               </TextDefault>
             </TouchableOpacity>
           </View>
-          {loadinglang && (
-            <View style={styles().loadingContainer}>
-              <ActivityIndicator size="large" color={currentTheme.tagColor} />
-            </View>
-          )}
         </View>
       </Modal>
       <Modalize

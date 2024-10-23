@@ -3,23 +3,20 @@ import { ActivityIndicator, View } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { myOrders } from '../../apollo/queries'
 import gql from 'graphql-tag'
-import useEnvVars from '../../../environment'
+import getEnvVars from '../../../environment'
 import { useApolloClient } from '@apollo/client'
 import UserContext from '../../context/User'
-import analytics from '../../utils/analytics'
+import Analytics from '../../utils/analytics'
+import {useTranslation} from 'react-i18next'
 
-import { useTranslation } from 'react-i18next'
 
+const { SERVER_URL } = getEnvVars()
 const MYORDERS = gql`
   ${myOrders}
 `
 
 function StripeCheckout(props) {
-  const Analytics = analytics()
-
-  const { SERVER_URL } = useEnvVars()
-  console.log('SERVER_URL', SERVER_URL)
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const [loading, loadingSetter] = useState(true)
   const { clearCart } = useContext(UserContext)
   const client = useApolloClient()
