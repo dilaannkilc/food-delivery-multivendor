@@ -9,9 +9,9 @@ import UserContext from '../../../context/User'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import * as Device from 'expo-device'
 import * as Notifications from 'expo-notifications'
-import analytics from '../../../utils/analytics'
+import Analytics from '../../../utils/analytics'
 import AuthContext from '../../../context/Auth'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 const SEND_OTP_TO_EMAIL = gql`
   ${sendOtpToEmail}
@@ -20,9 +20,7 @@ const CREATEUSER = gql`
   ${createUser}
 `
 const useEmailOtp = () => {
-  const Analytics = analytics()
-
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const navigation = useNavigation()
   const route = useRoute()
   const [otp, setOtp] = useState('')

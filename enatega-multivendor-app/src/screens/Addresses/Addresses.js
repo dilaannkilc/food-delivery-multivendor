@@ -18,7 +18,7 @@ import {
 } from '@expo/vector-icons'
 
 import gql from 'graphql-tag'
-
+import {useTranslation} from 'react-i18next'
 import { scale } from '../../utils/scaling'
 import { deleteAddress } from '../../apollo/mutations'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
@@ -29,28 +29,25 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import EmptyAddress from '../../assets/SVG/imageComponents/EmptyAddress'
-import analytics from '../../utils/analytics'
+import Analytics from '../../utils/analytics'
 import navigationService from '../../routes/navigationService'
 import { HeaderBackButton } from '@react-navigation/elements'
 import CustomHomeIcon from '../../assets/SVG/imageComponents/CustomHomeIcon'
 import CustomWorkIcon from '../../assets/SVG/imageComponents/CustomWorkIcon'
 import CustomOtherIcon from '../../assets/SVG/imageComponents/CustomOtherIcon'
-import { useTranslation } from 'react-i18next'
 
 const DELETE_ADDRESS = gql`
   ${deleteAddress}
 `
 
 function Addresses() {
-  const Analytics = analytics()
-
+  const {t} = useTranslation()
   const navigation = useNavigation()
   const [mutate, { loading: loadingMutation }] = useMutation(DELETE_ADDRESS)
   const { profile } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const inset = useSafeAreaInsets()
-  const { t } = useTranslation()
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor(currentTheme.headerBackground)
@@ -121,14 +118,14 @@ function Addresses() {
           <View style={styles().descriptionEmpty}>
             <View style={styles().viewTitle}>
               <TextDefault textColor={currentTheme.fontMainColor} bolder>
-                It&#39;s empty here.
+                {t('emptyHere')}
               </TextDefault>
             </View>
             <View>
               <TextDefault textColor={currentTheme.fontMainColor} bold>
-                You haven&#39;t saved any address yet.
+                {t('emptyHereDecs1')}
                 {'\n'}
-                Click Add New Address to get started
+                {t('emptyHereDecs2')}
               </TextDefault>
             </View>
           </View>
@@ -158,8 +155,8 @@ function Addresses() {
                   <TextDefault
                     textColor={currentTheme.darkBgFont}
                     style={styles(currentTheme).labelStyle}>
-                    {address.label}
-                  </TextDefault>
+                    {t(address.label)}
+                  </TextDefault> 
                 </View>
                 <View style={{ ...alignment.MTxSmall }}></View>
 

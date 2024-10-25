@@ -34,25 +34,22 @@ LogBox.ignoreLogs([
 ]) // Ignore log notification by message
 LogBox.ignoreAllLogs() // Ignore all log notifications
 
+const client = setupApolloClient()
+const { SENTRY_DSN } = getEnvVars()
+Sentry.init({
+  dsn: SENTRY_DSN,
+  enableInExpoDevelopment: true,
+  debug: true,
+  tracesSampleRate: 1.0 // to be changed to 0.2 in production
+})
+
 export default function App() {
-  const { t } = useTranslation();
+ // const { t } = useTranslation();
   const [appIsReady, setAppIsReady] = useState(false)
   const [token, setToken] = useState(null)
   const [isUpdating, setIsUpdating] = useState(false)
   const [active, setActive] = useState('NewOrder')
-
-  const client = setupApolloClient()
-  const { SENTRY_DSN } = getEnvVars()
-  useEffect(() => {
-    if (SENTRY_DSN) {
-      Sentry.init({
-        dsn: SENTRY_DSN,
-        enableInExpoDevelopment: true,
-        debug: true,
-        tracesSampleRate: 1.0 // to be changed to 0.2 in production
-      })
-    }
-  }, [SENTRY_DSN])
+  // const client = useApolloClient()
 
   useEffect(() => {
     ;(async () => {
@@ -120,7 +117,8 @@ export default function App() {
           { backgroundColor: colors.startColor }
         ]}>
         <TextDefault textColor={colors.white} bold>
-          {t('updating')}
+          {/* {t('updating')} */}
+          updating
           {/* {.t('updating')} */}
         </TextDefault>
         <ActivityIndicator size="large" color={colors.white} />
