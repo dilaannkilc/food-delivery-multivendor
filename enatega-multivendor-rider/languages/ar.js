@@ -98,7 +98,7 @@ answer4:
   orderReceived: 'تم استلام الطلب',
   cancelled: 'تم الإلغاء',
   foodPreparing: 'يتم إعداد الطعام',
-  DELIVERED: 'تم التوصيل',
+  delivered: 'تم التوصيل',
   rateAndReview: 'قيم وأكتب تقييمًا',
   reviewPlaceholder: 'التقييمات التفصيلية تحصل على رؤية أكبر...',
   submit: 'إرسال',
@@ -200,8 +200,6 @@ locationAccess: 'وصول الموقع',
 emptyPasswordError: 'كلمة المرور مطلوبة!',
 loginFlashMsg: 'تم تسجيل الدخول',
 enategaCash: 'كاش إناتيغا',
-ASSIGNED: "تم التعيين",
-PICKED: "تم الاختيار",
-contactCustomer: 'اتصل بالعميل',
-orderMarkedAs: 'تم وضع علامة على الطلب '
+assigned: "تم التعيين",
+  picked: "تم الاختيار"
 }

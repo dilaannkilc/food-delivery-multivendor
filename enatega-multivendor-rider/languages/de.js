@@ -101,7 +101,7 @@ export const de = {
   orderReceived: 'Bestellung erhalten',
   cancelled: 'Abgebrochen',
   foodPreparing: 'Das Essen wird zubereitet',
-  DELIVERED: 'Geliefert',
+  delivered: 'Geliefert',
   rateAndReview: 'Bewerten und Rezension schreiben',
   reviewPlaceholder: 'Detailliertere Bewertungen erhalten mehr Sichtbarkeit...',
   submit: 'Einreichen',
@@ -205,8 +205,6 @@ locationAccess: 'Standortzugriff',
 emptyPasswordError: 'Passwort ist erforderlich!',
 loginFlashMsg: 'Angemeldet',
 enategaCash: 'Enatega Bargeld',
-ASSIGNED: "ZUGEWIESEN",
-PICKED: "GEWÄHLT",
-contactCustomer: 'Kundenkontakt',
-orderMarkedAs: 'Bestellung markiert als '
+assigned: "ZUGEWIESEN",
+  picked: "GEWÄHLT"
 }
