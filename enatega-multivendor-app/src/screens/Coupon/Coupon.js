@@ -12,20 +12,18 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import styles from './styles'
-import Analytics from '../../utils/analytics'
+import analytics from '../../utils/analytics'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
 import { MaterialIcons, Entypo } from '@expo/vector-icons'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 const GET_COUPON = gql`
   ${getCoupon}
 `
 
 function SelectVoucher(props) {
-  const analytics = Analytics()
-
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const { paymentMethod } = props.route.params
   const [voucherCode, voucherCodeSetter] = useState('')
   const themeContext = useContext(ThemeContext)
@@ -111,7 +109,9 @@ function SelectVoucher(props) {
     mutate({ variables: { coupon: text } })
   }
 
-  const HeaderLine = props => {}
+  const HeaderLine = props => {
+ 
+  }
   return (
     <>
       <View style={[styles().flex, styles(currentTheme).mainContainer]}>

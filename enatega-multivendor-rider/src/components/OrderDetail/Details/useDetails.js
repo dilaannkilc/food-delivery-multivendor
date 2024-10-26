@@ -81,7 +81,7 @@ const useDetails = orderData => {
   async function onCompleted(result) {
     if (result.updateOrderStatusRider) {
       FlashMessage({
-        message: `${t('orderMarkedAs')} ${t(result.updateOrderStatusRider.orderStatus)}`
+        message: `Order marked as ${result.updateOrderStatusRider.orderStatus}`
       })
     }
     if (result.assignOrder) {

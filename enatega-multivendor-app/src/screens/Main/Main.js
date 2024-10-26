@@ -35,7 +35,7 @@ import Item from '../../components/Main/Item/Item'
 import UserContext from '../../context/User'
 import { restaurantList } from '../../apollo/queries'
 import { selectAddress } from '../../apollo/mutations'
-import { scale } from '../../utils/scaling'
+import { verticalScale, scale } from '../../utils/scaling'
 import styles from './styles'
 import TextError from '../../components/Text/TextError/TextError'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
@@ -47,9 +47,10 @@ import { LocationContext } from '../../context/Location'
 import { ActiveOrdersAndSections } from '../../components/Main/ActiveOrdersAndSections'
 import { alignment } from '../../utils/alignment'
 import Spinner from '../../components/Spinner/Spinner'
-import analytics from '../../utils/analytics'
+import Analytics from '../../utils/analytics'
 import MapSection from '../MapSection/index'
-import { useTranslation } from 'react-i18next'
+import i18next from '../../../i18next';
+import {useTranslation} from 'react-i18next'
 
 const RESTAURANTS = gql`
   ${restaurantList}
@@ -59,9 +60,7 @@ const SELECT_ADDRESS = gql`
 `
 
 function Main(props) {
-  const Analytics = analytics()
-
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const [busy, setBusy] = useState(false)
   const { loadingOrders, isLoggedIn, profile } = useContext(UserContext)
   const { location, setLocation } = useContext(LocationContext)
@@ -86,7 +85,7 @@ function Main(props) {
   const [mutate, { loading: mutationLoading }] = useMutation(SELECT_ADDRESS, {
     onError
   })
-  
+
   const {
     onScroll /* Event handler */,
     containerPaddingTop /* number */,
@@ -138,16 +137,12 @@ function Main(props) {
   }
 
   const setAddressLocation = async address => {
-    let formattedAddress = address.deliveryAddress
-    if (formattedAddress.length > 25) {
-      formattedAddress = formattedAddress.substring(0, 25) + '...'
-    }
     setLocation({
       _id: address._id,
       label: address.label,
       latitude: Number(address.location.coordinates[1]),
       longitude: Number(address.location.coordinates[0]),
-      deliveryAddress: formattedAddress,
+      deliveryAddress: address.deliveryAddress,
       details: address.details
     })
     mutate({ variables: { id: address._id } })
@@ -174,7 +169,7 @@ function Main(props) {
           else {
             modalRef.current.close()
             setLocation({
-              label: 'currentLocation',
+              label: ('currentLocation'),
               latitude: coords.latitude,
               longitude: coords.longitude,
               deliveryAddress: address
@@ -206,7 +201,7 @@ function Main(props) {
         </View>
       </TouchableOpacity>
       <View style={styles().addressTick}>
-        {location.label === 'currentLocation' && (
+        {location.label === t('currentLocation') && (
           <MaterialIcons
             name="check"
             size={scale(15)}
@@ -229,7 +224,7 @@ function Main(props) {
       return (
         <View style={styles().emptyViewContainer}>
           <TextDefault textColor={currentTheme.fontMainColor}>
-           {t('noRestaurants')}
+            No Restaurants
           </TextDefault>
         </View>
       )
@@ -309,7 +304,7 @@ function Main(props) {
     )
   }
 
-  if (error) return <TextError text={t('networkError')} />
+  if (error) return <TextError text={'Error menu ' + JSON.stringify(error)} />
 
   if (loading || mutationLoading || loadingOrders) return loadingScreen()
 

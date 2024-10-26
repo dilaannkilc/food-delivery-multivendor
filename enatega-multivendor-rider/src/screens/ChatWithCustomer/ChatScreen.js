@@ -67,7 +67,7 @@ const ChatScreen = ({ navigation, route }) => {
           style={styles.emptyChat}
           textColor={colors.fontSecondColor}
           H3>
-          {t('chatWithRider')}
+          {t('chatWithRide')}
         </TextDefault>
       </View>
     )
