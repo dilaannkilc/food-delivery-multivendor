@@ -361,7 +361,5 @@ export const ar = {
   RateOrder: 'تقييم الطلب',
   voucherCode: "أدخل رمز القسيمة الخاص بك",
   networkError: "حدث خطأ ما. تحقق من شبكتك وحاول مرة أخرى.",
-  noRestaurants: "لا مطاعم",
-  clearCartText: 'عند مغادرة صفحة المطعم هذه، سيتم محو العناصر التي أضفتها إلى السلة',
-okText: 'موافق'
+  noRestaurants: "لا مطاعم"
 }

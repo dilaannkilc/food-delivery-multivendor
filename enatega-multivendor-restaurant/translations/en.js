@@ -4,7 +4,7 @@ export const en = {
   notifications: 'Notifications',
   online: 'Online',
   closed: 'Closed',
-  onn: 'On',
+  onn: 'Onn',
   off: 'Off',
   settings: 'Settings',
   aboutUs: 'About us',
@@ -50,6 +50,5 @@ export const en = {
   orderDetail: 'Order Detail',
   acceptAndPrint: 'Accept & Print',
   accept: 'Accept',
-  language: 'Language',
-  notificationText: 'Must use physical device for Push Notifications'
+  language: 'Language'
 }

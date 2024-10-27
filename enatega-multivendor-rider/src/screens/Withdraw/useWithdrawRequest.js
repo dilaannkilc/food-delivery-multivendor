@@ -11,10 +11,8 @@ import { MIN_WITHDRAW_AMOUNT } from '../../utilities/constants'
 const WITHDRAW_REQUEST = gql`
   ${createWithdrawRequest}
 `
-import {useTranslation} from 'react-i18next'
 
 export const useWithdrawRequest = () => {
-  const {t} = useTranslation()
   const [error, setError] = useState(false)
   const [amount, setAmount] = useState(0)
   const [requestSent, setRequestSent] = useState(false)
@@ -38,13 +36,13 @@ export const useWithdrawRequest = () => {
     setError('')
 
     if (!amount) {
-      setError(t('amountReq'))
+      setError('Amount is required!')
       result = false
     } else if (amount < MIN_WITHDRAW_AMOUNT) {
-      setError(`${t('amountGreater')} ${MIN_WITHDRAW_AMOUNT}!`)
+      setError(`Amount must be grater than ${MIN_WITHDRAW_AMOUNT}!`)
       result = false
     } else if (amount > dataProfile.rider.currentWalletAmount) {
-      setError(t('withdrawAmountError'))
+      setError('Withdraw amount must be less than or equal to wallet amount!')
       result = false
     }
     return result

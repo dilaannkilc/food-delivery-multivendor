@@ -50,6 +50,5 @@ export const sv = {
   orderDetail: 'Orderdetaljer',
   acceptAndPrint: 'Acceptera och Skriv ut',
   accept: 'Acceptera',
-  language: 'Språk',
-  notificationText: 'Måste använda en fysisk enhet för push-meddelanden'
+  language: 'Språk'
 }

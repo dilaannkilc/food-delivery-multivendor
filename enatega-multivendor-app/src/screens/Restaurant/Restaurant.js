@@ -180,15 +180,15 @@ function Restaurant(props) {
     } else if (food.restaurant !== restaurantCart) {
       Alert.alert(
         '',
-        t('clearCartText'),
+        'By leaving this restaurant page, the items you`ve added to cart will be cleared',
         [
           {
-            text: t('Cancel'),
+            text: 'Cancel',
             onPress: () => console.log('Cancel Pressed'),
             style: 'cancel'
           },
           {
-            text: t('okText'),
+            text: 'OK',
             onPress: async () => {
               await addToCart(food, true)
             }

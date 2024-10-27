@@ -363,7 +363,5 @@ export const fr = {
   RateOrder: "Noter la commande",
   voucherCode: "Entrez votre code de réduction",
   networkError: "Quelque chose s'est mal passé. Vérifiez votre réseau et réessayez.",
-  noRestaurants: "Pas de restaurants",
-  clearCartText: 'En quittant cette page du restaurant, les articles que vous avez ajoutés au panier seront effacés',
-okText: 'OK'
+  noRestaurants: "Pas de restaurants"
 }
