@@ -12,7 +12,8 @@ import Modal from 'react-native-modal'
 import RadioButton from '../../components/FdRadioBtn/RadioBtn'
 import { useNavigation } from '@react-navigation/native'
 import i18next from '../../../i18next'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import { SafeAreaView } from 'react-native'
 
 const languageTypes = [
   { value: 'English', code: 'en', index: 0 },
@@ -25,7 +26,7 @@ const languageTypes = [
 
 function Language() {
   const navigation = useNavigation()
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const [modalVisible, modalVisibleSetter] = useState(false)
   const [activeRadio, setActiveRadio] = useState(languageTypes[0].index)
   const [languageName, languageNameSetter] = useState('English')
@@ -62,7 +63,6 @@ function Language() {
         'enatega-language',
         languageTypes[languageInd].code
       )
-      Updates.reloadAsync()
     }
     if (lang) {
       const defLang = languageTypes.findIndex(el => el.code === lang)
@@ -74,10 +74,16 @@ function Language() {
   }
 
   return (
-    <View
+    <SafeAreaView
       style={[
         styles.flex,
-        { paddingBottom: inset.bottom, ...alignment.Pmedium }
+        {
+          paddingBottom: inset.bottom,
+          ...alignment.Pmedium,
+          ...alignment.MTlarge,
+          width: '95%',
+          alignSelf: 'center'
+        }
       ]}>
       <View style={[styles.languageContainer, styles.shadow]}>
         <View style={styles.changeLanguage}>
@@ -87,7 +93,7 @@ function Language() {
               textColor={colors.fontSecondColor}
               bold
               H5>
-             {t('language')}
+              {t('language')}
             </TextDefault>
           </View>
           <TouchableOpacity
@@ -95,7 +101,7 @@ function Language() {
             onPress={() => modalVisibleSetter(true)}
             style={styles.button}>
             <TextDefault textColor={colors.tagColor} bolder>
-             {t('edit')}
+              {t('edit')}
             </TextDefault>
           </TouchableOpacity>
         </View>
@@ -115,7 +121,7 @@ function Language() {
             bolder
             H5
             style={alignment.MBsmall}>
-           {t('selectLanguage')}
+            {t('selectLanguage')}
           </TextDefault>
 
           {languageTypes.map((item, index) => (
@@ -165,7 +171,7 @@ function Language() {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   )
 }
 
