@@ -23,20 +23,20 @@ const Help = props => {
     {
       title: t('titleProductPage'),
       url:
-        'https://enatega.com/enatega-multi-vendor/'
+        'https://enatega.com/enatega-multivendor-open-source-food-delivery-solution/'
     },
     {
       title: t('titleDocs'),
-      url: 'https://enatega.com/multi-vendor-doc/'
+      url: 'https://enatega.com/multivendor-documentation/'
     },
     {
       title: t('titleBlog'),
       url:
-        'https://enatega.com/blog/'
+        'https://enatega.com/blogs-enatega-open-source-food-delivery-solutions/'
     },
     {
       title: t('titleAboutUs'),
-      url: 'https://ninjascode.com/about-us/'
+      url: 'https://ninjascode.com/pages/ourteam.html'
     }
   ])
 

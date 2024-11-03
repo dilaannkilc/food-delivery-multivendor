@@ -24,11 +24,6 @@ function Location(props) {
       ? t('currentLocation')
       : (location.deliveryAddress);
 
-  const truncatedTranslatedAddress =
-      translatedAddress.length > 20
-        ? translatedAddress.substring(0, 20) + '...'
-        : translatedAddress;
-        
   return (
     <View>
       <View style={styles(currentTheme).headerTitleContainer}>
@@ -47,7 +42,7 @@ function Location(props) {
               H5
               bolder>
               {''}
-              {truncatedTranslatedAddress}
+              {translatedAddress}
             </TextDefault>
           </TouchableOpacity>
         </View>
