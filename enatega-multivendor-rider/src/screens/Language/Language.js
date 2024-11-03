@@ -62,6 +62,7 @@ function Language() {
         'enatega-language',
         languageTypes[languageInd].code
       )
+      Updates.reloadAsync()
     }
     if (lang) {
       const defLang = languageTypes.findIndex(el => el.code === lang)
@@ -76,13 +77,7 @@ function Language() {
     <View
       style={[
         styles.flex,
-        {
-          paddingBottom: inset.bottom,
-          ...alignment.Pmedium,
-          ...alignment.MTlarge,
-          width: '95%',
-          alignSelf: 'center'
-        }
+        { paddingBottom: inset.bottom, ...alignment.Pmedium }
       ]}>
       <View style={[styles.languageContainer, styles.shadow]}>
         <View style={styles.changeLanguage}>
