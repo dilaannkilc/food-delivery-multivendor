@@ -88,7 +88,6 @@ function Favourite() {
       headerRight: null,
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=""
           backImage={() => (
             <View
               style={{

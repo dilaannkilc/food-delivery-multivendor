@@ -49,7 +49,6 @@ function Tip(props) {
       },
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=""
           backImage={() => (
             <View style={styles().bacKButton}>
               <Entypo name="cross" size={30} color="black" />

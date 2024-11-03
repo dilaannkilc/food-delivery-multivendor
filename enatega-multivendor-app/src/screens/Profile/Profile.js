@@ -99,7 +99,6 @@ function Profile(props) {
       passwordButton: setShowPass,
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=""
           backImage={() => (
             <View style={styles().bacKButton}>
               <MaterialIcons name="arrow-back" size={30} color="black" />
@@ -178,7 +177,6 @@ function Profile(props) {
 
   const handleNamePress = () => {
     viewHideAndShowName()
-    validateName()
   }
   const handleNamePressUpdate = async () => {
     await updateName()

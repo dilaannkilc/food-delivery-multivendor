@@ -24,7 +24,7 @@ import { HeaderBackButton } from '@react-navigation/elements'
 import UserContext from '../../../context/User'
 import { alignment } from '../../../utils/alignment'
 import CartIcon from '../../../assets/SVG/imageComponents/CartIcon'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 const rippleColor = '#6FCF97'
 function BackButton(props) {
@@ -77,7 +77,6 @@ function LeftButton(props) {
   if (props.icon === 'back') {
     return (
       <HeaderBackButton
-        truncatedLabel=""
         backImage={() =>
           BackButton({ iconColor: props.iconColor, icon: 'leftArrow' })
         }
@@ -89,7 +88,6 @@ function LeftButton(props) {
   } else if (props.icon === 'close') {
     return (
       <HeaderBackButton
-        truncatedLabel=""
         pressColorAndroid={rippleColor}
         labelVisible={false}
         backImage={() =>
@@ -110,7 +108,6 @@ function LeftButton(props) {
   } else if (props.toggle) {
     return (
       <HeaderBackButton
-        truncatedLabel=""
         labelVisible={false}
         backImage={() =>
           BackButton({
@@ -128,7 +125,6 @@ function LeftButton(props) {
   } else {
     return (
       <HeaderBackButton
-        truncatedLabel=""
         pressColorAndroid={rippleColor}
         labelVisible={false}
         backImage={() =>
@@ -141,7 +137,8 @@ function LeftButton(props) {
 }
 
 function RightButton(props) {
-  const { t } = useTranslation()
+
+  const {t} = useTranslation()
   const [password, setPassword] = useState(false)
   const navigation = useNavigation()
   const route = useRoute()
@@ -161,11 +158,7 @@ function RightButton(props) {
   function cartIcon() {
     return (
       <View style={[styles().rightContainer, { ...alignment.PLsmall }]}>
-        <Feather
-          name="shopping-bag"
-          size={25}
-          color={currentTheme.darkBgFont}
-        />
+        <Feather name="shopping-bag" size={25} color={currentTheme.darkBgFont} />
         <View
           style={
             styles(route.name === 'Main' ? 'black' : currentTheme.white)
@@ -215,7 +208,6 @@ function RightButton(props) {
           </TouchableOpacity>
         ) : (
           <HeaderBackButton
-            truncatedLabel=""
             labelVisible={false}
             backImage={() => (
               <View style={styles().rightContainer}>
@@ -231,7 +223,6 @@ function RightButton(props) {
     return (
       <View style={{ flexDirection: 'row' }}>
         <HeaderBackButton
-          truncatedLabel=""
           pressColorAndroid={route.name === 'Main' && rippleColor}
           labelVisible={false}
           backImage={() => (
@@ -248,7 +239,6 @@ function RightButton(props) {
         />
         {cartCount >= 0 && (
           <HeaderBackButton
-            truncatedLabel=""
             pressColorAndroid={route.name === 'Main' && rippleColor}
             labelVisible={false}
             backImage={cartIcon}
@@ -260,7 +250,6 @@ function RightButton(props) {
   } else if (props.icon === 'target') {
     return (
       <HeaderBackButton
-        truncatedLabel=""
         pressColorAndroid={rippleColor}
         labelVisible={false}
         backImage={() => (

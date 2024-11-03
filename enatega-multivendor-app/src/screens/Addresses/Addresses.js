@@ -87,7 +87,6 @@ function Addresses() {
       headerRight: null,
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=""
           backImage={() => (
             <View
               style={{

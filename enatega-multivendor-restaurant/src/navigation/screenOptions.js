@@ -39,7 +39,7 @@ const tabIcon = route => ({
     } else if (route.name === t('titleProfile')) {
       iconName = 'user'
     }
-    else if (route.name === 'Language') {
+    else if (route.name === t('language')) {
       iconName = 'language'
     }
     return (

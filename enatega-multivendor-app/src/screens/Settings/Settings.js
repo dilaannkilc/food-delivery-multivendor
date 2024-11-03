@@ -124,7 +124,6 @@ function Settings(props) {
       headerRight: null,
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=""
           backImage={() => (
             <View style={styles().backButton}>
               <MaterialIcons name="arrow-back" size={30} color="black" />
@@ -157,7 +156,19 @@ function Settings(props) {
   }, [props.navigation, languageName])
 
   async function deactivatewithemail() {
-    deactivated({ variables: { isActive: false, email: profile.email } })
+    console.log('Calling deactivatewithemail');
+    try {
+      await deactivated({ variables: { isActive: false, email: profile.email } });
+      logout();
+      navigation.reset({
+        routes: [{ name: 'Main' }]
+      });
+      FlashMessage({ message: t('accountDeactivated') })
+
+    } catch (error) {
+      console.error('Error during deactivation mutation:', error);
+    }
+
   }
 
   const _handleAppStateChange = async nextAppState => {
@@ -224,22 +235,22 @@ function Settings(props) {
       // Display loading indicator
       setLoadingLang(true)
       const languageInd = activeRadio
-      // if (Platform.OS === 'android') {
-      await AsyncStorage.setItem(
-        'enatega-language',
-        languageTypes[languageInd].code
-      )
+      if (Platform.OS === 'android') {
+        await AsyncStorage.setItem(
+          'enatega-language',
+          languageTypes[languageInd].code
+        )
 
-      var lang = await AsyncStorage.getItem('enatega-language')
-      if (lang) {
-        const defLang = languageTypes.findIndex(el => el.code === lang)
-        const langName = languageTypes[defLang].value
-        languageNameSetter(langName)
+        var lang = await AsyncStorage.getItem('enatega-language')
+        if (lang) {
+          const defLang = languageTypes.findIndex(el => el.code === lang)
+          const langName = languageTypes[defLang].value
+          languageNameSetter(langName)
+        }
+        i18next.changeLanguage(lang)
+        modalVisibleSetter(false)
+        //Updates.reloadAsync()
       }
-      i18next.changeLanguage(lang)
-      modalVisibleSetter(false)
-      //Updates.reloadAsync()
-      // }
     } catch (error) {
       console.error('Error during language selection:', error)
     } finally {
@@ -303,33 +314,33 @@ function Settings(props) {
       edges={['bottom', 'left', 'right']}
       style={[styles().flex, styles(currentTheme).mainContainer]}>
       <View style={styles().flex}>
-        {/* {Platform.OS === 'android' && ( */}
-        <View style={[styles(currentTheme).languageContainer, styles().shadow]}>
-          <View style={styles().changeLanguage}>
-            <View style={styles().width85}>
-              <TextDefault
-                numberOfLines={1}
-                textColor={currentTheme.fontSecondColor}>
-                {t('languageSetting')}
-              </TextDefault>
+        {Platform.OS === 'android' && (
+          <View
+            style={[styles(currentTheme).languageContainer, styles().shadow]}>
+            <View style={styles().changeLanguage}>
+              <View style={styles().width85}>
+                <TextDefault
+                  numberOfLines={1}
+                  textColor={currentTheme.fontSecondColor}>
+                  {t('languageSetting')}
+                </TextDefault>
+              </View>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => modalVisibleSetter(true)}
+                style={styles().button}>
+                <MaterialIcons
+                  name="edit"
+                  size={25}
+                  color={currentTheme.tagColor}
+                />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => modalVisibleSetter(true)}
-              style={styles().button}>
-              <MaterialIcons
-                name="edit"
-                size={25}
-                color={currentTheme.tagColor}
-              />
-            </TouchableOpacity>
+            <TextDefault textColor={currentTheme.fontMainColor} bolder H5 B700>
+              {languageName}
+            </TextDefault>
           </View>
-          <TextDefault textColor={currentTheme.fontMainColor} bolder H5 B700>
-            {languageName}
-          </TextDefault>
-        </View>
-        {/* )
-        } */}
+        )}
         <View style={styles(currentTheme).mainContainerArea}>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -558,13 +569,7 @@ function Settings(props) {
               padding: 15,
               ...alignment.MTlarge
             }}
-            onPress={async () => {
-              await deactivatewithemail()
-              logout()
-              navigation.reset({
-                routes: [{ name: 'Menu' }]
-              })
-            }}>
+            onPress={deactivatewithemail}>
             <TextDefault center bold>
               {t('DeleteAccount')}
             </TextDefault>

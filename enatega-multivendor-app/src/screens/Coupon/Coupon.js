@@ -87,7 +87,6 @@ function SelectVoucher(props) {
       headerRight: null,
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=""
           backImage={() => (
             <View
               style={{
