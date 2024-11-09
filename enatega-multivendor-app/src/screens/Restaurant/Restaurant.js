@@ -15,13 +15,12 @@ import {
   SectionList
 } from 'react-native'
 import Animated, {
-  Extrapolation,
-  interpolate,
-  useSharedValue,
-  Easing as EasingNode,
-  withTiming,
-  useAnimatedStyle,
-  // useAnimatedScrollHandler
+  Extrapolate,
+  interpolateNode,
+  concat,
+  useValue,
+  EasingNode,
+  timing
 } from 'react-native-reanimated'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import {
@@ -62,7 +61,6 @@ const config = to => ({
   easing: EasingNode.inOut(EasingNode.ease)
 })
 
-const concat = (...args) => args.join('')
 function Restaurant(props) {
   const Analytics = analytics()
 
@@ -73,11 +71,11 @@ function Restaurant(props) {
   const route = useRoute()
   const inset = useSafeAreaInsets()
   const propsData = route.params
-  const animation = useSharedValue(0)
-  const circle = useSharedValue(0)
+  const animation = useValue(0)
+  const circle = useValue(0)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-
+  console.log(currentTheme)
   const configuration = useContext(ConfigurationContext)
   const [selectedLabel, selectedLabelSetter] = useState(0)
   const [buttonClicked, buttonClickedSetter] = useState(false)
@@ -93,7 +91,6 @@ function Restaurant(props) {
   const { data, refetch, networkStatus, loading, error } = useRestaurant(
     propsData._id
   )
-
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
@@ -112,8 +109,8 @@ function Restaurant(props) {
   useEffect(() => {
     if (
       data &&
-      data?.restaurant &&
-      (!data?.restaurant.isAvailable || !isOpen())
+      data.restaurant &&
+      (!data.restaurant.isAvailable || !isOpen())
     ) {
       Alert.alert(
         '',
@@ -136,49 +133,28 @@ function Restaurant(props) {
     }
   }, [data])
 
-
-  // const animatedAnimation = new Animated.Value(0);
-
-  // const handleScroll = (event) => {
-  //   'worklet';
-  //   const scrollY = event.nativeEvent.contentOffset.y;
-  //   animatedAnimation.setValue(scrollY);
-  // };
-
-  // const scrollHandler = useEvent(handleScroll, ['nativeEvent']);
-
-  // const translationY = useSharedValue(0);
-
-  // const scrollHandler = useAnimatedScrollHandler((event) => {
-  //   translationY.value = event.contentOffset.y;
-  // });
-
   const isOpen = () => {
-    if (data) {
-      if (data?.restaurant?.openingTimes?.length < 1) return false
-      const date = new Date()
-      const day = date.getDay()
-      const hours = date.getHours()
-      const minutes = date.getMinutes()
-      const todaysTimings = data?.restaurant?.openingTimes?.find(
-        o => o.day === DAYS[day]
-      )
-      if (todaysTimings === undefined) return false
-      const times = todaysTimings.times.filter(
-        t =>
-          hours >= Number(t.startTime[0]) &&
-          minutes >= Number(t.startTime[1]) &&
-          hours <= Number(t.endTime[0]) &&
-          minutes <= Number(t.endTime[1])
-      )
+    if (data.restaurant.openingTimes.length < 1) return false
+    const date = new Date()
+    const day = date.getDay()
+    const hours = date.getHours()
+    const minutes = date.getMinutes()
+    const todaysTimings = data.restaurant.openingTimes.find(
+      o => o.day === DAYS[day]
+    )
+    if (todaysTimings === undefined) return false
+    const times = todaysTimings.times.filter(
+      t =>
+        hours >= Number(t.startTime[0]) &&
+        minutes >= Number(t.startTime[1]) &&
+        hours <= Number(t.endTime[0]) &&
+        minutes <= Number(t.endTime[1])
+    )
 
-      return times?.length > 0
-    } else {
-      return false
-    }
+    return times.length > 0
   }
   const onPressItem = async food => {
-    if (!data?.restaurant.isAvailable || !isOpen()) {
+    if (!data.restaurant.isAvailable || !isOpen()) {
       Alert.alert(
         '',
         'Restaurant Closed at the moment',
@@ -241,7 +217,7 @@ function Restaurant(props) {
     ) {
       await setCartRestaurant(food.restaurant)
       const result = checkItemCart(food._id)
-
+      console.log(result)
       if (result.exist) await addQuantity(result.key)
       else await addCartItem(food._id, food.variations[0]._id, 1, [], clearFlag)
       animate()
@@ -281,10 +257,10 @@ function Restaurant(props) {
 
   // button animation
   function animate() {
-    withTiming(circle.value, {
-      easing: EasingNode.inOut(EasingNode.ease),
+    timing(circle, {
       toValue: 1,
-      duration: 500
+      duration: 500,
+      easing: EasingNode.inOut(EasingNode.ease)
     }).start()
     circle.setValue(0)
   }
@@ -320,7 +296,7 @@ function Restaurant(props) {
   }
 
   function onViewableItemsChanged({ viewableItems }) {
-    if (viewableItems?.length === 0) return
+    if (viewableItems.length === 0) return
     if (
       selectedLabel !== viewableItems[0].section.index &&
       buttonClicked === false
@@ -330,11 +306,10 @@ function Restaurant(props) {
     }
   }
   const onScrollEndSnapToEdge = event => {
-    event.persist();
     const y = event.nativeEvent.contentOffset.y
     if (y > 0 && y < HALF_HEADER_SCROLL / 2) {
       if (scrollRef.current) {
-        withTiming(animation, config(0)).start(({ finished }) => {
+        timing(animation, config(0)).start(({ finished }) => {
           if (finished) {
             scrollRef.current.scrollToLocation({
               animated: false,
@@ -348,7 +323,7 @@ function Restaurant(props) {
       }
     } else if (HALF_HEADER_SCROLL / 2 <= y && y < HALF_HEADER_SCROLL) {
       if (scrollRef.current) {
-        withTiming(animation, config(SCROLL_RANGE)).start(({ finished }) => {
+        timing(animation, config(SCROLL_RANGE)).start(({ finished }) => {
           if (finished) {
             scrollRef.current.scrollToLocation({
               animated: false,
@@ -365,46 +340,17 @@ function Restaurant(props) {
   }
 
   // Important
-
-  const circleSize = interpolate(circle.value,
-    [0, 0.5, 1], [scale(18), scale(24), scale(18)],
-    Extrapolation.CLAMP
-  )
-  const radiusSize = interpolate(circle.value,
-    [0, 0.5, 1], [scale(9), scale(12), scale(9)],
-    Extrapolation.CLAMP
-  )
-  const fontChange = interpolate(circle.value,
-    [0, 0.5, 1], [scale(8), scale(12), scale(8)],
-    // [0, 0.5, 1], [8, 12, 8],
-    Extrapolation.CLAMP
-  )
-
-  const headerHeight = interpolate(animation.value,
-    [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
-    [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
-    Extrapolation.CLAMP
-  )
-
-  const opacity = interpolate(animation.value,
-    [0, height * 0.05, SCROLL_RANGE / 2],
-    [1, 0.8, 0],
-    Extrapolation.CLAMP
-  )
-
-  const opacityStyles = useAnimatedStyle(() => {
-    return {
-      opacity: opacity
-    }
+  const headerHeight = interpolateNode(animation, {
+    inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+    outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+    extrapolate: Extrapolate.CLAMP
   })
 
-  const fontStyles = useAnimatedStyle(() => {
-    return {
-      fontSize: fontChange
-    }
-  });
-
-
+  const opacity = interpolateNode(animation, {
+    inputRange: [0, height * 0.05, SCROLL_RANGE / 2],
+    outputRange: [1, 0.8, 0],
+    extrapolate: Extrapolate.CLAMP
+  })
 
   const iconColor = currentTheme.iconColorPink
 
@@ -419,14 +365,29 @@ function Restaurant(props) {
   const iconTouchWidth = scale(30)
 
   const headerTextFlex = concat(
-    interpolate(animation.value,
-      [0, 80, SCROLL_RANGE],
-      [-10, -10, 0],
-      Extrapolation.CLAMP
-    ),
+    interpolateNode(animation, {
+      inputRange: [0, 80, SCROLL_RANGE],
+      outputRange: [-10, -10, 0],
+      extrapolate: Extrapolate.CLAMP
+    }),
     '%'
   )
 
+  const circleSize = interpolateNode(circle, {
+    inputRange: [0, 0.5, 1],
+    outputRange: [scale(18), scale(24), scale(18)],
+    extrapolate: Extrapolate.CLAMP
+  })
+  const radiusSize = interpolateNode(circle, {
+    inputRange: [0, 0.5, 1],
+    outputRange: [scale(9), scale(12), scale(9)],
+    extrapolate: Extrapolate.CLAMP
+  })
+  const fontChange = interpolateNode(circle, {
+    inputRange: [0, 0.5, 1],
+    outputRange: [scale(8), scale(12), scale(8)],
+    extrapolate: Extrapolate.CLAMP
+  })
 
   if (loading) {
     return (
@@ -444,7 +405,7 @@ function Restaurant(props) {
           iconColor={iconColor}
           iconSize={iconSize}
           height={headerHeight}
-          opacity={opacityStyles}
+          opacity={opacity}
           iconBackColor={iconBackColor}
           iconRadius={iconRadius}
           iconTouchWidth={iconTouchWidth}
@@ -488,7 +449,7 @@ function Restaurant(props) {
     )
   }
   if (error) return <TextError text={JSON.stringify(error)} />
-  const restaurant = data && data.restaurant
+  const restaurant = data.restaurant
   const allDeals = restaurant.categories.filter(cat => cat.foods.length)
   const deals = allDeals.map((c, index) => ({
     ...c,
@@ -505,7 +466,7 @@ function Restaurant(props) {
             iconColor={iconColor}
             iconSize={iconSize}
             height={headerHeight}
-            opacity={opacityStyles}
+            opacity={opacity}
             iconBackColor={iconBackColor}
             iconRadius={iconRadius}
             iconTouchWidth={iconTouchWidth}
@@ -541,16 +502,15 @@ function Restaurant(props) {
               onScrollEndSnapToEdge(event)
             }}
             // Important
-            // onScroll={Animated.event([
-            //   {
-            //     nativeEvent: {
-            //       contentOffset: {
-            //         y: animation.value
-            //       }
-            //     }
-            //   }
-            // ])}
-            // onScroll={scrollHandler}
+            onScroll={Animated.event([
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    y: animation
+                  }
+                }
+              }
+            ])}
             keyExtractor={(item, index) => item + index}
             ItemSeparatorComponent={() => (
               <View style={styles(currentTheme).listSeperator} />
@@ -652,14 +612,14 @@ function Restaurant(props) {
                         height: circleSize,
                         borderRadius: radiusSize
                       }
-                    ]}
-                  >
-                    {/* <Animated.View style={[fontStyles]}> */}
-                    <Animated.Text style={[styles(currentTheme).buttonTextLeft, fontStyles]}>
+                    ]}>
+                    <Animated.Text
+                      style={[
+                        styles(currentTheme).buttonTextLeft,
+                        { fontSize: fontChange }
+                      ]}>
                       {cartCount}
-
                     </Animated.Text>
-                    {/* </Animated.View> */}
                   </Animated.View>
                 </View>
                 <TextDefault
