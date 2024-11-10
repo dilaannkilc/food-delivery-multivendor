@@ -5,8 +5,6 @@ export const theme = {
     radioOuterColor: '#FFF',
     mustard: '#d8d8d874',
     borderColor: '#efefef',
-    iconBackground: '#E5E7EB',
-
     backgroundColor: 'transparent',
     borderBottomColor: '#DAD6D6',
     primery: '#3C8F7C',
@@ -27,7 +25,7 @@ export const theme = {
     horizontalLine: '#949393',
     lightHorizontalLine: '#f0f0f0',
     firstHeaderBackground: '#F5F5F5',
-    buttonBackground: '#90E36D',
+    buttonBackground: '#6FCF97',
     buttonText: '#000',
     buttonBackgroundPink: '#6FCF97',
     buttonTextPink: '#FFF',
@@ -48,7 +46,7 @@ export const theme = {
     rippleColor: '#6FCF97',
     backIcon: '#fff',
     backIconBackground: '#000',
-    secondaryText: '#4B5563',
+    secondaryText: '#A3A0A0',
     main: '#90EA93',
     secondaryBackground: '#ECECEC',
     shadow: '#707070',
@@ -65,6 +63,7 @@ export const theme = {
     gray: 'grey',
     darkBgFont: '#000',
     btnText: '#000'
+    
   },
   Dark: {
     black: '#000',
@@ -87,7 +86,6 @@ export const theme = {
     shadowColor: '#898989',
     cartContainer: '#383737',
     textErrorColor: '#FA7751',
-    iconBackground: '#E5E7EB',
     buttonBackground: '#E8E8E8',
     buttonText: '#000',
     buttonBackgroundPink: '#6FCF97',
