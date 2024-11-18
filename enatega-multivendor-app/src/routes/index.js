@@ -34,7 +34,6 @@ import Main from '../screens/Main/Main'
 import Restaurant from '../screens/Restaurant/Restaurant'
 import About from '../screens/About'
 import SelectLocation from '../screens/SelectLocation'
-import AddNewAddress from '../screens/SelectLocation/AddNewAddressV2'
 import CurrentLocation from '../screens/CurrentLocation'
 import ThemeContext from '../ui/ThemeContext/ThemeContext'
 import { theme } from '../utils/themeColors'
@@ -155,7 +154,6 @@ function NoDrawer() {
         name="SelectLocation"
         component={SelectLocation}
       />
-      <NavigationStack.Screen name="AddNewAddress" component={AddNewAddress} />
       <NavigationStack.Screen name="Favourite" component={Favourite} />
       <NavigationStack.Screen name="ChatWithRider" component={ChatScreen} />
     </NavigationStack.Navigator>
@@ -171,7 +169,6 @@ function LocationStack() {
         options={{ header: () => null }}
       />
       <Location.Screen name="SelectLocation" component={SelectLocation} />
-      <Location.Screen name="AddNewAddress" component={AddNewAddress} />
     </Location.Navigator>
   )
 }
@@ -215,7 +212,7 @@ function AppContainer() {
 
   useEffect(() => {
     Notifications.setNotificationHandler({
-      handleNotification: async () => ({
+      handleNotification: async() => ({
         shouldShowAlert: true,
         shouldPlaySound: false,
         shouldSetBadge: false
