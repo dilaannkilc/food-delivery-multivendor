@@ -1,41 +1,33 @@
 import React, { useContext } from 'react'
-import { View, Dimensions, Text } from 'react-native'
+import {
+  View,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  ScrollView
+} from 'react-native'
 import { MaterialIcons, Ionicons } from '@expo/vector-icons'
-import { scale, verticalScale } from '../../../utils/scaling'
 import styles from './styles'
 import TextDefault from '../../Text/TextDefault/TextDefault'
 import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../../utils/themeColors'
 import { useNavigation } from '@react-navigation/native'
 import { DAYS } from '../../../utils/enums'
-import Animated, {
-  Extrapolation,
-  interpolate,
-  useAnimatedStyle
-} from 'react-native-reanimated'
-import {
-  BorderlessButton,
-  FlatList,
-  RectButton,
-  TouchableOpacity
-} from 'react-native-gesture-handler'
+import { RectButton } from 'react-native-gesture-handler'
+import { scale } from '../../../utils/scaling'
+import { LinearGradient } from 'expo-linear-gradient'
 import { alignment } from '../../../utils/alignment'
 import TextError from '../../Text/TextError/TextError'
 import { textStyles } from '../../../utils/textStyles'
 import { useTranslation } from 'react-i18next'
+import { Directions } from 'react-native-gesture-handler'
 
-const { height } = Dimensions.get('screen')
-const TOP_BAR_HEIGHT = height * 0.05
-const AnimatedIon = Animated.createAnimatedComponent(Ionicons)
-const AnimatedBorderless = Animated.createAnimatedComponent(BorderlessButton)
-const AnimatedText = Animated.createAnimatedComponent(Text)
-
-const HEADER_MAX_HEIGHT = height * 0.3
-const HEADER_MIN_HEIGHT = height * 0.07 + TOP_BAR_HEIGHT
-const SCROLL_RANGE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
+// const { height } = Dimensions.get('screen')
+// const TOP_BAR_HEIGHT = height * 0.05
 
 function ImageTextCenterHeader(props, ref) {
-  const { translationY } = props
   const flatListRef = ref
   const navigation = useNavigation()
   const themeContext = useContext(ThemeContext)
@@ -60,10 +52,10 @@ function ImageTextCenterHeader(props, ref) {
       const hours = date.getHours()
       const minutes = date.getMinutes()
       const todaysTimings = props.restaurant.openingTimes.find(
-        (o) => o.day === DAYS[day]
+        o => o.day === DAYS[day]
       )
       const times = todaysTimings.times.filter(
-        (t) =>
+        t =>
           hours >= Number(t.startTime[0]) &&
           minutes >= Number(t.startTime[1]) &&
           hours <= Number(t.endTime[0]) &&
@@ -74,302 +66,274 @@ function ImageTextCenterHeader(props, ref) {
     }
   }
 
-  const minutesOpacity = useAnimatedStyle(() => {
-    return {
-      opacity: interpolate(
-        translationY.value,
-        [0, TOP_BAR_HEIGHT, SCROLL_RANGE / 2],
-        [0, 0.8, 1],
-        Extrapolation.CLAMP
-      )
-    }
-  })
-
-  const headerHeight = useAnimatedStyle(() => {
-    return {
-      height: interpolate(
-        translationY.value,
-        [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
-        [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
-        Extrapolation.CLAMP
-      )
-    }
-  })
-
-  const headerHeightWithoutTopbar = useAnimatedStyle(() => {
-    return {
-      height: interpolate(
-        translationY.value,
-        [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
-        [
-          HEADER_MAX_HEIGHT - TOP_BAR_HEIGHT,
-          HEADER_MIN_HEIGHT - TOP_BAR_HEIGHT
-        ],
-        Extrapolation.CLAMP
-      )
-    }
-  })
-
-  const opacity = useAnimatedStyle(() => {
-    return {
-      opacity: interpolate(
-        translationY.value,
-        [0, height * 0.05, SCROLL_RANGE / 2],
-        [1, 0.8, 0],
-        Extrapolation.CLAMP
-      )
-    }
-  })
-
-  const headerTextFlex = useAnimatedStyle(() => {
-    const concat = (...args) => args.join('')
-    return {
-      marginBottom: concat(
-        interpolate(
-          translationY.value,
-          [0, 80, SCROLL_RANGE],
-          [-10, -10, 0],
-          Extrapolation.CLAMP
-        ),
-        '%'
-      )
-    }
-  })
-
-  const iconBackColor = currentTheme.white
-
-  const iconRadius = scale(15)
-
-  const iconSize = scale(20)
-
-  const iconTouchHeight = scale(30)
-
-  const iconTouchWidth = scale(30)
-
   const emptyView = () => {
     return (
       <View
         style={{
           width: '100%',
-          height: verticalScale(40),
           justifyContent: 'center',
           alignItems: 'center'
-        }}
-      >
+        }}>
         <TextError text={t('noItemsExists')} />
       </View>
     )
   }
-
   return (
-    <Animated.View
-      style={[
-        styles(currentTheme).mainContainer,
-        headerHeight,
-        {
-          backgroundColor: props.loading ? 'transparent' : 'null'
-        }
-      ]}
-    >
-      <Animated.View
-        style={[
-          headerHeightWithoutTopbar,
-          {
-            backgroundColor: 'white'
-          }
-        ]}
-      >
-        <Animated.Image
-          resizeMode='cover'
-          source={{ uri: aboutObject.restaurantImage }}
-          style={[
-            styles().flex,
-            opacity,
-            {
-              borderBottomLeftRadius: scale(20),
-              borderBottomRightRadius: scale(20)
-            }
-          ]}
-        />
-        <Animated.View style={styles().overlayContainer}>
-          <View style={styles().fixedViewNavigation}>
-            <View style={styles().fixedIcons}>
-              <AnimatedBorderless
-                activeOpacity={0.7}
-                rippleColor={currentTheme.rippleColor}
-                style={[
-                  styles().touchArea,
-                  {
-                    backgroundColor: iconBackColor,
-                    borderRadius: iconRadius,
-                    height: iconTouchHeight,
-                    width: scale(60)
-                  }
-                ]}
-                onPress={() => navigation.goBack()}
-              >
-                <AnimatedIon
-                  name='arrow-back'
-                  style={{
-                    color: props.black,
-                    fontSize: iconSize
-                  }}
-                />
-              </AnimatedBorderless>
-              <AnimatedText
-                numberOfLines={1}
-                style={[
-                  styles(currentTheme).headerTitle,
-                  minutesOpacity,
-                  headerTextFlex
-                ]}
-              >
-                {t('delivery')} {aboutObject.deliveryTime} {t('Min')}
-              </AnimatedText>
-              {!props.loading && (
-                <>
-                  <AnimatedBorderless
-                    activeOpacity={0.7}
-                    rippleColor={currentTheme.rippleColor}
-                    style={[
-                      styles().touchArea,
-                      {
-                        backgroundColor: iconBackColor,
-                        borderRadius: iconRadius,
-                        height: iconTouchHeight,
-                        width: iconTouchWidth
-                      }
-                    ]}
-                    onPress={() => {
-                      navigation.navigate('About', {
-                        restaurantObject: {
-                          ...aboutObject,
-                          isOpen: null
-                        },
-                        tab: true
-                      })
-                    }}
-                  >
+    
+      <View style={styles(currentTheme).mainContainer}>
+        <View style={styles().topBar}>
+          <View style={styles().overlayContainer}>
+            <View style={styles().fixedViewNavigation}>
+              <View style={styles().backIcon}>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  style={[
+                    styles().touchArea,
                     {
-                      <AnimatedIon
-                        name='information-circle-outline'
-                        style={{
-                          color: props.black,
-                          fontSize: iconSize
-                        }}
-                      />
+                      backgroundColor: props.iconBackColor,
+                      borderRadius: props.iconRadius,
+                      height: props.iconTouchHeight
                     }
-                  </AnimatedBorderless>
-                </>
-              )}
+                  ]}
+                  onPress={() => navigation.goBack()}>
+                  <Ionicons
+                    name="ios-arrow-back"
+                    style={{
+                      color: props.black,
+                      fontSize: props.iconSize
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={styles().fixedIcons}>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  style={[
+                    styles().touchArea,
+                    {
+                      backgroundColor: props.iconBackColor,
+                      borderRadius: props.iconRadius,
+                      height: props.iconTouchHeight
+                    }
+                  ]}
+                  onPress={() => alert('Coming soon')}>
+                  <Ionicons
+                    name="heart-outline"
+                    style={{
+                      color: props.black,
+                      fontSize: props.iconSize
+                    }}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  style={[
+                    styles().touchArea,
+                    {
+                      backgroundColor: props.iconBackColor,
+                      borderRadius: props.iconRadius,
+                      height: props.iconTouchHeight
+                    }
+                  ]}
+                  onPress={() => alert('Coming soon')}>
+                  <Ionicons
+                    name="share-social"
+                    style={{
+                      color: props.black,
+                      fontSize: props.iconSize
+                    }}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  style={[
+                    styles().touchArea,
+                    {
+                      backgroundColor: props.iconBackColor,
+                      borderRadius: props.iconRadius,
+                      height: props.iconTouchHeight
+                    }
+                  ]}
+                  onPress={() => {
+                    alert('Coming soon')
+                  }}>
+                  <Ionicons
+                    name="search-outline"
+                    style={{
+                      color: props.black,
+                      fontSize: props.iconSize
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-          <Animated.View style={[styles().fixedView, opacity]}>
-            <View style={styles().fixedText}>
+        </View>
+
+        <View style={styles().restaurantDetails}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: scale(15),
+              marginBottom: scale(20)
+            }}>
+            <View style={styles().restImageContainer}>
+              <Image
+                resizeMode="cover"
+                source={{ uri: aboutObject.restaurantImage }}
+                style={styles().restaurantImg}
+              />
+            </View>
+            <View style={styles().restaurantTitle}>
               <TextDefault
                 H4
                 bolder
                 Center
-                textColor={currentTheme.fontWhite}
+                textColor={currentTheme.fontMainColor}
                 numberOfLines={1}
-                ellipsizeMode='tail'
-              >
-                {aboutObject.restaurantName.length > 12
-                  ? `${aboutObject.restaurantName.slice(0, 15)}...`
-                  : aboutObject.restaurantName}
+                ellipsizeMode="tail">
+                {aboutObject.restaurantName}
               </TextDefault>
+            </View>
+          </View>
+          <View style={{ display: 'flex', flexDirection: 'row', gap: 7 }}>
+            <Text style={styles().restaurantAbout}>1.6km away</Text>
+            <Text style={styles().restaurantAbout}>|</Text>
+            <Text style={styles().restaurantAbout}>$2 Delivery Charges</Text>
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 7,
+              marginTop: scale(5)
+            }}>
+            <Text style={styles().restaurantAbout}>$20 Minimum</Text>
+            <Text style={styles().restaurantAbout}>|</Text>
+            <Text style={styles().restaurantAbout}>Service Fee applies</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: scale(15)
+            }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles().ratingBox}
+              onPress={() => {
+                navigation.navigate('About', {
+                  restaurantObject: { ...aboutObject, isOpen: null },
+                  tab: false
+                })
+              }}>
+              <MaterialIcons
+                name="star-border"
+                size={scale(20)}
+                color="#111827"
+              />
 
-              {!props.loading && (
-                <View style={styles(currentTheme).deliveryBox}>
-                  <TextDefault
-                    style={[alignment.PRxSmall, alignment.PLxSmall]}
-                    textColor='white'
-                    bold
-                  >
-                    {t('delivery')} {aboutObject.deliveryTime} {t('Min')}
-                  </TextDefault>
+              <Text
+                style={{
+                  fontWeight: '700',
+                  fontSize: scale(16),
+                  color: '#374151'
+                }}>
+                {aboutObject.average}
+              </Text>
+              <Text
+                style={{
+                  fontWeight: '400',
+                  fontSize: scale(14),
+                  color: '#6B7280',
+                  marginLeft: scale(5)
+                }}>
+                ({aboutObject.total})
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles().ratingBox}
+              onPress={() => {
+                navigation.navigate('About', {
+                  restaurantObject: { ...aboutObject, isOpen: null },
+                  tab: false
+                })
+              }}>
+              <Text
+                style={{
+                  fontSize: scale(14),
+                  fontWeight: '600',
+                  color: '#3B82F6'
+                }}>
+                See Reviews
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles().ratingBox, { marginTop: scale(9) }]}>
+            <MaterialIcons name="timer" size={scale(20)} color="#111827" />
+            <Text
+              style={{
+                fontWeight: '400',
+                fontSize: scale(14),
+                color: '#6B7280'
+              }}>
+              {aboutObject.deliveryTime} mins
+            </Text>
+          </View>
+        </View>
+        <View>
+          {!props.loading && (
+            <FlatList
+              ref={flatListRef}
+              style={styles(currentTheme).flatListStyle}
+              contentContainerStyle={{ flexGrow: 1 }}
+              data={
+                props.loading
+                  ? []
+                  : [...props.topaBarData]
+              } 
+              horizontal={true}
+              ListEmptyComponent={emptyView()}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }) => (
+                <View
+                  style={
+                    props.selectedLabel === index
+                      ? styles(currentTheme).activeHeader
+                      : null
+                  }>
+                  <RectButton
+                    rippleColor={currentTheme.rippleColor}
+                    onPress={() => props.changeIndex(index)}
+                    style={styles(currentTheme).headerContainer}>
+                    <View style={styles().navbarTextContainer}>
+                      <TextDefault
+                        style={
+                          props.selectedLabel === index
+                            ? textStyles.Bolder
+                            : textStyles.H5
+                        }
+                        textColor={
+                          props.selectedLabel === index ? '#111827' : '#6B7280'
+                        }
+                        center
+                        H5>
+                        {item.title}
+                      </TextDefault>
+                    </View>
+                  </RectButton>
                 </View>
               )}
-              {!props.loading && (
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  style={styles().ratingBox}
-                  onPress={() => {
-                    navigation.navigate('About', {
-                      restaurantObject: { ...aboutObject, isOpen: null },
-                      tab: false
-                    })
-                  }}
-                >
-                  <MaterialIcons
-                    name='star'
-                    size={scale(15)}
-                    color={currentTheme.white}
-                  />
-                  <TextDefault
-                    style={[alignment.PRxSmall, alignment.PLxSmall]}
-                    textColor='white'
-                    bold
-                  >
-                    {aboutObject.average} ({aboutObject.total})
-                  </TextDefault>
-                </TouchableOpacity>
-              )}
-            </View>
-          </Animated.View>
-        </Animated.View>
-      </Animated.View>
-
-      {!props.loading && (
-        <FlatList
-          ref={flatListRef}
-          style={[styles(currentTheme).flatListStyle]}
-          contentContainerStyle={{ flexGrow: 1 }}
-          data={props.loading ? [] : props.topaBarData}
-          horizontal={true}
-          ListEmptyComponent={emptyView()}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => (
-            <View
-              style={
-                props.selectedLabel === index
-                  ? styles(currentTheme).activeHeader
-                  : null
-              }
-            >
-              <RectButton
-                activeOpacity={0.05}
-                rippleColor={currentTheme.rippleColor}
-                onPress={() => props.changeIndex(index)}
-                style={styles(currentTheme).headerContainer}
-              >
-                <View style={styles().navbarTextContainer}>
-                  <TextDefault
-                    style={
-                      props.selectedLabel === index
-                        ? textStyles.Bolder
-                        : textStyles.Small
-                    }
-                    textColor={
-                      props.selectedLabel === index
-                        ? currentTheme.tagColor
-                        : currentTheme.fontMainColor
-                    }
-                    center
-                    uppercase
-                    small
-                  >
-                    {item.title}
-                  </TextDefault>
-                </View>
-              </RectButton>
-            </View>
+            />
           )}
-        />
-      )}
-    </Animated.View>
+        </View>
+      </View>
+ 
   )
 }
 
