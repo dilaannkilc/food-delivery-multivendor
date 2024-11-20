@@ -478,7 +478,7 @@ function Settings(props) {
         isVisible={modalVisible}
         onBackdropPress={() => modalVisibleSetter(false)}
         onBackButtonPress={() => modalVisibleSetter(false)}>
-        <View style={styles().modalContainer}>
+        <View style={styles(currentTheme).modalContainer}>
           <TextDefault
             textColor={currentTheme.fontMainColor}
             bolder
@@ -492,7 +492,7 @@ function Settings(props) {
               activeOpacity={0.7}
               key={index}
               onPress={() => activeRadioSetter(item.index)}
-              style={[styles().radioContainer]}>
+              style={[styles(currentTheme).radioContainer]}>
               <RadioButton
                 animation={'bounceIn'}
                 size={13}
