@@ -23,6 +23,7 @@ import { theme } from '../../../utils/themeColors'
 import { HeaderBackButton } from '@react-navigation/elements'
 import UserContext from '../../../context/User'
 import { alignment } from '../../../utils/alignment'
+import CartIcon from '../../../assets/SVG/imageComponents/CartIcon'
 import { useTranslation } from 'react-i18next'
 
 const rippleColor = '#6FCF97'
@@ -30,8 +31,8 @@ function BackButton(props) {
   if (props.icon === 'leftArrow') {
     return (
       <Ionicons
-        name="ios-arrow-back"
-        size={18}
+        name="arrow-back"
+        size={16}
         style={styles().leftIconPadding}
         color={props.iconColor}
       />
@@ -39,7 +40,7 @@ function BackButton(props) {
   } else if (props.icon === 'menu') {
     return (
       <Ionicons
-        name="ios-menu"
+        name="menu"
         size={30}
         style={styles().leftIconPadding}
         color={props.iconColor}

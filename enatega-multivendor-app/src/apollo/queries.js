@@ -31,17 +31,6 @@ export const profile = `
           }
         }`
 
-export const cities = `query GetCountryByIso($iso: String!) {
-  getCountryByIso(iso: $iso) {
-    cities {
-      id
-      name
-      latitude
-      longitude
-    }
-  }
-}`
-
 export const order = `query Order($id:String!){
   order(id:$id){
     _id
@@ -531,22 +520,3 @@ export const chat = `query Chat($order: ID!) {
     createdAt
   }
 }`
-
-export const relatedItems = `query RelatedItems($itemId: String!, $restaurantId: String!) {
-  relatedItems(itemId: $itemId, restaurantId: $restaurantId)
-}`
-
-export const food = `fragment FoodItem on Food{
-  _id
-  title
-  image
-  description
-  variations{
-    _id
-    title
-    price
-    discounted
-    addons
-  }
-}
-`

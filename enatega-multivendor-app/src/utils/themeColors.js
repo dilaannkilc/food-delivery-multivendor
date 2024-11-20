@@ -2,11 +2,9 @@ export const theme = {
   Pink: {
     black: '#000',
     white: '#FFF',
-    radioOuterColor: '#94A3B8',
+    radioOuterColor: '#FFF',
     mustard: '#d8d8d874',
     borderColor: '#efefef',
-    iconBackground: '#E5E7EB',
-
     backgroundColor: 'transparent',
     borderBottomColor: '#DAD6D6',
     primery: '#3C8F7C',
@@ -18,7 +16,7 @@ export const theme = {
     headerColor: '#6FCF97',
     tagColor: '#6FCF97',
     radioColor: '#6FCF97',
-    // radioOuterColor: '#949393',
+    //radioOuterColor: '#949393',
     startColor: '#6FCF97',
     startOutlineColor: '#6FCF97',
     spinnerColor: '#6FCF97',
@@ -27,7 +25,7 @@ export const theme = {
     horizontalLine: '#949393',
     lightHorizontalLine: '#f0f0f0',
     firstHeaderBackground: '#F5F5F5',
-    buttonBackground: '#90E36D',
+    buttonBackground: '#6FCF97',
     buttonText: '#000',
     buttonBackgroundPink: '#6FCF97',
     buttonTextPink: '#FFF',
@@ -48,13 +46,14 @@ export const theme = {
     rippleColor: '#6FCF97',
     backIcon: '#fff',
     backIconBackground: '#000',
-    secondaryText: '#4B5563',
+    secondaryText: '#A3A0A0',
     main: '#90EA93',
     secondaryBackground: '#ECECEC',
     shadow: '#707070',
     starRating: '#E2C077',
     errorInputBack: '#F7E7E5',
     errorInputBorder: '#DB4A39',
+    starRating: '#E2C077',
     inputPlaceHolder: '#F3F4F8',
     transparent: '#00000000',
     customizeOpacityBtn: 'rgba(0, 0, 0, 0.74)',
@@ -63,10 +62,8 @@ export const theme = {
     hex: '#b0afbc',
     gray: 'grey',
     darkBgFont: '#000',
-    btnText: '#000',
-    gray500: '#6B7280',
-    gray100: '#F3F4F6',
-    gray900: '#111827'
+    btnText: '#000'
+    
   },
   Dark: {
     black: '#000',
@@ -89,7 +86,6 @@ export const theme = {
     shadowColor: '#898989',
     cartContainer: '#383737',
     textErrorColor: '#FA7751',
-    iconBackground: '#E5E7EB',
     buttonBackground: '#E8E8E8',
     buttonText: '#000',
     buttonBackgroundPink: '#6FCF97',
@@ -119,9 +115,6 @@ export const theme = {
     customizeOpacityBtn: 'rgba(0, 0, 0, 0.74)',
     darkBgFont: '#FFF',
     headerColor: '#000',
-    btnText: '#FFF',
-    gray500: '#6B7280',
-    gray100: '#F3F4F6',
-    gray900: '#111827'
+    btnText: '#FFF'
   }
 }
