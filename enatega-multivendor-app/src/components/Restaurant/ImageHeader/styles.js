@@ -11,13 +11,12 @@ const styles = (props = null) =>
     },
     mainContainer: {
       width: '100%',
-      elevation: 5,
-      height: height * 0.3,
       position: 'absolute',
+      height: height * 0.3,
       top: 0,
       left: 0,
-      right: 0
-      // zIndex: 1
+      right: 0,
+      elevation: 5
     },
     touchArea: {
       justifyContent: 'center',

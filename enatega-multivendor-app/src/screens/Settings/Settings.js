@@ -36,7 +36,7 @@ import UserContext from '../../context/User'
 import { Modalize } from 'react-native-modalize'
 import { useNavigation } from '@react-navigation/native'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
-import * as Constants from 'expo-constants'
+import Constants from 'expo-constants'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import * as Device from 'expo-device'
@@ -71,8 +71,6 @@ const PROFILE = gql`
 const DEACTIVATE = gql`
   ${Deactivate}
 `
-
-const appVersion = Constants.default.expoConfig.version
 
 function Settings(props) {
   const Analytics = analytics()
@@ -238,6 +236,7 @@ function Settings(props) {
       // Display loading indicator
       setLoadingLang(true)
       const languageInd = activeRadio
+      // if (Platform.OS === 'android') {
       await AsyncStorage.setItem(
         'enatega-language',
         languageTypes[languageInd].code
@@ -251,10 +250,12 @@ function Settings(props) {
       }
       i18next.changeLanguage(lang)
       modalVisibleSetter(false)
+      //Updates.reloadAsync()
+      // }
     } catch (error) {
       console.error('Error during language selection:', error)
     } finally {
-      setLoadingLang(false)
+      setLoadingLang(false) // Hide loading indicator
     }
   }
 
@@ -269,7 +270,7 @@ function Settings(props) {
       FlashMessage({
         message: error.networkError.result.errors[0].message
       })
-    } catch (err) { }
+    } catch (err) {}
   }
 
   async function updateNotificationStatus(notificationCheck) {
@@ -467,7 +468,7 @@ function Settings(props) {
         </View>
         <View style={styles().versionContainer}>
           <TextDefault textColor={currentTheme.statusSecondColor}>
-            Version: {appVersion}
+            Version: {Constants.expoConfig.version}
           </TextDefault>
         </View>
       </View>
