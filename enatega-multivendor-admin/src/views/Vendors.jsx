@@ -20,8 +20,7 @@ import {
   Menu,
   ListItemIcon,
   Typography,
-  Paper,
-  useTheme
+  Paper
 } from '@mui/material'
 import { ReactComponent as VendorIcon } from '../assets/svg/svg/Vendors.svg'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
@@ -38,18 +37,12 @@ const DELETE_VENDOR = gql`
   ${deleteVendor}
 `
 const Vendors = props => {
-  const theme = useTheme();
-  const { t } = props;
   const [editModal, setEditModal] = useState(false)
   const [vendors, setVendor] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const onChangeSearch = e => setSearchQuery(e.target.value)
   const golbalClasses = useGlobalStyles()
-
-  const closeEditModal = () => {
-    setEditModal(false);
-  };
 
   const { loading: loadingQuery, error: errorQuery, data, refetch } = useQuery(
     GET_VENDORS
@@ -65,9 +58,9 @@ const Vendors = props => {
     searchQuery.length < 3
       ? data && data.vendors
       : data &&
-      data.vendors.filter(vendor => {
-        return vendor.email.toLowerCase().search(regex) > -1
-      })
+        data.vendors.filter(vendor => {
+          return vendor.email.toLowerCase().search(regex) > -1
+        })
 
   const toggleModal = vendor => {
     setEditModal(!editModal)
@@ -92,17 +85,17 @@ const Vendors = props => {
 
   const columns = [
     {
-      name: t('Email'),
+      name: 'Email',
       sortable: true,
       selector: 'email'
     },
     {
-      name: t('TotalRestaurants'),
+      name: 'Total Restaurants',
       sortable: true,
       cell: row => <>{row.restaurants.length}</>
     },
     {
-      name: t('Action'),
+      name: 'Action',
       cell: row => <>{actionButtons(row)}</>
     }
   ]
@@ -124,12 +117,12 @@ const Vendors = props => {
           sx={{
             color: 'black',
             fontWeight: 'bold',
-            backgroundColor: theme.palette.warning.dark,
+            backgroundColor: '#90EA93',
             padding: 0,
             height: '15px',
             fontSize: '7px',
             '&:hover': {
-              color: theme.palette.common.white
+              color: '#fff'
             }
           }}
           onClick={e => {
@@ -140,7 +133,7 @@ const Vendors = props => {
               state: { id: row._id }
             })
           }}>
-          {t('Restaurants')}
+          Restaurants
         </Button>
         <div>
           <IconButton
@@ -166,14 +159,14 @@ const Vendors = props => {
                   setTimeout(() => {
                     setIsOpen(false)
                   }, 5000)
-                  // uncomment this for paud version
-                  // toggleModal(row);
+                  //uncomment this for paid version
+                  //toggleModal(row)
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
                   <EditIcon fontSize="small" style={{ color: 'green' }} />
                 </ListItemIcon>
-                <Typography color="green">{t('Edit')}</Typography>
+                <Typography color="green">Edit</Typography>
               </MenuItem>
               <MenuItem
                 onClick={e => {
@@ -182,14 +175,14 @@ const Vendors = props => {
                   setTimeout(() => {
                     setIsOpen(false)
                   }, 5000)
-                  // uncomment this for paud version
-                  // mutate({ variables: { id: row._id } });
+                  //uncomment this for paid version
+                 // mutate({ variables: { id: row._id } })
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
                   <DeleteIcon fontSize="small" style={{ color: 'red' }} />
                 </ListItemIcon>
-                <Typography color="red">{t('Delete')}</Typography>
+                <Typography color="red">Delete</Typography>
               </MenuItem>
             </Menu>
           </Paper>
@@ -202,19 +195,17 @@ const Vendors = props => {
     <>
       <Header />
       {isOpen && (
-        <Alert
-          message={t('AvailableAfterPurchasing')}
-          severity="warning"
-        />
-      )}
-
+            <Alert
+              message="This feature will available after purchasing product"
+              severity="warning"
+              />
+          )}
+      {/* Page content */}
       <Container className={golbalClasses.flex}>
         <Grid container>
-          {/* <Grid item order={{ xs: 2, lg: 1 }}> */}
-          <Grid item xs={12} lg={6}>
+          <Grid item order={{ xs: 2, lg: 1 }}>
             <VendorComponent />
           </Grid>
-
           <Grid
             sx={{ display: { xs: 'none', lg: 'block' } }}
             item
@@ -237,7 +228,7 @@ const Vendors = props => {
                 onClick={() => refetch()}
               />
             }
-              title={<TableHeader title={t('Vendors')} />}
+            title={<TableHeader title="Vendors" />}
             columns={columns}
             data={filtered}
             pagination
@@ -259,7 +250,7 @@ const Vendors = props => {
           onClose={() => {
             toggleModal()
           }}>
-          <VendorComponent vendor={vendors} onClose={closeEditModal} />
+          <VendorComponent vendor={vendors} />
         </Modal>
       </Container>
     </>

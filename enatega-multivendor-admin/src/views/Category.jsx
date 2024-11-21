@@ -36,7 +36,6 @@ const DELETE_CATEGORY = gql`
   ${deleteCategory}
 `
 const Category = props => {
-  const { t } = props;
   const [editModal, setEditModal] = useState(false)
   const [category, setCategory] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
@@ -47,9 +46,6 @@ const Category = props => {
     setEditModal(!editModal)
     setCategory(category)
   }
-  const closeEditModal = () => {
-    setEditModal(false);
-  };
   const restaurantId = localStorage.getItem('restaurantId')
 
   const [/*mutate*/ { loading }] = useMutation(DELETE_CATEGORY)
@@ -73,12 +69,12 @@ const Category = props => {
   }
   const columns = [
     {
-      name: t('Title'),
+      name: 'Title',
       sortable: true,
       selector: 'title'
     },
     {
-      name: t('Action'),
+      name: 'Action',
       cell: row => <>{actionButtons(row)}</>
     }
   ]
@@ -124,7 +120,7 @@ const Category = props => {
                 <ListItemIcon>
                   <EditIcon fontSize="small" style={{ color: 'green' }} />
                 </ListItemIcon>
-                <Typography color="green">{t('Edit')}</Typography>
+                <Typography color="green">Edit</Typography>
               </MenuItem>
               <MenuItem
                 onClick={e => {
@@ -142,7 +138,7 @@ const Category = props => {
                 <ListItemIcon>
                   <DeleteIcon fontSize="small" style={{ color: 'red' }} />
                 </ListItemIcon>
-                <Typography color="red">{t('Delete')}</Typography>
+                <Typography color="red">Delete</Typography>
               </MenuItem>
             </Menu>
           </Paper>
@@ -158,19 +154,19 @@ const Category = props => {
     searchQuery.length < 3
       ? data && data.restaurant.categories
       : data &&
-      data.restaurant.categories.filter(category => {
-        return category.title.toLowerCase().search(regex) > -1
-      })
+        data.restaurant.categories.filter(category => {
+          return category.title.toLowerCase().search(regex) > -1
+        })
   const globalClasses = useGlobalStyles()
   return (
     <>
       <Header />
       {isOpen && (
-        <Alert
-          message={t('AvailableAfterPurchasing')}
-          severity="warning"
-        />
-      )}
+            <Alert
+              message="This feature will available after purchasing product"
+              severity="warning"
+              />
+          )}
       {/* Page content */}
       <Container className={globalClasses.flex} fluid>
         <Grid container mb={3}>
@@ -191,7 +187,7 @@ const Category = props => {
                 onClick={() => refetch()}
               />
             }
-              title={<TableHeader title={t('Categories')} />}
+            title={<TableHeader title="Categories" />}
             columns={columns}
             data={filtered}
             pagination
@@ -216,7 +212,7 @@ const Category = props => {
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-          <CategoryComponent category={category} onClose={closeEditModal} />
+          <CategoryComponent category={category} />
         </Modal>
       </Container>
     </>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import { useMutation, gql } from '@apollo/client'
 import { validateFunc } from '../../../constraints/constraints'
@@ -6,14 +6,13 @@ import { stripeCurrencies } from '../../../config/currencies'
 import { saveCurrencyConfiguration } from '../../../apollo'
 import useStyles from '../styles'
 import useGlobalStyles from '../../../utils/globalStyles'
-import { Box, Typography, Button, Select, MenuItem, Alert } from '@mui/material'
+import { Box, Typography, Button, Select, MenuItem } from '@mui/material'
 
 const SAVE_CURRENCY_CONFIGURATION = gql`
   ${saveCurrencyConfiguration}
 `
 
 function Currency(props) {
-  const { t } = props;
   const [currencyCode, currencyCodeSetter] = useState(props.currencyCode || '')
   const [currencySymbol, currencySymbolSetter] = useState(
     props.currencySymbol || ''
@@ -47,46 +46,21 @@ function Currency(props) {
 
   const classes = useStyles()
   const globalClasses = useGlobalStyles()
-  const [successMessage, setSuccessMessage] = useState('');
-  const handleSuccess = (message) => {
-    setSuccessMessage(message);
-  };
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setSuccessMessage('');
-    }, 3000);
-
-    return () => clearTimeout(timeoutId);
-  }, [successMessage, setSuccessMessage]);
-  const [errorMessage, setErrorMessage] = useState('');
-  const handleError = (error) => {
-    setErrorMessage('An error occurred while saving configuration.');
-    console.error('Mutation error:', error);
-  };
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setErrorMessage('');
-    }, 3000);
-
-    return () => clearTimeout(timeoutId);
-  }, [errorMessage, setErrorMessage]);
 
   return (
     <Box container className={classes.container}>
       <Box className={classes.flexRow}>
         <Box item className={classes.heading}>
           <Typography variant="h6" className={classes.text}>
-            {t('Currency')}
+            Currency
           </Typography>
         </Box>
       </Box>
 
       <Box className={classes.form}>
         <form>
-          <Box>
-            <Typography className={classes.labelText}>{t('ChooseCurrency')}</Typography>
+          <Box className={globalClasses.flexRow}>
             <Select
-              style={{ marginTop: -1 }}
               id="input-currency"
               name="input-currency"
               defaultValue={[currencyCode || '']}
@@ -112,10 +86,8 @@ function Currency(props) {
               ))}
             </Select>
           </Box>
-          <Box>
-            <Typography className={classes.labelText}>{t('ChooseSymbol')}</Typography>
+          <Box className={globalClasses.flexRow}>
             <Select
-              style={{ marginTop: -1 }}
               id="input-symbol"
               name="input-symbol"
               defaultValue={[currencySymbol || '']}
@@ -152,40 +124,14 @@ function Currency(props) {
                     variables: {
                       configurationInput: {
                         currency: currencyCode,
-                        currencySymbol: currencySymbol,
-                      },
-                    },
-                    onCompleted: (data) => {
-                      handleSuccess('Configuration saved successfully!');
-                    },
-                    onError: (error) => {
-                      handleError(error);
-                    },
-                  });
+                        currencySymbol: currencySymbol
+                      }
+                    }
+                  })
                 }
               }}>
-              {t('Save')}
+              SAVE
             </Button>
-          </Box>
-          <Box mt={2}>
-            {successMessage && (
-              <Alert
-                  className={globalClasses.alertSuccess}
-                  variant="filled"
-                  severity="success"
-                >
-                  {successMessage}
-                </Alert>
-            )}
-            {errorMessage && (
-              <Alert
-                className={globalClasses.alertError}
-                variant="filled"
-                severity="error"
-              >
-                {errorMessage}
-              </Alert>
-            )}
           </Box>
         </form>
       </Box>

@@ -11,8 +11,7 @@ import {
   Toolbar,
   Typography,
   Link,
-  SvgIcon,
-  useTheme
+  SvgIcon
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import routes from '../../routes'
@@ -22,15 +21,14 @@ import { useLocation } from 'react-router-dom'
 
 const drawerWidth = 240
 function Sidebar(props) {
-  const theme = useTheme();
   const location = useLocation()
   const classes = useStyles()
   const restaurantId = localStorage.getItem('restaurantId')
   const restaurantImage = localStorage.getItem('restaurantImage')
   const restaurantName = localStorage.getItem('restaurantName')
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const { window, t } = props;
-  console.log("SideBar props are here: ", props);
+  const { window } = props
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
@@ -76,12 +74,12 @@ function Sidebar(props) {
               <>
                 {key === 14 ? (
                   <Typography className={classes.headingText} variant="h3">
-                    {t('RESTAURANT')}
+                    RESTAURANT
                   </Typography>
                 ) : null}
                 {key === 19 ? (
                   <Typography className={classes.headingText} variant="h3">
-                    {t('MANAGEMENT')}
+                    MANAGEMENT
                   </Typography>
                 ) : null}
                 <Link
@@ -104,7 +102,7 @@ function Sidebar(props) {
                         ? classes.blackText
                         : classes.whiteText
                     ]}>
-                    {t(prop.name)}
+                    {prop.name}
                   </Typography>
                 </Link>
               </>
@@ -112,7 +110,7 @@ function Sidebar(props) {
           } else {
             return prop.appearInSidebar &&
               !prop.admin &&
-              prop.name != t('BackToAdmin') ? (
+              prop.name != 'Back to Admin' ? (
               <>
                 <Link
                   className={[
@@ -191,7 +189,7 @@ function Sidebar(props) {
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
-              background: `linear-gradient(180deg, ${theme.palette.warning.dark} 50%, transparent 50%);`,
+              background: `linear-gradient(180deg, #90EA93 50%, transparent 50%);`,
               borderRight: 'none'
             }
           }}

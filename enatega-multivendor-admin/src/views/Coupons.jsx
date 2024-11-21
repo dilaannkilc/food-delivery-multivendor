@@ -40,7 +40,6 @@ const DELETE_COUPON = gql`
 `
 
 const Coupon = props => {
-  const { t } = props;
   const [editModal, setEditModal] = useState(false)
   const [coupon, setCoupon] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
@@ -71,21 +70,21 @@ const Coupon = props => {
 
   const columns = [
     {
-      name: t('Title'),
+      name: 'Title',
       sortable: true,
       selector: 'title'
     },
     {
-      name: t('Discount'),
+      name: 'Discount %',
       sortable: true,
       selector: 'discount'
     },
     {
-      name: t('Status'),
+      name: 'Status',
       cell: row => <>{statusChanged(row)}</>
     },
     {
-      name: t('Action'),
+      name: 'Action',
       cell: row => <>{actionButtons(row)}</>
     }
   ]
@@ -95,9 +94,9 @@ const Coupon = props => {
     searchQuery.length < 3
       ? data && data.coupons
       : data &&
-      data.coupons.filter(coupon => {
-        return coupon.title.toLowerCase().search(regex) > -1
-      })
+        data.coupons.filter(coupon => {
+          return coupon.title.toLowerCase().search(regex) > -1
+        })
 
   const statusChanged = row => {
     return (
@@ -160,7 +159,7 @@ const Coupon = props => {
                 <ListItemIcon>
                   <EditIcon fontSize="small" style={{ color: 'green' }} />
                 </ListItemIcon>
-                <Typography color="green">{t('Edit')}</Typography>
+                <Typography color="green">Edit</Typography>
               </MenuItem>
               <MenuItem
                 onClick={e => {
@@ -171,7 +170,7 @@ const Coupon = props => {
                 <ListItemIcon>
                   <DeleteIcon fontSize="small" style={{ color: 'red' }} />
                 </ListItemIcon>
-                <Typography color="red">{t('Delete')}</Typography>
+                <Typography color="red">Delete</Typography>
               </MenuItem>
             </Menu>
           </Paper>
@@ -179,6 +178,8 @@ const Coupon = props => {
       </>
     )
   }
+
+  const { t } = props
   const globalClasses = useGlobalStyles()
   return (
     <>
@@ -211,7 +212,7 @@ const Coupon = props => {
                 onClick={() => refetch()}
               />
             }
-            title={<TableHeader title={t('Coupons')} />}
+            title={<TableHeader title="Coupons" />}
             columns={columns}
             data={filtered}
             pagination

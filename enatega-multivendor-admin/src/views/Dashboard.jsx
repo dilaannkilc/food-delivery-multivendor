@@ -15,19 +15,16 @@ import {
   Legend
 } from 'chart.js'
 
-import { Box, Typography, Input, Button, Container, Grid, useTheme } from '@mui/material'
+import { Box, Typography, Input, Button, Container, Grid } from '@mui/material'
 import Header from '../components/Headers/Header'
 import { useQuery, gql } from '@apollo/client'
 import {
   getDashboardTotal,
   getDashboardSales,
-  getDashboardOrders,
-  getOrdersByDateRange
+  getDashboardOrders
 } from '../apollo'
-
 import useStyles from '../components/Option/styles'
 import useGlobalStyles from '../utils/globalStyles'
-import { withTranslation } from 'react-i18next'
 
 ChartJS.register(
   CategoryScale,
@@ -48,34 +45,24 @@ const GET_DASHBOARD_SALES = gql`
 const GET_DASHBOARD_ORDERS = gql`
   ${getDashboardOrders}
 `
-const GET_ORDERS = gql`
-  ${getOrdersByDateRange}
-`
 
+const dataLine = {
+  datasets: {
+    label: 'Sales Amount',
+    backgroundColor: '#3EC6DD',
+    borderColor: '#3EC6DD'
+  }
+}
+const dataBar = {
+  datasets: {
+    label: 'Order count',
+    backgroundColor: '#90EA93',
+    borderColor: '#90EA93'
+  }
+}
 
 const Dashboard = props => {
-  const { t } = props;
-  const theme = useTheme();
   const restaurantId = localStorage.getItem('restaurantId')
-
-
-  const dataLine = {
-    datasets: {
-      label: t('SalesAmount'),
-      // label: 'Sales Amount',
-      backgroundColor: theme.palette.secondary.darkest,
-      borderColor: theme.palette.secondary.darkest
-    }
-  }
-  const dataBar = {
-    datasets: {
-      label: t('OrderCount'),
-      // label: 'Order count',
-      backgroundColor: theme.palette.warning.dark,
-      borderColor: theme.palette.warning.dark
-    }
-  }
-
 
   const intializeStartDate = () => {
     var d = new Date()
@@ -119,28 +106,18 @@ const Dashboard = props => {
       }
     }
   )
-
-const { data, loading: loadingQuery } = useQuery(GET_ORDERS, {
-  variables: {
-    startingDate: stateData.startingDate.toString(),
-    endingDate: stateData.endingDate.toString(),
-    restaurant: restaurantId,
-  },
-});
-console.log("getOrdersByDateRange",data)
-const classes = useStyles();
-const globalClasses = useGlobalStyles();
-
+  const classes = useStyles()
+  const globalClasses = useGlobalStyles()
   return (
     <>
       <Header />
       <Container className={globalClasses.flex} fluid>
-        {errorTotal ? <span>{`${Error} + ${errorTotal.message}`}</span> : null}
+        {errorTotal ? <span>{`Error! + ${errorTotal.message}`}</span> : null}
         <Box container className={classes.container}>
           <Box className={classes.flexRow}>
             <Box item className={classes.heading}>
               <Typography variant="h6" className={classes.textWhite}>
-                {t('GraphFilter')}
+                Graph Filter
               </Typography>
             </Box>
           </Box>
@@ -150,7 +127,7 @@ const globalClasses = useGlobalStyles();
               <Grid container sx={{ textAlign: 'left' }}>
                 <Grid item md={6} xs={12}>
                   <Typography sx={{ fontWeight: 'bold' }}>
-                    {t('StartDate')}
+                    Start Date
                   </Typography>
                   <Input
                     style={{ marginTop: -1 }}
@@ -168,7 +145,7 @@ const globalClasses = useGlobalStyles();
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  <Typography sx={{ fontWeight: 'bold' }}>{t('EndDate')}</Typography>
+                  <Typography sx={{ fontWeight: 'bold' }}>End Date</Typography>
                   <Input
                     style={{ marginTop: -1 }}
                     type="date"
@@ -185,7 +162,7 @@ const globalClasses = useGlobalStyles();
                   />
                 </Grid>
               </Grid>
-              <Button className={globalClasses.button}>{t('Apply')}</Button>
+              <Button className={globalClasses.button}>Apply</Button>
             </form>
           </Box>
         </Box>
@@ -203,8 +180,8 @@ const globalClasses = useGlobalStyles();
           />
           <Box
             sx={{
-              bgcolor: theme.palette.info.light,
-              boxShadow: `0px 0px 11px ${theme.palette.info.dark}`,
+              bgcolor: 'rgba(63, 64, 65, 0.66)',
+              boxShadow: '0px 0px 11px rgba(0, 0, 0, 0.08)',
               borderRadius: 3,
               p: 2,
               position: 'relative',
@@ -218,14 +195,14 @@ const globalClasses = useGlobalStyles();
                 labels: loadingSales
                   ? []
                   : dataSales &&
-                  dataSales.getDashboardSales.orders.map(d => d.day),
+                    dataSales.getDashboardSales.orders.map(d => d.day),
                 datasets: [
                   {
                     ...dataLine.datasets,
                     data: loadingSales
                       ? []
                       : dataSales &&
-                      dataSales.getDashboardSales.orders.map(d => d.amount),
+                        dataSales.getDashboardSales.orders.map(d => d.amount),
                     lineTension: 0.8
                   },
                   {
@@ -233,7 +210,7 @@ const globalClasses = useGlobalStyles();
                     data: loadingOrders
                       ? []
                       : dataOrders &&
-                      dataOrders.getDashboardOrders.orders.map(d => d.count)
+                        dataOrders.getDashboardOrders.orders.map(d => d.count)
                   }
                 ]
               }}
@@ -242,26 +219,26 @@ const globalClasses = useGlobalStyles();
                 legend: {
                   labels: {
                     display: false,
-                    fontColor: theme.palette.common.white,
+                    fontColor: '#fff',
                     fontSize: 10
                   }
                 },
                 scales: {
                   yAxes: {
                     grid: {
-                      color: theme.palette.common.white
+                      color: '#FFFFFF'
                     },
                     ticks: {
-                      color: theme.palette.secondary.main,
+                      color: '#fafafa',
                       fontSize: 12
                     }
                   },
                   xAxes: {
                     grid: {
-                      color: theme.palette.common.white
+                      color: '#FFFFFF'
                     },
                     ticks: {
-                      color: theme.palette.secondary.main,
+                      color: '#fafafa',
                       fontSize: 12
                     }
                   }
@@ -281,37 +258,6 @@ const globalClasses = useGlobalStyles();
           />
         </Grid>
         <Grid item md={3} ml={2} xs={12}>
-        <Box
-            sx={{
-              p: 2,
-              borderRadius: 5,
-              bgcolor: 'common.white',
-              width: '70%',
-              mb: 3
-            }}>
-            <Typography sx={{ fontSize: 15, fontWeight: 'bold' }}>
-              {t('TotalOrders')}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: 35,
-                fontWeight: 'bold',
-                color: theme.palette.secondary.lightest,
-                textAlign: 'center'
-              }}>
-              {loadingTotal
-                ? '...'
-                : dataTotal && dataTotal.getDashboardTotal.totalOrders}
-            </Typography>
-
-            <img
-              src={stats}
-              style={{ marginLeft: '40%' }}
-              width={30}
-              height={40}
-              alt="stat"
-            />
-               </Box>
           <Box
             sx={{
               p: 2,
@@ -320,11 +266,9 @@ const globalClasses = useGlobalStyles();
               width: '70%',
               mb: 3
             }}>
-            
             <Typography sx={{ fontSize: 15, fontWeight: 'bold' }}>
-              COD Orders
+              Total Orders
             </Typography>
-          
             <Typography
               sx={{
                 fontSize: 35,
@@ -332,7 +276,9 @@ const globalClasses = useGlobalStyles();
                 color: '#3C8F7C',
                 textAlign: 'center'
               }}>
-             {loadingQuery ? '...' : data && data.getOrdersByDateRange.countCashOnDeliveryOrders}
+              {loadingTotal
+                ? '...'
+                : dataTotal && dataTotal.getDashboardTotal.totalOrders}
             </Typography>
             <img
               src={stats}
@@ -347,17 +293,16 @@ const globalClasses = useGlobalStyles();
               p: 2,
               borderRadius: 5,
               bgcolor: 'common.white',
-              width: '70%',
-              mb: 3
+              width: '70%'
             }}>
             <Typography sx={{ fontSize: 15, fontWeight: 'bold' }}>
-              {t('TotalSales')}
+              Total Sales
             </Typography>
             <Typography
               sx={{
                 fontSize: 35,
                 fontWeight: 'bold',
-                color: theme.palette.secondary.lightest,
+                color: '#3C8F7C',
                 textAlign: 'center'
               }}>
               {loadingTotal
@@ -372,38 +317,10 @@ const globalClasses = useGlobalStyles();
               alt="stat"
             />
           </Box>
-          <Box
-            sx={{
-              p: 2,
-              borderRadius: 5,
-              bgcolor: 'common.white',
-              width: '70%',
-              mb: 3
-            }}>
-            <Typography sx={{ fontSize: 15, fontWeight: 'bold' }}>
-              COD Sales
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: 35,
-                fontWeight: 'bold',
-                color: '#3C8F7C',
-                textAlign: 'center'
-              }}>
-              {loadingQuery ? '...' : data && data.getOrdersByDateRange.totalAmountCashOnDelivery}
-            </Typography>
-            <img
-              src={stats}
-              style={{ marginLeft: '40%' }}
-              width={30}
-              height={40}
-              alt="stat"
-            />
-          </Box>
         </Grid>
       </Grid>
     </>
   )
 }
 
-export default withTranslation()(Dashboard)
+export default Dashboard
