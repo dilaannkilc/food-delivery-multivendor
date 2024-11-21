@@ -15,18 +15,21 @@ const styles = (props = null) =>
       zIndex: 333,
       width: '100%',
       alignItems: 'center',
-      backgroundColor: props != null ? props.main : '#90E36D',
+      borderBottomLeftRadius: scale(25),
+      borderBottomRightRadius: scale(25),
+      backgroundColor: props != null ? props.headerColor : '#fafafa',
       shadowColor: props != null ? props.shadowColor : 'black',
       shadowOffset: {
         width: 0,
         height: verticalScale(1)
       },
       shadowOpacity: 0.1,
-      shadowRadius: verticalScale(1)
+      shadowRadius: verticalScale(1),
+      ...alignment.MBmedium
     },
     mainContainer: {
       width: '90%',
-      height: scale(40),
+      height: scale(50),
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',

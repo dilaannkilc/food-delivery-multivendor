@@ -6,13 +6,11 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import navigationService from './navigationService'
 import * as Notifications from 'expo-notifications'
-//import Login from '../screens/Login/Login'
-import Login from '../screens/Login/LoginV2'
+import Login from '../screens/Login/Login'
 import Register from '../screens/Register/Register'
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
 import SetYourPassword from '../screens/ForgotPassword/SetYourPassword'
-//import CreateAccount from '../screens/CreateAccount/CreateAccount'
-import CreateAccount from '../screens/CreateAccount/CreateAccountV2'
+import CreateAccount from '../screens/CreateAccount/CreateAccount'
 import SideBar from '../components/Sidebar/Sidebar'
 import ItemDetail from '../screens/ItemDetail/ItemDetail'
 import MyOrders from '../screens/MyOrders/MyOrders'
@@ -32,11 +30,10 @@ import OrderDetail from '../screens/OrderDetail/OrderDetail'
 import Settings from '../screens/Settings/Settings'
 import HelpBrowser from '../screens/HelpBrowser/HelpBrowser'
 import Coupon from '../screens/Coupon/Coupon'
-import Main from '../screens/Main/MainV2'
+import Main from '../screens/Main/Main'
 import Restaurant from '../screens/Restaurant/Restaurant'
 import About from '../screens/About'
 import SelectLocation from '../screens/SelectLocation'
-import AddNewAddress from '../screens/SelectLocation/AddNewAddressV2'
 import CurrentLocation from '../screens/CurrentLocation'
 import ThemeContext from '../ui/ThemeContext/ThemeContext'
 import { theme } from '../utils/themeColors'
@@ -157,7 +154,6 @@ function NoDrawer() {
         name="SelectLocation"
         component={SelectLocation}
       />
-      <NavigationStack.Screen name="AddNewAddress" component={AddNewAddress} />
       <NavigationStack.Screen name="Favourite" component={Favourite} />
       <NavigationStack.Screen name="ChatWithRider" component={ChatScreen} />
     </NavigationStack.Navigator>
@@ -173,7 +169,6 @@ function LocationStack() {
         options={{ header: () => null }}
       />
       <Location.Screen name="SelectLocation" component={SelectLocation} />
-      <Location.Screen name="AddNewAddress" component={AddNewAddress} />
     </Location.Navigator>
   )
 }
@@ -217,7 +212,7 @@ function AppContainer() {
 
   useEffect(() => {
     Notifications.setNotificationHandler({
-      handleNotification: async () => ({
+      handleNotification: async() => ({
         shouldShowAlert: true,
         shouldPlaySound: false,
         shouldSetBadge: false
