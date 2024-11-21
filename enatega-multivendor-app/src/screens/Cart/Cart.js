@@ -702,7 +702,7 @@ function Cart(props) {
       <Animated.View
         style={[
           styles().trashContainer,
-          // { transform: [{ translateX: scaleX }] }
+          { transform: [{ translateX: scaleX }] }
         ]}>
         <RectButton
           rippleColor="black"
@@ -1172,7 +1172,7 @@ function Cart(props) {
                           <View style={[styles().floatView, styles().pB10]}>
                             <TextDefault
                               numberOfLines={1}
-                              textColor={currentTheme.darkBgFont}
+                              textColor={currentTheme.fontSecondColor}
                               small
                               bold
                               style={{ width: '30%' }}>
@@ -1183,7 +1183,7 @@ function Cart(props) {
                               small
                               right
                               bold
-                              textColor={currentTheme.darkBgFont}
+                              textColor={currentTheme.black}
                               style={{ width: '70%' }}>
                               {`${selectedRestaurant.address}`}
                             </TextDefault>
