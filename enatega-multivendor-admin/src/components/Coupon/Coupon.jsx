@@ -5,15 +5,7 @@ import { withTranslation } from 'react-i18next'
 import { editCoupon, createCoupon, getCoupons } from '../../apollo'
 import useStyles from './styles'
 import useGlobalStyles from '../../utils/globalStyles'
-import {
-  Box,
-  Switch,
-  Typography,
-  Input,
-  Button,
-  Alert,
-  Grid
-} from '@mui/material'
+import { Box, Switch, Typography, Input, Button, Alert, Grid } from '@mui/material'
 
 const CREATE_COUPON = gql`
   ${createCoupon}
@@ -133,8 +125,8 @@ function Category(props) {
                     titleError === false
                       ? globalClasses.inputError
                       : titleError === true
-                      ? globalClasses.inputSuccess
-                      : ''
+                        ? globalClasses.inputSuccess
+                        : '',
                   ]}
                 />
               </Grid>
@@ -150,7 +142,7 @@ function Category(props) {
                   type="number"
                   defaultValue={discount}
                   onBlur={event => {
-                    onBlur(discountErrorSetter, 'discount', event.target.value)
+                    onBlur(discountErrorSetter, 'discount', event.target.value);
                   }}
                   disableUnderline
                   className={[
@@ -158,8 +150,8 @@ function Category(props) {
                     discountError === false
                       ? globalClasses.inputError
                       : discountError === true
-                      ? globalClasses.inputSuccess
-                      : ''
+                        ? globalClasses.inputSuccess
+                        : '',
                   ]}
                 />
               </Grid>

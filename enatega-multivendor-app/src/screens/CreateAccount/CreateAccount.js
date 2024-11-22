@@ -10,13 +10,8 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { useCreateAccount } from './useCreateAccount'
 import navigationOptions from './screenOptions'
 import { useTranslation } from 'react-i18next'
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes
-} from '@react-native-google-signin/google-signin'
 
-const CreateAccount = (props) => {
+const CreateAccount = props => {
   const {
     enableApple,
     loginButton,
@@ -30,9 +25,7 @@ const CreateAccount = (props) => {
     navigateToLogin,
     openTerms,
     openPrivacyPolicy,
-    navigation,
-    signIn,
-    user
+    navigation
   } = useCreateAccount()
   const { t } = useTranslation()
   useLayoutEffect(() => {
@@ -51,7 +44,7 @@ const CreateAccount = (props) => {
       return (
         <View style={styles().buttonBackground}>
           <Spinner
-            backColor='rgba(0,0,0,0.1)'
+            backColor="rgba(0,0,0,0.1)"
             spinnerColor={currentTheme.white}
           />
         </View>
@@ -108,18 +101,13 @@ const CreateAccount = (props) => {
 
   function renderGoogleAction() {
     return (
-      // <FdGoogleBtn
-      //   loadingIcon={loading && loginButton === 'Google'}
-      //   onPressIn={() => {
-      //     loginButtonSetter('Google')
-      //   }}
-      //   disabled={!googleRequest}
-      //   onPress={() => googlePromptAsync()}
-      // />
-      <GoogleSigninButton
-        size={GoogleSigninButton.Size.Standard}
-        color={GoogleSigninButton.Color.Dark}
-        onPress={signIn}
+      <FdGoogleBtn
+        loadingIcon={loading && loginButton === 'Google'}
+        onPressIn={() => {
+          loginButtonSetter('Google')
+        }}
+        disabled={!googleRequest}
+        onPress={() => googlePromptAsync()}
       />
     )
   }
@@ -139,7 +127,6 @@ const CreateAccount = (props) => {
 
   return (
     <View style={[styles(currentTheme).subContainer]}>
-      {user && JSON.stringify(user, null, 2)}
       <TextDefault
         H2
         bolder
@@ -148,8 +135,7 @@ const CreateAccount = (props) => {
           textAlign: 'center',
           ...alignment.MTlarge,
           ...alignment.MBlarge
-        }}
-      >
+        }}>
         {t('signUporSignIn')}
       </TextDefault>
       <View>
@@ -161,16 +147,14 @@ const CreateAccount = (props) => {
           style={[
             styles().marginTop5,
             { flexDirection: 'row', alignItems: 'center' }
-          ]}
-        >
+          ]}>
           <View style={styles().line} />
           <View>
             <TextDefault
               H4
               bolder
               textColor={currentTheme.horizontalLine}
-              style={{ width: 50, textAlign: 'center' }}
-            >
+              style={{ width: 50, textAlign: 'center' }}>
               {t('or')}
             </TextDefault>
           </View>
@@ -186,8 +170,7 @@ const CreateAccount = (props) => {
           flexWrap: 'wrap',
           ...alignment.MTlarge,
           ...alignment.MBlarge
-        }}
-      >
+        }}>
         <TextDefault textColor={currentTheme.horizontalLine}>
           {t('termCondition1')}{' '}
         </TextDefault>

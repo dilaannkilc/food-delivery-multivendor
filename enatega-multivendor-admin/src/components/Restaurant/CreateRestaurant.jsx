@@ -4,26 +4,18 @@ import { withTranslation } from 'react-i18next'
 import { useMutation, gql } from '@apollo/client'
 import { createRestaurant, restaurantByOwner } from '../../apollo'
 
-import {
-  Box,
-  Alert,
-  Typography,
-  Button,
-  Input,
-  Switch,
-  Grid,
-  Checkbox
-} from '@mui/material'
+import { Box, Alert, Typography, Button, Input, Switch, Grid, Checkbox } from '@mui/material'
 
 import ConfigurableValues from '../../config/constants'
 
+
 import useStyles from './styles'
 import useGlobalStyles from '../../utils/globalStyles'
-import InputAdornment from '@mui/material/InputAdornment'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import InputAdornment from '@mui/material/InputAdornment';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { SHOP_TYPE } from '../../utils/enums'
-import Dropdown from '../Dropdown'
+import Dropdown from '../Dropdown';
 
 const CREATE_RESTAURANT = gql`
   ${createRestaurant}
@@ -33,12 +25,13 @@ const RESTAURANT_BY_OWNER = gql`
 `
 
 const CreateRestaurant = props => {
+
   const { CLOUDINARY_UPLOAD_URL, CLOUDINARY_FOOD } = ConfigurableValues()
 
-  const { t } = props
+  const { t } = props;
 
   const owner = props.owner
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   const [imgUrl, setImgUrl] = useState('')
   const [nameError, setNameError] = useState(null)
   const [usernameError, setUsernameError] = useState(null)
@@ -51,7 +44,7 @@ const CreateRestaurant = props => {
   const [errors, setErrors] = useState('')
   const [success, setSuccess] = useState('')
   const onCompleted = data => {
-    console.log('on complete here')
+    console.log("on complete here");
     setNameError(null)
     setAddressError(null)
     setUsernameError(null)
@@ -115,7 +108,7 @@ const CreateRestaurant = props => {
     }
     fileReader.readAsDataURL(imgUrl)
   }
-  const uploadImageToCloudinary = async() => {
+  const uploadImageToCloudinary = async () => {
     if (imgUrl === '') return imgUrl
 
     const apiUrl = CLOUDINARY_UPLOAD_URL
@@ -237,12 +230,11 @@ const CreateRestaurant = props => {
 
       <Box className={classes.form}>
         <form ref={formRef}>
+
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Box>
-                <Typography className={classes.labelText}>
-                  {t('Username')}
-                </Typography>
+                <Typography className={classes.labelText}>{t('Username')}</Typography>
                 <Input
                   style={{ marginTop: -1 }}
                   name="username"
@@ -256,22 +248,18 @@ const CreateRestaurant = props => {
                     usernameError === false
                       ? globalClasses.inputError
                       : usernameError === true
-                      ? globalClasses.inputSuccess
-                      : ''
+                        ? globalClasses.inputSuccess
+                        : ''
                   ]}
-                  onChange={event => {
-                    event.target.value = event.target.value
-                      .trim()
-                      .replace(/\s/g, '')
+                  onChange={(event) => {
+                    event.target.value = event.target.value.trim().replace(/\s/g, '');
                   }}
                 />
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Box>
-                <Typography className={classes.labelText}>
-                  {t('Password')}
-                </Typography>
+                <Typography className={classes.labelText}>{t('Password')}</Typography>
                 <Input
                   style={{ marginTop: -1 }}
                   name="password"
@@ -285,8 +273,8 @@ const CreateRestaurant = props => {
                     passwordError === false
                       ? globalClasses.inputError
                       : passwordError === true
-                      ? globalClasses.inputSuccess
-                      : ''
+                        ? globalClasses.inputSuccess
+                        : ''
                   ]}
                   endAdornment={
                     <InputAdornment position="end">
@@ -304,9 +292,7 @@ const CreateRestaurant = props => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Box>
-                <Typography className={classes.labelText}>
-                  {t('Name')}
-                </Typography>
+                <Typography className={classes.labelText}>{t('Name')}</Typography>
                 <Input
                   style={{ marginTop: -1 }}
                   name="name"
@@ -320,17 +306,15 @@ const CreateRestaurant = props => {
                     nameError === false
                       ? globalClasses.inputError
                       : nameError === true
-                      ? globalClasses.inputSuccess
-                      : ''
+                        ? globalClasses.inputSuccess
+                        : ''
                   ]}
                 />
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Box>
-                <Typography className={classes.labelText}>
-                  {t('Address')}
-                </Typography>
+                <Typography className={classes.labelText}>{t('Address')}</Typography>
                 <Input
                   style={{ marginTop: -1 }}
                   name="address"
@@ -344,22 +328,20 @@ const CreateRestaurant = props => {
                     addressError === false
                       ? globalClasses.inputError
                       : addressError === true
-                      ? globalClasses.inputSuccess
-                      : ''
+                        ? globalClasses.inputSuccess
+                        : ''
                   ]}
                 />
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Box>
-                <Typography className={classes.labelText}>
-                  {t('DeliveryTime')}
-                </Typography>
+                <Typography className={classes.labelText}>{t("DeliveryTime")}</Typography>
                 <Input
                   style={{ marginTop: -1 }}
                   name="deliveryTime"
                   id="input-type-delivery-time"
-                  placeholder={t('DeliveryTime')}
+                  placeholder={t("DeliveryTime")}
                   type="number"
                   disableUnderline
                   className={[
@@ -367,22 +349,20 @@ const CreateRestaurant = props => {
                     deliveryTimeError === false
                       ? globalClasses.inputError
                       : deliveryTimeError === true
-                      ? globalClasses.inputSuccess
-                      : ''
+                        ? globalClasses.inputSuccess
+                        : ''
                   ]}
                 />
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Box>
-                <Typography className={classes.labelText}>
-                  {t('MinOrder')}
-                </Typography>
+                <Typography className={classes.labelText}>{t("MinOrder")}</Typography>
                 <Input
                   style={{ marginTop: -1 }}
                   name="minimumOrder"
                   id="input-type-minimum-order"
-                  placeholder={t('MinOrder')}
+                  placeholder={t("MinOrder")}
                   type="number"
                   disableUnderline
                   className={[
@@ -390,22 +370,20 @@ const CreateRestaurant = props => {
                     minimumOrderError === false
                       ? globalClasses.inputError
                       : minimumOrderError === true
-                      ? globalClasses.inputSuccess
-                      : ''
+                        ? globalClasses.inputSuccess
+                        : ''
                   ]}
                 />
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Box>
-                <Typography className={classes.labelText}>
-                  {t('SalesTax')}
-                </Typography>
+                <Typography className={classes.labelText}>{t("SalesTax")}</Typography>
                 <Input
                   style={{ marginTop: -1 }}
                   name="salesTax"
                   id="input-type-sales-tax"
-                  placeholder={t('SalesTax')}
+                  placeholder={t("SalesTax")}
                   type="number"
                   disableUnderline
                   className={[
@@ -413,8 +391,8 @@ const CreateRestaurant = props => {
                     salesTaxError === false
                       ? globalClasses.inputError
                       : salesTaxError === true
-                      ? globalClasses.inputSuccess
-                      : ''
+                        ? globalClasses.inputSuccess
+                        : ''
                   ]}
                 />
               </Box>

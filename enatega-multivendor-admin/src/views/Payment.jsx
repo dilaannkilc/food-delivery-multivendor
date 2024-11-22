@@ -11,9 +11,10 @@ const RESTAURANT = gql`
   ${getRestaurantProfile}
 `
 const Payment = () => {
+
   const { SERVER_URL } = ConfigurableValues()
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const restaurantId = localStorage.getItem('restaurantId')
 

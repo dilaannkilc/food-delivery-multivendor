@@ -24,9 +24,9 @@ import {
   Grid,
   Checkbox
 } from '@mui/material'
-import InputAdornment from '@mui/material/InputAdornment'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import InputAdornment from '@mui/material/InputAdornment';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const CREATE_RIDER = gql`
   ${createRider}
@@ -59,7 +59,7 @@ function Rider(props) {
   const [passwordError, passwordErrorSetter] = useState(null)
   const [phoneError, phoneErrorSetter] = useState(null)
   const [zoneError, zoneErrorSetter] = useState(null)
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   const [riderAvailable, setRiderAvailable] = useState(
     props.rider ? props.rider.available : true
   )
@@ -157,7 +157,7 @@ function Rider(props) {
           </Typography>
         </Box>
         <Box ml={10} mt={1}>
-          <label>{t('Available')}</label>
+          <label>{t("Available")}</label>
           <Switch
             defaultChecked={riderAvailable}
             value={riderAvailable}
@@ -175,7 +175,9 @@ function Rider(props) {
           <Grid container spacing={-4} style={{ maxWidth: '600px' }}>
             <Grid item xs={12} sm={6} style={{ alignItems: 'center' }}>
               {/* <Box> */}
-              <Typography className={classes.labelText}>{t('Name')}</Typography>
+              <Typography className={classes.labelText}>
+                {t("Name")}
+              </Typography>
               <Input
                 style={{ marginTop: -1 }}
                 id="input-name"
@@ -192,8 +194,8 @@ function Rider(props) {
                   nameError === false
                     ? globalClasses.inputError
                     : nameError === true
-                    ? globalClasses.inputSuccess
-                    : ''
+                      ? globalClasses.inputSuccess
+                      : ''
                 ]}
               />
               {/* </Box> */}
@@ -219,8 +221,8 @@ function Rider(props) {
                   usernameError === false
                     ? globalClasses.inputError
                     : usernameError === true
-                    ? globalClasses.inputSuccess
-                    : ''
+                      ? globalClasses.inputSuccess
+                      : ''
                 ]}
               />
               {/* </Box> */}
@@ -246,8 +248,8 @@ function Rider(props) {
                   passwordError === false
                     ? globalClasses.inputError
                     : passwordError === true
-                    ? globalClasses.inputSuccess
-                    : ''
+                      ? globalClasses.inputSuccess
+                      : '',
                 ]}
                 endAdornment={
                   <InputAdornment position="end">
@@ -285,8 +287,8 @@ function Rider(props) {
                   phoneError === false
                     ? globalClasses.inputError
                     : phoneError === true
-                    ? globalClasses.inputSuccess
-                    : ''
+                      ? globalClasses.inputSuccess
+                      : '',
                 ]}
               />
               {/* </Box> */}
@@ -309,8 +311,8 @@ function Rider(props) {
               zoneError === false
                 ? globalClasses.inputError
                 : zoneError === true
-                ? globalClasses.inputSuccess
-                : ''
+                  ? globalClasses.inputSuccess
+                  : ''
             ]}>
             {!zone && (
               <MenuItem sx={{ color: 'black' }} value={''}>
@@ -347,11 +349,11 @@ function Rider(props) {
                       available: riderAvailable
                     }
                   }
-                })
+                });
                 // Close the modal after 3 seconds by calling the parent's onClose callback
                 setTimeout(() => {
-                  props.onClose() // Close the modal
-                }, 4000)
+                  props.onClose(); // Close the modal
+                }, 4000);
               }
             }}>
             {t('Save')}

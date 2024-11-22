@@ -30,6 +30,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import TableHeader from '../components/TableHeader'
 import Alert from '../components/Alert'
 
+
 const GET_VENDORS = gql`
   ${getVendors}
 `
@@ -37,8 +38,8 @@ const DELETE_VENDOR = gql`
   ${deleteVendor}
 `
 const Vendors = props => {
-  const theme = useTheme()
-  const { t } = props
+  const theme = useTheme();
+  const { t } = props;
   const [editModal, setEditModal] = useState(false)
   const [vendors, setVendor] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
@@ -47,13 +48,13 @@ const Vendors = props => {
   const golbalClasses = useGlobalStyles()
 
   const closeEditModal = () => {
-    setEditModal(false)
-  }
+    setEditModal(false);
+  };
 
   const { loading: loadingQuery, error: errorQuery, data, refetch } = useQuery(
     GET_VENDORS
   )
-  const [, /*mutate*/ { loading }] = useMutation(DELETE_VENDOR, {
+  const [/*mutate*/, { loading }] = useMutation(DELETE_VENDOR, {
     refetchQueries: [{ query: GET_VENDORS }]
   })
 
@@ -64,9 +65,9 @@ const Vendors = props => {
     searchQuery.length < 3
       ? data && data.vendors
       : data &&
-        data.vendors.filter(vendor => {
-          return vendor.email.toLowerCase().search(regex) > -1
-        })
+      data.vendors.filter(vendor => {
+        return vendor.email.toLowerCase().search(regex) > -1
+      })
 
   const toggleModal = vendor => {
     setEditModal(!editModal)
@@ -201,7 +202,10 @@ const Vendors = props => {
     <>
       <Header />
       {isOpen && (
-        <Alert message={t('AvailableAfterPurchasing')} severity="warning" />
+        <Alert
+          message={t('AvailableAfterPurchasing')}
+          severity="warning"
+        />
       )}
 
       <Container className={golbalClasses.flex}>
@@ -233,7 +237,7 @@ const Vendors = props => {
                 onClick={() => refetch()}
               />
             }
-            title={<TableHeader title={t('Vendors')} />}
+              title={<TableHeader title={t('Vendors')} />}
             columns={columns}
             data={filtered}
             pagination

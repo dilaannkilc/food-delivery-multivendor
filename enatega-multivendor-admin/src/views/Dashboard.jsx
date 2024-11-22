@@ -15,15 +15,7 @@ import {
   Legend
 } from 'chart.js'
 
-import {
-  Box,
-  Typography,
-  Input,
-  Button,
-  Container,
-  Grid,
-  useTheme
-} from '@mui/material'
+import { Box, Typography, Input, Button, Container, Grid, useTheme } from '@mui/material'
 import Header from '../components/Headers/Header'
 import { useQuery, gql } from '@apollo/client'
 import {
@@ -60,10 +52,12 @@ const GET_ORDERS = gql`
   ${getOrdersByDateRange}
 `
 
+
 const Dashboard = props => {
-  const { t } = props
-  const theme = useTheme()
+  const { t } = props;
+  const theme = useTheme();
   const restaurantId = localStorage.getItem('restaurantId')
+
 
   const dataLine = {
     datasets: {
@@ -81,6 +75,7 @@ const Dashboard = props => {
       borderColor: theme.palette.warning.dark
     }
   }
+
 
   const intializeStartDate = () => {
     var d = new Date()
@@ -125,16 +120,16 @@ const Dashboard = props => {
     }
   )
 
-  const { data, loading: loadingQuery } = useQuery(GET_ORDERS, {
-    variables: {
-      startingDate: stateData.startingDate.toString(),
-      endingDate: stateData.endingDate.toString(),
-      restaurant: restaurantId
-    }
-  })
-  console.log('getOrdersByDateRange', data)
-  const classes = useStyles()
-  const globalClasses = useGlobalStyles()
+const { data, loading: loadingQuery } = useQuery(GET_ORDERS, {
+  variables: {
+    startingDate: stateData.startingDate.toString(),
+    endingDate: stateData.endingDate.toString(),
+    restaurant: restaurantId,
+  },
+});
+console.log("getOrdersByDateRange",data)
+const classes = useStyles();
+const globalClasses = useGlobalStyles();
 
   return (
     <>
@@ -173,9 +168,7 @@ const Dashboard = props => {
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  <Typography sx={{ fontWeight: 'bold' }}>
-                    {t('EndDate')}
-                  </Typography>
+                  <Typography sx={{ fontWeight: 'bold' }}>{t('EndDate')}</Typography>
                   <Input
                     style={{ marginTop: -1 }}
                     type="date"
@@ -225,14 +218,14 @@ const Dashboard = props => {
                 labels: loadingSales
                   ? []
                   : dataSales &&
-                    dataSales.getDashboardSales.orders.map(d => d.day),
+                  dataSales.getDashboardSales.orders.map(d => d.day),
                 datasets: [
                   {
                     ...dataLine.datasets,
                     data: loadingSales
                       ? []
                       : dataSales &&
-                        dataSales.getDashboardSales.orders.map(d => d.amount),
+                      dataSales.getDashboardSales.orders.map(d => d.amount),
                     lineTension: 0.8
                   },
                   {
@@ -240,7 +233,7 @@ const Dashboard = props => {
                     data: loadingOrders
                       ? []
                       : dataOrders &&
-                        dataOrders.getDashboardOrders.orders.map(d => d.count)
+                      dataOrders.getDashboardOrders.orders.map(d => d.count)
                   }
                 ]
               }}
@@ -288,7 +281,7 @@ const Dashboard = props => {
           />
         </Grid>
         <Grid item md={3} ml={2} xs={12}>
-          <Box
+        <Box
             sx={{
               p: 2,
               borderRadius: 5,
@@ -318,7 +311,7 @@ const Dashboard = props => {
               height={40}
               alt="stat"
             />
-          </Box>
+               </Box>
           <Box
             sx={{
               p: 2,
@@ -327,10 +320,11 @@ const Dashboard = props => {
               width: '70%',
               mb: 3
             }}>
+            
             <Typography sx={{ fontSize: 15, fontWeight: 'bold' }}>
               COD Orders
             </Typography>
-
+          
             <Typography
               sx={{
                 fontSize: 35,
@@ -338,9 +332,7 @@ const Dashboard = props => {
                 color: '#3C8F7C',
                 textAlign: 'center'
               }}>
-              {loadingQuery
-                ? '...'
-                : data && data.getOrdersByDateRange.countCashOnDeliveryOrders}
+             {loadingQuery ? '...' : data && data.getOrdersByDateRange.countCashOnDeliveryOrders}
             </Typography>
             <img
               src={stats}
@@ -398,9 +390,7 @@ const Dashboard = props => {
                 color: '#3C8F7C',
                 textAlign: 'center'
               }}>
-              {loadingQuery
-                ? '...'
-                : data && data.getOrdersByDateRange.totalAmountCashOnDelivery}
+              {loadingQuery ? '...' : data && data.getOrdersByDateRange.totalAmountCashOnDelivery}
             </Typography>
             <img
               src={stats}
