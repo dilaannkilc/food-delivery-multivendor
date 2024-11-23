@@ -11,26 +11,20 @@ import {
   AppBar,
   Box,
   Toolbar,
-  Divider,
-  FormControl,
-  Select,
-  useTheme
+  Divider
 } from '@mui/material'
 
 function AdminNavbar(props) {
-  const theme = useTheme()
   const client = useApolloClient()
-  const [modal, setModal] = useState(false)
-  const [language, setLanguage] = useState(
-    localStorage.getItem('enatega-language') || 'en'
-  )
-  const [anchorEl, setAnchorEl] = useState(null) // Define anchorEl state
-
-  const { t, i18n } = props
-
+  const [modal, modalSetter] = useState(false)
   const toggleModal = () => {
-    setModal(prev => !prev)
+    modalSetter(prev => !prev)
   }
+  const { t } = props
+  const vendor = localStorage.getItem('user-enatega')
+    ? JSON.parse(localStorage.getItem('user-enatega')).userType === 'VENDOR'
+    : false
+  const [anchorEl, setAnchorEl] = React.useState(null)
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget)
@@ -39,18 +33,6 @@ function AdminNavbar(props) {
   const handleClose = () => {
     setAnchorEl(null)
   }
-
-  const handleChangeLanguage = event => {
-    const newLanguage = event.target.value
-    setLanguage(newLanguage)
-    localStorage.setItem('enatega-language', newLanguage)
-    i18n.changeLanguage(newLanguage)
-    handleClose()
-  }
-
-  const vendor = localStorage.getItem('user-enatega')
-    ? JSON.parse(localStorage.getItem('user-enatega')).userType === 'VENDOR'
-    : false
 
   return (
     <Box
@@ -119,63 +101,22 @@ function AdminNavbar(props) {
               }}
               open={Boolean(anchorEl)}
               onClose={handleClose}>
-              <MenuItem>
-                <FormControl>
-                  <Select
-                    value={language}
-                    onChange={handleChangeLanguage}
-                    style={{ color: theme.palette.common.black }}>
-                    <MenuItem
-                      sx={{ color: theme.palette.common.black }}
-                      value="en">
-                      English
-                    </MenuItem>
-                    <MenuItem
-                      sx={{ color: theme.palette.common.black }}
-                      value="ar">
-                      Arabic
-                    </MenuItem>
-                    <MenuItem
-                      sx={{ color: theme.palette.common.black }}
-                      value="de">
-                      Deutsche
-                    </MenuItem>
-                    <MenuItem
-                      sx={{ color: theme.palette.common.black }}
-                      value="zh">
-                      中文
-                    </MenuItem>
-                    <MenuItem
-                      sx={{ color: theme.palette.common.black }}
-                      value="km">
-                      ភាសាខ្មែរ
-                    </MenuItem>
-                    <MenuItem
-                      sx={{ color: theme.palette.common.black }}
-                      value="fr">
-                      français
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </MenuItem>
-              <MenuItem
-                sx={{ color: theme.palette.common.black }}
-                onClick={handleClose}>
-                {t('Welcome')}
+              <MenuItem sx={{ color: '#000' }} onCLick={handleClose}>
+                Welcome
               </MenuItem>
               <Divider />
               {vendor ? (
                 <MenuItem
-                  sx={{ color: theme.palette.common.black }}
+                  sx={{ color: '#000' }}
                   onClick={e => {
                     e.preventDefault()
                     toggleModal()
                   }}>
-                  {t('ResetPassword')}
+                  Reset Password
                 </MenuItem>
               ) : null}
               <MenuItem
-                sx={{ color: theme.palette.common.black }}
+                sx={{ color: '#000' }}
                 onClick={e => {
                   e.preventDefault()
                   localStorage.removeItem('user-enatega')
@@ -183,7 +124,7 @@ function AdminNavbar(props) {
                   client.clearStore()
                   props.history.push('/auth/login')
                 }}>
-                {t('Logout')}
+                Logout
               </MenuItem>
             </Menu>
           </div>

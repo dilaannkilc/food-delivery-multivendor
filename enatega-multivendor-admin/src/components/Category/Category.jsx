@@ -23,20 +23,21 @@ function Category(props) {
     props.category ? props.category.title : ''
   )
   const restaurantId = localStorage.getItem('restaurantId')
+
   const onCompleted = data => {
     const message = props.category
-      ? t('CategoryUpdatedSuccessfully')
-      : t('CategoryAddedSuccessfully')
+      ? 'Category updated successfully'
+      : 'Category added successfully'
     successSetter(message)
     mainErrorSetter('')
     setCategory('')
-    setTimeout(hideAlert, 3000)
+    setTimeout(hideAlert, 5000)
   }
   const onError = error => {
-    const message = `${t('ActionFailedTryAgain')} ${error}`
+    const message = `Action failed. Please Try again ${error}`
     successSetter('')
     mainErrorSetter(message)
-    setTimeout(hideAlert, 3000)
+    setTimeout(hideAlert, 5000)
   }
   const [mutate, { loading }] = useMutation(mutation, { onError, onCompleted })
   const hideAlert = () => {
@@ -60,13 +61,11 @@ function Category(props) {
       </Box>
       <Box className={classes.form}>
         <form>
-          <Box>
-            <Typography className={classes.labelText}>{t('Name')}</Typography>
+          <Box className={globalClasses.flexRow}>
             <Input
-              style={{ marginTop: -1 }}
               id="input-category"
               name="input-category"
-              placeholder={t('PHCategory')}
+              placeholder="Category i.e Breakfast"
               type="text"
               defaultValue={category}
               onChange={e => {
@@ -92,13 +91,9 @@ function Category(props) {
                       }
                     }
                   })
-                  // Close the modal after 3 seconds by calling the parent's onClose callback
-                  setTimeout(() => {
-                    // props.onClose(); // Close the modal
-                  }, 4000)
                 }
               }}>
-              {t('Save')}
+              SAVE
             </Button>
           </Box>
           <Box mt={2}>

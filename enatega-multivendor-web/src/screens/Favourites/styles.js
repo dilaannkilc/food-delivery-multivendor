@@ -1,9 +1,6 @@
-import makeStyles from "@mui/styles/makeStyles";
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.primary.dark,
-  },
   mt2: {
     marginTop: theme.spacing(2),
   },
@@ -13,25 +10,8 @@ const useStyles = makeStyles((theme) => ({
   contentContainer: {
     padding: theme.spacing(0, 3),
   },
-  topContainer: {
-    marginTop: "165px",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
-  },
-  bg: {
-    position: "absolute",
-    left: "-100px",
-    [theme.breakpoints.down("md")]: {
-      left: "-50px",
-    },
-    maxWidth: "100%",
-  },
   mainContainer: {
-    marginTop: "50px",
-    minHeight: "100vh",
+    marginTop: "250px",
   },
   center: {
     justifyContent: "center",
@@ -71,18 +51,6 @@ const useStyles = makeStyles((theme) => ({
     height: 30,
     borderRadius: 15,
     boxShadow: theme.shadows[5],
-  },
-  footerContainer: {
-    background: theme.palette.success.dark,
-    width: "100%",
-  },
-  footerWrapper: {
-    backgroundColor: theme.palette.primary.main,
-    width: "90%",
-    display: "flex",
-    marginLeft: "auto",
-    borderTopLeftRadius: "5rem",
-    borderBottomLeftRadius: "5rem",
   },
 }));
 
