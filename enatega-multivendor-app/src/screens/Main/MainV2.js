@@ -13,10 +13,7 @@ import {
   Animated,
   StatusBar,
   Platform,
-  RefreshControl,
-  Image,
-  FlatList,
-  ScrollView
+  RefreshControl
 } from 'react-native'
 import { Modalize } from 'react-native-modalize'
 import {
@@ -34,12 +31,12 @@ import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder'
 import gql from 'graphql-tag'
 import { useLocation } from '../../ui/hooks'
 import Search from '../../components/Main/Search/Search'
-import Item from '../../components/Main/Item/Item'
+import Item from '../../components/Main/Item/ItemV2'
 import UserContext from '../../context/User'
 import { restaurantList } from '../../apollo/queries'
 import { selectAddress } from '../../apollo/mutations'
 import { scale } from '../../utils/scaling'
-import styles from './styles'
+import styles from './stylesV2'
 import TextError from '../../components/Text/TextError/TextError'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
@@ -51,8 +48,8 @@ import { ActiveOrdersAndSections } from '../../components/Main/ActiveOrdersAndSe
 import { alignment } from '../../utils/alignment'
 import Spinner from '../../components/Spinner/Spinner'
 import analytics from '../../utils/analytics'
-import MapSection from '../MapSection/index'
 import { useTranslation } from 'react-i18next'
+import Filters from '../../components/Filter/FilterSlider'
 
 const RESTAURANTS = gql`
   ${restaurantList}
@@ -99,7 +96,7 @@ function Main(props) {
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.newheaderColor)
+      StatusBar.setBackgroundColor(currentTheme.headerColor)
     }
     StatusBar.setBarStyle(
       themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
@@ -114,8 +111,8 @@ function Main(props) {
   useLayoutEffect(() => {
     navigation.setOptions(
       navigationOptions({
-        headerMenuBackground: currentTheme.newheaderColor,
-        horizontalLine: currentTheme.newheaderColor,
+        headerMenuBackground: currentTheme.main,
+        horizontalLine: currentTheme.headerColor,
         fontMainColor: currentTheme.darkBgFont,
         iconColorPink: currentTheme.black,
         open: onOpen
@@ -367,92 +364,7 @@ function Main(props) {
           <View style={styles().flex}>
             <View style={styles().mainContentContainer}>
               <View style={[styles().flex, styles().subContainer]}>
-                <View style={styles().searchbar}>
-                  <Search setSearch={setSearch} search={search} />
-                </View>
-                <ScrollView>
-                  <View style={styles().mainItemsContainer}>
-                    <View style={styles().mainItem}>
-                      <View>
-                        <TextDefault
-                          H4
-                          bolder
-                          textColor={currentTheme.fontThirdColor}
-                          style={styles().ItemName}>
-                          Food Delivery
-                        </TextDefault>
-                        <TextDefault
-                          Normal
-                          textColor={currentTheme.fontThirdColor}
-                          style={styles().ItemDescription}>
-                          Order food you love
-                        </TextDefault>
-                      </View>
-
-                      <Image
-                        source={{
-                          uri:
-                            'https://enatega.com/wp-content/uploads/2024/02/pngimg-1.png'
-                        }}
-                        style={styles().popularMenuImg}
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <View style={styles().mainItem}>
-                      <TextDefault
-                        H4
-                        bolder
-                        textColor={currentTheme.fontThirdColor}
-                        style={styles().ItemName}>
-                        Grocery
-                      </TextDefault>
-                      <TextDefault
-                        Normal
-                        textColor={currentTheme.fontThirdColor}
-                        style={styles().ItemDescription}>
-                        Essentials delivered fast
-                      </TextDefault>
-                      <Image
-                        source={{
-                          uri:
-                            'https://enatega.com/wp-content/uploads/2024/02/pngwing-4.png'
-                        }}
-                        style={styles().popularMenuImg}
-                        resizeMode="contain"
-                      />
-                    </View>
-                  </View>
-                  <View>
-                    <TextDefault
-                      numberOfLines={1}
-                      textColor={currentTheme.fontFourthColor}
-                      style={{
-                        ...alignment.MLlarge,
-
-                        ...alignment.PTmedium
-                      }}
-                      bolder
-                      H4>
-                      Order it again
-                    </TextDefault>
-                    <TextDefault
-                      Normal
-                      textColor={currentTheme.secondaryText}
-                      style={[
-                        styles().ItemDescription,
-                        {
-                          ...alignment.MLlarge
-                        }
-                      ]}>
-                      Most ordered right now.
-                    </TextDefault>
-                    {search ? null : (
-                      <ActiveOrdersAndSections sections={restaurantSections} />
-                    )}
-                  </View>
-                </ScrollView>
-
-                {/* <Animated.FlatList
+                <Animated.FlatList
                   contentInset={{ top: containerPaddingTop }}
                   contentContainerStyle={{
                     paddingTop: Platform.OS === 'ios' ? 0 : containerPaddingTop
@@ -482,11 +394,12 @@ function Main(props) {
                   }
                   data={search ? searchRestaurants(search) : restaurants}
                   renderItem={({ item }) => <Item item={item} />}
-                /> */}
-                {/* <CollapsibleSubHeaderAnimator translateY={translateY}>
-                  <Search setSearch={setSearch} search={search} /> 
-                  <MapSection location={location} restaurants={restaurants} />
-                </CollapsibleSubHeaderAnimator> */}
+                />
+                <CollapsibleSubHeaderAnimator translateY={translateY}>
+                  <Search setSearch={setSearch} search={search} />
+                  <Filters />
+                  {/* <MapSection location={location} restaurants={restaurants} /> */}
+                </CollapsibleSubHeaderAnimator>
               </View>
             </View>
           </View>

@@ -51,8 +51,7 @@ export const ar = {
   titleHelp: 'المساعدة',
   titleChat: 'الدردشة',
   titleLogout: 'تسجيل الخروج',
-  titleCart: 'عربتك',
-  titleCheckout:'الدفع',
+  titleCart: 'عربتي',
   titlePayment: 'الدفع',
   totalOrderAmount: 'إجمالي مبلغ الطلب',
   reOrder: 'إعادة الطلب',
@@ -138,7 +137,7 @@ export const ar = {
   condition1: 'من خلال إكمال هذا الطلب، أوافق على جميع الشروط والأحكام.',
   condition2:
     'أوافق وأطالب بتنفيذ الخدمة المطلوبة قبل نهاية فترة الرجوع. أنا على علم بأن بعد الوفاء التام بالخدمة، أفقد حقي في الرجوع.',
-  checkoutBtn: 'طلب الخروج',
+  orderBtn: 'تقديم الطلب',
   coupanApply: 'تم تطبيق خصم القسيمة',
   coupanFailed: 'القسيمة غير متاحة',
   invalidCoupan: 'قسيمة غير صالحة',

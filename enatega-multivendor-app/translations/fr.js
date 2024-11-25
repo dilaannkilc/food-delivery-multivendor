@@ -52,8 +52,7 @@ export const fr = {
   titleHelp: 'Aide',
   titleChat: 'Chat',
   titleLogout: 'Déconnexion',
-  titleCart: 'Votre panier',
-  titleCheckout: 'votre paiement',
+  titleCart: 'Mon panier',
   titlePayment: 'Paiement',
   totalOrderAmount: 'Montant total de la commande',
   reOrder: 'Recommander',
@@ -142,7 +141,7 @@ export const fr = {
     "En passant cette commande, j'accepte toutes les conditions générales.",
   condition2:
     "J'accepte et j'exige que vous exécutiez le service commandé avant la fin de la période de révocation. Je suis conscient que, après l'exécution complète du service, je perds mon droit de rétractation.",
-  checkoutBtn: 'Commande de paiement',
+  orderBtn: 'Passer la commande',
   coupanApply: 'Réduction du coupon appliquée',
   coupanFailed: 'Coupon non disponible',
   invalidCoupan: 'Coupon non valide',

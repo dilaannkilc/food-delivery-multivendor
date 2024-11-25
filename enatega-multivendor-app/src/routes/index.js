@@ -6,16 +6,17 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import navigationService from './navigationService'
 import * as Notifications from 'expo-notifications'
-import Login from '../screens/Login/Login'
+//import Login from '../screens/Login/Login'
+import Login from '../screens/Login/LoginV2'
 import Register from '../screens/Register/Register'
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
 import SetYourPassword from '../screens/ForgotPassword/SetYourPassword'
-import CreateAccount from '../screens/CreateAccount/CreateAccount'
+//import CreateAccount from '../screens/CreateAccount/CreateAccount'
+import CreateAccount from '../screens/CreateAccount/CreateAccountV2'
 import SideBar from '../components/Sidebar/Sidebar'
 import ItemDetail from '../screens/ItemDetail/ItemDetail'
 import MyOrders from '../screens/MyOrders/MyOrders'
 import Cart from '../screens/Cart/Cart'
-
 import RateAndReview from '../screens/RateAndReview/RateAndReview'
 import Payment from '../screens/Payment/Payment'
 import Help from '../screens/Help/Help'
@@ -31,7 +32,7 @@ import OrderDetail from '../screens/OrderDetail/OrderDetail'
 import Settings from '../screens/Settings/Settings'
 import HelpBrowser from '../screens/HelpBrowser/HelpBrowser'
 import Coupon from '../screens/Coupon/Coupon'
-import Main from '../screens/Main/Main'
+import Main from '../screens/Main/MainV2'
 import Restaurant from '../screens/Restaurant/Restaurant'
 import About from '../screens/About'
 import SelectLocation from '../screens/SelectLocation'
@@ -53,7 +54,6 @@ import ForgotPasswordOtp from '../screens/Otp/ForgotPassword/ForgetPasswordOtp'
 import PhoneNumber from '../screens/PhoneNumber/PhoneNumber'
 import { useApolloClient, gql } from '@apollo/client'
 import { myOrders } from '../apollo/queries'
-import Checkout from '../screens/Checkout/Checkout'
 
 const NavigationStack = createStackNavigator()
 const MainStack = createStackNavigator()
@@ -92,7 +92,6 @@ function NoDrawer() {
       />
       {<NavigationStack.Screen name="ItemDetail" component={ItemDetail} />}
       <NavigationStack.Screen name="Cart" component={Cart} />
-      <NavigationStack.Screen name="Checkout" component={Checkout} />
       <NavigationStack.Screen name="Profile" component={Profile} />
       <NavigationStack.Screen name="Addresses" component={Addresses} />
       <NavigationStack.Screen name="NewAddress" component={NewAddress} />

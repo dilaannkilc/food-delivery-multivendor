@@ -35,7 +35,8 @@ const styles = (props = null) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: scale(5),
+      // padding: scale(5),
+      // paddingTop: scale(10),
       ...alignment.PLmedium,
       ...alignment.PRmedium
     },
