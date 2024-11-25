@@ -13,7 +13,10 @@ import {
   Animated,
   StatusBar,
   Platform,
-  RefreshControl
+  RefreshControl,
+  Image,
+  FlatList,
+  ScrollView
 } from 'react-native'
 import { Modalize } from 'react-native-modalize'
 import {
@@ -44,16 +47,17 @@ import { theme } from '../../utils/themeColors'
 import navigationOptions from './navigationOptions'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { LocationContext } from '../../context/Location'
-import { ActiveOrdersAndSections } from '../../components/Main/ActiveOrdersAndSections'
 import { alignment } from '../../utils/alignment'
 import Spinner from '../../components/Spinner/Spinner'
 import analytics from '../../utils/analytics'
 import MapSection from '../MapSection/index'
 import { useTranslation } from 'react-i18next'
+import { OrderAgain } from '../../components/Main/OrderAgain'
+import { TopPicks } from '../../components/Main/TopPicks'
 
-const RESTAURANTS = gql`
-  ${restaurantList}
-`
+// const RESTAURANTS = gql`
+//   ${restaurantList}
+// `
 const SELECT_ADDRESS = gql`
   ${selectAddress}
 `
@@ -72,21 +76,21 @@ function Main(props) {
   const currentTheme = theme[themeContext.ThemeValue]
   const { getCurrentLocation } = useLocation()
 
-  const { data, refetch, networkStatus, loading, error } = useQuery(
-    RESTAURANTS,
-    {
-      variables: {
-        longitude: location.longitude || null,
-        latitude: location.latitude || null,
-        ip: null
-      },
-      fetchPolicy: 'network-only'
-    }
-  )
+  // const { data, refetch, networkStatus, loading, error } = useQuery(
+  //   RESTAURANTS,
+  //   {
+  //     variables: {
+  //       longitude: location.longitude || null,
+  //       latitude: location.latitude || null,
+  //       ip: null
+  //     },
+  //     fetchPolicy: 'network-only'
+  //   }
+  // )
   const [mutate, { loading: mutationLoading }] = useMutation(SELECT_ADDRESS, {
     onError
   })
-  
+
   const {
     onScroll /* Event handler */,
     containerPaddingTop /* number */,
@@ -96,7 +100,7 @@ function Main(props) {
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.headerColor)
+      StatusBar.setBackgroundColor(currentTheme.newheaderColor)
     }
     StatusBar.setBarStyle(
       themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
@@ -111,8 +115,8 @@ function Main(props) {
   useLayoutEffect(() => {
     navigation.setOptions(
       navigationOptions({
-        headerMenuBackground: currentTheme.headerColor,
-        horizontalLine: currentTheme.headerColor,
+        headerMenuBackground: currentTheme.newheaderColor,
+        horizontalLine: currentTheme.newheaderColor,
         fontMainColor: currentTheme.darkBgFont,
         iconColorPink: currentTheme.black,
         open: onOpen
@@ -225,7 +229,7 @@ function Main(props) {
       return (
         <View style={styles().emptyViewContainer}>
           <TextDefault textColor={currentTheme.fontMainColor}>
-           {t('noRestaurants')}
+            {t('noRestaurants')}
           </TextDefault>
         </View>
       )
@@ -305,11 +309,11 @@ function Main(props) {
     )
   }
 
-  if (error) return <TextError text={t('networkError')} />
+  // if (error) return <TextError text={t('networkError')} />
 
-  if (loading || mutationLoading || loadingOrders) return loadingScreen()
+  // if (loading || mutationLoading || loadingOrders) return loadingScreen()
 
-  const { restaurants, sections } = data.nearByRestaurants
+  // const { restaurants, sections } = data.nearByRestaurants
 
   const searchRestaurants = searchText => {
     const data = []
@@ -348,12 +352,12 @@ function Main(props) {
   }
 
   // Flatten the array. That is important for data sequence
-  const restaurantSections = sections.map(sec => ({
-    ...sec,
-    restaurants: sec.restaurants
-      .map(id => restaurants.filter(res => res._id === id))
-      .flat()
-  }))
+  // const restaurantSections = sections.map(sec => ({
+  //   ...sec,
+  //   restaurants: sec.restaurants
+  //     .map(id => restaurants.filter(res => res._id === id))
+  //     .flat()
+  // }))
 
   return (
     <>
@@ -364,7 +368,70 @@ function Main(props) {
           <View style={styles().flex}>
             <View style={styles().mainContentContainer}>
               <View style={[styles().flex, styles().subContainer]}>
-                <Animated.FlatList
+                <View style={styles().searchbar}>
+                  <Search setSearch={setSearch} search={search} />
+                </View>
+                <ScrollView>
+                  <View style={styles().mainItemsContainer}>
+                    <View style={styles().mainItem}>
+                      <View>
+                        <TextDefault
+                          H4
+                          bolder
+                          textColor={currentTheme.fontThirdColor}
+                          style={styles().ItemName}>
+                          Food Delivery
+                        </TextDefault>
+                        <TextDefault
+                          Normal
+                          textColor={currentTheme.fontThirdColor}
+                          style={styles().ItemDescription}>
+                          Order food you love
+                        </TextDefault>
+                      </View>
+
+                      <Image
+                        source={{
+                          uri:
+                            'https://enatega.com/wp-content/uploads/2024/02/pngimg-1.png'
+                        }}
+                        style={styles().popularMenuImg}
+                        resizeMode="contain"
+                      />
+                    </View>
+                    <View style={styles().mainItem}>
+                      <TextDefault
+                        H4
+                        bolder
+                        textColor={currentTheme.fontThirdColor}
+                        style={styles().ItemName}>
+                        Grocery
+                      </TextDefault>
+                      <TextDefault
+                        Normal
+                        textColor={currentTheme.fontThirdColor}
+                        style={styles().ItemDescription}>
+                        Essentials delivered fast
+                      </TextDefault>
+                      <Image
+                        source={{
+                          uri:
+                            'https://enatega.com/wp-content/uploads/2024/02/pngwing-4.png'
+                        }}
+                        style={styles().popularMenuImg}
+                        resizeMode="contain"
+                      />
+                    </View>
+                  </View>
+                  <View>
+                    <OrderAgain />
+                  </View>
+                  <View style={styles().topPicksSection}>
+                    <TopPicks />
+                  </View>
+                </ScrollView>
+
+                {/* <Animated.FlatList
                   contentInset={{ top: containerPaddingTop }}
                   contentContainerStyle={{
                     paddingTop: Platform.OS === 'ios' ? 0 : containerPaddingTop
@@ -394,11 +461,13 @@ function Main(props) {
                   }
                   data={search ? searchRestaurants(search) : restaurants}
                   renderItem={({ item }) => <Item item={item} />}
-                />
-                <CollapsibleSubHeaderAnimator translateY={translateY}>
-                  <Search setSearch={setSearch} search={search} />
+                /> */}
+                {/* <CollapsibleSubHeaderAnimator translateY={translateY}>
+                  <Search setSearch={setSearch} search={search} /> 
                   <MapSection location={location} restaurants={restaurants} />
-                </CollapsibleSubHeaderAnimator>
+                </CollapsibleSubHeaderAnimator> */}
+                 
+
               </View>
             </View>
           </View>

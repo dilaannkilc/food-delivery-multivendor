@@ -1,6 +1,6 @@
 import { Box, Button, Grid, useMediaQuery, useTheme } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
+import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import React, { useCallback, useRef } from "react";
 import Card from "../Card/Card";
 import Title from "../Title/Title";
@@ -8,8 +8,7 @@ import useStyles from "./styles";
 
 function RestaurantSection(props) {
   const theme = useTheme();
-  const extraSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  const small = useMediaQuery(theme.breakpoints.down("md"));
+  const extraSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const classes = useStyles(extraSmall);
   const ref = useRef([]);
 
@@ -32,10 +31,7 @@ function RestaurantSection(props) {
       <Grid item sm={1} />
       <Grid item xs={12} sm={10}>
         {props.restaurantSections.map((section, index1) => (
-          <Box
-            style={{ marginTop: "50px", position: "relative", width: "100%" }}
-            key={section._id}
-          >
+          <Box style={{ marginTop: "50px", position: "relative" }} key={section._id}>
             {section.restaurants.length > 4 && (
               <Button
                 className={classes.nextButtonStyles}
@@ -44,37 +40,25 @@ function RestaurantSection(props) {
                 }}
                 onClick={() => ScrollRight(index1)}
               >
-                <ArrowBackIcon style={{ color: "black", fontSize: 40 }} />
+                <ArrowBackIosOutlinedIcon style={{ color: theme.palette.common.white}}/>
               </Button>
             )}
-            <Box className={classes.divider} />
-
             <Title title={section.name} />
             <Box
               style={{
                 overflow: "auto",
                 whiteSpace: "nowrap",
-                marginLeft: small ? "0px" : "40px",
-                marginRight: small ? "0px" : "40px",
               }}
               ref={(el) => (ref.current[index1] = el)}
               className={classes.restauranCardContainer}
             >
               {section.restaurants.map((data, index) => (
-                <Box
-                  style={{
-                    display: "inline-block",
-                    marginRight: small ? "4px" : "25px",
-                  }}
-                  key={index}
-                >
+                <Box style={{ display: "inline-block", marginRight: "25px" }} key={index}>
                   <Card
                     data={data}
                     cardImageHeight="144px"
                     showMessage={props.showMessage}
                     checkCart={props.checkCart}
-                    isSmall={true}
-                    index={index}
                   />
                 </Box>
               ))}
@@ -87,9 +71,7 @@ function RestaurantSection(props) {
                 }}
                 onClick={() => ScrollLeft(index1)}
               >
-                <ArrowForwardIcon
-                  style={{ color: small ? "00FFFFFF" : "black", fontSize: 40 }}
-                />
+                <ArrowForwardIosOutlinedIcon style={{ color: theme.palette.common.white}}/>
               </Button>
             )}
           </Box>
