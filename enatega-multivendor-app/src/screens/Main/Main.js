@@ -54,10 +54,9 @@ import MapSection from '../MapSection/index'
 import { useTranslation } from 'react-i18next'
 import { OrderAgain } from '../../components/Main/OrderAgain'
 import { TopPicks } from '../../components/Main/TopPicks'
-import ActiveOrders from '../../components/Main/ActiveOrders'
 
 // const RESTAURANTS = gql`
-//   ${restaurantList}
+  //   ${restaurantList}
 // `
 const SELECT_ADDRESS = gql`
   ${selectAddress}
@@ -78,15 +77,15 @@ function Main(props) {
   const { getCurrentLocation } = useLocation()
 
   // const { data, refetch, networkStatus, loading, error } = useQuery(
-  //   RESTAURANTS,
-  //   {
+    //   RESTAURANTS,
+    //   {
   //     variables: {
-  //       longitude: location.longitude || null,
-  //       latitude: location.latitude || null,
-  //       ip: null
-  //     },
-  //     fetchPolicy: 'network-only'
-  //   }
+        //       longitude: location.longitude || null,
+        //       latitude: location.latitude || null,
+        //       ip: null
+      //     },
+      //     fetchPolicy: 'network-only'
+    //   }
   // )
   const [mutate, { loading: mutationLoading }] = useMutation(SELECT_ADDRESS, {
     onError
@@ -155,7 +154,7 @@ function Main(props) {
     modalRef.current.close()
   }
 
-  const setCurrentLocation = async() => {
+  const setCurrentLocation = async () => {
     setBusy(true)
     const { error, coords } = await getCurrentLocation()
 
@@ -354,10 +353,10 @@ function Main(props) {
 
   // Flatten the array. That is important for data sequence
   // const restaurantSections = sections.map(sec => ({
-  //   ...sec,
-  //   restaurants: sec.restaurants
-  //     .map(id => restaurants.filter(res => res._id === id))
-  //     .flat()
+    //   ...sec,
+    //   restaurants: sec.restaurants
+      //     .map(id => restaurants.filter(res => res._id === id))
+      //     .flat()
   // }))
 
   return (
@@ -374,60 +373,53 @@ function Main(props) {
                 </View>
                 <ScrollView>
                   <View style={styles().mainItemsContainer}>
-                    <View style={styles().mainItem}>
-                      <View>
-                        <TextDefault
-                          H4
-                          bolder
-                          textColor={currentTheme.fontThirdColor}
-                          style={styles().ItemName}>
-                          Food Delivery
-                        </TextDefault>
-                        <TextDefault
-                          Normal
-                          textColor={currentTheme.fontThirdColor}
-                          style={styles().ItemDescription}>
-                          Order food you love
-                        </TextDefault>
-                      </View>
-
-                      <Image
-                        source={{
-                          uri:
-                            'https://enatega.com/wp-content/uploads/2024/02/pngimg-1.png'
-                        }}
-                        style={styles().popularMenuImg}
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <View style={styles().mainItem}>
+                  <TouchableOpacity style={styles().mainItem} onPress={() => navigation.navigate('Menu')}>
+                    <View>
                       <TextDefault
                         H4
                         bolder
                         textColor={currentTheme.fontThirdColor}
                         style={styles().ItemName}>
-                        Grocery
+                        Food Delivery
                       </TextDefault>
                       <TextDefault
                         Normal
                         textColor={currentTheme.fontThirdColor}
                         style={styles().ItemDescription}>
-                        Essentials delivered fast
+                        Order food you love
                       </TextDefault>
-                      <Image
-                        source={{
-                          uri:
-                            'https://enatega.com/wp-content/uploads/2024/02/pngwing-4.png'
-                        }}
-                        style={styles().popularMenuImg}
-                        resizeMode="contain"
-                      />
                     </View>
+                    <Image
+                      source={require('../../assets/images/ItemsList/menu.png')}
+                      style={styles().popularMenuImg}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles().mainItem} onPress={() => navigation.navigate('Menu')}>
+                    <TextDefault
+                      H4
+                      bolder
+                      textColor={currentTheme.fontThirdColor}
+                      style={styles().ItemName}>
+                      Grocery
+                    </TextDefault>
+                    <TextDefault
+                      Normal
+                      textColor={currentTheme.fontThirdColor}
+                      style={styles().ItemDescription}>
+                      Essentials delivered fast
+                    </TextDefault>
+                    <Image
+                      source={require('../../assets/images/ItemsList/grocery.png')}
+                      style={styles().popularMenuImg}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
                   </View>
                   <View>
                     <OrderAgain />
                   </View>
-                  <View style={styles().topPicksSection}>
+                  <View >
                     <TopPicks />
                   </View>
                 </ScrollView>
@@ -442,18 +434,9 @@ function Main(props) {
                   scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
                   showsVerticalScrollIndicator={false}
                   ListHeaderComponent={
-                    <TextDefault
-                      numberOfLines={1}
-                      textColor={currentTheme.fontMainColor}
-                      style={{
-                        ...alignment.MLlarge,
-                        ...alignment.PBsmall,
-                        marginRight: scale(20)
-                      }}
-                      bolder
-                      H3>
-                      {t('allRestaurant')}
-                    </TextDefault>
+                    search ? null : (
+                      <ActiveOrdersAndSections sections={restaurantSections} />
+                    )
                   }
                   ListEmptyComponent={emptyView()}
                   keyExtractor={(item, index) => index.toString()}
@@ -476,6 +459,8 @@ function Main(props) {
                   <Search setSearch={setSearch} search={search} /> 
                   <MapSection location={location} restaurants={restaurants} />
                 </CollapsibleSubHeaderAnimator> */}
+                 
+
               </View>
             </View>
           </View>
@@ -530,18 +515,17 @@ function Main(props) {
                       ![t('currentLocation'), t('selectedLocation')].includes(
                         location.label
                       ) && (
-                      <MaterialIcons
-                        name="check"
-                        size={scale(25)}
-                        color={currentTheme.iconColorPink}
-                      />
-                    )}
+                        <MaterialIcons
+                          name="check"
+                          size={scale(25)}
+                          color={currentTheme.iconColorPink}
+                        />
+                      )}
                   </View>
                 </View>
               )
             }}></Modalize>
         </View>
-        <ActiveOrders/>
       </SafeAreaView>
     </>
   )

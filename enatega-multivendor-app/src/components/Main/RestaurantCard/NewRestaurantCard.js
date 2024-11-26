@@ -24,7 +24,7 @@ function NewRestaurantCard(props) {
   const currentTheme = theme[themeContext.ThemeValue]
 
   return (
-    <View style={{ ...alignment.PRsmall }}>
+    
       <TouchableOpacity
         style={styles(currentTheme).offerContainer}
         activeOpacity={1}
@@ -78,7 +78,11 @@ function NewRestaurantCard(props) {
                   styles().restaurantTotalRating
                 ]}
                 H5>
-                ({props.reviewData.reviews.length > 0 ? props.reviewData.reviews.length + '+' : props.reviewData.reviews.length})
+                (
+                {props.reviewData.reviews.length > 0
+                  ? props.reviewData.reviews.length + '+'
+                  : props.reviewData.reviews.length}
+                )
               </TextDefault>
             </View>
           </View>
@@ -103,7 +107,7 @@ function NewRestaurantCard(props) {
                 numberOfLines={1}
                 bold
                 Normal>
-                30
+                {props.deliveryTime}
               </TextDefault>
               <TextDefault
                 textColor={currentTheme.fontNewColor}
@@ -125,7 +129,7 @@ function NewRestaurantCard(props) {
                 numberOfLines={1}
                 bold
                 Normal>
-                $2
+                ${props.tax}
               </TextDefault>
             </View>
           </View>
@@ -144,7 +148,7 @@ function NewRestaurantCard(props) {
           </TextDefault> */}
         </View>
       </TouchableOpacity>
-    </View>
+   
   )
 }
 

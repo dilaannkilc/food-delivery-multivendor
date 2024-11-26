@@ -160,7 +160,6 @@ export const myOrders = `query Orders($offset:Int){
     taxationAmount
     createdAt
     completionTime
-    preparationTime
     orderDate
     expectedTime
     isPickedUp
@@ -513,7 +512,6 @@ export const orderFragment = `fragment NewOrder on Order {
   taxationAmount
   createdAt
   completionTime
-  preparationTime
   deliveryCharges
   acceptedAt
   pickedAt
