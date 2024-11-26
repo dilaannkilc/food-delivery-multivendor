@@ -10,9 +10,12 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
+  Animated,
   StatusBar,
   Platform,
+  RefreshControl,
   Image,
+  FlatList,
   ScrollView
 } from 'react-native'
 import { Modalize } from 'react-native-modalize'
@@ -22,19 +25,22 @@ import {
   AntDesign,
   MaterialCommunityIcons
 } from '@expo/vector-icons'
-import { useMutation } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import {
   useCollapsibleSubHeader,
+  CollapsibleSubHeaderAnimator
 } from 'react-navigation-collapsible'
 import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder'
 import gql from 'graphql-tag'
 import { useLocation } from '../../ui/hooks'
 import Search from '../../components/Main/Search/Search'
+import Item from '../../components/Main/Item/Item'
 import UserContext from '../../context/User'
 import { restaurantList } from '../../apollo/queries'
 import { selectAddress } from '../../apollo/mutations'
 import { scale } from '../../utils/scaling'
 import styles from './styles'
+import TextError from '../../components/Text/TextError/TextError'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
@@ -44,13 +50,15 @@ import { LocationContext } from '../../context/Location'
 import { alignment } from '../../utils/alignment'
 import Spinner from '../../components/Spinner/Spinner'
 import analytics from '../../utils/analytics'
+import MapSection from '../MapSection/index'
 import { useTranslation } from 'react-i18next'
 import { OrderAgain } from '../../components/Main/OrderAgain'
 import { TopPicks } from '../../components/Main/TopPicks'
+import ActiveOrders from '../../components/Main/ActiveOrders'
 
-const RESTAURANTS = gql`
-    ${restaurantList}
-`
+// const RESTAURANTS = gql`
+//   ${restaurantList}
+// `
 const SELECT_ADDRESS = gql`
   ${selectAddress}
 `
@@ -69,10 +77,27 @@ function Main(props) {
   const currentTheme = theme[themeContext.ThemeValue]
   const { getCurrentLocation } = useLocation()
 
+  // const { data, refetch, networkStatus, loading, error } = useQuery(
+  //   RESTAURANTS,
+  //   {
+  //     variables: {
+  //       longitude: location.longitude || null,
+  //       latitude: location.latitude || null,
+  //       ip: null
+  //     },
+  //     fetchPolicy: 'network-only'
+  //   }
+  // )
   const [mutate, { loading: mutationLoading }] = useMutation(SELECT_ADDRESS, {
     onError
   })
 
+  const {
+    onScroll /* Event handler */,
+    containerPaddingTop /* number */,
+    scrollIndicatorInsetTop /* number */,
+    translateY
+  } = useCollapsibleSubHeader()
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
@@ -130,7 +155,7 @@ function Main(props) {
     modalRef.current.close()
   }
 
-  const setCurrentLocation = async () => {
+  const setCurrentLocation = async() => {
     setBusy(true)
     const { error, coords } = await getCurrentLocation()
 
@@ -291,65 +316,48 @@ function Main(props) {
 
   // const { restaurants, sections } = data.nearByRestaurants
 
-  // const searchRestaurants = searchText => {
-  //   const data = []
-  //   const regex = new RegExp(searchText, 'i')
-  //   restaurants.forEach(restaurant => {
-  //     const resultName = restaurant.name.search(regex)
-  //     if (resultName < 0) {
-  //       const resultCatFoods = restaurant.categories.some(category => {
-  //         const result = category.title.search(regex)
-  //         if (result < 0) {
-  //           const result = category.foods.some(food => {
-  //             const result = food.title.search(regex)
-  //             return result > -1
-  //           })
-  //           return result
-  //         }
-  //         return true
-  //       })
-  //       if (!resultCatFoods) {
-  //         const resultOptions = restaurant.options.some(option => {
-  //           const result = option.title.search(regex)
-  //           return result > -1
-  //         })
-  //         if (!resultOptions) {
-  //           const resultAddons = restaurant.addons.some(addon => {
-  //             const result = addon.title.search(regex)
-  //             return result > -1
-  //           })
-  //           if (!resultAddons) return
-  //         }
-  //       }
-  //     }
-  //     data.push(restaurant)
-  //   })
-  //   return data
-  // }
-
   const searchRestaurants = searchText => {
-    if (!searchText) return data?.nearByRestaurants?.restaurants || [];
-
-    const regex = new RegExp(searchText, 'i');
-    return (data?.nearByRestaurants?.restaurants || []).filter(restaurant => {
-      const resultName = restaurant.name.search(regex);
-      if (resultName >= 0) return true;
-
-      return restaurant.categories.some(category => {
-        const result = category.title.search(regex);
-        if (result >= 0) return true;
-
-        return category.foods.some(food => food.title.search(regex) >= 0);
-      });
-    });
-  };
+    const data = []
+    const regex = new RegExp(searchText, 'i')
+    restaurants.forEach(restaurant => {
+      const resultName = restaurant.name.search(regex)
+      if (resultName < 0) {
+        const resultCatFoods = restaurant.categories.some(category => {
+          const result = category.title.search(regex)
+          if (result < 0) {
+            const result = category.foods.some(food => {
+              const result = food.title.search(regex)
+              return result > -1
+            })
+            return result
+          }
+          return true
+        })
+        if (!resultCatFoods) {
+          const resultOptions = restaurant.options.some(option => {
+            const result = option.title.search(regex)
+            return result > -1
+          })
+          if (!resultOptions) {
+            const resultAddons = restaurant.addons.some(addon => {
+              const result = addon.title.search(regex)
+              return result > -1
+            })
+            if (!resultAddons) return
+          }
+        }
+      }
+      data.push(restaurant)
+    })
+    return data
+  }
 
   // Flatten the array. That is important for data sequence
   // const restaurantSections = sections.map(sec => ({
-    //   ...sec,
-    //   restaurants: sec.restaurants
-      //     .map(id => restaurants.filter(res => res._id === id))
-      //     .flat()
+  //   ...sec,
+  //   restaurants: sec.restaurants
+  //     .map(id => restaurants.filter(res => res._id === id))
+  //     .flat()
   // }))
 
   return (
@@ -366,54 +374,55 @@ function Main(props) {
                 </View>
                 <ScrollView>
                   <View style={styles().mainItemsContainer}>
-                  <TouchableOpacity style={styles().mainItem} onPress={() => navigation.navigate('Menu')}>
-                    <View>
+                    <View style={styles().mainItem}>
+                      <View>
+                        <TextDefault
+                          H4
+                          bolder
+                          textColor={currentTheme.fontThirdColor}
+                          style={styles().ItemName}>
+                          Food Delivery
+                        </TextDefault>
+                        <TextDefault
+                          Normal
+                          textColor={currentTheme.fontThirdColor}
+                          style={styles().ItemDescription}>
+                          Order food you love
+                        </TextDefault>
+                      </View>
+
+                      <Image
+                        source={{
+                          uri:
+                            'https://enatega.com/wp-content/uploads/2024/02/pngimg-1.png'
+                        }}
+                        style={styles().popularMenuImg}
+                        resizeMode="contain"
+                      />
+                    </View>
+                    <View style={styles().mainItem}>
                       <TextDefault
                         H4
                         bolder
                         textColor={currentTheme.fontThirdColor}
                         style={styles().ItemName}>
-                        Food Delivery
+                        Grocery
                       </TextDefault>
                       <TextDefault
                         Normal
                         textColor={currentTheme.fontThirdColor}
                         style={styles().ItemDescription}>
-                        Order food you love
+                        Essentials delivered fast
                       </TextDefault>
+                      <Image
+                        source={{
+                          uri:
+                            'https://enatega.com/wp-content/uploads/2024/02/pngwing-4.png'
+                        }}
+                        style={styles().popularMenuImg}
+                        resizeMode="contain"
+                      />
                     </View>
-                    <Image
-                      source={{
-                        uri:
-                          'https://enatega.com/wp-content/uploads/2024/02/pngimg-1.png'
-                      }}
-                      style={styles().popularMenuImg}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles().mainItem} onPress={() => navigation.navigate('Menu')}>
-                    <TextDefault
-                      H4
-                      bolder
-                      textColor={currentTheme.fontThirdColor}
-                      style={styles().ItemName}>
-                      Grocery
-                    </TextDefault>
-                    <TextDefault
-                      Normal
-                      textColor={currentTheme.fontThirdColor}
-                      style={styles().ItemDescription}>
-                      Essentials delivered fast
-                    </TextDefault>
-                    <Image
-                      source={{
-                        uri:
-                          'https://enatega.com/wp-content/uploads/2024/02/pngwing-4.png'
-                      }}
-                      style={styles().popularMenuImg}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
                   </View>
                   <View>
                     <OrderAgain />
@@ -433,9 +442,18 @@ function Main(props) {
                   scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
                   showsVerticalScrollIndicator={false}
                   ListHeaderComponent={
-                    search ? null : (
-                      <ActiveOrdersAndSections sections={restaurantSections} />
-                    )
+                    <TextDefault
+                      numberOfLines={1}
+                      textColor={currentTheme.fontMainColor}
+                      style={{
+                        ...alignment.MLlarge,
+                        ...alignment.PBsmall,
+                        marginRight: scale(20)
+                      }}
+                      bolder
+                      H3>
+                      {t('allRestaurant')}
+                    </TextDefault>
                   }
                   ListEmptyComponent={emptyView()}
                   keyExtractor={(item, index) => index.toString()}
@@ -458,8 +476,6 @@ function Main(props) {
                   <Search setSearch={setSearch} search={search} /> 
                   <MapSection location={location} restaurants={restaurants} />
                 </CollapsibleSubHeaderAnimator> */}
-                 
-
               </View>
             </View>
           </View>
@@ -514,17 +530,18 @@ function Main(props) {
                       ![t('currentLocation'), t('selectedLocation')].includes(
                         location.label
                       ) && (
-                        <MaterialIcons
-                          name="check"
-                          size={scale(25)}
-                          color={currentTheme.iconColorPink}
-                        />
-                      )}
+                      <MaterialIcons
+                        name="check"
+                        size={scale(25)}
+                        color={currentTheme.iconColorPink}
+                      />
+                    )}
                   </View>
                 </View>
               )
             }}></Modalize>
         </View>
+        <ActiveOrders/>
       </SafeAreaView>
     </>
   )

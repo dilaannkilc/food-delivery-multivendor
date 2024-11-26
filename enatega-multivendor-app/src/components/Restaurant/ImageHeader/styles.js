@@ -13,7 +13,7 @@ const styles = (props = null) =>
       backgroundColor: '#fff',
       ...alignment.PRsmall,
       ...alignment.PLsmall,
-     height: height * 0.5,
+     height:'52%',
     },
 
     touchArea: {
