@@ -1,4 +1,4 @@
-import { View, FlatList, Dimensions } from 'react-native'
+import { View, FlatList } from 'react-native'
 import React, { useContext, useState, useEffect } from 'react'
 import ScreenBackground from '../../components/ScreenBackground/ScreenBackground'
 import styles from './style'
@@ -13,12 +13,10 @@ import TextError from '../../components/Text/TextError/TextError'
 import LottieView from 'lottie-react-native'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
-
-const { height, width } = Dimensions.get('window')
 const Orders = ({ navigation }) => {
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const { setActive } = useContext(TabsContext)
   const configuration = useContext(ConfigurationContext)
   const {
@@ -103,17 +101,10 @@ const Orders = ({ navigation }) => {
             )}
           />
         ) : (
-          <View
-            style={{
-              minHeight:
-                height > 670 ? height - height * 0.5 : height - height * 0.6,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
+          <View>
             <LottieView
               style={{
-                width: width - 100,
-                height: 250
+                width: '100%'
               }}
               source={require('../../assets/loader.json')}
               autoPlay
