@@ -160,6 +160,7 @@ export const myOrders = `query Orders($offset:Int){
     taxationAmount
     createdAt
     completionTime
+    preparationTime
     orderDate
     expectedTime
     isPickedUp
@@ -192,8 +193,8 @@ export const getConfiguration = `query Configuration{
   }
 }`
 
-export const restaurantList = `query Restaurants($latitude:Float,$longitude:Float,$shopType:String){
-  nearByRestaurants(latitude:$latitude,longitude:$longitude,shopType:$shopType){
+export const restaurantList = `query Restaurants($latitude:Float,$longitude:Float){
+  nearByRestaurants(latitude:$latitude,longitude:$longitude){
     offers{
       _id
       name
@@ -512,6 +513,7 @@ export const orderFragment = `fragment NewOrder on Order {
   taxationAmount
   createdAt
   completionTime
+  preparationTime
   deliveryCharges
   acceptedAt
   pickedAt

@@ -6,7 +6,7 @@ import { LocationContext } from '../../../context/Location'
 import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../../utils/themeColors'
 import { useTranslation } from 'react-i18next'
-import { EvilIcons } from '@expo/vector-icons'
+import { EvilIcons } from '@expo/vector-icons';
 import { scale } from '../../../utils/scaling'
 
 function Location(props) {
@@ -34,13 +34,9 @@ function Location(props) {
   return (
     <View>
       <View style={styles(currentTheme).headerTitleContainer}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row', alignItems:'center', gap:scale(1) }}>
           <View style={[styles().locationIcon, props.locationIconGray]}>
-            <EvilIcons
-              name="location"
-              size={20}
-              color={currentTheme.fontFourthColor}
-            />
+          <EvilIcons name="location" size={20} color="black" />
           </View>
           <View style={styles(currentTheme).headerContainer}>
             <TextDefault textColor={props.fontFourthColor} left>
@@ -51,7 +47,11 @@ function Location(props) {
               activeOpacity={1}
               onPress={props.modalOn}
               style={styles.textContainer}>
-              <TextDefault textColor={props.black} numberOfLines={1} H5 bolder>
+              <TextDefault
+                textColor={props.linkColor}
+                numberOfLines={1}
+                H5
+                bolder>
                 {''}
                 {truncatedTranslatedAddress}
               </TextDefault>

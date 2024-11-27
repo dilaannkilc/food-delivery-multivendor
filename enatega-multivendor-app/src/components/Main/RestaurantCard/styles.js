@@ -1,8 +1,7 @@
 import { verticalScale, scale } from '../../../utils/scaling'
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { alignment } from '../../../utils/alignment'
 import { theme } from '../../../utils/themeColors'
-const { height } = Dimensions.get('window')
 
 const styles = (props = null) =>
   StyleSheet.create({
@@ -17,11 +16,9 @@ const styles = (props = null) =>
     offerContainer: {
       elevation: 3,
       shadowColor: theme.Pink.white,
-      height: height * 0.3,
+      height: scale(200),
       borderRadius: 25,
-      width: scale(270),
-      ...alignment.MRsmall,
-
+      width: scale(270)
     },
    
     overlayContainer: {

@@ -11,9 +11,9 @@ const styles = (props = null) =>
     },
     mainContainer: {
       backgroundColor: '#fff',
-      ...alignment.PLmedium,
-      ...alignment.PRmedium,
-     height: height * 0.5,
+      ...alignment.PRsmall,
+      ...alignment.PLsmall,
+     height:'52%',
     },
 
     touchArea: {

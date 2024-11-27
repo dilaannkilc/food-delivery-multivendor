@@ -66,6 +66,7 @@ const config = to => ({
 
 function Restaurant(props) {
   const Analytics = analytics()
+
   const { t } = useTranslation()
   const scrollRef = useRef(null)
   const flatListRef = useRef(null)
@@ -73,7 +74,6 @@ function Restaurant(props) {
   const route = useRoute()
   const inset = useSafeAreaInsets()
   const propsData = route.params
-  console.log("propsData", propsData)
   const animation = useValue(0)
   const circle = useValue(0)
   const themeContext = useContext(ThemeContext)
@@ -413,8 +413,6 @@ function Restaurant(props) {
           restaurant={null}
           topaBarData={[]}
           loading={loading}
-          minimumOrder={propsData.minimumOrder}
-          tax={propsData.tax}
         />
 
         <View
@@ -476,8 +474,6 @@ function Restaurant(props) {
             topaBarData={deals}
             changeIndex={changeIndex}
             selectedLabel={selectedLabel}
-            minimumOrder={propsData.minimumOrder}
-            tax={propsData.tax}
           />
 
           <AnimatedSectionList
@@ -527,7 +523,7 @@ function Restaurant(props) {
                   <Text
                     style={{
                       color: '#4B5563',
-                      ...alignment.PLmedium,
+                      ...alignment.PLlarge,
                       fontSize: scale(12),
                       fontWeight: '400',
                       marginTop: scale(3)

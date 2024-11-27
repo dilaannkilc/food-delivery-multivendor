@@ -39,12 +39,9 @@ function BackButton(props) {
     )
   } else if (props.icon === 'menu') {
     return (
-      <SimpleLineIcons
-        name="menu"
-        size={20}
-        color={props.fontFourthColor}
-        style={styles().leftIconPadding}
-      />
+        
+        <SimpleLineIcons name="menu"  size={20} color={props.fontFourthColor} style={styles().leftIconPadding}/>
+     
     )
   } else if (props.icon === 'dots') {
     return (
@@ -161,18 +158,19 @@ function RightButton(props) {
   function cartIcon() {
     return (
       <View style={styles().rightContainer}>
-        <SimpleLineIcons
-          name="handbag"
-          size={24}
-          color={currentTheme.fontFourthColor}
-        />
+        <SimpleLineIcons name="handbag" size={24} color={currentTheme.fontFourthColor} />
+        
         <View
           style={
             styles(route.name === 'Main' ? 'black' : currentTheme.white)
               .absoluteContainer
           }>
           <TextDefault
-            textColor={currentTheme.white}
+            textColor={
+              route.name === 'Main'
+                ? currentTheme.fontWhite
+                : currentTheme.black
+            }
             style={{ fontSize: scale(12) }}
             center
             bolder>
@@ -275,17 +273,27 @@ function DarkBackButton(props) {
   return (
     <View
       style={{
-        backgroundColor: props.iconBackground,
+        backgroundColor: props.icon,
         margin: 5,
         borderRadius: 5
       }}>
       <Ionicons
-        name="chevron-back-outline"
+        name="close-circle-outline"
         size={20}
         style={styles().darkBackArrow}
-        color={props.iconColor}
+        color={props.iconBackground}
       />
     </View>
   )
 }
-export { BackButton, LeftButton, RightButton, DarkBackButton }
+function HelpButton(props) {
+  return (<View
+    style={{
+      backgroundColor: props.iconBackground,
+      borderRadius: scale(10),
+      margin: scale(5)
+    }}>
+    <TextDefault style={{ padding: scale(7) }} small bold>Help</TextDefault>
+  </View>)
+}
+export { BackButton, LeftButton, RightButton, DarkBackButton, HelpButton }

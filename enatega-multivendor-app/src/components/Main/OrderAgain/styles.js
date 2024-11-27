@@ -1,17 +1,17 @@
 import { verticalScale, scale } from '../../../utils/scaling'
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { alignment } from '../../../utils/alignment'
 import { theme } from '../../../utils/themeColors'
-const { height } = Dimensions.get('window')
+
 const styles = (props = null) =>
   StyleSheet.create({
     // ML20: {
     //   ...alignment.MLlarge
     // },
     offerScroll: {
-      height: height * 0.376,
+      height: scale(250),
       width: '100%',
-     
+      ...alignment.MLlarge,
     },
     ItemDescription:{
       fontWeight:'400',
@@ -19,13 +19,12 @@ const styles = (props = null) =>
       marginBottom:scale(7)
     },
     orderAgainSec:{
-      marginBottom:scale(30),   
-      ...alignment.MLmedium,
+      marginBottom:scale(30)   
+
     },
     topPicksSec:{
-      ...alignment.MLmedium,
+     
       marginBottom:scale(18),
-      
     }
   })
 
