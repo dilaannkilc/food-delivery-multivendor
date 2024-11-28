@@ -32,17 +32,6 @@ function Footer() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  const handleHomeClick = () => {  
-    try {  
-      window.scrollTo({ top: 0, behavior: 'smooth' });  
-    } catch (error) {  
-      console.error("Smooth scroll failed", error);  
-      // Fallback to instant scroll  
-      window.scrollTo(0, 0);  
-    }  
-  };  
-
-
   return (
     <Grid container alignItems="center">
       <Grid
@@ -86,7 +75,6 @@ function Footer() {
           </Typography>
           <RouterLink
             to={"/"}
-            onClick={handleHomeClick}
             style={{
               textDecoration: "none",
             }}
