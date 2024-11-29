@@ -21,9 +21,9 @@ export default StyleSheet.create({
   },
   sendIcon: { marginBottom: 7, marginRight: 10 },
   emptyChat: {
-    marginTop: 300,
-    transform: [{ scaleY: -1 }, {scaleX: -1}],
-    alignSelf:'center'
+    marginTop: '160%',
+    transform: [{ scaleY: -1 }],
+    marginLeft: '17%'
   },
   bubbleRight: {
     backgroundColor: colors.black,

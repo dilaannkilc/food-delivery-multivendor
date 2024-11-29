@@ -544,15 +544,6 @@ export const getConfiguration = `query Configuration{
     currency
     currencySymbol
     deliveryRate
-    twilioEnabled
-    webClientID
-    googleApiKey
-    webAmplitudeApiKey
-    googleMapLibraries
-    googleColor
-    webSentryUrl
-    publishableKey
-    clientId
   }
 }`;
 
