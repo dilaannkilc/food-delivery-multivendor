@@ -12,9 +12,7 @@ export const zh = {
   subtitle3: '冰淇淋',
   description3: '年龄不会减轻冰淇淋勺子从锥形杯中掉下时的极度失望。',
   getStarted: '开始吧！',
-  welcome:
-    '欢迎来到Enatega，有时候你所需要的只是爱。但偶尔吃点食物也不会有害。',
-  welcomeScreen: '欢迎来到Enatega',
+  welcome: '欢迎来到Enatega，有时候你所需要的只是爱。但偶尔吃点食物也不会有害。',
   loginBtn: '登录',
   registerBtn: '注册',
   name: '姓名',
@@ -48,7 +46,6 @@ export const zh = {
   titleChat: '聊天',
   titleLogout: '登出',
   titleCart: '我的购物车',
-  titleCheckout: '查看',
   titlePayment: '支付',
   totalOrderAmount: '总订单金额',
   reOrder: '重新订购',
@@ -62,12 +59,10 @@ export const zh = {
   question2: '我们如何联系？',
   question3: '我如何支付送货员？',
   question4: '我的城市是否提供此服务？',
-  answer1:
-    '您可以在最近的商店找到食物，无需支付任何客户服务费用。我们的费用与其他人相比非常低。',
+  answer1: '您可以在最近的商店找到食物，无需支付任何客户服务费用。我们的费用与其他人相比非常低。',
   answer2: '您可以通过电子邮件、电话号码或我们的网站与我们联系。',
   answer3: '您可以亲自支付送货员，也可以通过信用卡或借记卡在线支付。',
-  answer4:
-    '目前此服务在伊斯兰堡和卡拉奇等城市提供，您可以联系我们以在您的城市使用此服务。',
+  answer4: '目前此服务在伊斯兰堡和卡拉奇等城市提供，您可以联系我们以在您的城市使用此服务。',
   add: '添加',
   quantity: '数量',
   size: '尺寸',
@@ -130,9 +125,8 @@ export const zh = {
   remove: '移除',
   change: '更改',
   condition1: '通过完成此订单，我同意所有条款和条件。',
-  condition2:
-    '我同意并要求您在撤销期结束之前执行已订购的服务。我知道在服务完全履行后，我失去了撤销权。',
-  checkoutBtn: '结帐订单',
+  condition2: '我同意并要求您在撤销期结束之前执行已订购的服务。我知道在服务完全履行后，我失去了撤销权。',
+  orderBtn: '下订单',
   coupanApply: '优惠券折扣已应用',
   coupanFailed: '无法使用优惠券',
   invalidCoupan: '无效的优惠券',
@@ -262,8 +256,7 @@ export const zh = {
   viewAll: '查看全部',
   currentLocation: '当前位置',
   useCurrentLocation: '使用当前位置',
-  locationPermissionMessage:
-    '点击此消息打开设置，然后允许应用程序使用位置权限。',
+  locationPermissionMessage: '点击此消息打开设置，然后允许应用程序使用位置权限。',
   enategaUseYourLocationMessage: 'Enatega使用您的位置显示附近的餐馆！',
   selectAnotherLocation: '选择其他位置',
   setLocation: '设置位置',
@@ -352,13 +345,12 @@ export const zh = {
   RateYourOrder: '给您的订单评分',
   yourExperience: '分享您的体验',
   selectItems: '选择商品',
-  dontHaveAnyOrderYet:
-    '您还没有任何过去的订单。尝试我们一家令人敬畏的餐厅，下第一份订单吧！',
+  dontHaveAnyOrderYet: '您还没有任何过去的订单。尝试我们一家令人敬畏的餐厅，下第一份订单吧！',
   BrowseRESTAURANTS: '浏览您区域内的餐厅',
   RateOrder: '评价订单',
-  voucherCode: '输入您的优惠码',
-  networkError: '出了点问题。请检查您的网络，然后重试。',
-  noRestaurants: '没有餐馆',
+  voucherCode: "输入您的优惠码",
+  networkError: "出了点问题。请检查您的网络，然后重试。",
+  noRestaurants:"没有餐馆",
   clearCartText: '离开此餐厅页面，您添加到购物车的物品将被清除',
   okText: '确定'
 }

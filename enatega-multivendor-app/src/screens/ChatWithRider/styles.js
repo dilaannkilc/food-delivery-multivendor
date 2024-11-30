@@ -1,39 +1,10 @@
 import { StyleSheet } from 'react-native'
-import { alignment } from '../../utils/alignment'
-import { scale } from '../../utils/scaling'
 
 const styles = (props = null) =>
   StyleSheet.create({
     rowDisplay: {
       display: 'flex',
       flexDirection: 'row'
-    },
-    chatSec: {
-      flex: 1,
-
-      backgroundColor: props !== null ? props.themeBackground : 'transparent'
-    },
-    orderDetails: {
-      borderColor: props !== null ? props.verticalLine : 'transparent',
-      ...alignment.Pmedium,
-      borderBottomWidth: 1,
-      borderTopWidth: 1,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between'
-    },
-    orderNoSec: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: scale(4)
-    },
-    orderNo: {
-      backgroundColor: '#f3f4f6',
-      borderWidth: 1,
-      borderColor: '#E5E7EB',
-      paddingVertical: scale(8),
-      paddingHorizontal: scale(12),
-      borderRadius: 16
     },
     accessoryContainer: {
       height: 100,
@@ -48,29 +19,28 @@ const styles = (props = null) =>
       position: 'relative',
       elevation: 999
     },
-
-    sendIcon: {
-      width: scale(25)
-    },
-
+    sendIcon: { marginBottom: 7, marginRight: 10 },
     emptyChat: {
       marginTop: '160%',
-      transform: [{ scaleY: -1 }]
+      transform: [{ scaleY: -1 }],
+      marginLeft: '17%'
     },
     bubbleRight: {
-      backgroundColor: '#E4FFD9',
+      backgroundColor: props !== null ? props.black : 'transparent',
       padding: 5,
       marginBottom: 5,
-      borderRadius: 4
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 0
     },
     bubbleLeft: {
-      backgroundColor: '#F3F4F6',
+      backgroundColor: props !== null ? props.iconColorPink : 'transparent',
       padding: 5,
-      marginBottom: 5,
-      borderRadius: 4
-    },
-    addImg: {
-      width: scale(20)
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 15
     }
   })
 export default styles

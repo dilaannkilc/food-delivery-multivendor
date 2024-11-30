@@ -5,8 +5,7 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
   AntDesign,
-  Feather,
-  SimpleLineIcons
+  Feather
 } from '@expo/vector-icons'
 import { scale } from '../../../utils/scaling'
 import styles from './styles'
@@ -24,6 +23,7 @@ import { theme } from '../../../utils/themeColors'
 import { HeaderBackButton } from '@react-navigation/elements'
 import UserContext from '../../../context/User'
 import { alignment } from '../../../utils/alignment'
+import CartIcon from '../../../assets/SVG/imageComponents/CartIcon'
 import { useTranslation } from 'react-i18next'
 
 const rippleColor = '#6FCF97'
@@ -31,19 +31,19 @@ function BackButton(props) {
   if (props.icon === 'leftArrow') {
     return (
       <Ionicons
-        name="ios-arrow-back"
-        size={18}
+        name="arrow-back"
+        size={16}
         style={styles().leftIconPadding}
         color={props.iconColor}
       />
     )
   } else if (props.icon === 'menu') {
     return (
-      <SimpleLineIcons
+      <Ionicons
         name="menu"
-        size={20}
-        color={props.fontFourthColor}
+        size={30}
         style={styles().leftIconPadding}
+        color={props.iconColor}
       />
     )
   } else if (props.icon === 'dots') {
@@ -56,10 +56,10 @@ function BackButton(props) {
     )
   } else if (props.icon === 'target') {
     return (
-      <MaterialIcons name="my-location" size={16} color={props.iconColorDark} />
+      <MaterialIcons name="my-location" size={16} color={props.iconColor} />
     )
   } else if (props.icon === 'fav') {
-    return <AntDesign name="hearto" size={20} color={props.iconColorDark} />
+    return <AntDesign name="hearto" size={20} color={props.iconColor} />
   } else {
     return (
       <EvilIcons
@@ -160,11 +160,11 @@ function RightButton(props) {
 
   function cartIcon() {
     return (
-      <View style={styles().rightContainer}>
-        <SimpleLineIcons
-          name="handbag"
-          size={24}
-          color={currentTheme.fontFourthColor}
+      <View style={[styles().rightContainer, { ...alignment.PLsmall }]}>
+        <Feather
+          name="shopping-bag"
+          size={25}
+          color={currentTheme.darkBgFont}
         />
         <View
           style={
@@ -172,7 +172,11 @@ function RightButton(props) {
               .absoluteContainer
           }>
           <TextDefault
-            textColor={currentTheme.white}
+            textColor={
+              route.name === 'Main'
+                ? currentTheme.fontWhite
+                : currentTheme.black
+            }
             style={{ fontSize: scale(12) }}
             center
             bolder>
