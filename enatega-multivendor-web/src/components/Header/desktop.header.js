@@ -7,12 +7,11 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
+import CartIcon from "../../assets/icons/CartIcon";
+import HeartIcon from "../../assets/icons/HeartIcon";
+import HeartActiveIcon from "../../assets/icons/HeartActiveIcon";
+import ProfileIcon from "../../assets/icons/ProfileIcon";
 import useStyle from "./styles";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { ReactComponent as PersonIcon } from "../../assets/icons/user.svg";
-import { ReactComponent as FavoriteBorderIcon } from "../../assets/icons/favourite.svg";
-import { ReactComponent as LocalMallIcon } from "../../assets/icons/cart.svg";
-
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 
 function DHeader({
@@ -30,21 +29,10 @@ function DHeader({
   const classes = useStyle();
   const location = useLocation();
   return (
-    <AppBar
-      elevation={0}
-      position="fixed"
-      style={{
-        background: "transparent",
-      }}
-      className={classes.root}
-    >
+    <AppBar elevation={0} position="fixed">
       <Toolbar className={classes.toolbar}>
         <RouterLink
-          to={
-            location.pathname === "/checkout"
-              ? "/restaurant-list"
-              : "/restaurant-list"
-          }
+          to={location.pathname === "/checkout" ? "/restaurant-list" : "/"}
           className={classes.linkDecoration}
         >
           <Logo height={50} width={50} />
@@ -59,12 +47,13 @@ function DHeader({
           </Typography>
         </RouterLink>
         <Box className={classes.flex}>
+          <Divider flexItem orientation="vertical" light />
           <Button
             aria-controls="simple-menu"
             aria-haspopup="true"
             onClick={(event) => open(event)}
           >
-            <PersonIcon className={classes.icon} />
+            <ProfileIcon />
             {!mobile && (
               <Typography
                 variant="button"
@@ -78,9 +67,9 @@ function DHeader({
             )}
 
             {anchor === null ? (
-              <ExpandMoreIcon color="primary" className={classes.icon} />
+              <ExpandMoreIcon color="primary" />
             ) : (
-              <ExpandLessIcon color="primary" className={classes.icon} />
+              <ExpandLessIcon color="primary" />
             )}
           </Button>
           <Divider flexItem orientation="vertical" light />
@@ -99,16 +88,7 @@ function DHeader({
               vertical: "bottom",
               horizontal: "center",
             }}
-            style={{
-              marginTop: "48px",
-            }}
-            MenuListProps={{
-              style: {
-                background: "rgba(243, 244, 248, 0.8)",
-                backdropFilter: "blur(6px)",
-                padding: 0,
-              },
-            }}
+            style={{ marginTop: "40px" }}
           >
             {navitems.map((item, index) => (
               <Box key={index}>
@@ -122,17 +102,14 @@ function DHeader({
                     </Typography>
                   </MenuItem>
                 </RouterLink>
+                {index === 1 && <Divider light />}
               </Box>
             ))}
           </Menu>
           <Box display="flex" alignItems="center">
             <Box mr={theme.spacing(3)} ml={theme.spacing(3)}>
               <RouterLink to="/favourite">
-                {favLength > 0 ? (
-                  <FavoriteIcon className={classes.icon} />
-                ) : (
-                  <FavoriteBorderIcon className={classes.icon} />
-                )}
+                {favLength > 0 ? <HeartActiveIcon /> : <HeartIcon />}
               </RouterLink>
             </Box>
             {cartCount && (
@@ -145,7 +122,7 @@ function DHeader({
                     alignItems="center"
                     ml={theme.spacing(3)}
                   >
-                    <LocalMallIcon className={classes.icon} />
+                    <CartIcon />
                     <Typography
                       variant="caption"
                       color="textSecondary"
