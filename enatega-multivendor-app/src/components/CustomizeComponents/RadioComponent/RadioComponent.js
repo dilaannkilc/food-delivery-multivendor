@@ -30,7 +30,7 @@ function RadioComponent(props) {
           style={styles.mainContainer}>
           <View style={styles.leftContainer}>
             <RadioButton
-              size={11}
+              size={13}
               outerColor={currentTheme.radioOuterColor}
               innerColor={currentTheme.radioColor}
               animation={'bounceIn'}
@@ -40,14 +40,16 @@ function RadioComponent(props) {
             <TextDefault
               textColor={currentTheme.fontMainColor}
               style={alignment.MLsmall}
-              bolder>
+              H5
+              bold>
               {option.title}
             </TextDefault>
           </View>
           <View style={styles.rightContainer}>
             <TextDefault
               textColor={currentTheme.fontMainColor}
-              bolder>{`${configuration.currencySymbol}${option.price}`}</TextDefault>
+              H5
+              bold>{`${configuration.currencySymbol} ${option.price}`}</TextDefault>
           </View>
         </TouchableOpacity>
       ))}
