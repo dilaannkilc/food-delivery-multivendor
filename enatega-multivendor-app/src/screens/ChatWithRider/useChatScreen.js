@@ -1,22 +1,20 @@
 import React, { useState, useEffect, useContext, useLayoutEffect } from 'react'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
-import { Ionicons, FontAwesome5, Entypo } from '@expo/vector-icons'
+import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
 import { callNumber } from '../../utils/callNumber'
 import gql from 'graphql-tag'
 import { chat } from '../../apollo/queries'
 import { subscriptionNewMessage } from '../../apollo/subscriptions'
 import { sendChatMessage } from '../../apollo/mutations'
 import { useMutation, useQuery } from '@apollo/client'
-import { Alert, StatusBar, View } from 'react-native'
+import { Alert } from 'react-native'
 import { useUserContext } from '../../context/User'
 import { useTranslation } from 'react-i18next'
-import { alignment } from '../../utils/alignment'
-import { useFocusEffect } from '@react-navigation/native'
 
 export const useChatScreen = ({ navigation, route }) => {
-  const { id: orderId, orderNo, total } = route.params
-
+  const { id: orderId } = route.params
+  console.log(orderId)
   const { t } = useTranslation()
   const { profile } = useUserContext()
   const { subscribeToMore: subscribeToMessages, data: chatData } = useQuery(
@@ -67,53 +65,46 @@ export const useChatScreen = ({ navigation, route }) => {
   const [image, setImage] = useState([])
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-  useFocusEffect(() => {
-    if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.themeBackground)
-    }
-    StatusBar.setBarStyle(
-      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
-    )
-  })
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
         backgroundColor: currentTheme.headerMenuBackground
       },
       headerTitleStyle: {
-        fontSize: 14,
-        // fontWeight: '700',
-        color: currentTheme.fontFourthColor
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: currentTheme.iconColorPink
       },
       headerLeft: () => (
-        <View
+        <Ionicons
+          name="chevron-back"
+          size={20}
+          color={currentTheme.white}
           style={{
-            borderRadius: 30,
-            borderWidth: 1,
-            borderColor:currentTheme.fontFourthColor,
-            ...alignment.MLmedium
-          }}>
-          <Entypo
-            name="cross"
-            size={20}
-            color={currentTheme.fontFourthColor}
-            onPress={() => navigation.goBack()}
-          />
-        </View>
+            marginLeft: 10,
+            backgroundColor: currentTheme.black,
+            padding: 7,
+            borderRadius: 10,
+            overflow: 'hidden'
+          }}
+          onPress={() => navigation.goBack()}
+        />
       ),
       headerRight: () => (
-        <View
+        <FontAwesome5
+          name="phone-alt"
+          size={20}
+          color={currentTheme.white}
           style={{
-            ...alignment.MRmedium
-          }}>
-          
-          <Ionicons
-            name="call-outline"
-            size={24}
-            color={currentTheme.fontFourthColor}
-            onPress={() => callNumber('+923159499378')}
-          />
-        </View>
+            marginRight: 10,
+            backgroundColor: currentTheme.black,
+            padding: 7,
+            borderRadius: 10,
+            overflow: 'hidden'
+          }}
+          onPress={() => callNumber('+923159499378')}
+        />
       ),
       headerTitle: t('contactYourRider')
     })
@@ -124,13 +115,10 @@ export const useChatScreen = ({ navigation, route }) => {
         ${subscriptionNewMessage}
       `,
       variables: { order: orderId },
-  
-
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev
         return {
-
-          chat: [...prev.chat, subscriptionData.data.subscriptionNewMessage]
+          chat: [subscriptionData.data.subscriptionNewMessage, ...prev.chat]
         }
       }
     })
@@ -161,8 +149,6 @@ export const useChatScreen = ({ navigation, route }) => {
     setImage,
     inputMessage,
     setInputMessage,
-    profile,
-    orderNo,
-    total
+    profile
   }
 }

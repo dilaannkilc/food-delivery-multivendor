@@ -5,7 +5,7 @@ import { verticalScale, scale } from '../../../utils/scaling'
 const styles = backColor =>
   StyleSheet.create({
     leftIconPadding: {
-      ...alignment.PLsmall,
+      ...alignment.PLsmall
       // ...alignment.PTxSmall,
       // ...alignment.PBxSmall
     },
@@ -27,10 +27,10 @@ const styles = backColor =>
     absoluteContainer: {
       width: verticalScale(15),
       height: verticalScale(15),
-      backgroundColor: '#111827',
+      backgroundColor: backColor !== null ? backColor : 'white',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: scale(15),
+      borderRadius: verticalScale(15),
       position: 'absolute',
       right: scale(5),
       bottom: scale(2)

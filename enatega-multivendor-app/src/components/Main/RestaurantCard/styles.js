@@ -1,8 +1,7 @@
 import { verticalScale, scale } from '../../../utils/scaling'
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { alignment } from '../../../utils/alignment'
 import { theme } from '../../../utils/themeColors'
-const { height } = Dimensions.get('window')
 
 const styles = (props = null) =>
   StyleSheet.create({
@@ -15,13 +14,11 @@ const styles = (props = null) =>
     //   ...alignment.MLlarge,
     // },
     offerContainer: {
-      elevation: 3,
-      shadowColor: theme.Pink.white,
-      height: height * 0.3,
+      //elevation: 3,
+      //shadowColor: theme.Pink.white,
+      //height: scale(200),
       borderRadius: 25,
-      width: scale(270),
-      ...alignment.MRsmall,
-
+      width: scale(270)
     },
    
     overlayContainer: {
@@ -64,15 +61,18 @@ const styles = (props = null) =>
     //   backgroundColor: props != null ? props.iconColorPink : 'red'
     // },
     descriptionContainer: {
-      paddingTop: verticalScale(12),
-      paddingBottom: verticalScale(12),
+      //paddingTop: scale(15),
+      //paddingBottom: verticalScale(12),
       paddingLeft: scale(10),
       paddingRight: scale(10),
       width: '100%',
       borderColor: props !=null ? props.iconBackground: '#E5E7EB',
       borderWidth:1,
-      borderBottomLeftRadius:8,
-      borderBottomRightRadius:8
+      borderBottomLeftRadius:15,
+      borderBottomRightRadius: 15,
+      height: '35%',
+      justifyContent:'center'
+      
     },
     aboutRestaurant: {   
       flexDirection: 'row',
@@ -103,7 +103,7 @@ const styles = (props = null) =>
     imageContainer: {
       position: 'relative',
       alignItems: 'center',
-      height: '80%'
+      height: '65%'
     },
     restaurantTotalRating:{
       paddingLeft: scale(5)

@@ -2,6 +2,7 @@ import { scale } from '../../utils/scaling'
 import { StyleSheet } from 'react-native'
 import { theme } from '../../utils/themeColors'
 import { alignment } from '../../utils/alignment'
+
 const styles = (props = null) =>
   StyleSheet.create({
     scrollViewStyle: {
@@ -10,24 +11,31 @@ const styles = (props = null) =>
       justifyContent: 'space-between'
     },
     mainContainer: {
-      backgroundColor: props !== null ? props.radioOuterColor : 'transparent',
+      backgroundColor: props !== null ? props.gray100 : 'transparent',
+      ...alignment.Mmedium,
       paddingBottom: scale(8),
-      borderRadius: scale(15),
-      ...alignment.PLmedium,
-      ...alignment.PRmedium,
-      ...alignment.PTsmall
+      borderRadius: scale(10)
     },
     buttonContainer: {
-      width: '100%'
+      width: '100%',
+      backgroundColor: props !== null ? props.menuBar : 'transparent',
+      elevation: 12,
+      shadowColor: props !== null ? props.shadowColor : 'black',
+      shadowOffset: {
+        width: 0,
+        height: -3
+      },
+      shadowOpacity: 0.5,
+      shadowRadius: scale(2)
     },
     buttonStyles: {
       margin: scale(10),
       paddingHorizontal: scale(50),
       paddingVertical: scale(15),
-      backgroundColor: props !== null ? props.main : '#6FCF97',
+      backgroundColor: props !== null ? props.newheaderColor : '#90E36D',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: scale(40)
+      borderRadius: scale(50)
     },
     backButton: {
       backgroundColor: theme.Pink.white,

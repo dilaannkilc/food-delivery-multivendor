@@ -29,7 +29,10 @@ const cartItem = props => {
         }}>
         <View style={styles().suggestItemImgContainer}>
           <Image
-            source={require('../../assets/images/burger-menu.png')}
+            source={{
+              uri:
+                'https://enatega.com/wp-content/uploads/2024/02/burger-removebg-preview-1.png'
+            }}
             style={styles().suggestItemImg}
             resizeMode="contain"
           />
@@ -40,7 +43,7 @@ const cartItem = props => {
             textColor={currentTheme.fontFourthColor}
             bolder
             H5>
-            {props?.dealName?.length > 20
+            {props.dealName.length > 20
               ? props.dealName.substring(0, 17) + '...'
               : props.dealName}
           </TextDefault>
