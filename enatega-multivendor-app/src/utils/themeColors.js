@@ -2,7 +2,7 @@ export const theme = {
   Pink: {
     black: '#000',
     white: '#FFF',
-    radioOuterColor: '#94A3B8',
+    radioOuterColor: '#fff',
     mustard: '#d8d8d874',
     borderColor: '#efefef',
     iconBackground: '#E5E7EB',
@@ -12,7 +12,7 @@ export const theme = {
     themeBackground: '#fff',
     menuBar: '#FFF',
     iconColor: '#333333',
-    iconColorDark: '#0F172A',
+    iconColorDark:'#0F172A',
     iconColorPink: '#6FCF97',
     itemCardColor: '#FFF',
     headerColor: '#6FCF97',
@@ -43,6 +43,7 @@ export const theme = {
     fontSecondColor: '#949393',
     fontThirdColor: '#374151',
     fontFourthColor: '#111827',
+    fontFifthColor: '#9CA3AF',
     fontNewColor: '#6B7280',
     titleComponentBackground: 'rgba(39,111,191,0.1)',
     titleComponentText: 'rgba(39,111,191,0.8)',
@@ -68,18 +69,13 @@ export const theme = {
     gray: 'grey',
     darkBgFont: '#000',
     btnText: '#000',
-    orange: '#FFA921',
+    stars: '#FFA921',
     newBorderColor: '#F3F4F6',
     verticalLine: '#D1D5DB',
-    gray200: '#E5E7EB',
     gray500: '#6B7280',
     gray100: '#F3F4F6',
     gray900: '#111827',
-    gray600: '#4B5563',
-    gray700: '#374151',
-    primary: '#90E36D',
-    borderLight: '#D9D9D9',
-    red600: '#DC2626'
+    chatColor: '#1F2937'
   },
   Dark: {
     black: '#000',
@@ -113,6 +109,7 @@ export const theme = {
     fontSecondColor: '#F9F9F9',
     fontThirdColor: '#F9F9F9',
     fontFourthColor: '#F9F9F9',
+    fontFifthColor: '#F9F9F9',
     fontNewColor: '#F9F9F9',
     fontSecondColor: '#7F7F7F',
     headerBackground: '#000',
@@ -142,14 +139,9 @@ export const theme = {
     orange: '#FFA921',
     newBorderColor: '#F3F4F6',
     verticalLine: '#fff',
-    gray200: '#E5E7EB',
     gray500: '#6B7280',
     gray100: '#F3F4F6',
     gray900: '#111827',
-    gray600: '#4B5563',
-    gray700: '#374151',
-    primary: '#90E36D',
-    borderLight: '#D9D9D9',
-    red600: '#DC2626'
+    chatColor: '#1F2937'
   }
 }

@@ -26,7 +26,8 @@ function TextDefault(props) {
   if (props.uppercase) customStyles.push(textStyles.UpperCase)
   if (props.lineOver) customStyles.push(textStyles.LineOver)
   if (props.B700) customStyles.push(textStyles.B700)
-  if (props.left) customStyles.push(textStyles.Left)
+  if (props.textItalic) customStyles.push(textStyles.TextItalic)
+
 
   customStyles = StyleSheet.flatten([customStyles, props.style])
   return (

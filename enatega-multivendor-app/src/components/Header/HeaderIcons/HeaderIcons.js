@@ -39,9 +39,12 @@ function BackButton(props) {
     )
   } else if (props.icon === 'menu') {
     return (
-        
-        <SimpleLineIcons name="menu"  size={20} color={props.fontFourthColor} style={styles().leftIconPadding}/>
-     
+      <SimpleLineIcons
+        name="menu"
+        size={20}
+        color={props.fontFourthColor}
+        style={styles().leftIconPadding}
+      />
     )
   } else if (props.icon === 'dots') {
     return (
@@ -158,19 +161,18 @@ function RightButton(props) {
   function cartIcon() {
     return (
       <View style={styles().rightContainer}>
-        <SimpleLineIcons name="handbag" size={24} color={currentTheme.fontFourthColor} />
-        
+        <SimpleLineIcons
+          name="handbag"
+          size={24}
+          color={currentTheme.fontFourthColor}
+        />
         <View
           style={
             styles(route.name === 'Main' ? 'black' : currentTheme.white)
               .absoluteContainer
           }>
           <TextDefault
-            textColor={
-              route.name === 'Main'
-                ? currentTheme.fontWhite
-                : currentTheme.black
-            }
+            textColor={currentTheme.white}
             style={{ fontSize: scale(12) }}
             center
             bolder>
@@ -273,27 +275,17 @@ function DarkBackButton(props) {
   return (
     <View
       style={{
-        backgroundColor: props.icon,
+        backgroundColor: props.iconBackground,
         margin: 5,
         borderRadius: 5
       }}>
       <Ionicons
-        name="close-circle-outline"
+        name="chevron-back-outline"
         size={20}
         style={styles().darkBackArrow}
-        color={props.iconBackground}
+        color={props.iconColor}
       />
     </View>
   )
 }
-function HelpButton(props) {
-  return (<View
-    style={{
-      backgroundColor: props.iconBackground,
-      borderRadius: scale(10),
-      margin: scale(5)
-    }}>
-    <TextDefault style={{ padding: scale(7) }} small bold>Help</TextDefault>
-  </View>)
-}
-export { BackButton, LeftButton, RightButton, DarkBackButton, HelpButton }
+export { BackButton, LeftButton, RightButton, DarkBackButton }
