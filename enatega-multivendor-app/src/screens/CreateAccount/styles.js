@@ -15,12 +15,11 @@ const styles = (props = null) =>
     subContainer: {
       display: 'flex',
       alignSelf: 'center',
-      width: '100%',
+      width: '80%',
       paddingBottom: 10,
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: props !== null ? props.themeBackground : 'transparent'
+      alignItems: 'center'
     },
     whiteColor: {
       backgroundColor: props !== null ? props.buttonText : 'transparent'

@@ -88,19 +88,13 @@ function RateAndReview(props) {
   }
 
   function onSubmit() {
-    if (rating > 0 && rating < 6) {
-      mutate({
-        variables: {
-          order: id,
-          rating: rating,
-          description: description
-        }
-      })
-    } else {
-      FlashMessage({
-        message: 'Please add star rating first'
-      })
-    }
+    mutate({
+      variables: {
+        order: id,
+        rating: rating,
+        description: description
+      }
+    })
   }
 
   function onCompleted(data) {

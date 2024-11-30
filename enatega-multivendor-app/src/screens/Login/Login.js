@@ -16,7 +16,7 @@ import { alignment } from '../../utils/alignment'
 import { FontAwesome } from '@expo/vector-icons'
 import { useLogin } from './useLogin'
 import screenOptions from './screenOptions'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 function Login(props) {
   const {
@@ -35,10 +35,7 @@ function Login(props) {
     setShowPassword,
     checkEmailExist
   } = useLogin()
-  const { t } = useTranslation()
-  const handleEmailChange = e => {
-    setEmail(e)
-  }
+    const {t} = useTranslation()
   useLayoutEffect(() => {
     props.navigation.setOptions(
       screenOptions({
@@ -88,7 +85,9 @@ function Login(props) {
                     style={{
                       textAlign: 'center'
                     }}>
-                    {registeredEmail ? t('signInWithEmail') : t('checkAccount')}
+                    {registeredEmail
+                      ? t('signInWithEmail')
+                      : t('checkAccount')}
                   </TextDefault>
                 )}
               </View>
@@ -101,9 +100,8 @@ function Login(props) {
                       emailError !== null ? styles(currentTheme).errorInput : {}
                     ]}
                     placeholderTextColor={currentTheme.fontSecondColor}
-                    onChangeText={handleEmailChange}
-                    keyboardType="email-address"
-                    autoCompleteType="email"
+                    value={email}
+                    onChangeText={e => setEmail(e.toLowerCase().trim())}
                   />
                   {emailError !== null && (
                     <TextDefault

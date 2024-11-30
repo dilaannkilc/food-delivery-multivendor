@@ -190,7 +190,7 @@ function LoginEmail() {
           type="email"
           disableElevation
           disabled={loading}
-          className={`${classes.btnBase} ${classes.customBtn}`}
+          className={classes.btnBase}
           onClick={(e) => {
             e.preventDefault();
             handleAction();
