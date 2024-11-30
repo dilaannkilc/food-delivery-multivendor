@@ -102,9 +102,11 @@ const useEmailOtp = () => {
   async function mutateRegister() {
     let notificationToken = null
     if (Device.isDevice) {
-      const { status } = await Notifications.requestPermissionsAsync();
-      if (status === 'granted') {
-        notificationToken = (await Notifications.getExpoPushTokenAsync()).data;
+      const {
+        status: existingStatus
+      } = await Notifications.getPermissionsAsync()
+      if (existingStatus === 'granted') {
+        notificationToken = (await Notifications.getExpoPushTokenAsync()).data
       }
     }
     mutateUser({
@@ -125,7 +127,7 @@ const useEmailOtp = () => {
     } else {
       setOtpError(true)
     }
-      }
+  }
 
   const resendOtp = () => {
     otpFrom.current = Math.floor(100000 + Math.random() * 900000).toString()

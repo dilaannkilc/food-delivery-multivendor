@@ -1,4 +1,4 @@
-import makeStyles from "@mui/styles/makeStyles";
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyle = makeStyles((theme) => ({
   restauranCardContainer: {
@@ -13,25 +13,17 @@ const useStyle = makeStyles((theme) => ({
     width: "40px",
     height: "50px",
     position: "absolute",
-    top: "50%",
+    top: "100px",
+    backgroundColor: theme.palette.primary.main,
     zIndex: 5,
     borderRadius: "inherit",
-
-    [theme.breakpoints.down("md")]: {
-      zIndex: -999,
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
     },
   },
   mainContainer: {
-    padding: (extraSmall) => (extraSmall ? "0px  2vw" : "0px"),
-    marginBottom: 40,
-    [theme.breakpoints.down("md")]: {
-      width: "100%",
-    },
-  },
-  divider: {
-    width: "165px",
-    backgroundColor: "#448B7B",
-    height: 10,
+    marginTop: "50px",
+    padding: (extraSmall) => (extraSmall ? "0px  5vw" : "0px"),
   },
 }));
 
