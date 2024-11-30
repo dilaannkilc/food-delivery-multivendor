@@ -5,10 +5,10 @@ import styles from './styles'
 import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../../utils/themeColors'
 import { scale } from '../../../utils/scaling'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 function Search(props) {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   return (
@@ -18,8 +18,8 @@ function Search(props) {
           <View style={styles().leftContainer}>
             <View style={styles().searchContainer}>
               <Ionicons
-                name="ios-search"
-                color={currentTheme.fontNewColor}
+                name="search"
+                color={currentTheme.fontSecondColor}
                 size={scale(20)}
               />
             </View>
@@ -27,7 +27,7 @@ function Search(props) {
               <TextInput
                 style={styles(currentTheme).bodyStyleOne}
                 placeholder={t('searchRestaurant')}
-                placeholderTextColor={currentTheme.fontNewColor}
+                placeholderTextColor={currentTheme.fontSecondColor}
                 onChangeText={text => props.setSearch(text)}
                 value={props.search}
               />

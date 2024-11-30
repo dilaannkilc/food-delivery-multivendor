@@ -31,10 +31,6 @@ const styles = (props = null) =>
       ...alignment.PLmedium,
       ...alignment.PRmedium
     },
-
-    location: {
-      marginLeft: scale(3)
-    },
     inlineFloat: {
       width: '100%',
       backgroundColor: props != null ? props.radioOuterColor : 'white',
@@ -42,8 +38,11 @@ const styles = (props = null) =>
       alignItems: 'center'
     },
     mapContainer: {
+      marginTop: 10,
       marginBottom: 20,
       borderRadius: scale(10),
+      borderColor: props != null ? props.white : 'white',
+      borderWidth: 2,
       height: 200,
       backgroundColor: props != null ? props.white : 'white'
     },
@@ -95,14 +94,14 @@ const styles = (props = null) =>
     },
     ratingContainer: {
       flexDirection: 'row',
-      alignItems: 'center',
-      marginVertical: scale(8)
+      width: '25%',
+      justifyContent: 'flex-end',
+      alignItems: 'center'
     },
     timingContainer: {
-      // alignSelf: 'center',
-      width: '100%',
-      marginBottom: scale(10),
-      marginTop: scale(5)
+      alignSelf: 'center',
+      width: '90%',
+      marginBottom: scale(20)
     },
     dateReview: {
       marginTop: -8,
@@ -120,7 +119,8 @@ const styles = (props = null) =>
       zIndex: 999
     },
     tab: {
-      backgroundColor: '#E4FFD9',
+      backgroundColor: props != null ? props.radioOuterColor : 'white',
+      marginTop: scale(-15),
       width: '48%',
       height: verticalScale(35),
       justifyContent: 'center',
@@ -130,17 +130,18 @@ const styles = (props = null) =>
     },
     selectedTab: {
       backgroundColor: props != null ? props.main : '#90EA93',
-      borderRadius: scale(10)
+      borderRadius: scale(10),
+      margin: scale(-10)
     },
     timingRow: {
       flexDirection: 'row',
-      justifyContent: 'space-evenly',
+      alignItems: 'flex-end',
       alignSelf: 'center',
-      backgroundColor: '#F3F4F6',
-      borderRadius: 10,
+      backgroundColor: props != null ? props.main : '#90EA93',
+      borderRadius: 30,
       padding: 10,
       marginBottom: 10,
-      width: '100%'
+      width: '90%'
     },
     marker: {
       width: 50,
@@ -162,10 +163,10 @@ const styles = (props = null) =>
       backgroundColor: props != null ? props.black : 'black',
       padding: 10,
       borderRadius: 10
+    },
+    timingText: {
+      width: scale(140),
+      textAlign: 'left'
     }
-    // timingText: {
-    //   width: scale(140),
-    //   textAlign: 'left'
-    // }
   })
 export default styles

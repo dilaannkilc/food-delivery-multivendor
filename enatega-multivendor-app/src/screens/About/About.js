@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { View, FlatList, TouchableOpacity } from 'react-native'
-import { FontAwesome5, MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import { scale } from '../../utils/scaling'
 import ImageHeader from '../../components/About/Header'
@@ -27,9 +27,6 @@ function About(props) {
   const RestAbout = {
     name: restaurantObject.name,
     address: restaurantObject.address,
-    deliveryTime: restaurantObject.deliveryTime,
-    rating: restaurantObject.rating,
-    average: restaurantObject.average,
     map: {
       latitude: Number(restaurantObject.latitude),
       longitude: Number(restaurantObject.longitude),
@@ -77,82 +74,48 @@ function About(props) {
 
   function AboutTab() {
     return (
-      <ScrollView>
+      <ScrollView style={{ ...alignment.MTmedium }}>
         <View style={styles(currentTheme).mapMainContainer}>
-          <View style={styles(currentTheme).restaurantInfo}>
-            {!props.loading && (
-              <View
-                style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                <MaterialIcons
-                  name="timer"
-                  size={20}
-                  color={currentTheme.fontThirdColor}
-                />
-                <TextDefault H5 textColor={currentTheme.fontThirdColor} bold>
-                  {t('delivery')} {restaurantObject.deliveryTime} {t('Min')}
-                </TextDefault>
-              </View>
-            )}
-            <View style={styles().ratingContainer}>
-              <MaterialIcons
-                name="star-border"
-                size={20}
-                color={currentTheme.fontThirdColor}
-              />
-
-              <TextDefault
-                style={{ paddingLeft: 4 }}
-                textColor={currentTheme.fontThirdColor}
-                H5
-                bolder>
-                {restaurantObject.average}
-              </TextDefault>
-              <TextDefault H5 textColor={currentTheme.fontThirdColor} bold>
-                ({restaurantObject.total})
-              </TextDefault>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 4
-              }}>
-              <MaterialIcons
-                name="location-on"
-                size={20}
-                color={currentTheme.fontThirdColor}
-              />
-              <TextDefault H5 bold textColor={currentTheme.fontThirdColor}>
-                {RestAbout.address}
-              </TextDefault>
-            </View>
+          <View
+            style={[
+              styles(currentTheme).inlineFloat,
+              styles(currentTheme).MB15
+            ]}>
+            <MaterialIcons
+              name="location-on"
+              size={30}
+              color={currentTheme.darkBgFont}
+            />
+            <TextDefault
+              style={styles(currentTheme).width90}
+              large
+              bold
+              textColor={currentTheme.darkBgFont}>
+              {RestAbout.address}
+            </TextDefault>
           </View>
-
-          <View>
+          <View style={[styles(currentTheme).MB15]}>
             <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginVertical: scale(8),
-                gap: 4
-              }}>
+              style={[styles(currentTheme).inlineFloat, alignment.MBxSmall]}>
               <MaterialIcons
                 name="access-time"
-                size={20}
-                color={currentTheme.fontThirdColor}
+                size={30}
+                color={currentTheme.darkBgFont}
               />
-              <TextDefault H5 textColor={currentTheme.fontThirdColor} bold>
-                {t('Openingtimes')}:
+              <TextDefault
+                style={{ paddingLeft: 10 }}
+                bold
+                textColor={currentTheme.darkBgFont}>
+                {t('Openingtimes')}
               </TextDefault>
             </View>
 
             <View style={styles().timingContainer}>
               {restaurantObject.openingTimes.map((v, index) => (
-                <View key={index} style={styles(currentTheme).timingRow}>
+                <View key={index} style={styles().timingRow}>
                   <TextDefault
                     style={styles().timingText}
                     textColor={currentTheme.black}
-                    bolder
                     large>
                     {t(v.day)}{' '}
                   </TextDefault>
@@ -177,22 +140,6 @@ function About(props) {
             </View>
           </View>
           <View style={styles(currentTheme).mapContainer}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 8,
-                ...alignment.PBsmall
-              }}>
-              <FontAwesome5
-                name="map-marked-alt"
-                size={20}
-                color={currentTheme.fontThirdColor}
-              />
-              <TextDefault H5 bold textColor={currentTheme.fontThirdColor}>
-                Location
-              </TextDefault>
-            </View>
             <MapView
               style={styles().flex}
               scrollEnabled={false}
