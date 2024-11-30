@@ -10,10 +10,10 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Animated,
   StatusBar,
   Platform,
-  RefreshControl
+  Image,
+  ScrollView
 } from 'react-native'
 import { Modalize } from 'react-native-modalize'
 import {
@@ -22,37 +22,35 @@ import {
   AntDesign,
   MaterialCommunityIcons
 } from '@expo/vector-icons'
-import { useQuery, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import {
   useCollapsibleSubHeader,
-  CollapsibleSubHeaderAnimator
 } from 'react-navigation-collapsible'
 import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder'
 import gql from 'graphql-tag'
 import { useLocation } from '../../ui/hooks'
 import Search from '../../components/Main/Search/Search'
-import Item from '../../components/Main/Item/Item'
 import UserContext from '../../context/User'
 import { restaurantList } from '../../apollo/queries'
 import { selectAddress } from '../../apollo/mutations'
 import { scale } from '../../utils/scaling'
 import styles from './styles'
-import TextError from '../../components/Text/TextError/TextError'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
 import navigationOptions from './navigationOptions'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { LocationContext } from '../../context/Location'
-import { ActiveOrdersAndSections } from '../../components/Main/ActiveOrdersAndSections'
 import { alignment } from '../../utils/alignment'
 import Spinner from '../../components/Spinner/Spinner'
 import analytics from '../../utils/analytics'
-import MapSection from '../MapSection/index'
 import { useTranslation } from 'react-i18next'
+import { OrderAgain } from '../../components/Main/OrderAgain'
+import { TopPicks } from '../../components/Main/TopPicks'
+import { TopBrands } from '../../components/Main/TopBrands'
 
 const RESTAURANTS = gql`
-  ${restaurantList}
+    ${restaurantList}
 `
 const SELECT_ADDRESS = gql`
   ${selectAddress}
@@ -71,32 +69,16 @@ function Main(props) {
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const { getCurrentLocation } = useLocation()
+  const [selectedType, setSelectedType] = useState('restaurant');
 
-  const { data, refetch, networkStatus, loading, error } = useQuery(
-    RESTAURANTS,
-    {
-      variables: {
-        longitude: location.longitude || null,
-        latitude: location.latitude || null,
-        ip: null
-      },
-      fetchPolicy: 'network-only'
-    }
-  )
   const [mutate, { loading: mutationLoading }] = useMutation(SELECT_ADDRESS, {
     onError
   })
-  
-  const {
-    onScroll /* Event handler */,
-    containerPaddingTop /* number */,
-    scrollIndicatorInsetTop /* number */,
-    translateY
-  } = useCollapsibleSubHeader()
+
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.headerColor)
+      StatusBar.setBackgroundColor(currentTheme.newheaderColor)
     }
     StatusBar.setBarStyle(
       themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
@@ -111,8 +93,8 @@ function Main(props) {
   useLayoutEffect(() => {
     navigation.setOptions(
       navigationOptions({
-        headerMenuBackground: currentTheme.headerColor,
-        horizontalLine: currentTheme.headerColor,
+        headerMenuBackground: currentTheme.newheaderColor,
+        horizontalLine: currentTheme.newheaderColor,
         fontMainColor: currentTheme.darkBgFont,
         iconColorPink: currentTheme.black,
         open: onOpen
@@ -136,7 +118,7 @@ function Main(props) {
     Work: 'briefcase',
     Other: 'location-pin'
   }
-
+  
   const setAddressLocation = async address => {
     setLocation({
       _id: address._id,
@@ -225,7 +207,7 @@ function Main(props) {
       return (
         <View style={styles().emptyViewContainer}>
           <TextDefault textColor={currentTheme.fontMainColor}>
-           {t('noRestaurants')}
+            {t('noRestaurants')}
           </TextDefault>
         </View>
       )
@@ -305,55 +287,72 @@ function Main(props) {
     )
   }
 
-  if (error) return <TextError text={t('networkError')} />
+  // if (error) return <TextError text={t('networkError')} />
 
-  if (loading || mutationLoading || loadingOrders) return loadingScreen()
+  // if (loading || mutationLoading || loadingOrders) return loadingScreen()
 
-  const { restaurants, sections } = data.nearByRestaurants
+  // const { restaurants, sections } = data.nearByRestaurants
+
+  // const searchRestaurants = searchText => {
+  //   const data = []
+  //   const regex = new RegExp(searchText, 'i')
+  //   restaurants.forEach(restaurant => {
+  //     const resultName = restaurant.name.search(regex)
+  //     if (resultName < 0) {
+  //       const resultCatFoods = restaurant.categories.some(category => {
+  //         const result = category.title.search(regex)
+  //         if (result < 0) {
+  //           const result = category.foods.some(food => {
+  //             const result = food.title.search(regex)
+  //             return result > -1
+  //           })
+  //           return result
+  //         }
+  //         return true
+  //       })
+  //       if (!resultCatFoods) {
+  //         const resultOptions = restaurant.options.some(option => {
+  //           const result = option.title.search(regex)
+  //           return result > -1
+  //         })
+  //         if (!resultOptions) {
+  //           const resultAddons = restaurant.addons.some(addon => {
+  //             const result = addon.title.search(regex)
+  //             return result > -1
+  //           })
+  //           if (!resultAddons) return
+  //         }
+  //       }
+  //     }
+  //     data.push(restaurant)
+  //   })
+  //   return data
+  // }
 
   const searchRestaurants = searchText => {
-    const data = []
-    const regex = new RegExp(searchText, 'i')
-    restaurants.forEach(restaurant => {
-      const resultName = restaurant.name.search(regex)
-      if (resultName < 0) {
-        const resultCatFoods = restaurant.categories.some(category => {
-          const result = category.title.search(regex)
-          if (result < 0) {
-            const result = category.foods.some(food => {
-              const result = food.title.search(regex)
-              return result > -1
-            })
-            return result
-          }
-          return true
-        })
-        if (!resultCatFoods) {
-          const resultOptions = restaurant.options.some(option => {
-            const result = option.title.search(regex)
-            return result > -1
-          })
-          if (!resultOptions) {
-            const resultAddons = restaurant.addons.some(addon => {
-              const result = addon.title.search(regex)
-              return result > -1
-            })
-            if (!resultAddons) return
-          }
-        }
-      }
-      data.push(restaurant)
-    })
-    return data
-  }
+    if (!searchText) return data?.nearByRestaurants?.restaurants || [];
+
+    const regex = new RegExp(searchText, 'i');
+    return (data?.nearByRestaurants?.restaurants || []).filter(restaurant => {
+      const resultName = restaurant.name.search(regex);
+      if (resultName >= 0) return true;
+
+      return restaurant.categories.some(category => {
+        const result = category.title.search(regex);
+        if (result >= 0) return true;
+
+        return category.foods.some(food => food.title.search(regex) >= 0);
+      });
+    });
+  };
 
   // Flatten the array. That is important for data sequence
-  const restaurantSections = sections.map(sec => ({
-    ...sec,
-    restaurants: sec.restaurants
-      .map(id => restaurants.filter(res => res._id === id))
-      .flat()
-  }))
+  // const restaurantSections = sections.map(sec => ({
+    //   ...sec,
+    //   restaurants: sec.restaurants
+      //     .map(id => restaurants.filter(res => res._id === id))
+      //     .flat()
+  // }))
 
   return (
     <>
@@ -364,7 +363,66 @@ function Main(props) {
           <View style={styles().flex}>
             <View style={styles().mainContentContainer}>
               <View style={[styles().flex, styles().subContainer]}>
-                <Animated.FlatList
+                <View style={styles().searchbar}>
+                  <Search setSearch={setSearch} search={search} />
+                </View>
+                <ScrollView>
+                  <View style={styles().mainItemsContainer}>
+                    <TouchableOpacity style={styles().mainItem} onPress={() => navigation.navigate('Menu', { selectedType: 'restaurant' })}>
+                    <View>
+                      <TextDefault
+                        H4
+                        bolder
+                        textColor={currentTheme.fontThirdColor}
+                        style={styles().ItemName}>
+                        Food Delivery
+                      </TextDefault>
+                      <TextDefault
+                        Normal
+                        textColor={currentTheme.fontThirdColor}
+                        style={styles().ItemDescription}>
+                        Order food you love
+                      </TextDefault>
+                    </View>
+                    <Image
+                      source={require('../../assets/images/ItemsList/menu.png')}
+                      style={styles().popularMenuImg}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
+                    <TouchableOpacity style={styles().mainItem} onPress={() => navigation.navigate('Menu', { selectedType: 'grocery' })}>
+                    <TextDefault
+                      H4
+                      bolder
+                      textColor={currentTheme.fontThirdColor}
+                      style={styles().ItemName}>
+                      Grocery
+                    </TextDefault>
+                    <TextDefault
+                      Normal
+                      textColor={currentTheme.fontThirdColor}
+                      style={styles().ItemDescription}>
+                      Essentials delivered fast
+                    </TextDefault>
+                    <Image
+                      source={require('../../assets/images/ItemsList/grocery.png')}
+                      style={styles().popularMenuImg}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
+                  </View>
+                  <View>
+                    <OrderAgain />
+                  </View>
+                  <View >
+                    <TopPicks />
+                  </View>
+                  <View >
+                    <TopBrands />
+                  </View>
+                </ScrollView>
+
+                {/* <Animated.FlatList
                   contentInset={{ top: containerPaddingTop }}
                   contentContainerStyle={{
                     paddingTop: Platform.OS === 'ios' ? 0 : containerPaddingTop
@@ -394,11 +452,13 @@ function Main(props) {
                   }
                   data={search ? searchRestaurants(search) : restaurants}
                   renderItem={({ item }) => <Item item={item} />}
-                />
-                <CollapsibleSubHeaderAnimator translateY={translateY}>
-                  <Search setSearch={setSearch} search={search} />
+                /> */}
+                {/* <CollapsibleSubHeaderAnimator translateY={translateY}>
+                  <Search setSearch={setSearch} search={search} /> 
                   <MapSection location={location} restaurants={restaurants} />
-                </CollapsibleSubHeaderAnimator>
+                </CollapsibleSubHeaderAnimator> */}
+                 
+
               </View>
             </View>
           </View>

@@ -148,7 +148,6 @@ function VerifyForgotOtp() {
               outlineColor: theme.palette.grey[900],
             }}
             editable
-            renderInput={(props) => <input {...props} />}
           />
           <Box mt={2} />
           {otpError && (
