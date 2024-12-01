@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
 import { alignment } from '../../utils/alignment'
-import { scale } from '../../utils/scaling'
 
 const styles = (props = null) =>
   StyleSheet.create({
@@ -18,13 +17,13 @@ const styles = (props = null) =>
       ...alignment.MTlarge
     },
     subContainer: {
-      width: '90%',
+      width: '85%',
       height: '100%'
     },
     logoContainer: {
-      // width: 120,
-      // height: 130,
-      // alignSelf: 'center'
+      width: 120,
+      height: 130,
+      alignSelf: 'center'
     },
     marginTop3: {
       ...alignment.MTxSmall
@@ -43,15 +42,12 @@ const styles = (props = null) =>
       borderColor: props !== null ? props.errorInputBorder : '#DB4A39'
     },
     btn: {
-
-      position: 'relative',
-      // marginTop: '55%',
-      width: '100%',
+      width: '70%',
       alignItems: 'center',
-      backgroundColor: props !== null ? props.main : '#000',
+      backgroundColor: '#000',
       alignSelf: 'center',
-      padding: scale(15),
-      borderRadius: scale(28)
+      padding: 15,
+      borderRadius: 10
     },
     otpInput: {
       height: 70,
