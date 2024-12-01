@@ -27,7 +27,6 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import TableHeader from '../components/TableHeader'
 import Alert from '../components/Alert'
-import ConfigurableValues from '../config/constants'
 
 const GET_OPTIONS = gql`
   ${getRestaurantDetail}
@@ -37,8 +36,6 @@ const DELETE_OPTION = gql`
 `
 
 const Option = props => {
-  const { t } = props
-  const {PAID_VERSION} = ConfigurableValues()
   const [editModal, setEditModal] = useState(false)
   const [option, setOption] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
@@ -49,10 +46,6 @@ const Option = props => {
     setEditModal(!editModal)
     setOption(option)
   }
-  const closeEditModal = () => {
-    setEditModal(false)
-  }
-
   const restaurantId = localStorage.getItem('restaurantId')
 
   const { data, error: errorQuery, loading: loadingQuery, refetch } = useQuery(
@@ -82,22 +75,22 @@ const Option = props => {
 
   const columns = [
     {
-      name: t('Title'),
+      name: 'Title',
       sortable: true,
       selector: 'title'
     },
     {
-      name: t('Description'),
+      name: 'Description',
       sortable: true,
       selector: 'description'
     },
     {
-      name: t('Price'),
+      name: 'Price',
       sortable: true,
       selector: 'price'
     },
     {
-      name: t('Action'),
+      name: 'Action',
       cell: row => <>{actionButtons(row)}</>
     }
   ]
@@ -133,42 +126,36 @@ const Option = props => {
               <MenuItem
                 onClick={e => {
                   e.preventDefault()
-                 
-                  if(PAID_VERSION)
-                  toggleModal(row)
-                else{
                   setIsOpen(true)
                   setTimeout(() => {
                     setIsOpen(false)
                   }, 5000)
-                }
+                  //uncomment this for paid version
+                  //toggleModal(row)
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
                   <EditIcon fontSize="small" style={{ color: 'green' }} />
                 </ListItemIcon>
-                <Typography color="green">{t('Edit')}</Typography>
+                <Typography color="green">Edit</Typography>
               </MenuItem>
               <MenuItem
                 onClick={e => {
                   e.preventDefault()
-                 
-                  if(PAID_VERSION)
-                  mutate({
-                    variables: { id: row._id, restaurant: restaurantId }
-                  })
-                  else{
-                    setIsOpen(true)
-                    setTimeout(() => {
-                      setIsOpen(false)
-                    }, 5000)
-                  }
+                  setIsOpen(true)
+                  setTimeout(() => {
+                    setIsOpen(false)
+                  }, 5000)
+                  //uncomment this for paid version
+                  // mutate({
+                  //   variables: { id: row._id, restaurant: restaurantId }
+                  // })
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
                   <DeleteIcon fontSize="small" style={{ color: 'red' }} />
                 </ListItemIcon>
-                <Typography color="red">{t('Delete')}</Typography>
+                <Typography color="red">Delete</Typography>
               </MenuItem>
             </Menu>
           </Paper>
@@ -195,14 +182,17 @@ const Option = props => {
     <>
       <Header />
       {isOpen && (
-        <Alert message={t('AvailableAfterPurchasing')} severity="warning" />
-      )}
+            <Alert
+              message="This feature will available after purchasing product"
+              severity="warning"
+              />
+          )}
       {/* Page content */}
       <Container className={globalClasses.flex} fluid>
         <OptionComponent />
         {errorQuery && (
           <tr>
-            <td>{`${'Error'} ${errorQuery.message}`}</td>
+            <td>{`Error! ${errorQuery.message}`}</td>
           </tr>
         )}
         {loading ? (
@@ -217,7 +207,7 @@ const Option = props => {
                 onClick={() => refetch()}
               />
             }
-            title={<TableHeader title={t('Options')} />}
+            title={<TableHeader title="Options" />}
             columns={columns}
             data={data && data.restaurant ? filtered : {}}
             pagination
@@ -242,7 +232,7 @@ const Option = props => {
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-          <OptionComponent option={option} onClose={closeEditModal} />
+          <OptionComponent option={option} />
         </Modal>
       </Container>
     </>
