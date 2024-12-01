@@ -273,27 +273,17 @@ function DarkBackButton(props) {
   return (
     <View
       style={{
-        backgroundColor: props.icon,
+        backgroundColor: props.iconBackground,
         margin: 5,
         borderRadius: 5
       }}>
       <Ionicons
-        name="close-circle-outline"
+        name="chevron-back-outline"
         size={20}
         style={styles().darkBackArrow}
-        color={props.iconBackground}
+        color={props.iconColor}
       />
     </View>
   )
 }
-function HelpButton(props) {
-  return (<View
-    style={{
-      backgroundColor: props.iconBackground,
-      borderRadius: scale(10),
-      margin: scale(5)
-    }}>
-    <TextDefault style={{ padding: scale(7) }} small bold>Help</TextDefault>
-  </View>)
-}
-export { BackButton, LeftButton, RightButton, DarkBackButton, HelpButton }
+export { BackButton, LeftButton, RightButton, DarkBackButton }

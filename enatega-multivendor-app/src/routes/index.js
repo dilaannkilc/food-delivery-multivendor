@@ -56,7 +56,6 @@ import PhoneNumber from '../screens/PhoneNumber/PhoneNumber'
 import { useApolloClient, gql } from '@apollo/client'
 import { myOrders } from '../apollo/queries'
 import Checkout from '../screens/Checkout/Checkout'
-import Reviews from '../screens/Reviews'
 
 const NavigationStack = createStackNavigator()
 const MainStack = createStackNavigator()
@@ -107,9 +106,9 @@ function NoDrawer() {
         name="OrderDetail"
         component={OrderDetail}
         options={{
-          // headerTransparent: true,
-          // headerRight: null,
-          // title: '',
+          headerTransparent: true,
+          headerRight: null,
+          title: '',
           headerBackImage: () =>
             DarkBackButton({
               iconColor: currentTheme.backIcon,
@@ -127,10 +126,6 @@ function NoDrawer() {
         name="About"
         component={About}
         options={{ header: () => null }}
-      />
-      <NavigationStack.Screen
-        name="Reviews"
-        component={Reviews}
       />
       <NavigationStack.Screen name="Coupon" component={Coupon} />
       <NavigationStack.Screen name="Paypal" component={Paypal} />
@@ -222,6 +217,16 @@ function AppContainer() {
       handleNotification(lastNotificationResponse)
     }
   }, [lastNotificationResponse])
+
+  useEffect(() => {
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: false,
+        shouldSetBadge: false
+      })
+    })
+  }, [])
 
   return (
     <SafeAreaProvider>

@@ -54,7 +54,6 @@ import MapSection from '../MapSection/index'
 import { useTranslation } from 'react-i18next'
 import { OrderAgain } from '../../components/Main/OrderAgain'
 import { TopPicks } from '../../components/Main/TopPicks'
-import ActiveOrders from '../../components/Main/ActiveOrders'
 
 // const RESTAURANTS = gql`
 //   ${restaurantList}
@@ -155,7 +154,7 @@ function Main(props) {
     modalRef.current.close()
   }
 
-  const setCurrentLocation = async() => {
+  const setCurrentLocation = async () => {
     setBusy(true)
     const { error, coords } = await getCurrentLocation()
 
@@ -442,18 +441,9 @@ function Main(props) {
                   scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
                   showsVerticalScrollIndicator={false}
                   ListHeaderComponent={
-                    <TextDefault
-                      numberOfLines={1}
-                      textColor={currentTheme.fontMainColor}
-                      style={{
-                        ...alignment.MLlarge,
-                        ...alignment.PBsmall,
-                        marginRight: scale(20)
-                      }}
-                      bolder
-                      H3>
-                      {t('allRestaurant')}
-                    </TextDefault>
+                    search ? null : (
+                      <ActiveOrdersAndSections sections={restaurantSections} />
+                    )
                   }
                   ListEmptyComponent={emptyView()}
                   keyExtractor={(item, index) => index.toString()}
@@ -530,18 +520,17 @@ function Main(props) {
                       ![t('currentLocation'), t('selectedLocation')].includes(
                         location.label
                       ) && (
-                      <MaterialIcons
-                        name="check"
-                        size={scale(25)}
-                        color={currentTheme.iconColorPink}
-                      />
-                    )}
+                        <MaterialIcons
+                          name="check"
+                          size={scale(25)}
+                          color={currentTheme.iconColorPink}
+                        />
+                      )}
                   </View>
                 </View>
               )
             }}></Modalize>
         </View>
-        {/* <ActiveOrders/> */}
       </SafeAreaView>
     </>
   )
