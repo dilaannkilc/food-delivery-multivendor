@@ -16,8 +16,6 @@ import { Avatar } from "@mui/material";
 import OtpInput from "react-otp-input";
 import { Link as RouterLink } from "react-router-dom";
 import { sendOtpToPhoneNumber, updateUser } from "../../apollo/server";
-import { useTranslation } from 'react-i18next';
-import ConfigurableValues from "../../config/constants";
 
 const SEND_OTP_TO_PHONE = gql`
   ${sendOtpToPhoneNumber}
@@ -26,7 +24,6 @@ const UPDATEUSER = gql`
   ${updateUser}
 `;
 function VerifyPhone() {
-  const { t } = useTranslation();
   const theme = useTheme();
   const classes = useStyles();
   const [otp, setOtp] = useState("");
@@ -39,7 +36,6 @@ function VerifyPhone() {
     Math.floor(100000 + Math.random() * 900000).toString()
   );
   const { profile } = useContext(UserContext);
-  const { SKIP_MOBILE_VERIFICATION } = ConfigurableValues()
 
   const [sendOtp, { loading: loadingOtp }] = useMutation(SEND_OTP_TO_PHONE, {
     onCompleted: onOtpCompleted,
@@ -109,7 +105,7 @@ function VerifyPhone() {
   });
 
   const onCodeFilled = async (code) => {
-    if (SKIP_MOBILE_VERIFICATION || code === otpFrom) {
+    if (code === otpFrom) {
       mutate({
         variables: {
           name: profile.name,
@@ -117,7 +113,7 @@ function VerifyPhone() {
           phoneIsVerified: true,
         },
       });
-      navigate(-1, {
+      navigate("/", {
         replace: true,
       });
     } else {
@@ -160,14 +156,15 @@ function VerifyPhone() {
         </Box>
       </Box>
       <Typography variant="h5" className={classes.font700}>
-        {t('verifyPhone')} <br /> {t('number')}
+        Verify your phone <br /> number?
       </Typography>
       <Box mt={theme.spacing(1)} />
       <Typography
         variant="caption"
         className={`${classes.caption} ${classes.fontGrey}`}
       >
-        {t('enterOtp')}
+        Please enter the otp we sent to your <br />
+        phone number
       </Typography>
       <Box display="flex">
         <Box m="auto">
@@ -187,19 +184,18 @@ function VerifyPhone() {
               margin: 5,
               borderRadius: 5,
               fontSize: theme.typography.h2,
-              border: `1px solid ${theme.palette.grey[400]}`,
+              border: "none",
               boxShadow: theme.shadows[3],
             }}
             focusStyle={{
               outlineColor: theme.palette.grey[900],
             }}
             editable
-            renderInput={(props) => <input {...props} />}
           />
           <Box mt={2} />
           {otpError && (
             <Typography variant={"h6"} style={{ color: "red", fontSize: 14 }}>
-              {t('invalidCode')}
+              Invalid code, please check and enter again
             </Typography>
           )}
         </Box>
@@ -224,13 +220,13 @@ function VerifyPhone() {
             variant="caption"
             className={`${classes.caption} ${classes.font700}`}
           >
-            {t('resendCode')}
+            Resend Code
           </Typography>
         )}
       </Button>
       <Box mt={theme.spacing(2)} />
       <Typography variant="caption" className={`${classes.caption}`}>
-        {seconds !== 0 ? `${t('retryAfter')} ${seconds}s` : ""}
+        {seconds !== 0 ? `Retry after ${seconds}s` : ""}
       </Typography>
       <Box mt={theme.spacing(2)} />
       <RouterLink to="/" style={{ textDecoration: "none" }}>
@@ -239,7 +235,7 @@ function VerifyPhone() {
           color="primary"
           className={`${classes.caption}`}
         >
-          {t('skipNow')}
+          {"Skip now"}
         </Typography>
       </RouterLink>
     </LoginWrapper>

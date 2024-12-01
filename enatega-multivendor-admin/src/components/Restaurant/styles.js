@@ -6,10 +6,11 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row'
   },
   container: {
+    // backgroundColor: 'red',
     backgroundColor: theme.palette.background.primary,
     margin: '30px 0',
     borderRadius: 20,
-    boxShadow: `0px 0px 38px ${theme.palette.common.blackShade})`,
+    boxShadow: '0px 0px 38px rgba(0, 0, 0, 0.06)',
     textAlign: 'center',
     paddingBottom: 5
   },
@@ -38,13 +39,6 @@ const useStyles = makeStyles(theme => ({
   form: {
     margin: 25,
     alignItems: 'center'
-  },
-  labelText: {
-    textAlign: 'left',
-    marginLeft: '4%',
-    fontSize: '15px',
-    fontWeight: '500',
-    marginTop: '10px'
   },
   image: {
     width: 120,

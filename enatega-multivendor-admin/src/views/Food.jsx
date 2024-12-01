@@ -27,7 +27,6 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import TableHeader from '../components/TableHeader'
 import Alert from '../components/Alert'
-import ConfigurableValues from '../config/constants'
 
 const GET_FOODS = gql`
   ${getRestaurantDetail}
@@ -36,8 +35,6 @@ const DELETE_FOOD = gql`
   ${deleteFood}
 `
 const Food = props => {
-  const { t } = props
-  const {PAID_VERSION} = ConfigurableValues()
   const [editModal, setEditModal] = useState(false)
   const [food, setFood] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
@@ -45,7 +42,7 @@ const Food = props => {
   const onChangeSearch = e => setSearchQuery(e.target.value)
   const restaurantId = localStorage.getItem('restaurantId')
 
-  const [mutate, { loading }] = useMutation(DELETE_FOOD, {
+  const [/*mutate*/, { loading }] = useMutation(DELETE_FOOD, {
     refetchQueries: [{ query: GET_FOODS, variables: { id: restaurantId } }]
   })
   const { data, error: errorQuery, loading: loadingQuery, refetch } = useQuery(
@@ -59,9 +56,6 @@ const Food = props => {
   const toggleModal = food => {
     setEditModal(!editModal)
     setFood(food)
-  }
-  const closeEditModal = () => {
-    setEditModal(false)
   }
 
   const propExists = (obj, path) => {
@@ -83,40 +77,40 @@ const Food = props => {
 
   const columns = [
     {
-      name: t('Title'),
+      name: 'Title',
       selector: 'title',
       sortable: true
     },
     {
-      name: t('Description'),
+      name: 'Description',
       sortable: true,
       selector: 'description',
       cell: row => <>{transformToNewline(row.description, 3)}</>
     },
     {
-      name: t('Category'),
+      name: 'Category',
       sortable: true,
       selector: 'category.category',
       cell: row => <>{row.category}</>
     },
     {
-      name: t('Image'),
+      name: 'Image',
       cell: row => (
         <>
-          <img
-            className="img-responsive"
-            style={{ width: 30, height: 30, borderRadius: 15 }}
-            src={
-              row.image ||
-              'https://enatega.com/wp-content/uploads/2023/11/man-suit-having-breakfast-kitchen-side-view.webp'
-            }
-            alt={row.image ? 'img menu' : 'Default Image'}
-          />
+          {!!row.image && (
+            <img
+              className="img-responsive"
+              style={{ width: 30, height: 30, borderRadius: 15 }}
+              src={row.image}
+              alt="img menu"
+            />
+          )}
+          {!row.image && 'No Image'}
         </>
       )
     },
     {
-      name: t('Action'),
+      name: 'Action',
       cell: row => <>{actionButtons(row)}</>
     }
   ]
@@ -151,44 +145,40 @@ const Food = props => {
               <MenuItem
                 onClick={e => {
                   e.preventDefault()
-                  if(PAID_VERSION)
-                  toggleModal(row)
-                else{
+                  //uncomment this for paid version
+                  //toggleModal(row)
                   setIsOpen(true)
                   setTimeout(() => {
                     setIsOpen(false)
                   }, 5000)
-                }
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
                   <EditIcon fontSize="small" style={{ color: 'green' }} />
                 </ListItemIcon>
-                <Typography color="green">{t('Edit')}</Typography>
+                <Typography color="green">Edit</Typography>
               </MenuItem>
               <MenuItem
                 onClick={e => {
                   e.preventDefault()
-                  if(PAID_VERSION)
-                  mutate({
-                    variables: {
-                      id: row._id,
-                      restaurant: restaurantId,
-                      categoryId: row.categoryId
-                    }
-                  })
-                  else{
+                  //uncomment this for paid version
+                  // mutate({
+                  //   variables: {
+                  //     id: row._id,
+                  //     restaurant: restaurantId,
+                  //     categoryId: row.categoryId
+                  //   }
+                  // })
                   setIsOpen(true)
                   setTimeout(() => {
                     setIsOpen(false)
                   }, 5000)
-                }
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
                   <DeleteIcon fontSize="small" style={{ color: 'red' }} />
                 </ListItemIcon>
-                <Typography color="red">{t('Delete')}</Typography>
+                <Typography color="red">Delete</Typography>
               </MenuItem>
             </Menu>
           </Paper>
@@ -232,12 +222,12 @@ const Food = props => {
     searchQuery.length < 3
       ? foodsList(data && data.restaurant.categories)
       : foodsList(data && data.restaurant.categories).filter(food => {
-          return (
-            food.title.toLowerCase().search(regex) > -1 ||
+        return (
+          food.title.toLowerCase().search(regex) > -1 ||
             food.description.toLowerCase().search(regex) > -1 ||
             food.category.toLowerCase().search(regex) > -1
-          )
-        })
+        )
+      })
   const globalClasses = useGlobalStyles()
 
   return (
@@ -245,8 +235,11 @@ const Food = props => {
       <Header />
       {/* Page content */}
       {isOpen && (
-        <Alert message={t('AvailableAfterPurchasing')} severity="warning" />
-      )}
+            <Alert
+              message="This feature will available after purchasing product"
+              severity="warning"
+              />
+          )}
       <Container className={globalClasses.flex} fluid>
         <FoodComponent />
         {errorQuery && <span>`Error! ${errorQuery.message}`</span>}
@@ -262,7 +255,7 @@ const Food = props => {
                 onClick={() => refetch()}
               />
             }
-            title={<TableHeader title={t('Food')} />}
+            title={<TableHeader title="Food" />}
             columns={columns}
             data={data && data.restaurant ? filtered : {}}
             pagination
@@ -285,7 +278,7 @@ const Food = props => {
             marginLeft: '13%',
             overflowY: 'auto'
           }}>
-          <FoodComponent food={food} onClose={closeEditModal} />
+          <FoodComponent food={food} />
         </Modal>
       </Container>
     </>

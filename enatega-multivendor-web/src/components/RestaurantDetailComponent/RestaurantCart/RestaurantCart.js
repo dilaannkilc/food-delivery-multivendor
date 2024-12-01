@@ -16,12 +16,8 @@ function RestaurantCart(props) {
           background: "#fafafa",
         }}
       >
-        <Box style={{ position: "sticky", top: "100px", padding: "0px 5px" }}>
-          {!cart.length ? (
-            <EmptyView showMessage={props.showMessage} />
-          ) : (
-            <CartView showMessage={props.showMessage} />
-          )}
+        <Box style={{ position: "sticky", top: "175px" }}>
+          {!cart.length ? <EmptyView showMessage={props.showMessage} /> : <CartView showMessage={props.showMessage} />}
         </Box>
       </Grid>
     </Hidden>
