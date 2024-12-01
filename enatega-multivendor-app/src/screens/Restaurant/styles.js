@@ -4,6 +4,7 @@ import { alignment } from '../../utils/alignment'
 import { textStyles } from '../../utils/textStyles'
 import { theme } from '../../utils/themeColors'
 
+
 const styles = (props = null) =>
   StyleSheet.create({
     flex: {
@@ -25,33 +26,29 @@ const styles = (props = null) =>
     },
     sectionHeaderText: {
       textTransform: 'capitalize',
-      ...alignment.PLmedium,
+      ...alignment.PLlarge,
       ...alignment.PTlarge,
       fontSize: scale(18),
       fontWeight: '600'
     },
-    popularItemCards: {
-      ...alignment.PTlarge,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      paddingLeft: scale(17),
-      paddingRight: scale(17),
-      justifyContent: 'space-between',
-      rowGap: scale(10)
+    popularItemCards:{
+      // ...alignment.PLlarge,
+      // ...alignment.PTlarge,
     },
     deal: {
       width: '80%',
       flexDirection: 'row',
       backgroundColor: props != null ? props.themeBackground : 'white',
       alignItems: 'center',
-      gap: scale(5)
+      gap:scale(5)
     },
     dealSection: {
       // position: 'relative',
       backgroundColor: props != null ? props.themeBackground : 'white',
-      paddingVertical: scale(10),
-      ...alignment.PRmedium,
-      ...alignment.PLsmall
+      ...alignment.PRsmall,
+      ...alignment.PLsmall,
+
+      paddingVertical: scale(10)
     },
     dealDescription: {
       backgroundColor: props != null ? props.themeBackground : 'white',
@@ -70,7 +67,7 @@ const styles = (props = null) =>
       maxWidth: '100%',
       ...alignment.MRxSmall
     },
-
+    
     headerText: {
       fontSize: 18,
       paddingTop: scale(5),
