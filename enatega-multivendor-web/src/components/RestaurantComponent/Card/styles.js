@@ -1,4 +1,4 @@
-import makeStyles from "@mui/styles/makeStyles";
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyle = makeStyles((theme) => ({
   imageContainer: {
@@ -6,14 +6,12 @@ const useStyle = makeStyles((theme) => ({
     height: "144px",
     position: "relative",
     overflow: "hidden",
-    borderRadius: 15,
   },
   imgContainer: {
     backgroundSize: "cover",
     backgroundPositionX: "50%",
     backgroundPositionY: "center",
     transition: "transform 0.2s",
-    height: "100%",
     "&:hover": {
       transform: "scale(1.1)",
     },
@@ -23,16 +21,13 @@ const useStyle = makeStyles((theme) => ({
     fontSize: "0.5rem",
     textAlign: "center",
     lineHeight: "normal",
-    display: "inline",
-    fontWeight: 700,
   },
   timeContainer: {
     padding: "5px 10px",
     backgroundColor: theme.palette.primary.light,
     position: "absolute",
-    left: "10px",
-    top: "10px",
-    borderRadius: "0.75rem",
+    right: "0px",
+    top: "0px",
   },
   offText: {
     textAlign: "center",
@@ -50,13 +45,11 @@ const useStyle = makeStyles((theme) => ({
   },
   totalRatingText: {
     color: theme.palette.text.disabled,
-    fontSize: "0.875rem",
   },
   subDescription: {
     color: theme.palette.text.disabled,
     overflow: "hidden",
     fontSize: "0.875rem",
-    flex: 0.9,
   },
   priceText: {
     fontWeight: 700,
@@ -72,26 +65,8 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: "18px",
     backgroundColor: theme.palette.common.white,
     position: "absolute",
-    top: "10px",
-    right: "10px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    "&:hover": {
-      backgroundColor: theme.palette.common.white,
-    },
-    "&:disabled": {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
-  smallHeartBtn: {
-    minWidth: "30px",
-    height: "30px",
-    borderRadius: "18px",
-    backgroundColor: theme.palette.common.white,
-    position: "absolute",
-    top: "10px",
-    right: "10px",
+    bottom: "5px",
+    right: "5px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -103,27 +78,8 @@ const useStyle = makeStyles((theme) => ({
     },
   },
   card: {
-    backgroundColor: "white",
+    backgroundColor: "transparent",
     boxShadow: theme.shadows[0],
-    borderRadius: 25,
-    padding: 8,
-  },
-  icon: {
-    color: "black",
-  },
-  row: {
-    marginTop: 10,
-    width: "90%",
-    margin: "auto",
-  },
-  largeWidth: {
-    minWidth: "200px",
-  },
-  smallWidth: {
-    width: "200px",
-    [theme.breakpoints.down("md")]: {
-      width: "150px",
-    },
   },
 }));
 

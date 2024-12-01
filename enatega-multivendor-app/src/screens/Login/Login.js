@@ -16,7 +16,7 @@ import { alignment } from '../../utils/alignment'
 import { FontAwesome } from '@expo/vector-icons'
 import { useLogin } from './useLogin'
 import screenOptions from './screenOptions'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 function Login(props) {
   const {
@@ -101,6 +101,7 @@ function Login(props) {
                       emailError !== null ? styles(currentTheme).errorInput : {}
                     ]}
                     placeholderTextColor={currentTheme.fontSecondColor}
+                    //defaultValue={email}
                     onChangeText={handleEmailChange}
                     keyboardType="email-address"
                     autoCompleteType="email"

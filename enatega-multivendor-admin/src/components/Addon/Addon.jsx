@@ -13,8 +13,7 @@ import {
   Button,
   Grid,
   Checkbox,
-  FormControlLabel,
-  useTheme
+  FormControlLabel
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
@@ -32,8 +31,6 @@ const EDIT_ADDON = gql`
 `
 
 function Addon(props) {
-  const theme = useTheme()
-  const { t } = props
   const restaurantId = localStorage.getItem('restaurantId')
   const onCompleted = ({ createAddons, editAddon }) => {
     if (createAddons) {
@@ -50,45 +47,45 @@ function Addon(props) {
           quantityMaximumError: false
         }
       ])
-      successSetter(t('Saved'))
+      successSetter('Saved')
       mainErrorSetter('')
     }
     if (editAddon) {
-      successSetter(t('Saved'))
+      successSetter('Saved')
       mainErrorSetter('')
     }
-    setTimeout(onDismiss, 3000)
+    setTimeout(onDismiss, 5000)
   }
   const onError = error => {
-    mainErrorSetter(` ${t('errorWhileSaving')} ${error}`)
+    mainErrorSetter(`An error occured while saving,Try again ${error}`)
     successSetter('')
-    setTimeout(onDismiss, 3000)
+    setTimeout(onDismiss, 5000)
   }
   const [addon, addonSetter] = useState(
     props.addon
       ? [
-          {
-            ...props.addon,
-            options: props.addon.options,
-            titleError: false,
-            optionsError: false,
-            quantityMinimumError: false,
-            quantityMaximumError: false
-          }
-        ]
+        {
+          ...props.addon,
+          options: props.addon.options,
+          titleError: false,
+          optionsError: false,
+          quantityMinimumError: false,
+          quantityMaximumError: false
+        }
+      ]
       : [
-          {
-            title: '',
-            description: '',
-            quantityMinimum: 0,
-            quantityMaximum: 1,
-            options: [],
-            titleError: false,
-            optionsError: false,
-            quantityMinimumError: false,
-            quantityMaximumError: false
-          }
-        ]
+        {
+          title: '',
+          description: '',
+          quantityMinimum: 0,
+          quantityMaximum: 1,
+          options: [],
+          titleError: false,
+          optionsError: false,
+          quantityMinimumError: false,
+          quantityMaximumError: false
+        }
+      ]
   )
   const [modal, modalSetter] = useState(false)
   const [addonIndex, addonIndexSetter] = useState(0)
@@ -222,7 +219,7 @@ function Addon(props) {
           item
           className={props.addon ? classes.headingBlack : classes.heading}>
           <Typography variant="h6" className={classes.text}>
-            {t('Addons')}
+            Addons
           </Typography>
         </Box>
       </Box>
@@ -231,11 +228,11 @@ function Addon(props) {
         {addon.map((addonItem, index) => (
           <Box key={index}>
             <Box>
-              <label>{t('AddRemoveAddon')}</label>
+              <label>Add/Remove Addon</label>
               <RemoveIcon
                 style={{
-                  backgroundColor: theme.palette.common.black,
-                  color: theme.palette.warning.dark,
+                  backgroundColor: '#000',
+                  color: '#90EA93',
                   borderRadius: '50%',
                   marginLeft: 12,
                   marginRight: 10
@@ -246,8 +243,8 @@ function Addon(props) {
               />
               <AddIcon
                 style={{
-                  backgroundColor: theme.palette.warning.dark,
-                  color: theme.palette.common.black,
+                  backgroundColor: '#90EA93',
+                  color: '#000',
                   borderRadius: '50%'
                 }}
                 onClick={() => {
@@ -255,11 +252,9 @@ function Addon(props) {
                 }}
               />
             </Box>
-            <Typography className={classes.labelText}>{t('Title')}</Typography>
             <Input
-              style={{ marginTop: -1 }}
               id="input-title"
-              placeholder={t('Title')}
+              placeholder="Title"
               type="text"
               value={addonItem.title}
               onChange={event => {
@@ -271,13 +266,9 @@ function Addon(props) {
                 addonItem.titleError === true ? globalClasses.inputError : ''
               ]}
             />
-            <Typography className={classes.labelText}>
-              {t('Description')}
-            </Typography>
             <Input
-              style={{ marginTop: -1 }}
               id="input-description"
-              placeholder={t('Description')}
+              placeholder="Description"
               type="text"
               value={addonItem.description || ''}
               onChange={event => {
@@ -291,13 +282,9 @@ function Addon(props) {
                   : ''
               ]}
             />
-            <Typography className={classes.labelText}>
-              {t('MinQuantity')}
-            </Typography>
             <Input
-              style={{ marginTop: -1 }}
               id="input-minimum"
-              placeholder={t('MinimumQuantity')}
+              placeholder="Minimum Quantity"
               type="number"
               value={addonItem.quantityMinimum}
               onChange={event => {
@@ -311,13 +298,9 @@ function Addon(props) {
                   : ''
               ]}
             />
-            <Typography className={classes.labelText}>
-              {t('MaxQuantity')}
-            </Typography>
             <Input
-              style={{ marginTop: -1 }}
               id="input-maximum"
-              placeholder={t('MaximumQuantity')}
+              placeholder="Maximum quantity"
               type="number"
               value={addonItem.quantityMaximum}
               onChange={event => {
@@ -335,7 +318,7 @@ function Addon(props) {
               <Box className={classes.flexRow}>
                 <Box item className={classes.heading}>
                   <Typography variant="p" className={classes.text}>
-                    {t('Options')}
+                    Options
                   </Typography>
                 </Box>
               </Box>
@@ -371,7 +354,7 @@ function Addon(props) {
               <Button
                 className={classes.button}
                 onClick={() => toggleModal(index)}>
-                {t('NewOption')}
+                New Option
               </Button>
             </Box>
           </Box>
@@ -384,49 +367,45 @@ function Addon(props) {
               if (validate()) {
                 props.addon
                   ? mutate({
-                      variables: {
-                        addonInput: {
-                          addons: {
-                            _id: props.addon._id,
-                            title: addon[0].title,
-                            description: addon[0].description,
-                            options: addon[0].options,
-                            quantityMinimum: +addon[0].quantityMinimum,
-                            quantityMaximum: +addon[0].quantityMaximum
-                          },
-                          restaurant: restaurantId
-                        }
+                    variables: {
+                      addonInput: {
+                        addons: {
+                          _id: props.addon._id,
+                          title: addon[0].title,
+                          description: addon[0].description,
+                          options: addon[0].options,
+                          quantityMinimum: +addon[0].quantityMinimum,
+                          quantityMaximum: +addon[0].quantityMaximum
+                        },
+                        restaurant: restaurantId
                       }
-                    })
+                    }
+                  })
                   : mutate({
-                      variables: {
-                        addonInput: {
-                          addons: addon.map(
-                            ({
-                              title,
-                              description,
-                              options,
-                              quantityMinimum,
-                              quantityMaximum
-                            }) => ({
-                              title,
-                              description,
-                              options,
-                              quantityMinimum: +quantityMinimum,
-                              quantityMaximum: +quantityMaximum
-                            })
-                          ),
-                          restaurant: restaurantId
-                        }
+                    variables: {
+                      addonInput: {
+                        addons: addon.map(
+                          ({
+                            title,
+                            description,
+                            options,
+                            quantityMinimum,
+                            quantityMaximum
+                          }) => ({
+                            title,
+                            description,
+                            options,
+                            quantityMinimum: +quantityMinimum,
+                            quantityMaximum: +quantityMaximum
+                          })
+                        ),
+                        restaurant: restaurantId
                       }
-                    })
-                // Close the modal after 3 seconds by calling the parent's onClose callback
-                setTimeout(() => {
-                  props.onClose() // Close the modal
-                }, 4000)
+                    }
+                  })
               }
             }}>
-            {t('Save')}
+            SAVE
           </Button>
         </Box>
         <Box mt={2}>
