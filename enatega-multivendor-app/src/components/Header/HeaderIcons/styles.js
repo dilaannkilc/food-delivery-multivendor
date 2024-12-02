@@ -5,9 +5,9 @@ import { verticalScale, scale } from '../../../utils/scaling'
 const styles = backColor =>
   StyleSheet.create({
     leftIconPadding: {
-      ...alignment.PLsmall
-      // ...alignment.PTxSmall,
-      // ...alignment.PBxSmall
+      ...alignment.PLsmall,
+      ...alignment.PTxSmall,
+      ...alignment.PBxSmall
     },
     rightContainer: {
       position: 'relative',

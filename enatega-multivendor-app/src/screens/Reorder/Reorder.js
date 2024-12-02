@@ -11,6 +11,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import styles from './styles'
 import UserContext from '../../context/User'
 import Analytics from '../../utils/analytics'
+
 import { scale } from '../../utils/scaling'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
@@ -29,9 +30,9 @@ function Reorder(props) {
   const inset = useSafeAreaInsets()
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.newheaderColor)
+      StatusBar.setBackgroundColor(currentTheme.headerBackground)
     }
-    StatusBar.setBarStyle('dark-content')
+    StatusBar.setBarStyle('light-content')
   })
   const [selectedItems, setItems] = useState([])
 
@@ -40,20 +41,19 @@ function Reorder(props) {
       title: t('previous'),
       headerRight: null,
       headerTitleAlign: 'center',
-      headerTitleStyle: {
-        color: '#000',
-        fontWeight: 'bold'
-      },
       headerTitleContainerStyle: {
-        marginTop: '2%',
+        marginTop: '1%',
         paddingLeft: scale(25),
         paddingRight: scale(25),
         height: '75%',
+        borderRadius: scale(10),
+        backgroundColor: currentTheme.black,
         marginLeft: 0
       },
       headerStyle: {
-        backgroundColor: currentTheme.white,
-        elevation: 0
+        backgroundColor: currentTheme.headerColor,
+        shadowColor: 'transparent',
+        shadowRadius: 0
       },
       headerTitleAlign: 'center',
       headerRight: null,
@@ -61,8 +61,8 @@ function Reorder(props) {
         <HeaderBackButton
           truncatedLabel=""
           backImage={() => (
-            <View>
-              <MaterialIcons name="arrow-back" size={30} color="black" />
+            <View style={styles().backButton}>
+              <Entypo name="cross" size={30} color="black" />
             </View>
           )}
           onPress={() => {
@@ -141,7 +141,7 @@ function Reorder(props) {
                     onPress={() => onSelect(index)}
                   />
                 </View>
-                <View style={{ width: '50%', justifyContent:'center' }}>
+                <View style={{ width: '50%' }}>
                   <TextDefault
                     numberOfLines={1}
                     textColor={currentTheme.fontMainColor}>
