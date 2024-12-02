@@ -6,7 +6,7 @@ import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import React, { useCallback, useEffect, useState } from "react";
 import GoogleLogin from "react-google-login";
-import ConfigurableValues from "../../config/constants";
+import { GOOGLE_CLIENT_ID } from "../../config/constants";
 import { Link as RouterLink } from "react-router-dom";
 import { useLocation } from "react-router";
 import GoogleIcon from "../../assets/icons/GoogleIcon";
@@ -14,14 +14,8 @@ import FlashMessage from "../../components/FlashMessage";
 import useRegistration from "../../hooks/useRegistration";
 import { LoginWrapper } from "../Wrapper";
 import useStyles from "./styles";
-import { useTranslation } from 'react-i18next';
 
 function Login() {
-
-  const { GOOGLE_CLIENT_ID } = ConfigurableValues();
-
-  const { t } = useTranslation();
-
   const theme = useTheme();
   const [mainError, setMainError] = useState({});
   const classes = useStyles();
@@ -74,14 +68,13 @@ function Login() {
         handleClose={toggleSnackbar}
       />
       <Typography variant="h5" className={classes.font700}>
-        {t('welcome')}
+        Welcome!
       </Typography>
-
       <Typography
         variant="caption"
         className={`${classes.caption} ${classes.fontSubHead} ${classes.font700} `}
       >
-        {t('signUpOrLogin')}
+        Sign up or log in to continue
       </Typography>
       <GoogleLogin
         clientId={GOOGLE_CLIENT_ID}
@@ -93,22 +86,18 @@ function Login() {
             className={`${classes.gButton} ${classes.btnBase}`}
             onClick={() => callGoogle(renderProps.onClick)}
             disabled={renderProps.disabled || loading}
-            startIcon={
-              renderProps.disabled || loading ? (
-                <CircularProgress color="secondary" size={24} />
-              ) : (
-                <GoogleIcon />
-              )
-            }
+            startIcon={loading ? null : <GoogleIcon />}
           >
-            {loading && loginButton === "GOOGLE" ? null : (
+            {loading && loginButton === "GOOGLE" ? (
+              <CircularProgress color="secondary" />
+            ) : (
               <Typography
                 variant="caption"
                 color="textPrimary"
                 align="center"
                 className={`${classes.font700} ${classes.caption} ${classes.btnText}`}
               >
-                {t('signInWithGoogle')}
+                CONTINUE WITH GOOGLE
               </Typography>
             )}
           </Button>
@@ -140,7 +129,7 @@ function Login() {
             variant="caption"
             className={`${classes.fontGrey} ${classes.caption} ${classes.font700} `}
           >
-            {t('or')}
+            or
           </Typography>
           <div className={classes.line}></div>
         </div>
@@ -165,7 +154,7 @@ function Login() {
             color="secondary"
             className={`${classes.font700} ${classes.caption}`}
           >
-            {t('continueWithEmail')}
+            CONTINUE WITH EMAIL
           </Typography>
         </Button>
       </RouterLink>
@@ -182,24 +171,24 @@ function Login() {
           variant="caption"
           className={`${classes.fontGrey} ${classes.caption} `}
         >
-          {t('bySigningUp')}
+          {"By signing up, you agree to our "}
           <RouterLink to="/terms" style={{ textDecoration: "none" }}>
             <Typography
               variant="caption"
               color="primary"
               className={`${classes.font700} ${classes.caption}`}
             >
-              {t('terms')}
+              Terms and Conditions
             </Typography>
           </RouterLink>
-          {t('and')}
+          {" and "}
           <RouterLink to="/privacy" style={{ textDecoration: "none" }}>
             <Typography
               variant="caption"
               color="primary"
               className={`${classes.font700} ${classes.caption}`}
             >
-              {t('privacyPolicy')}
+              Privacy Policy
             </Typography>
           </RouterLink>
         </Typography>
