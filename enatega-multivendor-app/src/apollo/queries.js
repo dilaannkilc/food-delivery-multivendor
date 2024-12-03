@@ -160,6 +160,7 @@ export const myOrders = `query Orders($offset:Int){
     taxationAmount
     createdAt
     completionTime
+    preparationTime
     orderDate
     expectedTime
     isPickedUp
@@ -216,10 +217,6 @@ export const restaurantList = `query Restaurants($latitude:Float,$longitude:Floa
       deliveryTime
       minimumOrder
       tax
-      distanceWithCurrentLocation @client
-      freeDelivery @client
-      acceptVouchers @client
-      cuisines
       reviewData{
           total
           ratings
@@ -355,14 +352,6 @@ export const restaurant = `query Restaurant($id:String){
         endTime
       }
     }
-  }
-}`
-
-export const getCuisines = `query Cuisines{
-  cuisines {
-    _id
-    name
-    description
   }
 }`
 
@@ -524,6 +513,7 @@ export const orderFragment = `fragment NewOrder on Order {
   taxationAmount
   createdAt
   completionTime
+  preparationTime
   deliveryCharges
   acceptedAt
   pickedAt
@@ -1054,3 +1044,10 @@ export const food = `fragment FoodItem on Food{
 }
 `
 
+export const popularItems = `query PopularItems($restaurantId: String!) {
+  popularItems(restaurantId: $restaurantId) {
+    id
+    count
+  }
+}
+`

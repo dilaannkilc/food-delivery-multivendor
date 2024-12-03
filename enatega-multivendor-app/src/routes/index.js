@@ -108,9 +108,9 @@ function NoDrawer() {
         name="OrderDetail"
         component={OrderDetail}
         options={{
-          headerTransparent: true,
-          headerRight: null,
-          title: '',
+          // headerTransparent: true,
+          // headerRight: null,
+          // title: '',
           headerBackImage: () =>
             DarkBackButton({
               iconColor: currentTheme.backIcon,
@@ -212,9 +212,9 @@ function AppContainer() {
     if (
       lastNotificationResponse &&
       lastNotificationResponse.notification.request.content.data.type ===
-      'order' &&
+        'order' &&
       lastNotificationResponse.actionIdentifier ===
-      Notifications.DEFAULT_ACTION_IDENTIFIER
+        Notifications.DEFAULT_ACTION_IDENTIFIER
     ) {
       handleNotification(lastNotificationResponse)
     }
