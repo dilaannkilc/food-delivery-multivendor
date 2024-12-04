@@ -8,8 +8,7 @@ import { alignment } from '../../../utils/alignment'
 import screenOptions from '../screenOptions'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import useEmailOtp from './useEmailOtp'
-import { useTranslation } from 'react-i18next'
-import { SimpleLineIcons } from '@expo/vector-icons'
+import {useTranslation} from 'react-i18next'
 
 function EmailOtp(props) {
   const {
@@ -24,7 +23,7 @@ function EmailOtp(props) {
     currentTheme,
     themeContext
   } = useEmailOtp()
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   useLayoutEffect(() => {
     props.navigation.setOptions(
       screenOptions({
@@ -47,20 +46,30 @@ function EmailOtp(props) {
       <View style={styles(currentTheme).mainContainer}>
         <View style={styles().subContainer}>
           <View style={styles().logoContainer}>
-            <SimpleLineIcons name="screen-smartphone" size={48} color="black" />
+            <Image
+              source={require('../../../../assets/login-icon.png')}
+              style={styles().logoContainer}
+            />
           </View>
           <View>
             <TextDefault
               H3
               bolder
-              textColor={currentTheme.black}
+              textColor={currentTheme.fontSecondColor}
               style={{
+                textAlign: 'center',
                 ...alignment.MTlarge,
                 ...alignment.MBmedium
               }}>
               {t('verifyEmail')}
             </TextDefault>
-            <TextDefault H5 bold textColor={currentTheme.fontSecondColor}>
+            <TextDefault
+              H5
+              bold
+              textColor={currentTheme.fontSecondColor}
+              style={{
+                textAlign: 'center'
+              }}>
               {t('otpSentToEmail')}
             </TextDefault>
           </View>
@@ -104,21 +113,20 @@ function EmailOtp(props) {
                 ]}
                 disabled={seconds !== 0}
                 onPress={() => resendOtp()}>
-                {seconds !== 0 ? (
-                  <TextDefault center H4 bold style={alignment.MTsmall}>
-                    {seconds === 0 ? '' : `Retry after ${seconds}s`}
-                  </TextDefault>
-                ) : (
-                  <TextDefault
-                    H4
-                    textColor={currentTheme.black}
-                    style={alignment.MLsmall}
-                    bold>
-                    {t('resendBtn')}
-                  </TextDefault>
-                )}
+                <TextDefault
+                  H4
+                  textColor={currentTheme.buttonTextPink}
+                  style={alignment.MLsmall}
+                  bold>
+                  {t('resendBtn')}
+                </TextDefault>
               </TouchableOpacity>
             )}
+          </View>
+          <View style={alignment.MBxSmall}>
+            <TextDefault center H4 bold style={alignment.MTsmall}>
+              {seconds === 0 ? '' : `Retry after ${seconds}s`}
+            </TextDefault>
           </View>
         </View>
       </View>

@@ -97,20 +97,21 @@ function NewAddress(props) {
     props.navigation.setOptions({
       headerRight: null,
       title: t('addAddress'),
-      headerTitleStyle: {
-        color: '#000',
-        fontWeight: 'bold'
+      headerStyle: {
+        backgroundColor: currentTheme.headerBackground,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20
       },
       headerTitleContainerStyle: {
-        marginTop: '2%',
-        paddingLeft: scale(25),
-        paddingRight: scale(25),
+        marginTop: '1%',
+        marginLeft: '10%',
+        paddingLeft: scale(20),
+        paddingRight: scale(20),
         height: '75%',
-        marginLeft: 0
-      },
-      headerStyle: {
-        backgroundColor: currentTheme.white,
-        elevation: 1
+        borderRadius: scale(10),
+        backgroundColor: currentTheme.black,
+        borderColor: currentTheme.white,
+        borderWidth: 1
       },
       headerTitleAlign: 'center',
       headerRight: null,
@@ -118,7 +119,7 @@ function NewAddress(props) {
         <HeaderBackButton
           truncatedLabel=""
           backImage={() => (
-            <View>
+            <View style={styles(currentTheme).headerBackBtnContainer}>
               <MaterialIcons name="arrow-back" size={30} color="black" />
             </View>
           )}

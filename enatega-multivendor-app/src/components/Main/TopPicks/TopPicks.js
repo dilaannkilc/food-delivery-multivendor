@@ -27,12 +27,11 @@ function TopPicks(props) {
   })
 
   const { t } = useTranslation()
-  const { isLoggedIn, profile } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
 
-  if (loading) return <Text>Loading...</Text>
-  if (error) return <Text>Error: {error.message}</Text>
+  if (loading) return <Text style={styles().margin}>Loading...</Text>
+  if (error) return <Text style={styles().margin}>Error: {error.message}</Text>
 
   // console.log(isLoggedIn, loading, error, data)
   return (
@@ -41,9 +40,6 @@ function TopPicks(props) {
         <TextDefault
           numberOfLines={1}
           textColor={currentTheme.fontFourthColor}
-          style={{
-            ...alignment.MLlarge
-          }}
           bolder
           H4>
           Top Picks for you
@@ -51,12 +47,9 @@ function TopPicks(props) {
         <TextDefault
           Normal
           textColor={currentTheme.secondaryText}
-          style={[
-            styles().ItemDescription,
-            {
-              ...alignment.MLlarge
-            }
-          ]}>
+          style={
+            styles().ItemDescription
+            }>
           Most ordered right now.
         </TextDefault>
         <FlatList
