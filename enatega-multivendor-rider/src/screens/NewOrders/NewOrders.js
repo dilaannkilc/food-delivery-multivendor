@@ -14,11 +14,10 @@ import LottieView from 'lottie-react-native'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
 import { NetworkStatus } from '@apollo/client'
+const { height, width } = Dimensions.get('window')
 import i18next from '../../../i18next'
 import {useTranslation} from 'react-i18next'
 
-
-const { height, width } = Dimensions.get('window')
 const NewOrders = ({ navigation }) => {
   const {t} = useTranslation()
   const { setActive } = useContext(TabsContext)
@@ -84,8 +83,7 @@ const NewOrders = ({ navigation }) => {
                 }}>
                 <LottieView
                   style={{
-                    width: width-100,
-                    height: 250
+                    width: width - 100
                   }}
                   source={require('../../assets/loader.json')}
                   autoPlay

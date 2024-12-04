@@ -14,13 +14,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import clsx from "clsx";
 import React from "react";
 import useStyles from "./styles";
-import { useTranslation } from 'react-i18next';
 
 function ClearCart({ isVisible, toggleModal, action }) {
   const theme = useTheme();
   const classes = useStyles();
   const extraSmall = useMediaQuery(theme.breakpoints.down('md'));
-  const { t } = useTranslation()
+
   return (
     <Dialog
       onClose={toggleModal}
@@ -38,10 +37,10 @@ function ClearCart({ isVisible, toggleModal, action }) {
       <DialogTitle>
         <Box component="div">
           <Typography variant="h5" color="textSecondary" className={clsx(classes.boldText, classes.MB2)}>
-            {t('areYouSure')}
+            Are you sure?
           </Typography>
           <Typography variant="subtitle2" className={`${classes.disabledText} ${classes.lightText}`}>
-           {t('clearCartText')}
+            By changing restaurant, the items you`ve added to cart will be cleared
           </Typography>
         </Box>
       </DialogTitle>
@@ -59,12 +58,12 @@ function ClearCart({ isVisible, toggleModal, action }) {
             }}
           >
             <Typography variant="subtitle2" className={classes.boldText}>
-              {t('ok')}
+              Ok
             </Typography>
           </Button>
           <Button variant="outlined" color="primary" fullWidth className={classes.btnBase} onClick={toggleModal}>
             <Typography variant="subtitle2" color="primary" className={classes.boldText}>
-              {t('cancel')}
+              Cancel
             </Typography>
           </Button>
         </DialogActions>

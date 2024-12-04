@@ -12,8 +12,6 @@ import * as Notifications from 'expo-notifications'
 import analytics from '../../../utils/analytics'
 import AuthContext from '../../../context/Auth'
 import { useTranslation } from 'react-i18next'
-import ConfigurationContext from '../../../context/Configuration'
-import useEnvVars from '../../../../environment'
 
 const SEND_OTP_TO_EMAIL = gql`
   ${sendOtpToEmail}
@@ -22,12 +20,10 @@ const CREATEUSER = gql`
   ${createUser}
 `
 const useEmailOtp = () => {
-  const { TEST_OTP } = useEnvVars()
   const Analytics = analytics()
 
   const { t } = useTranslation()
   const navigation = useNavigation()
-  const configuration = useContext(ConfigurationContext)
   const route = useRoute()
   const [otp, setOtp] = useState('')
   const [otpError, setOtpError] = useState(false)
@@ -106,8 +102,10 @@ const useEmailOtp = () => {
   async function mutateRegister() {
     let notificationToken = null
     if (Device.isDevice) {
-      const { status } = await Notifications.requestPermissionsAsync()
-      if (status === 'granted') {
+      const {
+        status: existingStatus
+      } = await Notifications.getPermissionsAsync()
+      if (existingStatus === 'granted') {
         notificationToken = (await Notifications.getExpoPushTokenAsync()).data
       }
     }
@@ -124,7 +122,7 @@ const useEmailOtp = () => {
   }
 
   const onCodeFilled = code => {
-    if (configuration.skipEmailVerification || code === otpFrom.current) {
+    if (code === otpFrom.current) {
       mutateRegister()
     } else {
       setOtpError(true)
@@ -154,26 +152,9 @@ const useEmailOtp = () => {
   })
 
   useEffect(() => {
-    if (!configuration) return
-    if (!configuration.skipEmailVerification) {
-      otpFrom.current = Math.floor(100000 + Math.random() * 900000).toString()
-      mutate({ variables: { email: user.email, otp: otpFrom.current } })
-    }
-  }, [configuration])
-
-  useEffect(() => {
-    let timer = null
-    if (!configuration) return
-    if (configuration.skipEmailVerification) {
-      setOtp(TEST_OTP)
-      timer = setTimeout(() => {
-        onCodeFilled(TEST_OTP)
-      }, 3000)
-    }
-    return () => {
-      timer && clearTimeout(timer)
-    }
-  }, [configuration])
+    otpFrom.current = Math.floor(100000 + Math.random() * 900000).toString()
+    mutate({ variables: { email: user.email, otp: otpFrom.current } })
+  }, [])
 
   return {
     otp,

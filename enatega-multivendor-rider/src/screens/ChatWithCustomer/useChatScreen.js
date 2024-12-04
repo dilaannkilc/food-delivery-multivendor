@@ -67,7 +67,7 @@ export const useChatScreen = ({ navigation, route }) => {
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev
         return {
-          chat: [subscriptionData.data.subscriptionNewMessage, ...prev.chat]
+          chat: [...prev.chat, subscriptionData.data.subscriptionNewMessage]
         }
       }
     })
