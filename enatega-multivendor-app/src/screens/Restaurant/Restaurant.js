@@ -12,16 +12,17 @@ import {
   Platform,
   Image,
   Dimensions,
-  SectionList,
-  Text
+  SectionList
 } from 'react-native'
 import Animated, {
-  Extrapolate,
-  interpolateNode,
-  concat,
-  useValue,
-  EasingNode,
-  timing
+  Extrapolation,
+  interpolate,
+  useSharedValue,
+  Easing as EasingNode,
+  withTiming,
+  withRepeat,
+  useAnimatedStyle,
+  useAnimatedScrollHandler
 } from 'react-native-reanimated'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import {
@@ -42,15 +43,11 @@ import styles from './styles'
 import { DAYS } from '../../utils/enums'
 import { alignment } from '../../utils/alignment'
 import TextError from '../../components/Text/TextError/TextError'
-import { MaterialIcons, Ionicons } from '@expo/vector-icons'
+
 import analytics from '../../utils/analytics'
-import { gql, useApolloClient, useQuery } from '@apollo/client'
-import { popularItems, food } from '../../apollo/queries'
 
 const { height } = Dimensions.get('screen')
-
 import { useTranslation } from 'react-i18next'
-import ItemCard from '../../components/ItemCards/ItemCards'
 
 // Animated Section List component
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList)
@@ -59,23 +56,17 @@ const HEADER_MAX_HEIGHT = height * 0.3
 const HEADER_MIN_HEIGHT = height * 0.07 + TOP_BAR_HEIGHT
 const SCROLL_RANGE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
 const HALF_HEADER_SCROLL = HEADER_MAX_HEIGHT - TOP_BAR_HEIGHT
-const isPopular = 'Popular'
-const config = to => ({
+
+const config = (to) => ({
   duration: 250,
   toValue: to,
   easing: EasingNode.inOut(EasingNode.ease)
 })
 
-const POPULAR_ITEMS = gql`
-  ${popularItems}
-`
-const FOOD = gql`
-  ${food}
-`
-
+// const concat = (...args) => args.join('')
 function Restaurant(props) {
-  const { _id: restaurantId } = props.route.params
   const Analytics = analytics()
+
   const { t } = useTranslation()
   const scrollRef = useRef(null)
   const flatListRef = useRef(null)
@@ -83,11 +74,12 @@ function Restaurant(props) {
   const route = useRoute()
   const inset = useSafeAreaInsets()
   const propsData = route.params
-  console.log('propsData', propsData)
-  const animation = useValue(0)
-  const circle = useValue(0)
+  const animation = useSharedValue(0)
+  const translationY = useSharedValue(0)
+  const circle = useSharedValue(0)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
+
   const configuration = useContext(ConfigurationContext)
   const [selectedLabel, selectedLabelSetter] = useState(0)
   const [buttonClicked, buttonClickedSetter] = useState(false)
@@ -103,26 +95,6 @@ function Restaurant(props) {
   const { data, refetch, networkStatus, loading, error } = useRestaurant(
     propsData._id
   )
-  const client = useApolloClient()
-  const {
-    loading: loadingPopularItems,
-    error: errorPopularItems,
-    data: popularItems
-  } = useQuery(POPULAR_ITEMS, {
-    variables: { restaurantId }
-  })
-
-  const fetchFoodDetails = itemId => {
-    return client.readFragment({ id: `Food:${itemId}`, fragment: FOOD })
-  }
-
-  const dataList =
-    popularItems &&
-    popularItems?.popularItems?.map(item => {
-      const foodDetails = fetchFoodDetails(item.id)
-      return foodDetails
-    })
-
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
@@ -141,8 +113,8 @@ function Restaurant(props) {
   useEffect(() => {
     if (
       data &&
-      data.restaurant &&
-      (!data.restaurant.isAvailable || !isOpen())
+      data?.restaurant &&
+      (!data?.restaurant.isAvailable || !isOpen())
     ) {
       Alert.alert(
         '',
@@ -165,28 +137,36 @@ function Restaurant(props) {
     }
   }, [data])
 
-  const isOpen = () => {
-    if (data.restaurant.openingTimes.length < 1) return false
-    const date = new Date()
-    const day = date.getDay()
-    const hours = date.getHours()
-    const minutes = date.getMinutes()
-    const todaysTimings = data.restaurant.openingTimes.find(
-      o => o.day === DAYS[day]
-    )
-    if (todaysTimings === undefined) return false
-    const times = todaysTimings.times.filter(
-      t =>
-        hours >= Number(t.startTime[0]) &&
-        minutes >= Number(t.startTime[1]) &&
-        hours <= Number(t.endTime[0]) &&
-        minutes <= Number(t.endTime[1])
-    )
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    translationY.value = event.contentOffset.y
+  })
 
-    return times.length > 0
+  const isOpen = () => {
+    if (data) {
+      if (data?.restaurant?.openingTimes?.length < 1) return false
+      const date = new Date()
+      const day = date.getDay()
+      const hours = date.getHours()
+      const minutes = date.getMinutes()
+      const todaysTimings = data?.restaurant?.openingTimes?.find(
+        (o) => o.day === DAYS[day]
+      )
+      if (todaysTimings === undefined) return false
+      const times = todaysTimings.times.filter(
+        (t) =>
+          hours >= Number(t.startTime[0]) &&
+          minutes >= Number(t.startTime[1]) &&
+          hours <= Number(t.endTime[0]) &&
+          minutes <= Number(t.endTime[1])
+      )
+
+      return times?.length > 0
+    } else {
+      return false
+    }
   }
-  const onPressItem = async food => {
-    if (!data.restaurant.isAvailable || !isOpen()) {
+  const onPressItem = async (food) => {
+    if (!data?.restaurant.isAvailable || !isOpen()) {
       Alert.alert(
         '',
         'Restaurant Closed at the moment',
@@ -249,6 +229,7 @@ function Restaurant(props) {
     ) {
       await setCartRestaurant(food.restaurant)
       const result = checkItemCart(food._id)
+
       if (result.exist) await addQuantity(result.key)
       else await addCartItem(food._id, food.variations[0]._id, 1, [], clearFlag)
       animate()
@@ -276,7 +257,8 @@ function Restaurant(props) {
               textColor={currentTheme.fontWhite}
               bold
               small
-              center>
+              center
+            >
               {cartValue.quantity}
             </TextDefault>
           </>
@@ -286,24 +268,25 @@ function Restaurant(props) {
     return null
   }
 
+  const scaleValue = useSharedValue(1)
+
+  const scaleStyles = useAnimatedStyle(() => ({
+    transform: [{ scale: scaleValue.value }]
+  }))
+
   // button animation
   function animate() {
-    timing(circle, {
-      toValue: 1,
-      duration: 500,
-      easing: EasingNode.inOut(EasingNode.ease)
-    }).start()
-    circle.setValue(0)
+    scaleValue.value = withRepeat(withTiming(1.5, { duration: 250 }), 2, true)
   }
 
-  const scrollToSection = index => {
+  const scrollToSection = (index) => {
     if (scrollRef.current != null) {
       scrollRef.current.scrollToLocation({
         animated: true,
         sectionIndex: index,
-        itemIndex: 0
-        // viewOffset: -(HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT),
-        // viewPosition: 0
+        itemIndex: 0,
+        viewOffset: -(HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT),
+        viewPosition: 0
       })
     }
   }
@@ -316,7 +299,7 @@ function Restaurant(props) {
       scrollToNavbar(index)
     }
   }
-  function scrollToNavbar(value = 0) {
+  function scrollToNavbar(value) {
     if (flatListRef.current != null) {
       flatListRef.current.scrollToIndex({
         animated: true,
@@ -327,7 +310,7 @@ function Restaurant(props) {
   }
 
   function onViewableItemsChanged({ viewableItems }) {
-    if (viewableItems.length === 0) return
+    if (viewableItems?.length === 0) return
     if (
       selectedLabel !== viewableItems[0].section.index &&
       buttonClicked === false
@@ -336,110 +319,86 @@ function Restaurant(props) {
       scrollToNavbar(viewableItems[0].section.index)
     }
   }
-  // const onScrollEndSnapToEdge = event => {
-  //   const y = event.nativeEvent.contentOffset.y
-  //   if (y > 0 && y < HALF_HEADER_SCROLL / 2) {
-  //     if (scrollRef.current) {
-  //       timing(animation, config(0)).start(({ finished }) => {
-  //         if (finished) {
-  //           scrollRef.current.scrollToLocation({
-  //             animated: false,
-  //             sectionIndex: 0,
-  //             itemIndex: 0,
-  //             viewOffset: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT,
-  //             viewPosition: 0
-  //           })
-  //         }
-  //       })
-  //     }
-  //   } else if (HALF_HEADER_SCROLL / 2 <= y && y < HALF_HEADER_SCROLL) {
-  //     if (scrollRef.current) {
-  //       timing(animation, config(SCROLL_RANGE)).start(({ finished }) => {
-  //         if (finished) {
-  //           scrollRef.current.scrollToLocation({
-  //             animated: false,
-  //             sectionIndex: 0,
-  //             itemIndex: 0,
-  //             viewOffset: -(HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT),
-  //             viewPosition: 0
-  //           })
-  //         }
-  //       })
-  //     }
-  //   }
-  //   buttonClickedSetter(false)
-  // }
+  const onScrollEndSnapToEdge = (event) => {
+    event.persist()
+    const y = event.nativeEvent.contentOffset.y
 
-  // Important
-  const headerHeight = interpolateNode(animation, {
-    inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
-    outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
-    extrapolate: Extrapolate.CLAMP
-  })
+    if (y > 0 && y < HALF_HEADER_SCROLL / 2) {
+      if (scrollRef.current) {
+        withTiming(translationY.value, config(0), (finished) => {
+          if (finished) {
+            scrollRef.current.scrollToLocation({
+              animated: false,
+              sectionIndex: 0,
+              itemIndex: 0,
+              viewOffset: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT,
+              viewPosition: 0
+            })
+          }
+        })
+      }
+    } else if (HALF_HEADER_SCROLL / 2 <= y && y < HALF_HEADER_SCROLL) {
+      if (scrollRef.current) {
+        withTiming(translationY.value, config(SCROLL_RANGE), (finished) => {
+          if (finished) {
+            scrollRef.current.scrollToLocation({
+              animated: false,
+              sectionIndex: 0,
+              itemIndex: 0,
+              viewOffset: -(HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT),
+              viewPosition: 0
+            })
+          }
+        })
+      }
+    }
+    buttonClickedSetter(false)
+  }
 
-  // const opacity = interpolateNode(animation, {
-  //   inputRange: [0, height * 0.05, SCROLL_RANGE / 2],
-  //   outputRange: [1, 0.8, 0],
-  //   extrapolate: Extrapolate.CLAMP
-  // })
+  const circleSize = interpolate(
+    circle.value,
+    [0, 0.5, 1],
+    [scale(18), scale(24), scale(18)],
+    Extrapolation.CLAMP
+  )
+  const radiusSize = interpolate(
+    circle.value,
+    [0, 0.5, 1],
+    [scale(9), scale(12), scale(9)],
+    Extrapolation.CLAMP
+  )
 
-  const iconColor = currentTheme.iconColorPink
-
-  const iconBackColor = currentTheme.white
-
-  const iconRadius = scale(15)
-
-  const iconSize = scale(20)
-
-  const iconTouchHeight = scale(30)
-
-  const iconTouchWidth = scale(30)
-
-  // const headerTextFlex = concat(
-  //   interpolateNode(animation, {
-  //     inputRange: [0, 80, SCROLL_RANGE],
-  //     outputRange: [-10, -10, 0],
-  //     extrapolate: Extrapolate.CLAMP
-  //   }),
-  //   '%'
-  // )
-
-  const circleSize = interpolateNode(circle, {
-    inputRange: [0, 0.5, 1],
-    outputRange: [scale(18), scale(24), scale(18)],
-    extrapolate: Extrapolate.CLAMP
-  })
-  const radiusSize = interpolateNode(circle, {
-    inputRange: [0, 0.5, 1],
-    outputRange: [scale(9), scale(12), scale(9)],
-    extrapolate: Extrapolate.CLAMP
-  })
-  const fontChange = interpolateNode(circle, {
-    inputRange: [0, 0.5, 1],
-    outputRange: [scale(8), scale(12), scale(8)],
-    extrapolate: Extrapolate.CLAMP
+  const fontStyles = useAnimatedStyle(() => {
+    return {
+      fontSize: interpolate(
+        circle.value,
+        [0, 0.5, 1],
+        [8, 12, 8],
+        Extrapolation.CLAMP
+      )
+    }
   })
 
   if (loading) {
     return (
-      <View style={[styles().flex]}>
+      <Animated.View
+        style={[
+          styles().flex,
+          {
+            marginTop: inset.top,
+            paddingBottom: inset.bottom,
+            paddingTop: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT,
+            backgroundColor: currentTheme.headerMenuBackground
+          }
+        ]}
+      >
         <ImageHeader
-          iconColor={iconColor}
-          iconSize={iconSize}
-          height={headerHeight}
-          iconBackColor={iconBackColor}
-          iconRadius={iconRadius}
-          iconTouchWidth={iconTouchWidth}
-          iconTouchHeight={iconTouchHeight}
-          // headerTextFlex={headerTextFlex}
           restaurantName={propsData.name}
           restaurantImage={propsData.image}
           restaurant={null}
           topaBarData={[]}
           loading={loading}
-          minimumOrder={propsData.minimumOrder}
-          tax={propsData.tax}
-          updatedDeals={updatedDeals}
+          translationY={translationY}
         />
 
         <View
@@ -449,11 +408,12 @@ function Restaurant(props) {
             {
               paddingTop: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT - TOP_BAR_HEIGHT
             }
-          ]}>
+          ]}
+        >
           {Array.from(Array(10), (_, i) => (
             <Placeholder
               key={i}
-              Animation={props => (
+              Animation={(props) => (
                 <Fade
                   {...props}
                   style={{ backgroundColor: currentTheme.fontSecondColor }}
@@ -463,266 +423,161 @@ function Restaurant(props) {
               Left={PlaceholderMedia}
               style={{
                 padding: 12
-              }}>
+              }}
+            >
               <PlaceholderLine width={80} />
               <PlaceholderLine width={80} />
             </Placeholder>
           ))}
         </View>
-      </View>
+      </Animated.View>
     )
   }
   if (error) return <TextError text={JSON.stringify(error)} />
-  const restaurant = data.restaurant
-  const allDeals = restaurant.categories.filter(cat => cat.foods.length)
+  const restaurant = data && data.restaurant
+  const allDeals = restaurant.categories.filter((cat) => cat.foods.length)
   const deals = allDeals.map((c, index) => ({
     ...c,
     data: c.foods,
     index
   }))
 
-  const updatedDeals = [
-    {
-      title: 'Popular',
-      id: new Date().getTime(),
-      // data: []
-      data: dataList
-    },
-    ...deals
-  ]
-
-  console.log(
-    'updated deals in restaurant:',
-    JSON.stringify(updatedDeals, null, 2)
-  )
-
   return (
     <>
       <SafeAreaView style={styles(currentTheme).flex}>
-        <View style={styles(currentTheme).flex}>
+        <Animated.View style={styles(currentTheme).flex}>
           <ImageHeader
             ref={flatListRef}
-            iconColor={iconColor}
-            iconSize={iconSize}
-            height={headerHeight}
-            iconBackColor={iconBackColor}
-            iconRadius={iconRadius}
-            iconTouchWidth={iconTouchWidth}
-            iconTouchHeight={iconTouchHeight}
-            // headerTextFlex={headerTextFlex}
             restaurantName={propsData.name}
             restaurantImage={propsData.image}
             restaurant={data.restaurant}
-            topaBarData={updatedDeals}
+            topaBarData={deals}
             changeIndex={changeIndex}
             selectedLabel={selectedLabel}
-            minimumOrder={propsData.minimumOrder}
-            tax={propsData.tax}
-            updatedDeals={updatedDeals}
+            translationY={translationY}
           />
-
 
           <AnimatedSectionList
             ref={scrollRef}
-            sections={updatedDeals}
+            sections={deals}
+            style={{
+              flexGrow: 1,
+              zIndex: -1,
+              paddingTop: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT,
+              marginTop: HEADER_MIN_HEIGHT
+            }}
             // Important
-            // contentContainerStyle={{
-            //   paddingBottom: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
-            // }}
+            contentContainerStyle={{
+              paddingBottom: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
+            }}
             scrollEventThrottle={1}
             stickySectionHeadersEnabled={false}
             showsVerticalScrollIndicator={false}
             refreshing={networkStatus === 4}
             onRefresh={() => networkStatus === 7 && refetch()}
             onViewableItemsChanged={onViewableItemsChanged}
-            // onMomentumScrollEnd={event => {
-            //   onScrollEndSnapToEdge(event)
-            // }}
-            // // Important
-            // onScroll={Animated.event([
-            //   {
-            //     nativeEvent: {
-            //       contentOffset: {
-            //         y: animation
-            //       }
-            //     }
-            //   }
-            // ])}
+            onMomentumScrollEnd={(event) => {
+              onScrollEndSnapToEdge(event)
+            }}
+            onScroll={scrollHandler}
             keyExtractor={(item, index) => item + index}
-            // ItemSeparatorComponent={() => (
-            //   <View style={styles(currentTheme).listSeperator} />
-            // )}
-            // SectionSeparatorComponent={props => {
-            //   if (!props.leadingItem) return null
-            //   return <View style={styles(currentTheme).sectionSeparator} />
-            // }}
-            // renderSectionHeader={({ section: { title } }) => {
-            //   // if (title === 'Popular') {
-            //   //   if (!dataList || dataList.length === 0) {
-            //   //     return null;
-            //   //   }
-            //   return (
-            //     <View style={{ backgroundColor: '#fff' }}>
-            //       <TextDefault
-            //         style={styles(currentTheme).sectionHeaderText}
-            //         textColor="#111827"
-            //         bolder>
-            //         {title}
-            //       </TextDefault>
-            //       <Text
-            //         style={{
-            //           color: '#4B5563',
-            //           ...alignment.PLmedium,
-            //           fontSize: scale(12),
-            //           fontWeight: '400',
-            //           marginTop: scale(3)
-            //         }}>
-            //         Most ordered right now.
-            //       </Text>
-            //     </View>
-            //   )
-            // }}
-            renderSectionHeader={({ section: { title, data } }) => {
-              if (title === 'Popular') {
-                if (!dataList || dataList.length === 0) {
-                  return null // Don't render the section header if dataList is empty
-                }
-                return (
-                  <View style={{ backgroundColor: '#fff' }}>
-                    <TextDefault
-                      style={styles(currentTheme).sectionHeaderText}
-                      textColor="#111827"
-                      bolder>
-                      {title}
-                    </TextDefault>
-                    <Text
-                      style={{
-                        color: '#4B5563',
-                        ...alignment.PLmedium,
-                        fontSize: scale(12),
-                        fontWeight: '400',
-                        marginTop: scale(3)
-                      }}>
-                      Most ordered right now.
-                    </Text>
-                    <View style={styles().popularItemCards}>
-                      {data.map(item => (
-                        <ItemCard item={item} onPressItem={onPressItem} restaurant={restaurant} tagCart={tagCart}/>
-                      ))}
-                    </View>
-                  </View>
-                )
-              }
-              // Render other section headers as usual
+            ItemSeparatorComponent={() => (
+              <View style={styles(currentTheme).listSeperator} />
+            )}
+            SectionSeparatorComponent={(props) => {
+              if (!props.leadingItem) return null
+              return <View style={styles(currentTheme).sectionSeparator} />
+            }}
+            renderSectionHeader={({ section: { title } }) => {
               return (
-                <View style={{ backgroundColor: '#fff' }}>
-                  <TextDefault
-                    style={styles(currentTheme).sectionHeaderText}
-                    textColor="#111827"
-                    bolder>
-                    {title}
-                  </TextDefault>
-                </View>
+                <TextDefault
+                  style={styles(currentTheme).sectionHeaderText}
+                  textColor={currentTheme.fontMainColor}
+                  bolder
+                  B700
+                  H4
+                >
+                  {title}
+                </TextDefault>
               )
             }}
-            renderItem={({ item, index, section }) => {
-              if (section.title === 'Popular') {
-                if (!dataList || dataList.length === 0) {
-                  return null
+            renderItem={({ item, index }) => (
+              <TouchableOpacity
+                style={styles(currentTheme).dealSection}
+                activeOpacity={0.7}
+                onPress={() =>
+                  onPressItem({
+                    ...item,
+                    restaurant: restaurant._id,
+                    restaurantName: restaurant.name
+                  })
                 }
-                return null
-              }
-              return (
-                <TouchableOpacity
-                  style={styles(currentTheme).dealSection}
-                  activeOpacity={0.7}
-                  onPress={() =>
-                    onPressItem({
-                      ...item,
-                      restaurant: restaurant._id,
-                      restaurantName: restaurant.name
-                    })
-                  }>
-                  {/* {section.title === isPopular ? (  */}
-                  {/* <View style={styles().popularItemCards}>
-                    <ItemCard restaurantId={restaurantId}/>
-                  </View> */}
-                  {/* ) : (  */}
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center'
-                    }}>
-                    <View style={styles(currentTheme).deal}>
-                      {item.image ? (
-                        <Image
-                          style={{
-                            height: scale(60),
-                            width: scale(60),
-                            borderRadius: 30
-                          }}
-                          source={{ uri: item.image }}
-                        />
-                      ) : null}
-                      <View style={styles(currentTheme).flex}>
-                        <View style={styles(currentTheme).dealDescription}>
+              >
+                <View style={styles(currentTheme).deal}>
+                  <View style={styles(currentTheme).flex}>
+                    <View style={styles(currentTheme).dealDescription}>
+                      <TextDefault
+                        textColor={currentTheme.fontMainColor}
+                        style={styles(currentTheme).headerText}
+                        numberOfLines={1}
+                        bolder
+                      >
+                        {item.title}
+                      </TextDefault>
+                      <TextDefault style={styles(currentTheme).priceText} small>
+                        {wrapContentAfterWords(item.description, 5)}
+                      </TextDefault>
+                      <View style={styles(currentTheme).dealPrice}>
+                        <TextDefault
+                          numberOfLines={1}
+                          textColor={currentTheme.fontMainColor}
+                          style={styles(currentTheme).priceText}
+                          bolder
+                          small
+                        >
+                          {configuration.currencySymbol}{' '}
+                          {parseFloat(item.variations[0].price).toFixed(2)}
+                        </TextDefault>
+                        {item.variations[0].discounted > 0 && (
                           <TextDefault
-                            textColor={currentTheme.fontMainColor}
-                            style={styles(currentTheme).headerText}
                             numberOfLines={1}
-                            bolder>
-                            {item.title}
+                            textColor={currentTheme.fontSecondColor}
+                            style={styles().priceText}
+                            small
+                            lineOver
+                          >
+                            {configuration.currencySymbol}{' '}
+                            {(
+                              item.variations[0].price +
+                              item.variations[0].discounted
+                            ).toFixed(2)}
                           </TextDefault>
-                          <TextDefault
-                            style={styles(currentTheme).priceText}
-                            small>
-                            {wrapContentAfterWords(item.description, 5)}
-                          </TextDefault>
-                          <View style={styles(currentTheme).dealPrice}>
-                            <TextDefault
-                              numberOfLines={1}
-                              textColor={currentTheme.fontMainColor}
-                              style={styles(currentTheme).priceText}
-                              bolder
-                              small>
-                              {configuration.currencySymbol}{' '}
-                              {parseFloat(item.variations[0].price).toFixed(2)}
-                            </TextDefault>
-                            {item.variations[0].discounted > 0 && (
-                              <TextDefault
-                                numberOfLines={1}
-                                textColor={currentTheme.fontSecondColor}
-                                style={styles().priceText}
-                                small
-                                lineOver>
-                                {configuration.currencySymbol}{' '}
-                                {(
-                                  item.variations[0].price +
-                                  item.variations[0].discounted
-                                ).toFixed(2)}
-                              </TextDefault>
-                            )}
-                          </View>
-                        </View>
+                        )}
                       </View>
                     </View>
-                    <View style={styles().addToCart}>
-                      <MaterialIcons name="add" size={scale(20)} color="#fff" />
-                    </View>
                   </View>
-                  {/* )} */}
-                  {tagCart(item._id)}
-                </TouchableOpacity>
-              )
-            }}
+                  {item.image ? (
+                    <Image
+                      style={{
+                        height: scale(60),
+                        width: scale(60),
+                        borderRadius: 30
+                      }}
+                      source={{ uri: item.image }}
+                    />
+                  ) : null}
+                </View>
+                {tagCart(item._id)}
+              </TouchableOpacity>
+            )}
           />
           {cartCount > 0 && (
             <View style={styles(currentTheme).buttonContainer}>
               <TouchableOpacity
                 activeOpacity={0.7}
                 style={styles(currentTheme).button}
-                onPress={() => navigation.navigate('Cart')}>
+                onPress={() => navigation.navigate('Cart')}
+              >
                 <View style={styles().buttontLeft}>
                   <Animated.View
                     style={[
@@ -731,13 +586,13 @@ function Restaurant(props) {
                         width: circleSize,
                         height: circleSize,
                         borderRadius: radiusSize
-                      }
-                    ]}>
+                      },
+                      scaleStyles
+                    ]}
+                  >
                     <Animated.Text
-                      style={[
-                        styles(currentTheme).buttonTextLeft,
-                        { fontSize: fontChange }
-                      ]}>
+                      style={[styles(currentTheme).buttonTextLeft, fontStyles]}
+                    >
                       {cartCount}
                     </Animated.Text>
                   </Animated.View>
@@ -748,14 +603,15 @@ function Restaurant(props) {
                   uppercase
                   center
                   bolder
-                  small>
+                  small
+                >
                   {t('viewCart')}
                 </TextDefault>
                 <View style={styles().buttonTextRight} />
               </TouchableOpacity>
             </View>
           )}
-        </View>
+        </Animated.View>
       </SafeAreaView>
     </>
   )
