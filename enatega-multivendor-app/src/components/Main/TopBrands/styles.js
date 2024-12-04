@@ -12,11 +12,9 @@ const styles = (props = null) =>
     brandImg:{
         width: '100%', 
         // aspectRatio: 18/8,
-        height: scale(70),
-        objectFit: 'cover'
+        height:scale(60) 
       },
       topbrandsContainer:{
-        flexGrow: 1,
         width: scale(90), 
         marginTop:scale(7),
         ...alignment.MRmedium      
@@ -26,15 +24,11 @@ const styles = (props = null) =>
         borderWidth:1,
         borderColor:'#E5E7EB',
         borderRadius:8,
-        // padding:scale(8),
+        padding:scale(8),
       },
       brandName:{
         marginTop:scale(5),
         marginBottom:scale(2)
-      },
-      margin: {
-        ...alignment.MLmedium,
-        ...alignment.MBmedium
       },
       
       

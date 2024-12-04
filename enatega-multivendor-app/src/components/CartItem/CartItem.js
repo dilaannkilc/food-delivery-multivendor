@@ -40,12 +40,12 @@ const cartItem = props => {
             textColor={currentTheme.fontFourthColor}
             bolder
             H5>
-            {props.dealName.length > 20
+            {props?.dealName?.length > 20
               ? props.dealName.substring(0, 17) + '...'
               : props.dealName}
           </TextDefault>
 
-          {props.optionsTitle.map((option, index) => (
+          {props.optionsTitle?.map((option, index) => (
             <TextDefault
               key={`options${props.dealName + option + index}`}
               numberOfLines={1}
@@ -74,7 +74,7 @@ const cartItem = props => {
               </TouchableOpacity>
               {isDropdownOpen && (
                 <View style={styles().itemsDropdown}>
-                  {dropdownItems.map((item, index) => (
+                  {dropdownItems?.map((item, index) => (
                     <TextDefault
                       key={index}
                       textColor={currentTheme.secondaryText}
