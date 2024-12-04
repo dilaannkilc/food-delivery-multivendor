@@ -54,9 +54,5 @@ export const textStyles = {
     fontWeight: '700'
   },
 
-  TextItalic: {
-    fontStyle: 'italic',
-  }
-
 
 }

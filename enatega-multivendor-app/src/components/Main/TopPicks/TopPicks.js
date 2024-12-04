@@ -27,6 +27,7 @@ function TopPicks(props) {
   })
 
   const { t } = useTranslation()
+  const { isLoggedIn, profile } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
 
@@ -40,6 +41,9 @@ function TopPicks(props) {
         <TextDefault
           numberOfLines={1}
           textColor={currentTheme.fontFourthColor}
+          style={{
+            ...alignment.MLlarge
+          }}
           bolder
           H4>
           Top Picks for you
@@ -47,9 +51,12 @@ function TopPicks(props) {
         <TextDefault
           Normal
           textColor={currentTheme.secondaryText}
-          style={
-            styles().ItemDescription
-            }>
+          style={[
+            styles().ItemDescription,
+            {
+              ...alignment.MLlarge
+            }
+          ]}>
           Most ordered right now.
         </TextDefault>
         <FlatList

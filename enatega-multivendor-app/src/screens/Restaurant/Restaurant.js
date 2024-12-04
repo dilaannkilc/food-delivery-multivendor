@@ -44,13 +44,11 @@ import { alignment } from '../../utils/alignment'
 import TextError from '../../components/Text/TextError/TextError'
 import { MaterialIcons, Ionicons } from '@expo/vector-icons'
 import analytics from '../../utils/analytics'
-import { gql, useApolloClient, useQuery } from '@apollo/client'
-import { popularItems, food } from '../../apollo/queries'
 
 const { height } = Dimensions.get('screen')
 
 import { useTranslation } from 'react-i18next'
-import ItemCard from '../../components/ItemCards/ItemCards'
+import { ItemCard } from '../../components/ItemCards/ItemCards'
 
 // Animated Section List component
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList)
@@ -66,16 +64,9 @@ const config = to => ({
   easing: EasingNode.inOut(EasingNode.ease)
 })
 
-const POPULAR_ITEMS = gql`
-  ${popularItems}
-`
-const FOOD = gql`
-  ${food}
-`
-
 function Restaurant(props) {
-  const { _id: restaurantId } = props.route.params
   const Analytics = analytics()
+
   const { t } = useTranslation()
   const scrollRef = useRef(null)
   const flatListRef = useRef(null)
@@ -83,11 +74,11 @@ function Restaurant(props) {
   const route = useRoute()
   const inset = useSafeAreaInsets()
   const propsData = route.params
-  console.log('propsData', propsData)
   const animation = useValue(0)
   const circle = useValue(0)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
+  console.log(currentTheme)
   const configuration = useContext(ConfigurationContext)
   const [selectedLabel, selectedLabelSetter] = useState(0)
   const [buttonClicked, buttonClickedSetter] = useState(false)
@@ -103,26 +94,6 @@ function Restaurant(props) {
   const { data, refetch, networkStatus, loading, error } = useRestaurant(
     propsData._id
   )
-  const client = useApolloClient()
-  const {
-    loading: loadingPopularItems,
-    error: errorPopularItems,
-    data: popularItems
-  } = useQuery(POPULAR_ITEMS, {
-    variables: { restaurantId }
-  })
-
-  const fetchFoodDetails = itemId => {
-    return client.readFragment({ id: `Food:${itemId}`, fragment: FOOD })
-  }
-
-  const dataList =
-    popularItems &&
-    popularItems?.popularItems?.map(item => {
-      const foodDetails = fetchFoodDetails(item.id)
-      return foodDetails
-    })
-
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
@@ -249,6 +220,7 @@ function Restaurant(props) {
     ) {
       await setCartRestaurant(food.restaurant)
       const result = checkItemCart(food._id)
+      console.log(result)
       if (result.exist) await addQuantity(result.key)
       else await addCartItem(food._id, food.variations[0]._id, 1, [], clearFlag)
       animate()
@@ -300,8 +272,8 @@ function Restaurant(props) {
     if (scrollRef.current != null) {
       scrollRef.current.scrollToLocation({
         animated: true,
-        sectionIndex: index,
-        itemIndex: 0
+        sectionIndex: index ,
+        itemIndex: 0,
         // viewOffset: -(HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT),
         // viewPosition: 0
       })
@@ -316,7 +288,7 @@ function Restaurant(props) {
       scrollToNavbar(index)
     }
   }
-  function scrollToNavbar(value = 0) {
+  function scrollToNavbar(value) {
     if (flatListRef.current != null) {
       flatListRef.current.scrollToIndex({
         animated: true,
@@ -422,7 +394,11 @@ function Restaurant(props) {
 
   if (loading) {
     return (
-      <View style={[styles().flex]}>
+      <View
+        style={[
+          styles().flex,
+          
+        ]}>
         <ImageHeader
           iconColor={iconColor}
           iconSize={iconSize}
@@ -437,9 +413,6 @@ function Restaurant(props) {
           restaurant={null}
           topaBarData={[]}
           loading={loading}
-          minimumOrder={propsData.minimumOrder}
-          tax={propsData.tax}
-          updatedDeals={updatedDeals}
         />
 
         <View
@@ -481,21 +454,6 @@ function Restaurant(props) {
     index
   }))
 
-  const updatedDeals = [
-    {
-      title: 'Popular',
-      id: new Date().getTime(),
-      // data: []
-      data: dataList
-    },
-    ...deals
-  ]
-
-  console.log(
-    'updated deals in restaurant:',
-    JSON.stringify(updatedDeals, null, 2)
-  )
-
   return (
     <>
       <SafeAreaView style={styles(currentTheme).flex}>
@@ -513,18 +471,15 @@ function Restaurant(props) {
             restaurantName={propsData.name}
             restaurantImage={propsData.image}
             restaurant={data.restaurant}
-            topaBarData={updatedDeals}
+            topaBarData={deals}
             changeIndex={changeIndex}
             selectedLabel={selectedLabel}
-            minimumOrder={propsData.minimumOrder}
-            tax={propsData.tax}
-            updatedDeals={updatedDeals}
           />
-
 
           <AnimatedSectionList
             ref={scrollRef}
-            sections={updatedDeals}
+            sections={deals}
+            
             // Important
             // contentContainerStyle={{
             //   paddingBottom: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
@@ -556,64 +511,7 @@ function Restaurant(props) {
             //   if (!props.leadingItem) return null
             //   return <View style={styles(currentTheme).sectionSeparator} />
             // }}
-            // renderSectionHeader={({ section: { title } }) => {
-            //   // if (title === 'Popular') {
-            //   //   if (!dataList || dataList.length === 0) {
-            //   //     return null;
-            //   //   }
-            //   return (
-            //     <View style={{ backgroundColor: '#fff' }}>
-            //       <TextDefault
-            //         style={styles(currentTheme).sectionHeaderText}
-            //         textColor="#111827"
-            //         bolder>
-            //         {title}
-            //       </TextDefault>
-            //       <Text
-            //         style={{
-            //           color: '#4B5563',
-            //           ...alignment.PLmedium,
-            //           fontSize: scale(12),
-            //           fontWeight: '400',
-            //           marginTop: scale(3)
-            //         }}>
-            //         Most ordered right now.
-            //       </Text>
-            //     </View>
-            //   )
-            // }}
-            renderSectionHeader={({ section: { title, data } }) => {
-              if (title === 'Popular') {
-                if (!dataList || dataList.length === 0) {
-                  return null // Don't render the section header if dataList is empty
-                }
-                return (
-                  <View style={{ backgroundColor: '#fff' }}>
-                    <TextDefault
-                      style={styles(currentTheme).sectionHeaderText}
-                      textColor="#111827"
-                      bolder>
-                      {title}
-                    </TextDefault>
-                    <Text
-                      style={{
-                        color: '#4B5563',
-                        ...alignment.PLmedium,
-                        fontSize: scale(12),
-                        fontWeight: '400',
-                        marginTop: scale(3)
-                      }}>
-                      Most ordered right now.
-                    </Text>
-                    <View style={styles().popularItemCards}>
-                      {data.map(item => (
-                        <ItemCard item={item} onPressItem={onPressItem} restaurant={restaurant} tagCart={tagCart}/>
-                      ))}
-                    </View>
-                  </View>
-                )
-              }
-              // Render other section headers as usual
+            renderSectionHeader={({ section: { title } }) => {
               return (
                 <View style={{ backgroundColor: '#fff' }}>
                   <TextDefault
@@ -622,32 +520,35 @@ function Restaurant(props) {
                     bolder>
                     {title}
                   </TextDefault>
+                  <Text
+                    style={{
+                      color: '#4B5563',
+                      ...alignment.PLlarge,
+                      fontSize: scale(12),
+                      fontWeight: '400',
+                      marginTop: scale(3)
+                    }}>
+                    Most ordered right now.
+                  </Text>
                 </View>
               )
             }}
-            renderItem={({ item, index, section }) => {
-              if (section.title === 'Popular') {
-                if (!dataList || dataList.length === 0) {
-                  return null
-                }
-                return null
-              }
-              return (
-                <TouchableOpacity
-                  style={styles(currentTheme).dealSection}
-                  activeOpacity={0.7}
-                  onPress={() =>
-                    onPressItem({
-                      ...item,
-                      restaurant: restaurant._id,
-                      restaurantName: restaurant.name
-                    })
-                  }>
-                  {/* {section.title === isPopular ? (  */}
-                  {/* <View style={styles().popularItemCards}>
-                    <ItemCard restaurantId={restaurantId}/>
-                  </View> */}
-                  {/* ) : (  */}
+            renderItem={({ item, index, section }) => (
+              <TouchableOpacity
+                style={styles(currentTheme).dealSection}
+                activeOpacity={0.7}
+                onPress={() =>
+                  onPressItem({
+                    ...item,
+                    restaurant: restaurant._id,
+                    restaurantName: restaurant.name
+                  })
+                }>
+                {section.title === isPopular ? (
+                  <View style={styles().popularItemCards}>
+                    <ItemCard />
+                  </View>
+                ) : (
                   <View
                     style={{
                       flexDirection: 'row',
@@ -711,11 +612,10 @@ function Restaurant(props) {
                       <MaterialIcons name="add" size={scale(20)} color="#fff" />
                     </View>
                   </View>
-                  {/* )} */}
-                  {tagCart(item._id)}
-                </TouchableOpacity>
-              )
-            }}
+                )}
+                {tagCart(item._id)}
+              </TouchableOpacity>
+            )}
           />
           {cartCount > 0 && (
             <View style={styles(currentTheme).buttonContainer}>
