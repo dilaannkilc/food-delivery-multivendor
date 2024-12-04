@@ -8,30 +8,30 @@ import { theme } from '../../../utils/themeColors'
 import ThemeContext from '../../ThemeContext/ThemeContext'
 import { alignment } from '../../../utils/alignment'
 import TextDefault from '../../../components/Text/TextDefault/TextDefault'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 const FdEmailBtn = props => {
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      style={styles().mainContainer}
+      style={styles(currentTheme).mainContainer}
       onPress={props.onPress}>
       {props.loadingIcon ? (
-        <Spinner backColor="rgba(0,0,0,0.1)" spinnerColor={'#000'} />
+        <Spinner backColor="rgba(0,0,0,0.1)" spinnerColor={'#FFF'} />
       ) : (
         <>
           <MaterialIcons
             style={styles().marginLeft5}
             name="mail-outline"
             size={scale(18)}
-            color={currentTheme.black}
+            color={currentTheme.white}
           />
           <TextDefault
             H4
-            textColor={currentTheme.black}
+            textColor={currentTheme.buttonTextPink}
             style={alignment.MLsmall}
             bold>
             {t('ContinueWithEmail')}
