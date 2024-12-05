@@ -13,9 +13,7 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import screenOptions from './screenOptions'
 import { useResetYourPassword } from './useResetYourPassword'
-import { useTranslation } from 'react-i18next'
-import { Feather } from '@expo/vector-icons'
-import { scale } from '../../utils/scaling'
+import {useTranslation} from 'react-i18next'
 
 function ForgotPassword(props) {
   const {
@@ -30,7 +28,7 @@ function ForgotPassword(props) {
     resetYourPassword,
     loading
   } = useResetYourPassword()
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   useLayoutEffect(() => {
     props.navigation.setOptions(
       screenOptions({
@@ -45,7 +43,7 @@ function ForgotPassword(props) {
   return (
     <SafeAreaView style={styles(currentTheme).safeAreaViewStyles}>
       <StatusBar
-        backgroundColor={currentTheme.themeBackground}
+        backgroundColor={currentTheme.buttonText}
         barStyle={
           themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
         }
@@ -53,18 +51,17 @@ function ForgotPassword(props) {
       <View style={styles(currentTheme).mainContainer}>
         <View style={styles().subContainer}>
           <View style={styles().logoContainer}>
-            <Feather
-              name="lock"
-              size={30}
-              color={currentTheme.fontFourthColor}
+            <Image
+              source={require('../../../assets/login-icon.png')}
+              style={styles().logoContainer}
             />
           </View>
           <View>
             <TextDefault
               H3
               bolder
-              textColor={currentTheme.fontfourthColor}
               style={{
+                textAlign: 'center',
                 ...alignment.MTlarge,
                 ...alignment.MBmedium
               }}>
@@ -75,7 +72,7 @@ function ForgotPassword(props) {
               bold
               textColor={currentTheme.fontSecondColor}
               style={{
-                paddingBottom: scale(5)
+                textAlign: 'center'
               }}>
               {t('enterPass')}
             </TextDefault>
@@ -128,20 +125,24 @@ function ForgotPassword(props) {
               </TextDefault>
             </View>
           )}
-        </View>
-        <View style={{ width: '100%', marginBottom: 20 }}>
-          <TouchableOpacity
-            onPress={() => resetYourPassword()}
-            activeOpacity={0.7}
-            style={styles(currentTheme).btn}>
-            <TextDefault H4 textColor={currentTheme.fontFourthColor} bold>
-              {loading ? (
-                <Spinner size="small" backColor="transparent" />
-              ) : (
-                t('saveBtn')
-              )}
-            </TextDefault>
-          </TouchableOpacity>
+          <View style={styles().marginTop10}>
+            <TouchableOpacity
+              onPress={() => resetYourPassword()}
+              activeOpacity={0.7}
+              style={styles().btn}>
+              <TextDefault
+                H4
+                textColor={currentTheme.buttonTextPink}
+                style={alignment.MLsmall}
+                bold>
+                {loading ? (
+                  <Spinner size="small" backColor="transparent" />
+                ) : (
+                  t('saveBtn')
+                )}
+              </TextDefault>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </SafeAreaView>

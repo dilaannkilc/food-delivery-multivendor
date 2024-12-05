@@ -13,11 +13,10 @@ const styles = (props = null) =>
       alignItems: 'center',
       ...alignment.PRlarge,
       backgroundColor: 'transparent',
-      justifyContent: 'flex-start',
+      justifyContent: 'space-evenly',
       borderRadius: scale(28),
       borderWidth: scale(1),
-      borderBottomColor: '#000',
-      ...alignment.PLlarge
+      borderBottomColor: '#000'
     },
     marginLeft5: {
       ...alignment.MLsmall

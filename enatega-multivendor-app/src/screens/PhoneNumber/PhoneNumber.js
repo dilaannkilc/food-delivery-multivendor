@@ -19,8 +19,6 @@ import CountryPicker from 'react-native-country-picker-modal'
 import usePhoneNumber from './usePhoneNumber'
 import PhoneInput from 'react-native-phone-number-input'
 import { useTranslation } from 'react-i18next'
-import { Ionicons } from '@expo/vector-icons'
-import { scale } from '../../utils/scaling'
 
 function PhoneNumber(props) {
   const {
@@ -68,18 +66,18 @@ function PhoneNumber(props) {
           <View style={styles(currentTheme).mainContainer}>
             <View style={styles().subContainer}>
               <View style={styles().logoContainer}>
-                <Ionicons
-                  name="phone-portrait-outline"
-                  size={30}
-                  color="black"
+                <Image
+                  source={require('../../../assets/login-icon.png')}
+                  style={styles().logoContainer}
                 />
               </View>
               <View>
                 <TextDefault
                   H3
                   bolder
-                  textColor={currentTheme.fontfourthColor}
+                  textColor={currentTheme.fontSecondColor}
                   style={{
+                    textAlign: 'center',
                     ...alignment.MTlarge,
                     ...alignment.MBmedium
                   }}>
@@ -90,7 +88,7 @@ function PhoneNumber(props) {
                   bold
                   textColor={currentTheme.fontSecondColor}
                   style={{
-                    paddingBottom: scale(5)
+                    textAlign: 'center'
                   }}>
                   {t('secureAccountWithPhone')}
                 </TextDefault>
@@ -123,19 +121,18 @@ function PhoneNumber(props) {
                       <Text>+{country.callingCode[0]} </Text>
                       <TextInput
                         placeholder={t('mobileNumber')}
-                        style={{
-                          marginTop: Platform.OS === 'android' ? -4 : 0
-                        }}
-                        placeholderTextColor={currentTheme.fontSecondColor}
-                        value={phone}
-                        onChangeText={e => {
-                          if (e >= 0 || e <= 9) {
-                            setPhone(e)
-                          }
-                        }}
-                        keyboardType="numeric"
-                      />
-                    </View>
+                    style ={{marginTop: Platform.OS === 'android' ? -4 : 0 }}
+                    placeholderTextColor={currentTheme.fontSecondColor}
+                    value={phone}
+                    onChangeText={e =>  {
+                      if (e >= 0 || e<= 9) {
+                        setPhone(e);
+                      }
+                  }}   
+                    keyboardType="numeric"                 
+                  />
+                  </View>
+
                   </View>
                 </View>
                 {phoneError && (

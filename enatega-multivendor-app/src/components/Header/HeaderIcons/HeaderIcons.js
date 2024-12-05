@@ -289,17 +289,13 @@ function DarkBackButton(props) {
   )
 }
 function HelpButton(props) {
-  return (
-    <View
-      style={{
-        backgroundColor: props.iconBackground,
-        borderRadius: scale(10),
-        margin: scale(5)
-      }}>
-      <TextDefault style={{ padding: scale(7) }} small bold>
-        Help
-      </TextDefault>
-    </View>
-  )
+  return (<View
+    style={{
+      backgroundColor: props.iconBackground,
+      borderRadius: scale(10),
+      margin: scale(5)
+    }}>
+    <TextDefault style={{ padding: scale(7) }} small bold>Help</TextDefault>
+  </View>)
 }
 export { BackButton, LeftButton, RightButton, DarkBackButton, HelpButton }

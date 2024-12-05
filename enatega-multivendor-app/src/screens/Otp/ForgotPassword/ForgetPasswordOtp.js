@@ -8,10 +8,8 @@ import { alignment } from '../../../utils/alignment'
 import screenOptions from '../screenOptions'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import { useForgotPasswordOtp } from './useForgotPasswordOtp'
-import { useTranslation } from 'react-i18next'
-import { Feather } from '@expo/vector-icons'
-import { scale } from '../../../utils/scaling'
-import { useRoute } from '@react-navigation/native'
+import {useTranslation} from 'react-i18next'
+
 
 function ForgotPasswordOtp(props) {
   const {
@@ -26,10 +24,7 @@ function ForgotPasswordOtp(props) {
     resendOtp
   } = useForgotPasswordOtp()
 
-  const route = useRoute()
-  const { email } = route.params
-
-  const { t } = useTranslation()
+    const {t} = useTranslation()
   useLayoutEffect(() => {
     props.navigation.setOptions(
       screenOptions({
@@ -44,7 +39,7 @@ function ForgotPasswordOtp(props) {
   return (
     <SafeAreaView style={styles(currentTheme).safeAreaViewStyles}>
       <StatusBar
-        backgroundColor={currentTheme.themeBackground}
+        backgroundColor={currentTheme.buttonText}
         barStyle={
           themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
         }
@@ -52,14 +47,18 @@ function ForgotPasswordOtp(props) {
       <View style={styles(currentTheme).mainContainer}>
         <View style={styles().subContainer}>
           <View style={styles().logoContainer}>
-            <Feather name="lock" size={30} color="black" />
+            <Image
+              source={require('../../../../assets/login-icon.png')}
+              style={styles().logoContainer}
+            />
           </View>
           <View>
             <TextDefault
               H3
               bolder
-              textColor={currentTheme.fontfourthColor}
+              textColor={currentTheme.fontSecondColor}
               style={{
+                textAlign: 'center',
                 ...alignment.MTlarge,
                 ...alignment.MBmedium
               }}>
@@ -70,12 +69,9 @@ function ForgotPasswordOtp(props) {
               bold
               textColor={currentTheme.fontSecondColor}
               style={{
-                paddingBottom: scale(5)
+                textAlign: 'center'
               }}>
               {t('otpSentToEmail')}
-            </TextDefault>
-            <TextDefault H5 bold textColor={currentTheme.fontfourthColor}>
-              {email}
             </TextDefault>
           </View>
           <View>
@@ -87,7 +83,7 @@ function ForgotPasswordOtp(props) {
                 otpError && styles(currentTheme).errorInput
               ]}
               codeInputHighlightStyle={{
-                borderColor: currentTheme.main
+                borderColor: currentTheme.iconColorPink
               }}
               autoFocusOnLoad
               code={otp}
@@ -106,34 +102,33 @@ function ForgotPasswordOtp(props) {
               </TextDefault>
             )}
           </View>
-        </View>
-        <View style={{ ...alignment.MTlarge, width: '100%', marginBottom: 20 }}>
+          <View style={{ ...alignment.MTlarge }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={[
+                styles().btn,
+                seconds !== 0 && styles(currentTheme).disabledBtn
+              ]}
+              disabled={seconds !== 0}
+              onPress={() => resendOtp()}>
+              <TextDefault
+                H4
+                textColor={currentTheme.buttonTextPink}
+                style={alignment.MLsmall}
+                bold>
+                {loading ? (
+                  <Spinner backColor="transparent" size="small" />
+                ) : (
+                  t('resendBtn')
+                )}
+              </TextDefault>
+            </TouchableOpacity>
+          </View>
           <View style={alignment.MBxSmall}>
-            <TextDefault
-              center
-              H4
-              bold
-              style={alignment.MTsmall}
-              textColor={currentTheme.fontNewColor}>
+            <TextDefault center H4 bold style={alignment.MTsmall}>
               {seconds !== 0 ? `Retry after ${seconds}s` : ''}
             </TextDefault>
           </View>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={[
-              styles(currentTheme).btn,
-              seconds !== 0 && styles(currentTheme).disabledBtn
-            ]}
-            disabled={seconds !== 0}
-            onPress={() => resendOtp()}>
-            <TextDefault H4 textColor={currentTheme.fontFourthColor} bold>
-              {loading ? (
-                <Spinner backColor="transparent" size="small" />
-              ) : (
-                t('resendBtn')
-              )}
-            </TextDefault>
-          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

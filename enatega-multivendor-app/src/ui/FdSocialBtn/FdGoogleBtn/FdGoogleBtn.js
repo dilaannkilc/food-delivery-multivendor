@@ -20,8 +20,13 @@ const FdGoogleBtn = props => {
         <Spinner backColor="rgba(0,0,0,0.1)" spinnerColor={'#FFF'} />
       ) : (
         <>
-          <FontAwesome name="google" size={scale(18)} color="#000" />
-          <TextDefault H4 textColor="#000" style={alignment.MLlarge} bold>
+          <FontAwesome
+            style={styles.marginLeft5}
+            name="google"
+            size={scale(18)}
+            color="#000"
+          />
+          <TextDefault H4 textColor="#000" style={alignment.MLsmall} bold>
             {t('ContinueWithGoogle')}
           </TextDefault>
         </>

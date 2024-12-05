@@ -174,9 +174,9 @@ function Register(props) {
                   />
                   <FontAwesome
                     onPress={() => setShowPassword(!showPassword)}
-                    name={!showPassword ? 'eye' : 'eye-slash'}
-                    size={20}
-                    color={currentTheme.fontFourthColor}
+                    name={showPassword ? 'eye' : 'eye-slash'}
+                    size={24}
+                    color={currentTheme.startColor}
                     style={styles().eyeBtn}
                   />
                 </View>
@@ -235,8 +235,12 @@ function Register(props) {
                     onPress={() => registerAction()}
                     activeOpacity={0.7}
                     style={styles(currentTheme).btn}>
-                    <TextDefault H4 textColor={currentTheme.gray900} bold>
-                      Create Account
+                    <TextDefault
+                      H4
+                      textColor={currentTheme.buttonTextPink}
+                      style={alignment.MLsmall}
+                      bold>
+                      {t('continueBtn')}
                     </TextDefault>
                   </TouchableOpacity>
                 </View>

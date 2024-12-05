@@ -142,7 +142,7 @@ const CreateAccount = props => {
               {t('signUporSignIn')}
             </TextDefault>
             <TextDefault textColor={currentTheme.black}>
-              {'sign up to get your discount'}
+              {'sign up to grt your discount'}
             </TextDefault>
           </View>
 
