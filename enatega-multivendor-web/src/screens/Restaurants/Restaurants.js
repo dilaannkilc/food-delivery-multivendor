@@ -1,14 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { gql, useQuery } from "@apollo/client";
-import {
-  Box,
-  CircularProgress,
-  Grid,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-
+import { Box, CircularProgress, Grid, Typography, Button } from "@mui/material";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { restaurantList } from "../../apollo/server";
@@ -16,21 +8,18 @@ import FlashMessage from "../../components/FlashMessage";
 import Footer from "../../components/Footer/Footer";
 import { Header, LoginHeader } from "../../components/Header";
 import { ClearCart } from "../../components/Modals";
-
 import {
   RestaurantGrid,
   RestaurantRow,
+  SearchRestaurant,
   Subheader,
 } from "../../components/RestaurantComponent";
-
-import SearchContainer from "../../components/HomeScreen/SearchContainer/SearchContainer";
 import { useLocationContext } from "../../context/Location";
+import ActiveOrder from "../../components/Orders/ActiveOrder/Card/ActiveOrder";
 import UserContext from "../../context/User";
 import Analytics from "../../utils/analytics";
 import useStyles from "./styles";
-import DetailedOrderCard from "../../components/Orders/DetailedOrderCard/DetailedOrderCard";
-import { ACTIVE_STATUS } from "../../utils/constantValues";
-import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
+import DeliveryTabs from "../../components/Tabs/Tabs";
 
 const RESTAURANTS = gql`
   ${restaurantList}
@@ -45,16 +34,9 @@ function Restaurants() {
   const [clearModal, setClearModal] = useState(false);
   const [navigateData, setNavigateData] = useState({});
   const classes = useStyles();
-  const {
-    orders,
-    clearCart,
-    restaurant: cartRestaurant,
-  } = useContext(UserContext);
-  const theme = useTheme();
-  const mobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const activeOrders = orders.filter((o) =>
-    ACTIVE_STATUS.includes(o.orderStatus)
-  );
+  const { clearCart, restaurant: cartRestaurant } = useContext(UserContext);
+  const [active, setActive] = useState("delivery");
+
   const navigateClearCart = useCallback(async () => {
     await clearCart();
     navigate(`/restaurant/${navigateData.slug}`, { state: navigateData });
@@ -84,7 +66,7 @@ function Restaurants() {
   const toggleSnackbar = useCallback(() => {
     setMessage({});
   }, []);
-
+  
   const { data, loading, error } = useQuery(RESTAURANTS, {
     variables: {
       longitude: location?.longitude || null,
@@ -92,7 +74,7 @@ function Restaurants() {
       ip: null,
     },
     fetchPolicy: "network-only",
-    skip: !location,
+    skip:!location
   });
 
   if (loading || error) {
@@ -100,21 +82,20 @@ function Restaurants() {
       <Grid container>
         {isLoggedIn ? <Header /> : <LoginHeader showIcon />}
         <Subheader />
-
+        <Grid container item className={classes.marginHeader}>
+          <SearchRestaurant search={""} setSearch={() => {}} />
+        </Grid>
         <Box className={classes.spinnerContainer}>
           {loading ? (
             <CircularProgress color="primary" size={48} />
           ) : (
-            <Typography>Unable to load data</Typography>
+            <Typography>Unable to load data </Typography>
           )}
         </Box>
       </Grid>
     );
   }
-  const { restaurants, sections } = data?.nearByRestaurants ?? {
-    restaurants: [],
-    sections: [],
-  };
+  const { restaurants, sections } = data?.nearByRestaurants ?? {restaurants:[], sections:[]};
   const restaurantSections = sections.map((sec) => ({
     ...sec,
     restaurants: sec.restaurants
@@ -148,15 +129,30 @@ function Restaurants() {
     });
     return data;
   };
+
+  const activeTabChange = () => {
+    setActive("delivery");
+  };
+  const inactiveTabChange = () => {
+    setActive("pickup");
+  };
+
+  const Map = () => {
+    return (
+      <Grid className={classes.mapImage}>
+        <h3 className={classes.mapText}>Explore restaurants around you</h3>
+        <Button
+          className={classes.mapButton}
+          onClick={() => navigate("/pickup")}
+        >
+          Show map
+        </Button>
+      </Grid>
+    );
+  };
+
   return (
     <Grid container>
-      <TawkMessengerReact
-        propertyId="5d0f4f6b36eab9721118c84e"
-        widgetId="1ftnb355n"
-        customStyle={{
-          color: "red",
-        }}
-      />
       <FlashMessage
         open={Boolean(message.type)}
         severity={message.type}
@@ -165,60 +161,36 @@ function Restaurants() {
       />
       {isLoggedIn ? <Header /> : <LoginHeader showIcon />}
       <Subheader />
-      <Box className={classes.searchWrapper}>
+
+      <Grid container item className={classes.marginHeader}>
+        <DeliveryTabs
+          active={active}
+          activeTabChange={activeTabChange}
+          inactiveTabChange={inactiveTabChange}
+        />
+        {active === "pickup" && <Map />}
+        <SearchRestaurant search={search} setSearch={setSearch} />
+      </Grid>
+      <Grid container item>
+        <ActiveOrder />
+      </Grid>
+      {search ? null : (
         <Grid container item>
-          <SearchContainer
-            loading={loading}
-            isHome={false}
-            search={search}
-            setSearch={setSearch}
+          <RestaurantRow
+            checkCart={checkCart}
+            restaurantSections={restaurantSections}
+            showMessage={showMessage}
           />
         </Grid>
-      </Box>
-      {activeOrders.length > 0 ? (
-        <Box
-          style={{
-            backgroundColor: theme.palette.button.lightest,
-            padding: mobile ? "10px" : "80px 90px",
-            width: "100%",
-          }}
-        >
-          <Grid container spacing={2}>
-            {activeOrders.map((item) => (
-              <Grid key={item.id} item sm={12} xl={6} lg={6}>
-                {mobile ? null : <DetailedOrderCard key={item._id} {...item} />}
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      ) : null}
-      {restaurantSections.length < 1 ? null : (
-        <Box className={classes.topRestContainer}>
-          <Box className={classes.topRestWrapper}>
-            <Grid container item>
-              <RestaurantRow
-                checkCart={checkCart}
-                restaurantSections={restaurantSections}
-                showMessage={showMessage}
-              />
-            </Grid>
-          </Box>
-        </Box>
       )}
-
-      <Box style={{ width: "100%", minHeight: "100vh" }}>
+      <Grid container item>
         <RestaurantGrid
           checkCart={checkCart}
           restaurants={search ? searchRestaurants(search) : restaurants}
           showMessage={showMessage}
-          search={search}
         />
-      </Box>
-      <Box className={classes.footerContainer}>
-        <Box className={classes.footerWrapper}>
-          <Footer />
-        </Box>
-      </Box>
+      </Grid>
+      <Footer />
       <ClearCart
         isVisible={clearModal}
         toggleModal={toggleClearCart}

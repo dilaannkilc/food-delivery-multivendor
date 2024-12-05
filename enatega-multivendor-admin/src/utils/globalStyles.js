@@ -18,7 +18,7 @@ const useGlobalStyles = makeStyles(theme => ({
     height: 40,
     width: '90%',
     fontSize: 15,
-    color: theme.palette.text.disabled,
+    color: '#5A5858',
     padding: '5px 20px',
     borderRadius: 31,
     boxShadow: '0px 0px 18px rgba(0, 0, 0, 0.04)',
@@ -70,7 +70,7 @@ const useGlobalStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.primary,
     margin: '30px 0',
     borderRadius: 20,
-    boxShadow: `0px 0px 38px ${theme.palette.common.blackShade}`,
+    boxShadow: '0px 0px 38px rgba(0, 0, 0, 0.06)',
     textAlign: 'center'
   },
   timingHeader: {

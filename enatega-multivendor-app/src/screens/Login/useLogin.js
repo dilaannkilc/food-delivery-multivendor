@@ -24,8 +24,8 @@ export const useLogin = () => {
   const Analytics = analytics()
 
   const navigation = useNavigation()
-  const [email, setEmail] = useState('demo-customer@enatega.com')
-  const [password, setPassword] = useState('DemoCustomer55!')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(true)
   const [emailError, setEmailError] = useState(null)
   const [passwordError, setPasswordError] = useState(null)
@@ -48,12 +48,13 @@ export const useLogin = () => {
   // Debounce the setEmail function
   const debouncedSetEmail = _.debounce(text => {
     setEmail(text.toLowerCase().trim())
-  }, 300) // Adjust the delay as needed (in milliseconds)
+  }, 1) // Adjust the delay as needed (in milliseconds)
 
   function validateCredentials() {
     let result = true
     setEmailError(null)
     setPasswordError(null)
+
     if (!email) {
       setEmailError(t('emailErr1'))
       result = false

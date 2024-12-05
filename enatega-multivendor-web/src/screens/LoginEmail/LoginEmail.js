@@ -119,7 +119,7 @@ function LoginEmail() {
         <Box mt={theme.spacing(2)} />
         <TextField
           name={"userEmail"}
-          defaultValue={state?.email ?? "demo-customer@enatega.com"}
+          defaultValue={state?.email ?? ""}
           error={Boolean(emailError)}
           helperText={emailError}
           fullWidth
@@ -134,7 +134,6 @@ function LoginEmail() {
         <Box mt={theme.spacing(2)} />
         <TextField
           name={"userPass"}
-          defaultValue={"DemoCustomer55!"}
           InputLabelProps={{
             style: {
               color: theme.palette.grey[600],
@@ -191,7 +190,7 @@ function LoginEmail() {
           type="email"
           disableElevation
           disabled={loading}
-          className={`${classes.btnBase} ${classes.customBtn}`}
+          className={classes.btnBase}
           onClick={(e) => {
             e.preventDefault();
             handleAction();

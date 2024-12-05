@@ -25,27 +25,37 @@ const styles = (props = null) =>
     },
     sectionHeaderText: {
       textTransform: 'capitalize',
-      ...alignment.PLlarge,
+      ...alignment.PLmedium,
       ...alignment.PTlarge,
-      ...alignment.PBlarge
+      fontSize: scale(18),
+      fontWeight: '600'
+    },
+    popularItemCards: {
+      ...alignment.PTlarge,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      paddingLeft: scale(17),
+      paddingRight: scale(17),
+      justifyContent: 'space-between',
+      rowGap: scale(10)
     },
     deal: {
-      width: '100%',
+      width: '80%',
       flexDirection: 'row',
-      backgroundColor: props != null ? props.radioOuterColor : 'white',
+      backgroundColor: props != null ? props.themeBackground : 'white',
+      alignItems: 'center',
+      gap: scale(5)
     },
-    dealSection: {
-      position: 'relative',
-      backgroundColor: props != null ? props.radioOuterColor : 'white',
-      ...alignment.PLlarge,
-      ...alignment.PRxSmall,
-      borderRadius: scale(25),
-      paddingVertical: scale(10)
+    searchDealSection: {
+      // position: 'relative',
+      backgroundColor: props != null ? props.themeBackground : 'white',
+      paddingVertical: scale(10),
+      ...alignment.PRmedium,
+      ...alignment.PLsmall
     },
     dealDescription: {
-      flex: 1,
-      backgroundColor: props != null ? props.radioOuterColor : 'white',
-      
+      backgroundColor: props != null ? props.themeBackground : 'white',
+
       ...alignment.PRxSmall
     },
     dealPrice: {
@@ -60,21 +70,30 @@ const styles = (props = null) =>
       maxWidth: '100%',
       ...alignment.MRxSmall
     },
+
     headerText: {
       fontSize: 18,
       paddingTop: scale(5),
       maxWidth: '100%',
       ...alignment.MRxSmall,
-      backgroundColor: props != null ? props.radioOuterColor : 'white',
+      backgroundColor: props != null ? props.themeBackground : 'white'
     },
-    listSeperator: {
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderColor: theme.Pink.black,
-      paddingTop: scale(15),
-      marginBottom: scale(15),
-      width: '90%',
-      alignSelf: 'center'
+    addToCart: {
+      width: scale(25),
+      height: scale(25),
+      borderRadius: scale(12.5),
+      backgroundColor: '#000',
+      justifyContent: 'center',
+      alignItems: 'center'
     },
+    // listSeperator: {
+    //   borderBottomWidth: StyleSheet.hairlineWidth,
+    //   borderColor: theme.Pink.black,
+    //   paddingTop: scale(15),
+    //   marginBottom: scale(15),
+    //   width: '90%',
+    //   alignSelf: 'center'
+    // },
     sectionSeparator: {
       width: '100%',
       height: scale(15),
@@ -122,7 +141,7 @@ const styles = (props = null) =>
     buttonLeftCircle: {
       backgroundColor: props != null ? props.black : 'black',
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center'
     },
     buttonTextLeft: {
       ...textStyles.Bolder,
