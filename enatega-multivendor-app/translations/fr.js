@@ -56,7 +56,7 @@ export const fr = {
   titleCheckout: 'votre paiement',
   titlePayment: 'Paiement',
   totalOrderAmount: 'Montant total de la commande',
-  reOrder: 'Sélectionnez les articles à réorganiser',
+  reOrder: 'Recommander',
   previous: 'Commande précédente',
   unReadNotifications: 'Aucune notification non lue',
   upload: 'Télécharger',
@@ -149,8 +149,7 @@ export const fr = {
   validateItems: 'Ajoutez des articles au panier avant de passer à la caisse',
   validateDelivery:
     "Définissez l'adresse de livraison avant de passer à la caisse",
-  Favourite: 'Favoris',
-  titleFavourite: 'restaurants préférés',
+  titleFavourite: 'Favoris',
   titleEmptyFav: 'Aucun favori enregistré',
   emptyFavDesc:
     'Vous verrez tous vos favoris ici pour passer commande plus rapidement.',
@@ -179,7 +178,7 @@ export const fr = {
   emailErr2: 'E-mail non valide !',
   passErr1: 'Le mot de passe est requis',
   passErr2:
-    'Mot de passe non valide. Le mot de passe doit contenir 1 lettre majuscule, 1 lettre minuscule, 1 chiffre.',
+    'Mot de passe incorrect. Le mot de passe doit être dau moins 8 caractères et contenir 1 lettre majuscule, 1 lettre minuscule, 1 chiffre.',
   letsGetStarted: 'Commençons !',
   createAccount: 'Créez votre compte Enatega',
   firstnameErr1: 'Le prénom est requis !',
@@ -351,10 +350,10 @@ export const fr = {
   statusDelivered: 'Livré',
   selectLocation: "l'emplacement",
   languageSetting: 'Paramètres de langue',
-  receiveOfferByEmail: "recevoir l'offre par email",
-  receivePushNotification: 'recevoir une notification push',
+  receiveSpecialOffers: 'Recevoir des offres spéciales',
+  getUpdates: 'Recevoir des mises à jour sur le statut de votre commande',
   turnOnDarkTheme: 'Activer le thème sombre',
-  selectLanguage: 'Choisir la langue',
+  selectLanguage: 'Sélectionner la langue',
   Select: 'Sélectionner',
   DELETEACCOUNT: 'SUPPRIMER LE COMPTE',
   ETA: 'ETA',
@@ -386,20 +385,5 @@ export const fr = {
   noRestaurants: 'Pas de restaurants',
   clearCartText:
     'En quittant cette page du restaurant, les articles que vous avez ajoutés au panier seront effacés',
-  okText: 'OK',
-  edit: 'modifier',
-  change: 'Changement',
-  myAccount: 'Mon compte',
-  estimatedDeliveryTime: 'Temps de livraison estimé',
-  current: 'actuel',
-  past: 'passé',
-  deliveredOn: 'délivré le',
-  address: 'adresse',
-  language: 'langue',
-  house: 'Maison',
-  office: 'Bureau',
-  Appartment: 'Appartement',
-  tapToRate: 'Appuyez pour noter',
-  locationType: 'Type de lieu',
-  locationTypeDetails: 'Le type de localisation nous aide à mieux vous trouver'
+  okText: 'OK'
 }

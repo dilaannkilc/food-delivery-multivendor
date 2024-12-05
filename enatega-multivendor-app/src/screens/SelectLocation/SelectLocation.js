@@ -95,13 +95,11 @@ export default function SelectLocation(props) {
     }
     setLoading(false)
     navigation.navigate('AddNewAddress', {
-      Location: {
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+      location: {
         latitude: coords.latitude,
-        longitude: coords.longitude,
-        location: {
-          latitude: coords.latitude,
-          longitude: coords.longitude
-        }
+        longitude: coords.longitude
       }
     })
   }
@@ -154,13 +152,9 @@ export default function SelectLocation(props) {
 
   const onItemPress = city => {
     setModalVisible(false)
-    navigation.navigate('AddNewAddress', {
-      City: {
-        city,
-        latitude: city.latitude,
-        longitude: city.longitude
-      }
-    })
+    // Navigate to AddNewAddress screen with the selected city
+    navigation.navigate('AddNewAddress', { city, location: { ...city } })
+    console.log('City info', { city, location: { ...city } })
   }
 
   return (

@@ -55,7 +55,9 @@ export const LocationProvider = ({ children }) => {
           JSON.stringify(ipResponse.data),
           JSON.stringify(data)
         )
+
         const countryName = ipResponse.data.country // missing 'US'
+
         console.log('country by ipify', countryName)
         setCountry(countryName)
       } catch (error) {
