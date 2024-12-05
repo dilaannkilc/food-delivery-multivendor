@@ -15,9 +15,8 @@ import OrdersContext from '../../context/Orders'
 import { useTranslation } from 'react-i18next'
 import ConfigurationContext from '../../context/Configuration'
 import StarIcon from '../../../src/assets/SVG/imageComponents/starIcon'
-import { scale } from '../../utils/scaling'
 
-function emptyView({ currentTheme, navigation, t }) {
+function emptyView() {
   const orderStatusActive = ['PENDING', 'PICKED', 'ACCEPTED', 'ASSIGNED']
   const orderStatusInactive = ['DELIVERED', 'COMPLETED']
   const { orders, loadingOrders, errorOrders } = useContext(OrdersContext)
@@ -57,7 +56,7 @@ function emptyView({ currentTheme, navigation, t }) {
           activeOpacity={0.7}
           style={styles(currentTheme).emptyButton}
           onPress={() =>
-            navigation.navigate({
+            props.navigation.navigate({
               name: 'Main',
               merge: true
             })
@@ -107,7 +106,7 @@ const PastOrders = ({ navigation, loading, error, pastOrders }) => {
       data={pastOrders}
       renderItem={renderItem}
       keyExtractor={(item, index) => index.toString()}
-      ListEmptyComponent={emptyView({ currentTheme, navigation, t })}
+      ListEmptyComponent={emptyView()}
       refreshing={networkStatusOrders === 4}
       onRefresh={() => networkStatusOrders === 7 && reFetchOrders()}
       onEndReached={fetchMoreOrdersFunc}
@@ -219,7 +218,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
                   numberOfLines={1}
                   style={{
                     ...alignment.MTxSmall,
-                    width: '122%'
+                    width: '122%',
                   }}
                   textColor={currentTheme.fontSecondColor}
                   small>
@@ -257,7 +256,6 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
               <TouchableOpacity style={{ flexDirection: 'row' }}>
                 {[1, 2, 3, 4, 5].map(index => (
                   <StarIcon
-                    key={`star-icon-${index}`}
                     isFilled={index <= rating}
                     onPress={() => handleRating(index)}
                   />

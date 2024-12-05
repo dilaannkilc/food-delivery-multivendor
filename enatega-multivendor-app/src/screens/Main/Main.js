@@ -50,7 +50,6 @@ import { TopPicks } from '../../components/Main/TopPicks'
 import { TopBrands } from '../../components/Main/TopBrands'
 import Item from '../../components/Main/Item/Item'
 import TextError from '../../components/Text/TextError/TextError'
-import ActiveOrders from '../../components/Main/ActiveOrders/ActiveOrders'
 
 const RESTAURANTS = gql`
   ${restaurantList}
@@ -95,7 +94,7 @@ function Main(props) {
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.main)
+      StatusBar.setBackgroundColor(currentTheme.newheaderColor)
     }
     StatusBar.setBarStyle(
       themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
@@ -154,7 +153,7 @@ function Main(props) {
     modalRef.current.close()
   }
 
-  const setCurrentLocation = async() => {
+  const setCurrentLocation = async () => {
     setBusy(true)
     const { error, coords } = await getCurrentLocation()
 
@@ -236,6 +235,21 @@ function Main(props) {
     }
   }
 
+  const errorView = () => {
+    return (
+      <View style={styles().errorViewContainer}>
+        <MaterialIcons
+          name="error-outline"
+          size={scale(80)}
+          color={currentTheme.main}
+        />
+        <TextDefault center H3>
+          {t('networkError')}
+        </TextDefault>
+      </View>
+    )
+  }
+
   const modalFooter = () => (
     <View style={styles().addressbtn}>
       <View style={styles(currentTheme).addressContainer}>
@@ -268,7 +282,12 @@ function Main(props) {
   function loadingScreen() {
     return (
       <View style={styles(currentTheme).screenBackground}>
-        <Search search={''} setSearch={() => { }} newheaderColor={newheaderColor}/>
+        <Search
+          search={''}
+          setSearch={() => {}}
+          newheaderColor={newheaderColor}
+          placeHolder={t('searchRestaurant')}
+        />
         <Placeholder
           Animation={props => (
             <Fade
@@ -347,7 +366,7 @@ function Main(props) {
     return data
   }
 
-  if (error) return <TextError text={t('networkError')} />
+  if (error) return errorView()
 
   return (
     <>
@@ -357,7 +376,12 @@ function Main(props) {
             <View style={styles().mainContentContainer}>
               <View style={[styles().flex, styles().subContainer]}>
                 <View style={styles().searchbar}>
-                  <Search setSearch={setSearch} search={search} newheaderColor={newheaderColor} />
+                  <Search
+                    setSearch={setSearch}
+                    search={search}
+                    newheaderColor={newheaderColor}
+                    placeHolder={t('searchRestaurant')}
+                  />
                 </View>
                 {search ? (
                   <View style={styles().searchList}>
@@ -365,7 +389,7 @@ function Main(props) {
                       contentInset={{ top: containerPaddingTop }}
                       contentContainerStyle={{
                         paddingTop:
-                            Platform.OS === 'ios' ? 0 : containerPaddingTop
+                          Platform.OS === 'ios' ? 0 : containerPaddingTop
                       }}
                       contentOffset={{ y: -containerPaddingTop }}
                       onScroll={onScroll}
@@ -405,13 +429,13 @@ function Main(props) {
                             bolder
                             textColor={currentTheme.fontThirdColor}
                             style={styles().ItemName}>
-                              Food Delivery
+                            Food Delivery
                           </TextDefault>
                           <TextDefault
                             Normal
                             textColor={currentTheme.fontThirdColor}
                             style={styles().ItemDescription}>
-                              Order food you love
+                            Order food you love
                           </TextDefault>
                         </View>
                         <Image
@@ -432,13 +456,13 @@ function Main(props) {
                           bolder
                           textColor={currentTheme.fontThirdColor}
                           style={styles().ItemName}>
-                            Grocery
+                          Grocery
                         </TextDefault>
                         <TextDefault
                           Normal
                           textColor={currentTheme.fontThirdColor}
                           style={styles().ItemDescription}>
-                            Essentials delivered fast
+                          Essentials delivered fast
                         </TextDefault>
                         <Image
                           source={require('../../assets/images/ItemsList/grocery.png')}
@@ -512,18 +536,17 @@ function Main(props) {
                       ![t('currentLocation'), t('selectedLocation')].includes(
                         location.label
                       ) && (
-                      <MaterialIcons
-                        name="check"
-                        size={scale(25)}
-                        color={currentTheme.iconColorPink}
-                      />
-                    )}
+                        <MaterialIcons
+                          name="check"
+                          size={scale(25)}
+                          color={currentTheme.iconColorPink}
+                        />
+                      )}
                   </View>
                 </View>
               )
             }}></Modalize>
         </View>
-        <ActiveOrders/>
       </SafeAreaView>
     </>
   )
