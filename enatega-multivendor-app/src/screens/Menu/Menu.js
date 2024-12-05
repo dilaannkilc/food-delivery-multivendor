@@ -317,7 +317,6 @@ function Menu({ route, props }) {
           search={''}
           setSearch={() => {}}
           newheaderColor={newheaderColor}
-          placeHolder={t('searchRestaurant')}
         />
         <Placeholder
           Animation={props => (
@@ -506,7 +505,6 @@ function Menu({ route, props }) {
                     setSearch={setSearch}
                     search={search}
                     newheaderColor={newheaderColor}
-                    placeHolder={t('searchRestaurant')}
                   />
                   <Filters
                     filters={filters}
