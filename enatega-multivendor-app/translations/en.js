@@ -317,7 +317,6 @@ export const en = {
   otpResentToEmail: 'OTP resent to your email.',
   search: 'Search',
   searchRestaurant: 'Search for restaurants',
-  searchItems: 'Search for items',
   message: 'Message',
   aptFloor: 'Apt | Floor',
   confirmPassword: 'Confirm Password',

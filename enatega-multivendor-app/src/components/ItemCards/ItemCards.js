@@ -1,11 +1,8 @@
 import { FlatList, Image, Text, View, TouchableOpacity } from 'react-native'
 import { scale } from '../../utils/scaling'
 import styles from './styles'
-import { useContext } from 'react'
-import ConfigurationContext from '../../context/Configuration'
 
 const ItemCard = ({ item, onPressItem, restaurant, tagCart }) => {
-  const configuration = useContext(ConfigurationContext)
   const handleAddToCart = () => {
     onPressItem({
       ...item,
@@ -34,7 +31,7 @@ const ItemCard = ({ item, onPressItem, restaurant, tagCart }) => {
           />
           <View style={styles().popularMenuPrice}>
             <Text style={{ color: '#1C1C1E', fontSize: scale(12) }}>
-              {`${configuration.currencySymbol}${item.variations[0].price}`}
+              ${item.variations[0].price}
             </Text>
             <Text
               style={{
@@ -42,7 +39,7 @@ const ItemCard = ({ item, onPressItem, restaurant, tagCart }) => {
                 fontSize: scale(12),
                 textDecorationLine: 'line-through'
               }}>
-              {`${configuration.currencySymbol}${item.variations[0].discounted}`}
+              ${item.variations[0].discounted}
             </Text>
           </View>
         </View>
