@@ -5,6 +5,7 @@ import React, {
   useContext,
   useRef
 } from 'react'
+import { Ionicons, AntDesign } from '@expo/vector-icons'
 import {
   View,
   ScrollView,
@@ -17,7 +18,6 @@ import {
 import { useMutation, useQuery } from '@apollo/client'
 import gql from 'graphql-tag'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { AntDesign, FontAwesome } from '@expo/vector-icons'
 import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder'
 import { Modalize } from 'react-native-modalize'
 import moment from 'moment'
@@ -49,7 +49,6 @@ import styles from './styles'
 import Location from '../../components/Main/Location/Location'
 import { customMapStyle } from '../../utils/customMapStyles'
 import CustomMarker from '../../assets/SVG/imageComponents/CustomMarker'
-import EmptyCart from '../../assets/SVG/imageComponents/EmptyCart'
 
 // Constants
 const PLACEORDER = gql`
@@ -70,6 +69,9 @@ function Checkout(props) {
     restaurant: cartRestaurant,
     cart,
     cartCount,
+    addQuantity,
+    removeQuantity,
+    deleteItem,
     updateCart
   } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
@@ -98,6 +100,14 @@ function Checkout(props) {
     fetchPolicy: 'network-only'
   })
 
+  const onOpen = () => {
+    const modal = modalRef.current
+    if (modal) {
+      modal.open()
+      setIsModalOpen(true)
+    }
+  }
+
   const [mutateOrder, { loading: loadingOrderMutation }] = useMutation(
     PLACEORDER,
     {
@@ -111,7 +121,7 @@ function Checkout(props) {
     payment: 'COD',
     label: t('cod'),
     index: 2,
-    icon: 'dollar'
+    icon: require('../../assets/images/cashIcon.png')
   }
 
   const paymentMethod =
@@ -412,7 +422,9 @@ function Checkout(props) {
     }
     if (calculatePrice(deliveryCharges, true) < minimumOrder) {
       FlashMessage({
-        message: `The minimum amount of (${configuration.currencySymbol} ${minimumOrder}) for your order has not been reached.`
+        // message: `The minimum amount of (${configuration.currencySymbol} ${minimumOrder}) for your order has not been reached.`
+        message: `(${t(minAmount)}) (${configuration.currencySymbol
+          } ${minimumOrder}) (${t(forYourOrder)})`
       })
       return false
     }
@@ -576,42 +588,6 @@ function Checkout(props) {
         message: e.message
       })
     }
-  }
-
-    function emptyCart() {
-    return (
-      <View style={styles().subContainerImage}>
-        <View style={styles().imageContainer}>
-          <EmptyCart width={scale(200)} height={scale(200)} />
-        </View>
-        <View style={styles().descriptionEmpty}>
-          <TextDefault textColor={currentTheme.fontMainColor} bolder center>
-            {t('hungry')}?
-          </TextDefault>
-          <TextDefault textColor={currentTheme.fontSecondColor} bold center>
-            {t('emptyCart')}
-          </TextDefault>
-        </View>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={styles(currentTheme).emptyButton}
-          onPress={() =>
-            props.navigation.navigate({
-              name: 'Main',
-              merge: true
-            })
-          }>
-          <TextDefault
-            textColor={currentTheme.buttonText}
-            bolder
-            B700
-            center
-            uppercase>
-            {t('emptyCartBtn')}
-          </TextDefault>
-        </TouchableOpacity>
-      </View>
-    )
   }
 
   function loadginScreen() {
@@ -1016,18 +992,18 @@ function Checkout(props) {
                             alignItems: 'center',
                             gap: scale(18)
                           }}>
-                          <View>
-                            <FontAwesome
-                              name={paymentMethod?.icon}
+                          <View style={styles().currencyLogo}>
+                            <Ionicons
+                              name="logo-usd"
                               size={15}
-                              color={currentTheme.fontFourthColor} />
-
+                              color={currentTheme.fontFourthColor}
+                            />
                           </View>
                           <TextDefault
                             textColor={currentTheme.fontFourthColor}
                             medium
                             bolder>
-                            {paymentMethod?.label}
+                            {paymentMethod.label}
                           </TextDefault>
                         </View>
                         <View style={styles(currentTheme).changeBtn}>

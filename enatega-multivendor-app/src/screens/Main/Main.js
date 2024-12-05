@@ -95,7 +95,7 @@ function Main(props) {
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.newheaderColor)
+      StatusBar.setBackgroundColor(currentTheme.main)
     }
     StatusBar.setBarStyle(
       themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
@@ -268,7 +268,7 @@ function Main(props) {
   function loadingScreen() {
     return (
       <View style={styles(currentTheme).screenBackground}>
-        <Search search={''} setSearch={() => { }} newheaderColor={newheaderColor} placeHolder={t('searchRestaurant')} />
+        <Search search={''} setSearch={() => { }} newheaderColor={newheaderColor}/>
         <Placeholder
           Animation={props => (
             <Fade
@@ -359,7 +359,7 @@ function Main(props) {
             <View style={styles().mainContentContainer}>
               <View style={[styles().flex, styles().subContainer]}>
                 <View style={styles().searchbar}>
-                  <Search setSearch={setSearch} search={search} newheaderColor={newheaderColor} placeHolder={t('searchRestaurant')} />
+                  <Search setSearch={setSearch} search={search} newheaderColor={newheaderColor} />
                 </View>
                   {search ? (
                     <View style={styles().searchList}>
