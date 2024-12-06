@@ -313,7 +313,6 @@ export const ar = {
   otpResentToEmail: 'تم إعادة إرسال رمز OTP إلى بريدك الإلكتروني.',
   search: 'بحث',
   searchRestaurant: 'البحث عن المطاعم',
-  searchItems: 'البحث عن العناصر',
   message: 'رسالة',
   aptFloor: 'شقة | طابق',
   confirmPassword: 'تأكيد كلمة المرور',

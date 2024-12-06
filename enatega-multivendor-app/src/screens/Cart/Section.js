@@ -10,7 +10,6 @@ import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import ConfigurationContext from '../../context/Configuration'
 
 const RELATED_ITEMS = gql`${relatedItemsQuery}`
 const RESTAURANT = gql`${restaurantQuery}`
@@ -20,7 +19,6 @@ const Section = ({ itemId, restaurantId }) => {
     const navigation = useNavigation()
     const client = useApolloClient()
     const themeContext = useContext(ThemeContext)
-    const configuration = useContext(ConfigurationContext)
     const currentTheme = theme[themeContext.ThemeValue]
     const { loading, error, data } = useQuery(RELATED_ITEMS, { variables: { itemId, restaurantId } })
     if (loading) return <View />
@@ -55,12 +53,19 @@ const Section = ({ itemId, restaurantId }) => {
                         />
                     </View>
                 }
+                <ScrollView>
                     <TextDefault
                         style={styles().suggestItemName}
                         textColor={currentTheme.fontFourthColor}
                         H5
                         bolder>
                         {food.title}
+                    </TextDefault>
+                    <TextDefault
+                        style={styles().suggestItemDesciption}
+                        textColor={currentTheme.secondaryText}
+                        normal>
+                        {food.description}
                     </TextDefault>
                     <View
                         style={{
@@ -73,7 +78,7 @@ const Section = ({ itemId, restaurantId }) => {
                             textColor={currentTheme.fontFourthColor}
                             normal
                             bolder>
-                            {`${configuration.currencySymbol}${food.variations[0].price}`}
+                            ${food.variations[0].price}
                         </TextDefault>
                         <TouchableOpacity onPress={onAdd}>
                             <View style={styles().addToCart}>
@@ -81,6 +86,7 @@ const Section = ({ itemId, restaurantId }) => {
                             </View>
                         </TouchableOpacity>
                     </View>
+                </ScrollView>
             </View>
         </View>
     }

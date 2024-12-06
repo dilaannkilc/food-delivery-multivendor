@@ -46,12 +46,10 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { LocationContext } from '../../context/Location'
 import { ActiveOrdersAndSections } from '../../components/Main/ActiveOrdersAndSections'
 import { alignment } from '../../utils/alignment'
+import Spinner from '../../components/Spinner/Spinner'
 import analytics from '../../utils/analytics'
 import { useTranslation } from 'react-i18next'
 import Filters from '../../components/Filter/FilterSlider'
-import CustomHomeIcon from '../../assets/SVG/imageComponents/CustomHomeIcon'
-import CustomOtherIcon from '../../assets/SVG/imageComponents/CustomOtherIcon'
-import CustomWorkIcon from '../../assets/SVG/imageComponents/CustomWorkIcon'
 
 const RESTAURANTS = gql`
   ${restaurantList}
@@ -102,7 +100,6 @@ function Menu({ route, props }) {
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const { getCurrentLocation } = useLocation()
-  const locationData = location
 
   const { data, refetch, networkStatus, loading, error } = useQuery(
     RESTAURANTS,
@@ -137,7 +134,7 @@ function Menu({ route, props }) {
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.newheaderColor)
+      StatusBar.setBackgroundColor(currentTheme.headerColor)
     }
     StatusBar.setBarStyle(
       themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
@@ -156,8 +153,7 @@ function Menu({ route, props }) {
         horizontalLine: currentTheme.headerColor,
         fontMainColor: currentTheme.darkBgFont,
         iconColorPink: currentTheme.black,
-        open: onOpen,
-        icon: 'back'
+        open: onOpen
       })
     )
   }, [navigation, currentTheme])
@@ -185,9 +181,9 @@ function Menu({ route, props }) {
   }
 
   const addressIcons = {
-    Home: CustomHomeIcon,
-    Work: CustomWorkIcon,
-    Other: CustomOtherIcon
+    Home: 'home',
+    Work: 'briefcase',
+    Other: 'location-pin'
   }
 
   const setAddressLocation = async address => {
@@ -239,22 +235,35 @@ function Menu({ route, props }) {
   }
 
   const modalHeader = () => (
-    <View style={[styles().addNewAddressbtn]}>
-      <View style={styles(currentTheme).addressContainer}>
-        <TouchableOpacity
-          style={[styles(currentTheme).addButton]}
-          activeOpacity={0.7}
-          onPress={setCurrentLocation}>
-          <View style={styles().addressSubContainer}>
-            <MaterialCommunityIcons
-              name="target"
-              size={scale(25)}
-              color={currentTheme.black}
-            />
-            <View style={styles().mL5p} />
-            <TextDefault bold>{t('currentLocation')}</TextDefault>
-          </View>
-        </TouchableOpacity>
+    <View style={[styles().addressbtn]}>
+      <TouchableOpacity
+        style={[styles(currentTheme).addressContainer]}
+        activeOpacity={0.7}
+        onPress={setCurrentLocation}>
+        <View style={styles().addressSubContainer}>
+          <MaterialCommunityIcons
+            name="target"
+            size={scale(25)}
+            color={currentTheme.black}
+          />
+          <View style={styles().mL5p} />
+          <TextDefault bold>{t('currentLocation')}</TextDefault>
+        </View>
+      </TouchableOpacity>
+      <View style={styles().addressTick}>
+        {location.label === 'currentLocation' && (
+          <MaterialIcons
+            name="check"
+            size={scale(15)}
+            color={currentTheme.iconColorPink}
+          />
+        )}
+        {busy && (
+          <Spinner
+            size={'small'}
+            backColor={currentTheme.lightHorizontalLine}
+          />
+        )}
       </View>
     </View>
   )
@@ -271,30 +280,15 @@ function Menu({ route, props }) {
       )
     }
   }
-  const errorView = () => {
-    return (
-      <View style={styles().errorViewContainer}>
-        <MaterialIcons
-          name="error-outline"
-          size={scale(80)}
-          color={currentTheme.main}
-        />
-        <TextDefault center H3>
-          {t('networkError')}
-        </TextDefault>
-      </View>
-    )
-  }
 
   const modalFooter = () => (
-    <View style={styles().addNewAddressbtn}>
+    <View style={styles().addressbtn}>
       <View style={styles(currentTheme).addressContainer}>
         <TouchableOpacity
           activeOpacity={0.5}
-          style={styles(currentTheme).addButton}
           onPress={() => {
             if (isLoggedIn) {
-              navigation.navigate('AddNewAddress', { locationData })
+              navigation.navigate('NewAddress')
             } else {
               const modal = modalRef.current
               modal?.close()
@@ -304,7 +298,7 @@ function Menu({ route, props }) {
           <View style={styles().addressSubContainer}>
             <AntDesign
               name="pluscircleo"
-              size={scale(20)}
+              size={scale(12)}
               color={currentTheme.black}
             />
             <View style={styles().mL5p} />
@@ -323,7 +317,6 @@ function Menu({ route, props }) {
           search={''}
           setSearch={() => {}}
           newheaderColor={newheaderColor}
-          placeHolder={t('searchRestaurant')}
         />
         <Placeholder
           Animation={props => (
@@ -365,9 +358,11 @@ function Menu({ route, props }) {
     )
   }
 
-  if (error) return errorView()
+  if (error) return <TextError text={t('networkError')} />
 
   if (loading || mutationLoading || loadingOrders) return loadingScreen()
+
+  // const { restaurants, sections } = data.nearByRestaurants
 
   const searchRestaurants = searchText => {
     const data = []
@@ -510,7 +505,6 @@ function Menu({ route, props }) {
                     setSearch={setSearch}
                     search={search}
                     newheaderColor={newheaderColor}
-                    placeHolder={t('searchRestaurant')}
                   />
                   <Filters
                     filters={filters}
@@ -550,33 +544,21 @@ function Menu({ route, props }) {
                     activeOpacity={0.7}
                     onPress={() => setAddressLocation(address)}>
                     <View style={styles().addressSubContainer}>
-                      <View style={[styles(currentTheme).homeIcon]}>
-                        {addressIcons[address.label] ? (
-                          React.createElement(addressIcons[address.label], {
-                            fill: currentTheme.darkBgFont
-                          })
-                        ) : (
-                          <AntDesign name="question" size={20} color="black" />
-                        )}
-                      </View>
-                      {/* <View style={styles().mL5p} /> */}
-                      <View style={[styles().titleAddress]}>
-                        <TextDefault
-                          textColor={currentTheme.darkBgFont}
-                          style={styles(currentTheme).labelStyle}>
-                          {t(address.label)}
-                        </TextDefault>
-                      </View>
+                      <SimpleLineIcons
+                        name={addressIcons[address.label]}
+                        size={scale(12)}
+                        color={currentTheme.black}
+                      />
+                      <View style={styles().mL5p} />
+                      <TextDefault bold>{t(address.label)}</TextDefault>
                     </View>
-                    <View style={styles(currentTheme).addressTextContainer}>
-                      <View style={styles(currentTheme).addressDetail}>
-                        <TextDefault
-                          style={{ ...alignment.PLlarge }}
-                          textColor={currentTheme.fontSecondColor}
-                          small>
-                          {address.deliveryAddress}
-                        </TextDefault>
-                      </View>
+                    <View style={styles().addressTextContainer}>
+                      <TextDefault
+                        style={{ ...alignment.PLlarge }}
+                        textColor={currentTheme.fontSecondColor}
+                        small>
+                        {address.deliveryAddress}
+                      </TextDefault>
                     </View>
                   </TouchableOpacity>
                   <View style={styles().addressTick}>
