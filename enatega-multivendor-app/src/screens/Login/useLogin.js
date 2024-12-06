@@ -48,12 +48,13 @@ export const useLogin = () => {
   // Debounce the setEmail function
   const debouncedSetEmail = _.debounce(text => {
     setEmail(text.toLowerCase().trim())
-  }, 300) // Adjust the delay as needed (in milliseconds)
+  }, 1) // Adjust the delay as needed (in milliseconds)
 
   function validateCredentials() {
     let result = true
     setEmailError(null)
     setPasswordError(null)
+
     if (!email) {
       setEmailError(t('emailErr1'))
       result = false

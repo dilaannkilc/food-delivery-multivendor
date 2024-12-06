@@ -4,10 +4,8 @@ import React from "react";
 import ThreeDots from "../../ThreeDots/ThreeDots";
 import { DetailCard } from "../OrderDetail";
 import useStyles from "./styles";
-import { useTranslation } from 'react-i18next';
 
 function PaymentOrderCard(props) {
-  const { t } = useTranslation()
   const classes = useStyles();
   return (
     <Grid container item xs={12} style={{ justifyContent: "center" }}>
@@ -16,14 +14,14 @@ function PaymentOrderCard(props) {
           <Grid container className={classes.center}>
             <Grid item xs={12}>
               <Typography variant="h5" color="textSecondary" className={classes.textBold}>
-                {t('personalDetail')}
+                Personal Detail
               </Typography>
             </Grid>
             <ThreeDots />
             <Grid container item xs={12}>
               <Grid item xs={5}>
                 <Typography variant="body2" className={clsx(classes.disabledText, classes.smallText)}>
-                  {t('name')}
+                  Name
                 </Typography>
               </Grid>
               <Grid item xs={7} className={classes.ph1}>
@@ -35,7 +33,7 @@ function PaymentOrderCard(props) {
             <Grid container item xs={12} className={classes.mv2}>
               <Grid item xs={5}>
                 <Typography variant="body2" className={clsx(classes.disabledText, classes.smallText)}>
-                  {t('email')}
+                  Email
                 </Typography>
               </Grid>
               <Grid item xs={7} className={classes.ph1}>
@@ -47,7 +45,7 @@ function PaymentOrderCard(props) {
             <Grid container item xs={12}>
               <Grid item xs={5}>
                 <Typography variant="body2" className={clsx(classes.disabledText, classes.smallText)}>
-                  {t('phone')}
+                  Contact number:
                 </Typography>
               </Grid>
               <Grid item xs={7} className={classes.ph1}>

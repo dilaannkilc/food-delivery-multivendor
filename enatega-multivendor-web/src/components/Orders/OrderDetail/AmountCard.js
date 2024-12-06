@@ -4,10 +4,8 @@ import React, { useContext } from "react";
 import ConfigurationContext from "../../../context/Configuration";
 import { calculatePrice } from "../../../utils/customFunction";
 import useStyles from "./styles";
-import { useTranslation } from 'react-i18next';
 
 export default function AmountCard(props) {
-  const { t } = useTranslation();
   const classes = useStyles();
   const configuration = useContext(ConfigurationContext);
   const deliveryCharges = props.isPickedUp ? 0 : props.deliveryCharges;
@@ -73,7 +71,7 @@ export default function AmountCard(props) {
                   variant="body2"
                   className={clsx(classes.disabledText, classes.smallText)}
                 >
-                  {t('subTotal')}
+                  Subtotal
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -97,7 +95,7 @@ export default function AmountCard(props) {
                   variant="body2"
                   className={clsx(classes.disabledText, classes.smallText)}
                 >
-                  {t('tip')}
+                  Tip
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -117,7 +115,7 @@ export default function AmountCard(props) {
                   variant="body2"
                   className={clsx(classes.disabledText, classes.smallText)}
                 >
-                  {t('taxFee')}
+                  Tax
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -138,7 +136,7 @@ export default function AmountCard(props) {
                     variant="body2"
                     className={clsx(classes.disabledText, classes.smallText)}
                   >
-                    {t('deliveryFee')}
+                    Delivery Fee
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
@@ -161,7 +159,7 @@ export default function AmountCard(props) {
                     color="textSecondary"
                     className={clsx(classes.textBold, classes.smallText)}
                   >
-                    {t('total')}
+                    Total
                   </Typography>
                   <Typography
                     variant="caption"

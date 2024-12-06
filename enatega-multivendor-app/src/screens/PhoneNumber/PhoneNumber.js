@@ -19,6 +19,8 @@ import CountryPicker from 'react-native-country-picker-modal'
 import usePhoneNumber from './usePhoneNumber'
 import PhoneInput from 'react-native-phone-number-input'
 import { useTranslation } from 'react-i18next'
+import { Ionicons } from '@expo/vector-icons'
+import { scale } from '../../utils/scaling'
 
 function PhoneNumber(props) {
   const {
@@ -66,18 +68,18 @@ function PhoneNumber(props) {
           <View style={styles(currentTheme).mainContainer}>
             <View style={styles().subContainer}>
               <View style={styles().logoContainer}>
-                <Image
-                  source={require('../../../assets/login-icon.png')}
-                  style={styles().logoContainer}
+                <Ionicons
+                  name="phone-portrait-outline"
+                  size={30}
+                  color="black"
                 />
               </View>
               <View>
                 <TextDefault
                   H3
                   bolder
-                  textColor={currentTheme.fontSecondColor}
+                  textColor={currentTheme.fontfourthColor}
                   style={{
-                    textAlign: 'center',
                     ...alignment.MTlarge,
                     ...alignment.MBmedium
                   }}>
@@ -88,7 +90,7 @@ function PhoneNumber(props) {
                   bold
                   textColor={currentTheme.fontSecondColor}
                   style={{
-                    textAlign: 'center'
+                    paddingBottom: scale(5)
                   }}>
                   {t('secureAccountWithPhone')}
                 </TextDefault>

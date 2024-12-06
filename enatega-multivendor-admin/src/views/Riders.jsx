@@ -10,7 +10,7 @@ import RiderComponent from '../components/Rider/Rider'
 import SearchBar from '../components/TableHeader/SearchBar'
 import {
   getRiders,
-  deleteRider,
+  //deleteRider,
   toggleAvailablity,
   getAvailableRiders
 } from '../apollo'
@@ -34,14 +34,13 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { ReactComponent as RiderIcon } from '../assets/svg/svg/Rider.svg'
 import TableHeader from '../components/TableHeader'
 import Alert from '../components/Alert'
-import ConfigurableValues from '../config/constants'
 
 const GET_RIDERS = gql`
   ${getRiders}
 `
-const DELETE_RIDER = gql`
-  ${deleteRider}
-`
+// const DELETE_RIDER = gql`
+//   ${deleteRider}
+// `
 const TOGGLE_RIDER = gql`
   ${toggleAvailablity}
 `
@@ -50,7 +49,6 @@ const GET_AVAILABLE_RIDERS = gql`
 `
 
 function Riders(props) {
-  const {PAID_VERSION} = ConfigurableValues()
   const [editModal, setEditModal] = useState(false)
   const [rider, setRider] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
@@ -59,9 +57,9 @@ function Riders(props) {
   const [mutateToggle] = useMutation(TOGGLE_RIDER, {
     refetchQueries: [{ query: GET_RIDERS }, { query: GET_AVAILABLE_RIDERS }]
   })
-  const [mutateDelete] = useMutation(DELETE_RIDER, {
-    refetchQueries: [{ query: GET_RIDERS }]
-  })
+  // const [mutateDelete] = useMutation(DELETE_RIDER, {
+  //   refetchQueries: [{ query: GET_RIDERS }]
+  // })
   const { data, error: errorQuery, loading: loadingQuery, refetch } = useQuery(
     GET_RIDERS
   )
@@ -69,10 +67,6 @@ function Riders(props) {
   const toggleModal = rider => {
     setEditModal(!editModal)
     setRider(rider)
-  }
-
-  const closeEditModal = () => {
-    setEditModal(false)
   }
 
   const customSort = (rows, field, direction) => {
@@ -122,7 +116,7 @@ function Riders(props) {
       cell: row => <>{availableStatus(row)}</>
     },
     {
-      name: t('Action'),
+      name: 'Action',
       cell: row => <>{actionButtons(row)}</>
     }
   ]
@@ -174,40 +168,34 @@ function Riders(props) {
               <MenuItem
                 onClick={e => {
                   e.preventDefault()
-                  
-                  if(PAID_VERSION)
-                  toggleModal(row)
-                else{
                   setIsOpen(true)
                   setTimeout(() => {
                     setIsOpen(false)
                   }, 5000)
-                }
+                  //uncomment this for paid version
+                  //toggleModal(row)
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
                   <EditIcon fontSize="small" style={{ color: 'green' }} />
                 </ListItemIcon>
-                <Typography color="green">{t('Edit')}</Typography>
+                <Typography color="green">Edit</Typography>
               </MenuItem>
               <MenuItem
                 onClick={e => {
                   e.preventDefault()
-                  
-                  if(PAID_VERSION)
-                  mutateDelete({ variables: { id: row._id } })
-                else{
                   setIsOpen(true)
                   setTimeout(() => {
                     setIsOpen(false)
                   }, 5000)
-                }
+                  //uncomment this for paid version
+                  //mutateDelete({ variables: { id: row._id } })
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
                   <DeleteIcon fontSize="small" style={{ color: 'red' }} />
                 </ListItemIcon>
-                <Typography color="red">{t('Delete')}</Typography>
+                <Typography color="red">Delete</Typography>
               </MenuItem>
             </Menu>
           </Paper>
@@ -248,8 +236,11 @@ function Riders(props) {
           </Grid>
         </Grid>
         {isOpen && (
-          <Alert message={t('AvailableAfterPurchasing')} severity="warning" />
-        )}
+            <Alert
+              message="This feature will available after purchasing product"
+              severity="warning"
+              />
+          )}
         {/* Table */}
         {errorQuery ? (
           <tr>
@@ -268,7 +259,7 @@ function Riders(props) {
                 onClick={() => refetch()}
               />
             }
-            title={<TableHeader title={t('Riders')} />}
+            title={<TableHeader title="Riders" />}
             columns={columns}
             data={filtered}
             pagination
@@ -290,7 +281,7 @@ function Riders(props) {
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-          <RiderComponent rider={rider} onClose={closeEditModal} />
+          <RiderComponent rider={rider} />
         </Modal>
       </Container>
     </>

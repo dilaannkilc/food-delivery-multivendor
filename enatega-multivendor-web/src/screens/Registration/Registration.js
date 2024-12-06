@@ -19,15 +19,12 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { gql, useMutation } from "@apollo/client";
 import { phoneExist } from "../../apollo/server";
-import { useEffect } from "react";
-import { useTranslation } from 'react-i18next';
 
 const PHONE = gql`
   ${phoneExist}
 `;
 
 function Registration() {
-  const { t } = useTranslation();
   const theme = useTheme();
   const classes = useStyles();
   const [error, setError] = useState("");
@@ -41,26 +38,12 @@ function Registration() {
   const [fNameError, setFNameError] = useState("");
   const [lNameError, setLNameError] = useState("");
   const [phone, setPhone] = useState("");
-  
   const [phoneError, setPhoneError] = useState(null);
   const [PhoneEixst] = useMutation(PHONE, {
     onCompleted,
     onError,
   });
-  const handleBackNavigation = () => {
-    // Use history.push to navigate to the desired route
-    navigate("/new-login");
-  };
 
-  useEffect(() => {
-    // Add an event listener for the popstate event
-    window.addEventListener("popstate", handleBackNavigation);
-
-    // Remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("popstate", handleBackNavigation);
-    };
-  });
   function onCompleted({ phoneExist }) {
     if (phoneExist?._id !== null) {
       setError("Phone number already assocaited with some other user");
@@ -106,42 +89,39 @@ function Registration() {
     const firstNameValue = formRef.current["firstName"].value;
     const lastNameValue = formRef.current["lastName"].value;
     const userPass = formRef.current["userPass"].value;
-    const passRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/;
-
+    const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
     if (!isValidEmailAddress(emailValue)) {
-      setEmailError(t('emailErr2'));
+      setEmailError("Invalid Email");
       validate = false;
     }
     if (!firstNameValue.trim()) {
-      setFNameError(t('firstnameErr2'));
+      setFNameError("Invalid Email");
       validate = false;
     }
     if (!lastNameValue.trim()) {
-      setLNameError(t('lastnameErr2'));
+      setLNameError("Invalid Email");
       validate = false;
     }
     if (!userPass) {
-      setPassError(t('passwordErr2'));
+      setPassError("Invalid Email");
       validate = false;
     }
     if (!phone) {
-      setPhoneError(t('mobileErr2'));
+      setPhoneError("Invalid phone");
       validate = false;
     }
     if (!passRegex.test(userPass)) {
       setPassError(
-       t('passwordErr1')
+        "Invalid Password. Password must contain 1 capital letter, 1 small letter, 1 number"
       );
-      validate = false;
     }
     if (validate) {
       setLoading(true);
       PhoneEixst({ variables: { phone: `+${phone}` } });
     } else {
-      setError(t('generalErr'));
+      setError("Something is missing");
     }
   };
-
 
   const toggleSnackbar = useCallback(() => {
     setError("");
@@ -172,14 +152,14 @@ function Registration() {
       </Box>
       <Box mt={theme.spacing(1)} />
       <Typography variant="h5" className={classes.font700}>
-        {t('letsGetStarted')}
+        Let's get you started!
       </Typography>
       <Box mt={theme.spacing(1)} />
       <Typography
         variant="caption"
         className={`${classes.caption} ${classes.fontGrey}`}
       >
-        {t('createAccount')}
+        First, create your account
       </Typography>
       <Box mt={theme.spacing(3)} />
       <form ref={formRef}>
@@ -308,7 +288,7 @@ function Registration() {
               variant="caption"
               className={`${classes.caption} ${classes.font700}`}
             >
-              {t('continue')}
+              CONTINUE
             </Typography>
           )}
         </Button>
