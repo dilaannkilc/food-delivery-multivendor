@@ -1,6 +1,6 @@
 import { verticalScale, scale } from '../../utils/scaling'
-import { Dimensions, StyleSheet } from 'react-native'
-const windowWidth = Dimensions.get('window').width
+import { StyleSheet } from 'react-native'
+
 import { alignment } from '../../utils/alignment'
 
 const styles = (props = null) =>
@@ -8,29 +8,8 @@ const styles = (props = null) =>
     flex: {
       flex: 1
     },
-    mainItemsContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      gap: scale(20),
-      marginTop: scale(16),
-      marginBottom: scale(30)
-    },
-    mainItem: {
-      padding: 12,
-      borderWidth: 1,
-      borderColor: '#E5E7EB',
-      width: windowWidth / 2 - 30,
-      borderRadius: 8,
-      justifyContent: 'space-between'
-    },
-    popularMenuImg: {
-      width: '100%',
-      aspectRatio: 15 / 8
-    },
-
     screenBackground: {
-      backgroundColor: props != null ? props.themeBackground : '#FFF',
-      ...alignment.PBlarge
+      backgroundColor: props != null ? props.themeBackground : '#FFF'
     },
     mainContentContainer: {
       width: '100%',
@@ -38,6 +17,15 @@ const styles = (props = null) =>
       alignSelf: 'center'
     },
 
+    ML20: {
+      ...alignment.MLlarge
+    },
+    PB10: {
+      ...alignment.MBsmall
+    },
+    mL5p: {
+      ...alignment.MLsmall
+    },
     addressbtn: {
       backgroundColor: props != null ? props.lightHorizontalLine : '#f0f0f0',
       marginLeft: scale(10),
@@ -51,24 +39,10 @@ const styles = (props = null) =>
       ...alignment.PLmedium,
       ...alignment.PRmedium
     },
-    addNewAddressbtn: {
-      padding: scale(5),
-      ...alignment.PLmedium,
-      ...alignment.PRmedium
-    },
     addressContainer: {
       width: '100%',
       ...alignment.PTsmall,
       ...alignment.PBsmall
-    },
-    addButton: {
-      backgroundColor: props !== null ? props.newheaderColor : 'transparent',
-      width: '100%',
-      height: scale(40),
-      borderRadius: 50,
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignSelf: 'center'
     },
     addressSubContainer: {
       width: '90%',
@@ -88,8 +62,9 @@ const styles = (props = null) =>
       shadowOpacity: 0
     },
     addressTextContainer: {
-      display: 'flex',
-      flexDirection: 'row'
+      ...alignment.PLlarge,
+      ...alignment.PRlarge,
+      ...alignment.PTxSmall
     },
     addressTick: {
       width: '10%',
@@ -126,43 +101,6 @@ const styles = (props = null) =>
       height: verticalScale(40),
       justifyContent: 'center',
       alignItems: 'center'
-    },
-    searchList: {
-      marginBottom: 70
-    },
-    errorViewContainer: {
-      marginTop: verticalScale(30),
-      marginHorizontal: scale(10),
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    mL5p: {
-      ...alignment.MLsmall
-    },
-    homeIcon: {
-      color: props !== null ? props.darkBgFont : '#000',
-      width: '15%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-    titleAddress: {
-      width: '55%',
-      justifyContent: 'center'
-    },
-    labelStyle: {
-      textAlignVertical: 'bottom',
-      fontSize: scale(14),
-      fontWeight: '700',
-      textAlign: 'left'
-    },
-    addressDetail: {
-      // width: '80%',
-      alignSelf: 'flex-end',
-      fontSize: scale(4),
-      fontWeight: '300',
-      textAlign: 'justify',
-      paddingLeft: scale(38)
     }
   })
 export default styles

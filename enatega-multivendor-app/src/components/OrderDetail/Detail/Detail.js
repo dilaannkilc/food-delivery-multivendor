@@ -1,12 +1,9 @@
-import { View, Image } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
 import TextDefault from '../../Text/TextDefault/TextDefault'
 import styles from './styles'
-import { useTranslation } from 'react-i18next'
-import { alignment } from '../../../utils/alignment'
-import { scale } from '../../../utils/scaling'
-import { ChatButton } from './ChatButton'
-import { ORDER_STATUS_ENUM } from '../../../utils/enums'
+import Button from '../../Button/Button'
+import {useTranslation} from 'react-i18next'
 
 export default function Detail({
   theme,
@@ -22,10 +19,10 @@ export default function Detail({
   total,
   navigation,
   id,
-  rider,
-  orderStatus
+  rider
 }) {
-  const { t } = useTranslation()
+
+  const {t} = useTranslation()
   return (
     <View style={styles.container(theme)}>
       {rider && (
@@ -36,8 +33,7 @@ export default function Detail({
             }}>
             <Button
               buttonProps={{
-                onPress: () =>
-                  navigation.navigate('ChatWithRider', { id, orderNo, total })
+                onPress: () => navigation.navigate('ChatWithRider', { id })
               }}
               buttonStyles={styles.chatButton(theme)}
               textStyles={styles.chatButtonText(theme)}
@@ -52,6 +48,48 @@ export default function Detail({
           {t('orderDetail')}
         </TextDefault>
       </View>
+
+      <View style={styles.addressContainer}>
+        <View style={styles.row}>
+          <TextDefault
+            left
+            textColor={theme.secondaryText}
+            bold
+            style={styles.addressText}>
+            {t('OrderFrom')}
+          </TextDefault>
+          <TextDefault left bolder style={styles.addressText}>
+            {from}
+          </TextDefault>
+        </View>
+        <View style={styles.row}>
+          <TextDefault
+            left
+            textColor={theme.secondaryText}
+            bold
+            style={styles.addressText}>
+            {t('OrderNo')}
+          </TextDefault>
+          <TextDefault left bolder style={styles.addressText}>
+            {' '}
+            {orderNo}
+          </TextDefault>
+        </View>
+        <View style={styles.row}>
+          <TextDefault
+            left
+            textColor={theme.secondaryText}
+            bold
+            style={styles.addressText}>
+            {t('deliveryAddress')}
+            {':'}
+          </TextDefault>
+          <TextDefault left bolder style={styles.addressText} numberOfLines={4}>
+            {deliveryAddress}
+          </TextDefault>
+        </View>
+      </View>
+
       <View style={styles.itemsContainer}>
         {items.map(item => (
           <ItemRow
@@ -64,9 +102,41 @@ export default function Detail({
             options={item.addons.map(addon =>
               addon.options.map(({ title }) => title)
             )}
-            image={item.image}
           />
         ))}
+        <View>
+          <PriceRow
+            theme={theme}
+            title={t('subTotal')}
+            currency={currencySymbol}
+            price={subTotal.toFixed(2)}
+          />
+          <PriceRow
+            theme={theme}
+            title={t('tip')}
+            currency={currencySymbol}
+            price={tip.toFixed(2)}
+          />
+          <PriceRow
+            theme={theme}
+            title={t('taxFee')}
+            currency={currencySymbol}
+            price={tax.toFixed(2)}
+          />
+          <PriceRow
+            theme={theme}
+            title={t('delvieryCharges')}
+            currency={currencySymbol}
+            price={deliveryCharges.toFixed(2)}
+          />
+          <View style={{ marginVertical: 20 }} />
+          <PriceRow
+            theme={theme}
+            title={t('total')}
+            currency={currencySymbol}
+            price={total.toFixed(2)}
+          />
+        </View>
       </View>
     </View>
   )
@@ -77,55 +147,52 @@ const ItemRow = ({
   title,
   options = ['raita', '7up'],
   price,
-  currency,
-  image
+  currency
 }) => {
   return (
-    <View style={styles.itemRow}>
-      <View>
-        <Image
-          style={{
-            width: scale(48),
-            height: scale(64),
-            borderRadius: scale(8)
-          }}
-          source={
-            image
-              ? { uri: image }
-              : require('../../../assets/images/food_placeholder.png')
-          }></Image>
-      </View>
-      <View style={{ width: '60%', justifyContent: 'space-between' }}>
-        <TextDefault
-          left
-          numberOfLines={1}
-          textColor={theme.gray900}
-          H5
-          bolder
-          style={{ ...alignment.MBxSmall }}>
-          {title}
+    <View>
+      <View style={styles.itemRow}>
+        <TextDefault left style={{ width: '10%' }} bolder>
+          {quantity}x
         </TextDefault>
-
+        <View style={{ width: '60%' }}>
+          <TextDefault
+            left
+            textCoonumberOfLines={4}
+            textColor={theme.secondaryText}>
+            {title}
+          </TextDefault>
+          {options.map((option, index) => (
+            <TextDefault
+              small
+              textColor={theme.secondaryText}
+              left
+              key={title + option + index}>
+              +{option}
+            </TextDefault>
+          ))}
+        </View>
         <TextDefault
-          bold
-          textColor={theme.gray600}
-          left
-          style={{ ...alignment.MBxSmall }}>
-          {options.join(',')}
-        </TextDefault>
-
-        <TextDefault Regular left bolder textColor={theme.gray900}>
-          x{quantity}
+          right
+          style={{ width: '20%' }}
+          textColor={theme.secondaryText}
+          H5>
+          {currency} {price}
         </TextDefault>
       </View>
-      <TextDefault
-        right
-        style={{ width: '20%' }}
-        bolder
-        textColor={theme.gray900}
-        H5>
-        {currency}
-        {price}
+      <View style={styles.line2(theme)}></View>
+    </View>
+  )
+}
+
+const PriceRow = ({ theme, title, currency, price }) => {
+  return (
+    <View style={styles.priceRow}>
+      <TextDefault H5 textColor={theme.secondaryText}>
+        {title}
+      </TextDefault>
+      <TextDefault H5 textColor={theme.secondaryText}>
+        {currency} {price}
       </TextDefault>
     </View>
   )

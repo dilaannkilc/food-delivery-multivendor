@@ -58,30 +58,31 @@ function Favourite() {
   }, [])
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.white)
+      StatusBar.setBackgroundColor(currentTheme.headerBackground)
     }
-    StatusBar.setBarStyle('dark-content')
+    StatusBar.setBarStyle('light-content')
   })
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       title: t('titleFavourite'),
       headerTitleAlign: 'center',
       headerRight: null,
-      headerTitleStyle: {
-        color: '#000',
-        fontWeight: 'bold'
-      },
       headerTitleContainerStyle: {
-        marginTop: '2%',
+        marginTop: '1%',
         paddingLeft: scale(25),
         paddingRight: scale(25),
         height: '75%',
-        marginLeft: 0
+        borderRadius: scale(10),
+        backgroundColor: currentTheme.black,
+        borderColor: currentTheme.white,
+        borderWidth: 1
       },
       headerStyle: {
-        backgroundColor: currentTheme.white,
-        elevation: 0
+        backgroundColor: currentTheme.headerColor,
+        shadowColor: 'transparent',
+        shadowRadius: 0,
+        // marginBottom: 10
       },
       headerTitleAlign: 'center',
       headerRight: null,
@@ -89,7 +90,14 @@ function Favourite() {
         <HeaderBackButton
           truncatedLabel=""
           backImage={() => (
-            <View>
+            <View
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 50,
+                marginLeft: 10,
+                width: 55,
+                alignItems: 'center'
+              }}>
               <MaterialIcons name="arrow-back" size={25} color="black" />
             </View>
           )}
