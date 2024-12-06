@@ -1,5 +1,11 @@
 import React, { useLayoutEffect } from 'react'
-import { View, TouchableOpacity, StatusBar, Image } from 'react-native'
+import {
+  View,
+  TouchableOpacity,
+  StatusBar,
+  Image,
+  KeyboardAvoidingView
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from '../styles'
 import Spinner from '../../../components/Spinner/Spinner'
@@ -9,9 +15,12 @@ import screenOptions from '../screenOptions'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import usePhoneOtp from './usePhoneOtp'
 import { useTranslation } from 'react-i18next'
+import { Ionicons } from '@expo/vector-icons'
+import { scale } from '../../../utils/scaling'
 
 function PhoneOtp(props) {
   const {
+    phone,
     otp,
     setOtp,
     otpError,
@@ -39,70 +48,76 @@ function PhoneOtp(props) {
   return (
     <SafeAreaView style={styles(currentTheme).safeAreaViewStyles}>
       <StatusBar
-        backgroundColor={currentTheme.buttonText}
+        backgroundColor={currentTheme.themeBackground}
         barStyle={
           themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
         }
       />
-      <View style={styles(currentTheme).mainContainer}>
-        <View style={styles().subContainer}>
-          <View style={styles().logoContainer}>
-            <Image
-              source={require('../../../../assets/login-icon.png')}
-              style={styles().logoContainer}
-            />
-          </View>
-          <View>
-            <TextDefault
-              H3
-              bolder
-              textColor={currentTheme.fontSecondColor}
-              style={{
-                textAlign: 'center',
-                ...alignment.MTlarge,
-                ...alignment.MBmedium
-              }}>
-              {t('verifyPhone')}
-            </TextDefault>
-            <TextDefault
-              H5
-              bold
-              textColor={currentTheme.fontSecondColor}
-              style={{
-                textAlign: 'center'
-              }}>
-              {t('otpSentToPhone')}
-            </TextDefault>
-          </View>
-          <View>
-            <OTPInputView
-              pinCount={6}
-              style={styles().otpInput}
-              codeInputFieldStyle={[
-                styles().otpBox,
-                otpError && styles().errorInput
-              ]}
-              codeInputHighlightStyle={{
-                borderColor: currentTheme.iconColorPink
-              }}
-              autoFocusOnLoad
-              code={otp}
-              onCodeChanged={code => setOtp(code)}
-              onCodeFilled={code => {
-                onCodeFilled(code)
-              }}
-              editable
-            />
-            {otpError && (
+      <KeyboardAvoidingView>
+        <View style={styles(currentTheme).mainContainer}>
+          <View style={styles().subContainer}>
+            <View style={styles().logoContainer}>
+              <Ionicons name="phone-portrait-outline" size={30} color="black" />
+            </View>
+            <View>
               <TextDefault
-                style={styles().error}
-                bold
-                textColor={currentTheme.textErrorColor}>
-                {t('wrongOtp')}
+                H3
+                bolder
+                textColor={currentTheme.fontfourthColor}
+                style={{
+                  ...alignment.MTlarge,
+                  ...alignment.MBmedium
+                }}>
+                {t('verifyPhone')}
               </TextDefault>
-            )}
+              <TextDefault
+                H5
+                bold
+                textColor={currentTheme.fontSecondColor}
+                style={{
+                  paddingBottom: scale(5)
+                }}>
+                Enter 4 digit code sent to you mobile
+              </TextDefault>
+              <TextDefault H5 bold textColor={currentTheme.fontfourthColor}>
+                {phone}
+              </TextDefault>
+            </View>
+            <View>
+              <OTPInputView
+                pinCount={6}
+                style={styles().otpInput}
+                codeInputFieldStyle={[
+                  styles().otpBox,
+                  otpError && styles().errorInput
+                ]}
+                codeInputHighlightStyle={{
+                  borderColor: currentTheme.iconColorPink
+                }}
+                autoFocusOnLoad
+                code={otp}
+                onCodeChanged={code => setOtp(code)}
+                onCodeFilled={code => {
+                  onCodeFilled(code)
+                }}
+                editable
+              />
+              {otpError && (
+                <TextDefault
+                  style={styles().error}
+                  bold
+                  textColor={currentTheme.textErrorColor}>
+                  {t('wrongOtp')}
+                </TextDefault>
+              )}
+            </View>
           </View>
-          <View style={{ ...alignment.MTlarge }}>
+          <View style={alignment.MBxSmall}>
+            <TextDefault center H4 bold style={alignment.MTsmall}>
+              {seconds !== 0 ? `Retry after ${seconds}s` : ''}
+            </TextDefault>
+          </View>
+          <View style={{ width: '100%', marginBottom: 20 }}>
             {loading || updateUserLoading ? (
               <Spinner backColor="transparent" size="small" />
             ) : (
@@ -116,7 +131,7 @@ function PhoneOtp(props) {
                 onPress={() => resendOtp()}>
                 <TextDefault
                   H4
-                  textColor={currentTheme.buttonTextPink}
+                  textColor={currentTheme.fontfourthColor}
                   style={alignment.MLsmall}
                   bold>
                   {t('resendBtn')}
@@ -124,13 +139,8 @@ function PhoneOtp(props) {
               </TouchableOpacity>
             )}
           </View>
-          <View style={alignment.MBxSmall}>
-            <TextDefault center H4 bold style={alignment.MTsmall}>
-              {seconds !== 0 ? `Retry after ${seconds}s` : ''}
-            </TextDefault>
-          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }

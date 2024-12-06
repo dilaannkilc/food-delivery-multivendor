@@ -2,7 +2,7 @@
   "expo": {
     "name": "Enatega Multivendor",
     "scheme": "enategamultivendor",
-    "version": "1.0.38",
+    "version": "1.0.36",
     "description": "Enatega is a starter kit food ordering app built in React Native using Expo for IOS and Android. It's made keeping good aesthetics in mind as well keeping the best coding practices in mind. Its fully customisable to easily help you in your next food delivery project. https://market.nativebase.io/view/react-native-food-delivery-backend-app",
     "slug": "enategamultivendor",
     "owner": "ninjas_code",
@@ -12,7 +12,10 @@
     "androidStatusBar": {
       "backgroundColor": "#000"
     },
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -20,25 +23,22 @@
       "resizeMode": "cover",
       "backgroundColor": "#6FCF97"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.enategamultivendor.app",
+      "bundleIdentifier": "com.enatega.multivendor",
       "config": {
         "googleMapsApiKey": "AIzaSyCzNP5qQql2a5y8lOoO-1yj1lj_tzjVImA"
       },
       "usesAppleSignIn": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Allow $(PRODUCT_NAME) to use location to determine the delivery address for your orders.",
-        "UIBackgroundModes": ["remote-notification"],
-        "NSUserTrackingUsageDescription": "Allow this app to collect app-related data that can be used for tracking you or your device.",
-        "CFBundleURLTypes": [
-          {
-            "CFBundleURLSchemes": [
-              "com.googleusercontent.apps.967541328677-gvm85f1ouq92aucsannaduurf5r8mh2r"
-            ]
-          }
-        ]
+        "UIBackgroundModes": [
+          "remote-notification"
+        ],
+        "NSUserTrackingUsageDescription": "Allow this app to collect app-related data that can be used for tracking you or your device."
       }
     },
     "notification": {
@@ -49,8 +49,8 @@
       "androidCollapsedTitle": "Enatega Multivendor"
     },
     "android": {
-      "versionCode": 38,
-      "package": "com.enategamultivendor.app",
+      "versionCode": 36,
+      "package": "com.enatega.multivendor",
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
@@ -77,7 +77,6 @@
       ]
     },
     "plugins": [
-      "@react-native-google-signin/google-signin",
       [
         "expo-tracking-transparency",
         {
@@ -101,7 +100,8 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Allow $Enatega Multivendor to use your location."
         }
-      ]
+      ],
+      "sentry-expo"
     ],
     "extra": {
       "eas": {

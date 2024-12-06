@@ -4,10 +4,8 @@ import React from "react";
 import PlayStore from "../../../assets/icons/PlayStore";
 import useStyle from "./styles";
 import { Link as RouterLink } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
 
 function StoreContainer() {
-  const { t } = useTranslation()
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down('md'));
   const extraSmall = useMediaQuery(theme.breakpoints.down('sm'));
@@ -20,7 +18,7 @@ function StoreContainer() {
           <Typography variant="h2" className={classes.boldBackground}>
             App
             <Typography component="p" variant={extraSmall ? "h5" : "h4"} className={classes.bold300}>
-              {t('putUsInYourPocket')}
+              Put us in your pocket
             </Typography>
           </Typography>
         </Grid>
@@ -34,14 +32,13 @@ function StoreContainer() {
                 Download the food you love and more
               </Typography>
               <Typography color="textPrimary" className={classes.storeDescription}>
-                {t('containerText')}
+                It's all at your fingertips -- the restaurants you love. Find the right food to suit your mood, and make
+                the first bite last. Go ahead, download us.
               </Typography>
             </Grid>
             <Grid item>
               <RouterLink
-                to={{
-                  pathname: "https://apps.apple.com/pk/app/enatega-multivendor/id1526488093",
-                }}
+                to= "https://apps.apple.com/pk/app/enatega-multivendor/id1526488093"
                 target="_blank"
                 className={classes.linkDecoration}
               >
@@ -56,9 +53,7 @@ function StoreContainer() {
                 </Button>
               </RouterLink>
               <RouterLink
-                to={{
-                  pathname: "https://play.google.com/store/apps/details?id=com.enatega.multivendor&hl=en_US&gl=US",
-                }}
+                to= "https://play.google.com/store/apps/details?id=com.enatega.multivendor&hl=en_US&gl=US"                
                 target="_blank"
                 className={classes.linkDecoration}
               >
