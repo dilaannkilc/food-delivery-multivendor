@@ -2,11 +2,10 @@ import { Divider, Grid, Paper, Typography, useTheme } from "@mui/material";
 import clsx from "clsx";
 import React from "react";
 import useStyles from "./styles";
-import { useTranslation } from 'react-i18next';
+
 function DetailCard(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const { t } = useTranslation()
 
   return (
     <Grid container item xs={12}>
@@ -17,7 +16,7 @@ function DetailCard(props) {
           textAlign="center"
           color={theme.palette.primary.main}
         >
-          {t('orderDetail')}
+          Order Details
         </Typography>
         <Divider
           orientation="horizontal"
@@ -40,7 +39,7 @@ function DetailCard(props) {
                   classes.smallText
                 )} ${clsx(classes.textBold)}`}
               >
-                {t('orderFrom')}:
+                Your order from:
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.ph1}>
@@ -63,7 +62,7 @@ function DetailCard(props) {
                   classes.smallText
                 )} ${clsx(classes.textBold)}`}
               >
-                {t('orderNo')}:
+                Your Order No:
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.ph1}>
@@ -86,7 +85,7 @@ function DetailCard(props) {
                   classes.smallText
                 )} ${clsx(classes.textBold)}`}
               >
-                {!!props.isPickedUp ? "Pick Up Address:" : t('deliveryAddress')+":"}
+                {!!props.isPickedUp ? "Pick Up Address:" : "Delivery Address:"}
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.ph1}>
