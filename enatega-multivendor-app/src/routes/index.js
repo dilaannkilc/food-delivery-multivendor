@@ -6,18 +6,15 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import navigationService from './navigationService'
 import * as Notifications from 'expo-notifications'
-//import Login from '../screens/Login/Login'
 import Login from '../screens/Login/Login'
 import Register from '../screens/Register/Register'
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
 import SetYourPassword from '../screens/ForgotPassword/SetYourPassword'
-//import CreateAccount from '../screens/CreateAccount/CreateAccount'
 import CreateAccount from '../screens/CreateAccount/CreateAccount'
 import SideBar from '../components/Sidebar/Sidebar'
 import ItemDetail from '../screens/ItemDetail/ItemDetail'
 import MyOrders from '../screens/MyOrders/MyOrders'
 import Cart from '../screens/Cart/Cart'
-import SaveAddress from '../screens/SaveAddress/SaveAddress'
 import RateAndReview from '../screens/RateAndReview/RateAndReview'
 import Payment from '../screens/Payment/Payment'
 import Help from '../screens/Help/Help'
@@ -37,7 +34,6 @@ import Main from '../screens/Main/Main'
 import Restaurant from '../screens/Restaurant/Restaurant'
 import About from '../screens/About'
 import SelectLocation from '../screens/SelectLocation'
-import AddNewAddress from '../screens/SelectLocation/AddNewAddress'
 import CurrentLocation from '../screens/CurrentLocation'
 import ThemeContext from '../ui/ThemeContext/ThemeContext'
 import { theme } from '../utils/themeColors'
@@ -55,9 +51,6 @@ import ForgotPasswordOtp from '../screens/Otp/ForgotPassword/ForgetPasswordOtp'
 import PhoneNumber from '../screens/PhoneNumber/PhoneNumber'
 import { useApolloClient, gql } from '@apollo/client'
 import { myOrders } from '../apollo/queries'
-import Checkout from '../screens/Checkout/Checkout'
-import Menu from '../screens/Menu/Menu'
-import Reviews from '../screens/Reviews'
 
 const NavigationStack = createStackNavigator()
 const MainStack = createStackNavigator()
@@ -89,7 +82,6 @@ function NoDrawer() {
         iconColor: currentTheme.iconColorPink
       })}>
       <NavigationStack.Screen name="Main" component={Main} />
-      <NavigationStack.Screen name="Menu" component={Menu} />
       <NavigationStack.Screen
         name="Restaurant"
         component={Restaurant}
@@ -97,7 +89,6 @@ function NoDrawer() {
       />
       {<NavigationStack.Screen name="ItemDetail" component={ItemDetail} />}
       <NavigationStack.Screen name="Cart" component={Cart} />
-      <NavigationStack.Screen name="Checkout" component={Checkout} />
       <NavigationStack.Screen name="Profile" component={Profile} />
       <NavigationStack.Screen name="Addresses" component={Addresses} />
       <NavigationStack.Screen name="NewAddress" component={NewAddress} />
@@ -109,9 +100,9 @@ function NoDrawer() {
         name="OrderDetail"
         component={OrderDetail}
         options={{
-          // headerTransparent: true,
-          // headerRight: null,
-          // title: '',
+          headerTransparent: true,
+          headerRight: null,
+          title: '',
           headerBackImage: () =>
             DarkBackButton({
               iconColor: currentTheme.backIcon,
@@ -130,7 +121,6 @@ function NoDrawer() {
         component={About}
         options={{ header: () => null }}
       />
-      <NavigationStack.Screen name="Reviews" component={Reviews} />
       <NavigationStack.Screen name="Coupon" component={Coupon} />
       <NavigationStack.Screen name="Paypal" component={Paypal} />
       <NavigationStack.Screen name="Tip" component={Tip} />
@@ -164,8 +154,6 @@ function NoDrawer() {
         name="SelectLocation"
         component={SelectLocation}
       />
-      <NavigationStack.Screen name="AddNewAddress" component={AddNewAddress} />
-      <NavigationStack.Screen name="SaveAddress" component={SaveAddress} />
       <NavigationStack.Screen name="Favourite" component={Favourite} />
       <NavigationStack.Screen name="ChatWithRider" component={ChatScreen} />
     </NavigationStack.Navigator>
@@ -181,7 +169,6 @@ function LocationStack() {
         options={{ header: () => null }}
       />
       <Location.Screen name="SelectLocation" component={SelectLocation} />
-      <Location.Screen name="AddNewAddress" component={AddNewAddress} />
     </Location.Navigator>
   )
 }
@@ -214,7 +201,7 @@ function AppContainer() {
   useEffect(() => {
     if (
       lastNotificationResponse &&
-      lastNotificationResponse.notification.request.content.data?.type ===
+      lastNotificationResponse.notification.request.content.data.type ===
         'order' &&
       lastNotificationResponse.actionIdentifier ===
         Notifications.DEFAULT_ACTION_IDENTIFIER
@@ -222,6 +209,16 @@ function AppContainer() {
       handleNotification(lastNotificationResponse)
     }
   }, [lastNotificationResponse])
+
+  useEffect(() => {
+    Notifications.setNotificationHandler({
+      handleNotification: async() => ({
+        shouldShowAlert: true,
+        shouldPlaySound: false,
+        shouldSetBadge: false
+      })
+    })
+  }, [])
 
   return (
     <SafeAreaProvider>
