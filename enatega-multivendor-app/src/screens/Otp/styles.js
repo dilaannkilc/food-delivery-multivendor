@@ -48,7 +48,8 @@ const styles = (props = null) =>
     },
     otpInput: {
       height: 70,
-      color: '#000'
+      color: '#000',
+      ...alignment.MTsmall
     },
     error: {
       ...alignment.MBlarge

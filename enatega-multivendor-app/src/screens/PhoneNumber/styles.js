@@ -47,8 +47,7 @@ const styles = (props = null) =>
       borderWidth: scale(1),
       borderRadius: scale(6),
       backgroundColor: props !== null ? props.white : 'white',
-      padding: scale(10),
-      justifyContent: 'center'
+      padding: scale(12)
     },
     btn: {
       width: '100%',
@@ -60,8 +59,7 @@ const styles = (props = null) =>
     },
     number: {
       display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center'
+      flexDirection: 'row'
     },
     countryCode: {
       flexDirection: 'row',

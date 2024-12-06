@@ -7,6 +7,7 @@ import Spinner from '../../../components/Spinner/Spinner'
 import TextDefault from '../../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../../utils/alignment'
 import { useTranslation } from 'react-i18next'
+
 const FdGoogleBtn = props => {
   const { t } = useTranslation()
   return (
@@ -16,7 +17,7 @@ const FdGoogleBtn = props => {
       onPressIn={props.onPressIn}
       onPress={props.onPress}>
       {props.loadingIcon ? (
-        <Spinner backColor="#fff" spinnerColor={'#90E36D'} />
+        <Spinner backColor="rgba(0,0,0,0.1)" spinnerColor={'#FFF'} />
       ) : (
         <>
           <FontAwesome name="google" size={scale(18)} color="#000" />
