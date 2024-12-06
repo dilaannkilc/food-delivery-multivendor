@@ -120,7 +120,6 @@ export const myOrders = `query Orders($offset:Int){
       food
       description
       quantity
-      image
       variation{
         _id
         title
