@@ -8,13 +8,10 @@ import { alignment } from '../../../utils/alignment'
 import screenOptions from '../screenOptions'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import usePhoneOtp from './usePhoneOtp'
-import { useTranslation } from 'react-i18next'
-import { Ionicons } from '@expo/vector-icons'
-import { scale } from '../../../utils/scaling'
+import {useTranslation} from 'react-i18next'
 
 function PhoneOtp(props) {
   const {
-    phone,
     otp,
     setOtp,
     otpError,
@@ -27,7 +24,7 @@ function PhoneOtp(props) {
     themeContext
   } = usePhoneOtp()
 
-  const { t } = useTranslation()
+    const {t} = useTranslation()
   useLayoutEffect(() => {
     props.navigation.setOptions(
       screenOptions({
@@ -42,7 +39,7 @@ function PhoneOtp(props) {
   return (
     <SafeAreaView style={styles(currentTheme).safeAreaViewStyles}>
       <StatusBar
-        backgroundColor={currentTheme.themeBackground}
+        backgroundColor={currentTheme.buttonText}
         barStyle={
           themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
         }
@@ -50,14 +47,18 @@ function PhoneOtp(props) {
       <View style={styles(currentTheme).mainContainer}>
         <View style={styles().subContainer}>
           <View style={styles().logoContainer}>
-            <Ionicons name="phone-portrait-outline" size={30} color="black" />
+            <Image
+              source={require('../../../../assets/login-icon.png')}
+              style={styles().logoContainer}
+            />
           </View>
           <View>
             <TextDefault
               H3
               bolder
-              textColor={currentTheme.fontfourthColor}
+              textColor={currentTheme.fontSecondColor}
               style={{
+                textAlign: 'center',
                 ...alignment.MTlarge,
                 ...alignment.MBmedium
               }}>
@@ -68,12 +69,9 @@ function PhoneOtp(props) {
               bold
               textColor={currentTheme.fontSecondColor}
               style={{
-                paddingBottom: scale(5)
+                textAlign: 'center'
               }}>
-              Enter 4 digit code sent to you mobile
-            </TextDefault>
-            <TextDefault H5 bold textColor={currentTheme.fontfourthColor}>
-              {phone}
+              {t('otpSentToPhone')}
             </TextDefault>
           </View>
           <View>

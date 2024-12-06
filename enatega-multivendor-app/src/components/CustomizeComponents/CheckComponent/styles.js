@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
   },
   rightContainer: {
     width: '30%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end'
+    justifyContent: 'center'
   }
 })
 export default styles
