@@ -68,11 +68,8 @@ export const alignment = {
   MLlarge: {
     marginLeft: scale(LARGE)
   },
-  MBxLarge: {
+  MBxLarge:{
     marginBottom: scale(XLARGE)
-  },
-  MTxLarge: {
-    marginTop: scale(XLARGE)
   },
   // Padding
   PxSmall: {

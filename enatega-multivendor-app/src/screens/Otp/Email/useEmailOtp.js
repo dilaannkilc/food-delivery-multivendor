@@ -12,6 +12,7 @@ import * as Notifications from 'expo-notifications'
 import analytics from '../../../utils/analytics'
 import AuthContext from '../../../context/Auth'
 import { useTranslation } from 'react-i18next'
+import ConfigurationContext from '../../../context/Configuration'
 
 const SEND_OTP_TO_EMAIL = gql`
   ${sendOtpToEmail}
@@ -24,6 +25,7 @@ const useEmailOtp = () => {
 
   const { t } = useTranslation()
   const navigation = useNavigation()
+  const configuration = useContext(ConfigurationContext)
   const route = useRoute()
   const [otp, setOtp] = useState('')
   const [otpError, setOtpError] = useState(false)
@@ -102,10 +104,8 @@ const useEmailOtp = () => {
   async function mutateRegister() {
     let notificationToken = null
     if (Device.isDevice) {
-      const {
-        status: existingStatus
-      } = await Notifications.getPermissionsAsync()
-      if (existingStatus === 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync()
+      if (status === 'granted') {
         notificationToken = (await Notifications.getExpoPushTokenAsync()).data
       }
     }
@@ -122,7 +122,7 @@ const useEmailOtp = () => {
   }
 
   const onCodeFilled = code => {
-    if (code === otpFrom.current) {
+    if (configuration.skipEmailVerification || code === otpFrom.current) {
       mutateRegister()
     } else {
       setOtpError(true)
