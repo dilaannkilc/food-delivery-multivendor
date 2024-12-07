@@ -1,4 +1,4 @@
-import makeStyles from "@mui/styles/makeStyles";
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyle = makeStyles((theme) => ({
   mainContainer: {
@@ -13,8 +13,7 @@ const useStyle = makeStyles((theme) => ({
   boldBackground: {
     position: "relative",
     marginBottom: (props) => (props.extraSmall ? "-30px" : "-50px"),
-    fontSize: (props) =>
-      props.extraSmall ? "6rem" : props.mobile ? "10rem" : "12rem",
+    fontSize: (props) => (props.extraSmall ? "6rem" : props.mobile ? "10rem" : "12rem"),
     lineHeight: "1em",
     color: "rgba(0,0,0,0.04)",
     fontWeight: "700",
@@ -37,7 +36,7 @@ const useStyle = makeStyles((theme) => ({
     backgroundPositionY: "52%",
   },
   infoCard: {
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: "#FFF",
     borderRadius: "0px",
     maxWidth: "550px",
     padding: "20px",
