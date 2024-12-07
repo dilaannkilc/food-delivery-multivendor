@@ -70,8 +70,7 @@ const styles = (props = null) =>
     passwordField: {
       display: 'flex',
       flexDirection: 'row',
-      ...alignment.MTlarge,
-      alignItems: 'center'
+      ...alignment.MTlarge
     },
     passwordInput: {
       width: '100%'
@@ -81,7 +80,6 @@ const styles = (props = null) =>
       elevation: scale(999)
     },
     btn: {
-      marginBottom: scale(20),
       position: 'relative',
       // marginTop: '55%',
       width: '100%',

@@ -221,7 +221,7 @@ export const en = {
   PICKED: 'PICKED',
   DELIVERED: 'DELIVERED',
   COMPLETED: 'COMPLETED',
-  pendingOrder: 'Order received! Your meal is in the works, soon to be at your doorstep.',
+  pendingOrder: 'Your order is pending confirmation from restaurant.',
   acceptedOrder: 'Preparing your food. Rider will pick it up once its ready.',
   assignedOrder: 'Preparing your food. Rider will pick it up once its ready.',
   pickedOrder:
@@ -317,6 +317,7 @@ export const en = {
   otpResentToEmail: 'OTP resent to your email.',
   search: 'Search',
   searchRestaurant: 'Search for restaurants',
+  searchItems: 'Search for items',
   message: 'Message',
   aptFloor: 'Apt | Floor',
   confirmPassword: 'Confirm Password',

@@ -48,7 +48,8 @@ const styles = (props = null) =>
     },
     otpInput: {
       height: 70,
-      color: '#000'
+      color: '#000',
+      ...alignment.MTsmall
     },
     error: {
       ...alignment.MBlarge
@@ -63,10 +64,6 @@ const styles = (props = null) =>
     },
     headerRightIcon: {
       ...alignment.PRsmall
-    },
-    btnContainer: {
-      width: '100%',
-      marginBottom: scale(20)
     },
     disabledBtn: {
       backgroundColor: props !== null ? props.iconBackground : '#333333'

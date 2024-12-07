@@ -20,14 +20,12 @@ import {
 import { Modalize } from 'react-native-modalize'
 import {
   MaterialIcons,
-  SimpleLineIcons,
   AntDesign,
   MaterialCommunityIcons
 } from '@expo/vector-icons'
-import { useMutation, useQuery } from '@apollo/client'
+import { useMutation, useQuery, gql } from '@apollo/client'
 import { useCollapsibleSubHeader } from 'react-navigation-collapsible'
 import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder'
-import gql from 'graphql-tag'
 import { useLocation } from '../../ui/hooks'
 import Search from '../../components/Main/Search/Search'
 import UserContext from '../../context/User'
@@ -42,15 +40,16 @@ import navigationOptions from './navigationOptions'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { LocationContext } from '../../context/Location'
 import { alignment } from '../../utils/alignment'
-import Spinner from '../../components/Spinner/Spinner'
 import analytics from '../../utils/analytics'
 import { useTranslation } from 'react-i18next'
 import { OrderAgain } from '../../components/Main/OrderAgain'
 import { TopPicks } from '../../components/Main/TopPicks'
 import { TopBrands } from '../../components/Main/TopBrands'
 import Item from '../../components/Main/Item/Item'
-import TextError from '../../components/Text/TextError/TextError'
-import ActiveOrders from '../../components/Main/ActiveOrders/ActiveOrders'
+import CustomHomeIcon from '../../assets/SVG/imageComponents/CustomHomeIcon'
+import CustomOtherIcon from '../../assets/SVG/imageComponents/CustomOtherIcon'
+import CustomWorkIcon from '../../assets/SVG/imageComponents/CustomWorkIcon'
+import useRestaurantOrderInfo from '../../ui/hooks/useRestaurantOrderInfo'
 
 const RESTAURANTS = gql`
   ${restaurantList}
@@ -58,7 +57,6 @@ const RESTAURANTS = gql`
 const SELECT_ADDRESS = gql`
   ${selectAddress}
 `
-
 function Main(props) {
   const Analytics = analytics()
 
@@ -72,7 +70,7 @@ function Main(props) {
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const { getCurrentLocation } = useLocation()
-
+  const locationData = location
   const { data, refetch, networkStatus, loading, error } = useQuery(
     RESTAURANTS,
     {
@@ -85,17 +83,19 @@ function Main(props) {
       fetchPolicy: 'network-only'
     }
   )
+  const { orderLoading, orderError, orderData } = useRestaurantOrderInfo()
   const [selectedType, setSelectedType] = useState('restaurant')
 
   const [mutate, { loading: mutationLoading }] = useMutation(SELECT_ADDRESS, {
     onError
   })
-
+  const recentOrderRestaurantsVar = orderData?.recentOrderRestaurants
+  const mostOrderedRestaurantsVar = orderData?.mostOrderedRestaurants
   const newheaderColor = currentTheme.newheaderColor
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.main)
+      StatusBar.setBackgroundColor(currentTheme.newheaderColor)
     }
     StatusBar.setBarStyle(
       themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
@@ -130,9 +130,9 @@ function Main(props) {
   }
 
   const addressIcons = {
-    Home: 'home',
-    Work: 'briefcase',
-    Other: 'location-pin'
+    Home: CustomHomeIcon,
+    Work: CustomWorkIcon,
+    Other: CustomOtherIcon
   }
 
   const {
@@ -154,7 +154,7 @@ function Main(props) {
     modalRef.current.close()
   }
 
-  const setCurrentLocation = async() => {
+  const setCurrentLocation = async () => {
     setBusy(true)
     const { error, coords } = await getCurrentLocation()
 
@@ -190,35 +190,22 @@ function Main(props) {
   }
 
   const modalHeader = () => (
-    <View style={[styles().addressbtn]}>
-      <TouchableOpacity
-        style={[styles(currentTheme).addressContainer]}
-        activeOpacity={0.7}
-        onPress={setCurrentLocation}>
-        <View style={styles().addressSubContainer}>
-          <MaterialCommunityIcons
-            name="target"
-            size={scale(25)}
-            color={currentTheme.black}
-          />
-          <View style={styles().mL5p} />
-          <TextDefault bold>{t('currentLocation')}</TextDefault>
-        </View>
-      </TouchableOpacity>
-      <View style={styles().addressTick}>
-        {location.label === 'currentLocation' && (
-          <MaterialIcons
-            name="check"
-            size={scale(15)}
-            color={currentTheme.iconColorPink}
-          />
-        )}
-        {busy && (
-          <Spinner
-            size={'small'}
-            backColor={currentTheme.lightHorizontalLine}
-          />
-        )}
+    <View style={[styles().addNewAddressbtn]}>
+      <View style={styles(currentTheme).addressContainer}>
+        <TouchableOpacity
+          style={[styles(currentTheme).addButton]}
+          activeOpacity={0.7}
+          onPress={setCurrentLocation}>
+          <View style={styles().addressSubContainer}>
+            <MaterialCommunityIcons
+              name="target"
+              size={scale(25)}
+              color={currentTheme.black}
+            />
+            <View style={styles().mL5p} />
+            <TextDefault bold>{t('currentLocation')}</TextDefault>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -236,24 +223,44 @@ function Main(props) {
     }
   }
 
+  const errorView = () => {
+    return (
+      <View style={styles().errorViewContainer}>
+        <MaterialIcons
+          name="error-outline"
+          size={scale(80)}
+          color={currentTheme.main}
+        />
+        <TextDefault center H3>
+          {t('networkError')}
+        </TextDefault>
+      </View>
+    )
+  }
+
   const modalFooter = () => (
-    <View style={styles().addressbtn}>
+    <View style={styles().addNewAddressbtn}>
       <View style={styles(currentTheme).addressContainer}>
         <TouchableOpacity
           activeOpacity={0.5}
+          style={styles(currentTheme).addButton}
           onPress={() => {
             if (isLoggedIn) {
-              navigation.navigate('NewAddress')
+              navigation.navigate('AddNewAddress', {
+                locationData
+              })
             } else {
               const modal = modalRef.current
               modal?.close()
-              props.navigation.navigate({ name: 'CreateAccount' })
+              props.navigation.navigate({
+                name: 'CreateAccount'
+              })
             }
           }}>
           <View style={styles().addressSubContainer}>
             <AntDesign
               name="pluscircleo"
-              size={scale(12)}
+              size={scale(20)}
               color={currentTheme.black}
             />
             <View style={styles().mL5p} />
@@ -268,7 +275,6 @@ function Main(props) {
   function loadingScreen() {
     return (
       <View style={styles(currentTheme).screenBackground}>
-        <Search search={''} setSearch={() => { }} newheaderColor={newheaderColor}/>
         <Placeholder
           Animation={props => (
             <Fade
@@ -281,6 +287,13 @@ function Main(props) {
           <PlaceholderLine style={styles().height200} />
           <PlaceholderLine />
         </Placeholder>
+      </View>
+    )
+  }
+
+  function brandsLoadingScreen() {
+    return (
+      <View style={styles(currentTheme).screenBackground}>
         <Placeholder
           Animation={props => (
             <Fade
@@ -289,21 +302,8 @@ function Main(props) {
               duration={600}
             />
           )}
-          style={styles(currentTheme).placeHolderContainer}>
-          <PlaceholderLine style={styles().height200} />
-          <PlaceholderLine />
-        </Placeholder>
-        <Placeholder
-          Animation={props => (
-            <Fade
-              {...props}
-              style={styles(currentTheme).placeHolderFadeColor}
-              duration={600}
-            />
-          )}
-          style={styles(currentTheme).placeHolderContainer}>
-          <PlaceholderLine style={styles().height200} />
-          <PlaceholderLine />
+          style={styles(currentTheme).brandsPlaceHolderContainer}>
+          <PlaceholderLine style={styles().height80} />
         </Placeholder>
       </View>
     )
@@ -347,7 +347,7 @@ function Main(props) {
     return data
   }
 
-  if (error) return <TextError text={t('networkError')} />
+  if (error) return errorView()
 
   return (
     <>
@@ -357,19 +357,30 @@ function Main(props) {
             <View style={styles().mainContentContainer}>
               <View style={[styles().flex, styles().subContainer]}>
                 <View style={styles().searchbar}>
-                  <Search setSearch={setSearch} search={search} newheaderColor={newheaderColor} />
+                  <Search
+                    setSearch={setSearch}
+                    search={search}
+                    newheaderColor={newheaderColor}
+                    placeHolder={t('searchRestaurant')}
+                  />
                 </View>
                 {search ? (
                   <View style={styles().searchList}>
                     <Animated.FlatList
-                      contentInset={{ top: containerPaddingTop }}
+                      contentInset={{
+                        top: containerPaddingTop
+                      }}
                       contentContainerStyle={{
                         paddingTop:
-                            Platform.OS === 'ios' ? 0 : containerPaddingTop
+                          Platform.OS === 'ios' ? 0 : containerPaddingTop
                       }}
-                      contentOffset={{ y: -containerPaddingTop }}
+                      contentOffset={{
+                        y: -containerPaddingTop
+                      }}
                       onScroll={onScroll}
-                      scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
+                      scrollIndicatorInsets={{
+                        top: scrollIndicatorInsetTop
+                      }}
                       showsVerticalScrollIndicator={false}
                       ListEmptyComponent={emptyView()}
                       keyExtractor={(item, index) => index.toString()}
@@ -405,13 +416,13 @@ function Main(props) {
                             bolder
                             textColor={currentTheme.fontThirdColor}
                             style={styles().ItemName}>
-                              Food Delivery
+                            Food Delivery
                           </TextDefault>
                           <TextDefault
                             Normal
                             textColor={currentTheme.fontThirdColor}
                             style={styles().ItemDescription}>
-                              Order food you love
+                            Order food you love
                           </TextDefault>
                         </View>
                         <Image
@@ -432,13 +443,13 @@ function Main(props) {
                           bolder
                           textColor={currentTheme.fontThirdColor}
                           style={styles().ItemName}>
-                            Grocery
+                          Grocery
                         </TextDefault>
                         <TextDefault
                           Normal
                           textColor={currentTheme.fontThirdColor}
                           style={styles().ItemDescription}>
-                            Essentials delivered fast
+                          Essentials delivered fast
                         </TextDefault>
                         <Image
                           source={require('../../assets/images/ItemsList/grocery.png')}
@@ -448,13 +459,31 @@ function Main(props) {
                       </TouchableOpacity>
                     </View>
                     <View>
-                      <OrderAgain />
+                      {orderLoading ? (
+                        loadingScreen()
+                      ) : (
+                        <OrderAgain
+                          recentOrderRestaurants={recentOrderRestaurantsVar}
+                          loading={orderLoading}
+                          error={orderError}
+                          title={'Order it again'}
+                        />
+                      )}
+                      <View>
+                        {orderLoading ? (
+                          loadingScreen()
+                        ) : (
+                          <TopPicks
+                            mostOrderedRestaurants={mostOrderedRestaurantsVar}
+                            loading={orderLoading}
+                            error={orderError}
+                            title={'Top Picks for you'}
+                          />
+                        )}
+                      </View>
                     </View>
                     <View>
-                      <TopPicks />
-                    </View>
-                    <View>
-                      <TopBrands />
+                      {orderLoading ? brandsLoadingScreen() : <TopBrands />}
                     </View>
                   </ScrollView>
                 )}
@@ -490,21 +519,33 @@ function Main(props) {
                     activeOpacity={0.7}
                     onPress={() => setAddressLocation(address)}>
                     <View style={styles().addressSubContainer}>
-                      <SimpleLineIcons
-                        name={addressIcons[address.label]}
-                        size={scale(12)}
-                        color={currentTheme.black}
-                      />
-                      <View style={styles().mL5p} />
-                      <TextDefault bold>{t(address.label)}</TextDefault>
+                      <View style={[styles(currentTheme).homeIcon]}>
+                        {addressIcons[address.label] ? (
+                          React.createElement(addressIcons[address.label], {
+                            fill: currentTheme.darkBgFont
+                          })
+                        ) : (
+                          <AntDesign name="question" size={20} color="black" />
+                        )}
+                      </View>
+                      {/* <View style={styles().mL5p} /> */}
+                      <View style={[styles().titleAddress]}>
+                        <TextDefault
+                          textColor={currentTheme.darkBgFont}
+                          style={styles(currentTheme).labelStyle}>
+                          {t(address.label)}
+                        </TextDefault>
+                      </View>
                     </View>
-                    <View style={styles().addressTextContainer}>
-                      <TextDefault
-                        style={{ ...alignment.PLlarge }}
-                        textColor={currentTheme.fontSecondColor}
-                        small>
-                        {address.deliveryAddress}
-                      </TextDefault>
+                    <View style={styles(currentTheme).addressTextContainer}>
+                      <View style={styles(currentTheme).addressDetail}>
+                        <TextDefault
+                          style={{ ...alignment.PLlarge }}
+                          textColor={currentTheme.fontSecondColor}
+                          small>
+                          {address.deliveryAddress}
+                        </TextDefault>
+                      </View>
                     </View>
                   </TouchableOpacity>
                   <View style={styles().addressTick}>
@@ -512,18 +553,17 @@ function Main(props) {
                       ![t('currentLocation'), t('selectedLocation')].includes(
                         location.label
                       ) && (
-                      <MaterialIcons
-                        name="check"
-                        size={scale(25)}
-                        color={currentTheme.iconColorPink}
-                      />
-                    )}
+                        <MaterialIcons
+                          name="check"
+                          size={scale(25)}
+                          color={currentTheme.iconColorPink}
+                        />
+                      )}
                   </View>
                 </View>
               )
             }}></Modalize>
         </View>
-        <ActiveOrders/>
       </SafeAreaView>
     </>
   )

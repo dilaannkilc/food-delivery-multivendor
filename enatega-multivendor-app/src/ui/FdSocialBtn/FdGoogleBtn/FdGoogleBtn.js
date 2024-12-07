@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import styles from './styles'
@@ -7,12 +7,8 @@ import Spinner from '../../../components/Spinner/Spinner'
 import TextDefault from '../../../components/Text/TextDefault/TextDefault'
 import { alignment } from '../../../utils/alignment'
 import { useTranslation } from 'react-i18next'
-import ThemeContext from '../../ThemeContext/ThemeContext'
-import { theme } from '../../../utils/themeColors'
 
 const FdGoogleBtn = props => {
-  const themeContext = useContext(ThemeContext)
-  const currentTheme = theme[themeContext.ThemeValue]
   const { t } = useTranslation()
   return (
     <TouchableOpacity
@@ -21,10 +17,7 @@ const FdGoogleBtn = props => {
       onPressIn={props.onPressIn}
       onPress={props.onPress}>
       {props.loadingIcon ? (
-        <Spinner
-          backColor={currentTheme.white}
-          spinnerColor={currentTheme.main}
-        />
+        <Spinner backColor="rgba(0,0,0,0.1)" spinnerColor={'#FFF'} />
       ) : (
         <>
           <FontAwesome name="google" size={scale(18)} color="#000" />

@@ -1,9 +1,11 @@
-import React from 'react'
-import { Image, Text, View, TouchableOpacity } from 'react-native'
+import { FlatList, Image, Text, View, TouchableOpacity } from 'react-native'
 import { scale } from '../../utils/scaling'
 import styles from './styles'
+import { useContext } from 'react'
+import ConfigurationContext from '../../context/Configuration'
 
 const ItemCard = ({ item, onPressItem, restaurant, tagCart }) => {
+  const configuration = useContext(ConfigurationContext)
   const handleAddToCart = () => {
     onPressItem({
       ...item,
@@ -11,6 +13,7 @@ const ItemCard = ({ item, onPressItem, restaurant, tagCart }) => {
       restaurantName: restaurant.name
     })
   }
+  const imageUrl = item.image && item.image.trim() !== '' ? item.image : 'https://enatega.com/wp-content/uploads/2023/11/man-suit-having-breakfast-kitchen-side-view.webp';
 
   return (
     <TouchableOpacity onPress={handleAddToCart}>
@@ -27,12 +30,12 @@ const ItemCard = ({ item, onPressItem, restaurant, tagCart }) => {
         </Text>
         <View style={{ alignItems: 'center' }}>
           <Image
-            source={{ uri: item.image }}
+            source={{ uri: imageUrl }}
             style={[{ width: 138, height: 120 }, styles().popularMenuImg]}
           />
           <View style={styles().popularMenuPrice}>
             <Text style={{ color: '#1C1C1E', fontSize: scale(12) }}>
-              ${item.variations[0].price}
+              {`${configuration.currencySymbol}${item.variations[0].price}`}
             </Text>
             <Text
               style={{
@@ -40,7 +43,7 @@ const ItemCard = ({ item, onPressItem, restaurant, tagCart }) => {
                 fontSize: scale(12),
                 textDecorationLine: 'line-through'
               }}>
-              ${item.variations[0].discounted}
+              {`${configuration.currencySymbol}${item.variations[0].discounted}`}
             </Text>
           </View>
         </View>

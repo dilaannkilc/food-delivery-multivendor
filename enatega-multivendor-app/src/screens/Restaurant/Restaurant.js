@@ -13,16 +13,19 @@ import {
   Image,
   Dimensions,
   SectionList,
-  Text
+  Text,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native'
 import Animated, {
   Extrapolate,
   interpolateNode,
+  concat,
   useValue,
   EasingNode,
   timing
 } from 'react-native-reanimated'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import {
   Placeholder,
   PlaceholderMedia,
@@ -41,22 +44,30 @@ import styles from './styles'
 import { DAYS } from '../../utils/enums'
 import { alignment } from '../../utils/alignment'
 import TextError from '../../components/Text/TextError/TextError'
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons, Ionicons, Entypo } from '@expo/vector-icons'
 import analytics from '../../utils/analytics'
 import { gql, useApolloClient, useQuery } from '@apollo/client'
 import { popularItems, food } from '../../apollo/queries'
 
+const { height } = Dimensions.get('screen')
+
 import { useTranslation } from 'react-i18next'
 import ItemCard from '../../components/ItemCards/ItemCards'
 import { ScrollView } from 'react-native-gesture-handler'
-
-const { height } = Dimensions.get('screen')
 
 // Animated Section List component
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList)
 const TOP_BAR_HEIGHT = height * 0.05
 const HEADER_MAX_HEIGHT = height * 0.3
 const HEADER_MIN_HEIGHT = height * 0.07 + TOP_BAR_HEIGHT
+const SCROLL_RANGE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
+const HALF_HEADER_SCROLL = HEADER_MAX_HEIGHT - TOP_BAR_HEIGHT
+const isPopular = 'Popular'
+const config = to => ({
+  duration: 250,
+  toValue: to,
+  easing: EasingNode.inOut(EasingNode.ease)
+})
 
 const POPULAR_ITEMS = gql`
   ${popularItems}
@@ -73,6 +84,7 @@ function Restaurant(props) {
   const flatListRef = useRef(null)
   const navigation = useNavigation()
   const route = useRoute()
+  const inset = useSafeAreaInsets()
   const propsData = route.params
   const animation = useValue(0)
   const circle = useValue(0)
@@ -99,6 +111,8 @@ function Restaurant(props) {
   )
   const client = useApolloClient()
   const {
+    loading: loadingPopularItems,
+    error: errorPopularItems,
     data: popularItems
   } = useQuery(POPULAR_ITEMS, {
     variables: { restaurantId }
@@ -131,7 +145,7 @@ function Restaurant(props) {
       setShowSearchResults(false)
     } else if (deals) {
       const regex = new RegExp(search, 'i')
-      const filteredData = []
+      let filteredData = []
       deals.forEach(category => {
         category.data.forEach(deals => {
           const title = deals.title.search(regex)
@@ -148,7 +162,7 @@ function Restaurant(props) {
       setFilterData(filteredData)
       setShowSearchResults(true)
     }
-  }, [search, searchOpen])
+  }, [search, deals, searchOpen])
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
@@ -192,7 +206,7 @@ function Restaurant(props) {
   }, [data])
 
   const isOpen = () => {
-    if (data.restaurant.openingTimes?.length < 1) return false
+    if (data.restaurant.openingTimes.length < 1) return false
     const date = new Date()
     const day = date.getDay()
     const hours = date.getHours()
@@ -247,7 +261,7 @@ function Restaurant(props) {
           },
           {
             text: t('okText'),
-            onPress: async() => {
+            onPress: async () => {
               await addToCart(food, true)
             }
           }
@@ -268,10 +282,10 @@ function Restaurant(props) {
     return wrappedContent.join('\n')
   }
 
-  const addToCart = async(food, clearFlag) => {
+  const addToCart = async (food, clearFlag) => {
     if (
-      food.variations.length === 1 &&
-      food.variations[0].addons.length === 0
+      food?.variations?.length === 1 &&
+      food?.variations[0].addons?.length === 0
     ) {
       await setCartRestaurant(food.restaurant)
       const result = checkItemCart(food._id)
@@ -351,7 +365,7 @@ function Restaurant(props) {
   }
 
   function onViewableItemsChanged({ viewableItems }) {
-    if (viewableItems.length === 0) return
+    if (viewableItems?.length === 0) return
     if (
       selectedLabel !== viewableItems[0].section.index &&
       buttonClicked === false
@@ -415,7 +429,7 @@ function Restaurant(props) {
           loading={loading}
           minimumOrder={propsData.minimumOrder}
           tax={propsData.tax}
-          updatedDeals={[]}
+          updatedDeals={updatedDeals}
           searchOpen={searchOpen}
           showSearchResults={showSearchResults}
           setSearch={setSearch}
@@ -456,7 +470,7 @@ function Restaurant(props) {
   }
   if (error) return <TextError text={JSON.stringify(error)} />
   const restaurant = data.restaurant
-  const allDeals = restaurant.categories.filter(cat => cat.foods.length)
+  const allDeals = restaurant.categories.filter(cat => cat?.foods?.length)
   const deals = allDeals.map((c, index) => ({
     ...c,
     data: c.foods,
@@ -472,6 +486,11 @@ function Restaurant(props) {
     },
     ...deals
   ]
+
+  console.log(
+    'updated deals in restaurant:',
+    JSON.stringify(updatedDeals, null, 2)
+  )
 
   return (
     <>
@@ -606,7 +625,7 @@ function Restaurant(props) {
               keyExtractor={(item, index) => item + index}
               renderSectionHeader={({ section: { title, data } }) => {
                 if (title === 'Popular') {
-                  if (!dataList || dataList.length === 0) {
+                  if (!dataList || dataList?.length === 0) {
                     return null // Don't render the section header if dataList is empty
                   }
                   return (
@@ -630,7 +649,6 @@ function Restaurant(props) {
                       <View style={styles().popularItemCards}>
                         {data.map(item => (
                           <ItemCard
-                            key={item._id}
                             item={item}
                             onPressItem={onPressItem}
                             restaurant={restaurant}
@@ -653,9 +671,10 @@ function Restaurant(props) {
                   </View>
                 )
               }}
-              renderItem={({ item, section }) => {
+              renderItem={({ item, index, section }) => {
+                const imageUrl = item.image && item.image.trim() !== '' ? item.image : 'https://enatega.com/wp-content/uploads/2023/11/man-suit-having-breakfast-kitchen-side-view.webp';
                 if (section.title === 'Popular') {
-                  if (!dataList || dataList.length === 0) {
+                  if (!dataList || dataList?.length === 0) {
                     return null
                   }
                   return null
@@ -678,16 +697,14 @@ function Restaurant(props) {
                         alignItems: 'center'
                       }}>
                       <View style={styles(currentTheme).deal}>
-                        {item.image ? (
                           <Image
                             style={{
                               height: scale(60),
                               width: scale(60),
                               borderRadius: 30
                             }}
-                            source={{ uri: item.image }}
+                          source={{ uri: imageUrl }}
                           />
-                        ) : null}
                         <View style={styles(currentTheme).flex}>
                           <View style={styles(currentTheme).dealDescription}>
                             <TextDefault

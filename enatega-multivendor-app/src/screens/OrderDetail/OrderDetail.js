@@ -4,7 +4,7 @@ import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { scale } from '../../utils/scaling'
 import { alignment } from '../../utils/alignment'
 import styles from './styles'
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import Spinner from '../../components/Spinner/Spinner'
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import TextError from '../../components/Text/TextError/TextError'
@@ -19,6 +19,7 @@ import TrackingRider from '../../components/OrderDetail/TrackingRider/TrackingRi
 import OrdersContext from '../../context/Orders'
 import { mapStyle } from '../../utils/mapStyle'
 import { useTranslation } from 'react-i18next'
+import { LocationContext } from '../../context/Location'
 import { HelpButton } from '../../components/Header/HeaderIcons/HeaderIcons'
 import OrderPreparing from '../../assets/SVG/order-tracking-preparing'
 import { ProgressBar, checkStatus } from '../../components/Main/ActiveOrders/ProgressBar'
@@ -33,7 +34,6 @@ import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import { calulateRemainingTime } from '../../utils/customFunctions'
 import PlaceOrder from '../../assets/SVG/place-order'
 import FoodPicked from '../../assets/SVG/food-picked'
-import OrderPlacedIcon from '../../assets/SVG/order-placed'
 const { height: HEIGHT } = Dimensions.get('screen')
 
 const CANCEL_ORDER = gql`${cancelOrderMutation}`
@@ -41,6 +41,7 @@ const CANCEL_ORDER = gql`${cancelOrderMutation}`
 function OrderDetail(props) {
   const [cancelModalVisible, setCancelModalVisible] = useState(false)
   const Analytics = analytics()
+  const { location } = useContext(LocationContext)
   const id = props.route.params ? props.route.params._id : null
   const user = props.route.params ? props.route.params.user : null
   const { loadingOrders, errorOrders, orders } = useContext(OrdersContext)
@@ -66,21 +67,20 @@ function OrderDetail(props) {
     }
     Track()
   }, [])
-
-  const order = orders.find(o => o._id === id)
-  const headerRef = useRef(false)
-  if (loadingOrders || !order) return <Spinner backColor={currentTheme.white} spinnerColor={currentTheme.primary}/>
-  if (errorOrders) return <TextError text={JSON.stringify(errorOrders)} />
-  if (!headerRef.current) {
+  useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: () => HelpButton({ iconBackground: currentTheme.primary }),
-      headerTitle: `${order?.deliveryAddress?.deliveryAddress?.substr(0, 20)}...`,
+      headerTitle: `${location.deliveryAddress.substr(0, 10)}...`,
       title: null,
       headerTitleStyle: { color: currentTheme.black },
       headerStyle: { backgroundColor: currentTheme.white }
     })
-    headerRef.current = true
-  }
+  }, [props.navigation, location])
+
+  const order = orders.find(o => o._id === id)
+
+  if (loadingOrders || !order) return <Spinner />
+  if (errorOrders) return <TextError text={JSON.stringify(errorOrders)} />
   const remainingTime = calulateRemainingTime(order)
   const {
     _id,
@@ -93,7 +93,7 @@ function OrderDetail(props) {
     deliveryCharges
   } = order
   const subTotal = total - tip - tax - deliveryCharges
-
+  console.log('order details', order)
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -220,7 +220,7 @@ function OrderDetail(props) {
 
 export const OrderStatusImage = ({ status }) => {
   switch (status) {
-    case ORDER_STATUS_ENUM.PENDING: return <OrderPlacedIcon/>
+    case ORDER_STATUS_ENUM.PENDING: return <OrderPreparing/>
     case ORDER_STATUS_ENUM.ACCEPTED: return <OrderPreparing/>
     case ORDER_STATUS_ENUM.ASSIGNED: return <FoodPicked/>
     case ORDER_STATUS_ENUM.CANCELLED: return null
