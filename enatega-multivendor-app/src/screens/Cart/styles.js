@@ -7,16 +7,15 @@ const styles = (props = null) =>
     flex: {
       flex: 1
     },
-
     pT10: {
       ...alignment.PTsmall
     },
-    locationContainer: {
-      flexDirection:'row',
-      justifyContent:'space-between',
-      alignItems:'center'
+    pB10: {
+      ...alignment.PBsmall
     },
-
+    pB5: {
+      ...alignment.PBxSmall
+    },
     mB10: {
       ...alignment.MBsmall
     },
@@ -41,10 +40,6 @@ const styles = (props = null) =>
       ...alignment.PLsmall,
       ...alignment.PRsmall
     },
-    totalOrder: {
-      color: props != null ? props.fontNewColor : '#6B7280',
-      marginBottom: scale(12)
-    },
     termsContainer: {
       width: '100%',
       backgroundColor: props !== null ? props.backgroundColor : 'transparent',
@@ -54,7 +49,8 @@ const styles = (props = null) =>
     },
     itemContainer: {
       width: '100%',
-      backgroundColor: props !== null ? props.backgroundColor : 'transparent'
+      backgroundColor: props !== null ? props.backgroundColor : 'transparent',
+   
     },
     priceContainer: {
       width: '100%',
@@ -95,92 +91,53 @@ const styles = (props = null) =>
       borderBottomColor: props !== null ? props.black : 'black',
       borderBottomWidth: StyleSheet.hairlineWidth
     },
-    suggestedItems:{
-      paddingBottom:scale(30),
-      ...alignment.PLlarge,
+    arrowRight: {
+      width: '50%',
+      textAlign: 'right'
     },
-    suggestItemDesciption:{
-      ...alignment.PRlarge,
-    },
-    suggestItemImg:{
-      width: '100%', 
-      // aspectRatio: 18/8,
-      height:scale(70) 
-    },
-    suggestItemContainer:{
-      borderWidth:1,
-      borderColor:'#D1D5DB',
-      borderRadius:12,
-      padding:scale(8),
-      width: scale(120),
-      marginTop:scale(14),
-      height: scale(160),
-      
-    },
-    suggestItemImgContainer:{
-      backgroundColor: '#F3F4F6',
-      borderWidth:1,
-      borderColor:'#E5E7EB',
-      borderRadius:8,
-      padding:scale(4),
-    },
-    suggestItemName:{
-      marginVertical:scale(5)
-    },
-    suggestItemPrice:{
-      marginTop:scale(5)
-    },
-    addToCart: {
-      width: scale(25),
-      height: scale(25),
-      borderRadius: scale(12.5),
-      backgroundColor: '#000',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    totalBillContainer:{
+    buttonContainer: {
       width: '100%',
-      height: '20%',
-      backgroundColor: props !== null ? props.newheaderColor : '#90E36D',
-      ...alignment.PLlarge,
-      ...alignment.PRlarge,
-      
-    },
-    buttonContainer: {     
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center', 
-      paddingTop:scale(28)
-    },
-    button: {
-      backgroundColor: '#111827',
+      height: '10%',
+      backgroundColor: props !== null ? props.themeBackground : 'black',
       justifyContent: 'center',
       alignItems: 'center',
-      width: scale(140),
-      height: scale(40),
-      borderRadius:40
+      elevation: 12,
+      shadowColor: props !== null ? props.shadowColor : 'black',
+      shadowOffset: {
+        width: 0,
+        height: -verticalScale(3)
+      },
+      shadowOpacity: 0.5,
+      shadowRadius: verticalScale(2)
     },
-
-    // totalBill:{
-    //   fontSize:scale(27)
-    // },
-    // buttontLeft: {
-    //   width: '35%',
-    //   height: '50%',
-    //   justifyContent: 'center'
-    // },
-    // buttonLeftCircle: {
-    //   backgroundColor: props != null ? props.black : 'black',
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
-    //   width: scale(18),
-    //   height: scale(18),
-    //   borderRadius: scale(9)
-    // },
-    // iconStyle: {
-    //   height: verticalScale(18),
-    //   width: verticalScale(18)
-    // },
+    button: {
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: scale(16),
+      backgroundColor: props !== null ? props.buttonBackground : 'black',
+      height: '75%',
+      width: '95%',
+      ...alignment.PLsmall,
+      ...alignment.PRsmall
+    },
+    buttontLeft: {
+      width: '35%',
+      height: '50%',
+      justifyContent: 'center'
+    },
+    buttonLeftCircle: {
+      backgroundColor: props != null ? props.black : 'black',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: scale(18),
+      height: scale(18),
+      borderRadius: scale(9)
+    },
+    iconStyle: {
+      height: verticalScale(18),
+      width: verticalScale(18)
+    },
     subContainerImage: {
       flex: 1,
       justifyContent: 'center',
@@ -269,16 +226,11 @@ const styles = (props = null) =>
       height: scale(30)
     },
     headerContainer: {
-      backgroundColor: props !== null ? props.themeBackground : '#6FCF97',
+      backgroundColor: props !== null ? props.headerBackground : '#6FCF97',
       borderBottomRightRadius: 20,
       borderBottomLeftRadius: 20,
-      ...alignment.PLsmall,
-      ...alignment.PRlarge,
-      ...alignment.PBsmall
-    },
-    location: {
-      ...alignment.PLsmall,
-      ...alignment.PRsmall
+      padding: 10,
+      paddingBottom: 0
     },
     imageContainer: {
       display: 'flex',
@@ -317,9 +269,9 @@ const styles = (props = null) =>
       height: scale(30)
     },
     addressAllignment: {
-      // display: 'flex',
-      // flexDirection: 'column',
-      // // justifyContent: 'flex-end',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
       width: '100%',
       marginLeft: scale(15)
     },

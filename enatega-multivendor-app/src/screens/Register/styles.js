@@ -37,20 +37,28 @@ const styles = (props = null) =>
       width: '48%'
     },
     logoContainer: {
-      // width: 120,
-      // height: 130,
-      //alignSelf: 'center'
+      width: 120,
+      height: 130,
+      alignSelf: 'center'
     },
     form: {
-      width: '100%'
+      width: '100%',
+      ...alignment.MTlarge
     },
     textField: {
-      borderColor: props !== null ? props.verticalLine : '#000',
+      borderColor: '#efefef',
       borderWidth: 1,
       borderRadius: 10,
       backgroundColor: props !== null ? props.white : '#fff',
-      padding: 12,
-
+      padding: 14,
+      shadowColor: props !== null ? props.fontSecondColor : '#545454',
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
       ...alignment.MTlarge
     },
     passwordField: {
@@ -70,12 +78,12 @@ const styles = (props = null) =>
       marginLeft: -40
     },
     btn: {
-      width: '100%',
+      width: '70%',
       alignItems: 'center',
-      backgroundColor: props !== null ? props.main : '#000',
+      backgroundColor: props !== null ? props.black : '#000',
       alignSelf: 'center',
       padding: 15,
-      borderRadius: 40
+      borderRadius: 10
     },
     number: {
       display: 'flex',

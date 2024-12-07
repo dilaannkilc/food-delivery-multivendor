@@ -14,8 +14,7 @@ const styles = StyleSheet.create({
   },
   priceContainer: {
     width: '20%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     ...alignment.MTsmall,
     ...alignment.MBsmall
   },
