@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlashMessage from "../../components/FlashMessage";
 import { LoginWrapper } from "../Wrapper";
@@ -12,83 +12,47 @@ import RegistrationIcon from "../../assets/images/emailLock.png";
 import { Avatar } from "@mui/material";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { phoneExist, updateUser } from "../../apollo/server";
+import { phoneExist } from "../../apollo/server";
 import { gql, useMutation } from "@apollo/client";
-
-import UserContext from "../../context/User";
-import ConfigurationContext from "../../context/Configuration";
-
-import { useTranslation } from "react-i18next";
 
 const PHONE = gql`
   ${phoneExist}
 `;
 
-const UPDATEUSER = gql`
-  ${updateUser}
-`;
-
 function PhoneNumber() {
-  const { t } = useTranslation();
   const theme = useTheme();
   const classes = useStyles();
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const formRef = useRef(null);
   const { state } = useLocation();
-  const [loading, setLoading] = useState(false); // State to manage loading animation
+  const [loading, setLoading] = useState(false);
   const [phone, setPhone] = useState("");
-  const [setPhoneError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
-  const [mutate] = useMutation(UPDATEUSER);
-  const { profile } = useContext(UserContext);
-  const configuration = useContext(ConfigurationContext);
-
-  const [PhoneExist] = useMutation(PHONE, {
+  const [PhoneEixst] = useMutation(PHONE, {
     onCompleted,
     onError,
   });
 
-  async function onCompleted({ phoneExist }) {
+  function onCompleted({ phoneExist }) {
     if (phoneExist?._id !== null) {
-      setError("Phone number already associated with some other user");
-      setLoading(false); // Turn off loading animation if an error occurs
+      setError("Phone number already assocaited with some other user");
+      setLoading(false);
     } else {
-      try {
-        if (configuration?.twilioEnabled) {
-          // Fetch twilioEnabled from state
-          navigate("/verify-phone", {
-            replace: true,
-            state: {
-              phone: `+${phone}`,
-            },
-          });
-        } else {
-          // If twilioEnabled is not true, mutate and navigate to "/"
-          await mutate({
-            variables: {
-              name: profile.name,
-              phone: `+${phone}`,
-              phoneIsVerified: true,
-            },
-          });
-
-          navigate("/", {
-            replace: true,
-          });
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      navigate("/verify-phone", {
+        replace: true,
+        state: {
+          phone: `+${phone}`,
+        },
+      });
     }
   }
-  
   function onError({ error }) {
     setError("Something went wrong");
-    setLoading(false); // Turn off loading animation if an error occurs
   }
 
-  const handleAction = async () => {
+  const handleAction = () => {
     setError("");
     let validate = true;
     if (!phone) {
@@ -98,10 +62,9 @@ function PhoneNumber() {
     }
     if (validate) {
       if (`+${phone}` !== state?.prevPhone) {
-        setLoading(true); // Turn on loading animation before making the mutation call
-        await PhoneExist({ variables: { phone: `+${phone}` } });
+        PhoneEixst({ variables: { phone: `+${phone}` } });
       } else {
-        setPhoneError("New phone number must be different from previous one");
+        setPhoneError("New phone number must be different from pervious one");
       }
     }
   };
@@ -129,14 +92,14 @@ function PhoneNumber() {
         </Box>
       </Box>
       <Typography variant="h5" className={classes.font700}>
-        {t("updatePhone")} <br /> {t("number")}
+        Update your phone <br /> number?
       </Typography>
       <Box mt={theme.spacing(1)} />
       <Typography
         variant="caption"
         className={`${classes.caption} ${classes.fontGrey}`}
       >
-        {t("secureAcc")}
+        We need this to secure your account
       </Typography>
       <Box mt={theme.spacing(4)} />
       <form ref={formRef}>
@@ -159,7 +122,7 @@ function PhoneNumber() {
           />
         </Box>
         <Typography variant="caption" style={{ color: "red" }}>
-          {t("mobileErr1")}
+          {phoneError}
         </Typography>
         <Box mt={theme.spacing(8)} />
         <Button
@@ -181,7 +144,7 @@ function PhoneNumber() {
               variant="caption"
               className={`${classes.caption} ${classes.font700}`}
             >
-              {t("continue")}
+              CONTINUE
             </Typography>
           )}
         </Button>

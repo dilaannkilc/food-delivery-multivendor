@@ -83,17 +83,7 @@ export const reviews = `query Reviews($restaurant:String!){
       description
       createdAt
     }
-  }
-`
-
-export const getOrdersByDateRange = `query GetOrdersByDateRange($startingDate: String!, $endingDate: String!, $restaurant: String!) {
-    getOrdersByDateRange(startingDate: $startingDate, endingDate: $endingDate, restaurant: $restaurant) {
-      totalAmountCashOnDelivery
-      countCashOnDeliveryOrders
-    }
-    
-  }
-`
+  }`
 
 export const getOrdersByRestaurant = `query ordersByRestId($restaurant:String!,$page:Int,$rows:Int,$search:String){
     ordersByRestId(restaurant:$restaurant,page:$page,rows:$rows,search:$search){
@@ -220,47 +210,6 @@ export const getConfiguration = `query GetConfiguration{
       currency
       currencySymbol
       deliveryRate
-      twilioAccountSid
-      twilioAuthToken
-      twilioPhoneNumber
-      twilioEnabled
-      formEmail
-      sendGridApiKey
-      sendGridEnabled   
-      sendGridEmail
-      sendGridEmailName
-      sendGridPassword
-      dashboardSentryUrl
-      webSentryUrl
-      apiSentryUrl
-      customerAppSentryUrl
-      restaurantAppSentryUrl
-      riderAppSentryUrl
-      googleApiKey
-      cloudinaryUploadUrl
-      cloudinaryApiKey
-      webAmplitudeApiKey
-      appAmplitudeApiKey
-      webClientID
-      androidClientID
-      iOSClientID
-      expoClientID
-     
-      googleMapLibraries
-      googleColor    
-      termsAndConditions
-      privacyPolicy
-      testOtp
-      firebaseKey
-      authDomain
-      projectId
-      storageBucket
-      msgSenderId
-      appId
-      measurementId
-      isPaidVersion
-      skipEmailVerification
-      skipMobileVerification
     }
   }`
 
@@ -388,7 +337,6 @@ export const getVendors = `query Vendors{
           _id
           title
         }
-        shopType
       }
     }
 }`
@@ -407,7 +355,6 @@ export const getVendor = `query GetVendor($id:String!){
           image
           address
           location{coordinates}
-          shopType
         }
     }
 }`
@@ -426,14 +373,6 @@ export const getCoupons = `query Coupons{
       title
       discount
       enabled
-    }
-  }`
-
-  export const getCuisines = `query Cuisines{
-    cuisines {
-      _id
-      name
-      description
     }
   }`
 
@@ -489,7 +428,6 @@ export const restaurantByOwner = `query RestaurantByOwner($id:String){
     username
     password
     location{coordinates}
-    shopType
     }
   }
 }`
@@ -519,7 +457,6 @@ export const restaurants = `query Restaurants{
       _id
       email
     }
-    shopType
   }
 }
 `
@@ -556,8 +493,6 @@ export const getRestaurantProfile = `query Restaurant($id:String){
         _id
         email
       }
-      shopType
-      cuisines
     }
 }`
 
@@ -606,7 +541,7 @@ export const getRestaurantDetail = `query Restaurant($id:String){
         quantityMinimum
         quantityMaximum
       }
-      shopType
+      
     }
 }`
 
