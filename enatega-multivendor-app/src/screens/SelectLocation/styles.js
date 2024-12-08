@@ -52,6 +52,7 @@ const styles = (props = null) =>
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'flex-start',
+      height: '20%',
       paddingLeft: scale(20),
       marginTop: scale(10),
       marginBottom: scale(10)
@@ -61,8 +62,7 @@ const styles = (props = null) =>
       borderColor: '#DAD6D6',
       borderRadius: 8,
       height: '18%',
-      overflow: 'hidden',
-      justifyContent: 'center'
+      overflow: 'hidden'
     },
     button1: {
       flexDirection: 'row',
@@ -79,8 +79,10 @@ const styles = (props = null) =>
     textInput: {
       width: '100%',
       height: '22%',
+      alignItems: 'center',
       justifyContent: 'center',
-      paddingHorizontal: scale(10),
+      paddingLeft: scale(15),
+      paddingRight: scale(15),
       marginTop: scale(15),
       borderWidth: 1,
       borderColor: props != null ? props.borderBottomColor : '#E5E7EB',

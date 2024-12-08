@@ -17,8 +17,7 @@ const styles = (props = null) =>
     mainContainer: {
       ...alignment.Msmall,
       marginTop: scale(5),
-      backgroundColor: props !== null ? props.white : 'transparent',
-      gap: scale(10)
+      backgroundColor: props !== null ? props.white : 'transparent'
     },
     itemContainer: {
       margin: scale(4),
