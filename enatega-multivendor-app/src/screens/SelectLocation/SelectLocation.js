@@ -1,5 +1,6 @@
-import React, { useState, useContext, useLayoutEffect, useEffect, useRef } from 'react'
+import React, { useState, useContext, useLayoutEffect, useEffect } from 'react'
 import { View, TouchableOpacity, StatusBar, Linking } from 'react-native'
+import { LocationContext } from '../../context/Location'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import { theme } from '../../utils/themeColors'
@@ -34,9 +35,11 @@ export default function SelectLocation(props) {
   const navigation = useNavigation()
   const inset = useSafeAreaInsets()
   const [loading, setLoading] = useState(false)
-  const mapRef = useRef()
   const { getCurrentLocation, getLocationPermission } = useLocation()
-
+  const { setLocation } = useContext(LocationContext)
+  const [label, setLabel] = useState(
+    longitude && latitude ? t('currentLocation') : t('selectedLocation')
+  )
   const [coordinates, setCoordinates] = useState({
     latitude: latitude || LATITUDE,
     longitude: longitude || LONGITUDE,
@@ -51,6 +54,8 @@ export default function SelectLocation(props) {
     }
     Track()
   }, [])
+
+  let mapRef = null
 
   useLayoutEffect(() => {
     navigation.setOptions(
@@ -67,13 +72,13 @@ export default function SelectLocation(props) {
 
   StatusBar.setBarStyle('dark-content')
 
-  const setCurrentLocation = async() => {
+  const setCurrentLocation = async () => {
     setLoading(true)
     const { status, canAskAgain } = await getLocationPermission()
     if (status !== 'granted' && !canAskAgain) {
       FlashMessage({
         message: t('locationPermissionMessage'),
-        onPress: async() => {
+        onPress: async () => {
           await Linking.openSettings()
         }
       })
@@ -90,8 +95,50 @@ export default function SelectLocation(props) {
     }
     setLoading(false)
     navigation.navigate('AddNewAddress', {
-      latitude: coords.latitude,
-      longitude: coords.longitude
+      Location: {
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+        location: {
+          latitude: coords.latitude,
+          longitude: coords.longitude
+        }
+      }
+    })
+  }
+
+  // const setCurrentLocation = async () => {
+  //   const { status, canAskAgain } = await getLocationPermission()
+  //   if (status !== 'granted' && !canAskAgain) {
+  //     FlashMessage({
+  //       message: t('locationPermissionMessage'),
+  //       onPress: async () => {
+  //         await Linking.openSettings()
+  //       }
+  //     })
+  //     return
+  //   }
+  //   const { error, coords, message } = await getCurrentLocation()
+  //   if (error) {
+  //     FlashMessage({
+  //       message
+  //     })
+  //     return
+  //   }
+  //   mapRef.fitToCoordinates([
+  //     {
+  //       latitude: coords.latitude,
+  //       longitude: coords.longitude
+  //     }
+  //   ])
+  //   setLabel('currentLocation')
+  // }
+
+  const onSelectLocation = () => {
+    setLocation({
+      label,
+      deliveryAddress: label,
+      latitude: coordinates.latitude,
+      longitude: coordinates.longitude
     })
   }
 
@@ -101,11 +148,18 @@ export default function SelectLocation(props) {
     })
   }
 
+  const onPanDrag = () => {
+    setLabel(t('selectedLocation'))
+  }
+
   const onItemPress = city => {
     setModalVisible(false)
     navigation.navigate('AddNewAddress', {
-      latitude: +city.latitude,
-      longitude: +city.longitude
+      City: {
+        city,
+        latitude: city.latitude,
+        longitude: city.longitude
+      }
     })
   }
 
@@ -114,7 +168,9 @@ export default function SelectLocation(props) {
       <View style={styles().flex}>
         <View style={styles().mapView}>
           <MapView
-            ref={mapRef}
+            ref={ref => {
+              mapRef = ref
+            }}
             initialRegion={coordinates}
             region={coordinates}
             style={{ flex: 1 }}
@@ -125,6 +181,7 @@ export default function SelectLocation(props) {
               themeContext.ThemeValue === 'Dark' ? mapStyle : customMapStyle
             }
             onRegionChangeComplete={onRegionChangeComplete}
+            onPanDrag={onPanDrag}
           />
           <View style={styles().mainContainer}>
             <CustomMarker

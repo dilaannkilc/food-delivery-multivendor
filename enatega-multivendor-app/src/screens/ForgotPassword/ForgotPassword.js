@@ -79,7 +79,9 @@ function ForgotPassword(props) {
               H5
               bold
               textColor={currentTheme.fontSecondColor}
-              style={styles().emailHeading}>
+              style={{
+                paddingBottom: scale(5)
+              }}>
               {t('enterYourEmail')}
             </TextDefault>
           </View>
@@ -106,22 +108,22 @@ function ForgotPassword(props) {
         </View>
         <View style={{ width: '100%', marginBottom: 20 }}>
           <View>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              style={styles(currentTheme).btn}
-              onPress={() => forgotPassword()}>
-              <TextDefault H4 textColor={currentTheme.fontFourthColor} bold>
-                {loading ? (
-                  <Spinner
-                    backColor={currentTheme.backgroundColor}
-                    spinnerColor={currentTheme.white}
-                    size="small"
-                  />
-                ) : (
-                  t('continueBtn')
-                )}
-              </TextDefault>
-            </TouchableOpacity>
+            {loading ? (
+              <Spinner backColor="transparent" size="small" />
+            ) : (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles(currentTheme).btn}
+                onPress={() => forgotPassword()}>
+                <TextDefault
+                  H4
+                  textColor={currentTheme.fontFourthColor}
+                  style={alignment.MLsmall}
+                  bold>
+                  {t('continueBtn')}
+                </TextDefault>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>

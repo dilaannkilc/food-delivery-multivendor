@@ -24,23 +24,24 @@ import { fetchAddressFromCoordinates } from '../../utils/geocoding'
 import { useNavigation } from '@react-navigation/native'
 import MapView from './MapView'
 import screenOptions from './screenOptions'
-import { useLocation } from '../../ui/hooks'
 
 const LATITUDE = 33.699265
 const LONGITUDE = 72.974575
-const LATITUDE_DELTA = 0.2
-const LONGITUDE_DELTA = 0.2
+const LATITUDE_DELTA = 40
+const LONGITUDE_DELTA = 40
 
 export default function AddNewAddress(props) {
+  const { longitude, latitude } = props.route.params?.location || {}
+  console.log('AddNewAddress', latitude, longitude)
+  // city, latitude, longitude
+
   const [searchModalVisible, setSearchModalVisible] = useState()
   const [cityModalVisible, setCityModalVisible] = useState(false)
-
-  const { longitude, latitude } = props.route.params || {}
   const [selectedValue, setSelectedValue] = useState({
     city: '',
     address: '',
-    latitude: LATITUDE,
-    longitude: LONGITUDE
+    latitude: '',
+    longitude: ''
   })
   const { setLocation } = useContext(LocationContext)
   const mapRef = useRef()
@@ -49,18 +50,8 @@ export default function AddNewAddress(props) {
   const currentTheme = theme[themeContext.ThemeValue]
   const inset = useSafeAreaInsets()
   const navigation = useNavigation()
-  const { getCurrentLocation } = useLocation()
 
   const { t } = useTranslation()
-  const setCurrentLocation = async() => {
-    const { coords, error } = await getCurrentLocation()
-    if (!error) {
-      setCoordinates({
-        latitude: coords.latitude,
-        longitude: coords.longitude
-      })
-    }
-  }
 
   useLayoutEffect(() => {
     navigation.setOptions(
@@ -69,21 +60,20 @@ export default function AddNewAddress(props) {
         fontColor: currentTheme.fontMainColor,
         backColor: currentTheme.white,
         iconColor: currentTheme.black,
-        lineColor: currentTheme.lightHorizontalLine,
-        setCurrentLocation
+        lineColor: currentTheme.lightHorizontalLine
       })
     )
   }, [])
 
   const onSelectCity = item => {
-    setCoordinates({
-      latitude: +item.latitude,
-      longitude: +item.longitude
-    })
+    console.log(' ', item)
+    setSelectedValue(item.name)
+    setCoordinates({ longitude: item.longitude, latitude: item.latitude })
     setCityModalVisible(false)
   }
 
   const onRegionChangeComplete = useCallback(async coordinates => {
+    console.log('onRegionChangeComplete', coordinates)
     const response = await fetchAddressFromCoordinates(
       coordinates.latitude,
       coordinates.longitude
@@ -94,6 +84,7 @@ export default function AddNewAddress(props) {
       latitude: coordinates.latitude,
       longitude: coordinates.longitude
     })
+    // populate city, address info based on coordinates
   })
 
   const onSelectSearch = location => {
@@ -110,7 +101,7 @@ export default function AddNewAddress(props) {
   })
 
   useEffect(() => {
-    onRegionChangeComplete({ longitude, latitude })
+    setCoordinates({ longitude, latitude })
   }, [])
 
   const onSelectLocation = () => {
@@ -118,8 +109,7 @@ export default function AddNewAddress(props) {
       label: 'Location',
       deliveryAddress: selectedValue.address,
       latitude: selectedValue.latitude,
-      longitude: selectedValue.longitude,
-      city: selectedValue.city
+      longitude: selectedValue.longitude
     })
     navigation.navigate('Main')
   }
@@ -131,8 +121,8 @@ export default function AddNewAddress(props) {
           <MapView
             ref={mapRef}
             initialRegion={{
-              latitude: latitude,
-              longitude: longitude,
+              latitude: LATITUDE,
+              longitude: LONGITUDE,
               latitudeDelta: LATITUDE_DELTA,
               longitudeDelta: LONGITUDE_DELTA
             }}
@@ -180,6 +170,23 @@ export default function AddNewAddress(props) {
               </Text>
             </TouchableOpacity>
           </View>
+          {/* <View style={[styles(currentTheme).textInput]}>
+            <TextInput
+              style={[styles().flex, { color: currentTheme.buttonText }]}
+              placeholder="Address"
+              placeholderTextColor={currentTheme.placeholderText}
+              value={selectedValue.address}
+              onChangeText={text => {}}
+            />
+            <TouchableOpacity onPress={() => setSearchModalVisible(true)}>
+              <MaterialIcons
+                name="edit"
+                size={18}
+                color={currentTheme.darkBgFont}
+                style={{ marginRight: 10, marginLeft: 10 }}
+              />
+            </TouchableOpacity>
+          </View> */}
           <TouchableOpacity
             activeOpacity={0.7}
             style={styles(currentTheme).emptyButton}
@@ -197,6 +204,7 @@ export default function AddNewAddress(props) {
                 longitude: props[1].lng
               })
               setSearchModalVisible(false)
+              console.log('onSearchItemSelect', props[1].lat, props[1].lng)
             }}
           />
         </View>
