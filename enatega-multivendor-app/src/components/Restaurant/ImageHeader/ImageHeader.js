@@ -178,7 +178,6 @@ function ImageTextCenterHeader(props, ref) {
                       search={props.search}
                       newheaderColor={newheaderColor}
                       cartContainer={cartContainer}
-                      placeHolder={t('searchItems')}
                     />
                   </>
                 ) : (
@@ -197,12 +196,12 @@ function ImageTextCenterHeader(props, ref) {
                       onPress={handleAddToFavorites}>
                       <View>
                         {loadingMutation ? (
-                          <Spinner size={'small'} backColor={'transparent'} spinnerColor={currentTheme.iconColorDark} />
+                          <Spinner size={'small'} backColor={'transparent'} />
                         ) : (
                           <AntDesign
                             name={heart ? 'heart' : 'hearto'}
                             size={scale(15)}
-                            color={currentTheme.iconColorDark}
+                            color="black"
                           />
                         )}
                       </View>
@@ -226,7 +225,7 @@ function ImageTextCenterHeader(props, ref) {
                       <SimpleLineIcons
                         name="info"
                         size={scale(17)}
-                        color={currentTheme.iconColorDark}
+                        color="black"
                       />
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -243,9 +242,9 @@ function ImageTextCenterHeader(props, ref) {
                       <Ionicons
                         name="search-outline"
                         style={{
+                          color: props.black,
                           fontSize: props.iconSize
                         }}
-                        color={currentTheme.iconColorDark}
                       />
                     </TouchableOpacity>
                   </>

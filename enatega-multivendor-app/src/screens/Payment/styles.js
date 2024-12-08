@@ -14,11 +14,10 @@ const styles = (props = null) =>
       paddingVertical: scale(10),
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContentL: 'center',
-      gap: scale(7)
+      gap:scale(7)
     },
     mainContainer: {
-      backgroundColor: props != null ? props.themeBackground : 'white',
+      backgroundColor: props != null? props.themeBackground : 'white',
       ...alignment.PLmedium,
       ...alignment.PRmedium,
     },
@@ -26,27 +25,27 @@ const styles = (props = null) =>
       width: '10%',
       alignItems: 'center',
       justifyContent: 'center',
-
+      
     },
     horizontalLine: {
       borderWidth: 0.5,
       borderColor: props !== null ? props.iconBackground : 'white'
     },
     radioGroup: {
-      flexDirection: 'row',
+      flexDirection: 'row',  
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginVertical: scale(10),
+      marginVertical:scale(10),
     },
-    iconContainer: {
-      width: scale(25),
-      flexDirection: 'row',
-      alignItems: 'center'
-    },
+    // iconContainer: {
+    //   width: '25%',
+     
+    //   flexDirection: 'row',
+    //   alignItems: 'center'
+    // },
     iconStyle: {
-      display: "flex",
-      alignItems: 'center',
-      justifyContent: 'center',
+      height: verticalScale(20),
+      width: verticalScale(20)
     }
   })
 export default styles

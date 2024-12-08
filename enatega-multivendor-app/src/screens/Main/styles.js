@@ -51,24 +51,10 @@ const styles = (props = null) =>
       ...alignment.PLmedium,
       ...alignment.PRmedium
     },
-    addNewAddressbtn: {
-      padding: scale(5),
-      ...alignment.PLmedium,
-      ...alignment.PRmedium
-    },
     addressContainer: {
       width: '100%',
       ...alignment.PTsmall,
       ...alignment.PBsmall
-    },
-    addButton: {
-      backgroundColor: props !== null ? props.newheaderColor : 'transparent',
-      width: '100%',
-      height: scale(40),
-      borderRadius: 50,
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignSelf: 'center'
     },
     addressSubContainer: {
       width: '90%',
@@ -88,8 +74,9 @@ const styles = (props = null) =>
       shadowOpacity: 0
     },
     addressTextContainer: {
-      display: 'flex',
-      flexDirection: 'row'
+      ...alignment.PLlarge,
+      ...alignment.PRlarge,
+      ...alignment.PTxSmall
     },
     addressTick: {
       width: '10%',
@@ -115,65 +102,21 @@ const styles = (props = null) =>
       marginBottom: scale(12),
       padding: scale(12)
     },
-    brandsPlaceHolderContainer: {
-      backgroundColor: props != null ? props.cartContainer : '#B8B8B8',
-      borderRadius: scale(3),
-      paddingHorizontal: scale(20)
-    },
     height200: {
       height: scale(200)
-    },
-    height80: {
-      height: scale(80)
     },
     placeHolderFadeColor: {
       backgroundColor: props != null ? props.fontSecondColor : '#B8B8B8'
     },
-    emptyViewContainer:{
-      flex: 1,
+    emptyViewContainer: {
+      width: '100%',
+      height: verticalScale(40),
       justifyContent: 'center',
       alignItems: 'center'
-    },
-    emptyViewBox: {
-      backgroundColor: '#f0f0f0',
-      borderRadius: scale(10),
-      width: '85%',
-      height: verticalScale(130),
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: scale(15),
-      marginTop: scale(30)
     },
     searchList: {
       marginBottom: 70
     },
-    mL5p: {
-      ...alignment.MLsmall
-    },
-    homeIcon: {
-      color: props !== null ? props.darkBgFont : '#000',
-      width: '15%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-    titleAddress: {
-      width: '55%',
-      justifyContent: 'center'
-    },
-    labelStyle: {
-      textAlignVertical: 'bottom',
-      fontSize: scale(14),
-      fontWeight: '700',
-      textAlign: 'left'
-    },
-    addressDetail: {
-      // width: '80%',
-      alignSelf: 'flex-end',
-      fontSize: scale(4),
-      fontWeight: '300',
-      textAlign: 'justify',
-      paddingLeft: scale(38)
-    }
-  })
+  }
+  )
 export default styles
