@@ -350,13 +350,11 @@ function Restaurant(props) {
   }
 
   function onViewableItemsChanged({ viewableItems }) {
-    buttonClickedSetter(false)
-    if (viewableItems.length === 0) return
+    if (viewableItems?.length === 0) return
     if (
       selectedLabel !== viewableItems[0].section.index &&
       buttonClicked === false
     ) {
-      console.log('IFIFIFIi')
       selectedLabelSetter(viewableItems[0].section.index)
       scrollToNavbar(viewableItems[0].section.index)
     }
@@ -461,18 +459,18 @@ function Restaurant(props) {
   const deals = allDeals.map((c, index) => ({
     ...c,
     data: c.foods,
-    index: dataList?.length > 0 ? index+1 : index
+    index
   }))
 
-  const updatedDeals = dataList?.length > 0 ? [
+  const updatedDeals = [
     {
       title: 'Popular',
       id: new Date().getTime(),
-      data: dataList,
-      index: 0
+      // data: []
+      data: dataList
     },
     ...deals
-  ] : [...deals]
+  ]
 
   return (
     <>
@@ -526,7 +524,7 @@ function Restaurant(props) {
                         alignItems: 'center'
                       }}>
                       <View style={styles(currentTheme).deal}>
-                        {item?.image ? (
+                        {item.image ? (
                           <Image
                             style={{
                               height: scale(60),
@@ -605,7 +603,6 @@ function Restaurant(props) {
               onRefresh={() => networkStatus === 7 && refetch()}
               onViewableItemsChanged={onViewableItemsChanged}
               keyExtractor={(item, index) => item + index}
-              contentContainerStyle={{ paddingBottom: 150 }}
               renderSectionHeader={({ section: { title, data } }) => {
                 if (title === 'Popular') {
                   if (!dataList || dataList?.length === 0) {

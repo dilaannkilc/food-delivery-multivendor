@@ -15,6 +15,7 @@ import screenOptions from './screenOptions'
 import { useResetYourPassword } from './useResetYourPassword'
 import { useTranslation } from 'react-i18next'
 import { Feather } from '@expo/vector-icons'
+import { scale } from '../../utils/scaling'
 
 function ForgotPassword(props) {
   const {
@@ -73,7 +74,9 @@ function ForgotPassword(props) {
               H5
               bold
               textColor={currentTheme.fontSecondColor}
-              style={styles().enterPass}>
+              style={{
+                paddingBottom: scale(5)
+              }}>
               {t('enterPass')}
             </TextDefault>
           </View>
@@ -101,7 +104,7 @@ function ForgotPassword(props) {
               </TextDefault>
             </View>
           )}
-          <View style={[styles().passwordField, styles().confirmField]}>
+          <View style={styles().passwordField}>
             <TextInput
               secureTextEntry
               placeholder={t('confirmPassword')}

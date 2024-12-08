@@ -317,7 +317,7 @@ function ImageTextCenterHeader(props, ref) {
                   activeOpacity={0.7}
                   style={styles().ratingBox}
                   onPress={() => {
-                    navigation.navigate('Reviews', {
+                    navigation.navigate('About', {
                       restaurantObject: { ...aboutObject, isOpen: null },
                       tab: false
                     })
