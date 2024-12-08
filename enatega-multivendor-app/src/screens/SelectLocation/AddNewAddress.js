@@ -169,6 +169,7 @@ export default function AddNewAddress(props) {
               <Text
                 style={{
                   color: currentTheme.buttonText,
+
                   overflow: 'scroll'
                 }}>
                 {selectedValue.address || 'Address'}
