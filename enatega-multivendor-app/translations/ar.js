@@ -313,7 +313,6 @@ export const ar = {
   otpResentToEmail: 'تم إعادة إرسال رمز OTP إلى بريدك الإلكتروني.',
   search: 'بحث',
   searchRestaurant: 'البحث عن المطاعم',
-  searchItems: 'البحث عن العناصر',
   message: 'رسالة',
   aptFloor: 'شقة | طابق',
   confirmPassword: 'تأكيد كلمة المرور',
@@ -389,7 +388,5 @@ export const ar = {
   Appartment: 'شقة',
   tapToRate: 'انقر للتقييم',
   locationType: 'نوع الموقع',
-  locationTypeDetails: 'يساعدنا نوع الموقع في العثور عليك بشكل أفضل',
-  notAvailableinYourArea: 'نحن غير متاحين حاليًا في منطقتك',
-  noRestaurant: 'لا يقدم أي مطعم توصيل في منطقتك حاليًا'
+  locationTypeDetails: 'يساعدنا نوع الموقع في العثور عليك بشكل أفضل'
 }

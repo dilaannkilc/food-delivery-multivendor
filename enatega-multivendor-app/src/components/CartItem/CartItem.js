@@ -9,17 +9,12 @@ import styles from './styles'
 import TextDefault from '../Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
 import { useNavigation } from '@react-navigation/native'
-import { IMAGE_LINK } from '../../utils/constants'
 
-const CartItem = props => {
+const CartItem = (props) => {
   const configuration = useContext(ConfigurationContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const imageUrl =
-    props?.itemImage && props?.itemImage.trim() !== ''
-      ? props.itemImage
-      : IMAGE_LINK
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }
@@ -35,11 +30,11 @@ const CartItem = props => {
           flexDirection: 'row',
           justifyContent: 'flex-start',
           alignItems: 'center',
-          gap: scale(7)
+          gap: scale(7),
         }}>
         <View style={styles().suggestItemImgContainer}>
           <Image
-            source={{ uri: imageUrl }}
+            source={{ uri: props?.itemImage }}
             style={styles().suggestItemImg}
             resizeMode="contain"
           />
@@ -104,7 +99,7 @@ const CartItem = props => {
               flexDirection: 'row',
               gap: scale(8),
               alignItems: 'center',
-              marginTop: scale(4)
+              marginTop: scale(4),
             }}>
             <TextDefault
               numberOfLines={1}
@@ -115,7 +110,8 @@ const CartItem = props => {
               {parseFloat(props.dealPrice).toFixed(2)}
             </TextDefault>
             <View style={styles().divider} />
-            <TouchableOpacity onPress={navigateBack}>
+            <TouchableOpacity
+              onPress={navigateBack}>
               <TextDefault
                 textColor={currentTheme.fontFourthColor}
                 bolder
@@ -131,7 +127,7 @@ const CartItem = props => {
           activeOpacity={0.7}
           style={[
             styles(currentTheme).actionContainerBtns,
-            styles(currentTheme).minusBtn
+            styles(currentTheme).minusBtn,
           ]}
           onPress={props.removeQuantity}>
           <AntDesign
@@ -150,10 +146,14 @@ const CartItem = props => {
           activeOpacity={0.7}
           style={[
             styles(currentTheme).actionContainerBtns,
-            styles(currentTheme).plusBtn
+            styles(currentTheme).plusBtn,
           ]}
           onPress={props.addQuantity}>
-          <AntDesign name="plus" size={scale(18)} color={currentTheme.white} />
+          <AntDesign
+            name="plus"
+            size={scale(18)}
+            color={currentTheme.white}
+          />
         </TouchableOpacity>
       </View>
     </View>
