@@ -62,6 +62,7 @@ function SaveAddress(props) {
         elevation: 0
       },
       headerTitleAlign: 'center',
+      headerRight: null,
       headerLeft: () => (
         <HeaderBackButton
           truncatedLabel=""

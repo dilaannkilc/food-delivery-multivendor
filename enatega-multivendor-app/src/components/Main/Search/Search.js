@@ -14,6 +14,8 @@ function Search(props) {
   return (
     <View style={styles(currentTheme, props.newheaderColor).mainContainerHolder}>
       <View style={styles(currentTheme, props.cartContainer).mainContainer}>
+    {/* <View style={styles(currentTheme).mainContainerHolder}>
+      <View style={styles(currentTheme).mainContainer}> */}
         <View style={styles().subContainer}>
           <View style={styles().leftContainer}>
             <View style={styles().searchContainer}>
@@ -26,7 +28,7 @@ function Search(props) {
             <View style={styles().inputContainer}>
               <TextInput
                 style={styles(currentTheme).bodyStyleOne}
-                placeholder={props.placeHolder}
+                placeholder={t('searchRestaurant')}
                 placeholderTextColor={currentTheme.fontNewColor}
                 onChangeText={text => props.setSearch(text)}
                 value={props.search}

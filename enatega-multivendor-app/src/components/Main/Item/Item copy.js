@@ -141,7 +141,7 @@ function Item(props) {
                 <Ionicons
                   name="md-star"
                   size={scale(15)}
-                  color={currentTheme.primary}
+                  color={currentTheme.primery}
                 />
                 <TextDefault
                   textColor={currentTheme.fontMainColor}

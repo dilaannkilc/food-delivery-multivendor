@@ -325,7 +325,6 @@ export const fr = {
   otpResentToEmail: 'OTP renvoyé à votre adresse e-mail.',
   search: 'Rechercher',
   searchRestaurant: 'Rechercher des restaurants',
-  searchItems: 'Rechercher des articles',
   message: 'Message',
   aptFloor: 'Appartement | Étage',
   confirmPassword: 'Confirmez le mot de passe',
