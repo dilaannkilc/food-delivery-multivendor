@@ -50,6 +50,7 @@ export const en = {
   titleProfile: 'Profile',
   titleSettings: 'Settings',
   titleHelp: 'Help',
+  titleFAQ: 'FAQs',
   titleChat: 'Chat',
   titleLogout: 'Logout',
   titleCart: 'Your Cart',
@@ -221,8 +222,7 @@ export const en = {
   PICKED: 'PICKED',
   DELIVERED: 'DELIVERED',
   COMPLETED: 'COMPLETED',
-  pendingOrder:
-    'Order received! Your meal is in the works, soon to be at your doorstep.',
+  pendingOrder: 'Order received! Your meal is in the works, soon to be at your doorstep.',
   acceptedOrder: 'Preparing your food. Rider will pick it up once its ready.',
   assignedOrder: 'Preparing your food. Rider will pick it up once its ready.',
   pickedOrder:
@@ -401,13 +401,5 @@ export const en = {
   locationType: 'Location Type',
   locationTypeDetails: 'The location type helps us to find you better',
   notAvailableinYourArea: 'We are not currently available in your area',
-  noRestaurant: 'No restaurant currently offers delivery in your area',
-  titleEmptyActiveOrders: 'No Active Orders Yet!',
-  emptyActiveOrdersDesc:
-    "You'll see your active orders here.",
-  emptyActiveOrdersBtn: "Let's order something!",
-  titleEmptyPastOrders: 'No Past Orders Yet!',
-  emptyPastOrdersDesc:
-    "You'll see your past orders here.",
-  emptyPastOrdersBtn: "Let's order something!",
+  noRestaurant: 'No restaurant currently offers delivery in your area'
 }

@@ -406,13 +406,5 @@ export const de = {
   locationType: 'Standorttyp',
   locationTypeDetails: 'Der Standorttyp hilft uns, Sie besser zu finden',
   notAvailableinYourArea: 'Wir sind derzeit nicht in Ihrer Region verfügbar',
-  noRestaurant: 'Kein Restaurant bietet derzeit Lieferung in Ihrer Region an',
-  noRestaurant:
-    'Geen enkel restaurant biedt momenteel bezorging aan in uw omgeving',
-  titleEmptyActiveOrders: 'Nog geen actieve bestellingen!',
-  emptyActiveOrdersDesc: 'U ziet hier uw actieve bestellingen.',
-  emptyActiveOrdersBtn: 'Laten we iets bestellen!',
-  titleEmptyPastOrders: 'Nog geen eerdere bestellingen!',
-  emptyPastOrdersDesc: 'U ziet hier uw eerdere bestellingen.',
-  emptyPastOrdersBtn: 'Laten we iets bestellen!'
+  noRestaurant: 'Kein Restaurant bietet derzeit Lieferung in Ihrer Region an'
 }
