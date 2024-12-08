@@ -99,8 +99,7 @@ const Orders = props => {
                           </TextDefault>
                           <LottieView
                             style={{
-                              width: width - 100,
-                              height: 250
+                              width: width - 100
                             }}
                             source={require('../../assets/loader.json')}
                             autoPlay
@@ -139,8 +138,7 @@ const Orders = props => {
                           </TextDefault>
                           <LottieView
                             style={{
-                              width: width - 100,
-                              height: 250
+                              width: width - 100
                             }}
                             source={require('../../assets/loader.json')}
                             autoPlay
@@ -175,8 +173,7 @@ const Orders = props => {
                           </TextDefault>
                           <LottieView
                             style={{
-                              width: width - 100,
-                              height: 250
+                              width: width - 100
                             }}
                             source={require('../../assets/loader.json')}
                             autoPlay

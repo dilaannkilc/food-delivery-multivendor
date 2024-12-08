@@ -10,16 +10,7 @@ import {
 import useGlobalStyles from '../utils/globalStyles'
 import useStyles from '../components/styles'
 import CustomLoader from '../components/Loader/CustomLoader'
-import {
-  Container,
-  Box,
-  Button,
-  Typography,
-  Alert,
-  useTheme
-} from '@mui/material'
-import { useTranslation, withTranslation } from 'react-i18next'
-
+import { Container, Box, Button, Typography } from '@mui/material'
 const UPDATE_DELIVERY_BOUNDS_AND_LOCATION = gql`
   ${updateDeliveryBoundsAndLocation}
 `
@@ -27,15 +18,11 @@ const GET_RESTAURANT_PROFILE = gql`
   ${getRestaurantProfile}
 `
 
-function DeliveryBoundsAndLocation() {
-  const { t } = useTranslation()
-  const theme = useTheme()
+export default function DeliveryBoundsAndLocation() {
   const restaurantId = localStorage.getItem('restaurantId')
 
   const [drawBoundsOrMarker, setDrawBoundsOrMarker] = useState('marker') // polygon
-  const [successMessage, setSuccessMessage] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-
+  const [errorMessage, setErrorMessage] = useState(null)
   const [center, setCenter] = useState({ lat: 33.684422, lng: 73.047882 })
   const [marker, setMarker] = useState({ lat: 33.684422, lng: 73.047882 })
   const [path, setPath] = useState([
@@ -67,7 +54,7 @@ function DeliveryBoundsAndLocation() {
       onError
     }
   )
-  const [mutate, { loading }] = useMutation(
+  const [mutate, { error, loading }] = useMutation(
     UPDATE_DELIVERY_BOUNDS_AND_LOCATION,
     {
       update: updateCache,
@@ -140,7 +127,6 @@ function DeliveryBoundsAndLocation() {
       }
     })
   }
-
   function onCompleted({ restaurant }) {
     if (restaurant) {
       setCenter({
@@ -158,29 +144,20 @@ function DeliveryBoundsAndLocation() {
       )
     }
   }
-
-  function onError({ networkError, graphqlErrors }) {
-    setErrorMessage(t('UpdatingLocationError'))
-    setTimeout(() => setErrorMessage(''), 5000) // Clear error message after 5 seconds
-  }
+  function onError({ networkError, graphqlErrors }) {}
 
   const validate = () => {
     if (!marker) {
-      setErrorMessage(t('LocationMarkerRequired'))
-      setTimeout(() => setErrorMessage(''), 5000) // Clear success message after 5 seconds
+      setErrorMessage('location marker is required')
       return false
     }
     if (path.length < 3) {
-      setErrorMessage(t('DeliveryAreaRequired'))
-      setTimeout(() => setErrorMessage(''), 5000) // Clear success message after 5 seconds
+      setErrorMessage('delivery area is required')
       return false
     }
-    setSuccessMessage(t('LocationUpdatedSuccessfully'))
-    setTimeout(() => setSuccessMessage(''), 5000) // Clear success message after 5 seconds
-    setErrorMessage('')
+    setErrorMessage(null)
     return true
   }
-
   const onDragEnd = mapMouseEvent => {
     setMarker({
       lat: mapMouseEvent.latLng.lat(),
@@ -198,7 +175,7 @@ function DeliveryBoundsAndLocation() {
           <Box className={classes.flexRow}>
             <Box item className={classes.heading2}>
               <Typography variant="h6" className={classes.textWhite}>
-                {t('SetLocation')}
+                Set Location
               </Typography>
             </Box>
           </Box>
@@ -244,22 +221,16 @@ function DeliveryBoundsAndLocation() {
               padding: '0 30px'
             }}>
             <Button
-              style={{
-                color: theme.palette.warning.dark,
-                backgroundColor: theme.palette.common.black
-              }}
+              style={{ color: '#90EA93', backgroundColor: '#000' }}
               className={globalClasses.button}
               onClick={() => toggleDrawingMode('polygon')}>
-              {t('DrawDeliveryBounds')}
+              Draw Delivery Bounds
             </Button>
             <Button
-              style={{
-                color: theme.palette.warning.dark,
-                backgroundColor: theme.palette.common.black
-              }}
+              style={{ color: '#90EA93', backgroundColor: '#000' }}
               className={globalClasses.button}
               onClick={() => toggleDrawingMode('marker')}>
-              {t('SetRestaurantLocation')}
+              Set Restaurant Location
             </Button>
           </Box>
           <Box
@@ -270,22 +241,19 @@ function DeliveryBoundsAndLocation() {
             }}>
             <Button
               style={{
-                color: theme.palette.common.black,
-                backgroundColor: theme.palette.grey[300],
+                color: '#000',
+                backgroundColor: '#e0e0e0',
                 marginRight: 20
               }}
               className={globalClasses.button}
               onClick={removePolygon}>
-              {t('RemoveDeliveryBounds')}
+              Remove Delivery Bounds
             </Button>
             <Button
-              style={{
-                color: theme.palette.common.black,
-                backgroundColor: theme.palette.grey[300]
-              }}
+              style={{ color: '#000', backgroundColor: '#e0e0e0' }}
               className={globalClasses.button}
               onClick={removeMarker}>
-              {t('RemoveRestaurantLocation')}
+              Remove Restaurant Location
             </Button>
           </Box>
           <Box mt={5} mb={3}>
@@ -303,30 +271,13 @@ function DeliveryBoundsAndLocation() {
                   mutate({ variables: { id: restaurantId, location, bounds } })
                 }
               }}>
-              {t('Save')}
+              Save
             </Button>
           </Box>
-          {successMessage && (
-            <Alert
-              className={globalClasses.alertSuccess}
-              variant="filled"
-              severity="success">
-              {successMessage}
-            </Alert>
-          )}
-
-          {errorMessage && (
-            <Alert
-              className={globalClasses.alertError}
-              variant="filled"
-              severity="error">
-              {errorMessage}
-            </Alert>
-          )}
+          <p>{error ? error.message : ''}</p>
+          <p>{errorMessage !== null ? errorMessage : ''}</p>
         </Box>
       </Container>
     </>
   )
 }
-
-export default withTranslation()(DeliveryBoundsAndLocation)
