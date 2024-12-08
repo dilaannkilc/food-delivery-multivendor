@@ -137,7 +137,10 @@ function Login(props) {
                               ? currentTheme.black
                               : currentTheme.textErrorColor
                           }
-                          style={[styles().eyeBtn]}
+                          style={[
+                            styles().eyeBtn
+                            // Platform.OS === 'android' && { marginTop: 14 }
+                          ]}
                         />
                       </View>
                       {passwordError !== null && (
@@ -180,11 +183,7 @@ function Login(props) {
                       textColor={currentTheme.fontFourthColor}
                       bold>
                       {loading || loginLoading ? (
-                        <Spinner
-                          backColor={currentTheme.backgroundColor}
-                          spinnerColor={currentTheme.white}
-                          size="small"
-                        />
+                        <Spinner backColor="transparent" size="small" />
                       ) : registeredEmail ? (
                         'Login'
                       ) : (
