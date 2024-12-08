@@ -453,26 +453,16 @@ function Main(props) {
                       </TouchableOpacity>
                     </View>
                     <View>
-                      <View>
-                        {isLoggedIn &&
-                          recentOrderRestaurantsVar &&
-                          recentOrderRestaurantsVar.length > 0 && (
-                            <>
-                              {orderLoading ? (
-                                loadingScreen()
-                              ) : (
-                                <OrderAgain
-                                  recentOrderRestaurants={
-                                    recentOrderRestaurantsVar
-                                  }
-                                  loading={orderLoading}
-                                  error={orderError}
-                                  title={'Order it again'}
-                                />
-                              )}
-                            </>
-                          )}
-                      </View>
+                      {orderLoading ? (
+                        loadingScreen()
+                      ) : (
+                        <OrderAgain
+                          recentOrderRestaurants={recentOrderRestaurantsVar}
+                          loading={orderLoading}
+                          error={orderError}
+                          title={'Order it again'}
+                        />
+                      )}
                       <View>
                         {orderLoading ? (
                           loadingScreen()
