@@ -4,7 +4,8 @@ import { scale, verticalScale } from '../../../utils/scaling'
 const { width: WIDTH } = Dimensions.get('window')
 export default StyleSheet.create({
   container: theme => ({
-    marginHorizontal: scale(10)
+    alignItems: 'center',
+    backgroundColor: theme.themeBackground
   }),
   line: theme => ({
     height: 1,
@@ -13,26 +14,33 @@ export default StyleSheet.create({
   }),
   chatButton: theme => ({
     paddingVertical: scale(25),
-    // paddingHorizontal: scale(100),
-    backgroundColor: theme.white,
-    borderRadius: scale(20),
-    flexDirection: 'row'
+    paddingHorizontal: scale(100),
+    backgroundColor: theme.black,
+    borderRadius: scale(20)
+  }),
+  chatButtonText: theme => ({
+    color: theme.white,
+    fontFamily: fontStyles.MuseoSans500
   }),
 
   orderDetailsContainer: theme => ({
+    paddingVertical: 20,
     backgroundColor: theme.themeBackground
   }),
   addressContainer: {
-    width: WIDTH - 20
+    width: WIDTH - 20,
+    paddingLeft: scale(15)
   },
   row: {
     paddingTop: scale(25),
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   addressText: { width: '50%', textAlign: 'left' },
   itemsContainer: {
     width: WIDTH - 20,
-    paddingVertical: scale(20)
+    paddingHorizontal: scale(15),
+    paddingVertical: scale(20),
+    margin: scale(20)
   },
   line2: theme => ({
     marginVertical: scale(10),
@@ -43,16 +51,11 @@ export default StyleSheet.create({
   itemRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: scale(5)
+    alignItems: 'center'
   },
   priceRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: scale(10)
-  },
-  chatIcon: theme => ({
-    flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'center'
-  })
+  }
 })
