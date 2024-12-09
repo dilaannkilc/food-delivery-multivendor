@@ -17,7 +17,6 @@ import ConfigurationContext from '../../context/Configuration'
 import StarIcon from '../../../src/assets/SVG/imageComponents/starIcon'
 import { scale } from '../../utils/scaling'
 import EmptyView from '../EmptyView/EmptyView'
-import { ORDER_STATUS_ENUM } from '../../utils/enums'
 
 function emptyViewPastOrders() {
   const orderStatusActive = ['PENDING', 'PICKED', 'ACCEPTED', 'ASSIGNED']
@@ -42,7 +41,7 @@ function emptyViewPastOrders() {
   }
 }
 
-const PastOrders = ({ navigation, loading, error, pastOrders, onPressReview }) => {
+const PastOrders = ({ navigation, loading, error, pastOrders }) => {
   const { t } = useTranslation()
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
@@ -59,7 +58,6 @@ const PastOrders = ({ navigation, loading, error, pastOrders, onPressReview }) =
       navigation={navigation}
       currentTheme={currentTheme}
       configuration={configuration}
-      onPressReview={onPressReview}
     />
   )
 
@@ -126,13 +124,17 @@ const getItems = items => {
     .join('\n')
 }
 
-const Item = ({ item, navigation, currentTheme, configuration, onPressReview }) => {
+const Item = ({ item, navigation, currentTheme, configuration }) => {
   useSubscription(
     gql`
       ${subscriptionOrder}
     `,
-    { variables: { id: item._id }, skip:item.orderStatus===ORDER_STATUS_ENUM.DELIVERED }
+    { variables: { id: item._id } }
   )
+  const [rating, setRating] = useState(0)
+  const handleRating = index => {
+    setRating(index)
+  }
   const { t } = useTranslation()
 
   return (
@@ -219,8 +221,8 @@ const Item = ({ item, navigation, currentTheme, configuration, onPressReview }) 
                 {[1, 2, 3, 4, 5].map(index => (
                   <StarIcon
                     key={`star-icon-${index}`}
-                    isFilled={index <= item?.review?.rating}
-                    onPress={()=>onPressReview(item, index)}
+                    isFilled={index <= rating}
+                    onPress={() => handleRating(index)}
                   />
                 ))}
             </View>
