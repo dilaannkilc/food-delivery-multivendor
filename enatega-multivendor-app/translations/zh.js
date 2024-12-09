@@ -387,8 +387,5 @@ export const zh = {
   emptyActiveOrdersBtn: '让我们来点什么吧！',
   titleEmptyPastOrders: '目前没有过去的订单！',
   emptyPastOrdersDesc: '您将在这里看到您的过去订单。',
-  emptyPastOrdersBtn: '让我们来点什么吧！',
-  allGrocery: '所有杂货店',
-  searchGrocery: '搜索杂货店',
-  noGrocery: '您所在的区域目前没有杂货店提供送货服务'
+  emptyPastOrdersBtn: '让我们来点什么吧！'
 }
