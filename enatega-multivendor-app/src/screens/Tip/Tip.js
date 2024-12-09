@@ -1,11 +1,5 @@
 import React, { useContext, useEffect, useLayoutEffect, useRef } from 'react'
-import {
-  View,
-  TouchableOpacity,
-  Keyboard,
-  StatusBar,
-  Platform
-} from 'react-native'
+import { View, TouchableOpacity, Keyboard, StatusBar, Platform } from 'react-native'
 import { TextField, OutlinedTextField } from 'react-native-material-textfield'
 import { scale } from '../../utils/scaling'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
@@ -49,9 +43,8 @@ function Tip(props) {
               color: currentTheme.btnText,
               ...textStyles.H4,
               ...textStyles.Bolder
-            }}
-          >
-            {t('titleTipping')}
+            }}>
+            Tipping
           </TextDefault>
         </View>
       ),
@@ -70,11 +63,11 @@ function Tip(props) {
       },
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=''
+          truncatedLabel=""
           backImage={() => (
             <View style={{ ...alignment.PLxSmall }}>
               <AntDesign
-                name='arrowleft'
+                name="arrowleft"
                 size={22}
                 color={currentTheme.fontFourthColor}
               />
@@ -86,7 +79,7 @@ function Tip(props) {
         />
       )
     })
-  }, [navigation])
+  })
   useEffect(() => {
     async function Track() {
       await Analytics.track(Analytics.events.NAVIGATE_TO_TIPS)
@@ -101,11 +94,11 @@ function Tip(props) {
     } else navigation.navigate('Checkout', { tipAmount: Number(tipAmount) })
   }
 
-  const HeaderLine = (props) => {}
+  const HeaderLine = props => {}
   return (
     <>
       <View style={[styles().flex, styles(currentTheme).mainContainer]}>
-        <HeaderLine textWidth='100%' lineWidth='25%' />
+        <HeaderLine textWidth="100%" lineWidth="25%" />
         <View style={styles(currentTheme).upperContainer}>
           <View style={styles(currentTheme).innerContainer}>
             <OutlinedTextField
@@ -115,7 +108,7 @@ function Tip(props) {
               placeholderTextColor={currentTheme.secondaryText}
               labelFontSize={scale(12)}
               fontSize={scale(12)}
-              textAlignVertical='top'
+              textAlignVertical="top"
               multiline={false}
               maxLength={30}
               textColor={currentTheme.darkBgFont}
@@ -126,7 +119,7 @@ function Tip(props) {
               labelTextStyle={{
                 fontSize: scale(12)
               }}
-              keyboardType='numeric'
+              keyboardType="numeric"
             />
           </View>
           <View style={styles(currentTheme).buttonContainer}>
@@ -135,8 +128,7 @@ function Tip(props) {
                 textColor={currentTheme.buttonText}
                 H5
                 bold
-                uppercase
-              >
+                uppercase>
                 {t('apply')}
               </TextDefault>
             </TouchableOpacity>

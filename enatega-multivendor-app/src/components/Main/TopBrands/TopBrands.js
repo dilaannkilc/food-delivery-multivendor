@@ -5,7 +5,6 @@ import TextDefault from '../../Text/TextDefault/TextDefault'
 import { alignment } from '../../../utils/alignment'
 import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../../utils/themeColors'
-import { useTranslation } from 'react-i18next'
 import { LocationContext } from '../../../context/Location'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { topRatedVendorsInfo } from '../../../apollo/queries'
@@ -13,13 +12,13 @@ import gql from 'graphql-tag'
 import { useQuery } from '@apollo/client'
 import { useNavigation } from '@react-navigation/native'
 import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder'
+import TopBrandsLoadingUI from '../LoadingUI/TopBrandsLoadingUI'
 
 const TOP_BRANDS = gql`
   ${topRatedVendorsInfo}
 `
 
 function TopBrands(props) {
-  const { t } = useTranslation()
   const { location } = useContext(LocationContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
@@ -32,24 +31,6 @@ function TopBrands(props) {
     }
   })
 
-  function loadingScreen() {
-    return (
-      <View style={styles(currentTheme).screenBackground}>
-        <Placeholder
-          Animation={props => (
-            <Fade
-              {...props}
-              style={styles(currentTheme).placeHolderFadeColor}
-              duration={600}
-            />
-          )}
-          style={styles(currentTheme).brandsPlaceHolderContainer}>
-          <PlaceholderLine style={styles().height80} />
-          {/* <PlaceholderLine /> */}
-        </Placeholder>
-      </View>
-    )
-  }
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -76,13 +57,13 @@ function TopBrands(props) {
           {item?.name}
         </TextDefault>
         <TextDefault textColor={currentTheme.fontFifthColor} normal>
-          {item?.deliveryTime} + {t('mins')}
+          {item?.deliveryTime + ' Mins'}
         </TextDefault>
       </View>
     </TouchableOpacity>
   )
 
-  if (loading) return loadingScreen()
+  if (loading) return <TopBrandsLoadingUI />
   if (error) return <Text style={styles().margin}>Error: {error.message}</Text>
 
   return (
@@ -92,7 +73,7 @@ function TopBrands(props) {
         textColor={currentTheme.fontFourthColor}
         bolder
         H4>
-        {t('topBrands')}
+        Top Brands
       </TextDefault>
       <View style={{ ...alignment.PRsmall }}>
         <FlatList

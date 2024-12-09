@@ -129,7 +129,7 @@ const ChatScreen = ({ navigation, route }) => {
           style={styles().emptyChat}
           textColor={currentTheme.fontSecondColor}
           H3>
-          {t('chatWithRider')}
+          Lets chat with your rider
         </TextDefault>
       </View>
     )
@@ -194,7 +194,7 @@ const ChatScreen = ({ navigation, route }) => {
       <View style={styles(currentTheme).orderDetails}>
         <View style={styles(currentTheme).orderNoSec}>
           <TextDefault textColor={currentTheme.fontFourthColor} normal bold>
-            {t('OrderNo')}
+            Order Number:
           </TextDefault>
           <View style={styles(currentTheme).orderNo}>
             <TextDefault textColor={currentTheme.fontNewColor} small bold>
@@ -221,7 +221,7 @@ const ChatScreen = ({ navigation, route }) => {
         renderAvatar={null}
         renderChatEmpty={renderChatEmpty}
         inverted={Platform.OS !== 'web' || messages.length === 0}
-        placeholder={t('replyRider')}
+        placeholder="Send a reply to rider!"
         textInputProps={{
           style: {
             width: '75%',

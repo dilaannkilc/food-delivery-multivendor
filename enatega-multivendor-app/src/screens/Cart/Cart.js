@@ -1,5 +1,10 @@
 /* eslint-disable indent */
-import React, { useState, useEffect, useContext, useLayoutEffect } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useLayoutEffect
+} from 'react'
 import {
   View,
   ScrollView,
@@ -92,23 +97,23 @@ function Cart(props) {
 
   useEffect(() => {
     let isSubscribed = true
-    ;(async () => {
-      if (data && data?.restaurant) {
-        const latOrigin = Number(data?.restaurant.location.coordinates[1])
-        const lonOrigin = Number(data?.restaurant.location.coordinates[0])
-        const latDest = Number(location.latitude)
-        const longDest = Number(location.longitude)
-        const distance = await calculateDistance(
-          latOrigin,
-          lonOrigin,
-          latDest,
-          longDest
-        )
-        const amount = Math.ceil(distance) * configuration.deliveryRate
-        isSubscribed &&
-          setDeliveryCharges(amount > 0 ? amount : configuration.deliveryRate)
-      }
-    })()
+      ; (async() => {
+        if (data && data?.restaurant) {
+          const latOrigin = Number(data?.restaurant.location.coordinates[1])
+          const lonOrigin = Number(data?.restaurant.location.coordinates[0])
+          const latDest = Number(location.latitude)
+          const longDest = Number(location.longitude)
+          const distance = await calculateDistance(
+            latOrigin,
+            lonOrigin,
+            latDest,
+            longDest
+          )
+          const amount = Math.ceil(distance) * configuration.deliveryRate
+          isSubscribed &&
+            setDeliveryCharges(amount > 0 ? amount : configuration.deliveryRate)
+        }
+      })()
     return () => {
       isSubscribed = false
     }
@@ -202,7 +207,7 @@ function Cart(props) {
         },
         {
           text: 'Continue',
-          onPress: () => {},
+          onPress: () => { },
           style: 'cancel'
         }
       ],
@@ -373,9 +378,11 @@ function Cart(props) {
   }
   if (loading || loadingData || loadingTip) return loadginScreen()
 
-  const { restaurant } = data
-  const { addons, options } = restaurant
-  const foods = restaurant.categories.map(c => c.foods.flat()).flat()
+  const restaurant = data?.restaurant
+  const addons = restaurant?.addons
+  const options = restaurant?.options
+  // const { addons, options } = restaurant
+  const foods = restaurant?.categories?.map(c => c.foods.flat()).flat()
 
   function populateFood(cartItem) {
     const food = foods.find(food => food._id === cartItem._id)
@@ -385,9 +392,8 @@ function Cart(props) {
     )
     if (!variation) return null
 
-    const title = `${food.title}${
-      variation.title ? `(${variation.title})` : ''
-    }`
+    const title = `${food.title}${variation.title ? `(${variation.title})` : ''
+      }`
     let price = variation.price
     const optionsTitle = []
     if (cartItem.addons) {
@@ -415,9 +421,9 @@ function Cart(props) {
   return (
     <>
       <View style={styles(currentTheme).mainContainer}>
-        {!cart.length && emptyCart()}
-        {!!cart.length && (
-          <>
+        {
+          cart?.length === 0 ? emptyCart() : (
+            <>
             <ScrollView
               showsVerticalScrollIndicator={false}
               style={[styles().flex, styles().cartItems]}>
@@ -452,7 +458,9 @@ function Cart(props) {
                     size={20}
                     color={currentTheme.secondaryText}
                   />
+
                 </TouchableOpacity>
+
               </View>
               <View
                 style={{
@@ -463,15 +471,13 @@ function Cart(props) {
                 <View
                   style={[styles(currentTheme).dealContainer, styles().mB10]}>
                   <TextDefault style={styles().totalOrder} H5 bolder>
-                    {t('yourOrder')} ({cartLength})
+                    Your Order ({cartLength})
                   </TextDefault>
-                  {cart.map((cartItem, index) => {
+                  {cart?.map((cartItem, index) => {
                     const food = populateFood(cartItem)
                     if (!food) return null
                     return (
-                      <View
-                        key={cartItem._id}
-                        style={[styles(currentTheme).itemContainer]}>
+                      <View key={cartItem._id} style={[styles(currentTheme).itemContainer]}>
                         <CartItem
                           quantity={food.quantity}
                           dealName={food.title}
@@ -492,70 +498,69 @@ function Cart(props) {
                     )
                   })}
                 </View>
+
               </View>
               <View style={styles().suggestedItems}>
-                <WouldYouLikeToAddThese
-                  itemId={foods[0]._id}
-                  restaurantId={restaurant._id}
-                />
+                <WouldYouLikeToAddThese itemId={foods[0]._id} restaurantId={restaurant._id} />
               </View>
             </ScrollView>
 
-            <View style={styles().totalBillContainer}>
-              <View style={styles(currentTheme).buttonContainer}>
-                <View>
-                  <TextDefault
-                    textColor={currentTheme.black}
-                    style={styles().totalBill}
-                    bolder
-                    H2>
-                    {configuration.currencySymbol}
-                    {calculateTotal()}
-                  </TextDefault>
-                  <TextDefault
-                    textColor={currentTheme.black}
-                    style={styles().totalBill}
-                    bolder
-                    Smaller>
-                    {t('exclusiveVAt')}
-                  </TextDefault>
-                </View>
-                {isLoggedIn && profile ? (
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    onPress={() => {
-                      navigation.navigate('Checkout')
-                    }}
-                    style={styles(currentTheme).button}>
+              <View style={styles().totalBillContainer}>
+                <View style={styles(currentTheme).buttonContainer}>
+                  <View>
                     <TextDefault
-                      textColor={currentTheme.themeBackground}
-                      style={styles().checkoutBtn}
-                      bold
-                      H5>
-                      {t('checkoutBtn')}
-                    </TextDefault>
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    onPress={() => {
-                      props.navigation.navigate({ name: 'CreateAccount' })
-                    }}
-                    style={styles(currentTheme).button}>
-                    <TextDefault
-                      textColor={currentTheme.white}
-                      style={{ width: '100%' }}
-                      H5
+                      textColor={currentTheme.black}
+                      style={styles().totalBill}
                       bolder
-                      center>
-                      {t('loginOrCreateAccount')}
+                      H2>
+                      {configuration.currencySymbol}
+                      {calculateTotal()}
                     </TextDefault>
-                  </TouchableOpacity>
-                )}
+                    <TextDefault
+                      textColor={currentTheme.black}
+                      style={styles().totalBill}
+                      bolder
+                      Smaller>
+                      Total is exclusive of VAT
+                    </TextDefault>
+                  </View>
+                  {isLoggedIn && profile ? (
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      onPress={() => {
+                        navigation.navigate('Checkout')
+                      }}
+                      style={styles(currentTheme).button}>
+                      <TextDefault
+                        textColor={currentTheme.themeBackground}
+                        style={styles().checkoutBtn}
+                        bold
+                        H5>
+                        {t('checkoutBtn')}
+                      </TextDefault>
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      onPress={() => {
+                        props.navigation.navigate({ name: 'CreateAccount' })
+                      }}
+                      style={styles(currentTheme).button}>
+                      <TextDefault
+                        textColor={currentTheme.white}
+                        style={{ width: '100%' }}
+                        H5
+                        bolder
+                        center>
+                        {t('loginOrCreateAccount')}
+                      </TextDefault>
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
-            </View>
           </>
-        )}
+          )
+        }
       </View>
     </>
   )

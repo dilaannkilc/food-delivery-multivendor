@@ -42,8 +42,7 @@ import { LocationContext } from '../../context/Location'
 import { alignment } from '../../utils/alignment'
 import analytics from '../../utils/analytics'
 import { useTranslation } from 'react-i18next'
-import { OrderAgain } from '../../components/Main/OrderAgain'
-import { TopPicks } from '../../components/Main/TopPicks'
+import MainRestaurantCard from '../../components/Main/MainRestaurantCard/MainRestaurantCard'
 import { TopBrands } from '../../components/Main/TopBrands'
 import Item from '../../components/Main/Item/Item'
 import CustomHomeIcon from '../../assets/SVG/imageComponents/CustomHomeIcon'
@@ -52,6 +51,8 @@ import CustomWorkIcon from '../../assets/SVG/imageComponents/CustomWorkIcon'
 import useHomeRestaurants from '../../ui/hooks/useRestaurantOrderInfo'
 import ErrorView from '../../components/ErrorView/ErrorView'
 import ActiveOrders from '../../components/Main/ActiveOrders/ActiveOrders'
+import MainLoadingUI from '../../components/Main/LoadingUI/MainLoadingUI'
+import TopBrandsLoadingUI from '../../components/Main/LoadingUI/TopBrandsLoadingUI'
 
 const RESTAURANTS = gql`
   ${restaurantList}
@@ -143,7 +144,7 @@ function Main(props) {
     scrollIndicatorInsetTop /* number */
   } = useCollapsibleSubHeader()
 
-  const setAddressLocation = async (address) => {
+  const setAddressLocation = async address => {
     setLocation({
       _id: address._id,
       label: address.label,
@@ -162,8 +163,8 @@ function Main(props) {
 
     const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coords.latitude}&lon=${coords.longitude}`
     fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         if (data.error) {
           console.log('Reverse geocoding request failed:', data.error)
         } else {
@@ -186,7 +187,7 @@ function Main(props) {
           console.log(address)
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Error fetching reverse geocoding data:', error)
       })
   }
@@ -197,11 +198,10 @@ function Main(props) {
         <TouchableOpacity
           style={[styles(currentTheme).addButton]}
           activeOpacity={0.7}
-          onPress={setCurrentLocation}
-        >
+          onPress={setCurrentLocation}>
           <View style={styles().addressSubContainer}>
             <MaterialCommunityIcons
-              name='target'
+              name="target"
               size={scale(25)}
               color={currentTheme.black}
             />
@@ -214,7 +214,7 @@ function Main(props) {
   )
 
   const emptyView = () => {
-    if (loading || mutationLoading || loadingOrders) return loadingScreen()
+    if (loading || mutationLoading || loadingOrders) return <MainLoadingUI />
     else {
       return (
         <View style={styles().emptyViewContainer}>
@@ -249,11 +249,10 @@ function Main(props) {
                 name: 'CreateAccount'
               })
             }
-          }}
-        >
+          }}>
           <View style={styles().addressSubContainer}>
             <AntDesign
-              name='pluscircleo'
+              name="pluscircleo"
               size={scale(20)}
               color={currentTheme.black}
             />
@@ -266,57 +265,18 @@ function Main(props) {
     </View>
   )
 
-  function loadingScreen() {
-    return (
-      <View style={styles(currentTheme).screenBackground}>
-        <Placeholder
-          Animation={(props) => (
-            <Fade
-              {...props}
-              style={styles(currentTheme).placeHolderFadeColor}
-              duration={600}
-            />
-          )}
-          style={styles(currentTheme).placeHolderContainer}
-        >
-          <PlaceholderLine style={styles().height200} />
-          <PlaceholderLine />
-        </Placeholder>
-      </View>
-    )
-  }
-
-  function brandsLoadingScreen() {
-    return (
-      <View style={styles(currentTheme).screenBackground}>
-        <Placeholder
-          Animation={(props) => (
-            <Fade
-              {...props}
-              style={styles(currentTheme).placeHolderFadeColor}
-              duration={600}
-            />
-          )}
-          style={styles(currentTheme).brandsPlaceHolderContainer}
-        >
-          <PlaceholderLine style={styles().height80} />
-        </Placeholder>
-      </View>
-    )
-  }
-
   const restaurants = data?.nearByRestaurants?.restaurants
 
-  const searchAllShops = (searchText) => {
+  const searchAllShops = searchText => {
     const data = []
     const regex = new RegExp(searchText, 'i')
-    restaurants?.forEach((restaurant) => {
+    restaurants?.forEach(restaurant => {
       const resultName = restaurant.name.search(regex)
       if (resultName < 0) {
-        const resultCatFoods = restaurant.categories.some((category) => {
+        const resultCatFoods = restaurant.categories.some(category => {
           const result = category.title.search(regex)
           if (result < 0) {
-            const result = category.foods.some((food) => {
+            const result = category.foods.some(food => {
               const result = food.title.search(regex)
               return result > -1
             })
@@ -325,12 +285,12 @@ function Main(props) {
           return true
         })
         if (!resultCatFoods) {
-          const resultOptions = restaurant.options.some((option) => {
+          const resultOptions = restaurant.options.some(option => {
             const result = option.title.search(regex)
             return result > -1
           })
           if (!resultOptions) {
-            const resultAddons = restaurant.addons.some((addon) => {
+            const resultAddons = restaurant.addons.some(addon => {
               const result = addon.title.search(regex)
               return result > -1
             })
@@ -349,6 +309,7 @@ function Main(props) {
     <>
       <SafeAreaView edges={['bottom', 'left', 'right']} style={styles().flex}>
         <View style={[styles().flex, styles(currentTheme).screenBackground]}>
+          
           <View style={styles().flex}>
             <View style={styles().mainContentContainer}>
               <View style={[styles().flex, styles().subContainer]}>
@@ -399,8 +360,7 @@ function Main(props) {
                 ) : (
                   <ScrollView
                     showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}
-                  >
+                    showsHorizontalScrollIndicator={false}>
                     <View style={styles().mainItemsContainer}>
                       <TouchableOpacity
                         style={styles().mainItem}
@@ -408,29 +368,26 @@ function Main(props) {
                           navigation.navigate('Menu', {
                             selectedType: 'restaurant'
                           })
-                        }
-                      >
+                        }>
                         <View>
                           <TextDefault
                             H4
                             bolder
                             textColor={currentTheme.fontThirdColor}
-                            style={styles().ItemName}
-                          >
-                            {t('foodDelivery')}
+                            style={styles().ItemName}>
+                            Food Delivery
                           </TextDefault>
                           <TextDefault
                             Normal
                             textColor={currentTheme.fontThirdColor}
-                            style={styles().ItemDescription}
-                          >
-                            {t('OrderfoodLove')}
+                            style={styles().ItemDescription}>
+                            Order food you love
                           </TextDefault>
                         </View>
                         <Image
                           source={require('../../assets/images/ItemsList/menu.png')}
                           style={styles().popularMenuImg}
-                          resizeMode='contain'
+                          resizeMode="contain"
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
@@ -439,47 +396,52 @@ function Main(props) {
                           navigation.navigate('Menu', {
                             selectedType: 'grocery'
                           })
-                        }
-                      >
+                        }>
                         <TextDefault
                           H4
                           bolder
                           textColor={currentTheme.fontThirdColor}
-                          style={styles().ItemName}
-                        >
-                          {t('grocery')}
+                          style={styles().ItemName}>
+                          Grocery
                         </TextDefault>
                         <TextDefault
                           Normal
                           textColor={currentTheme.fontThirdColor}
-                          style={styles().ItemDescription}
-                        >
-                          {t('essentialsDeliveredFast')}
+                          style={styles().ItemDescription}>
+                          Essentials delivered fast
                         </TextDefault>
                         <Image
                           source={require('../../assets/images/ItemsList/grocery.png')}
                           style={styles().popularMenuImg}
-                          resizeMode='contain'
+                          resizeMode="contain"
                         />
                       </TouchableOpacity>
                     </View>
                     <View>
-                      {orderLoading ? (
-                        loadingScreen()
-                      ) : (
-                        <OrderAgain
-                          recentOrderRestaurants={recentOrderRestaurantsVar}
-                          loading={orderLoading}
-                          error={orderError}
-                          title={'Order it again'}
-                        />
-                      )}
+                      <View>
+                        {isLoggedIn &&
+                          recentOrderRestaurantsVar &&
+                          recentOrderRestaurantsVar.length > 0 && (
+                            <>
+                              {orderLoading ? (
+                                <MainLoadingUI />
+                              ) : (
+                                <MainRestaurantCard
+                                  orders={recentOrderRestaurantsVar}
+                                  loading={orderLoading}
+                                  error={orderError}
+                                  title={'Order it again'}
+                                />
+                              )}
+                            </>
+                          )}
+                      </View>
                       <View>
                         {orderLoading ? (
-                          loadingScreen()
+                          <MainLoadingUI />
                         ) : (
-                          <TopPicks
-                            mostOrderedRestaurants={mostOrderedRestaurantsVar}
+                          <MainRestaurantCard
+                            orders={mostOrderedRestaurantsVar}
                             loading={orderLoading}
                             error={orderError}
                             title={'Top Picks for you'}
@@ -488,21 +450,22 @@ function Main(props) {
                       </View>
                     </View>
                     <View>
-                      {orderLoading ? brandsLoadingScreen() : <TopBrands />}
+                      {orderLoading ? <TopBrandsLoadingUI /> : <TopBrands />}
                     </View>
                   </ScrollView>
                 )}
               </View>
             </View>
           </View>
-
+          <ActiveOrders />
           <Modalize
             ref={modalRef}
             modalStyle={styles(currentTheme).modal}
-            modalHeight={350}
+            modalHeight={400}
             overlayStyle={styles(currentTheme).overlay}
             handleStyle={styles(currentTheme).handle}
-            handlePosition='inside'
+            handlePosition="inside"
+            modalPosition="top"
             openAnimationConfig={{
               timing: { duration: 400 },
               spring: { speed: 20, bounciness: 10 }
@@ -516,14 +479,13 @@ function Main(props) {
               ListHeaderComponent: modalHeader(),
               ListFooterComponent: modalFooter(),
               showsVerticalScrollIndicator: false,
-              keyExtractor: (item) => item._id,
+              keyExtractor: item => item._id,
               renderItem: ({ item: address }) => (
                 <View style={styles().addressbtn}>
                   <TouchableOpacity
                     style={styles(currentTheme).addressContainer}
                     activeOpacity={0.7}
-                    onPress={() => setAddressLocation(address)}
-                  >
+                    onPress={() => setAddressLocation(address)}>
                     <View style={styles().addressSubContainer}>
                       <View style={[styles(currentTheme).homeIcon]}>
                         {addressIcons[address.label] ? (
@@ -531,15 +493,16 @@ function Main(props) {
                             fill: currentTheme.darkBgFont
                           })
                         ) : (
-                          <AntDesign name='question' size={20} color='black' />
+                          React.createElement(addressIcons['Other'], {
+                            fill: currentTheme.darkBgFont
+                          })
                         )}
                       </View>
                       {/* <View style={styles().mL5p} /> */}
                       <View style={[styles().titleAddress]}>
                         <TextDefault
                           textColor={currentTheme.darkBgFont}
-                          style={styles(currentTheme).labelStyle}
-                        >
+                          style={styles(currentTheme).labelStyle}>
                           {t(address.label)}
                         </TextDefault>
                       </View>
@@ -549,8 +512,7 @@ function Main(props) {
                         <TextDefault
                           style={{ ...alignment.PLlarge }}
                           textColor={currentTheme.fontSecondColor}
-                          small
-                        >
+                          small>
                           {address.deliveryAddress}
                         </TextDefault>
                       </View>
@@ -562,7 +524,7 @@ function Main(props) {
                         location.label
                       ) && (
                         <MaterialIcons
-                          name='check'
+                          name="check"
                           size={scale(25)}
                           color={currentTheme.iconColorPink}
                         />
@@ -570,10 +532,9 @@ function Main(props) {
                   </View>
                 </View>
               )
-            }}
-          ></Modalize>
+            }}></Modalize>
         </View>
-        <ActiveOrders />
+       
       </SafeAreaView>
     </>
   )

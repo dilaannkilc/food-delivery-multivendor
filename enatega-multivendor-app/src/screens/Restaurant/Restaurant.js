@@ -53,6 +53,7 @@ import { useTranslation } from 'react-i18next'
 import ItemCard from '../../components/ItemCards/ItemCards'
 import { ScrollView } from 'react-native-gesture-handler'
 import { IMAGE_LINK } from '../../utils/constants'
+import { LocationContext } from '../../context/Location'
 
 const { height } = Dimensions.get('screen')
 
@@ -85,6 +86,7 @@ function Restaurant(props) {
   const translationY = useSharedValue(0)
   const circle = useSharedValue(0)
   const themeContext = useContext(ThemeContext)
+  
   const currentTheme = theme[themeContext.ThemeValue]
   const configuration = useContext(ConfigurationContext)
   const [selectedLabel, selectedLabelSetter] = useState(0)
@@ -110,13 +112,13 @@ function Restaurant(props) {
     variables: { restaurantId }
   })
 
-  const fetchFoodDetails = (itemId) => {
+  const fetchFoodDetails = itemId => {
     return client.readFragment({ id: `Food:${itemId}`, fragment: FOOD })
   }
 
   const dataList =
     popularItems &&
-    popularItems?.popularItems?.map((item) => {
+    popularItems?.popularItems?.map(item => {
       const foodDetails = fetchFoodDetails(item.id)
       return foodDetails
     })
@@ -138,8 +140,8 @@ function Restaurant(props) {
     } else if (deals) {
       const regex = new RegExp(search, 'i')
       const filteredData = []
-      deals.forEach((category) => {
-        category.data.forEach((deals) => {
+      deals.forEach(category => {
+        category.data.forEach(deals => {
           const title = deals.title.search(regex)
           if (title < 0) {
             const description = deals.description.search(regex)
@@ -257,7 +259,7 @@ function Restaurant(props) {
           },
           {
             text: t('okText'),
-            onPress: async () => {
+            onPress: async() => {
               await addToCart(food, true)
             }
           }
@@ -278,7 +280,7 @@ function Restaurant(props) {
     return wrappedContent.join('\n')
   }
 
-  const addToCart = async (food, clearFlag) => {
+  const addToCart = async(food, clearFlag) => {
     if (
       food?.variations?.length === 1 &&
       food?.variations[0].addons?.length === 0
@@ -333,6 +335,11 @@ function Restaurant(props) {
   function animate() {
     scaleValue.value = withRepeat(withTiming(1.5, { duration: 250 }), 2, true)
   }
+  const config = to => ({
+    duration: 250,
+    toValue: to,
+    easing: EasingNode.inOut(EasingNode.ease)
+  })
 
   const scrollToSection = (index) => {
     if (scrollRef.current != null) {
@@ -408,7 +415,6 @@ function Restaurant(props) {
       selectedLabel !== viewableItems[0].section.index &&
       buttonClicked === false
     ) {
-      console.log('IFIFIFIi')
       selectedLabelSetter(viewableItems[0].section.index)
       scrollToNavbar(viewableItems[0].section.index)
     }
@@ -512,25 +518,22 @@ function Restaurant(props) {
   }
   if (error) return <TextError text={JSON.stringify(error)} />
   const restaurant = data.restaurant
-  const allDeals = restaurant.categories.filter((cat) => cat?.foods?.length)
+  const allDeals = restaurant.categories.filter(cat => cat?.foods?.length)
   const deals = allDeals.map((c, index) => ({
     ...c,
     data: c.foods,
-    index: dataList?.length > 0 ? index + 1 : index
+    index: dataList?.length > 0 ? index+1 : index
   }))
 
-  const updatedDeals =
-    dataList?.length > 0
-      ? [
-          {
-            title: 'Popular',
-            id: new Date().getTime(),
-            data: dataList,
-            index: 0
-          },
-          ...deals
-        ]
-      : [...deals]
+  const updatedDeals = dataList?.length > 0 ? [
+    {
+      title: 'Popular',
+      id: new Date().getTime(),
+      data: dataList?.slice(0,4),
+      index: 0
+    },
+    ...deals
+  ] : [...deals]
 
   return (
     <>
@@ -576,15 +579,13 @@ function Restaurant(props) {
                         restaurant: restaurant._id,
                         restaurantName: restaurant.name
                       })
-                    }
-                  >
+                    }>
                     <View
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center'
-                      }}
-                    >
+                      }}>
                       <View style={styles(currentTheme).deal}>
                         {item?.image ? (
                           <Image
@@ -602,14 +603,12 @@ function Restaurant(props) {
                               textColor={currentTheme.fontMainColor}
                               style={styles(currentTheme).headerText}
                               numberOfLines={1}
-                              bolder
-                            >
+                              bolder>
                               {item.title}
                             </TextDefault>
                             <TextDefault
                               style={styles(currentTheme).priceText}
-                              small
-                            >
+                              small>
                               {wrapContentAfterWords(item.description, 5)}
                             </TextDefault>
                             <View style={styles(currentTheme).dealPrice}>
@@ -618,8 +617,7 @@ function Restaurant(props) {
                                 textColor={currentTheme.fontMainColor}
                                 style={styles(currentTheme).priceText}
                                 bolder
-                                small
-                              >
+                                small>
                                 {configuration.currencySymbol}{' '}
                                 {parseFloat(item.variations[0].price).toFixed(
                                   2
@@ -631,8 +629,7 @@ function Restaurant(props) {
                                   textColor={currentTheme.fontSecondColor}
                                   style={styles().priceText}
                                   small
-                                  lineOver
-                                >
+                                  lineOver>
                                   {configuration.currencySymbol}{' '}
                                   {(
                                     item.variations[0].price +
@@ -646,9 +643,9 @@ function Restaurant(props) {
                       </View>
                       <View style={styles().addToCart}>
                         <MaterialIcons
-                          name='add'
+                          name="add"
                           size={scale(20)}
-                          color='#fff'
+                          color="#fff"
                         />
                       </View>
                     </View>
@@ -683,9 +680,8 @@ function Restaurant(props) {
                     <View style={{ backgroundColor: '#fff' }}>
                       <TextDefault
                         style={styles(currentTheme).sectionHeaderText}
-                        textColor='#111827'
-                        bolder
-                      >
+                        textColor="#111827"
+                        bolder>
                         {title}
                       </TextDefault>
                       <Text
@@ -695,12 +691,11 @@ function Restaurant(props) {
                           fontSize: scale(12),
                           fontWeight: '400',
                           marginTop: scale(3)
-                        }}
-                      >
-                        {t('mostOrderedNow')}
+                        }}>
+                        Most ordered right now.
                       </Text>
                       <View style={styles().popularItemCards}>
-                        {data.map((item) => (
+                        {data.map(item => (
                           <ItemCard
                             key={item._id}
                             item={item}
@@ -718,9 +713,8 @@ function Restaurant(props) {
                   <View style={{ backgroundColor: '#fff' }}>
                     <TextDefault
                       style={styles(currentTheme).sectionHeaderText}
-                      textColor='#111827'
-                      bolder
-                    >
+                      textColor="#111827"
+                      bolder>
                       {title}
                     </TextDefault>
                   </View>
@@ -747,38 +741,34 @@ function Restaurant(props) {
                         restaurant: restaurant._id,
                         restaurantName: restaurant.name
                       })
-                    }
-                  >
+                    }>
                     <View
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center'
-                      }}
-                    >
+                      }}>
                       <View style={styles(currentTheme).deal}>
-                        <Image
-                          style={{
-                            height: scale(60),
-                            width: scale(60),
-                            borderRadius: 30
-                          }}
+                          <Image
+                            style={{
+                              height: scale(60),
+                              width: scale(60),
+                              borderRadius: 30
+                            }}
                           source={{ uri: imageUrl }}
-                        />
+                          />
                         <View style={styles(currentTheme).flex}>
                           <View style={styles(currentTheme).dealDescription}>
                             <TextDefault
                               textColor={currentTheme.fontMainColor}
                               style={styles(currentTheme).headerText}
                               numberOfLines={1}
-                              bolder
-                            >
+                              bolder>
                               {item.title}
                             </TextDefault>
                             <TextDefault
                               style={styles(currentTheme).priceText}
-                              small
-                            >
+                              small>
                               {wrapContentAfterWords(item.description, 5)}
                             </TextDefault>
                             <View style={styles(currentTheme).dealPrice}>
@@ -787,8 +777,7 @@ function Restaurant(props) {
                                 textColor={currentTheme.fontMainColor}
                                 style={styles(currentTheme).priceText}
                                 bolder
-                                small
-                              >
+                                small>
                                 {configuration.currencySymbol}{' '}
                                 {parseFloat(item.variations[0].price).toFixed(
                                   2
@@ -800,8 +789,7 @@ function Restaurant(props) {
                                   textColor={currentTheme.fontSecondColor}
                                   style={styles().priceText}
                                   small
-                                  lineOver
-                                >
+                                  lineOver>
                                   {configuration.currencySymbol}{' '}
                                   {(
                                     item.variations[0].price +
@@ -815,9 +803,9 @@ function Restaurant(props) {
                       </View>
                       <View style={styles().addToCart}>
                         <MaterialIcons
-                          name='add'
+                          name="add"
                           size={scale(20)}
-                          color='#fff'
+                          color="#fff"
                         />
                       </View>
                     </View>
