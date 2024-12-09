@@ -56,9 +56,9 @@ function RestaurantCard(props) {
             </TextDefault>
             <View style={[styles().aboutRestaurant, { width: '23%' }]}>
               <Ionicons
-                name="star"
+                name="md-star"
                 size={scale(12)}
-                color={currentTheme.primery}
+                color={currentTheme.primary}
               />
               <TextDefault
                 textColor={currentTheme.fontMainColor}
