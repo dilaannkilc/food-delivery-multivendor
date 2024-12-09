@@ -14,16 +14,16 @@ function ActiveOrdersAndSections(props) {
   const currentTheme = theme[themeContext.ThemeValue]
 
   return (
-    <View style={{
-      ...alignment.MLmedium
-    }}>
+    <View
+      style={{
+        ...alignment.MLmedium
+      }}>
       <TextDefault
         numberOfLines={1}
         textColor={currentTheme.fontFourthColor}
         bolder
-        H4
-        >
-        {props?.menuPageHeading}
+        H4>
+        {t('allRestaurant')}
       </TextDefault>
       <TextDefault
         Normal
@@ -32,7 +32,7 @@ function ActiveOrdersAndSections(props) {
         style={{
           marginTop: scale(5)
         }}>
-        Most ordered right now.
+        {t('mostOrderedNow')}
       </TextDefault>
     </View>
   )

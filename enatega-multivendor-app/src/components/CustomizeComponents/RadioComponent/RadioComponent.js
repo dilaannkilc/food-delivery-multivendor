@@ -31,8 +31,8 @@ function RadioComponent(props) {
           <View style={styles.leftContainer}>
             <RadioButton
               size={11}
-              outerColor={currentTheme.iconColorDark}
-              innerColor={currentTheme.main}
+              outerColor={currentTheme.radioOuterColor}
+              innerColor={currentTheme.radioColor}
               animation={'bounceIn'}
               isSelected={selected ? selected._id === option._id : false}
               onPress={onPress.bind(this, option)}

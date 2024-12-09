@@ -22,18 +22,7 @@ import { useTranslation } from 'react-i18next'
 import CustomOtherIcon from '../../assets/SVG/imageComponents/CustomOtherIcon'
 import CustomHomeIcon from '../../assets/SVG/imageComponents/CustomHomeIcon'
 import CustomWorkIcon from '../../assets/SVG/imageComponents/CustomWorkIcon'
-import { StackActions, useFocusEffect, useNavigation } from '@react-navigation/native'
-import { createAddress, editAddress } from '../../apollo/mutations'
-import gql from 'graphql-tag'
-import { useMutation } from '@apollo/client'
-import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
-
-const CREATE_ADDRESS = gql`
-  ${createAddress}
-`
-const EDIT_ADDRESS = gql`
-  ${editAddress}
-`
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 
 function SaveAddress(props) {
   const navigation = useNavigation()
@@ -43,35 +32,8 @@ function SaveAddress(props) {
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const [selectedLabel, setSelectedLabel] = useState('')
+
   const inset = useSafeAreaInsets()
-
-  const [mutate, { loading }] = useMutation(locationData._id ? EDIT_ADDRESS : CREATE_ADDRESS, {
-    onCompleted,
-    onError
-  })
-
-  function onCompleted(data) {
-    FlashMessage({
-      message: t('addressUpdated')
-    })
-
-    const address = data.createAddress.addresses.find(a => a.selected)
-    setLocation({
-      _id: address._id,
-      label: selectedLabel,
-      deliveryAddress: locationData.deliveryAddress,
-      latitude: locationData.latitude,
-      longitude: locationData.longitude,
-      city: locationData.city
-    })
-    navigation.dispatch(StackActions.popToTop())
-  }
-
-  function onError(error) {
-    FlashMessage({
-      message: `${t('errorOccured')} ${error.message}`
-    })
-  }
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
@@ -117,22 +79,18 @@ function SaveAddress(props) {
   }, [props.navigation])
 
   const onSelectLocation = () => {
-    if (!selectedLabel) {
+    if (selectedLabel) {
+      setLocation({
+        label: selectedLabel,
+        deliveryAddress: locationData.deliveryAddress,
+        latitude: locationData.latitude,
+        longitude: locationData.longitude,
+        city: locationData.city
+      })
+      navigation.navigate('Main')
+    } else {
       Alert.alert('Alert', 'Location type not selected')
-      return
     }
-    const addressInput = {
-      longitude: `${locationData.latitude}`,
-      latitude: `${locationData.longitude}`,
-      deliveryAddress: locationData.deliveryAddress,
-      details: locationData.deliveryAddress,
-      label: selectedLabel
-    }
-    if (locationData.id) {
-      addressInput._id = locationData._id
-    }
-
-    mutate({ variables: { addressInput } })
   }
   const handleLabelSelection = label => {
     setSelectedLabel(label)
@@ -312,7 +270,6 @@ function SaveAddress(props) {
             </View>
             <View>
               <TouchableOpacity
-                disabled={loading}
                 onPress={onSelectLocation}
                 activeOpacity={0.5}
                 style={styles(currentTheme).saveBtnContainer}>

@@ -287,7 +287,13 @@ function Profile(props) {
                     : currentTheme.fontFourthColor
                 }
               ]}>
-              <TextDefault textColor={currentTheme.fontFourthColor} bold>
+              <TextDefault
+                style={{
+                  color: profile.phoneIsVerified
+                    ? currentTheme.fontFourthColor
+                    : currentTheme.white
+                }}
+                bold>
                 {profile.phoneIsVerified ? t('verified') : t('unverified')}
               </TextDefault>
             </View>
@@ -489,7 +495,7 @@ function Profile(props) {
                               profile.phoneIsVerified && profile.phone !== ''
                             }>
                             <TextDefault
-                              bold
+                              bolder
                               textColor={
                                 profile.phoneIsVerified
                                   ? currentTheme.startColor
