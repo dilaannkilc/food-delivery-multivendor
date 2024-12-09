@@ -53,6 +53,7 @@ import { useTranslation } from 'react-i18next'
 import ItemCard from '../../components/ItemCards/ItemCards'
 import { ScrollView } from 'react-native-gesture-handler'
 import { IMAGE_LINK } from '../../utils/constants'
+import { LocationContext } from '../../context/Location'
 
 const { height } = Dimensions.get('screen')
 
@@ -85,6 +86,7 @@ function Restaurant(props) {
   const translationY = useSharedValue(0)
   const circle = useSharedValue(0)
   const themeContext = useContext(ThemeContext)
+  
   const currentTheme = theme[themeContext.ThemeValue]
   const configuration = useContext(ConfigurationContext)
   const [selectedLabel, selectedLabelSetter] = useState(0)
@@ -333,11 +335,6 @@ function Restaurant(props) {
   function animate() {
     scaleValue.value = withRepeat(withTiming(1.5, { duration: 250 }), 2, true)
   }
-  const config = to => ({
-    duration: 250,
-    toValue: to,
-    easing: EasingNode.inOut(EasingNode.ease)
-  })
 
   const scrollToSection = (index) => {
     if (scrollRef.current != null) {
