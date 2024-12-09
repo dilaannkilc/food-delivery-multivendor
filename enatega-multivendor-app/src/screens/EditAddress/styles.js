@@ -20,7 +20,7 @@ const styles = (props = null) =>
       backgroundColor: props !== null ? props.themeBackground : 'transparent',
       shadowColor: '#00000026',
       shadowRadius: 11,
-      ...alignment.PTsmall
+      ...alignment.PTlarge
     },
     upperContainer: {
       width: '90%',
@@ -34,55 +34,10 @@ const styles = (props = null) =>
       alignSelf: 'center',
       marginBottom: 30
     },
-    address: {
-      ...alignment.MTxSmall
-      //...alignment.MBsmall
-      //backgroundColor: '#112233'
-    },
     addressContainer: {
       paddingTop: 0,
       width: '100%',
-      //shadowOffset: { width: 0, height: scale(2) },
-      shadowColor: props !== null ? props.verticalLine : '#D1D5DB',
-      shadowOpacity: 0.3,
-      shadowRadius: scale(1),
-      elevation: 5
-    },
-    addressTag: {
-      ...alignment.MTmedium
-    },
-    addressDetails: {
-      ...alignment.MTxSmall
-    },
-    locationContainer: {
-      borderWidth: 1,
-      borderColor: props !== null ? props.verticalLine : '#D1D5DB',
-      borderRadius: scale(10),
-      ...alignment.MTmedium,
-      ...alignment.MBmedium
-
-      //backgroundColor: '#335599'
-    },
-    locationRow: {
-      flex: 1,
-      flexDirection: 'row',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBottomColor: props !== null ? props.verticalLine : '#D1D5DB'
-    },
-    locationIcon: {
-      flex: 2,
-      justifyContent: 'center',
-      alignItems: 'center',
-      ...alignment.MLsmall,
-      ...alignment.PTmedium,
-      ...alignment.PBmedium
-    },
-    locationTypes: {
-      flex: 8,
-      justifyContent: 'center',
-      ...alignment.MLxSmall,
-      ...alignment.PTmedium,
-      ...alignment.PBmedium
+      ...alignment.Psmall
     },
     labelButtonContainer: {
       ...alignment.PxSmall,
@@ -138,16 +93,15 @@ const styles = (props = null) =>
       ...alignment.PxSmall
     },
     saveBtnContainer: {
-      width: '90%',
-      height: verticalScale(45),
-      bottom: verticalScale(0),
-      borderRadius: 30,
+      width: '80%',
+      height: verticalScale(40),
+      borderRadius: 20,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: props !== null ? props.newheaderColor : 'transparent',
+      backgroundColor: props !== null ? props.buttonBackground : 'transparent',
       alignSelf: 'center',
       marginTop: 20,
-      marginBottom: 15
+      marginBottom: 20
     },
     fakeMarkerContainer: {
       position: 'absolute',
