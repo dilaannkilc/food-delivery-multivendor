@@ -27,6 +27,8 @@ import { HeaderBackButton } from '@react-navigation/elements'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useTranslation } from 'react-i18next'
 import navigationService from '../../routes/navigationService'
+import ErrorView from '../../components/ErrorView/ErrorView'
+import EmptyView from '../../components/EmptyView/EmptyView'
 
 const RESTAURANTS = gql`
   ${FavouriteRestaurant}
@@ -58,31 +60,30 @@ function Favourite() {
   }, [])
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.headerBackground)
+      StatusBar.setBackgroundColor(currentTheme.white)
     }
-    StatusBar.setBarStyle('light-content')
+    StatusBar.setBarStyle('dark-content')
   })
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       title: t('titleFavourite'),
       headerTitleAlign: 'center',
       headerRight: null,
+      headerTitleStyle: {
+        color: '#000',
+        fontWeight: 'bold'
+      },
       headerTitleContainerStyle: {
-        marginTop: '1%',
+        marginTop: '2%',
         paddingLeft: scale(25),
         paddingRight: scale(25),
         height: '75%',
-        borderRadius: scale(10),
-        backgroundColor: currentTheme.black,
-        borderColor: currentTheme.white,
-        borderWidth: 1
+        marginLeft: 0
       },
       headerStyle: {
-        backgroundColor: currentTheme.headerColor,
-        shadowColor: 'transparent',
-        shadowRadius: 0,
-        // marginBottom: 10
+        backgroundColor: currentTheme.white,
+        elevation: 0
       },
       headerTitleAlign: 'center',
       headerRight: null,
@@ -90,14 +91,7 @@ function Favourite() {
         <HeaderBackButton
           truncatedLabel=""
           backImage={() => (
-            <View
-              style={{
-                backgroundColor: 'white',
-                borderRadius: 50,
-                marginLeft: 10,
-                width: 55,
-                alignItems: 'center'
-              }}>
+            <View>
               <MaterialIcons name="arrow-back" size={25} color="black" />
             </View>
           )}
@@ -109,54 +103,22 @@ function Favourite() {
     })
   }, [navigation])
 
-  function emptyView() {
+  const emptyView = () => {
     return (
-      <View style={[styles().flex, styles(currentTheme).mainContainerEmpty]}>
-        <View style={styles().subContainerImage}>
-          <View style={styles().imageContainer}>
-            <EmptyCart width={scale(200)} height={scale(200)} />
-          </View>
-          <View style={styles().descriptionEmpty}>
-            <TextDefault
-              textColor={currentTheme.fontMainColor}
-              bolder
-              center
-              B700>
-              {t('titleEmptyFav')}
-            </TextDefault>
-            <TextDefault textColor={currentTheme.fontSecondColor} center>
-              {t('emptyFavDesc')}
-            </TextDefault>
-          </View>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles(currentTheme).emptyButton}
-            onPress={() =>
-              navigation.navigate({
-                name: 'Main',
-                merge: true
-              })
-            }>
-            <TextDefault
-              textColor={currentTheme.black}
-              bolder
-              B700
-              center
-              uppercase>
-              {t('emptyFavBtn')}
-            </TextDefault>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <EmptyView
+        title={'titleEmptyFav'}
+        description={'emptyFavDesc'}
+        buttonText={'emptyFavBtn'}
+      />
     )
   }
 
   if (loading) return <Spinner />
-  if (error) return <TextError text={error.message} />
+  if (error) return <ErrorView />
   return (
     <SafeAreaView edges={['bottom']} style={styles(currentTheme).flex}>
       <FlatList
-        data={data ? data.userFavourite : []}
+        data={data ? data?.userFavourite : []}
         keyExtractor={(item, index) => item._id}
         showsVerticalScrollIndicator={false}
         refreshing={networkStatus === 4}
