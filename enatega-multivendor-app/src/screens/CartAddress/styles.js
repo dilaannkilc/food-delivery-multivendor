@@ -5,8 +5,7 @@ import { alignment } from '../../utils/alignment'
 const styles = (props = null) =>
   StyleSheet.create({
     flex: {
-      flex: 1,
-      backgroundColor: props !== null ? props.white : 'transparent'
+      flex: 1
     },
     width100: {
       width: '100%'
@@ -45,16 +44,6 @@ const styles = (props = null) =>
       borderBottomWidth: 1,
       ...alignment.MTmedium,
       ...alignment.MBmedium
-    },
-    containerSpace: {
-      backgroundColor: props !== null ? props.gray100 : 'transparent',
-      width: '92%',
-      // margin: scale(10),
-      padding: scale(5),
-      borderRadius: scale(10),
-      borderWidth: 1,
-      alignSelf: 'center',
-      borderColor: props !== null ? props.gray200 : '#E5E7EB'
     }
   })
 export default styles

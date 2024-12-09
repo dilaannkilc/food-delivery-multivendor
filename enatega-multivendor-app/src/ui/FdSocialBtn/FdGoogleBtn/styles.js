@@ -1,32 +1,27 @@
 import { Dimensions } from 'react-native'
 import { alignment } from '../../../utils/alignment'
 import { textStyles } from '../../../utils/textStyles'
-import { scale } from '../../../utils/scaling'
 const { height } = Dimensions.get('window')
 
 export default {
   mainContainer: {
-    width: '90%',
-
-    alignSelf: 'center',
-    height: height * 0.08,
+    width: '100%',
+    height: height * 0.07,
+    backgroundColor: '#b71c1c',
     flexDirection: 'row',
     alignItems: 'center',
-    ...alignment.PRlarge,
-    backgroundColor: 'transparent',
-    justifyContent: 'flex-start',
-    borderRadius: scale(28),
-    borderWidth: scale(1),
-    borderBottomColor: '#000',
-    ...alignment.PLlarge
+    borderRadius: 10,
+    ...alignment.PRlarge
   },
-
+  marginLeft5: {
+    ...alignment.MLsmall
+  },
   marginLeft10: {
     ...alignment.MLmedium
   },
   textStyle: {
     ...textStyles.Bold,
     ...textStyles.Normal,
-    color: '#000'
+    color: '#FFF'
   }
 }

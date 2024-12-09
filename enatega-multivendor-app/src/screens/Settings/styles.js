@@ -9,8 +9,7 @@ const styles = (props = null) =>
       flex: 1
     },
     width85: {
-      width: '70%',
-      //backgroundColor: theme.Pink.deleteButton
+      width: '85%'
     },
     shadow: {
       shadowOffset: { width: 0, height: scale(2) },
@@ -24,12 +23,12 @@ const styles = (props = null) =>
     backButton: {
       backgroundColor: theme.Pink.white,
       borderRadius: scale(50),
-      width: scale(40),
-      alignItems: 'flex-start',
-      marginLeft: scale(5)
+      marginLeft: scale(10),
+      width: scale(55),
+      alignItems: 'center'
     },
     mainContainerArea: {
-      backgroundColor: props !== null ? props.white : 'transparent',
+      backgroundColor: props !== null ? props.themeBackground : 'transparent',
       borderRadius: scale(30),
       shadowOffset: { width: 0 },
       shadowColor: theme.Pink.black,
@@ -37,17 +36,13 @@ const styles = (props = null) =>
       marginTop: scale(20)
     },
     mainContainer: {
-      backgroundColor: props !== null ? props.white : 'transparent',
+      backgroundColor: props !== null ? props.themeBackground : 'transparent',
       ...alignment.PxSmall
     },
     languageContainer: {
-      width: '95%',
-      backgroundColor: props !== null ? props.gray100 : '#FFF',
-      borderRadius: scale(10),
-      borderWidth: 1,
-      flexDirection: 'row',
-      alignSelf: 'center',
-      borderColor: props !== null ? props.gray200 : '#E5E7EB',
+      width: '100%',
+      backgroundColor: props !== null ? props.cartContainer : '#FFF',
+      borderRadius: scale(12),
       ...alignment.PRmedium,
       ...alignment.PTlarge,
       ...alignment.PBlarge,
@@ -60,8 +55,7 @@ const styles = (props = null) =>
       ...alignment.MBsmall
     },
     button: {
-      flex: 1,
-      justifyContent: 'center',
+      width: '15%',
       alignItems: 'flex-end'
     },
     notificationContainer: {
@@ -109,13 +103,13 @@ const styles = (props = null) =>
     },
     modalContainer: {
       width: '100%',
-      backgroundColor: 'white',
+      backgroundColor: props !== null ? props.themeBackground : '#FFF',
       borderRadius: verticalScale(4),
       ...alignment.Plarge
     },
     radioContainer: {
       width: '100%',
-      backgroundColor: '#FFF',
+      backgroundColor: props !== null ? props.themeBackground : '#FFF',
       flexDirection: 'row',
       alignItems: 'center',
       ...alignment.PTxSmall,
@@ -130,9 +124,6 @@ const styles = (props = null) =>
       marginBottom: 0,
       ...alignment.PTxSmall,
       ...alignment.PBxSmall
-    },
-    checkboxSettings: {
-      marginBottom: scale(10)
     }
   })
 
