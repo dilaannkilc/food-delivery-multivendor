@@ -79,7 +79,7 @@ function Tip(props) {
         />
       )
     })
-  })
+  }, [navigation])
   useEffect(() => {
     async function Track() {
       await Analytics.track(Analytics.events.NAVIGATE_TO_TIPS)
@@ -105,6 +105,7 @@ function Tip(props) {
               ref={tipRef}
               label={t('otherAmount')}
               placeholder={t('addOtherAmount')}
+              placeholderTextColor={currentTheme.secondaryText}
               labelFontSize={scale(12)}
               fontSize={scale(12)}
               textAlignVertical="top"

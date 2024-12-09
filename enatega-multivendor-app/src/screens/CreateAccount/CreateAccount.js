@@ -11,14 +11,12 @@ import { useTranslation } from 'react-i18next'
 import { scale } from '../../utils/scaling'
 import { alignment } from '../../utils/alignment'
 
-const CreateAccount = props => {
+const CreateAccount = (props) => {
   const {
     enableApple,
     loginButton,
     loginButtonSetter,
     loading,
-    googleRequest,
-    googlePromptAsync,
     themeContext,
     currentTheme,
     mutateLogin,
@@ -38,7 +36,10 @@ const CreateAccount = props => {
     if (loading && loginButton === 'Apple') {
       return (
         <View style={styles().buttonBackground}>
-          <Spinner backColor="rgba(0,0,0,0.1)" spinnerColor={'#FFF'} />
+          <Spinner
+            backColor='rgba(0,0,0,0.1)'
+            spinnerColor={currentTheme.white}
+          />
         </View>
       )
     }
@@ -92,14 +93,23 @@ const CreateAccount = props => {
   }
 
   function renderGoogleAction() {
+    if (loading && loginButton === 'Google') {
+      return (
+        <View style={[styles().buttonBackground, styles().marginBottom5]}>
+          <Spinner
+            spinnerColor={currentTheme.primery}
+            style={{ marginBottom: 20 }}
+          />
+        </View>
+      )
+    }
+
     return (
-      <FdGoogleBtn
-        loadingIcon={loading && loginButton === 'Google'}
-        onPressIn={() => {
-          loginButtonSetter('Google')
-        }}
-        disabled={!googleRequest}
-        onPress={() => googlePromptAsync()}
+      <GoogleSigninButton
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Light}
+        onPress={signIn}
+        disabled={loading && loginButton === 'Google'}
       />
     )
   }

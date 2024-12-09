@@ -66,6 +66,7 @@ const FOOD = gql`
   ${food}
 `
 
+// const concat = (...args) => args.join('')
 function Restaurant(props) {
   const { _id: restaurantId } = props.route.params
   const Analytics = analytics()
@@ -75,8 +76,9 @@ function Restaurant(props) {
   const navigation = useNavigation()
   const route = useRoute()
   const propsData = route.params
-  const animation = useValue(0)
-  const circle = useValue(0)
+  const animation = useSharedValue(0)
+  const translationY = useSharedValue(0)
+  const circle = useSharedValue(0)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const configuration = useContext(ConfigurationContext)
@@ -166,8 +168,8 @@ function Restaurant(props) {
   useEffect(() => {
     if (
       data &&
-      data.restaurant &&
-      (!data.restaurant.isAvailable || !isOpen())
+      data?.restaurant &&
+      (!data?.restaurant.isAvailable || !isOpen())
     ) {
       Alert.alert(
         '',
@@ -208,10 +210,32 @@ function Restaurant(props) {
         minutes <= Number(t.endTime[1])
     )
 
-    return times.length > 0
+  const isOpen = () => {
+    if (data) {
+      if (data?.restaurant?.openingTimes?.length < 1) return false
+      const date = new Date()
+      const day = date.getDay()
+      const hours = date.getHours()
+      const minutes = date.getMinutes()
+      const todaysTimings = data?.restaurant?.openingTimes?.find(
+        (o) => o.day === DAYS[day]
+      )
+      if (todaysTimings === undefined) return false
+      const times = todaysTimings.times.filter(
+        (t) =>
+          hours >= Number(t.startTime[0]) &&
+          minutes >= Number(t.startTime[1]) &&
+          hours <= Number(t.endTime[0]) &&
+          minutes <= Number(t.endTime[1])
+      )
+
+      return times?.length > 0
+    } else {
+      return false
+    }
   }
-  const onPressItem = async food => {
-    if (!data.restaurant.isAvailable || !isOpen()) {
+  const onPressItem = async (food) => {
+    if (!data?.restaurant.isAvailable || !isOpen()) {
       Alert.alert(
         '',
         'Restaurant Closed at the moment',
@@ -301,7 +325,8 @@ function Restaurant(props) {
               textColor={currentTheme.fontWhite}
               bold
               small
-              center>
+              center
+            >
               {cartValue.quantity}
             </TextDefault>
           </>
@@ -311,17 +336,18 @@ function Restaurant(props) {
     return null
   }
 
+  const scaleValue = useSharedValue(1)
+
+  const scaleStyles = useAnimatedStyle(() => ({
+    transform: [{ scale: scaleValue.value }]
+  }))
+
   // button animation
   function animate() {
-    timing(circle, {
-      toValue: 1,
-      duration: 500,
-      easing: EasingNode.inOut(EasingNode.ease)
-    }).start()
-    circle.setValue(0)
+    scaleValue.value = withRepeat(withTiming(1.5, { duration: 250 }), 2, true)
   }
 
-  const scrollToSection = index => {
+  const scrollToSection = (index) => {
     if (scrollRef.current != null) {
       scrollRef.current.scrollToLocation({
         animated: true,
@@ -432,11 +458,12 @@ function Restaurant(props) {
             {
               paddingTop: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT - TOP_BAR_HEIGHT
             }
-          ]}>
+          ]}
+        >
           {Array.from(Array(10), (_, i) => (
             <Placeholder
               key={i}
-              Animation={props => (
+              Animation={(props) => (
                 <Fade
                   {...props}
                   style={{ backgroundColor: currentTheme.fontSecondColor }}
@@ -446,7 +473,8 @@ function Restaurant(props) {
               Left={PlaceholderMedia}
               style={{
                 padding: 12
-              }}>
+              }}
+            >
               <PlaceholderLine width={80} />
               <PlaceholderLine width={80} />
             </Placeholder>
@@ -758,7 +786,8 @@ function Restaurant(props) {
               <TouchableOpacity
                 activeOpacity={0.7}
                 style={styles(currentTheme).button}
-                onPress={() => navigation.navigate('Cart')}>
+                onPress={() => navigation.navigate('Cart')}
+              >
                 <View style={styles().buttontLeft}>
                   <Animated.View
                     style={[
@@ -767,13 +796,13 @@ function Restaurant(props) {
                         width: circleSize,
                         height: circleSize,
                         borderRadius: radiusSize
-                      }
-                    ]}>
+                      },
+                      scaleStyles
+                    ]}
+                  >
                     <Animated.Text
-                      style={[
-                        styles(currentTheme).buttonTextLeft,
-                        { fontSize: fontChange }
-                      ]}>
+                      style={[styles(currentTheme).buttonTextLeft, fontStyles]}
+                    >
                       {cartCount}
                     </Animated.Text>
                   </Animated.View>
@@ -784,7 +813,8 @@ function Restaurant(props) {
                   uppercase
                   center
                   bolder
-                  small>
+                  small
+                >
                   {t('viewCart')}
                 </TextDefault>
                 <View style={styles().buttonTextRight} />
