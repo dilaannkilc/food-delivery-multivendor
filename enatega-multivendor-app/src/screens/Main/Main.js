@@ -239,10 +239,16 @@ function Main(props) {
           style={styles(currentTheme).addButton}
           onPress={() => {
             if (isLoggedIn) {
+              console.log('isLoggedIn => ', isLoggedIn)
               navigation.navigate('AddNewAddress', {
                 locationData
               })
+              // props.navigation.navigate({
+              //   name: 'AddNewAddress'
+              // })
+              console.log('isLoggedIn after => ', isLoggedIn)
             } else {
+              console.log('isLoggedIn else => ', isLoggedIn)
               const modal = modalRef.current
               modal?.close()
               props.navigation.navigate({
@@ -457,15 +463,14 @@ function Main(props) {
               </View>
             </View>
           </View>
-          <ActiveOrders />
+
           <Modalize
             ref={modalRef}
             modalStyle={styles(currentTheme).modal}
-            modalHeight={400}
+            modalHeight={350}
             overlayStyle={styles(currentTheme).overlay}
             handleStyle={styles(currentTheme).handle}
             handlePosition="inside"
-            modalPosition="top"
             openAnimationConfig={{
               timing: { duration: 400 },
               spring: { speed: 20, bounciness: 10 }
@@ -493,9 +498,7 @@ function Main(props) {
                             fill: currentTheme.darkBgFont
                           })
                         ) : (
-                          React.createElement(addressIcons['Other'], {
-                            fill: currentTheme.darkBgFont
-                          })
+                          <AntDesign name="question" size={20} color="black" />
                         )}
                       </View>
                       {/* <View style={styles().mL5p} /> */}
@@ -534,7 +537,7 @@ function Main(props) {
               )
             }}></Modalize>
         </View>
-       
+        <ActiveOrders />
       </SafeAreaView>
     </>
   )

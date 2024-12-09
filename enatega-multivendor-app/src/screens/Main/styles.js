@@ -84,9 +84,8 @@ const styles = (props = null) =>
       paddingTop: scale(10),
       borderTopEndRadius: scale(20),
       borderTopStartRadius: scale(20),
-      position: 'relative',
-      zIndex: 999,
-      shadowOpacity: 0 
+
+      shadowOpacity: 0
     },
     addressTextContainer: {
       display: 'flex',

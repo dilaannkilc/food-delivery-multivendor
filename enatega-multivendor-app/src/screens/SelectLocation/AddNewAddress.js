@@ -193,9 +193,7 @@ export default function AddNewAddress(props) {
           <TouchableOpacity
             activeOpacity={0.7}
             style={styles(currentTheme).emptyButton}
-            onPress={onSelectLocation}
-            disabled={!selectedValue.address || !selectedValue.city}
-            >
+            onPress={onSelectLocation}>
             <TextDefault textColor={currentTheme.buttonText} center H5>
               Save
             </TextDefault>
