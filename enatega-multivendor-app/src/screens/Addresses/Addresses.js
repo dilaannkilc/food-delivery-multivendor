@@ -6,7 +6,7 @@ import {
   StatusBar,
   Platform
 } from 'react-native'
-import { useMutation } from '@apollo/client'
+import { NetworkStatus, useMutation } from '@apollo/client'
 import {
   AntDesign,
   EvilIcons,
@@ -43,11 +43,17 @@ function Addresses() {
   const Analytics = analytics()
 
   const navigation = useNavigation()
-  const [mutate, { loading: loadingMutation }] = useMutation(DELETE_ADDRESS)
-  const { profile } = useContext(UserContext)
+  const [mutate, { loading: loadingMutation }] = useMutation(DELETE_ADDRESS, {
+    onCompleted
+  })
+  const { profile, refetchProfile, networkStatus } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const { t } = useTranslation()
+
+    function onCompleted() {
+      FlashMessage({ message: t('addressDeletedMessage') })
+    }
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
@@ -112,14 +118,14 @@ function Addresses() {
           <View style={styles().descriptionEmpty}>
             <View style={styles().viewTitle}>
               <TextDefault textColor={currentTheme.fontMainColor} bolder>
-                {t('It&#39;s empty here')}
+                It&#39;s empty here.
               </TextDefault>
             </View>
             <View>
               <TextDefault textColor={currentTheme.fontMainColor} bold>
-                {t('You have not saved any address yet')}
+                You haven&#39;t saved any address yet.
                 {'\n'}
-                {t('Click Add New Address to get started')}
+                Click Add New Address to get started
               </TextDefault>
             </View>
           </View>
@@ -131,6 +137,8 @@ function Addresses() {
   return (
     <View style={styles(currentTheme).flex}>
       <FlatList
+        onRefresh={refetchProfile}
+        refreshing={networkStatus === NetworkStatus.refetch}
         data={profile?.addresses}
         ListEmptyComponent={emptyView}
         keyExtractor={(item) => item._id}
@@ -167,7 +175,9 @@ function Addresses() {
                   activeOpacity={0.7}
                   onPress={() => {
                     const [longitude, latitude] = address.location.coordinates
+                    console.log(longitude, latitude,address._id )
                     navigation.navigate('AddNewAddress', {
+                      id:address._id,
                       longitude: +longitude,
                       latitude: +latitude
                     })
@@ -204,6 +214,10 @@ function Addresses() {
                   style={{ ...alignment.PBxSmall }}
                 >
                   {address.deliveryAddress}
+                </TextDefault>
+                <TextDefault textColor={currentTheme.darkBgFont}>
+                  {/* Islamabad Islamabad */}
+                  Islamabad
                 </TextDefault>
               </View>
             </View>

@@ -101,16 +101,14 @@ const CreateAccount = (props) => {
   }
 
   function renderGoogleAction() {
-    return (
-      <FdGoogleBtn
+    return (<FdGoogleBtn
         loadingIcon={loading && loginButton === 'Google'}
         onPressIn={() => {
           loginButtonSetter('Google')
         }}
         disabled={loading && loginButton === 'Google'}
         onPress={signIn}
-      />
-    )
+      />)
   }
 
   function renderEmailAction() {
@@ -153,7 +151,7 @@ const CreateAccount = (props) => {
               {t('signUporSignIn')}
             </TextDefault>
             <TextDefault textColor={currentTheme.black}>
-              {t('signUpDiscount')}
+              {'sign up to get your discount'}
             </TextDefault>
           </View>
 
@@ -190,7 +188,7 @@ const CreateAccount = (props) => {
                   style={alignment.MLsmall}
                   bold
                 >
-                  {t('continueAsGuest')}
+                  {'Continue as Guest'}
                 </TextDefault>
               </>
             )}

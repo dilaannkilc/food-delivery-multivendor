@@ -22,15 +22,12 @@ import { useTranslation } from 'react-i18next'
 import CustomOtherIcon from '../../assets/SVG/imageComponents/CustomOtherIcon'
 import CustomHomeIcon from '../../assets/SVG/imageComponents/CustomHomeIcon'
 import CustomWorkIcon from '../../assets/SVG/imageComponents/CustomWorkIcon'
-import {
-  StackActions,
-  useFocusEffect,
-  useNavigation
-} from '@react-navigation/native'
+import { StackActions, useFocusEffect, useNavigation } from '@react-navigation/native'
 import { createAddress, editAddress } from '../../apollo/mutations'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
+import Spinner from '../../components/Spinner/Spinner'
 
 const CREATE_ADDRESS = gql`
   ${createAddress}
@@ -49,20 +46,17 @@ function SaveAddress(props) {
   const [selectedLabel, setSelectedLabel] = useState('')
   const inset = useSafeAreaInsets()
 
-  const [mutate, { loading }] = useMutation(
-    locationData._id ? EDIT_ADDRESS : CREATE_ADDRESS,
-    {
-      onCompleted,
-      onError
-    }
-  )
+  const [mutate, { loading }] = useMutation(locationData.id ? EDIT_ADDRESS : CREATE_ADDRESS, {
+    onCompleted,
+    onError
+  })
 
-  function onCompleted(data) {
+  function onCompleted({createAddress, editAddress}) {
     FlashMessage({
       message: t('addressUpdated')
     })
-
-    const address = data.createAddress.addresses.find((a) => a.selected)
+    
+    const address = (createAddress||editAddress)?.addresses.find(a => a.selected) || 
     setLocation({
       _id: address._id,
       label: selectedLabel,
@@ -109,10 +103,10 @@ function SaveAddress(props) {
       headerTitleAlign: 'center',
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=''
+          truncatedLabel=""
           backImage={() => (
             <View>
-              <MaterialIcons name='arrow-back' size={30} color='black' />
+              <MaterialIcons name="arrow-back" size={30} color="black" />
             </View>
           )}
           onPress={() => {
@@ -125,23 +119,23 @@ function SaveAddress(props) {
 
   const onSelectLocation = () => {
     if (!selectedLabel) {
-      Alert.alert('Alert', t('alertLocation'))
+      Alert.alert('Alert', 'Location type not selected')
       return
     }
     const addressInput = {
-      longitude: `${locationData.latitude}`,
-      latitude: `${locationData.longitude}`,
+      longitude: `${locationData.longitude}`,
+      latitude: `${locationData.latitude}`,
       deliveryAddress: locationData.deliveryAddress,
       details: locationData.deliveryAddress,
       label: selectedLabel
     }
     if (locationData.id) {
-      addressInput._id = locationData._id
+      addressInput._id = locationData.id
     }
 
     mutate({ variables: { addressInput } })
   }
-  const handleLabelSelection = (label) => {
+  const handleLabelSelection = label => {
     setSelectedLabel(label)
   }
 
@@ -150,14 +144,12 @@ function SaveAddress(props) {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'android' ? 20 : 0}
-        style={styles(currentTheme).flex}
-      >
+        style={styles(currentTheme).flex}>
         <View style={styles(currentTheme).flex}>
           <ScrollView
             style={{ flex: 1 }}
             contentContainerStyle={{ flexGrow: 1 }}
-            showsVerticalScrollIndicator={false}
-          >
+            showsVerticalScrollIndicator={false}>
             <View style={styles(currentTheme).subContainer}>
               <View style={styles().upperContainer}>
                 <View style={styles(currentTheme).addressContainer}>
@@ -195,8 +187,7 @@ function SaveAddress(props) {
                       <View style={styles().locationIcon}>
                         <TouchableOpacity
                           style={styles().locationIconStyles}
-                          onPress={() => handleLabelSelection('Apartment')}
-                        >
+                          onPress={() => handleLabelSelection('Apartment')}>
                           <CustomOtherIcon
                             iconColor={
                               selectedLabel === 'Apartment'
@@ -209,8 +200,7 @@ function SaveAddress(props) {
                       <View style={styles().locationTypes}>
                         <TouchableOpacity
                           style={styles().locationStyles}
-                          onPress={() => handleLabelSelection('Apartment')}
-                        >
+                          onPress={() => handleLabelSelection('Apartment')}>
                           <TextDefault
                             H5
                             bolder
@@ -218,9 +208,8 @@ function SaveAddress(props) {
                               selectedLabel === 'Apartment'
                                 ? currentTheme.newheaderColor
                                 : currentTheme.darkBgFont
-                            }
-                          >
-                            {t('Apartment')}
+                            }>
+                            {t('apartment')}
                           </TextDefault>
                         </TouchableOpacity>
                       </View>
@@ -229,8 +218,7 @@ function SaveAddress(props) {
                       <View style={styles().locationIcon}>
                         <TouchableOpacity
                           style={styles().locationIconStyles}
-                          onPress={() => handleLabelSelection('House')}
-                        >
+                          onPress={() => handleLabelSelection('House')}>
                           <CustomHomeIcon
                             iconColor={
                               selectedLabel === 'House'
@@ -243,8 +231,7 @@ function SaveAddress(props) {
                       <View style={styles().locationTypes}>
                         <TouchableOpacity
                           style={styles().locationStyles}
-                          onPress={() => handleLabelSelection('House')}
-                        >
+                          onPress={() => handleLabelSelection('House')}>
                           <TextDefault
                             H5
                             bolder
@@ -252,9 +239,8 @@ function SaveAddress(props) {
                               selectedLabel === 'House'
                                 ? currentTheme.newheaderColor
                                 : currentTheme.darkBgFont
-                            }
-                          >
-                            {t('House')}
+                            }>
+                            {t('house')}
                           </TextDefault>
                         </TouchableOpacity>
                       </View>
@@ -263,8 +249,7 @@ function SaveAddress(props) {
                       <View style={styles().locationIcon}>
                         <TouchableOpacity
                           style={styles().locationIconStyles}
-                          onPress={() => handleLabelSelection('Office')}
-                        >
+                          onPress={() => handleLabelSelection('Office')}>
                           <CustomWorkIcon
                             iconColor={
                               selectedLabel === 'Office'
@@ -277,8 +262,7 @@ function SaveAddress(props) {
                       <View style={styles().locationTypes}>
                         <TouchableOpacity
                           style={styles().locationStyles}
-                          onPress={() => handleLabelSelection('Office')}
-                        >
+                          onPress={() => handleLabelSelection('Office')}>
                           <TextDefault
                             H5
                             bolder
@@ -286,9 +270,8 @@ function SaveAddress(props) {
                               selectedLabel === 'Office'
                                 ? currentTheme.newheaderColor
                                 : currentTheme.darkBgFont
-                            }
-                          >
-                            {t('Office')}
+                            }>
+                            {t('office')}
                           </TextDefault>
                         </TouchableOpacity>
                       </View>
@@ -297,8 +280,7 @@ function SaveAddress(props) {
                       <View style={styles().locationIcon}>
                         <TouchableOpacity
                           style={styles().locationIconStyles}
-                          onPress={() => handleLabelSelection('Other')}
-                        >
+                          onPress={() => handleLabelSelection('Other')}>
                           <CustomOtherIcon
                             iconColor={
                               selectedLabel === 'Other'
@@ -311,8 +293,7 @@ function SaveAddress(props) {
                       <View style={styles().locationTypes}>
                         <TouchableOpacity
                           style={styles().locationStyles}
-                          onPress={() => handleLabelSelection('Other')}
-                        >
+                          onPress={() => handleLabelSelection('Other')}>
                           <TextDefault
                             H5
                             bolder
@@ -320,8 +301,7 @@ function SaveAddress(props) {
                               selectedLabel === 'Other'
                                 ? currentTheme.newheaderColor
                                 : currentTheme.darkBgFont
-                            }
-                          >
+                            }>
                             {t('Other')}
                           </TextDefault>
                         </TouchableOpacity>
@@ -336,11 +316,11 @@ function SaveAddress(props) {
                 disabled={loading}
                 onPress={onSelectLocation}
                 activeOpacity={0.5}
-                style={styles(currentTheme).saveBtnContainer}
-              >
-                <TextDefault textColor={currentTheme.black} H5 bold>
+                style={styles(currentTheme).saveBtnContainer}>
+                {!loading && <TextDefault textColor={currentTheme.black} H5 bold>
                   {t('saveAddress')}
-                </TextDefault>
+                </TextDefault>}
+                {loading && <Spinner backColor={'transparent'} />}
               </TouchableOpacity>
             </View>
           </ScrollView>
