@@ -77,7 +77,7 @@ const styles = (props = null) =>
       flex: 2,
       justifyContent: 'center',
       alignItems: 'center',
-
+      ...alignment.MLsmall,
       ...alignment.PTmedium,
       ...alignment.PBmedium
     },
@@ -89,8 +89,7 @@ const styles = (props = null) =>
     locationTypes: {
       flex: 8,
       justifyContent: 'center',
-      ...alignment.MLxSmall,
-      ...alignment.MRsmall
+      ...alignment.MLxSmall
     },
     locationStyles: {
       width: '100%',

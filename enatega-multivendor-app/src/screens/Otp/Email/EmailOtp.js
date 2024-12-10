@@ -53,7 +53,7 @@ function EmailOtp(props) {
       <View style={styles(currentTheme).mainContainer}>
         <View style={styles().subContainer}>
           <View style={styles().logoContainer}>
-            <SimpleLineIcons name='envelope' size={30} color='black' />
+            <SimpleLineIcons name="envelope" size={30} color="black" />
           </View>
           <View>
             <TextDefault
@@ -63,8 +63,7 @@ function EmailOtp(props) {
               style={{
                 ...alignment.MTlarge,
                 ...alignment.MBmedium
-              }}
-            >
+              }}>
               {t('verifyEmail')}
             </TextDefault>
             <TextDefault
@@ -73,8 +72,7 @@ function EmailOtp(props) {
               textColor={currentTheme.fontSecondColor}
               style={{
                 paddingBottom: scale(5)
-              }}
-            >
+              }}>
               {t('otpSentToEmail')}
             </TextDefault>
             <TextDefault H5 bold textColor={currentTheme.fontfourthColor}>
@@ -94,8 +92,8 @@ function EmailOtp(props) {
               }}
               autoFocusOnLoad
               code={otp}
-              onCodeChanged={(code) => setOtp(code)}
-              onCodeFilled={(code) => {
+              onCodeChanged={code => setOtp(code)}
+              onCodeFilled={code => {
                 onCodeFilled(code)
               }}
               editable
@@ -104,8 +102,7 @@ function EmailOtp(props) {
               <TextDefault
                 style={styles(currentTheme).error}
                 bold
-                textColor={currentTheme.textErrorColor}
-              >
+                textColor={currentTheme.textErrorColor}>
                 {t('wrongOtp')}
               </TextDefault>
             )}
@@ -117,21 +114,19 @@ function EmailOtp(props) {
             ...alignment.MTlarge,
             width: '100%',
             marginBottom: 20
-          }}
-        >
+          }}>
           <View style={alignment.MBxSmall}>
             <TextDefault
               center
               H4
               bold
               style={alignment.MTsmall}
-              textColor={currentTheme.fontNewColor}
-            >
-              {seconds === 0 ? '' : `${t('retry')} ${seconds}s`}
+              textColor={currentTheme.fontNewColor}>
+              {seconds === 0 ? '' : `Retry after ${seconds}s`}
             </TextDefault>
           </View>
           {loading || updateUserLoading ? (
-            <Spinner backColor='transparent' size='small' />
+            <Spinner backColor="transparent" size="small" />
           ) : (
             <TouchableOpacity
               activeOpacity={0.7}
@@ -140,8 +135,7 @@ function EmailOtp(props) {
                 seconds !== 0 && styles(currentTheme).disabledBtn
               ]}
               disabled={seconds !== 0}
-              onPress={() => resendOtp()}
-            >
+              onPress={() => resendOtp()}>
               <TextDefault H4 textColor={currentTheme.fontFourthColor} bold>
                 {t('resendBtn')}
               </TextDefault>

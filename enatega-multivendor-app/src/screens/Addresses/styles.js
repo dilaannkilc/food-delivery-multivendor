@@ -114,7 +114,7 @@ const styles = (props = null) =>
       marginTop: scale(5),
       flexDirection: 'row',
       alignItems: 'center', // Adjust this as needed
-      justifyContent: 'space-between'
+      justifyContent: 'space-between' // Adjust this as needed
     },
     footer: {
       flex: 1,
