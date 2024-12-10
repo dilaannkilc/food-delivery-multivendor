@@ -6,7 +6,6 @@ import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../../utils/themeColors'
 import { scale } from '../../../utils/scaling'
 import { useTranslation } from 'react-i18next'
-import styles from './styles'
 
 function ActiveOrdersAndSections(props) {
   const { t } = useTranslation()
@@ -15,15 +14,15 @@ function ActiveOrdersAndSections(props) {
   const currentTheme = theme[themeContext.ThemeValue]
 
   return (
-    <View
-      style={styles().menuPageHeading}
-    >
+    <View style={{
+      ...alignment.MLmedium
+    }}>
       <TextDefault
         numberOfLines={1}
         textColor={currentTheme.fontFourthColor}
         bolder
         H4
-      >
+        >
         {props?.menuPageHeading}
       </TextDefault>
       <TextDefault
@@ -32,9 +31,8 @@ function ActiveOrdersAndSections(props) {
         textColor={currentTheme.secondaryText}
         style={{
           marginTop: scale(5)
-        }}
-      >
-        {t('mostOrderedNow')}
+        }}>
+        Most ordered right now.
       </TextDefault>
     </View>
   )
