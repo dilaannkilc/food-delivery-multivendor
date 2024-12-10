@@ -37,8 +37,6 @@ import Spinner from '../../Spinner/Spinner'
 import UserContext from '../../../context/User'
 import { addFavouriteRestaurant } from '../../../apollo/mutations'
 import { profile } from '../../../apollo/queries'
-import { calculateDistance } from '../../../utils/customFunctions'
-import { LocationContext } from '../../../context/Location'
 
 const ADD_FAVOURITE = gql`
   ${addFavouriteRestaurant}
@@ -53,7 +51,6 @@ function ImageTextCenterHeader(props, ref) {
   const navigation = useNavigation()
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-  const { location } = useContext(LocationContext)
   const { t } = useTranslation()
   const newheaderColor = currentTheme.backgroundColor
   const cartContainer = currentTheme.gray500
@@ -109,8 +106,6 @@ function ImageTextCenterHeader(props, ref) {
     }
   }
 
-  const distance = calculateDistance(aboutObject?.latitude, aboutObject?.longitude, location?.latitude, location?.longitude)
-  
   const hideKeyboard = () => {
     Keyboard.dismiss()
   }
@@ -147,9 +142,10 @@ function ImageTextCenterHeader(props, ref) {
                         height: props.iconTouchHeight
                       }
                     ]}
-                    onPress={props.searchPopupHandler}>
+                    onPress={props.searchPopupHandler}
+                  >
                     <Entypo
-                      name="cross"
+                      name='cross'
                       style={{
                         color: props.black,
                         fontSize: props.iconSize
@@ -167,9 +163,10 @@ function ImageTextCenterHeader(props, ref) {
                         height: props.iconTouchHeight
                       }
                     ]}
-                    onPress={() => navigation.goBack()}>
+                    onPress={() => navigation.goBack()}
+                  >
                     <Ionicons
-                      name="ios-arrow-back"
+                      name='ios-arrow-back'
                       style={{
                         color: props.black,
                         fontSize: props.iconSize
@@ -202,10 +199,15 @@ function ImageTextCenterHeader(props, ref) {
                           height: props.iconTouchHeight
                         }
                       ]}
-                      onPress={handleAddToFavorites}>
+                      onPress={handleAddToFavorites}
+                    >
                       <View>
                         {loadingMutation ? (
-                          <Spinner size={'small'} backColor={'transparent'} spinnerColor={currentTheme.iconColorDark} />
+                          <Spinner
+                            size={'small'}
+                            backColor={'transparent'}
+                            spinnerColor={currentTheme.iconColorDark}
+                          />
                         ) : (
                           <AntDesign
                             name={heart ? 'heart' : 'hearto'}
@@ -230,9 +232,10 @@ function ImageTextCenterHeader(props, ref) {
                           restaurantObject: { ...aboutObject, isOpen: null },
                           tab: false
                         })
-                      }}>
+                      }}
+                    >
                       <SimpleLineIcons
-                        name="info"
+                        name='info'
                         size={scale(17)}
                         color={currentTheme.iconColorDark}
                       />
@@ -247,9 +250,10 @@ function ImageTextCenterHeader(props, ref) {
                           height: props.iconTouchHeight
                         }
                       ]}
-                      onPress={props.searchHandler}>
+                      onPress={props.searchHandler}
+                    >
                       <Ionicons
-                        name="search-outline"
+                        name='search-outline'
                         style={{
                           fontSize: props.iconSize
                         }}
@@ -273,10 +277,11 @@ function ImageTextCenterHeader(props, ref) {
                   alignItems: 'center',
                   gap: scale(15),
                   marginBottom: scale(20)
-                }}>
+                }}
+              >
                 <View style={styles().restImageContainer}>
                   <Image
-                    resizeMode="cover"
+                    resizeMode='cover'
                     source={{ uri: aboutObject.restaurantImage }}
                     style={styles().restaurantImg}
                   />
@@ -288,16 +293,17 @@ function ImageTextCenterHeader(props, ref) {
                     Center
                     textColor={currentTheme.fontMainColor}
                     numberOfLines={1}
-                    ellipsizeMode="tail">
+                    ellipsizeMode='tail'
+                  >
                     {aboutObject.restaurantName}
                   </TextDefault>
                 </View>
               </View>
               <View style={{ display: 'flex', flexDirection: 'row', gap: 7 }}>
-                <Text style={styles().restaurantAbout}>{distance.toFixed(2)}km away</Text>
+                <Text style={styles().restaurantAbout}>1.6km {t('away')}</Text>
                 <Text style={styles().restaurantAbout}>|</Text>
                 <Text style={styles().restaurantAbout}>
-                  ${aboutObject.restaurantTax} Delivery Charges
+                  ${aboutObject.restaurantTax} {t('deliveryCharges')}
                 </Text>
               </View>
               <View
@@ -306,13 +312,14 @@ function ImageTextCenterHeader(props, ref) {
                   flexDirection: 'row',
                   gap: 7,
                   marginTop: scale(5)
-                }}>
+                }}
+              >
                 <Text style={styles().restaurantAbout}>
-                  ${aboutObject.restaurantMinOrder} Minimum
+                  ${aboutObject.restaurantMinOrder} {t('minimum')}
                 </Text>
                 <Text style={styles().restaurantAbout}>|</Text>
                 <Text style={styles().restaurantAbout}>
-                  Service Fee applies
+                  {t('serviceFeeApply')}
                 </Text>
               </View>
               <View
@@ -320,7 +327,8 @@ function ImageTextCenterHeader(props, ref) {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   marginTop: scale(15)
-                }}>
+                }}
+              >
                 <TouchableOpacity
                   activeOpacity={0.7}
                   style={styles().ratingBox}
@@ -332,9 +340,9 @@ function ImageTextCenterHeader(props, ref) {
                   }}
                 >
                   <MaterialIcons
-                    name="star-border"
+                    name='star-border'
                     size={scale(20)}
-                    color="#111827"
+                    color='#111827'
                   />
 
                   <Text
@@ -342,7 +350,8 @@ function ImageTextCenterHeader(props, ref) {
                       fontWeight: '700',
                       fontSize: scale(16),
                       color: '#374151'
-                    }}>
+                    }}
+                  >
                     {aboutObject.average}
                   </Text>
                   <Text
@@ -351,35 +360,41 @@ function ImageTextCenterHeader(props, ref) {
                       fontSize: scale(14),
                       color: '#6B7280',
                       marginLeft: scale(5)
-                    }}>
+                    }}
+                  >
                     ({aboutObject.total})
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   activeOpacity={0.7}
                   style={styles().ratingBox}
-                  onPress={() => navigation.navigate('Reviews', {
-                    restaurantObject: { ...aboutObject, isOpen: null },
-                    tab: false
-                  })}>
+                  onPress={() =>
+                    navigation.navigate('Reviews', {
+                      restaurantObject: { ...aboutObject, isOpen: null },
+                      tab: false
+                    })
+                  }
+                >
                   <Text
                     style={{
                       fontSize: scale(14),
                       fontWeight: '600',
                       color: '#3B82F6'
-                    }}>
-                    See Reviews
+                    }}
+                  >
+                    {t('seeReviews')}
                   </Text>
                 </TouchableOpacity>
               </View>
               <View style={[styles().ratingBox, { marginTop: scale(9) }]}>
-                <MaterialIcons name="timer" size={scale(20)} color="#111827" />
+                <MaterialIcons name='timer' size={scale(20)} color='#111827' />
                 <Text
                   style={{
                     fontWeight: '400',
                     fontSize: scale(14),
                     color: '#6B7280'
-                  }}>
+                  }}
+                >
                   {aboutObject.deliveryTime} {t('Min')}
                 </Text>
               </View>
@@ -402,11 +417,13 @@ function ImageTextCenterHeader(props, ref) {
                         props.selectedLabel === index
                           ? styles(currentTheme).activeHeader
                           : null
-                      }>
+                      }
+                    >
                       <RectButton
                         rippleColor={currentTheme.rippleColor}
                         onPress={() => props.changeIndex(index)}
-                        style={styles(currentTheme).headerContainer}>
+                        style={styles(currentTheme).headerContainer}
+                      >
                         <View style={styles().navbarTextContainer}>
                           <TextDefault
                             style={
@@ -420,7 +437,8 @@ function ImageTextCenterHeader(props, ref) {
                                 : '#6B7280'
                             }
                             center
-                            H5>
+                            H5
+                          >
                             {item.title}
                           </TextDefault>
                         </View>

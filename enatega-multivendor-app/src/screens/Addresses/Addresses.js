@@ -34,6 +34,7 @@ import CustomHomeIcon from '../../assets/SVG/imageComponents/CustomHomeIcon'
 import CustomWorkIcon from '../../assets/SVG/imageComponents/CustomWorkIcon'
 import CustomOtherIcon from '../../assets/SVG/imageComponents/CustomOtherIcon'
 import { useTranslation } from 'react-i18next'
+import { LocationContext } from '../../context/Location'
 
 const DELETE_ADDRESS = gql`
   ${deleteAddress}
@@ -47,8 +48,9 @@ function Addresses() {
   const { profile } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
+  const { location } = useContext(LocationContext)
   const { t } = useTranslation()
-
+  const locationData = location
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor('transparent')
@@ -100,8 +102,7 @@ function Addresses() {
   const addressIcons = {
     Home: CustomHomeIcon,
     Work: CustomWorkIcon,
-    Other: CustomOtherIcon,
-    House: CustomHomeIcon,
+    Other: CustomOtherIcon
   }
 
   function emptyView() {
@@ -112,14 +113,14 @@ function Addresses() {
           <View style={styles().descriptionEmpty}>
             <View style={styles().viewTitle}>
               <TextDefault textColor={currentTheme.fontMainColor} bolder>
-                It&#39;s empty here.
+                {t('It&#39;s empty here')}
               </TextDefault>
             </View>
             <View>
               <TextDefault textColor={currentTheme.fontMainColor} bold>
-                You haven&#39;t saved any address yet.
+                {t('You have not saved any address yet')}
                 {'\n'}
-                Click Add New Address to get started
+                {t('Click Add New Address to get started')}
               </TextDefault>
             </View>
           </View>
@@ -149,9 +150,7 @@ function Addresses() {
                     fill: currentTheme.darkBgFont
                   })
                 ) : (
-                  React.createElement(addressIcons['Other'], {
-                    fill: currentTheme.darkBgFont
-                  })
+                  <AntDesign name="question" size={20} color="black" />
                 )}
               </View>
               <View style={[styles().titleAddress]}>
@@ -166,8 +165,7 @@ function Addresses() {
                   disabled={loadingMutation}
                   activeOpacity={0.7}
                   onPress={() => {
-                    const [longitude, latitude] = address.location.coordinates
-                    navigation.navigate('AddNewAddress', { longitude: +longitude, latitude: +latitude })
+                    navigation.navigate('AddNewAddress', { locationData })
                   }}>
                   <SimpleLineIcons
                     name="pencil"
@@ -198,10 +196,6 @@ function Addresses() {
                   textColor={currentTheme.darkBgFont}
                   style={{ ...alignment.PBxSmall }}>
                   {address.deliveryAddress}
-                </TextDefault>
-                <TextDefault textColor={currentTheme.darkBgFont}>
-                  {/* Islamabad Islamabad */}
-                  Islamabad
                 </TextDefault>
               </View>
             </View>

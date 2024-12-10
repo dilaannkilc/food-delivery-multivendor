@@ -133,13 +133,6 @@ function Menu({ route, props }) {
     translateY
   } = useCollapsibleSubHeader()
 
-  const searchPlaceholderText =
-    selectedType === 'restaurant' ? t('searchRestaurant') : t('searchGrocery')
-  const menuPageHeading =
-    selectedType === 'restaurant' ? t('allRestaurant') : t('allGrocery')
-  const emptyViewDesc =
-    selectedType === 'restaurant' ? t('noRestaurant') : t('noGrocery')
-
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor(currentTheme.newheaderColor)
@@ -274,7 +267,7 @@ function Menu({ route, props }) {
               {t('notAvailableinYourArea')}
             </TextDefault>
             <TextDefault textColor={currentTheme.fontMainColor} center>
-              {emptyViewDesc}
+              {t('noRestaurant')}
             </TextDefault>
           </View>
         </View>
@@ -319,7 +312,7 @@ function Menu({ route, props }) {
           search={''}
           setSearch={() => {}}
           newheaderColor={newheaderColor}
-          placeHolder={searchPlaceholderText}
+          placeHolder={t('searchRestaurant')}
         />
         <Placeholder
           Animation={props => (
@@ -480,11 +473,8 @@ function Menu({ route, props }) {
                   scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
                   showsVerticalScrollIndicator={false}
                   ListHeaderComponent={
-                    search || restaurantData.length === 0 ? null : (
-                      <ActiveOrdersAndSections
-                        sections={restaurantSections}
-                        menuPageHeading={menuPageHeading}
-                      />
+                    search ? null : (
+                      <ActiveOrdersAndSections sections={restaurantSections} />
                     )
                   }
                   ListEmptyComponent={emptyView()}
@@ -509,7 +499,7 @@ function Menu({ route, props }) {
                     setSearch={setSearch}
                     search={search}
                     newheaderColor={newheaderColor}
-                    placeHolder={searchPlaceholderText}
+                    placeHolder={t('searchRestaurant')}
                   />
                   <Filters
                     filters={filters}
