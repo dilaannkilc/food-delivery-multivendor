@@ -412,7 +412,5 @@ export const en = {
   allGrocery: 'All Grocery Shops',
   searchGrocery: 'Search for grocery shops',
   noGrocery: 'No grocery shop currently offers delivery in your area',
-  restaurantName: 'Restaurant Name',
-  cartAddresses: 'Cart Addresses',
-  addressDeletedMessage: 'Address deleted!'
+  restaurantName:'Restaurant Name'
 }

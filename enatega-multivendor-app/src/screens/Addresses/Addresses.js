@@ -6,7 +6,7 @@ import {
   StatusBar,
   Platform
 } from 'react-native'
-import { useMutation } from '@apollo/client'
+import { NetworkStatus, useMutation } from '@apollo/client'
 import {
   AntDesign,
   EvilIcons,
@@ -43,17 +43,11 @@ function Addresses() {
   const Analytics = analytics()
 
   const navigation = useNavigation()
-  const [mutate, { loading: loadingMutation }] = useMutation(DELETE_ADDRESS, {
-    onCompleted
-  })
-  const { profile } = useContext(UserContext)
+  const [mutate, { loading: loadingMutation }] = useMutation(DELETE_ADDRESS)
+  const { profile, refetchProfile, networkStatus } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const { t } = useTranslation()
-
-    function onCompleted() {
-      FlashMessage({ message: t('addressDeletedMessage') })
-    }
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
@@ -89,10 +83,10 @@ function Addresses() {
       },
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=""
+          truncatedLabel=''
           backImage={() => (
             <View>
-              <MaterialIcons name="arrow-back" size={30} color="black" />
+              <MaterialIcons name='arrow-back' size={30} color='black' />
             </View>
           )}
           onPress={() => {
@@ -107,7 +101,7 @@ function Addresses() {
     Home: CustomHomeIcon,
     Work: CustomWorkIcon,
     Other: CustomOtherIcon,
-    House: CustomHomeIcon,
+    House: CustomHomeIcon
   }
 
   function emptyView() {
@@ -137,9 +131,11 @@ function Addresses() {
   return (
     <View style={styles(currentTheme).flex}>
       <FlatList
+        onRefresh={refetchProfile}
+        refreshing={networkStatus === NetworkStatus.refetch}
         data={profile?.addresses}
         ListEmptyComponent={emptyView}
-        keyExtractor={item => item._id}
+        keyExtractor={(item) => item._id}
         ItemSeparatorComponent={() => (
           <View style={styles(currentTheme).line} />
         )}
@@ -147,23 +143,23 @@ function Addresses() {
         renderItem={({ item: address }) => (
           <TouchableOpacity
             activeOpacity={0.7}
-            style={[styles(currentTheme).containerSpace]}>
+            style={[styles(currentTheme).containerSpace]}
+          >
             <View style={[styles().width100, styles().rowContainer]}>
               <View style={[styles(currentTheme).homeIcon]}>
-                {addressIcons[address.label] ? (
-                  React.createElement(addressIcons[address.label], {
-                    fill: currentTheme.darkBgFont
-                  })
-                ) : (
-                  React.createElement(addressIcons['Other'], {
-                    fill: currentTheme.darkBgFont
-                  })
-                )}
+                {addressIcons[address.label]
+                  ? React.createElement(addressIcons[address.label], {
+                      fill: currentTheme.darkBgFont
+                    })
+                  : React.createElement(addressIcons['Other'], {
+                      fill: currentTheme.darkBgFont
+                    })}
               </View>
               <View style={[styles().titleAddress]}>
                 <TextDefault
                   textColor={currentTheme.darkBgFont}
-                  style={styles(currentTheme).labelStyle}>
+                  style={styles(currentTheme).labelStyle}
+                >
                   {t(address.label)}
                 </TextDefault>
               </View>
@@ -173,10 +169,16 @@ function Addresses() {
                   activeOpacity={0.7}
                   onPress={() => {
                     const [longitude, latitude] = address.location.coordinates
-                    navigation.navigate('AddNewAddress', { longitude: +longitude, latitude: +latitude })
-                  }}>
+                    console.log(longitude, latitude,address._id )
+                    navigation.navigate('AddNewAddress', {
+                      id:address._id,
+                      longitude: +longitude,
+                      latitude: +latitude
+                    })
+                  }}
+                >
                   <SimpleLineIcons
-                    name="pencil"
+                    name='pencil'
                     size={scale(20)}
                     color={currentTheme.darkBgFont}
                   />
@@ -187,9 +189,10 @@ function Addresses() {
                   disabled={loadingMutation}
                   onPress={() => {
                     mutate({ variables: { id: address._id } })
-                  }}>
+                  }}
+                >
                   <EvilIcons
-                    name="trash"
+                    name='trash'
                     size={scale(33)}
                     color={currentTheme.darkBgFont}
                   />
@@ -202,7 +205,8 @@ function Addresses() {
                 <TextDefault
                   numberOfLines={2}
                   textColor={currentTheme.darkBgFont}
-                  style={{ ...alignment.PBxSmall }}>
+                  style={{ ...alignment.PBxSmall }}
+                >
                   {address.deliveryAddress}
                 </TextDefault>
                 <TextDefault textColor={currentTheme.darkBgFont}>
@@ -220,7 +224,8 @@ function Addresses() {
           <TouchableOpacity
             activeOpacity={0.5}
             style={styles(currentTheme).addButton}
-            onPress={() => navigation.navigate('SelectLocation')}>
+            onPress={() => navigation.navigate('SelectLocation')}
+          >
             <TextDefault H5 bold>
               {t('addAddress')}
             </TextDefault>

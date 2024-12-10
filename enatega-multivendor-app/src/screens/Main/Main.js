@@ -74,7 +74,6 @@ function Main(props) {
   const currentTheme = theme[themeContext.ThemeValue]
   const { getCurrentLocation } = useLocation()
   const locationData = location
-  const [hasActiveOrders, setHasActiveOrders] = useState(false)
   const { data, refetch, networkStatus, loading, error } = useQuery(
     RESTAURANTS,
     {
@@ -96,10 +95,6 @@ function Main(props) {
   const recentOrderRestaurantsVar = orderData?.recentOrderRestaurants
   const mostOrderedRestaurantsVar = orderData?.mostOrderedRestaurants
   const newheaderColor = currentTheme.newheaderColor
-
-  const handleActiveOrdersChange = (activeOrdersExist) => {
-    setHasActiveOrders(activeOrdersExist)
-  }
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
@@ -454,21 +449,15 @@ function Main(props) {
                         )}
                       </View>
                     </View>
-                    {hasActiveOrders ? (
-                      <View style={styles(currentTheme).topBrandsMargin}>
-                        {orderLoading ? <TopBrandsLoadingUI /> : <TopBrands />}
-                      </View>
-                    ) : (
-                      <View>
-                        {orderLoading ? <TopBrandsLoadingUI /> : <TopBrands />}
-                      </View>
-                    )}
+                    <View>
+                      {orderLoading ? <TopBrandsLoadingUI /> : <TopBrands />}
+                    </View>
                   </ScrollView>
                 )}
               </View>
             </View>
           </View>
-          <ActiveOrders onActiveOrdersChange={handleActiveOrdersChange} />
+          <ActiveOrders />
           <Modalize
             ref={modalRef}
             modalStyle={styles(currentTheme).modal}
