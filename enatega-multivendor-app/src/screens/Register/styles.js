@@ -11,14 +11,11 @@ const styles = (props = null) =>
       alignItems: 'center',
       backgroundColor: props !== null ? props.themeBackground : 'transparent',
       ...alignment.MTlarge,
-      ...alignment.MBlarge,
-      ...alignment.MLmedium,
-      ...alignment.MRmedium,
-      flexDirection: 'column',
-      justifyContent: 'space-between'
+      ...alignment.MBlarge
     },
     subContainer: {
-      width: '100%'
+      width: '85%',
+      height: '100%'
     },
     marginTop10: {
       ...alignment.MTlarge
@@ -69,9 +66,6 @@ const styles = (props = null) =>
       zIndex: 1,
       elevation: 999,
       marginLeft: -40
-    },
-    btnContainer: {
-      width: '100%'
     },
     btn: {
       width: '100%',
