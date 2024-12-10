@@ -36,7 +36,7 @@ function CartAddresses(props) {
 
   useLayoutEffect(() => {
     props.navigation.setOptions({
-      title: t('cartAddresses'),
+      title: t('myAddresses'),
       headerRight: null,
       headerTitleAlign: 'center',
       headerTitleStyle: {
@@ -100,76 +100,62 @@ function CartAddresses(props) {
             style={{
               backgroundColor: currentTheme.themeBackground,
               ...alignment.PTlarge
-            }}
-          >
-            <TouchableOpacity
-              activeOpacity={0.7}
-              style={styles(currentTheme).containerSpace}
-              onPress={() => {
-                const latitude = location.latitude
-                const longitude = location.longitude
-                props.navigation.navigate('AddNewAddress', {
-                  longitude: +longitude,
-                  latitude: +latitude
-                })
-              }}
-            >
-              <View style={styles(currentTheme).width100}>
-                <View style={[styles().titleAddress, styles().width100]}>
-                  <View style={[styles().homeIcon]}>
-                    <RadioButton
-                      size={13}
-                      outerColor={currentTheme.radioOuterColor}
-                      innerColor={currentTheme.radioColor}
-                      animation={'bounceIn'}
-                      isSelected={true}
-                    />
-                  </View>
-                  <TextDefault
-                    textColor={currentTheme.fontMainColor}
-                    style={{ width: '70%' }}
-                    H5
-                    bold
-                  >
-                    {location.label}
-                  </TextDefault>
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    style={styles().width10}
-                    onPress={() =>{
-                        const latitude = location.latitude
-                        const longitude = location.longitude
-                        props.navigation.navigate('AddNewAddress', {
-                          longitude: +longitude,
-                          latitude: +latitude
-                        })
-                      }
-                    }
-                  >
+            }}>
+            <View style={styles(currentTheme).addressContainer}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles(currentTheme).addressContainer}
+                onPress={() => {
+                  props.navigation.navigate('NewAddress', { location })
+                }}>
+                <View style={styles(currentTheme).width100}>
+                  <View style={[styles().titleAddress, styles().width100]}>
+                    <View style={[styles().homeIcon]}>
+                      <RadioButton
+                        size={13}
+                        outerColor={currentTheme.radioOuterColor}
+                        innerColor={currentTheme.radioColor}
+                        animation={'bounceIn'}
+                        isSelected={true}
+                      />
+                    </View>
                     <TextDefault
-                      textColor={currentTheme.darkBgFont}
-                      small
-                      bolder
-                    >
-                      {t('save')}
+                      textColor={currentTheme.fontMainColor}
+                      style={{ width: '70%' }}
+                      H5
+                      bold>
+                      {location.label}
                     </TextDefault>
-                  </TouchableOpacity>
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      style={styles().width10}
+                      onPress={() =>
+                        props.navigation.navigate('NewAddress', { location })
+                      }>
+                      <TextDefault
+                        textColor={currentTheme.iconColorPink}
+                        small
+                        bolder>
+                        {t('save')}
+                      </TextDefault>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{ ...alignment.MTxSmall }}></View>
+                  <View style={[styles().addressDetail]}>
+                    <TextDefault
+                      line={4}
+                      textColor={currentTheme.fontSecondColor}
+                      bold>
+                      {location.deliveryAddress}
+                    </TextDefault>
+                  </View>
                 </View>
-                <View style={{ ...alignment.MTxSmall }}></View>
-                <View style={[styles().addressDetail]}>
-                  <TextDefault
-                    line={4}
-                    textColor={currentTheme.fontSecondColor}
-                    bold
-                  >
-                    {location.deliveryAddress}
-                  </TextDefault>
-                </View>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
         <FlatList
+          // style={{ backgroundColor: currentTheme.themeBackground }}
           data={profile?.addresses}
           keyExtractor={item => item._id}
           contentContainerStyle={{ flexGrow: 1 }}
@@ -178,6 +164,7 @@ function CartAddresses(props) {
           )}
           ListHeaderComponent={() => <View style={{ ...alignment.MTmedium }} />}
           renderItem={({ item: address }) => (
+            // <View style={styles(currentTheme).addressContainer}>
             <TouchableOpacity
               activeOpacity={0.7}
               style={[styles(currentTheme).containerSpace]}
@@ -208,13 +195,11 @@ function CartAddresses(props) {
                   <TouchableOpacity
                     activeOpacity={0.7}
                     style={styles().width10}
-                    onPress={() => {
-                      const [longitude, latitude] = address.location.coordinates
-                      props.navigation.navigate('AddNewAddress', {
-                        longitude: +longitude,
-                        latitude: +latitude
+                    onPress={() =>
+                      props.navigation.navigate('EditAddress', {
+                        ...address
                       })
-                    }}>
+                    }>
                     <EvilIcons
                       name="pencil"
                       size={scale(25)}

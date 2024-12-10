@@ -8,7 +8,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import UserContext from '../../context/User'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import styles from './styles'
-import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 
 import analytics from '../../utils/analytics'
 
@@ -114,7 +113,6 @@ function SidebBar(props) {
                   await Analytics.identify(null, null)
                   logout()
                   props.navigation.closeDrawer()
-                  FlashMessage({ message: t('logoutMessage') })
                 }}
                 icon={'logout'}
                 title={t('titleLogout')}
