@@ -7,34 +7,32 @@ const styles = (props = null) =>
     mainContainer: {
       width: '100%',
       alignItems: 'center',
-    
+      ...alignment.MBxSmall
     },
     restaurantContainer: {
       backgroundColor: props != null ? props.cartContainer : 'white',
-    
-      
-      borderColor: props != null ? props.borderColor : 'grey',
-      borderWidth: scale(1),
-      borderRadius: scale(8),
-      height: scale(280),
+      elevation: 3,
+      shadowColor: props != null ? props.shadowColor : 'grey',
+      shadowOffset: {
+        width: 0,
+        height: verticalScale(0)
+      },
+      borderRadius: scale(25),
+      height: scale(220),
       width: '99%',
-
+      padding: scale(15),
 
       ...alignment.MBsmall
     },
     imageContainer: {
       position: 'relative',
-      zIndex: 1,
       alignItems: 'center',
-      width: '100%',
-      height: '68%'
+      height: '70%'
     },
     img: {
       width: '100%',
       height: '100%',
-
-      borderTopLeftRadius: scale(8),
-      borderTopRightRadius: scale(8)
+      borderRadius: scale(18)
     },
     overlayRestaurantContainer: {
       position: 'absolute',
@@ -74,8 +72,9 @@ const styles = (props = null) =>
       justifyContent: 'flex-end'
     },
     descriptionContainer: {
+      height: '30%',
       width: '100%',
-      padding: scale(12)
+      padding: scale(10)
     },
     offerCategoty: {
       ...alignment.MTxSmall,

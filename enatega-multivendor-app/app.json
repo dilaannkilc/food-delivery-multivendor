@@ -18,7 +18,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "#90E36D"
+      "backgroundColor": "#6FCF97"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -43,7 +43,7 @@
     },
     "notification": {
       "iosDisplayInForeground": true,
-      "color": "#90E36D",
+      "color": "#6FCF97",
       "icon": "./assets/not-icon.png",
       "androidMode": "default",
       "androidCollapsedTitle": "Enatega Multivendor"

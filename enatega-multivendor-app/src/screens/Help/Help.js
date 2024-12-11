@@ -1,101 +1,97 @@
-import React, { useContext, useEffect } from 'react'
-import { View, StatusBar, Platform, FlatList } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
+import { View, TouchableOpacity, StatusBar } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './styles'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import Analytics from '../../utils/analytics'
-import { useFocusEffect } from '@react-navigation/native'
 import { HeaderBackButton } from '@react-navigation/elements'
 import { MaterialIcons } from '@expo/vector-icons'
 import navigationService from '../../routes/navigationService'
 import { scale } from '../../utils/scaling'
 import { useTranslation } from 'react-i18next'
-import Accordion from '../../components/Accordion/Accordion'
-
-const FAQs = [
-  {
-    id: 1,
-    heading: 'faq1',
-    description: 'faq1Description'
-  },
-  {
-    id: 2,
-    heading: 'faq2',
-    description: 'faq2Description'
-  },
-  {
-    id: 3,
-    heading: 'faq3',
-    description: 'faq3Description'
-  },
-  {
-    id: 4,
-    heading: 'faq4',
-    description: 'faq4Description'
-  },
-  {
-    id: 5,
-    heading: 'faq5',
-    description: 'faq5Description'
-  },
-  {
-    id: 6,
-    heading: 'faq6',
-    description: 'faq6Description'
-  }
-]
 
 const Help = props => {
   const { t } = useTranslation()
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
 
-  useFocusEffect(() => {
-    if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor('transparent')
+  const [links, setLinks] = useState([
+    {
+      title: t('titleProductPage'),
+      url: 'https://enatega.com/enatega-multi-vendor/'
+    },
+    {
+      title: t('titleDocs'),
+      url: 'https://enatega.com/multi-vendor-doc/'
+    },
+    {
+      title: t('titleBlog'),
+      url: 'https://enatega.com/blog/'
+    },
+    {
+      title: t('titleAboutUs'),
+      url: 'https://ninjascode.com/about-us/'
     }
-    StatusBar.setBarStyle('dark-content')
-  })
+  ])
 
   useEffect(() => {
     async function Track() {
-      try {
-        await Analytics.track('NAVIGATE_TO_FAQS')
-      } catch (err) {
-        console.log('ERORORORO =>', err)
-      }
+      await Analytics.track(Analytics.events.NAVIGATE_TO_HELP)
     }
     Track()
   }, [])
 
   useEffect(() => {
+    // Update translations when the language changes
+    setLinks([
+      {
+        title: t('titleProductPage'),
+        url:
+          'https://enatega.com/enatega-multivendor-open-source-food-delivery-solution/'
+      },
+      {
+        title: t('titleDocs'),
+        url: 'https://enatega.com/multivendor-documentation/'
+      },
+      {
+        title: t('titleBlog'),
+        url:
+          'https://enatega.com/blogs-enatega-open-source-food-delivery-solutions/'
+      },
+      {
+        title: t('titleAboutUs'),
+
+        url: 'https://ninjascode.com/'
+      }
+    ])
+  }, [])
+  567
+  useEffect(() => {
     props.navigation.setOptions({
-      headerTitle: t('titleFAQ'),
+      headerTitle: t('titleHelp'),
       headerTitleAlign: 'center',
       headerRight: null,
-      headerTitleStyle: {
-        color: '#000',
-        fontWeight: 'bold'
-      },
       headerTitleContainerStyle: {
-        marginTop: '2%',
+        marginTop: '1%',
         paddingLeft: scale(25),
         paddingRight: scale(25),
         height: '75%',
-        marginLeft: 0
+        borderRadius: scale(10),
+        backgroundColor: currentTheme.black,
+        borderWidth: 1,
+        borderColor: 'white'
       },
       headerStyle: {
-        backgroundColor: currentTheme.white,
-        elevation: 0
+        backgroundColor: currentTheme.themeBackground
       },
       headerLeft: () => (
         <HeaderBackButton
           truncatedLabel=""
           backImage={() => (
-            <View>
-              <MaterialIcons name="arrow-back" size={25} color="black" />
+            <View style={styles(currentTheme).backImageContainer}>
+              <MaterialIcons name="arrow-back" size={30} color="black" />
             </View>
           )}
           onPress={() => {
@@ -116,16 +112,25 @@ const Help = props => {
       />
       <View style={styles(currentTheme).flex}>
         <View style={styles(currentTheme).mainContainer}>
-          <FlatList
-            data={FAQs}
-            keyExtractor={item => 'Faq-' + item.id}
-            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-            renderItem={({ item }) => (
-              <Accordion heading={t(item.heading)}>
-                <TextDefault>{t(item.description)}</TextDefault>
-              </Accordion>
-            )}
-          />
+          {links.map(({ title, url }, index) => (
+            <TouchableOpacity
+              style={styles(currentTheme).itemContainer}
+              onPress={() =>
+                props.navigation.navigate('HelpBrowser', { title, url })
+              }
+              key={index}>
+              <View>
+                <TextDefault textColor={currentTheme.fontMainColor} bolder>
+                  {title}{' '}
+                </TextDefault>
+              </View>
+              <MaterialIcons
+                name="arrow-forward"
+                size={20}
+                color={currentTheme.darkBgFont}
+              />
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
     </SafeAreaView>

@@ -1,21 +1,16 @@
 import React, { useLayoutEffect } from 'react'
-import { View, Image, TouchableOpacity, Dimensions } from 'react-native'
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes
-} from '@react-native-google-signin/google-signin'
+import { View, TouchableOpacity, Dimensions } from 'react-native'
 import styles from './styles'
 import FdGoogleBtn from '../../ui/FdSocialBtn/FdGoogleBtn/FdGoogleBtn'
 import FdEmailBtn from '../../ui/FdSocialBtn/FdEmailBtn/FdEmailBtn'
 import Spinner from '../../components/Spinner/Spinner'
 import * as AppleAuthentication from 'expo-apple-authentication'
+import { alignment } from '../../utils/alignment'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { useCreateAccount } from './useCreateAccount'
+import navigationOptions from './screenOptions'
 import { useTranslation } from 'react-i18next'
-import { scale } from '../../utils/scaling'
-import { alignment } from '../../utils/alignment'
-const { height } = Dimensions.get('window')
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin'
 
 const CreateAccount = (props) => {
   const {
@@ -27,26 +22,30 @@ const CreateAccount = (props) => {
     currentTheme,
     mutateLogin,
     navigateToLogin,
+    openTerms,
+    openPrivacyPolicy,
     navigation,
-    signIn,
-    user
+    signIn
   } = useCreateAccount()
   const { t } = useTranslation()
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: null,
-      title: t(''),
-      headerTransparent: true,
-      headerTitleAlign: 'center'
-    })
-  }, [navigation])
+    navigation.setOptions(
+      navigationOptions({
+        fontColor: currentTheme.fontMainColor,
+        backColor: currentTheme.themeBackground,
+        iconColor: currentTheme.iconColor,
+        navigation: props.navigation
+      })
+    )
+  }, [navigation, currentTheme])
+
   function renderAppleAction() {
     if (loading && loginButton === 'Apple') {
       return (
         <View style={styles().buttonBackground}>
           <Spinner
             backColor='rgba(0,0,0,0.1)'
-            spinnerColor={currentTheme.main}
+            spinnerColor={currentTheme.white}
           />
         </View>
       )
@@ -59,7 +58,7 @@ const CreateAccount = (props) => {
             ? AppleAuthentication.AppleAuthenticationButtonStyle.WHITE
             : AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
         }
-        cornerRadius={scale(20)}
+        cornerRadius={10}
         style={styles().appleBtn}
         onPress={async () => {
           try {
@@ -101,14 +100,23 @@ const CreateAccount = (props) => {
   }
 
   function renderGoogleAction() {
+    if (loading && loginButton === 'Google') {
+      return (
+        <View style={[styles().buttonBackground, styles().marginBottom5]}>
+          <Spinner
+            spinnerColor={currentTheme.primery}
+            style={{ marginBottom: 20 }}
+          />
+        </View>
+      )
+    }
+
     return (
-      <FdGoogleBtn
-        loadingIcon={loading && loginButton === 'Google'}
-        onPressIn={() => {
-          loginButtonSetter('Google')
-        }}
-        disabled={loading && loginButton === 'Google'}
+      <GoogleSigninButton
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Light}
         onPress={signIn}
+        disabled={loading && loginButton === 'Google'}
       />
     )
   }
@@ -127,75 +135,73 @@ const CreateAccount = (props) => {
   }
 
   return (
-    <View style={styles().container}>
-      <View style={styles().image}>
-        <Image
-          source={require('../../assets/images/loginHeader.png')}
-          resizeMode='cover'
-          style={styles().image1}
-        />
-      </View>
-      <View style={[styles().subContainer]}>
-        <View style={[styles().signupContainer]}>
-          <View
-            style={{
-              width: '90%',
-              alignSelf: 'center',
-              marginBottom: scale(10)
-            }}
-          >
+    <View style={[styles(currentTheme).subContainer]}>
+      {/* {user && JSON.stringify(user, null, 2)} */}
+      <TextDefault
+        H2
+        bolder
+        textColor={currentTheme.buttonBackgroundPink}
+        style={{
+          textAlign: 'center',
+          ...alignment.MTlarge,
+          ...alignment.MBlarge
+        }}
+      >
+        {t('signUporSignIn')}
+      </TextDefault>
+      <View>
+        <View style={styles().marginTop10}>{renderGoogleAction()}</View>
+        {enableApple && (
+          <View style={styles().marginTop10}>{renderAppleAction()}</View>
+        )}
+        <View
+          style={[
+            styles().marginTop5,
+            { flexDirection: 'row', alignItems: 'center' }
+          ]}
+        >
+          <View style={styles().line} />
+          <View>
             <TextDefault
               H4
               bolder
-              textColor={currentTheme.black}
-              style={{ marginBottom: scale(7) }}
+              textColor={currentTheme.horizontalLine}
+              style={{ width: 50, textAlign: 'center' }}
             >
-              {t('signUporSignIn')}
-            </TextDefault>
-            <TextDefault textColor={currentTheme.black}>
-              {t('signUpDiscount')}
+              {t('or')}
             </TextDefault>
           </View>
-
-          <View style={{ marginBottom: scale(5) }}>{renderGoogleAction()}</View>
-          {enableApple && (
-            <View style={{ marginBottom: scale(5) }}>
-              {renderAppleAction()}
-            </View>
-          )}
-          <View style={{ marginBottom: scale(5) }}>{renderEmailAction()}</View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View style={styles().line} />
-            <View style={{ marginBottom: scale(5) }}>
-              <TextDefault H4 bolder style={{ width: 50, textAlign: 'center' }}>
-                {t('or')}
-              </TextDefault>
-            </View>
-            <View style={styles().line} />
-          </View>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles().guestButton}
-            onPress={() => {
-              navigation.navigate('Main')
-            }}
-          >
-            {props.loadingIcon ? (
-              <Spinner backColor='rgba(0,0,0,0.1)' spinnerColor={currentTheme.main} />
-            ) : (
-              <>
-                <TextDefault
-                  H4
-                  textColor={currentTheme.black}
-                  style={alignment.MLsmall}
-                  bold
-                >
-                  {t('continueAsGuest')}
-                </TextDefault>
-              </>
-            )}
-          </TouchableOpacity>
+          <View style={styles().line} />
         </View>
+        <View style={styles().marginTop5}>{renderEmailAction()}</View>
+      </View>
+      <View
+        style={{
+          width: '80%',
+          justifyContent: 'center',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          ...alignment.MTlarge,
+          ...alignment.MBlarge
+        }}
+      >
+        <TextDefault textColor={currentTheme.horizontalLine}>
+          {t('termCondition1')}{' '}
+        </TextDefault>
+        <TouchableOpacity onPress={openTerms}>
+          <TextDefault bolder textColor={currentTheme.buttonBackgroundPink}>
+            {t('temrConditions')}{' '}
+          </TextDefault>
+        </TouchableOpacity>
+        <TextDefault textColor={currentTheme.secondaryText}>
+          {t('and')}
+        </TextDefault>
+        <TouchableOpacity onPress={openPrivacyPolicy}>
+          <TextDefault bolder textColor={currentTheme.buttonBackgroundPink}>
+            {' '}
+            {t('privacyPolicy')}
+          </TextDefault>
+        </TouchableOpacity>
       </View>
     </View>
   )
