@@ -135,12 +135,12 @@ const styles = (props = null) =>
     // },
     timingRow: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'space-evenly',
       alignSelf: 'center',
-      borderBottomWidth: 1,
-      borderBlockColor: '#D1D5DB',
-      paddingBottom: 15,
-      marginBottom: 15,
+      backgroundColor: '#F3F4F6',
+      borderRadius: 10,
+      padding: 10,
+      marginBottom: 10,
       width: '100%'
     },
     marker: {

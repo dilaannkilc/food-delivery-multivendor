@@ -18,16 +18,12 @@ const styles = (props = null) =>
       ...alignment.PBsmall
     },
     restImageContainer: {
-      ...alignment.MTxLarge,
-      ...alignment.MBlarge,
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 8
+      height: scale(180)
     },
     headerImage: {
-      width: scale(66),
-      height: scale(66),
-      objectFit: 'cover'
+      width: '100%',
+      height: '100%',
+      borderRadius: 15
     },
     headingTitle: {
       bottom: scale(10),
