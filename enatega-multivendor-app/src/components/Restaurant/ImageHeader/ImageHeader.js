@@ -380,7 +380,6 @@ function ImageTextCenterHeader(props, ref) {
                 <TouchableOpacity
                   activeOpacity={0.7}
                   style={styles().ratingBox}
-                  disabled={props.loading}
                   onPress={() =>
                     navigation.navigate('Reviews', {
                       restaurantObject: { ...aboutObject, isOpen: null },
