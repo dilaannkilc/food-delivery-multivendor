@@ -56,7 +56,8 @@ const languageTypes = [
   { value: 'ភាសាខ្មែរ', code: 'km', index: 2 },
   { value: '中文', code: 'zh', index: 3 },
   { value: 'Deutsche', code: 'de', index: 4 },
-  { value: 'arabic', code: 'ar', index: 5 }
+  { value: 'العربية', code: 'ar', index: 5 },
+  { value: 'עִברִית', code: 'he', index: 6 }
 ]
 
 const PUSH_TOKEN = gql`
@@ -78,13 +79,8 @@ function Settings(props) {
   const Analytics = analytics()
 
   const { token, setToken } = useContext(AuthContext)
-  const {
-    profile,
-    loadingProfile,
-    errorProfile,
-    logout,
-    isLoggedIn
-  } = useContext(UserContext)
+  const { profile, loadingProfile, errorProfile, logout, isLoggedIn } =
+    useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
 
@@ -116,9 +112,9 @@ function Settings(props) {
   }, [])
   useEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.firstHeaderBackground)
+      StatusBar.setBackgroundColor('transparent')
     }
-    StatusBar.setBarStyle('light-content')
+    StatusBar.setBarStyle('dark-content')
   }, [])
 
   useEffect(() => {
@@ -126,10 +122,10 @@ function Settings(props) {
       headerRight: null,
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=""
+          truncatedLabel=''
           backImage={() => (
-            <View style={styles().backButton}>
-              <MaterialIcons name="arrow-back" size={30} color="black" />
+            <View>
+              <MaterialIcons name='arrow-back' size={25} color='black' />
             </View>
           )}
           onPress={() => {
@@ -139,19 +135,20 @@ function Settings(props) {
       ),
       headerTitle: t('titleSettings'),
       headerTitleAlign: 'center',
+      headerTitleStyle: {
+        color: '#000',
+        fontWeight: 'bold'
+      },
       headerTitleContainerStyle: {
-        marginTop: '1%',
+        marginTop: '2%',
         paddingLeft: scale(25),
         paddingRight: scale(25),
         height: '75%',
-        borderRadius: scale(10),
-        backgroundColor: currentTheme.black,
-        borderWidth: 1,
-        borderColor: currentTheme.white,
         marginLeft: 0
       },
       headerStyle: {
-        backgroundColor: currentTheme.themeBackground
+        backgroundColor: currentTheme.white,
+        elevation: 0
       }
     })
     selectLanguage()
@@ -174,7 +171,7 @@ function Settings(props) {
     }
   }
 
-  const _handleAppStateChange = async nextAppState => {
+  const _handleAppStateChange = async (nextAppState) => {
     if (nextAppState === 'active') {
       let token = null
       const permission = await getPermission()
@@ -226,7 +223,7 @@ function Settings(props) {
     const lang = await AsyncStorage.getItem('enatega-language')
     console.log(lang)
     if (lang) {
-      const defLang = languageTypes.findIndex(el => el.code === lang)
+      const defLang = languageTypes.findIndex((el) => el.code === lang)
       const langName = languageTypes[defLang].value
       activeRadioSetter(defLang)
       languageNameSetter(langName)
@@ -245,7 +242,7 @@ function Settings(props) {
 
       var lang = await AsyncStorage.getItem('enatega-language')
       if (lang) {
-        const defLang = languageTypes.findIndex(el => el.code === lang)
+        const defLang = languageTypes.findIndex((el) => el.code === lang)
         const langName = languageTypes[defLang].value
         languageNameSetter(langName)
       }
@@ -269,7 +266,7 @@ function Settings(props) {
       FlashMessage({
         message: error.networkError.result.errors[0].message
       })
-    } catch (err) { }
+    } catch (err) {}
   }
 
   async function updateNotificationStatus(notificationCheck) {
@@ -308,155 +305,165 @@ function Settings(props) {
       message: t('errorInProfile')
     })
   }
-  if (loadingProfile) return <Spinner />
+  if (loadingProfile)
+    return (
+      <Spinner backColor={'transparent'} spinnerColor={currentTheme.main} />
+    )
   return (
     <SafeAreaView
       edges={['bottom', 'left', 'right']}
-      style={[styles().flex, styles(currentTheme).mainContainer]}>
+      style={[styles().flex, styles(currentTheme).mainContainer]}
+    >
       <View style={styles().flex}>
-        {/* {Platform.OS === 'android' && ( */}
-        <View style={[styles(currentTheme).languageContainer, styles().shadow]}>
-          <View style={styles().changeLanguage}>
-            <View style={styles().width85}>
-              <TextDefault
-                numberOfLines={1}
-                textColor={currentTheme.fontSecondColor}>
-                {t('languageSetting')}
-              </TextDefault>
+        <TouchableOpacity style={[styles(currentTheme).languageContainer]} onPress={() => modalVisibleSetter(true)}>
+          <View style={{ flex: 3 }}>
+            <View style={styles().changeLanguage}>
+              <View style={styles().width85}>
+                <TextDefault
+                  numberOfLines={1}
+                  textColor={currentTheme.fontSecondColor}
+                >
+                  {t('language')}
+                </TextDefault>
+              </View>
             </View>
+            <TextDefault
+              textColor={currentTheme.fontMainColor}
+              bolder
+              H5
+              B700
+              left
+            >
+              {languageName}
+            </TextDefault>
+          </View>
+          <View style={{ flex: 1 }}>
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => modalVisibleSetter(true)}
-              style={styles().button}>
-              <MaterialIcons
-                name="edit"
-                size={25}
-                color={currentTheme.tagColor}
-              />
+              style={styles().button}
+            >
+              <TextDefault H5 bold textColor={currentTheme.editProfileButton}>
+                {t('edit')}
+              </TextDefault>
             </TouchableOpacity>
           </View>
-          <TextDefault textColor={currentTheme.fontMainColor} bolder H5 B700>
-            {languageName}
-          </TextDefault>
-        </View>
-        {/* )
-        } */}
+        </TouchableOpacity>
         <View style={styles(currentTheme).mainContainerArea}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => {
-              updateNotificationStatus('offer')
-              setBtnText('offer')
-            }}
-            style={[styles(currentTheme).notificationContainer]}>
-            <View style={styles(currentTheme).notificationChekboxContainer}>
-              <TextDefault
-                numberOfLines={1}
-                textColor={currentTheme.darkBgFont}
-                style={alignment.MLsmall}>
-                {' '}
-                {t('receiveSpecialOffers')}{' '}
-              </TextDefault>
-              <View>
-                <CheckboxBtn
-                  checked={offerNotification}
-                  onPress={() => {
-                    updateNotificationStatus('offer')
-                    setBtnText('offer')
-                  }}
-                />
-              </View>
+          <View
+            style={[
+              styles(currentTheme).languageContainer,
+              styles().checkboxSettings
+            ]}
+          >
+            <View>
+              <CheckboxBtn
+                checked={orderNotification}
+                onPress={() => {
+                  updateNotificationStatus('order')
+                  setBtnText('order')
+                }}
+              />
             </View>
-            {loading && btnText === 'offer' && (
-              <View>
-                <Spinner size="small" backColor="transparent" />
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => {
+                updateNotificationStatus('order')
+                setBtnText('order')
+              }}
+            >
+              <View style={styles().notificationChekboxContainer}>
+                <TextDefault
+                  numberOfLines={1}
+                  textColor={currentTheme.darkBgFont}
+                  style={alignment.MLsmall}
+                >
+                  {' '}
+                  {t('receivePushNotification')}{' '}
+                </TextDefault>
               </View>
-            )}
-          </TouchableOpacity>
-          <Divider
-            style={{
-              backgroundColor: currentTheme.darkBgFont,
-              width: '90%',
-              alignSelf: 'center'
-            }}
-          />
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => {
-              updateNotificationStatus('order')
-              setBtnText('order')
-            }}
-            style={[styles(currentTheme).notificationContainer]}>
-            <View style={styles().notificationChekboxContainer}>
-              <TextDefault
-                numberOfLines={1}
-                textColor={currentTheme.darkBgFont}
-                style={alignment.MLsmall}>
-                {' '}
-                {t('getUpdates')}{' '}
-              </TextDefault>
-              <View>
-                <CheckboxBtn
-                  checked={orderNotification}
-                  onPress={() => {
-                    updateNotificationStatus('order')
-                    setBtnText('order')
-                  }}
-                />
-              </View>
+              {loading && btnText === 'order' && (
+                <View>
+                  <Spinner size='small' backColor='transparent' spinnerColor={currentTheme.main} />
+                </View>
+              )}
+            </TouchableOpacity>
+          </View>
+          <View
+            style={[
+              styles(currentTheme).languageContainer,
+              styles().checkboxSettings
+            ]}
+          >
+            <View>
+              <CheckboxBtn
+                checked={offerNotification}
+                onPress={() => {
+                  updateNotificationStatus('offer')
+                  setBtnText('offer')
+                }}
+              />
             </View>
-            {loading && btnText === 'order' && (
-              <View>
-                <Spinner size="small" backColor="transparent" />
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => {
+                updateNotificationStatus('offer')
+                setBtnText('offer')
+              }}
+            >
+              <View style={styles(currentTheme).notificationChekboxContainer}>
+                <TextDefault
+                  numberOfLines={1}
+                  textColor={currentTheme.darkBgFont}
+                  style={alignment.MLsmall}
+                >
+                  {' '}
+                  {t('receiveOfferByEmail')}{' '}
+                </TextDefault>
               </View>
-            )}
-          </TouchableOpacity>
-          <Divider
-            style={{
-              backgroundColor: currentTheme.darkBgFont,
-              width: '90%',
-              alignSelf: 'center'
-            }}
-          />
+              {loading && btnText === 'offer' && (
+                <View>
+                  <Spinner size='small' backColor='transparent' spinnerColor={currentTheme.main} />
+                </View>
+              )}
+            </TouchableOpacity>
+          </View>
+          <View
+            style={[
+              styles(currentTheme).languageContainer,
+              styles().checkboxSettings
+            ]}
+          >
+            <View>
+              <CheckboxBtn checked={darkTheme} onPress={() => toggleTheme()} />
+            </View>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => toggleTheme()}>
+              <View style={styles().notificationChekboxContainer}>
+                <TextDefault
+                  numberOfLines={1}
+                  textColor={currentTheme.darkBgFont}
+                  style={alignment.MLsmall}
+                >
+                  {' '}
+                  {t('turnOnDarkTheme')}{' '}
+                </TextDefault>
+              </View>
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => toggleTheme()}
-            style={[styles(currentTheme).notificationContainer]}>
-            <View style={styles().notificationChekboxContainer}>
-              <TextDefault
-                numberOfLines={1}
-                textColor={currentTheme.darkBgFont}
-                style={alignment.MLsmall}>
-                {' '}
-                {t('turnOnDarkTheme')}{' '}
-              </TextDefault>
-              <View>
-                <CheckboxBtn
-                  checked={darkTheme}
-                  onPress={() => toggleTheme()}
-                />
-              </View>
-            </View>
-          </TouchableOpacity>
-          <Divider
-            style={{
-              backgroundColor: currentTheme.darkBgFont,
-              width: '90%',
-              alignSelf: 'center'
-            }}
-          />
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => toggleTheme()}
-            style={[styles(currentTheme).notificationContainer]}>
+            style={[styles(currentTheme).notificationContainer]}
+          >
             <View style={styles().notificationChekboxContainer}>
               <View style={styles().buttonContainer}>
                 <TouchableOpacity
                   style={styles().deleteButton}
                   onPress={() => {
                     modalizeRef.current.open('top')
-                  }}>
-                  <Ionicons name="trash-outline" size={30} color={'white'} />
+                  }}
+                >
+                  <Ionicons name='trash-outline' size={30} color={'white'} />
                   <Text style={styles(currentTheme).deleteButtonText}>
                     {t('DELETEACCOUNT')}
                   </Text>
@@ -477,13 +484,15 @@ function Settings(props) {
       <Modal
         isVisible={modalVisible}
         onBackdropPress={() => modalVisibleSetter(false)}
-        onBackButtonPress={() => modalVisibleSetter(false)}>
+        onBackButtonPress={() => modalVisibleSetter(false)}
+      >
         <View style={styles(currentTheme).modalContainer}>
           <TextDefault
             textColor={currentTheme.fontMainColor}
             bolder
             H5
-            style={alignment.MBsmall}>
+            style={alignment.MBsmall}
+          >
             {t('selectLanguage')}
           </TextDefault>
 
@@ -492,12 +501,13 @@ function Settings(props) {
               activeOpacity={0.7}
               key={index}
               onPress={() => activeRadioSetter(item.index)}
-              style={[styles(currentTheme).radioContainer]}>
+              style={[styles(currentTheme).radioContainer]}
+            >
               <RadioButton
                 animation={'bounceIn'}
                 size={13}
-                outerColor={currentTheme.radioOuterColor}
-                innerColor={currentTheme.radioColor}
+                outerColor={currentTheme.iconColorDark}
+                innerColor={currentTheme.main}
                 isSelected={activeRadio === item.index}
                 onPress={() => activeRadioSetter(item.index)}
               />
@@ -505,7 +515,8 @@ function Settings(props) {
                 numberOfLines={1}
                 textColor={currentTheme.fontMainColor}
                 bold
-                style={alignment.MLsmall}>
+                style={alignment.MLsmall}
+              >
                 {item.value}
               </TextDefault>
             </TouchableOpacity>
@@ -514,32 +525,36 @@ function Settings(props) {
             <TouchableOpacity
               activeOpacity={0.7}
               style={styles().modalButtons}
-              onPress={() => modalVisibleSetter(false)}>
+              onPress={() => modalVisibleSetter(false)}
+            >
               <TextDefault
                 numberOfLines={1}
                 textColor={currentTheme.tagColor}
                 small
                 bolder
-                uppercase>
+                uppercase
+              >
                 {t('Cancel')}
               </TextDefault>
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.7}
               style={styles().modalButtons}
-              onPress={() => onSelectedLanguage()}>
+              onPress={() => onSelectedLanguage()}
+            >
               <TextDefault
                 textColor={currentTheme.tagColor}
                 bolder
                 uppercase
-                small>
+                small
+              >
                 {t('Select')}
               </TextDefault>
             </TouchableOpacity>
           </View>
           {loadinglang && (
             <View style={styles().loadingContainer}>
-              <ActivityIndicator size="large" color={currentTheme.tagColor} />
+              <ActivityIndicator size='large' color={currentTheme.tagColor} />
             </View>
           )}
         </View>
@@ -547,24 +562,27 @@ function Settings(props) {
       <Modalize
         ref={modalizeRef}
         adjustToContentHeight
-        handlePosition="inside"
+        handlePosition='inside'
         avoidKeyboardLikeIOS={Platform.select({
           ios: true,
           android: true
         })}
         keyboardAvoidingOffset={2}
-        keyboardAvoidingBehavior="height">
+        keyboardAvoidingBehavior='height'
+      >
         <View
           style={{
             flex: 1,
             alignItems: 'center',
             backgroundColor: currentTheme.backgroundColor3
-          }}>
+          }}
+        >
           <TextDefault
             bolder
             H5
             textColor={currentTheme.darkBgFont}
-            style={{ marginTop: 20 }}>
+            style={{ marginTop: 20 }}
+          >
             {t('DeleteConfirmation')}
           </TextDefault>
           <TouchableOpacity
@@ -578,7 +596,8 @@ function Settings(props) {
               padding: 15,
               ...alignment.MTlarge
             }}
-            onPress={deactivatewithemail}>
+            onPress={deactivatewithemail}
+          >
             <TextDefault center bold>
               {t('DeleteAccount')}
             </TextDefault>
@@ -586,7 +605,8 @@ function Settings(props) {
           <TouchableOpacity
             activeOpacity={0.7}
             style={{ width: '100%', paddingTop: 30, paddingBottom: 40 }}
-            onPress={() => onClose()}>
+            onPress={() => onClose()}
+          >
             <TextDefault textColor={currentTheme.darkBgFont} center>
               {' '}
               {t('Cancel')}

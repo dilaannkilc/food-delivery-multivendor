@@ -3,7 +3,7 @@ import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { theme } from '../../utils/themeColors'
 import screenOptions from './screenOptions'
-import { View, TouchableOpacity, ScrollView, StatusBar } from 'react-native'
+import { View, TouchableOpacity, ScrollView, StatusBar, Platform } from 'react-native'
 import CheckboxBtn from '../../ui/FdCheckbox/CheckboxBtn'
 import { alignment } from '../../utils/alignment'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
@@ -11,11 +11,12 @@ import { useFocusEffect } from '@react-navigation/native'
 import styles from './styles'
 import UserContext from '../../context/User'
 import Analytics from '../../utils/analytics'
+import { textStyles } from '../../utils/textStyles'
 
 import { scale } from '../../utils/scaling'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
-import { MaterialIcons, Entypo } from '@expo/vector-icons'
+import { MaterialIcons, Entypo, AntDesign } from '@expo/vector-icons'
 import { useTranslation } from 'react-i18next'
 
 function Reorder(props) {
@@ -30,39 +31,50 @@ function Reorder(props) {
   const inset = useSafeAreaInsets()
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.headerBackground)
+      StatusBar.setBackgroundColor(currentTheme.themeBackground)
     }
-    StatusBar.setBarStyle('light-content')
+    StatusBar.setBarStyle('dark-content')
   })
   const [selectedItems, setItems] = useState([])
 
-  useLayoutEffect(() => {
+  useFocusEffect(() => {
     props.navigation.setOptions({
-      title: t('previous'),
+      headerTitle: () => (
+        <View style={{ alignItems: 'center', gap: scale(2) }}>
+          <TextDefault
+            style={{
+              color: currentTheme.btnText,
+              ...textStyles.H4,
+              ...textStyles.Bolder
+            }}
+          >
+            {t('previousOrder')}
+          </TextDefault>
+        </View>
+      ),
       headerRight: null,
       headerTitleAlign: 'center',
+      headerTitleStyle: {
+        color: currentTheme.btnText,
+        ...textStyles.H4,
+        ...textStyles.Bolder
+      },
       headerTitleContainerStyle: {
-        marginTop: '1%',
-        paddingLeft: scale(25),
-        paddingRight: scale(25),
-        height: '75%',
-        borderRadius: scale(10),
-        backgroundColor: currentTheme.black,
-        marginLeft: 0
+        backgroundColor: currentTheme.transparent
       },
       headerStyle: {
-        backgroundColor: currentTheme.headerColor,
-        shadowColor: 'transparent',
-        shadowRadius: 0
+        backgroundColor: currentTheme.themeBackground
       },
-      headerTitleAlign: 'center',
-      headerRight: null,
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=""
+          truncatedLabel=''
           backImage={() => (
-            <View style={styles().backButton}>
-              <Entypo name="cross" size={30} color="black" />
+            <View style={{ ...alignment.PLxSmall }}>
+              <AntDesign
+                name='arrowleft'
+                size={22}
+                color={currentTheme.fontFourthColor}
+              />
             </View>
           )}
           onPress={() => {
@@ -72,16 +84,15 @@ function Reorder(props) {
       )
     })
   }, [props.navigation])
-
   useEffect(() => {
     async function Track() {
       await analytics.track(analytics.events.NAVIGATE_TO_REORDER)
     }
     Track()
   }, [])
-  const onSelect = index => {
+  const onSelect = (index) => {
     if (selectedItems.includes(index)) {
-      const filteredItems = selectedItems.filter(i => i !== index)
+      const filteredItems = selectedItems.filter((i) => i !== index)
       setItems(filteredItems)
     } else {
       setItems([...selectedItems, index])
@@ -90,9 +101,9 @@ function Reorder(props) {
 
   const onAddToCart = async () => {
     await setCartRestaurant(order.restaurant._id)
-    selectedItems.forEach(async index => {
+    selectedItems.forEach(async (index) => {
       const item = order.items[index]
-      const addons = item.addons.map(addon => ({
+      const addons = item.addons.map((addon) => ({
         _id: addon._id,
         options: addon.options.map(({ _id }) => ({
           _id
@@ -116,14 +127,11 @@ function Reorder(props) {
       <ScrollView
         showsVerticalScrollIndicator={false}
         alwaysBounceVertical={false}
-        contentContainerStyle={styles(currentTheme).scrollViewStyle}>
+        contentContainerStyle={styles(currentTheme).scrollViewStyle}
+      >
         <View style={styles(currentTheme).mainContainer}>
-          <TextDefault
-            style={[alignment.MLmedium, alignment.MTmedium]}
-            bolder
-            H4
-            textColor={currentTheme.fontMainColor}>
-            {t('selectItems')}
+          <TextDefault bolder H4 textColor={currentTheme.fontMainColor}>
+            {t('ItemsOrderAgain')}
           </TextDefault>
           {order.items.map((item, index) => {
             return (
@@ -131,29 +139,38 @@ function Reorder(props) {
                 key={index}
                 style={{
                   flexDirection: 'row',
-                  ...alignment.MLmedium,
-                  ...alignment.MRmedium,
+                  alignItems: 'center',
                   ...alignment.MTmedium
-                }}>
-                <View style={[alignment.MRmedium]}>
-                  <CheckboxBtn
-                    checked={selectedItems.includes(index)}
-                    onPress={() => onSelect(index)}
-                  />
-                </View>
+                }}
+              >
+                <TouchableOpacity onPress={() => onSelect(index)}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={[alignment.MRmedium]}>
+                      <CheckboxBtn
+                        checked={selectedItems.includes(index)}
+                        onPress={() => onSelect(index)}
+                      />
+                    </View>
+
+                    <TextDefault
+                      numberOfLines={1}
+                      H5
+                      textColor={currentTheme.fontMainColor}
+                    >
+                      {item.title}
+                    </TextDefault>
+                  </View>
+                </TouchableOpacity>
+
                 <View style={{ width: '50%' }}>
-                  <TextDefault
-                    numberOfLines={1}
-                    textColor={currentTheme.fontMainColor}>
-                    {item.title}
-                  </TextDefault>
                   {item.addons.map((addon, index) => {
                     return (
                       <View key={index}>
                         <TextDefault
                           style={alignment.MTxSmall}
                           textColor={currentTheme.fontSecondColor}
-                          numberOfLines={1}>
+                          numberOfLines={1}
+                        >
                           + {addon.title}
                         </TextDefault>
                         {addon.options.map((option, index) => (
@@ -161,7 +178,8 @@ function Reorder(props) {
                             key={index}
                             style={alignment.MLsmall}
                             textColor={currentTheme.fontSecondColor}
-                            numberOfLines={1}>
+                            numberOfLines={1}
+                          >
                             - {option.title}
                           </TextDefault>
                         ))}
@@ -184,7 +202,8 @@ function Reorder(props) {
                     backgroundColor: currentTheme.lightHorizontalLine
                   }
             }
-            onPress={onAddToCart}>
+            onPress={onAddToCart}
+          >
             <TextDefault bolder textColor={currentTheme.black}>
               {t('addToCart')}
             </TextDefault>
