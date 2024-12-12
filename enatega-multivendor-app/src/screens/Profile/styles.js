@@ -2,8 +2,6 @@ import { scale } from '../../utils/scaling'
 import { StyleSheet } from 'react-native'
 import { alignment } from '../../utils/alignment'
 import { theme } from '../../utils/themeColors'
-import { Dimensions } from 'react-native'
-const {height} = Dimensions.get('screen')
 
 const styles = (props = null) =>
   StyleSheet.create({
@@ -13,25 +11,27 @@ const styles = (props = null) =>
     formContainer: {
       flex: 1,
       width: '100%',
-      backgroundColor: props !== null ? props.white : 'transparent',
-      // backgroundColor: 'red',
-      // height: '100%'
+      backgroundColor: props !== null ? props.themeBackground : 'transparent'
     },
     containerInfo: {
       width: '100%',
-      ...alignment.MTmedium
+      ...alignment.MTmedium,
     },
     formSubContainer: {
-      borderRadius: scale(8),
-      flexDirection: 'row',
-      width: '92%',
-      backgroundColor: props !== null ? props.gray100 : 'transparent',
+      borderRadius: scale(18),
+      width: '95%',
+      backgroundColor: props !== null ? props.radioOuterColor : 'transparent',
       alignSelf: 'center',
-      elevation: 1,
-      borderWidth: props !== null && props.gray200 !== '#E5E7EB' ? 2 : 0,
-      borderColor: props !== null ? props.gray200 : '#E5E7EB',
+      shadowOffset: { width: 2, height: 4 },
+      shadowColor: props !== null ? props.shadowColor : 'transparent',
+      shadowOpacity: 0.1,
+      shadowRadius: 10,
+      elevation: 15,
+      borderWidth:
+        props !== null && props.themeBackground !== '#FAFAFA' ? 2 : 0,
+      borderColor: props !== null ? props.shadowColor : 'transparent',
       ...alignment.MTsmall,
-      ...alignment.Psmall
+      ...alignment.Pmedium
     },
     flexRow: {
       display: 'flex',
@@ -39,49 +39,50 @@ const styles = (props = null) =>
       justifyContent: 'space-between'
     },
     containerHeading: {
-      width: '100%',
       flexDirection: 'row',
-      alignItems: 'flex-start'
+      alignContent: 'space-between',
     },
     headingTitle: {
-      width: '50%'
+      width: '50%',
     },
-
+    textAlignLeft: {
+      textAlign: 'left',
+    },
     headingLink: {
-      flex: 1,
-      ...alignment.MRxSmall,
-      justifyContent: 'center',
-      alignItems: 'flex-end'
+      width: '50%',
+      flexDirection: 'row',
+      justifyContent: 'flex-end'
     },
     headingButton: {
-      marginLeft: scale(5),
       justifyContent: 'center',
       ...alignment.PLmedium
     },
     saveContainer: {
-      backgroundColor: props !== null ? props.main : '#90E36D',
-      padding: scale(8),
-      borderRadius: scale(16),
+      backgroundColor: theme.Pink.main,
       justifyContent: 'center',
       alignItems: 'center',
-      width: scale(120)
+      borderRadius: scale(6),
+      padding: scale(5),
+      paddingLeft: scale(20),
+      paddingRight: scale(20),
+      width: '28%'
     },
     bacKButton: {
       backgroundColor: 'white',
       borderRadius: scale(50),
-      width: scale(40),
-      alignItems: 'flex-start',
-      marginLeft: scale(5)
+      marginLeft: scale(10),
+      width: scale(55),
+      alignItems: 'center'
     },
     verifiedButton: {
       padding: scale(8),
-      borderRadius: scale(16),
-      marginTop: scale(10),
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: scale(120)
+      paddingLeft: scale(10),
+      paddingRight: scale(10),
+      borderRadius: scale(6),
+      width: '28%',
+      // height: scale(30),
+      marginTop: scale(10)
     },
-
     // Model for password changing
     modalContainer: {
       backgroundColor: props !== null ? props.themeBackground : '#FFF',
@@ -112,57 +113,13 @@ const styles = (props = null) =>
     titleContainer: {
       backgroundColor: props !== null ? props.themeBackground : 'white',
       color: props !== null ? props.darkBgFont : 'white',
-      paddingTop: scale(8),
+      padding: scale(25),
       fontSize: scale(20),
       fontWeight: '600'
     },
     phoneDetailsContainer: {
       display: 'flex',
       flexDirection: 'row'
-    },
-    //Modal
-    centeredView: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#000',
-      filter: 'blur(10)'
-      
-    },
-    modalView: {
-      width: '90%',
-      alignItems: 'flex-start',
-      gap: 24,
-      margin: 20,
-      backgroundColor: 'white',
-      borderRadius: 20,
-      padding: 20,
-      alignItems: 'center',
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
-    },
-    btn: {
-      flex: 'none',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignSelf: 'stretch',
-      height: scale(50),
-      borderRadius: 40,
-    },
-    btnCancel: {
-      backgroundColor: props !== null ? props.white : 'white',
-      borderWidth: 1,
-      borderColor: props !== null ? props.black : 'black'
-    },
-    btnDelete: {
-      backgroundColor: props !== null ? props.red600 : '#DC2626',
     }
   })
 export default styles

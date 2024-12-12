@@ -8,10 +8,6 @@ const styles = (props = null) =>
     ML20: {
       ...alignment.MLlarge
     },
-    menuPageHeading:{
-      ...alignment.MLmedium,
-      ...alignment.MRmedium
-    },
     offerScroll: {
       height: scale(230),
       width: '100%'
