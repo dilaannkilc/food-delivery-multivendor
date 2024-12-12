@@ -1,5 +1,5 @@
 import React, { useState, useContext, useLayoutEffect, useEffect } from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, StatusBar, Platform } from 'react-native'
 import { OutlinedTextField } from 'react-native-material-textfield'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useMutation } from '@apollo/client'
@@ -15,9 +15,10 @@ import styles from './styles'
 import Analytics from '../../utils/analytics'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
-import { MaterialIcons, Entypo } from '@expo/vector-icons'
+import { MaterialIcons, Entypo, AntDesign } from '@expo/vector-icons'
 import { useTranslation } from 'react-i18next'
-
+import { useFocusEffect } from '@react-navigation/native'
+import { textStyles } from '../../utils/textStyles'
 const GET_COUPON = gql`
   ${getCoupon}
 `
@@ -39,7 +40,7 @@ function SelectVoucher(props) {
   function onCompleted({ coupon }) {
     if (coupon) {
       if (coupon.enabled) {
-        props.navigation.navigate('Cart', { paymentMethod, coupon })
+        props.navigation.navigate('Checkout', { paymentMethod, coupon })
         FlashMessage({
           message: t('coupanApply')
         })
@@ -63,41 +64,51 @@ function SelectVoucher(props) {
     })
   }
 
-  useLayoutEffect(() => {
+  useFocusEffect(() => {
+    if (Platform.OS === 'android') {
+      StatusBar.setBackgroundColor(currentTheme.themeBackground)
+    }
+    StatusBar.setBarStyle('dark-content')
+  })
+
+  useFocusEffect(() => {
     props.navigation.setOptions({
-      title: t('titleMyVouchers'),
+      headerTitle: () => (
+        <View style={{ alignItems: 'center', gap: scale(2) }}>
+          <TextDefault
+            style={{
+              color: currentTheme.btnText,
+              ...textStyles.H4,
+              ...textStyles.Bolder
+            }}
+          >
+            {t('addVoucher')}
+          </TextDefault>
+        </View>
+      ),
       headerRight: null,
       headerTitleAlign: 'center',
+      headerTitleStyle: {
+        color: currentTheme.btnText,
+        ...textStyles.H4,
+        ...textStyles.Bolder
+      },
       headerTitleContainerStyle: {
-        marginTop: '1%',
-        paddingLeft: scale(25),
-        paddingRight: scale(25),
-        height: '75%',
-        borderRadius: scale(10),
-        borderWidth: 1,
-        borderColor: currentTheme.white,
-        backgroundColor: currentTheme.black
+        backgroundColor: currentTheme.transparent
       },
       headerStyle: {
-        backgroundColor: currentTheme.headerColor,
-        shadowColor: 'transparent',
-        shadowRadius: 0
+        backgroundColor: currentTheme.themeBackground
       },
-      headerTitleAlign: 'center',
-      headerRight: null,
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=""
+          truncatedLabel=''
           backImage={() => (
-            <View
-              style={{
-                backgroundColor: 'white',
-                borderRadius: 50,
-                marginLeft: 10,
-                width: 55,
-                alignItems: 'center'
-              }}>
-              <Entypo name="cross" size={30} color="black" />
+            <View style={{ ...alignment.PLxSmall }}>
+              <AntDesign
+                name='arrowleft'
+                size={22}
+                color={currentTheme.fontFourthColor}
+              />
             </View>
           )}
           onPress={() => {
@@ -106,43 +117,45 @@ function SelectVoucher(props) {
         />
       )
     })
-  }, [props.navigation])
+  })
 
   function onSelectCoupon(text) {
     mutate({ variables: { coupon: text } })
   }
 
-  const HeaderLine = props => {}
+  const HeaderLine = (props) => {}
   return (
     <>
       <View style={[styles().flex, styles(currentTheme).mainContainer]}>
         <HeaderLine
           // headerName="TYPe voucher code"
-          textWidth="45%"
-          lineWidth="25%"
+          textWidth='45%'
+          lineWidth='25%'
         />
         <View style={styles(currentTheme).upperContainer}>
           <View style={styles().innerContainer}>
             <OutlinedTextField
-              label={t('voucherCode')}
+              label={t('voucher')}
+              placeholder={t('voucherCode')}
               labelFontSize={scale(12)}
               fontSize={scale(12)}
               maxLength={15}
-              textAlignVertical="top"
-              textColor={currentTheme.fontMainColor}
+              textAlignVertical='top'
+              textColor={currentTheme.darkBgFont}
               baseColor={currentTheme.darkBgFont}
               errorColor={currentTheme.textErrorColor}
               tintColor={currentTheme.iconColorPink}
               labelOffset={{ y1: -5 }}
               labelTextStyle={{ fontSize: scale(12), paddingTop: scale(1) }}
-              onChangeText={text => {
+              onChangeText={(text) => {
                 voucherCodeSetter(text)
               }}
             />
           </View>
           <TouchableOpacity
             onPress={() => onSelectCoupon(voucherCode)}
-            style={styles(currentTheme).buttonContainer}>
+            style={styles(currentTheme).buttonContainer}
+          >
             <TextDefault textColor={currentTheme.buttonText} H5 bold uppercase>
               {t('apply')}
             </TextDefault>
