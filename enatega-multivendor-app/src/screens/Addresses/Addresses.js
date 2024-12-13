@@ -118,14 +118,14 @@ function Addresses() {
           <View style={styles().descriptionEmpty}>
             <View style={styles().viewTitle}>
               <TextDefault textColor={currentTheme.fontMainColor} bolder>
-                {t('It&#39;s empty here')}
+                {t('emptyHere')}
               </TextDefault>
             </View>
             <View>
               <TextDefault textColor={currentTheme.fontMainColor} bold>
-                {t('You have not saved any address yet')}
+                {t('addressNotSaved')}
                 {'\n'}
-                {t('Click Add New Address to get started')}
+                {t('addNewAddress')}
               </TextDefault>
             </View>
           </View>
@@ -175,6 +175,8 @@ function Addresses() {
                   activeOpacity={0.7}
                   onPress={() => {
                     const [longitude, latitude] = address.location.coordinates
+
+                    console.log(longitude, latitude,address._id )
                     navigation.navigate('AddNewAddress', {
                       id:address._id,
                       longitude: +longitude,

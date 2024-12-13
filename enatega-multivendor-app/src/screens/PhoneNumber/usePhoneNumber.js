@@ -24,6 +24,7 @@ const useRegister = () => {
   const [phone, setPhone] = useState('')
   const [phoneError, setPhoneError] = useState(null)
   const configuration = useContext(ConfigurationContext)
+  console.log(configuration)
   const isFocused = useIsFocused()
   const [countryCode, setCountryCode] = useState('')
   const [currentCountry, setCurrentCountry] = useState(null)
@@ -53,6 +54,7 @@ const useRegister = () => {
 
       const response2 = await fetch(`https://ipinfo.io/${data.ip}/json`)
       const data2 = await response2.json()
+      console.log(data2)
       setCurrentCountry(data2.country)
       setCountryCode(data2.country)
 
@@ -63,6 +65,7 @@ const useRegister = () => {
       if (currentRetry < retryCount) {
         // Retry the request
         currentRetry++
+        console.log('Retrying...')
         return fetchIpAddress()
       }
     }
@@ -75,6 +78,8 @@ const useRegister = () => {
     const initializeCountry = async () => {
       try {
         const res = await fetchIpAddress()
+        console.log(res)
+        console.log(currentCountry)
         if (res) {
           const callingCode = countryCallingCodes[currentCountry]
           if (callingCode) {
@@ -89,6 +94,7 @@ const useRegister = () => {
           }
         } else {
           setCount(count + 1)
+          console.log('Failed to fetch IP address.')
         }
       } catch (error) {
         console.error('Error initializing country:', error)
@@ -99,6 +105,7 @@ const useRegister = () => {
   }, [count])
 
   const onCountrySelect = country => {
+    console.log(country)
     setCountryCode(country.cca2)
     setCountry(country)
   }
