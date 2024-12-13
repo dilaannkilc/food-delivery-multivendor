@@ -36,6 +36,7 @@ function PhoneNumber(props) {
   } = usePhoneNumber()
 
   const { t } = useTranslation()
+  console.log(country)
 
   useLayoutEffect(() => {
     props.navigation.setOptions(

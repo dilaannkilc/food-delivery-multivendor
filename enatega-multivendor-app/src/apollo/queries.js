@@ -298,7 +298,6 @@ export const order = `query Order($id:String!){
       deliveryAddress
       details
       label
-      id
     }
     restaurant{
       _id
@@ -361,7 +360,6 @@ export const myOrders = `query Orders($offset:Int){
     deliveryAddress{
       location{coordinates}
       deliveryAddress
-      id
     }
     items{
       _id
