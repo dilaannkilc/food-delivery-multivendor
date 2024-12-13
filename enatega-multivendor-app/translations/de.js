@@ -526,10 +526,6 @@ HighestRating: 'Höchste Bewertung',
 LowestRating: 'Niedrigste Bewertung',
   cartAddresses: 'Warenkorb-Adressen',
   addressDeletedMessage: 'Adresse gelöscht!',
-  logoutMessage: 'Erfolgreich ausgeloggt',
-  restaurantName: 'Restaurantname',
-  price: 'PREIS',
-  itemsAndQuantity: 'ARTIKEL UND MENGE',
-  selectCity: 'Stadt auswählen',
-  Location: 'Ort',
+  logoutMessage: 'Erfolgreich ausgeloggt'
+
 }
