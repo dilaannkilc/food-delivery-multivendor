@@ -421,7 +421,7 @@ function Restaurant(props) {
     }
   }
 
-  const iconColor = currentTheme.iconColorPink
+  const iconColor = currentTheme.white
 
   const iconBackColor = currentTheme.white
 
@@ -687,17 +687,16 @@ function Restaurant(props) {
                     return null // Don't render the section header if dataList is empty
                   }
                   return (
-                    <View style={{ backgroundColor: '#fff' }}>
+                    <View style={styles(currentTheme).restaurantItems}>
                       <TextDefault
                         style={styles(currentTheme).sectionHeaderText}
                         textColor={currentTheme.fontFourthColor}
-                        bolder
-                      >
+                        bolder>
                         {title}
                       </TextDefault>
                       <TextDefault
                         textColor={currentTheme.fontFourthColor}
-                        style={{
+                        style={{                        
                           ...alignment.PLmedium,
                           ...alignment.PRmedium,
                           fontSize: scale(12),
@@ -723,12 +722,11 @@ function Restaurant(props) {
                 }
                 // Render other section headers as usual
                 return (
-                  <View style={{ backgroundColor: '#fff' }}>
+                  <View style={styles(currentTheme).sectionHeader}>
                     <TextDefault
                       style={styles(currentTheme).sectionHeaderText}
                       textColor={currentTheme.fontFourthColor}
-                      bolder
-                    >
+                      bolder>
                       {title}
                     </TextDefault>
                   </View>
@@ -821,11 +819,11 @@ function Restaurant(props) {
                           </View>
                         </View>
                       </View>
-                      <View style={styles().addToCart}>
+                      <View style={styles(currentTheme).addToCart}>
                         <MaterialIcons
                           name='add'
                           size={scale(20)}
-                          color='#fff'
+                          color={currentTheme.themeBackground}
                         />
                       </View>
                     </View>
