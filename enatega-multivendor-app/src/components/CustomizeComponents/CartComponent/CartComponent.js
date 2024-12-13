@@ -6,10 +6,10 @@ import { theme } from '../../../utils/themeColors'
 import TextDefault from '../../Text/TextDefault/TextDefault'
 import { AntDesign } from '@expo/vector-icons'
 import { scale } from '../../../utils/scaling'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 function CartComponent(props) {
-  const { t } = useTranslation()
+  const {t} = useTranslation()
   const [quantity, setQuantity] = useState(1)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
@@ -27,12 +27,12 @@ function CartComponent(props) {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={onRemove}
-          style={styles(currentTheme).icon}>
-          <AntDesign name="minus" size={scale(16)} color={currentTheme.themeBackground} />
+          style={styles().icon}>
+          <AntDesign name="minus" size={scale(16)} color={currentTheme.white} />
         </TouchableOpacity>
         <TextDefault
           textColor={currentTheme.fontMainColor}
-          style={styles(currentTheme).quantity}
+          style={styles().quantity}
           H4
           bold
           center>
@@ -41,8 +41,8 @@ function CartComponent(props) {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={onAdd}
-          style={styles(currentTheme).icon}>
-          <AntDesign name="plus" size={scale(16)} color={currentTheme.themeBackground} />
+          style={styles().icon}>
+          <AntDesign name="plus" size={scale(16)} color={currentTheme.white} />
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.7}
@@ -51,9 +51,9 @@ function CartComponent(props) {
             !props.disabled
               ? styles(currentTheme).btnContainer
               : {
-                ...styles().btnContainer,
-                backgroundColor: currentTheme.main
-              }
+                  ...styles().btnContainer,
+                  backgroundColor: currentTheme.main
+                }
           }>
           <TextDefault textColor={currentTheme.black} H5 bolder center>
             {t('addToCart')}

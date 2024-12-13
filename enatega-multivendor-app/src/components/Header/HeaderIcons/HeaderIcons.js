@@ -5,8 +5,7 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
   AntDesign,
-  Feather,
-  SimpleLineIcons
+  Feather
 } from '@expo/vector-icons'
 import { scale } from '../../../utils/scaling'
 import styles from './styles'
@@ -24,6 +23,7 @@ import { theme } from '../../../utils/themeColors'
 import { HeaderBackButton } from '@react-navigation/elements'
 import UserContext from '../../../context/User'
 import { alignment } from '../../../utils/alignment'
+import CartIcon from '../../../assets/SVG/imageComponents/CartIcon'
 import { useTranslation } from 'react-i18next'
 
 const rippleColor = '#6FCF97'
@@ -31,39 +31,39 @@ function BackButton(props) {
   if (props.icon === 'leftArrow') {
     return (
       <Ionicons
-        name='ios-arrow-back'
-        size={18}
+        name="arrow-back"
+        size={16}
         style={styles().leftIconPadding}
         color={props.iconColor}
       />
     )
   } else if (props.icon === 'menu') {
     return (
-      <SimpleLineIcons
-        name='menu'
-        size={20}
-        color={props.iconColorDark}
+      <Ionicons
+        name="menu"
+        size={30}
         style={styles().leftIconPadding}
+        color={props.iconColor}
       />
     )
   } else if (props.icon === 'dots') {
     return (
       <MaterialCommunityIcons
-        name='dots-vertical'
+        name="dots-vertical"
         size={25}
         color={props.iconColor}
       />
     )
   } else if (props.icon === 'target') {
     return (
-      <MaterialIcons name='my-location' size={16} color={props.iconColorDark} />
+      <MaterialIcons name="my-location" size={16} color={props.iconColor} />
     )
   } else if (props.icon === 'fav') {
-    return <AntDesign name='hearto' size={20} color={props.iconColorDark} />
+    return <AntDesign name="hearto" size={20} color={props.iconColor} />
   } else {
     return (
       <EvilIcons
-        name='close'
+        name="close"
         size={16}
         style={styles().leftIconPadding}
         color={props.iconColor}
@@ -77,7 +77,7 @@ function LeftButton(props) {
   if (props.icon === 'back') {
     return (
       <HeaderBackButton
-        truncatedLabel=''
+        truncatedLabel=""
         backImage={() =>
           BackButton({ iconColor: props.iconColor, icon: 'leftArrow' })
         }
@@ -89,15 +89,15 @@ function LeftButton(props) {
   } else if (props.icon === 'close') {
     return (
       <HeaderBackButton
-        truncatedLabel=''
+        truncatedLabel=""
         pressColorAndroid={rippleColor}
         labelVisible={false}
         backImage={() =>
           BackButton({ iconColor: props.iconColor, icon: 'close' })
         }
         onPress={() => {
-          navigation.dispatch((state) => {
-            const routes = state.routes.filter((r) => r.name === 'Main')
+          navigation.dispatch(state => {
+            const routes = state.routes.filter(r => r.name === 'Main')
             return CommonActions.reset({
               ...state,
               routes,
@@ -110,7 +110,7 @@ function LeftButton(props) {
   } else if (props.toggle) {
     return (
       <HeaderBackButton
-        truncatedLabel=''
+        truncatedLabel=""
         labelVisible={false}
         backImage={() =>
           BackButton({
@@ -121,14 +121,14 @@ function LeftButton(props) {
         onPress={() =>
           props.toggleValue
             ? navigation.goBack()
-            : props.toggleView((prev) => !prev)
+            : props.toggleView(prev => !prev)
         }
       />
     )
   } else {
     return (
       <HeaderBackButton
-        truncatedLabel=''
+        truncatedLabel=""
         pressColorAndroid={rippleColor}
         labelVisible={false}
         backImage={() =>
@@ -149,35 +149,37 @@ function RightButton(props) {
   const currentTheme = theme[themeContext.ThemeValue]
   const { cartCount, isLoggedIn, profile } = useContext(UserContext)
   function showPasswordButton() {
-    props.titlePosition((prev) => !prev)
-    setPassword((prev) => !prev)
+    props.titlePosition(prev => !prev)
+    setPassword(prev => !prev)
   }
   function clickPasswordButton() {
-    props.titlePosition((prev) => !prev)
-    setPassword((prev) => !prev)
-    props.modalVisible((prev) => !prev)
+    props.titlePosition(prev => !prev)
+    setPassword(prev => !prev)
+    props.modalVisible(prev => !prev)
   }
 
   function cartIcon() {
     return (
-      <View style={styles().rightContainer}>
-        <SimpleLineIcons
-          name='handbag'
-          size={24}
-          color={currentTheme.black}
+      <View style={[styles().rightContainer, { ...alignment.PLsmall }]}>
+        <Feather
+          name="shopping-bag"
+          size={25}
+          color={currentTheme.darkBgFont}
         />
         <View
           style={
             styles(route.name === 'Main' ? 'black' : currentTheme.white)
               .absoluteContainer
-          }
-        >
+          }>
           <TextDefault
-            textColor={currentTheme.white}
+            textColor={
+              route.name === 'Main'
+                ? currentTheme.fontWhite
+                : currentTheme.black
+            }
             style={{ fontSize: scale(12) }}
             center
-            bolder
-          >
+            bolder>
             {cartCount}
           </TextDefault>
         </View>
@@ -201,21 +203,19 @@ function RightButton(props) {
           <TouchableOpacity
             activeOpacity={0.7}
             style={[styles().rightContainer, styles().passwordContainer]}
-            onPress={clickPasswordButton}
-          >
+            onPress={clickPasswordButton}>
             <View style={styles(currentTheme.cartContainer).titlePasswordText}>
               <TextDefault
                 style={{ fontSize: scale(11) }}
                 textColor={currentTheme.fontMainColor}
-                bold
-              >
+                bold>
                 {t('changePassword')}
               </TextDefault>
             </View>
           </TouchableOpacity>
         ) : (
           <HeaderBackButton
-            truncatedLabel=''
+            truncatedLabel=""
             labelVisible={false}
             backImage={() => (
               <View style={styles().rightContainer}>
@@ -231,7 +231,7 @@ function RightButton(props) {
     return (
       <View style={{ flexDirection: 'row' }}>
         <HeaderBackButton
-          truncatedLabel=''
+          truncatedLabel=""
           pressColorAndroid={route.name === 'Main' && rippleColor}
           labelVisible={false}
           backImage={() => (
@@ -248,7 +248,7 @@ function RightButton(props) {
         />
         {cartCount >= 0 && (
           <HeaderBackButton
-            truncatedLabel=''
+            truncatedLabel=""
             pressColorAndroid={route.name === 'Main' && rippleColor}
             labelVisible={false}
             backImage={cartIcon}
@@ -260,7 +260,7 @@ function RightButton(props) {
   } else if (props.icon === 'target') {
     return (
       <HeaderBackButton
-        truncatedLabel=''
+        truncatedLabel=""
         pressColorAndroid={rippleColor}
         labelVisible={false}
         backImage={() => (
@@ -279,34 +279,17 @@ function DarkBackButton(props) {
   return (
     <View
       style={{
-        backgroundColor: props.icon,
+        backgroundColor: props.iconBackground,
+        margin: 5,
         borderRadius: 5
-      }}
-    >
+      }}>
       <Ionicons
-        name='close-circle-outline'
+        name="chevron-back-outline"
         size={20}
         style={styles().darkBackArrow}
-        color={props.iconBackground}
+        color={props.iconColor}
       />
     </View>
   )
 }
-function HelpButton(props) {
-  const { t } = props
-  return (
-    <TouchableOpacity
-      style={{
-        backgroundColor: props.iconBackground,
-        borderRadius: scale(10),
-        margin: scale(5)
-      }}
-      onPress={() => props.navigation.navigate('Help')}
-    >
-      <TextDefault style={styles().rightButtonContainer} center small bold>
-        {t('help')}
-      </TextDefault>
-    </TouchableOpacity>
-  )
-}
-export { BackButton, LeftButton, RightButton, DarkBackButton, HelpButton }
+export { BackButton, LeftButton, RightButton, DarkBackButton }
