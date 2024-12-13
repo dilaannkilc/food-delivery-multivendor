@@ -248,6 +248,7 @@ function Restaurant(props) {
     if (!restaurantCart || food.restaurant === restaurantCart) {
       await addToCart(food, food.restaurant !== restaurantCart)
     } else if (food.restaurant !== restaurantCart) {
+      const { t } = useTranslation()
 
       Alert.alert(
         '',
