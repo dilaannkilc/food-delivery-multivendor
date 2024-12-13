@@ -6,7 +6,7 @@ const styles = (props = null) =>
   StyleSheet.create({
     flex: {
       flex: 1,
-      
+      backgroundColor: props !== null ? props.white : 'transparent'
     },
     width100: {
       width: '100%'
@@ -15,7 +15,7 @@ const styles = (props = null) =>
       width: '10%'
     },
     titleAddress: {
-      flexDirection: 'row'
+      flexDirection: 'row',
     },
     homeIcon: {
       width: '20%',
@@ -26,23 +26,13 @@ const styles = (props = null) =>
       width: scale(15),
       height: scale(15)
     },
-    cartAddress:{
-      ...alignment.PBmedium,
-      backgroundColor: props !== null ? props.themeBackground : 'transparent',
-
-    },
     addressContainer: {
-      width: '93%',
+      width: '90%',
       alignSelf: 'center',
       borderRadius: scale(10),
-      backgroundColor: props !== null ? props.gray100 : 'transparent',
+      backgroundColor: props != null ? props.radioOuterColor : 'white',
       ...alignment.PTsmall,
-      ...alignment.PBsmall,
-      ...alignment.PRsmall,
-      ...alignment.PLsmall,
-      borderWidth: 1,
-      alignSelf: 'center',
-      borderColor: props !== null ? props.gray200 : '#E5E7EB'
+      ...alignment.PBsmall
     },
     addressDetail: {
       width: '80%',
@@ -56,7 +46,6 @@ const styles = (props = null) =>
       ...alignment.MTmedium,
       ...alignment.MBmedium
     },
-    
     containerSpace: {
       backgroundColor: props !== null ? props.gray100 : 'transparent',
       width: '92%',
@@ -65,7 +54,7 @@ const styles = (props = null) =>
       borderRadius: scale(10),
       borderWidth: 1,
       alignSelf: 'center',
-      borderColor: props !== null ? props.gray200 : '#E5E7EB',
+      borderColor: props !== null ? props.gray200 : '#E5E7EB'
     }
   })
 export default styles

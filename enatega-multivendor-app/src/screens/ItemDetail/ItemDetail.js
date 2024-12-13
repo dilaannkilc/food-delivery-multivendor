@@ -88,10 +88,10 @@ function ItemDetail(props) {
       title: food.restaurantName,
       headerTitleAlign: 'center',
       headerStyle: {
-        backgroundColor: currentTheme.newheaderBG
+        backgroundColor: currentTheme.white
       },
       headerTitleStyle: {
-        color: currentTheme.newFontcolor
+        color: currentTheme.black
       },
       headerShadowVisible: false,
       headerLeft: () => (
@@ -99,7 +99,7 @@ function ItemDetail(props) {
           truncatedLabel=''
           backImage={() => (
             <View style={styles(currentTheme).backBtnContainer}>
-              <MaterialIcons name="arrow-back" size={25} color={currentTheme.newIconColor} />
+              <MaterialIcons name='arrow-back' size={25} color='black' />
             </View>
           )}
           onPress={() => {
@@ -370,7 +370,6 @@ function ItemDetail(props) {
                 baseColor={currentTheme.lightHorizontalLine}
                 errorColor={currentTheme.textErrorColor}
                 tintColor={currentTheme.themeBackground}
-                placeholderTextColor={currentTheme.fontGrayNew}
               />
             </View>
             {/** frequently bought together */}

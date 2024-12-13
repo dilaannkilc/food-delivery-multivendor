@@ -223,12 +223,12 @@ function Main(props) {
     if (loading || mutationLoading || loadingOrders) return <MainLoadingUI />
     else {
       return (
-        <View style={styles(currentTheme).emptyViewContainer}>
-          <View style={styles(currentTheme).emptyViewBox}>
+        <View style={styles().emptyViewContainer}>
+          <View style={styles().emptyViewBox}>
             <TextDefault bold H4 center textColor={currentTheme.fontMainColor}>
               {t('notAvailableinYourArea')}
             </TextDefault>
-            <TextDefault textColor={currentTheme.fontGrayNew} center>
+            <TextDefault textColor={currentTheme.fontMainColor} center>
               {t('noRestaurant')}
             </TextDefault>
           </View>
@@ -246,7 +246,7 @@ function Main(props) {
           onPress={() => {
             if (isLoggedIn) {
               navigation.navigate('AddNewAddress', {
-                locationData
+                ...locationData
               })
             } else {
               const modal = modalRef.current
@@ -319,7 +319,7 @@ function Main(props) {
           <View style={styles().flex}>
             <View style={styles().mainContentContainer}>
               <View style={[styles().flex, styles().subContainer]}>
-                <View style={styles(currentTheme).searchbar}>
+                <View style={styles().searchbar}>
                   <Search
                     setSearch={setSearch}
                     search={search}

@@ -50,13 +50,14 @@ function About(props) {
       style={[
         { marginTop: inset.top },
         styles().flex,
-        { backgroundColor: currentTheme.newheaderBG }
-      ]}>
+        { backgroundColor: currentTheme.headerMenuBackground }
+      ]}
+    >
       <ImageHeader
-        iconColor={currentTheme.color3}
-        svgNameL="leftArrow"
+        iconColor={currentTheme.iconColorPink}
+        svgNameL='leftArrow'
         restaurantImage={restaurantObject.restaurantImage}
-        iconBackColor={currentTheme.color3}
+        iconBackColor={currentTheme.white}
         restaurantName={restaurantObject.restaurantName}
         deliveryTime={restaurantObject.deliveryTime}
         total={restaurantObject.total}

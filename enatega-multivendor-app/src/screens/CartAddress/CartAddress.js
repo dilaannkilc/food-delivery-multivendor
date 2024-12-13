@@ -40,7 +40,7 @@ function CartAddresses(props) {
       headerRight: null,
       headerTitleAlign: 'center',
       headerTitleStyle: {
-        color: currentTheme.newFontcolor,
+        color: currentTheme.btnText,
         fontWeight: 'bold'
       },
       headerTitleContainerStyle: {
@@ -51,7 +51,7 @@ function CartAddresses(props) {
         marginLeft: 0
       },
       headerStyle: {
-        backgroundColor: currentTheme.newheaderBG,
+        backgroundColor: currentTheme.white,
         elevation: 0
       },
       headerLeft: () => (
@@ -59,7 +59,7 @@ function CartAddresses(props) {
           truncatedLabel=""
           backImage={() => (
             <View>
-              <MaterialIcons name="arrow-back" size={30} color={currentTheme.newIconColor} />
+              <MaterialIcons name="arrow-back" size={30} color="black" />
             </View>
           )}
           onPress={() => {
@@ -94,7 +94,7 @@ function CartAddresses(props) {
 
   return (
     <>
-      <View style={[styles().flex, styles(currentTheme).cartAddress]}>
+      <View style={styles(currentTheme).flex}>
         {!location._id && (
           <View
             style={{
@@ -129,8 +129,9 @@ function CartAddresses(props) {
                     style={{ width: '70%' }}
                     H5
                     bold
+                    left
                   >
-                    {location.label}
+                    {t(location.label)}
                   </TextDefault>
                   <TouchableOpacity
                     activeOpacity={0.7}

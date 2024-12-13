@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { alignment } from '../../../utils/alignment'
 import { theme } from '../../../utils/themeColors'
 
-const styles = (props = null, newheaderColor = '#fafafa') =>
+const styles = (props = null, newheaderColor = '#fafafa', cartContainer = '#fafafa') =>
   StyleSheet.create({
     bodyStyleOne: {
       fontFamily: fontStyles.MuseoSans500,
@@ -17,7 +17,7 @@ const styles = (props = null, newheaderColor = '#fafafa') =>
       zIndex: 333,
       width: '100%',
       alignItems: 'center',     
-      // backgroundColor: props != null ? props.main : 'black',
+      backgroundColor: newheaderColor,
       shadowColor: props != null ? props.shadowColor : 'black',
       shadowOffset: {
         width: 0,
@@ -34,8 +34,7 @@ const styles = (props = null, newheaderColor = '#fafafa') =>
       alignItems: 'center',
       alignSelf: 'center',
       borderRadius: scale(40),
-      backgroundColor: props != null ? props.color1 : 'black',
-
+      backgroundColor: cartContainer,
       shadowColor: props != null ? props.shadowColor : 'black',
       shadowOffset: {
         width: 0,

@@ -90,10 +90,8 @@ function Addresses() {
       headerLeft: () => (
         <HeaderBackButton
           truncatedLabel=''
-         
           backImage={() => (
             <View>
-              <MaterialIcons name='arrow-back' size={30} color='black' />
               <MaterialIcons name='arrow-back' size={30} color='black' />
             </View>
           )}
@@ -109,7 +107,7 @@ function Addresses() {
     Home: CustomHomeIcon,
     Work: CustomWorkIcon,
     Other: CustomOtherIcon,
-    House: CustomHomeIcon,
+    House: CustomHomeIcon
   }
 
   function emptyView() {
@@ -144,7 +142,6 @@ function Addresses() {
         data={profile?.addresses}
         ListEmptyComponent={emptyView}
         keyExtractor={(item) => item._id}
-        
         ItemSeparatorComponent={() => (
           <View style={styles(currentTheme).line} />
         )}
@@ -154,16 +151,8 @@ function Addresses() {
             activeOpacity={0.7}
             style={[styles(currentTheme).containerSpace]}
           >
-            
             <View style={[styles().width100, styles().rowContainer]}>
               <View style={[styles(currentTheme).homeIcon]}>
-                {addressIcons[address.label]
-                  ? React.createElement(addressIcons[address.label], {
-                      fill: currentTheme.darkBgFont
-                    })
-                  : React.createElement(addressIcons['Other'], {
-                      fill: currentTheme.darkBgFont
-                    })}
                 {addressIcons[address.label]
                   ? React.createElement(addressIcons[address.label], {
                       fill: currentTheme.darkBgFont
@@ -177,7 +166,6 @@ function Addresses() {
                   textColor={currentTheme.darkBgFont}
                   style={styles(currentTheme).labelStyle}
                 >
-                 
                   {t(address.label)}
                 </TextDefault>
               </View>
@@ -187,8 +175,6 @@ function Addresses() {
                   activeOpacity={0.7}
                   onPress={() => {
                     const [longitude, latitude] = address.location.coordinates
-
-                    console.log(longitude, latitude,address._id )
                     navigation.navigate('AddNewAddress', {
                       id:address._id,
                       longitude: +longitude,
@@ -198,7 +184,6 @@ function Addresses() {
                 >
                   <SimpleLineIcons
                     name='pencil'
-                   
                     size={scale(20)}
                     color={currentTheme.darkBgFont}
                   />
@@ -211,10 +196,8 @@ function Addresses() {
                     mutate({ variables: { id: address._id } })
                   }}
                 >
-                  
                   <EvilIcons
                     name='trash'
-                   
                     size={scale(33)}
                     color={currentTheme.darkBgFont}
                   />
@@ -229,7 +212,6 @@ function Addresses() {
                   textColor={currentTheme.darkBgFont}
                   style={{ ...alignment.PBxSmall }}
                 >
-                  
                   {address.deliveryAddress}
                 </TextDefault>
               </View>
@@ -245,7 +227,6 @@ function Addresses() {
             style={styles(currentTheme).addButton}
             onPress={() => navigation.navigate('SelectLocation')}
           >
-            
             <TextDefault H5 bold>
               {t('addAddress')}
             </TextDefault>

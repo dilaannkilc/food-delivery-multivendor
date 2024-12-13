@@ -13,8 +13,5 @@ export const styles = StyleSheet.create({
   text: {
     padding: scale(5),
     paddingHorizontal: scale(10)
-  },
-  reviewCardSec:{
-    paddingBottom:scale(20)
   }
 })
