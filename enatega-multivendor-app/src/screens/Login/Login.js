@@ -21,6 +21,7 @@ import { scale } from '../../utils/scaling'
 
 function Login(props) {
   const {
+    email,
     setEmail,
     password,
     setPassword,
@@ -33,8 +34,7 @@ function Login(props) {
     currentTheme,
     showPassword,
     setShowPassword,
-    checkEmailExist,
-    emailRef
+    checkEmailExist
   } = useLogin()
   const { t } = useTranslation()
   useLayoutEffect(() => {
@@ -97,8 +97,7 @@ function Login(props) {
                           : {}
                       ]}
                       placeholderTextColor={currentTheme.fontSecondColor}
-                      // value={email}
-                      defaultValue='demo-customer@enatega.com'
+                      value={email}
                       onChangeText={e => setEmail(e.toLowerCase().trim())}
                     />
                     {emailError !== null && (
@@ -153,7 +152,7 @@ function Login(props) {
                         style={alignment.MBsmall}
                         activeOpacity={0.7}
                         onPress={() =>
-                          props.navigation.navigate('ForgotPassword', { email : emailRef.current})
+                          props.navigation.navigate('ForgotPassword', { email })
                         }>
                         <TextDefault
                           textColor={currentTheme.main}
@@ -169,8 +168,8 @@ function Login(props) {
                   <TouchableOpacity
                     onPress={() =>
                       registeredEmail
-                        ? loginAction(emailRef.current, password)
-                        : checkEmailExist()
+                        ? loginAction(email, password)
+                        : checkEmailExist(email)
                     }
                     activeOpacity={0.7}
                     style={styles(currentTheme).btn}>
