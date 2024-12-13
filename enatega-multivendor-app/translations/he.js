@@ -493,8 +493,11 @@ export const he = {
   '5 star Rating': 'דירוג 5 כוכבים',
   searchGrocery: 'חפש חנויות בכלי מזון',
   Newest: 'החדש ביותר',
-  HighestRating: 'הדירוג הגבוה ביותר',
-  LowestRating: 'הדירוג הנמוך ביותר',
-  phoneNumberExist: 'מספר הטלפון שסופק כבר קיים!',
-  phoneCheckingError: 'שגיאה בעת בדיקת מספר הטלפון. נסה שוב מאוחר יותר!'
+HighestRating: 'הדירוג הגבוה ביותר',
+LowestRating: 'הדירוג הנמוך ביותר',
+restaurantName: 'שם המסעדה',
+price: 'מחיר',
+itemsAndQuantity: 'פריטים וכמות',
+selectCity: 'בחר עיר',
+Location: 'מיקום',
 }
