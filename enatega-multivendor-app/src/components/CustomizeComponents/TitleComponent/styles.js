@@ -16,10 +16,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '25%',
-    backgroundColor: '#F3F4F6',
-    borderRadius: scale(20),
-    borderWidth:scale(1),
-    borderColor:'#E5E7EB'
+    backgroundColor: theme.Pink.gray100,
+    borderRadius: scale(20)
   }
 })
 export default styles

@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import React, { useContext } from 'react'
+import React from 'react'
 import TextDefault from '../Text/TextDefault/TextDefault'
 import Row from './Row'
 import { scale } from '../../utils/scaling'
@@ -9,8 +9,6 @@ import {
 } from '../../apollo/queries'
 import { gql, useApolloClient, useQuery } from '@apollo/client'
 import { useTranslation } from 'react-i18next'
-import ThemeContext from '../../ui/ThemeContext/ThemeContext'
-import { theme } from '../../utils/themeColors'
 
 const RELATED_ITEMS = gql`
   ${relatedItemsQuery}
@@ -21,8 +19,7 @@ const RESTAURANT = gql`
 
 const Section = ({ itemId, restaurantId }) => {
   const { t } = useTranslation()
-  const themeContext = useContext(ThemeContext)
-  const currentTheme = theme[themeContext.ThemeValue]
+
   const client = useApolloClient()
   const { loading, error, data } = useQuery(RELATED_ITEMS, {
     variables: { itemId, restaurantId }
@@ -41,7 +38,9 @@ const Section = ({ itemId, restaurantId }) => {
   return (
     <View style={{ margin: 10 }}>
       <View style={{ marginBottom: scale(15) }}>
-        <TextDefault H4 bolder textColor={currentTheme.newFontcolor}>{t('frequentlyBoughtTogether')}</TextDefault>
+        <TextDefault H4 bolder>
+          {t('frequentlyBoughtTogether')}
+        </TextDefault>
       </View>
       {slicedItems.map((id) => (
         <Row key={id} id={id} restaurant={result.restaurant} />

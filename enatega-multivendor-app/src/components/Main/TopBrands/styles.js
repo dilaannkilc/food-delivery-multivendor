@@ -9,10 +9,6 @@ const styles = (props = null) =>
     topbrandsSec: {
       ...alignment.PLmedium
     },
-    topbrandsHeading:{
-      ...alignment.PRmedium
-
-    },
     brandImg: {
       width: '100%',
       // aspectRatio: 18/8,
