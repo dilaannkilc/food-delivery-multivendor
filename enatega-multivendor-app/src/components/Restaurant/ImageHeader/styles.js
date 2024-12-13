@@ -64,6 +64,7 @@ const styles = (props = null) =>
     },
     restaurantAbout: {
       fontSize: scale(14),
+      color: props != null ? props.fontMainColor : 'white',
       fontWeight: '500'
     },
     fixedText: {

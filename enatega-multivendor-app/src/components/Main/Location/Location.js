@@ -39,7 +39,7 @@ function Location(props) {
           <View style={styles(currentTheme).headerContainer}>
             <TextDefault textColor={props.fontFourthColor} left>
               {''}
-              {t(translatedLabel)}
+              {translatedLabel}
             </TextDefault>
             <TouchableOpacity
               activeOpacity={1}

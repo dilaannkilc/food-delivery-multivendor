@@ -311,13 +311,13 @@ function ImageTextCenterHeader(props, ref) {
                 </View>
               </View>
               <View style={{ display: 'flex', flexDirection: 'row', gap: 7 }}>
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>
+                <Text style={styles().restaurantAbout}>
                   {distance.toFixed(2)}km {t('away')}
-                </TextDefault>
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>|</TextDefault>
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>
+                </Text>
+                <Text style={styles().restaurantAbout}>|</Text>
+                <Text style={styles().restaurantAbout}>
                   ${aboutObject.restaurantTax} {t('deliveryCharges')}
-                </TextDefault>
+                </Text>
               </View>
               <View
                 style={{
@@ -327,13 +327,13 @@ function ImageTextCenterHeader(props, ref) {
                   marginTop: scale(5)
                 }}
               >
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>
+                <Text style={styles().restaurantAbout}>
                   ${aboutObject.restaurantMinOrder} {t('minimum')}
-                </TextDefault>
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>|</TextDefault>
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>
+                </Text>
+                <Text style={styles().restaurantAbout}>|</Text>
+                <Text style={styles().restaurantAbout}>
                   {t('serviceFeeApply')}
-                </TextDefault>
+                </Text>
               </View>
               <View
                 style={{
@@ -387,11 +387,12 @@ function ImageTextCenterHeader(props, ref) {
                     tab: false
                   })}>
                   <TextDefault
-                    textColor= {currentTheme.editProfileButton}
+                                        textColor= {currentTheme.editProfileButton}
+
                     style={{
                       fontSize: scale(14),
                       fontWeight: '600',
-                     
+                      color: '#3B82F6'
                     }}
                   >
                     {t('seeReviews')}

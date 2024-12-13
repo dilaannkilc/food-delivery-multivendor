@@ -421,7 +421,7 @@ function Restaurant(props) {
     }
   }
 
-  const iconColor = currentTheme.white
+  const iconColor = currentTheme.iconColorPink
 
   const iconBackColor = currentTheme.white
 
@@ -819,7 +819,7 @@ function Restaurant(props) {
                           </View>
                         </View>
                       </View>
-                      <View style={styles(currentTheme).addToCart}>
+                      <View style={styles().addToCart}>
                         <MaterialIcons
                           name='add'
                           size={scale(20)}

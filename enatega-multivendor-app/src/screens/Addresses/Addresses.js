@@ -73,7 +73,7 @@ function Addresses() {
       headerRight: null,
       headerTitleAlign: 'center',
       headerTitleStyle: {
-        color: currentTheme.newFontcolor,
+        color: '#000',
         fontWeight: 'bold'
       },
       headerTitleContainerStyle: {
@@ -84,7 +84,7 @@ function Addresses() {
         marginLeft: 0
       },
       headerStyle: {
-        backgroundColor: currentTheme.newheaderBG,
+        backgroundColor: currentTheme.white,
         elevation: 0
       },
       headerLeft: () => (
@@ -93,8 +93,8 @@ function Addresses() {
          
           backImage={() => (
             <View>
-              <MaterialIcons name='arrow-back' size={30} color={currentTheme.newIconColor} />
-            
+              <MaterialIcons name='arrow-back' size={30} color='black' />
+              <MaterialIcons name='arrow-back' size={30} color='black' />
             </View>
           )}
           onPress={() => {
@@ -164,7 +164,13 @@ function Addresses() {
                   : React.createElement(addressIcons['Other'], {
                       fill: currentTheme.darkBgFont
                     })}
-               
+                {addressIcons[address.label]
+                  ? React.createElement(addressIcons[address.label], {
+                      fill: currentTheme.darkBgFont
+                    })
+                  : React.createElement(addressIcons['Other'], {
+                      fill: currentTheme.darkBgFont
+                    })}
               </View>
               <View style={[styles().titleAddress]}>
                 <TextDefault
@@ -181,8 +187,6 @@ function Addresses() {
                   activeOpacity={0.7}
                   onPress={() => {
                     const [longitude, latitude] = address.location.coordinates
-
-                    console.log(longitude, latitude,address._id )
                     navigation.navigate('AddNewAddress', {
                       id:address._id,
                       longitude: +longitude,

@@ -43,7 +43,7 @@ const styles = (props = null) =>
       ...alignment.PTmedium,
     },
     languageContainer: {
-      width: '95%',
+      width: '100%',
       backgroundColor: props !== null ? props.gray100 : '#FFF',
       borderRadius: scale(10),
       borderWidth: 1,

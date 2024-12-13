@@ -57,13 +57,13 @@ function PhoneOtp(props) {
       <View style={styles(currentTheme).mainContainer}>
         <View style={styles().subContainer}>
           <View style={styles().logoContainer}>
-            <Ionicons name='phone-portrait-outline' size={30}  color={currentTheme.newIconColor}/>
+            <Ionicons name='phone-portrait-outline' size={30} color='black' />
           </View>
           <View>
             <TextDefault
               H3
               bolder
-               textColor={currentTheme.newFontcolor}
+              textColor={currentTheme.fontfourthColor}
               style={{
                 ...alignment.MTlarge,
                 ...alignment.MBmedium
@@ -74,7 +74,7 @@ function PhoneOtp(props) {
             <TextDefault
               H5
               bold
-              textColor={currentTheme.color6}
+              textColor={currentTheme.fontSecondColor}
               style={{
                 paddingBottom: scale(5)
               }}

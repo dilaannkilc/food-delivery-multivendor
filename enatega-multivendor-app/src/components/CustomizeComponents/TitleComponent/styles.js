@@ -16,10 +16,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '25%',
-    backgroundColor: '#F3F4F6',
+    backgroundColor: theme === 'Dark' ? '#6B7280' : 'transparent',
     borderRadius: scale(20),
     borderWidth:scale(1),
-    borderColor:'#E5E7EB'
+    borderColor:'#6B7280'
   }
 })
 export default styles
