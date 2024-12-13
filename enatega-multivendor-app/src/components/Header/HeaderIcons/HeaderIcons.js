@@ -293,18 +293,17 @@ function DarkBackButton(props) {
   )
 }
 function HelpButton(props) {
-  const { t } = useTranslation()
-  const navigation = useNavigation()
+  const { t } = props
   return (
     <TouchableOpacity
       style={{
         backgroundColor: props.iconBackground,
         borderRadius: scale(10),
-        margin: scale(5)
+        marginRight: scale(5)
       }}
-      onPress={() => navigation.navigate('Help')}
+      onPress={() => props.navigation.navigate('Help')}
     >
-      <TextDefault style={{ padding: scale(5), width: 55, textAlign: 'center' }} small bold>
+      <TextDefault style={{ padding: scale(7) }} small bold>
         {t('help')}
       </TextDefault>
     </TouchableOpacity>
