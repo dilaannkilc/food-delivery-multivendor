@@ -192,7 +192,7 @@ function OrderDetail(props) {
                     textColor={currentTheme.gray500}
                     H5
                   >
-                    {t('estimatedDeliveryTime')}
+                    Estimated delivery time
                   </TextDefault>
                   <TextDefault
                     style={{ ...alignment.MTxSmall }}
@@ -201,7 +201,7 @@ function OrderDetail(props) {
                     H1
                     bolder
                   >
-                    {remainingTime}-{remainingTime + 5} {t('mins')}
+                    {remainingTime}-{remainingTime + 5} mins
                   </TextDefault>
                   <ProgressBar
                     configuration={configuration}
