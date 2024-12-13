@@ -129,9 +129,8 @@ function CartAddresses(props) {
                     style={{ width: '70%' }}
                     H5
                     bold
-                    left
                   >
-                    {t(location.label)}
+                    {location.label}
                   </TextDefault>
                   <TouchableOpacity
                     activeOpacity={0.7}

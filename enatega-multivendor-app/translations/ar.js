@@ -510,14 +510,5 @@ HighestRating: 'أعلى تقييم',
 LowestRating: 'أقل تقييم',
   cartAddresses: 'عناوين السلة',
   addressDeletedMessage: 'تم حذف العنوان!',
-  logoutMessage: 'تم تسجيل الخروج بنجاح',
-  restaurantName: 'اسم المطعم',
-  price: 'السعر',
-  itemsAndQuantity: 'العناصر والكمية',
-  selectCity: 'اختر المدينة',
-Location: 'الموقع',
-
-
-
-
+  logoutMessage: 'تم تسجيل الخروج بنجاح'
 }

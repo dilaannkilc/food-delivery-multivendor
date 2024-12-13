@@ -523,10 +523,5 @@ HighestRating: 'Meilleure évaluation',
 LowestRating: 'Plus basse évaluation',
   cartAddresses: 'Adresses du panier',
   addressDeletedMessage: 'Adresse supprimée !',
-  logoutMessage: 'Déconnexion réussie',
-  restaurantName: 'Nom du restaurant',
-  price: 'PRIX',
-  itemsAndQuantity: 'ARTICLES ET QUANTITÉ',
-  selectCity: 'Sélectionner une ville',
-  Location:'Lieu',
+  logoutMessage: 'Déconnexion réussie'
 }
