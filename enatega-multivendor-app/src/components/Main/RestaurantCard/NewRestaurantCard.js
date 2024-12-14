@@ -78,7 +78,7 @@ function NewRestaurantCard(props) {
                   <AntDesign
                     name={heart ? 'heart' : 'hearto'}
                     size={scale(15)}
-                    color={currentTheme.iconColor}
+                    color="black"
                   />
                 )}
               </View>

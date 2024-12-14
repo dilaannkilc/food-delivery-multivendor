@@ -71,10 +71,10 @@ export default function AddNewAddress(props) {
     navigation.setOptions(
       screenOptions({
         title: t('addAddress'),
-        fontColor: currentTheme.newFontcolor,
-        backColor: currentTheme.newheaderBG,
-        iconColor: currentTheme.newIconColor,
-        lineColor: currentTheme.newIconColor,
+        fontColor: currentTheme.fontMainColor,
+        backColor: currentTheme.white,
+        iconColor: currentTheme.black,
+        lineColor: currentTheme.lightHorizontalLine,
         setCurrentLocation
       })
     )
@@ -166,7 +166,7 @@ export default function AddNewAddress(props) {
         </View>
         <View style={styles(currentTheme).container2}>
           <TextDefault
-            textColor={currentTheme.newFontcolor}
+            textColor={currentTheme.buttonText}
             H3
             bolder
             Left
@@ -187,7 +187,7 @@ export default function AddNewAddress(props) {
             <TouchableOpacity onPress={() => setSearchModalVisible(true)}>
               <Text
                 style={{
-                  color: currentTheme.newFontcolor,
+                  color: currentTheme.buttonText,
                   overflow: 'scroll'
                 }}
               >
@@ -241,14 +241,14 @@ const CityModal = React.memo(
             setCityModalVisible(true)
           }}
         >
-          {selectedValue && <Text style={styles(theme).cityField}>{selectedValue}</Text>}
+          {selectedValue && <Text>{selectedValue}</Text>}
           {!selectedValue && (
-            <Text style={styles(theme).cityField}>{t('selectCity')}</Text>
+            <Text style={styles().placeholder}>{t('selectCity')}</Text>
           )}
           <Feather
             name='chevron-down'
             size={18}
-            color={theme.newIconColor}
+            color='black'
             style={styles().icon1}
           />
         </TouchableOpacity>

@@ -14,14 +14,11 @@ export default StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: scale(25),
-    width: scale(200),
-    borderColor: theme.newIconColor
+    width: scale(200)
   }),
   modalContainer: theme => ({
-    borderWidth:scale(1),
-    borderColor:theme.white,
     margin: 10,
-    backgroundColor: theme.themeBackground,
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
     // alignItems: 'center',

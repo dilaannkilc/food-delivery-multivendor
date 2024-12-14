@@ -47,9 +47,8 @@ const styles = (props = null) =>
       borderColor: props !== null ? props.borderColor : '#efefef',
       borderWidth: scale(1),
       borderRadius: scale(6),
-      backgroundColor: props !== null ? props.themeBackground : 'white',
+      backgroundColor: props !== null ? props.white : 'white',
       padding: scale(12),
-      color: props !==null ? props.newFontcolor : 'red',
       shadowColor: props !== null ? props.fontSecondColor : '#545454'
     },
     errorInput: {

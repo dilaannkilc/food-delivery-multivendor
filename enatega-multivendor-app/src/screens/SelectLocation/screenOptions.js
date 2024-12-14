@@ -26,7 +26,8 @@ const screenOptions = props => ({
   headerTitleContainerStyle: {
     marginHorizontal: scale(35)
   },
-  headerBackImage:()=>(<BackButton iconColor={props.iconColor} icon='leftArrow' />),
+  headerBackImage: () =>
+    BackButton({ iconColor: props.iconColor, icon: 'leftArrow' }),
   headerRight: () => (
     <RightButton
       icon="target"

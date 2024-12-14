@@ -38,7 +38,7 @@ const styles = (props = null) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
-      backgroundColor: props !== null ? props.themeBackground : 'transparent',
+      backgroundColor: props !== null ? props.cartContainer : 'transparent',
       ...alignment.MTxSmall
     },
     totalOrder: {
@@ -66,7 +66,7 @@ const styles = (props = null) =>
     },
     priceContainer: {
       width: '100%',
-      backgroundColor: props !== null ? props.themeBackground : 'transparent',
+      backgroundColor: props !== null ? props.cartContainer : 'transparent',
       borderRadius: scale(20),
       borderBottomColor:
         props !== null ? props.lightHorizontalLine : 'transparent',
@@ -75,7 +75,7 @@ const styles = (props = null) =>
       marginVertical: scale(13)
     },
     modal: {
-      backgroundColor: props != null ? props.themeBackground : '#FFF',
+      backgroundColor: props != null ? props.cartContainer : '#FFF',
       borderTopEndRadius: scale(20),
       borderTopStartRadius: scale(20),
       shadowOpacity: 0,
@@ -116,12 +116,14 @@ const styles = (props = null) =>
     deliveryTime: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: scale(12),
+      gap: scale(1),
       ...alignment.PLmedium,
       ...alignment.PRmedium,
       marginLeft: scale(2)
     },
-   
+    clockIcon: {
+      paddingRight: scale(5)
+    },
     suggestedItems: {
       paddingBottom: scale(30),
       ...alignment.PLlarge
@@ -171,17 +173,12 @@ const styles = (props = null) =>
     },
     changeBtn: {
       backgroundColor: props !== null ? props.main : 'gray',
+
       justifyContent: 'center',
       alignItems: 'center',
       width: scale(80),
       height: scale(30),
       borderRadius: 40
-    },
-    changeBtnInner:{
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 5
     },
     button: {
       backgroundColor: props !== null ? props.main : 'gray',
@@ -287,7 +284,7 @@ const styles = (props = null) =>
       width: '23%',
       borderWidth: 1,
       borderColor: props !== null ? props.iconBackground : 'transparent',
-      backgroundColor: props !== null ? props.color5 : 'transparent',
+      backgroundColor: props !== null ? props.newBorderColor : 'transparent',
       justifyContent: 'center',
       height: scale(37)
     },
@@ -303,7 +300,7 @@ const styles = (props = null) =>
       backgroundColor: props !== null ? props.themeBackground : '#6FCF97'
     },
     location: {
-      ...alignment.PLsmall,
+      ...alignment.PLmedium,
       ...alignment.PRmedium
     },
     mapView: {
@@ -325,14 +322,6 @@ const styles = (props = null) =>
     voucherSec: {
       ...alignment.PLmedium,
       ...alignment.PRmedium
-    },
-    voucherSecInner:{
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: scale(5),
-      marginTop: scale(10),
-      marginBottom: scale(10)
     },
     paymentSec: {
       ...alignment.PLmedium,
@@ -408,7 +397,7 @@ const styles = (props = null) =>
     modalheading: {
       display: 'flex',
       flexDirection: 'row',
-      alignItems: 'center',
+      alignContent: 'center',
       gap: 5
     },
     modalInput: {
@@ -416,8 +405,7 @@ const styles = (props = null) =>
       borderWidth: 1,
       borderColor: props != null ? props.verticalLine : '#B8B8B8',
       padding: 5,
-      borderRadius: 6,
-      color: props !== null ? props.newFontcolor : '#f9f9f9'
+      borderRadius: 6
     }
   })
 export default styles

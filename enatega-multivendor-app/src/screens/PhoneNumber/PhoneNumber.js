@@ -70,14 +70,14 @@ function PhoneNumber(props) {
                 <Ionicons
                   name="phone-portrait-outline"
                   size={30}
-                  color={currentTheme.newIconColor}
+                  color="black"
                 />
               </View>
               <View>
                 <TextDefault
                   H3
                   bolder
-                  textColor={currentTheme.newFontcolor}
+                  textColor={currentTheme.fontfourthColor}
                   style={{
                     ...alignment.MTlarge,
                     ...alignment.MBmedium
@@ -107,8 +107,8 @@ function PhoneNumber(props) {
                       withAlphaFilter
                       withFilter
                     />
-                    <TextDefault  textColor={currentTheme.newFontcolor}
-                      style={{ marginTop: Platform.OS === 'android' ? 8 : 10 }}>
+                    <TextDefault
+                      style={{ marginTop: Platform.OS === 'android' ? 7 : 10 }}>
                       {country?.cca2}
                     </TextDefault>
                   </View>
@@ -118,11 +118,14 @@ function PhoneNumber(props) {
                       styles().phoneNumber,
                       phoneError && styles(currentTheme).errorInput
                     ]}>
-                    <View style={styles(currentTheme).phoneField}>
-                      <TextDefault textColor={currentTheme.newFontcolor}>+{country.callingCode[0]} </TextDefault>
-                      <TextInput style={styles(currentTheme).phoneNo}
+                    <View style={{ flexDirection: 'row', paddingTop: 3 }}>
+                      <Text>+{country.callingCode[0]} </Text>
+                      <TextInput
                         placeholder={t('mobileNumber')}
-                        placeholderTextColor={currentTheme.color6}
+                        style={{
+                          marginTop: Platform.OS === 'android' ? -4 : 0
+                        }}
+                        placeholderTextColor={currentTheme.fontSecondColor}
                         value={phone}
                         onChangeText={e => {
                           if (e >= 0 || e <= 9) {
@@ -151,7 +154,7 @@ function PhoneNumber(props) {
                 onPress={() => registerAction()}
                 activeOpacity={0.7}
                 style={styles(currentTheme).btn}>
-                <TextDefault H4 textColor={currentTheme.color4} bold>
+                <TextDefault H4 textColor={currentTheme.fontFourthColor} bold>
                   {loading ? (
                     <Spinner size="small" backColor="transparent" spinnerColor={currentTheme.main} />
                   ) : (
