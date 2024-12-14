@@ -12,11 +12,8 @@
     },
     "staging": {
       "developmentClient": false,
-      "channel": "staging",
-      "distribution": "internal",
-      "android": {
-        "buildType": "apk"
-      }
+      "releaseChannel": "staging",
+      "distribution": "internal"
     },
     "production": {
       "channel": "production"
