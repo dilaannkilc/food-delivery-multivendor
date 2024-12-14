@@ -56,11 +56,9 @@ function Payment(props) {
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.menuBar)
+      StatusBar.setBackgroundColor(currentTheme.themeBackground)
     }
-    StatusBar.setBarStyle(
-      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
-    )
+    StatusBar.setBarStyle('dark-content')
   })
 
   useLayoutEffect(() => {
@@ -69,7 +67,7 @@ function Payment(props) {
         <View style={{ alignItems: 'center', gap: scale(2) }}>
           <TextDefault
             style={{
-              color: currentTheme.newFontcolor,
+              color: currentTheme.btnText,
               ...textStyles.H4,
               ...textStyles.Bolder
             }}
@@ -81,15 +79,15 @@ function Payment(props) {
       headerRight: null,
       headerTitleAlign: 'center',
       headerTitleStyle: {
-        color: currentTheme.newFontcolor,
+        color: currentTheme.btnText,
         ...textStyles.H4,
         ...textStyles.Bolder
       },
       headerTitleContainerStyle: {
-        backgroundColor: currentTheme.newheaderBG
+        backgroundColor: currentTheme.transparent
       },
       headerStyle: {
-        backgroundColor: currentTheme.newheaderBG
+        backgroundColor: currentTheme.themeBackground
       },
       headerLeft: () => (
         <HeaderBackButton
@@ -99,7 +97,7 @@ function Payment(props) {
               <AntDesign
                 name='arrowleft'
                 size={22}
-                color={currentTheme.newIconColor}
+                color={currentTheme.fontFourthColor}
               />
             </View>
           )}
@@ -134,10 +132,14 @@ function Payment(props) {
               >
                 <View style={styles(currentTheme).paymentMethod}>
                   <View style={styles(currentTheme).iconContainer}>
-                    <FontAwesome style={styles().iconStyle} name={item.icon} size={18} color={currentTheme.newIconColor}/>
+                    <FontAwesome
+                      style={styles().iconStyle}
+                      name={item.icon}
+                      size={18}
+                    />
                   </View>
                   <TextDefault
-                    textColor={currentTheme.newFontcolor}
+                    textColor={currentTheme.fontFourthColor}
                     medium
                     bolder
                   >

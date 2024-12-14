@@ -9,11 +9,8 @@ import styles from './styles'
 import TextDefault from '../Text/TextDefault/TextDefault'
 import { IMAGE_LINK } from '../../utils/constants'
 import CheckboxBtn from '../../ui/FdCheckbox/CheckboxBtn'
-import { useTranslation } from 'react-i18next'
 
 const ReorderItem = props => {
-  const { t } = useTranslation()
-
   const configuration = useContext(ConfigurationContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
@@ -53,15 +50,6 @@ const ReorderItem = props => {
               : props.dealName}
           </TextDefault>
 
-          {props.optionsTitle?.map((option, index) => (
-            <TextDefault
-              key={`options${props.dealName + option + index}`}
-              numberOfLines={1}
-              textColor={currentTheme.fontSecondColor}
-              bolder>
-              +{option}
-            </TextDefault>
-          ))}
           {props?.itemAddons?.length > 0 && (
             <View style={styles().additionalItem}>
               <View>
@@ -73,7 +61,7 @@ const ReorderItem = props => {
                     style={{ marginRight: scale(5) }}
                     textColor={currentTheme.secondaryText}
                     Normal>
-                    {props?.itemAddons?.length} {t('additionalItems')}
+                    {props?.optionsTitle?.slice(0, 3).length} Additional Items
                   </TextDefault>
                   <Feather
                     name={isDropdownOpen ? 'chevron-up' : 'chevron-down'}
@@ -83,7 +71,7 @@ const ReorderItem = props => {
                 </TouchableOpacity>
                 {isDropdownOpen && (
                   <View style={styles().itemsDropdown}>
-                    {props?.itemAddons?.map((item, index) => (
+                    {props?.optionsTitle?.slice(0, 3).map((item, index) => (
                       <TextDefault
                         key={index}
                         textColor={currentTheme.secondaryText}

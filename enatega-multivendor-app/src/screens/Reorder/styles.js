@@ -11,7 +11,7 @@ const styles = (props = null) =>
       justifyContent: 'space-between'
     },
     mainContainer: {
-      backgroundColor: props !== null ? props.themeBackground : 'transparent',
+      backgroundColor: props !== null ? props.radioOuterColor : 'transparent',
       paddingBottom: scale(8),
       borderRadius: scale(15),
       gap: 8,

@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
 import { alignment } from '../../utils/alignment'
-import { scale } from '../../utils/scaling'
 
 const styles = (props = null) =>
   StyleSheet.create({
@@ -49,12 +48,11 @@ const styles = (props = null) =>
       width: '100%'
     },
     textField: {
-      borderColor: props !== null ? props.borderColor : '#efefef',
-      borderWidth: scale(1),
-      borderRadius: scale(10),
-      backgroundColor: props !== null ? props.themeBackground : 'white',
-      padding: scale(12),
-      color: props !==null ? props.newFontcolor : 'red',
+      borderColor: props !== null ? props.verticalLine : '#000',
+      borderWidth: 1,
+      borderRadius: 10,
+      backgroundColor: props !== null ? props.white : '#fff',
+      padding: 12,
       ...alignment.MBxSmall,
       ...alignment.MTxSmall
     },
@@ -98,9 +96,6 @@ const styles = (props = null) =>
     phoneFieldInner: {
       flexDirection: 'row',
       alignItems: 'center'
-    },
-    phoneField:{
-     color: props !== null ? props.newFontcolor : 'red',
     },
     error: {
       marginTop: 3

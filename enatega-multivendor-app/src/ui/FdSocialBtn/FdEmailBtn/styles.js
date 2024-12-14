@@ -16,7 +16,7 @@ const styles = (props = null) =>
       justifyContent: 'flex-start',
       borderRadius: scale(28),
       borderWidth: scale(1),
-      borderColor: props !== null ? props.newIconColor : '#9B9A9A',
+      borderBottomColor: '#000',
       ...alignment.PLlarge
     },
     marginLeft5: {

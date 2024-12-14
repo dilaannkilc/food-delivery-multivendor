@@ -29,7 +29,7 @@ function ImageHeader(props) {
             width: '20%'
           }}
           onPress={() => navigation.goBack()}>
-          <AnimatedIon name="arrow-back" size={25} color={currentTheme.newIconColor} />
+          <AnimatedIon name="arrow-back" size={25} />
         </TouchableOpacity>
         <View>
           <TextDefault
@@ -39,7 +39,7 @@ function ImageHeader(props) {
             textColor={currentTheme.fontThirdColor}
             numberOfLines={1}
             ellipsizeMode="tail">
-            {t('Openingtimes')}
+            Opening Times
           </TextDefault>
         </View>
         <View style={{ width: '20%' }}></View>

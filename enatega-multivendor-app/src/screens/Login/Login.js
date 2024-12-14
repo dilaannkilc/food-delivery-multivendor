@@ -41,8 +41,7 @@ function Login(props) {
     props.navigation.setOptions(
       screenOptions({
         backColor: currentTheme.themeBackground,
-        fontColor: currentTheme.newFontcolor,
-        iconColor: currentTheme.newIconColor,
+        fontColor: currentTheme.fontMainColor,
         navigation: props.navigation
       })
     )
@@ -63,13 +62,12 @@ function Login(props) {
           <View style={styles(currentTheme).mainContainer}>
             <View style={styles().subContainer}>
               <View style={styles().logoContainer}>
-                <SimpleLineIcons name="envelope" size={30} color={currentTheme.newIconColor} />
+                <SimpleLineIcons name="envelope" size={30} color="black" />
               </View>
               <View>
                 <TextDefault
                   H3
                   bolder
-                  textColor={currentTheme.newFontcolor}
                   style={{
                     ...alignment.MTlarge,
                     ...alignment.MBmedium
@@ -135,7 +133,7 @@ function Login(props) {
                           size={24}
                           color={
                             passwordError === null
-                              ? currentTheme.newFontcolor
+                              ? currentTheme.black
                               : currentTheme.textErrorColor
                           }
                           style={[styles().eyeBtn]}
@@ -178,12 +176,12 @@ function Login(props) {
                     style={styles(currentTheme).btn}>
                     <TextDefault
                       H4
-                      textColor={currentTheme.black}
+                      textColor={currentTheme.fontFourthColor}
                       bold>
                       {loading || loginLoading ? (
                         <Spinner
-                        backColor={currentTheme.themeBackground}
-                        spinnerColor={currentTheme.white}
+                          backColor={currentTheme.backgroundColor}
+                          spinnerColor={currentTheme.white}
                           size="small"
                         />
                       ) : registeredEmail ? (

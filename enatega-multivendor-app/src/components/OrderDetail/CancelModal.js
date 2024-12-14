@@ -64,7 +64,7 @@ export const CancelModal = ({
                   text={t('waitForOrder')}
                   buttonProps={{ onPress: setModalVisible }}
                   buttonStyles={styles.dismissButtonContainer(theme)}
-                  textStyles={{ ...alignment.Pmedium, color: theme.newIconColor }}
+                  textStyles={{ ...alignment.Pmedium }}
                 />
               </View>
             </View>

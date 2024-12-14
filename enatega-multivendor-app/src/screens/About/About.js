@@ -50,13 +50,14 @@ function About(props) {
       style={[
         { marginTop: inset.top },
         styles().flex,
-        { backgroundColor: currentTheme.newheaderBG }
-      ]}>
+        { backgroundColor: currentTheme.headerMenuBackground }
+      ]}
+    >
       <ImageHeader
-        iconColor={currentTheme.color3}
-        svgNameL="leftArrow"
+        iconColor={currentTheme.iconColorPink}
+        svgNameL='leftArrow'
         restaurantImage={restaurantObject.restaurantImage}
-        iconBackColor={currentTheme.color3}
+        iconBackColor={currentTheme.white}
         restaurantName={restaurantObject.restaurantName}
         deliveryTime={restaurantObject.deliveryTime}
         total={restaurantObject.total}
@@ -73,13 +74,13 @@ function About(props) {
               <View key={index} style={styles(currentTheme).timingRow}>
                 <TextDefault
                   style={styles().timingText}
-                  textColor={currentTheme.newFontcolor}
+                  textColor={currentTheme.black}
                   bold
                   large>
                   {t(v.day)}{' '}
                 </TextDefault>
                 {v.times.length < 1 ? (
-                  <TextDefault key={index + 8} small bold center textColor={currentTheme.newFontcolor}>
+                  <TextDefault key={index + 8} small bold center>
                     {t('ClosedAllDay')}
                   </TextDefault>
                 ) : (
@@ -87,7 +88,7 @@ function About(props) {
                     <TextDefault
                       key={index + 8}
                       bolder
-                      textColor={currentTheme.newFontcolor}
+                      textColor={currentTheme.black}
                       large
                     >
                       {t.startTime[0]}:{t.startTime[1]}

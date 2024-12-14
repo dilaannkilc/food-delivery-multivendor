@@ -11,7 +11,7 @@ const navigationOptions = props => {
         onPress={() => props.navigation.goBack()}
         name="close"
         size={24}
-        color={props.iconColor}
+        color="black"
         style={styles().headerRightIcon}
       />
     ),
@@ -21,7 +21,7 @@ const navigationOptions = props => {
         onPress={() => props.navigation.goBack()}
         name="chevron-back"
         size={24}
-        color={props.iconColor}
+        color="black"
         style={styles().headerLeftIcon}
       />
     ),

@@ -211,7 +211,7 @@ const Item = ({ item, navigation, currentTheme, configuration, onPressReview }) 
           </View>
           <View style={styles(currentTheme).starsContainer}>
             <View>
-              <TextDefault H5 bolder textColor={currentTheme.newFontcolor}>
+              <TextDefault H5 bolder>
                 {t('tapToRate')}
               </TextDefault>
             </View>

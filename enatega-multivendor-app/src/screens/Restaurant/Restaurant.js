@@ -421,7 +421,7 @@ function Restaurant(props) {
     }
   }
 
-  const iconColor = currentTheme.white
+  const iconColor = currentTheme.iconColorPink
 
   const iconBackColor = currentTheme.white
 
@@ -484,10 +484,11 @@ function Restaurant(props) {
           searchPopupHandler={searchPopupHandler}
           translationY={translationY}
         />
-<View
+
+        <View
           style={[
-            styles(currentTheme).navbarContainer,
-            styles(currentTheme).flex,
+            styles().navbarContainer,
+            styles().flex,
             {
               paddingTop: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT - TOP_BAR_HEIGHT
             }
@@ -499,7 +500,7 @@ function Restaurant(props) {
               Animation={(props) => (
                 <Fade
                   {...props}
-                  style={{ backgroundColor: currentTheme.gray }}
+                  style={{ backgroundColor: currentTheme.fontSecondColor }}
                   duration={600}
                 />
               )}
@@ -513,7 +514,6 @@ function Restaurant(props) {
             </Placeholder>
           ))}
         </View>
-
       </View>
     )
   }
@@ -542,7 +542,6 @@ function Restaurant(props) {
   return (
     <>
       <SafeAreaView style={styles(currentTheme).flex}>
-      
         <View style={styles(currentTheme).flex}>
           <ImageHeader
             ref={flatListRef}
@@ -656,7 +655,7 @@ function Restaurant(props) {
                         <MaterialIcons
                           name='add'
                           size={scale(20)}
-                          color={currentTheme.black}
+                          color='#fff'
                         />
                       </View>
                     </View>
@@ -688,16 +687,17 @@ function Restaurant(props) {
                     return null // Don't render the section header if dataList is empty
                   }
                   return (
-                    <View style={styles(currentTheme).restaurantItems}>
+                    <View style={{ backgroundColor: '#fff' }}>
                       <TextDefault
                         style={styles(currentTheme).sectionHeaderText}
                         textColor={currentTheme.fontFourthColor}
-                        bolder>
+                        bolder
+                      >
                         {title}
                       </TextDefault>
                       <TextDefault
                         textColor={currentTheme.fontFourthColor}
-                        style={{                        
+                        style={{
                           ...alignment.PLmedium,
                           ...alignment.PRmedium,
                           fontSize: scale(12),
@@ -723,11 +723,12 @@ function Restaurant(props) {
                 }
                 // Render other section headers as usual
                 return (
-                  <View style={styles(currentTheme).sectionHeader}>
+                  <View style={{ backgroundColor: '#fff' }}>
                     <TextDefault
                       style={styles(currentTheme).sectionHeaderText}
                       textColor={currentTheme.fontFourthColor}
-                      bolder>
+                      bolder
+                    >
                       {title}
                     </TextDefault>
                   </View>
@@ -820,11 +821,11 @@ function Restaurant(props) {
                           </View>
                         </View>
                       </View>
-                      <View style={styles(currentTheme).addToCart}>
+                      <View style={styles().addToCart}>
                         <MaterialIcons
                           name='add'
                           size={scale(20)}
-                          color={currentTheme.themeBackground}
+                          color='#fff'
                         />
                       </View>
                     </View>

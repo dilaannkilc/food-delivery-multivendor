@@ -144,7 +144,9 @@ function Menu({ route, props }) {
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor(currentTheme.newheaderColor)
     }
-    StatusBar.setBarStyle( 'dark-content')
+    StatusBar.setBarStyle(
+      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
+    )
   })
   useEffect(() => {
     async function Track() {
@@ -267,7 +269,7 @@ function Menu({ route, props }) {
     else {
       return (
         <View style={styles().emptyViewContainer}>
-          <View style={styles(currentTheme).emptyViewBox}>
+          <View style={styles().emptyViewBox}>
             <TextDefault bold H4 center textColor={currentTheme.fontMainColor}>
               {t('notAvailableinYourArea')}
             </TextDefault>
@@ -313,15 +315,12 @@ function Menu({ route, props }) {
   function loadingScreen() {
     return (
       <View style={styles(currentTheme).screenBackground}>
-        <View style={styles(currentTheme).searchbar}>
         <Search
           search={''}
           setSearch={() => {}}
           newheaderColor={newheaderColor}
           placeHolder={searchPlaceholderText}
         />
-        </View>
-       
         <Placeholder
           Animation={props => (
             <Fade
@@ -506,14 +505,12 @@ function Menu({ route, props }) {
                   renderItem={({ item }) => <Item item={item} />}
                 />
                 <CollapsibleSubHeaderAnimator translateY={translateY}>
-                <View style={styles(currentTheme).searchbar}>
                   <Search
                     setSearch={setSearch}
                     search={search}
                     newheaderColor={newheaderColor}
                     placeHolder={searchPlaceholderText}
                   />
-                  </View>
                   <Filters
                     filters={filters}
                     setFilters={setFilters}

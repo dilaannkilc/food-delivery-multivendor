@@ -33,11 +33,9 @@ function Reorder(props) {
   const inset = useSafeAreaInsets()
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.menuBar)
+      StatusBar.setBackgroundColor(currentTheme.themeBackground)
     }
-    StatusBar.setBarStyle(
-      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
-    )
+    StatusBar.setBarStyle('dark-content')
   })
   const [selectedItems, setItems] = useState([])
 
@@ -47,7 +45,7 @@ function Reorder(props) {
         <View style={{ alignItems: 'center', gap: scale(2) }}>
           <TextDefault
             style={{
-              color: currentTheme.newFontcolor,
+              color: currentTheme.btnText,
               ...textStyles.H4,
               ...textStyles.Bolder
             }}
@@ -59,12 +57,12 @@ function Reorder(props) {
       headerRight: null,
       headerTitleAlign: 'center',
       headerTitleStyle: {
-        color: currentTheme.newFontcolor,
+        color: currentTheme.btnText,
         ...textStyles.H4,
         ...textStyles.Bolder
       },
       headerTitleContainerStyle: {
-        backgroundColor: currentTheme.newheaderBG
+        backgroundColor: currentTheme.transparent
       },
       headerStyle: {
         backgroundColor: currentTheme.themeBackground
@@ -155,13 +153,16 @@ function Reorder(props) {
         })
       })
     }
+    const populateAddons = addons.filter((addon) =>
+      food?.variations[0]?.addons?.includes(addon._id)
+    )
     return {
       ...cartItem,
       optionsTitle,
       title: title,
       price: price.toFixed(2),
       image: food.image,
-      addons: food.variations[0].addons
+      addons: populateAddons
     }
   }
 
@@ -212,7 +213,7 @@ function Reorder(props) {
             }
             onPress={onAddToCart}
           >
-            <TextDefault bolder textColor={selectedItems.length > 0 ? currentTheme.black : currentTheme.newFontcolor}>
+            <TextDefault bolder textColor={currentTheme.black}>
               {t('addToCart')}
             </TextDefault>
           </TouchableOpacity>

@@ -33,20 +33,19 @@ function Location(props) {
             <EvilIcons
               name="location"
               size={16}
-              color={props.locationIcon}
-             
+              color={currentTheme.fontFourthColor}
             />
           </View>
           <View style={styles(currentTheme).headerContainer}>
-            <TextDefault textColor={props.locationLabel} left>
+            <TextDefault textColor={props.fontFourthColor} left>
               {''}
-              {t(translatedLabel)}
+              {translatedLabel}
             </TextDefault>
             <TouchableOpacity
               activeOpacity={1}
               onPress={props.modalOn}
               style={styles.textContainer}>
-              <TextDefault textColor={props.location} numberOfLines={1} H5 bolder>
+              <TextDefault textColor={props.black} numberOfLines={1} H5 bolder>
                 {''}
                 {translatedAddress?.slice(0, 20)}...
               </TextDefault>

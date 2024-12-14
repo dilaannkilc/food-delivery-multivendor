@@ -69,7 +69,7 @@ const Filters = ({ filters, setFilters, applyFilters }) => {
         style={styles(currentTheme).filterButton}
         onPress={handleOptionsClick}
       >
-        <Ionicons name='options' size={24} color={currentTheme.black} />
+        <Ionicons name='options' size={24} color='#000' />
       </TouchableOpacity>
 
       {filters &&
@@ -84,10 +84,10 @@ const Filters = ({ filters, setFilters, applyFilters }) => {
             onPress={() => handleFilterClick(filter)}
           >
             <SafeAreaView style={styles(currentTheme).itemContainer}>
-              <TextDefault textColor={currentTheme.black} style={styles(currentTheme).filterButtonText}>
+              <Text style={styles(currentTheme).filterButtonText}>
                 {t(filter)}
-              </TextDefault>
-              <AntDesign name='down' size={14} color={currentTheme.black}/>
+              </Text>
+              <AntDesign name='down' size={14} color='black' />
             </SafeAreaView>
           </TouchableOpacity>
         ))}
@@ -95,19 +95,19 @@ const Filters = ({ filters, setFilters, applyFilters }) => {
       <Modal visible={modalVisible} adjustToContentHeight animationType='slide'>
         <View style={styles(currentTheme).modalHeader}>
           <TouchableOpacity onPress={() => setModalVisible(false)}>
-            <AntDesign name='arrowleft' size={24} color={currentTheme.newIconColor} />
+            <AntDesign name='arrowleft' size={24} color='black' />
           </TouchableOpacity>
           <Text style={styles(currentTheme).filterText}> {t('filters')}</Text>
           <TouchableOpacity onPress={() => setModalVisible(false)}>
-            <AntDesign name='close' size={24} color={currentTheme.newIconColor}  />
+            <AntDesign name='close' size={24} color='black' />
           </TouchableOpacity>
         </View>
         <ScrollView style={styles(currentTheme).modalContainer}>
           {result?.map((filterValue) => (
             <View key={filterValue}>
-              <TextDefault style={styles(currentTheme).modalTitle} textColor={currentTheme.newFontcolor}>
+              <Text style={styles(currentTheme).modalTitle}>
                 {t(filterValue)}
-              </TextDefault>
+              </Text>
               <View>
                 {filters &&
                   filters[filterValue]?.values?.map((value, index) => (
@@ -124,9 +124,9 @@ const Filters = ({ filters, setFilters, applyFilters }) => {
                       ]}
                       onPress={() => handleValueSelection(filterValue, value)}
                     >
-                      <TextDefault style={styles(currentTheme).modalItemText} textColor={currentTheme.newFontcolor}>
+                      <Text style={styles(currentTheme).modalItemText}>
                         {t(value)}
-                      </TextDefault>
+                      </Text>
                       {filters &&
                       filters[filterValue].type === FILTER_TYPE.CHECKBOX ? (
                         <CheckboxBtn

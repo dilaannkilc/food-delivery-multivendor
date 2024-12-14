@@ -15,12 +15,12 @@ const ErrorView = () => {
   const { t } = useTranslation()
 
   return (
-    <View style={styles(currentTheme).errorViewContainer}>
-      <ErrorSvg  fill={currentTheme.newIconColor}/>
-      <TextDefault center H3 bolder textColor={currentTheme.newFontcolor}>
+    <View style={styles().errorViewContainer}>
+      <ErrorSvg />
+      <TextDefault center H3 bolder>
         {t('somethingWentWrong')}
       </TextDefault>
-      <TextDefault center H4 textColor={currentTheme.newFontcolor}>
+      <TextDefault center H4>
         {t('checkInternet')}
       </TextDefault>
     </View>

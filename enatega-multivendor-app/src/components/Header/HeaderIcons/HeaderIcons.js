@@ -42,7 +42,7 @@ function BackButton(props) {
       <SimpleLineIcons
         name='menu'
         size={20}
-        color={props.iconColorDark}
+        color={props.fontFourthColor}
         style={styles().leftIconPadding}
       />
     )
@@ -56,7 +56,7 @@ function BackButton(props) {
     )
   } else if (props.icon === 'target') {
     return (
-      <MaterialIcons name='my-location' size={16} color={props.iconColor} />
+      <MaterialIcons name='my-location' size={16} color={props.iconColorDark} />
     )
   } else if (props.icon === 'fav') {
     return <AntDesign name='hearto' size={20} color={props.iconColorDark} />
@@ -66,7 +66,7 @@ function BackButton(props) {
         name='close'
         size={16}
         style={styles().leftIconPadding}
-        color={props.newIconColor}
+        color={props.iconColor}
       />
     )
   }
@@ -79,7 +79,7 @@ function LeftButton(props) {
       <HeaderBackButton
         truncatedLabel=''
         backImage={() =>
-          BackButton({ iconColor: props.newIconColor, icon: 'leftArrow' })
+          BackButton({ iconColor: props.iconColor, icon: 'leftArrow' })
         }
         onPress={() => {
           navigationService.goBack()
@@ -93,7 +93,7 @@ function LeftButton(props) {
         pressColorAndroid={rippleColor}
         labelVisible={false}
         backImage={() =>
-          BackButton({ iconColor: props.newIconColor, icon: 'close' })
+          BackButton({ iconColor: props.iconColor, icon: 'close' })
         }
         onPress={() => {
           navigation.dispatch((state) => {
@@ -114,7 +114,7 @@ function LeftButton(props) {
         labelVisible={false}
         backImage={() =>
           BackButton({
-            iconColor: props.newIconColor,
+            iconColor: props.iconColor,
             icon: props.toggleValue ? 'leftArrow' : 'close'
           })
         }
@@ -132,7 +132,7 @@ function LeftButton(props) {
         pressColorAndroid={rippleColor}
         labelVisible={false}
         backImage={() =>
-          BackButton({ iconColor: props.newIconColor, icon: 'menu' })
+          BackButton({ iconColor: props.iconColor, icon: 'menu' })
         }
         onPress={() => navigation.toggleDrawer()}
       />
@@ -141,7 +141,7 @@ function LeftButton(props) {
 }
 
 function RightButton(props) {
-  const { t } = props
+  const { t } = useTranslation()
   const [password, setPassword] = useState(false)
   const navigation = useNavigation()
   const route = useRoute()
@@ -164,7 +164,7 @@ function RightButton(props) {
         <SimpleLineIcons
           name='handbag'
           size={24}
-          color={currentTheme.black}
+          color={currentTheme.fontFourthColor}
         />
         <View
           style={
@@ -276,21 +276,18 @@ function RightButton(props) {
   }
 }
 function DarkBackButton(props) {
-  const themeContext = useContext(ThemeContext)
-  const currentTheme = theme[themeContext.ThemeValue]
   return (
     <View
       style={{
-        backgroundColor: props.themeBackground,
-        borderRadius: 5,
-    
+        backgroundColor: props.icon,
+        borderRadius: 5
       }}
     >
       <Ionicons
         name='close-circle-outline'
         size={20}
         style={styles().darkBackArrow}
-        color={currentTheme.newIconColor}
+        color={props.iconBackground}
       />
     </View>
   )

@@ -46,8 +46,8 @@ const ActiveOrders = ({ navigation, loading, error, activeOrders }) => {
     return (
       <Spinner
         size={'small'}
-        backColor={currentTheme.themeBackground}
-        spinnerColor={currentTheme.main}
+        backColor={'transparent'}
+        spinnerColor={currentTheme.iconColorDark}
       />
     )
   }

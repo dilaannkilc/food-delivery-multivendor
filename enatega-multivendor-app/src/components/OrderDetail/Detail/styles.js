@@ -4,8 +4,7 @@ import { scale, verticalScale } from '../../../utils/scaling'
 const { width: WIDTH } = Dimensions.get('window')
 export default StyleSheet.create({
   container: theme => ({
-    marginHorizontal: scale(10),
-  
+    marginHorizontal: scale(10)
   }),
   line: theme => ({
     height: 1,
@@ -15,7 +14,7 @@ export default StyleSheet.create({
   chatButton: theme => ({
     paddingVertical: scale(25),
     // paddingHorizontal: scale(100),
-    backgroundColor: theme.themeBackground,
+    backgroundColor: theme.white,
     borderRadius: scale(20),
     flexDirection: 'row'
   }),
@@ -58,6 +57,6 @@ export default StyleSheet.create({
   chatIcon: theme => ({
     flex: 1,
     alignItems: 'flex-end',
-    justifyContent: 'center',
+    justifyContent: 'center'
   })
 })
