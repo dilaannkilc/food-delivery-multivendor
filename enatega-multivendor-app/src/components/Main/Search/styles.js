@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { alignment } from '../../../utils/alignment'
 import { theme } from '../../../utils/themeColors'
 
-const styles = (props = null) =>
+const styles = (props = null, newheaderColor = '#fafafa') =>
   StyleSheet.create({
     bodyStyleOne: {
       fontFamily: fontStyles.MuseoSans500,
@@ -12,12 +12,12 @@ const styles = (props = null) =>
       color: props != null ? props.fontMainColor : 'black'
     },
     mainContainerHolder: {
+      // backgroundColor: 'red',
+      // height: scale(55),
       zIndex: 333,
       width: '100%',
-      alignItems: 'center',
-      borderBottomLeftRadius: scale(25),
-      borderBottomRightRadius: scale(25),
-      backgroundColor: props != null ? props.headerColor : '#fafafa',
+      alignItems: 'center',     
+      backgroundColor: props != null ? props.main : 'black',
       shadowColor: props != null ? props.shadowColor : 'black',
       shadowOffset: {
         width: 0,
@@ -25,16 +25,17 @@ const styles = (props = null) =>
       },
       shadowOpacity: 0.1,
       shadowRadius: verticalScale(1),
-      ...alignment.MBmedium
+      // ...alignment.MBmedium
     },
     mainContainer: {
       width: '90%',
-      height: scale(50),
+      height: scale(36),
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
       borderRadius: scale(40),
-      backgroundColor: props != null ? props.cartContainer : 'white',
+      backgroundColor: props != null ? props.color1 : 'black',
+
       shadowColor: props != null ? props.shadowColor : 'black',
       shadowOffset: {
         width: 0,
@@ -42,7 +43,7 @@ const styles = (props = null) =>
       },
       shadowOpacity: 0.2,
       shadowRadius: verticalScale(1),
-      ...alignment.MTlarge,
+     marginTop:scale(3),
       ...alignment.MBmedium
     },
     subContainer: {
@@ -54,14 +55,10 @@ const styles = (props = null) =>
     },
     leftContainer: {
       flexDirection: 'row',
-      width: '90%'
+      width: '90%',
     },
     searchContainer: {
       width: '10%',
-      height: '80%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      ...alignment.MBxSmall
     },
     inputContainer: {
       width: '100%',

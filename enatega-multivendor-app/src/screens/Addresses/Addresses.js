@@ -4,12 +4,9 @@ import {
   TouchableOpacity,
   FlatList,
   StatusBar,
-  Platform,
-  Text,
-  ScrollView
+  Platform
 } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useMutation } from '@apollo/client'
+import { NetworkStatus, useMutation } from '@apollo/client'
 import {
   AntDesign,
   EvilIcons,
@@ -46,17 +43,23 @@ function Addresses() {
   const Analytics = analytics()
 
   const navigation = useNavigation()
-  const [mutate, { loading: loadingMutation }] = useMutation(DELETE_ADDRESS)
-  const { profile } = useContext(UserContext)
+  const [mutate, { loading: loadingMutation }] = useMutation(DELETE_ADDRESS, {
+    onCompleted
+  })
+  const { profile, refetchProfile, networkStatus } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-  const inset = useSafeAreaInsets()
   const { t } = useTranslation()
+
+    function onCompleted() {
+      FlashMessage({ message: t('addressDeletedMessage') })
+    }
+
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.headerBackground)
+      StatusBar.setBackgroundColor('transparent')
     }
-    StatusBar.setBarStyle('light-content')
+    StatusBar.setBarStyle('dark-content')
   })
   useEffect(() => {
     async function Track() {
@@ -69,36 +72,29 @@ function Addresses() {
       title: t('myAddresses'),
       headerRight: null,
       headerTitleAlign: 'center',
+      headerTitleStyle: {
+        color: currentTheme.newFontcolor,
+        fontWeight: 'bold'
+      },
       headerTitleContainerStyle: {
-        marginTop: '1%',
+        marginTop: '2%',
         paddingLeft: scale(25),
         paddingRight: scale(25),
         height: '75%',
-        backgroundColor: currentTheme.black,
-        borderRadius: scale(10),
-        borderColor: currentTheme.white,
-        borderWidth: 1
+        marginLeft: 0
       },
       headerStyle: {
-        backgroundColor: currentTheme.headerBackground,
-        shadowColor: 'transparent',
-        shadowRadius: 0
+        backgroundColor: currentTheme.newheaderBG,
+        elevation: 0
       },
-      headerTitleAlign: 'center',
-      headerRight: null,
       headerLeft: () => (
         <HeaderBackButton
-          truncatedLabel=""
+          truncatedLabel=''
+         
           backImage={() => (
-            <View
-              style={{
-                backgroundColor: 'white',
-                borderRadius: 50,
-                marginLeft: 10,
-                width: 55,
-                alignItems: 'center'
-              }}>
-              <MaterialIcons name="arrow-back" size={30} color="black" />
+            <View>
+              <MaterialIcons name='arrow-back' size={30} color={currentTheme.newIconColor} />
+            
             </View>
           )}
           onPress={() => {
@@ -112,7 +108,8 @@ function Addresses() {
   const addressIcons = {
     Home: CustomHomeIcon,
     Work: CustomWorkIcon,
-    Other: CustomOtherIcon
+    Other: CustomOtherIcon,
+    House: CustomHomeIcon,
   }
 
   function emptyView() {
@@ -123,14 +120,14 @@ function Addresses() {
           <View style={styles().descriptionEmpty}>
             <View style={styles().viewTitle}>
               <TextDefault textColor={currentTheme.fontMainColor} bolder>
-                It&#39;s empty here.
+                {t('emptyHere')}
               </TextDefault>
             </View>
             <View>
               <TextDefault textColor={currentTheme.fontMainColor} bold>
-                You haven&#39;t saved any address yet.
+                {t('addressNotSaved')}
                 {'\n'}
-                Click Add New Address to get started
+                {t('addNewAddress')}
               </TextDefault>
             </View>
           </View>
@@ -138,15 +135,16 @@ function Addresses() {
       </View>
     )
   }
+
   return (
     <View style={styles(currentTheme).flex}>
-      {/* <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles().mainView}> */}
       <FlatList
+        onRefresh={refetchProfile}
+        refreshing={networkStatus === NetworkStatus.refetch}
         data={profile?.addresses}
         ListEmptyComponent={emptyView}
-        keyExtractor={item => item._id}
+        keyExtractor={(item) => item._id}
+        
         ItemSeparatorComponent={() => (
           <View style={styles(currentTheme).line} />
         )}
@@ -154,95 +152,98 @@ function Addresses() {
         renderItem={({ item: address }) => (
           <TouchableOpacity
             activeOpacity={0.7}
-            style={[styles(currentTheme).containerSpace]}>
-            <View style={[styles().width100]}>
-              <View style={[styles().titleAddress, styles().width100]}>
+            style={[styles(currentTheme).containerSpace]}
+          >
+            
+            <View style={[styles().width100, styles().rowContainer]}>
+              <View style={[styles(currentTheme).homeIcon]}>
+                {addressIcons[address.label]
+                  ? React.createElement(addressIcons[address.label], {
+                      fill: currentTheme.darkBgFont
+                    })
+                  : React.createElement(addressIcons['Other'], {
+                      fill: currentTheme.darkBgFont
+                    })}
+               
+              </View>
+              <View style={[styles().titleAddress]}>
                 <TextDefault
                   textColor={currentTheme.darkBgFont}
-                  style={styles(currentTheme).labelStyle}>
+                  style={styles(currentTheme).labelStyle}
+                >
+                 
                   {t(address.label)}
                 </TextDefault>
               </View>
-              <View style={{ ...alignment.MTxSmall }}></View>
-
-              <View style={styles().midContainer}>
-                <View style={[styles().homeIcon]}>
-                  {addressIcons[address.label] ? (
-                    React.createElement(addressIcons[address.label], {
-                      fill: currentTheme.iconColorPink
+              <View style={styles().buttonsAddress}>
+                <TouchableOpacity
+                  disabled={loadingMutation}
+                  activeOpacity={0.7}
+                  onPress={() => {
+                    const [longitude, latitude] = address.location.coordinates
+                    navigation.navigate('AddNewAddress', {
+                      id:address._id,
+                      longitude: +longitude,
+                      latitude: +latitude
                     })
-                  ) : (
-                    <AntDesign name="question" size={20} color="black" />
-                  )}
-                </View>
+                  }}
+                >
+                  <SimpleLineIcons
+                    name='pencil'
+                   
+                    size={scale(20)}
+                    color={currentTheme.darkBgFont}
+                  />
+                </TouchableOpacity>
 
-                <View style={styles(currentTheme).addressDetail}>
-                  <TextDefault textColor={currentTheme.darkBgFont}>
-                    {address.deliveryAddress}
-                  </TextDefault>
-                  <TextDefault textColor={currentTheme.darkBgFont}>
-                    {address.details}
-                  </TextDefault>
-                </View>
-                <View style={styles().buttonsAddress}>
-                  <TouchableOpacity
-                    disabled={loadingMutation}
-                    activeOpacity={0.7}
-                    onPress={() => {
-                      navigation.navigate('EditAddress', { ...address })
-                    }}>
-                    <SimpleLineIcons
-                      name="pencil"
-                      size={scale(20)}
-                      color={currentTheme.tagColor}
-                    />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    disabled={loadingMutation}
-                    onPress={() => {
-                      mutate({
-                        variables: { id: address._id },
-                        onCompleted: () => {
-                          FlashMessage({
-                            message: 'Address deleted Successfully'
-                          })
-                        },
-                        onError: error => {
-                          FlashMessage({
-                            message: 'Error deleting address'
-                          })
-                        }
-                      })
-                    }}>
-                    <EvilIcons
-                      name="trash"
-                      size={scale(33)}
-                      color={currentTheme.tagColor}
-                    />
-                  </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  disabled={loadingMutation}
+                  onPress={() => {
+                    mutate({ variables: { id: address._id } })
+                  }}
+                >
+                  
+                  <EvilIcons
+                    name='trash'
+                   
+                    size={scale(33)}
+                    color={currentTheme.darkBgFont}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{ ...alignment.MTxSmall }}></View>
+            </View>
+            <View style={styles().midContainer}>
+              <View style={styles(currentTheme).addressDetail}>
+                <TextDefault
+                  numberOfLines={2}
+                  textColor={currentTheme.darkBgFont}
+                  style={{ ...alignment.PBxSmall }}
+                >
+                  
+                  {address.deliveryAddress}
+                </TextDefault>
               </View>
             </View>
           </TouchableOpacity>
         )}
       />
       {/* </ScrollView> */}
-      <View style={styles(currentTheme).containerButton}>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles().addButton}
-          onPress={() => navigation.navigate('NewAddress')}>
-          <AntDesign name="plus" size={scale(30)} color={currentTheme.black} />
-        </TouchableOpacity>
+      <View>
+        <View style={styles(currentTheme).containerButton}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles(currentTheme).addButton}
+            onPress={() => navigation.navigate('SelectLocation')}
+          >
+            
+            <TextDefault H5 bold>
+              {t('addAddress')}
+            </TextDefault>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View
-        style={{
-          paddingBottom: inset.bottom,
-          backgroundColor: currentTheme.themeBackground
-        }}
-      />
     </View>
   )
 }
