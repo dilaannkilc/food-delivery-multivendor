@@ -9,7 +9,6 @@ import { gql, useMutation, useQuery } from '@apollo/client'
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device'
 import { useTranslation } from 'react-i18next'
-import Constants from 'expo-constants'
 
 const RIDER_LOGIN = gql`
   ${riderLogin}
@@ -99,7 +98,7 @@ const useLogin = () => {
           Notifications.IosAuthorizationStatus.PROVISIONAL) &&
         Device.isDevice
       ) {
-        notificationToken = (await Notifications.getExpoPushTokenAsync({ projectId: Constants.expoConfig.extra.eas.projectId })).data
+        notificationToken = (await Notifications.getExpoPushTokenAsync()).data
       }
 
       // Perform mutation with the obtained data

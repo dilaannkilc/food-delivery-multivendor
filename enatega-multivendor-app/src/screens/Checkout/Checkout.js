@@ -221,9 +221,11 @@ function Checkout(props) {
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.themeBackground)
+      StatusBar.setBackgroundColor(currentTheme.menuBar)
     }
-    StatusBar.setBarStyle('dark-content')
+    StatusBar.setBarStyle(
+      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
+    )
   })
 
   useEffect(() => {
@@ -232,7 +234,7 @@ function Checkout(props) {
         <View style={{ alignItems: 'center', gap: scale(2) }}>
           <TextDefault
             style={{
-              color: currentTheme.btnText,
+              color: currentTheme.newFontcolor,
               ...textStyles.H4,
               ...textStyles.Bolder
             }}
@@ -240,26 +242,26 @@ function Checkout(props) {
             {t('titleCheckout')}
           </TextDefault>
           <TextDefault
-            style={{ color: currentTheme.btnText, ...textStyles.H5 }}
-          >
-            {data && data.restaurant.name}
-            {' - '}
-            {data && data.restaurant.address}
+            style={{ color: currentTheme.newFontcolor, ...textStyles.H5 }}>
+            {data && data.restaurant.name && data.restaurant.address && (
+  <>
+    {data.restaurant.name} {' - '} {data.restaurant.address}
+  </>
+)}
+
           </TextDefault>
         </View>
       ),
       headerRight: null,
       headerTitleAlign: 'center',
       headerTitleStyle: {
-        color: currentTheme.btnText,
+        color: currentTheme.newFontcolor,
         ...textStyles.H4,
         ...textStyles.Bolder
       },
-      headerTitleContainerStyle: {
-        backgroundColor: currentTheme.transparent
-      },
+      
       headerStyle: {
-        backgroundColor: currentTheme.themeBackground
+        backgroundColor: currentTheme.newheaderBG
       },
       headerLeft: () => (
         <HeaderBackButton
@@ -802,6 +804,15 @@ function Checkout(props) {
                         backgroundColor: 'transparent',
                         width: 17
                       }}
+                      locationIcon={
+                        currentTheme.newIconColor
+                      }
+                      locationLabel={
+                        currentTheme.newFontcolor
+                       } 
+                       location={
+                         currentTheme.newFontcolor
+                        } 
                     />
                   </View>
                   <View
@@ -820,7 +831,7 @@ function Checkout(props) {
                       />
                     </View>
                     <TextDefault
-                      textColor={props.black}
+                      textColor={currentTheme.newFontcolor}
                       numberOfLines={1}
                       H5
                       bolder
@@ -870,7 +881,11 @@ function Checkout(props) {
                           }}
                         >
                           <TextDefault
-                            textColor={currentTheme.fontFourthColor}
+                            textColor={
+                              selectedTip === label
+                                ? currentTheme.black 
+                                : currentTheme.fontFourthColor 
+                            }
                             normal
                             bolder
                             center
@@ -889,7 +904,11 @@ function Checkout(props) {
                         onPress={() => onModalOpen(tipModalRef)}
                       >
                         <TextDefault
-                          textColor={currentTheme.fontFourthColor}
+                          textColor={
+                            tip
+                              ? currentTheme.black 
+                              : currentTheme.fontFourthColor 
+                          }
                           normal
                           bolder
                           center
@@ -984,19 +1003,13 @@ function Checkout(props) {
                                 paymentMethod
                               })
                             }}
-                            style={{
-                              display: 'flex',
-                              flexDirection: 'row',
-                              alignContent: 'center',
-                              gap: 5
-                            }}
+                            style={styles(currentTheme).changeBtnInner}
                           >
                             <TextDefault
                               small
                               bold
-                              textColor={currentTheme.darkBgFont}
-                              center
-                            >
+                              textColor={currentTheme.color4}
+                              center>
                               {t('change')}
                             </TextDefault>
                             <Octicons name='pencil' size={16} color='black' />
@@ -1017,14 +1030,7 @@ function Checkout(props) {
                   {!coupon ? (
                     <TouchableOpacity
                       activeOpacity={0.7}
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignContent: 'center',
-                        gap: 5,
-                        marginTop: 10,
-                        marginBottom: 10
-                      }}
+                      style={styles().voucherSecInner}
                       onPress={() => onModalOpen(voucherModalRef)}
                     >
                       <MaterialCommunityIcons
@@ -1291,21 +1297,14 @@ function Checkout(props) {
                       onPayment()
                     }
                   }}
-                  style={[
-                    styles(currentTheme).button,
-                    { opacity: loadingOrder ? 0.5 : 1 }
-                  ]}
-                >
-                  {!loadingOrder && (
-                    <TextDefault
-                      textColor={currentTheme.fontFourthColor}
-                      style={styles().checkoutBtn}
-                      bold
-                      H4
-                    >
-                      {t('Place Order')}
-                    </TextDefault>
-                  )}
+                  style={[styles(currentTheme).button,{opacity:loadingOrder?0.5:1}]}>
+                  {!loadingOrder && <TextDefault
+                    textColor={currentTheme.color4}
+                    style={styles().checkoutBtn}
+                    bold
+                    H4>
+                    {t('placeOrder')}
+                  </TextDefault>}
                   {loadingOrder && <Spinner backColor={'transparent'} />}
                 </TouchableOpacity>
               </View>
@@ -1335,12 +1334,12 @@ function Checkout(props) {
                 <FontAwesome
                   name={paymentMethod?.icon}
                   size={20}
-                  color={currentTheme.black}
+                  color={currentTheme.newIconColor}
                 />
                 <TextDefault
                   H4
                   bolder
-                  textColor={currentTheme.black}
+                  textColor={currentTheme.newFontcolor}
                   center
                 >
                   Add Tip
@@ -1349,7 +1348,7 @@ function Checkout(props) {
               <Feather
                 name='x-circle'
                 size={24}
-                color='black'
+                color={currentTheme.newIconColor}
                 onPress={() => onModalClose(tipModalRef)}
               />
             </View>
@@ -1372,7 +1371,7 @@ function Checkout(props) {
               style={[styles(currentTheme).button, { height: scale(40) }]}
             >
               <TextDefault
-                textColor={currentTheme.fontFourthColor}
+                textColor={currentTheme.black}
                 style={styles().checkoutBtn}
                 bold
                 H4
@@ -1404,12 +1403,12 @@ function Checkout(props) {
                 <MaterialCommunityIcons
                   name='ticket-confirmation-outline'
                   size={24}
-                  color={currentTheme.black}
+                  color={currentTheme.newIconColor}
                 />
                 <TextDefault
                   H4
                   bolder
-                  textColor={currentTheme.black}
+                  textColor={currentTheme.newFontcolor}
                   center
                 >
                   Apply a Voucher
@@ -1418,7 +1417,7 @@ function Checkout(props) {
               <Feather
                 name='x-circle'
                 size={24}
-                color='black'
+                color={currentTheme.newIconColor}
                 onPress={() => onModalClose(voucherModalRef)}
               />
             </View>
@@ -1449,7 +1448,7 @@ function Checkout(props) {
             >
               {!couponLoading && (
                 <TextDefault
-                  textColor={currentTheme.fontFourthColor}
+                  textColor={currentTheme.black}
                   style={styles().checkoutBtn}
                   bold
                   H4
