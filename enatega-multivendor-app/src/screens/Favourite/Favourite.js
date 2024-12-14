@@ -71,7 +71,7 @@ function Favourite() {
       headerTitleAlign: 'center',
       headerRight: null,
       headerTitleStyle: {
-        color:currentTheme.newFontcolor,
+        color: '#000',
         fontWeight: 'bold'
       },
       headerTitleContainerStyle: {
@@ -82,7 +82,7 @@ function Favourite() {
         marginLeft: 0
       },
       headerStyle: {
-        backgroundColor: currentTheme.newheaderBG,
+        backgroundColor: currentTheme.white,
         elevation: 0
       },
       headerTitleAlign: 'center',
@@ -92,7 +92,7 @@ function Favourite() {
           truncatedLabel=""
           backImage={() => (
             <View>
-              <MaterialIcons name="arrow-back" size={25} color={currentTheme.newFontcolor} />
+              <MaterialIcons name="arrow-back" size={25} color="black" />
             </View>
           )}
           onPress={() => {

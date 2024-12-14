@@ -23,7 +23,7 @@ const styles = (props = null) =>
       paddingBottom: scale(9),
       borderColor: '#E5E7EB',
       borderWidth: 1,
-      backgroundColor: props != null ? props.gray100 : 'black',
+      backgroundColor: '#F3F4F6'
     },
     popularMenuPrice: {
       flexDirection: 'row',

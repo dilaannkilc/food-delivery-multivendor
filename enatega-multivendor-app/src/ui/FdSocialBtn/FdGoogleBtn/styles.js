@@ -1,11 +1,10 @@
-import { Dimensions, StyleSheet } from 'react-native'
+import { Dimensions } from 'react-native'
 import { alignment } from '../../../utils/alignment'
 import { textStyles } from '../../../utils/textStyles'
 import { scale } from '../../../utils/scaling'
 const { height } = Dimensions.get('window')
 
-const styles = (props = null) =>
-  StyleSheet.create({
+export default {
   mainContainer: {
     width: '90%',
 
@@ -18,14 +17,16 @@ const styles = (props = null) =>
     justifyContent: 'flex-start',
     borderRadius: scale(28),
     borderWidth: scale(1),
-    borderColor: props !== null ? props.newIconColor : '#9B9A9A',
+    borderBottomColor: '#000',
     ...alignment.PLlarge
   },
 
   marginLeft10: {
     ...alignment.MLmedium
   },
-
-  })
-export default styles
-
+  textStyle: {
+    ...textStyles.Bold,
+    ...textStyles.Normal,
+    color: '#000'
+  }
+}

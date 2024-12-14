@@ -166,9 +166,9 @@ function ImageTextCenterHeader(props, ref) {
                   <TouchableOpacity
                     activeOpacity={0.7}
                     style={[
-                      styles(currentTheme).touchArea,
+                      styles().touchArea,
                       {
-                        backgroundColor: props.themeBackground,
+                        backgroundColor: props.iconBackColor,
                         borderRadius: props.iconRadius,
                         height: props.iconTouchHeight
                       }
@@ -176,9 +176,11 @@ function ImageTextCenterHeader(props, ref) {
                     onPress={() => navigation.goBack()}
                   >
                     <Ionicons
-                      name="ios-arrow-back"
-                      color= {currentTheme.newIconColor}
-                      size={scale(17)}
+                      name='ios-arrow-back'
+                      style={{
+                        color: props.black,
+                        fontSize: props.iconSize
+                      }}
                     />
                   </TouchableOpacity>
                 )}
@@ -202,7 +204,7 @@ function ImageTextCenterHeader(props, ref) {
                       style={[
                         styles().touchArea,
                         {
-                          backgroundColor: props.themeBackground,
+                          backgroundColor: props.iconBackColor,
                           borderRadius: props.iconRadius,
                           height: props.iconTouchHeight
                         }
@@ -220,8 +222,7 @@ function ImageTextCenterHeader(props, ref) {
                           <AntDesign
                             name={heart ? 'heart' : 'hearto'}
                             size={scale(15)}
-                            color= {currentTheme.newIconColor}
-
+                            color={currentTheme.iconColorDark}
                           />
                         )}
                       </View>
@@ -231,7 +232,7 @@ function ImageTextCenterHeader(props, ref) {
                       style={[
                         styles().touchArea,
                         {
-                          backgroundColor: props.themeBackground,
+                          backgroundColor: props.iconBackColor,
                           borderRadius: props.iconRadius,
                           height: props.iconTouchHeight
                         }
@@ -246,8 +247,7 @@ function ImageTextCenterHeader(props, ref) {
                       <SimpleLineIcons
                         name='info'
                         size={scale(17)}
-                        color= {currentTheme.newIconColor}
-
+                        color={currentTheme.iconColorDark}
                       />
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -255,7 +255,7 @@ function ImageTextCenterHeader(props, ref) {
                       style={[
                         styles().touchArea,
                         {
-                          backgroundColor: props.themeBackground,
+                          backgroundColor: props.iconBackColor,
                           borderRadius: props.iconRadius,
                           height: props.iconTouchHeight
                         }
@@ -267,8 +267,7 @@ function ImageTextCenterHeader(props, ref) {
                         style={{
                           fontSize: props.iconSize
                         }}
-                        color= {currentTheme.newIconColor}
-
+                        color={currentTheme.iconColorDark}
                       />
                     </TouchableOpacity>
                   </>
@@ -311,13 +310,13 @@ function ImageTextCenterHeader(props, ref) {
                 </View>
               </View>
               <View style={{ display: 'flex', flexDirection: 'row', gap: 7 }}>
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>
+                <Text style={styles().restaurantAbout}>
                   {distance.toFixed(2)}km {t('away')}
-                </TextDefault>
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>|</TextDefault>
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>
+                </Text>
+                <Text style={styles().restaurantAbout}>|</Text>
+                <Text style={styles().restaurantAbout}>
                   ${aboutObject.restaurantTax} {t('deliveryCharges')}
-                </TextDefault>
+                </Text>
               </View>
               <View
                 style={{
@@ -327,13 +326,13 @@ function ImageTextCenterHeader(props, ref) {
                   marginTop: scale(5)
                 }}
               >
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>
+                <Text style={styles().restaurantAbout}>
                   ${aboutObject.restaurantMinOrder} {t('minimum')}
-                </TextDefault>
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>|</TextDefault>
-                <TextDefault style={styles().restaurantAbout}  textColor={currentTheme.fontMainColor}>
+                </Text>
+                <Text style={styles().restaurantAbout}>|</Text>
+                <Text style={styles().restaurantAbout}>
                   {t('serviceFeeApply')}
-                </TextDefault>
+                </Text>
               </View>
               <View
                 style={{
@@ -345,6 +344,7 @@ function ImageTextCenterHeader(props, ref) {
                 <TouchableOpacity
                   activeOpacity={0.7}
                   style={styles().ratingBox}
+                  disabled={props.loading}
                   onPress={() => {
                     navigation.navigate('Reviews', {
                       restaurantObject: { ...aboutObject, isOpen: null },
@@ -355,60 +355,62 @@ function ImageTextCenterHeader(props, ref) {
                   <MaterialIcons
                     name='star-border'
                     size={scale(20)}
-                    color={currentTheme.fontFourthColor}
+                    color='#111827'
                   />
 
-                  <TextDefault
-                  textColor={currentTheme.fontNewColor}
+                  <Text
                     style={{
                       fontWeight: '700',
                       fontSize: scale(16),
-                     
-                    }}>
+                      color: '#374151'
+                    }}
+                  >
                     {aboutObject.average}
-                  </TextDefault>
-                  <TextDefault
-                  textColor={currentTheme.fontNewColor}
+                  </Text>
+                  <Text
                     style={{
                       fontWeight: '400',
                       fontSize: scale(14),
-                     
+                      color: '#6B7280',
                       marginLeft: scale(5)
                     }}
                   >
                     ({aboutObject.total})
-                  </TextDefault>
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   activeOpacity={0.7}
                   style={styles().ratingBox}
-                  onPress={() => navigation.navigate('Reviews', {
-                    restaurantObject: { ...aboutObject, isOpen: null },
-                    tab: false
-                  })}>
-                  <TextDefault
-                    textColor= {currentTheme.editProfileButton}
+                  disabled={props.loading}
+                  onPress={() =>
+                    navigation.navigate('Reviews', {
+                      restaurantObject: { ...aboutObject, isOpen: null },
+                      tab: false
+                    })
+                  }
+                >
+                  <Text
                     style={{
                       fontSize: scale(14),
                       fontWeight: '600',
-                     
+                      color: '#3B82F6'
                     }}
                   >
                     {t('seeReviews')}
-                  </TextDefault>
+                  </Text>
                 </TouchableOpacity>
               </View>
               <View style={[styles().ratingBox, { marginTop: scale(9) }]}>
-                <MaterialIcons name="timer" size={scale(20)}  color={currentTheme.fontFourthColor}/>
-                <TextDefault
-                textColor={currentTheme.fontNewColor}
+                <MaterialIcons name='timer' size={scale(20)} color='#111827' />
+                <Text
                   style={{
                     fontWeight: '400',
                     fontSize: scale(14),
-                   
-                  }}>
+                    color: '#6B7280'
+                  }}
+                >
                   {aboutObject.deliveryTime} {t('Min')}
-                </TextDefault>
+                </Text>
               </View>
             </View>
             <View>
@@ -445,8 +447,8 @@ function ImageTextCenterHeader(props, ref) {
                             }
                             textColor={
                               props.selectedLabel === index
-                                ? currentTheme.fontFourthColor
-                                : currentTheme.gray500
+                                ? '#111827'
+                                : '#6B7280'
                             }
                             center
                             H5

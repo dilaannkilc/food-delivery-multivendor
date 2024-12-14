@@ -10,7 +10,9 @@ const styles = (props = null) =>
     
     },
     restaurantContainer: {
-      backgroundColor: props != null ? props.newheaderBG : 'white',
+      backgroundColor: props != null ? props.cartContainer : 'white',
+    
+      
       borderColor: props != null ? props.borderColor : 'grey',
       borderWidth: scale(1),
       borderRadius: scale(8),

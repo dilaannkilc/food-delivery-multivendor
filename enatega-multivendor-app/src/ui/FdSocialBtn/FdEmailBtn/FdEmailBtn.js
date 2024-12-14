@@ -26,11 +26,11 @@ const FdEmailBtn = props => {
           <MaterialIcons
             name="mail-outline"
             size={scale(18)}
-            color={currentTheme.newIconColor}
+            color={currentTheme.black}
           />
           <TextDefault
             H4
-            textColor={currentTheme.newFontcolor}
+            textColor={currentTheme.black}
             style={alignment.MLlarge}
             bold>
             {t('ContinueWithEmail')}

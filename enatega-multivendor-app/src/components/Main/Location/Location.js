@@ -33,13 +33,13 @@ function Location(props) {
             <EvilIcons
               name="location"
               size={16}
-              color={currentTheme.black}
+              color={currentTheme.fontFourthColor}
             />
           </View>
           <View style={styles(currentTheme).headerContainer}>
             <TextDefault textColor={props.fontFourthColor} left>
               {''}
-              {t(translatedLabel)}
+              {translatedLabel}
             </TextDefault>
             <TouchableOpacity
               activeOpacity={1}

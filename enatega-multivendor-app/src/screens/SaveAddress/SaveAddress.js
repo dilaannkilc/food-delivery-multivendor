@@ -90,7 +90,7 @@ function SaveAddress(props) {
       headerRight: null,
       title: t('saveAddress'),
       headerTitleStyle: {
-        color: currentTheme.newFontcolor,
+        color: '#000',
         fontWeight: 'bold'
       },
       headerTitleContainerStyle: {
@@ -101,7 +101,7 @@ function SaveAddress(props) {
         marginLeft: 0
       },
       headerStyle: {
-        backgroundColor: currentTheme.newheaderBG,
+        backgroundColor: currentTheme.white,
         elevation: 0
       },
       headerTitleAlign: 'center',
@@ -110,7 +110,7 @@ function SaveAddress(props) {
           truncatedLabel=''
           backImage={() => (
             <View>
-              <MaterialIcons name='arrow-back' size={30} color={currentTheme.newIconColor} />
+              <MaterialIcons name='arrow-back' size={30} color='black' />
             </View>
           )}
           onPress={() => {
@@ -160,13 +160,13 @@ function SaveAddress(props) {
               <View style={styles().upperContainer}>
                 <View style={styles(currentTheme).addressContainer}>
                   <View style={styles(currentTheme).addressTag}>
-                    <TextDefault H4 bolder textColor={currentTheme.newFontcolor}>
+                    <TextDefault H4 bolder>
                       {t('address')}
                     </TextDefault>
                   </View>
                   <View style={styles().address}>
                     <View style={styles().addressTag}>
-                      <TextDefault H5 bold textColor={currentTheme.newFontcolor}>
+                      <TextDefault H5 bold>
                         {locationData.city}
                       </TextDefault>
                     </View>
@@ -178,7 +178,7 @@ function SaveAddress(props) {
                   </View>
                   <View style={styles().address}>
                     <View style={styles().addressTag}>
-                      <TextDefault H5 bold textColor={currentTheme.newFontcolor}>
+                      <TextDefault H5 bold>
                         {t('locationType')}
                       </TextDefault>
                     </View>

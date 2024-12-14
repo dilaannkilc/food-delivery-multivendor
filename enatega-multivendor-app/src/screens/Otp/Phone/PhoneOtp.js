@@ -37,9 +37,9 @@ function PhoneOtp(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions(
       screenOptions({
-        iconColor: currentTheme.newIconColors,
+        iconColor: currentTheme.iconColorPink,
         backColor: currentTheme.themeBackground,
-        fontColor: currentTheme.newFontcolor,
+        fontColor: currentTheme.fontMainColor,
         navigation: props.navigation
       })
     )
@@ -57,13 +57,13 @@ function PhoneOtp(props) {
       <View style={styles(currentTheme).mainContainer}>
         <View style={styles().subContainer}>
           <View style={styles().logoContainer}>
-            <Ionicons name='phone-portrait-outline' size={30}  color={currentTheme.newIconColor}/>
+            <Ionicons name='phone-portrait-outline' size={30} color='black' />
           </View>
           <View>
             <TextDefault
               H3
               bolder
-               textColor={currentTheme.newFontcolor}
+              textColor={currentTheme.fontfourthColor}
               style={{
                 ...alignment.MTlarge,
                 ...alignment.MBmedium
@@ -74,7 +74,7 @@ function PhoneOtp(props) {
             <TextDefault
               H5
               bold
-              textColor={currentTheme.color6}
+              textColor={currentTheme.fontSecondColor}
               style={{
                 paddingBottom: scale(5)
               }}
@@ -90,7 +90,7 @@ function PhoneOtp(props) {
               pinCount={6}
               style={styles().otpInput}
               codeInputFieldStyle={[
-                styles(currentTheme).otpBox,
+                styles().otpBox,
                 otpError && styles().errorInput
               ]}
               codeInputHighlightStyle={{
@@ -117,7 +117,7 @@ function PhoneOtp(props) {
         </View>
         <View style={styles().btnContainer}>
           <View style={alignment.MBxSmall}>
-            <TextDefault center H4 bold textColor={currentTheme.fontNewColor} style={alignment.MTsmall}>
+            <TextDefault center H4 bold style={alignment.MTsmall}>
               {seconds !== 0 ? `${t('retry')} ${seconds}s` : ''}
             </TextDefault>
           </View>
@@ -125,7 +125,7 @@ function PhoneOtp(props) {
             {loading || updateUserLoading ? (
               <Spinner
                 backColor={currentTheme.backgroundColor}
-                spinnerColor={currentTheme.main}
+                spinnerColor={currentTheme.white}
                 size='small'
               />
             ) : (
@@ -140,7 +140,7 @@ function PhoneOtp(props) {
               >
                 <TextDefault
                   H4
-                  textColor={currentTheme.black}
+                  textColor={currentTheme.fontfourthColor}
                   style={alignment.MLsmall}
                   bold
                 >
