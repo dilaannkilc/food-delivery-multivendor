@@ -127,17 +127,17 @@ function Cart(props) {
       headerRight: null,
       headerTitleAlign: 'center',
       headerTitleStyle: {
-        color: currentTheme.btnText,
+        color: currentTheme.newFontcolor,
         ...textStyles.H4,
         ...textStyles.Bolder
       },
       headerTitleContainerStyle: {
         paddingLeft: scale(25),
         paddingRight: scale(25),
-        backgroundColor: currentTheme.transparent
+        
       },
       headerStyle: {
-        backgroundColor: currentTheme.themeBackground
+        backgroundColor: currentTheme.newheaderBG
       },
       headerLeft: () => (
         <HeaderBackButton
@@ -152,7 +152,7 @@ function Cart(props) {
               <AntDesign
                 name='arrowleft'
                 size={22}
-                color={currentTheme.fontFourthColor}
+                color={currentTheme.newIconColor}
               />
             </View>
           )}
@@ -457,6 +457,12 @@ function Cart(props) {
                         width: 30,
                         height: 30
                       }}
+                      locationLabel={
+                       currentTheme.newFontcolor
+                      } 
+                      location={
+                        currentTheme.newFontcolor
+                       } 
                     />
                   </View>
                   <Feather
@@ -476,7 +482,7 @@ function Cart(props) {
                 <View
                   style={[styles(currentTheme).dealContainer, styles().mB10]}
                 >
-                  <TextDefault style={styles().totalOrder} H5 bolder>
+                  <TextDefault textColor={currentTheme.gray500} style={styles().totalOrder} H5 bolder>
                     {t('yourOrder')} ({cartLength})
                   </TextDefault>
                   {cart?.map((cartItem, index) => {
@@ -546,7 +552,7 @@ function Cart(props) {
                     style={styles(currentTheme).button}
                   >
                     <TextDefault
-                      textColor={currentTheme.themeBackground}
+                      textColor={currentTheme.white}
                       style={styles().checkoutBtn}
                       bold
                       H5
