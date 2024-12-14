@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from 'react'
 import { StatusBar, Platform } from 'react-native'
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device'
-import Constants  from 'expo-constants'
 import useEnvVars from '../../../environment'
 import gql from 'graphql-tag'
 import { login } from '../../apollo/mutations'
@@ -110,7 +109,7 @@ export const useCreateAccount = () => {
       const { status: existingStatus } =
       await Notifications.getPermissionsAsync()
       if (existingStatus === 'granted') {
-        notificationToken = (await Notifications.getExpoPushTokenAsync({  projectId: Constants.expoConfig.extra.eas.projectId})).data
+        notificationToken = (await Notifications.getExpoPushTokenAsync()).data
       }
     }
     mutate({

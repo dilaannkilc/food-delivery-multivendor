@@ -2,12 +2,12 @@
     "build": {
       "development":{
         "developmentClient": false,
-        "channel": "development",
+        "releaseChannel": "development",
         "distribution": "internal"
       },
       "staging": {
         "developmentClient": false,
-        "channel": "staging",
+        "releaseChannel": "staging",
         "distribution": "internal"
       },
       "production": {

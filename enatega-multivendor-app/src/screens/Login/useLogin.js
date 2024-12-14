@@ -1,8 +1,6 @@
 import { useState, useContext, useRef } from 'react'
-import { Alert } from 'react-native'
 import _ from 'lodash' // Import lodash
 import * as Device from 'expo-device'
-import Constants from 'expo-constants'
 import { useMutation } from '@apollo/client'
 import gql from 'graphql-tag'
 import { login, emailExist } from '../../apollo/mutations'
@@ -153,9 +151,7 @@ export const useLogin = () => {
             status: existingStatus
           } = await Notifications.getPermissionsAsync()
           if (existingStatus === 'granted') {
-            notificationToken = (await Notifications.getExpoPushTokenAsync({
-              projectId: Constants.expoConfig.extra.eas.projectId 
-            }))
+            notificationToken = (await Notifications.getExpoPushTokenAsync())
               .data
           }
         }
