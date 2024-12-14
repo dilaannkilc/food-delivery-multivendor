@@ -54,11 +54,9 @@ const Help = props => {
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.menuBar)
+      StatusBar.setBackgroundColor('transparent')
     }
-    StatusBar.setBarStyle(
-      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
-    )
+    StatusBar.setBarStyle('dark-content')
   })
 
   useEffect(() => {
@@ -78,7 +76,7 @@ const Help = props => {
       headerTitleAlign: 'center',
       headerRight: null,
       headerTitleStyle: {
-        color: currentTheme.newFontcolor,
+        color: '#000',
         fontWeight: 'bold'
       },
       headerTitleContainerStyle: {
@@ -89,7 +87,7 @@ const Help = props => {
         marginLeft: 0
       },
       headerStyle: {
-        backgroundColor: currentTheme.newheaderBG,
+        backgroundColor: currentTheme.white,
         elevation: 0
       },
       headerLeft: () => (
@@ -97,7 +95,7 @@ const Help = props => {
           truncatedLabel=""
           backImage={() => (
             <View>
-              <MaterialIcons name="arrow-back" size={25} color={currentTheme.newIconColor} />
+              <MaterialIcons name="arrow-back" size={25} color="black" />
             </View>
           )}
           onPress={() => {
@@ -124,7 +122,7 @@ const Help = props => {
             ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
             renderItem={({ item }) => (
               <Accordion heading={t(item.heading)}>
-                <TextDefault textColor={currentTheme.newFontcolor}>{t(item.description)}</TextDefault>
+                <TextDefault>{t(item.description)}</TextDefault>
               </Accordion>
             )}
           />

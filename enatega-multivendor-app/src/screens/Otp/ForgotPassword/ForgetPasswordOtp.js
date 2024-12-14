@@ -33,9 +33,9 @@ function ForgotPasswordOtp(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions(
       screenOptions({
-        iconColor: currentTheme.newIconColor,
+        iconColor: currentTheme.iconColorPink,
         backColor: currentTheme.themeBackground,
-        fontColor: currentTheme.newFontcolor,
+        fontColor: currentTheme.fontMainColor,
         navigation: props.navigation
       })
     )
@@ -52,13 +52,13 @@ function ForgotPasswordOtp(props) {
       <View style={styles(currentTheme).mainContainer}>
         <View style={styles().subContainer}>
           <View style={styles().logoContainer}>
-            <Feather name='lock' size={30} color={currentTheme.newIconColor} />
+            <Feather name='lock' size={30} color='black' />
           </View>
           <View>
             <TextDefault
               H3
               bolder
-              textColor={currentTheme.newFontcolor}
+              textColor={currentTheme.fontfourthColor}
               style={{
                 ...alignment.MTlarge,
                 ...alignment.MBmedium
@@ -76,7 +76,7 @@ function ForgotPasswordOtp(props) {
             >
               {t('otpSentToEmail')}
             </TextDefault>
-            <TextDefault H5 bold textColor={currentTheme.newFontcolor}>
+            <TextDefault H5 bold textColor={currentTheme.fontfourthColor}>
               {email}
             </TextDefault>
           </View>
@@ -134,7 +134,7 @@ function ForgotPasswordOtp(props) {
             {loading ? (
               <Spinner backColor='transparent' size='small' spinnerColor={currentTheme.main} />
             ) : (
-              <TextDefault H4 textColor={currentTheme.black} bold>
+              <TextDefault H4 textColor={currentTheme.fontFourthColor} bold>
                 {t('resendBtn')}
               </TextDefault>
             )}

@@ -21,10 +21,10 @@ const EmptyView = ({ title, description, buttonText }) => {
           <EmptyCart width={scale(200)} height={scale(200)} />
         </View>
         <View style={styles().descriptionEmpty}>
-          <TextDefault bolder center B700 textColor={currentTheme.newFontcolor}>
+          <TextDefault bolder center B700>
             {t(title)}
           </TextDefault>
-          <TextDefault center textColor={currentTheme.newFontcolor}>{t(description)}</TextDefault>
+          <TextDefault>{t(description)}</TextDefault>
         </View>
         <TouchableOpacity
           activeOpacity={0.7}

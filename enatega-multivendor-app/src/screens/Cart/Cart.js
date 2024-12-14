@@ -116,11 +116,9 @@ function Cart(props) {
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.menuBar)
+      StatusBar.setBackgroundColor(currentTheme.themeBackground)
     }
-    StatusBar.setBarStyle(
-      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
-    )
+    StatusBar.setBarStyle('dark-content')
   })
 
   useLayoutEffect(() => {
@@ -129,17 +127,17 @@ function Cart(props) {
       headerRight: null,
       headerTitleAlign: 'center',
       headerTitleStyle: {
-        color: currentTheme.newFontcolor,
+        color: currentTheme.btnText,
         ...textStyles.H4,
         ...textStyles.Bolder
       },
       headerTitleContainerStyle: {
         paddingLeft: scale(25),
         paddingRight: scale(25),
-        
+        backgroundColor: currentTheme.transparent
       },
       headerStyle: {
-        backgroundColor: currentTheme.newheaderBG
+        backgroundColor: currentTheme.themeBackground
       },
       headerLeft: () => (
         <HeaderBackButton
@@ -154,7 +152,7 @@ function Cart(props) {
               <AntDesign
                 name='arrowleft'
                 size={22}
-                color={currentTheme.newIconColor}
+                color={currentTheme.fontFourthColor}
               />
             </View>
           )}
@@ -413,13 +411,16 @@ function Cart(props) {
         })
       })
     }
+    const populateAddons = addons.filter((addon) =>
+      food.variations[0].addons.includes(addon._id)
+    )
     return {
       ...cartItem,
       optionsTitle,
       title: title,
       price: price.toFixed(2),
       image: food.image,
-      addons: food.variations[0].addons
+      addons: populateAddons
     }
   }
 
@@ -459,12 +460,6 @@ function Cart(props) {
                         width: 30,
                         height: 30
                       }}
-                      locationLabel={
-                       currentTheme.newFontcolor
-                      } 
-                      location={
-                        currentTheme.newFontcolor
-                       } 
                     />
                   </View>
                   <Feather
@@ -484,7 +479,7 @@ function Cart(props) {
                 <View
                   style={[styles(currentTheme).dealContainer, styles().mB10]}
                 >
-                  <TextDefault textColor={currentTheme.gray500} style={styles().totalOrder} H5 bolder>
+                  <TextDefault style={styles().totalOrder} H5 bolder>
                     {t('yourOrder')} ({cartLength})
                   </TextDefault>
                   {cart?.map((cartItem, index) => {
@@ -554,7 +549,7 @@ function Cart(props) {
                     style={styles(currentTheme).button}
                   >
                     <TextDefault
-                      textColor={currentTheme.white}
+                      textColor={currentTheme.themeBackground}
                       style={styles().checkoutBtn}
                       bold
                       H5

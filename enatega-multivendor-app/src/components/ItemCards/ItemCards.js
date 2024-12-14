@@ -5,14 +5,8 @@ import styles from './styles'
 import { useContext } from 'react'
 import ConfigurationContext from '../../context/Configuration'
 import { IMAGE_LINK } from '../../utils/constants'
-import TextDefault from '../Text/TextDefault/TextDefault'
-import ThemeContext from '../../ui/ThemeContext/ThemeContext'
-import { theme } from '../../utils/themeColors'
 
 const ItemCard = ({ item, onPressItem, restaurant, tagCart }) => {
-   
-const themeContext = useContext(ThemeContext)
-const currentTheme = theme[themeContext.ThemeValue]
   const configuration = useContext(ConfigurationContext)
   const handleAddToCart = () => {
     onPressItem({
@@ -26,17 +20,17 @@ const currentTheme = theme[themeContext.ThemeValue]
 
   return (
     <TouchableOpacity onPress={handleAddToCart}>
-      <View style={styles(currentTheme).card}>
+      <View style={styles().card}>
         {tagCart(item._id)}
-        <TextDefault
-        textColor={currentTheme.gray600}
-          style={{         
+        <Text
+          style={{
+            color: '#4B5563',
             fontSize: scale(12),
             fontWeight: '600',
             marginBottom: scale(11)
           }}>
           {item.title}
-        </TextDefault>
+        </Text>
         <View style={{ alignItems: 'center' }}>
           {item.image ? (
             <Image

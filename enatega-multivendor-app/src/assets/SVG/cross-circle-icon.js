@@ -9,7 +9,7 @@ const CrossCirleIcon = (props) => (
     {...props}
   >
     <Path
-      stroke={props.stroke}
+      stroke="#111827"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}

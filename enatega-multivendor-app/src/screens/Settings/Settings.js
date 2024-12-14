@@ -100,11 +100,9 @@ function Settings(props) {
   }, [])
   useEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.menuBar)
+      StatusBar.setBackgroundColor('transparent')
     }
-    StatusBar.setBarStyle(
-      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
-    )
+    StatusBar.setBarStyle('dark-content')
   }, [])
 
   useEffect(() => {
@@ -115,7 +113,7 @@ function Settings(props) {
           truncatedLabel=''
           backImage={() => (
             <View>
-              <MaterialIcons name="arrow-back" size={25} color={currentTheme.newIconColor} />
+              <MaterialIcons name='arrow-back' size={25} color='black' />
             </View>
           )}
           onPress={() => {
@@ -126,7 +124,7 @@ function Settings(props) {
       headerTitle: t('titleSettings'),
       headerTitleAlign: 'center',
       headerTitleStyle: {
-        color: currentTheme.newFontcolor,
+        color: '#000',
         fontWeight: 'bold'
       },
       headerTitleContainerStyle: {
@@ -137,7 +135,7 @@ function Settings(props) {
         marginLeft: 0
       },
       headerStyle: {
-        backgroundColor: currentTheme.newheaderBG,
+        backgroundColor: currentTheme.white,
         elevation: 0
       }
     })
@@ -151,7 +149,7 @@ function Settings(props) {
       const permission = await getPermission()
       if (permission === 'granted') {
         if (!profile.notificationToken) {
-          token = await Notifications.getExpoPushTokenAsync()
+          token = await Notifications.getExpoPushTokenAsync({  projectId: Constants.expoConfig.extra.eas.projectId})
           uploadToken({ variables: { token: token.data } })
         }
         offerNotificationSetter(profile.isOfferNotification)
@@ -479,7 +477,7 @@ function Settings(props) {
             >
               <TextDefault
                 numberOfLines={1}
-                textColor={currentTheme.main}
+                textColor={currentTheme.tagColor}
                 small
                 bolder
                 uppercase
@@ -493,7 +491,7 @@ function Settings(props) {
               onPress={() => onSelectedLanguage()}
             >
               <TextDefault
-                textColor={currentTheme.main}
+                textColor={currentTheme.tagColor}
                 bolder
                 uppercase
                 small

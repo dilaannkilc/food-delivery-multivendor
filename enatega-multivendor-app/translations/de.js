@@ -535,10 +535,7 @@ export const de = {
   phoneNumberExist: 'Die angegebene Telefonnummer existiert bereits!',
   phoneCheckingError:
     'Fehler beim Überprüfen der Telefonnummer. Versuchen Sie es später erneut!',
-    cancelledOrder:'Ihre Bestellung wurde storniert. Wenn Sie Fragen haben, wenden Sie sich bitte an unser Support-Team.',
-    addMore: 'Möchten Sie diese hinzufügen?',
-howWasOrder: 'Wie war Ihre Bestellung?',
-tellAboutExp: 'Berichten Sie anderen von Ihren Erfahrungen mit',
-typeHere: 'Hier eingeben',
-review: 'Bewertung',
+  Logout: 'Ausloggen',
+  LoggingOut: 'Ausloggen?',
+  SeeYouAgainSoon: 'Bis bald!'
 }

@@ -48,9 +48,9 @@ function Register(props) {
   useLayoutEffect(() => {
     props.navigation.setOptions(
       screenOptions({
-        fontColor: currentTheme.newFontcolor,
+        fontColor: currentTheme.fontMainColor,
         backColor: currentTheme.themeBackground,
-        iconColor: currentTheme.newIconColor,
+        iconColor: currentTheme.iconColorPink,
         navigation: props.navigation
       })
     )
@@ -79,13 +79,12 @@ function Register(props) {
                   style={styles().logoContainer}
                 /> */}
 
-                <SimpleLineIcons name='user' size={30} color={currentTheme.newIconColor} />
+                <SimpleLineIcons name='user' size={30} color='black' />
               </View>
               <View>
                 <TextDefault
                   H3
                   bolder
-                  textColor={currentTheme.newFontcolor}
                   style={{
                     ...alignment.MTlarge,
                     ...alignment.MBmedium
@@ -214,7 +213,6 @@ function Register(props) {
                       withFilter
                     />
                     <TextDefault
-                    textColor={currentTheme.newFontcolor}
                       style={{ marginTop: Platform.OS === 'android' ? 7 : 10 }}
                     >
                       {country?.cca2}
@@ -228,13 +226,12 @@ function Register(props) {
                     ]}
                   >
                     <View style={styles().phoneFieldInner}>
-                      <TextDefault textColor={currentTheme.newFontcolor}>+{country.callingCode[0]} </TextDefault>
+                      <Text>+{country.callingCode[0]} </Text>
                       <TextInput
                         placeholder={t('mobileNumber')}
                         placeholderTextColor={currentTheme.fontSecondColor}
                         value={phone}
                         onChangeText={(e) => setPhone(e)}
-                        style={styles(currentTheme).phoneField}
                       />
                     </View>
                   </View>
@@ -242,7 +239,7 @@ function Register(props) {
                 {phoneError && (
                   <View style={{ marginLeft: '30%' }}>
                     <TextDefault
-                      style={styles(currentTheme).error}
+                      style={styles().error}
                       bold
                       textColor={currentTheme.textErrorColor}
                     >
@@ -258,7 +255,7 @@ function Register(props) {
                 activeOpacity={0.7}
                 style={styles(currentTheme).btn}
               >
-                <TextDefault H4 textColor={currentTheme.black} bold>
+                <TextDefault H4 textColor={currentTheme.gray900} bold>
                   {t('createAccount')}
                 </TextDefault>
               </TouchableOpacity>

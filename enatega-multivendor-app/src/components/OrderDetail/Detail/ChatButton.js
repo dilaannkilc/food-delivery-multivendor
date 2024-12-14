@@ -16,17 +16,15 @@ export const ChatButton = ({ onPress, theme, title, description }) => {
         <TextDefault
           H4
           bolder
-          textColor={theme.newFontcolor}
         >{title}
         </TextDefault>
         <TextDefault
           H5
-          textColor={theme.newFontcolor}
         >{description}
         </TextDefault>
       </View>
       <View style={styles.chatIcon(theme)}>
-        <ChatIcon fill={theme.white} stroke={theme.black}/>
+        <ChatIcon/>
       </View>
 
     </TouchableOpacity>

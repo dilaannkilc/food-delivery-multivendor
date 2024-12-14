@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { View, StatusBar, Platform } from 'react-native'
 import SideDrawerItems from '../Drawer/Items/DrawerItems'
 import SideDrawerProfile from '../Drawer/Profile/DrawerProfile'
@@ -9,6 +9,7 @@ import UserContext from '../../context/User'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import styles from './styles'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
+import LogoutModal from './LogoutModal/LogoutModal'
 
 import analytics from '../../utils/analytics'
 
@@ -68,13 +69,28 @@ function SidebBar(props) {
   const { isLoggedIn, logout } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const handleCancel = () => {
+    setModalVisible(false)
+  }
+  const handleLogout = async () => {
+    setModalVisible(false)
+    await Analytics.track(Analytics.events.USER_LOGGED_OUT)
+    await Analytics.identify(null, null)
+    logout()
+    props.navigation.closeDrawer()
+    FlashMessage({ message: t('logoutMessage') })
+  }
+  const logoutClick = () => {
+    setModalVisible(true)
+  }
+
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.menuBar)
+      StatusBar.setBackgroundColor('transparent')
     }
-    StatusBar.setBarStyle(
-      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
-    )
+    StatusBar.setBarStyle('dark-content')
   })
 
   return (
@@ -95,7 +111,7 @@ function SidebBar(props) {
           {datas.map((dataItem, ind) => (
             <View key={ind} style={styles().item}>
               <SideDrawerItems
-                style={styles(currentTheme).iconContainer}
+                style={styles().iconContainer}
                 onPress={async () => {
                   if (dataItem.isAuth && !isLoggedIn) {
                     props.navigation.navigate('CreateAccount')
@@ -111,13 +127,7 @@ function SidebBar(props) {
           {isLoggedIn && (
             <View style={styles().item}>
               <SideDrawerItems
-                onPress={async () => {
-                  await Analytics.track(Analytics.events.USER_LOGGED_OUT)
-                  await Analytics.identify(null, null)
-                  logout()
-                  props.navigation.closeDrawer()
-                  FlashMessage({ message: t('logoutMessage') })
-                }}
+                onPress={logoutClick}
                 icon={'logout'}
                 title={t('titleLogout')}
               />
@@ -125,6 +135,12 @@ function SidebBar(props) {
           )}
         </View>
       </View>
+
+      <LogoutModal
+        visible={modalVisible}
+        onCancel={handleCancel}
+        onLogout={handleLogout}
+      />
     </View>
   )
 }

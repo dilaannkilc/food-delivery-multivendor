@@ -500,13 +500,10 @@ export const zh = {
   price: '价格',
   itemsAndQuantity: '商品和数量',
   selectCity: '选择城市',
-  Location:'位置',
+  Location: '位置',
   phoneNumberExist: '提供的电话号码已经存在！',
   phoneCheckingError: '检查电话号码时出错。请稍后重试！',
-  cancelledOrder:'您的订单已取消。如果您有任何问题，请联系我们的支持团队。',
-  addMore: '您想要添加这些吗？',
-  howWasOrder: '您的订单怎么样？',
-  tellAboutExp: '告诉其他人您与之的经历',
-  typeHere: '在此输入',
-  review: '评论',
+  Logout: '登出',
+  LoggingOut: '正在退出?',
+  SeeYouAgainSoon: '很快再见!'
 }

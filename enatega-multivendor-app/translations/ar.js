@@ -515,14 +515,10 @@ export const ar = {
   price: 'السعر',
   itemsAndQuantity: 'العناصر والكمية',
   selectCity: 'اختر المدينة',
-Location: 'الموقع',
+  Location: 'الموقع',
   phoneNumberExist: 'رقم الهاتف المقدم موجود بالفعل!',
   phoneCheckingError: 'خطأ أثناء التحقق من رقم الهاتف. حاول مرة أخرى لاحقًا!',
-  cancelledOrder:'تم إلغاء طلبك. إذا كان لديك أي أسئلة، يرجى التواصل مع فريق الدعم الخاص بنا.',
-  addMore: 'هل ترغب في إضافة هذه؟',
-  howWasOrder: 'كيف كان طلبك؟',
-  tellAboutExp: 'شارك الآخرين تجربتك مع',
-  typeHere: 'اكتب هنا',
-  review: 'المراجعة',
-
+  Logout: 'تسجيل الخروج',
+  LoggingOut: 'جاري تسجيل الخروج؟',
+  SeeYouAgainSoon: 'إلى اللقاء قريبا!'
 }
