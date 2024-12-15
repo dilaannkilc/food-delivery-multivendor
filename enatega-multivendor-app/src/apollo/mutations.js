@@ -30,7 +30,6 @@ export const placeOrder = `
       deliveryAddress{
         location{coordinates}
         deliveryAddress
-        id
       }
       items{
         _id
@@ -200,7 +199,6 @@ export const reviewOrder = `mutation ReviewOrder(
       deliveryAddress{
         location{coordinates}
         deliveryAddress
-        id
       }
       items{
         _id

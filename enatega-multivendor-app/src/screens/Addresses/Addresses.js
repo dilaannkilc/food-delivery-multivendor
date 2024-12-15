@@ -186,8 +186,7 @@ function Addresses() {
                     navigation.navigate('AddNewAddress', {
                       id:address._id,
                       longitude: +longitude,
-                      latitude: +latitude,
-                      prevScreen: 'Addresses'
+                      latitude: +latitude
                     })
                   }}
                 >
@@ -238,9 +237,7 @@ function Addresses() {
           <TouchableOpacity
             activeOpacity={0.5}
             style={styles(currentTheme).addButton}
-            onPress={() => navigation.navigate('SelectLocation', {
-              prevScreen: 'Addresses'
-            })}
+            onPress={() => navigation.navigate('SelectLocation')}
           >
             
             <TextDefault H5 bold>
