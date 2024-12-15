@@ -521,10 +521,7 @@ export const en = {
   somethingWentWrong: 'Something went wrong',
   checkInternet: 'Check your internet connection',
   selectCity: 'Select City',
-  Location: 'Location',
+Location:'Location',
   phoneNumberExist: 'Provided phone number already exist!',
-  phoneCheckingError: 'Error while checking phone number. Try again later!',
-  Logout: 'Logout',
-  LoggingOut: 'Logging out?',
-  SeeYouAgainSoon: 'See you again soon!'
+  phoneCheckingError: 'Error while checking phone number. Try again later!'
 }

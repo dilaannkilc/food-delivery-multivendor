@@ -534,8 +534,5 @@ export const de = {
   Location: 'Ort',
   phoneNumberExist: 'Die angegebene Telefonnummer existiert bereits!',
   phoneCheckingError:
-    'Fehler beim Überprüfen der Telefonnummer. Versuchen Sie es später erneut!',
-  Logout: 'Ausloggen',
-  LoggingOut: 'Ausloggen?',
-  SeeYouAgainSoon: 'Bis bald!'
+    'Fehler beim Überprüfen der Telefonnummer. Versuchen Sie es später erneut!'
 }

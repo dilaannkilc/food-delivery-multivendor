@@ -99,7 +99,7 @@ const Reviews = ({ navigation, route }) => {
               .sort((a, b) => b - a)
               .map((i, index) => {
                 const filled = (reviewGroups[i] / restaurant.total) * 100
-                const unfilled = filled ? 100 - filled : 100
+                const unfilled = 100 - filled
                 return (
                   <View
                     key={`${index}-rate`}
@@ -126,7 +126,7 @@ const Reviews = ({ navigation, route }) => {
                       <View
                         style={{
                           height: scale(5),
-                          width: filled ? `${filled}%` : '0%',
+                          width: `${filled}%`,
                           backgroundColor: currentTheme.orange
                         }}
                       />
@@ -140,7 +140,7 @@ const Reviews = ({ navigation, route }) => {
                     </View>
                     <View style={{ width: '10%', alignItems: 'flex-end' }}>
                       <TextDefault bolder textColor={currentTheme.gray700}>
-                        {filled ? parseInt(filled) : 0}%
+                        {parseInt(filled)}%
                       </TextDefault>
                     </View>
                   </View>
@@ -182,11 +182,6 @@ const Reviews = ({ navigation, route }) => {
                 theme={currentTheme}
               />
             ))}
-          </View>
-          <View style={{ ...alignment.MTlarge }}>
-            {sorted.length === 0 ? (
-              <TextDefault center H4 bold>{t('unReadReviews')}</TextDefault>
-            ) : null}
           </View>
         </View>
       </ScrollView>

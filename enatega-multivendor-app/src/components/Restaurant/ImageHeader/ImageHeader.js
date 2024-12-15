@@ -23,7 +23,7 @@ import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../../utils/themeColors'
 import { useNavigation } from '@react-navigation/native'
 import { DAYS } from '../../../utils/enums'
-import { RectButton } from 'react-native-gesture-handler'
+import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
 import { scale } from '../../../utils/scaling'
 import { alignment } from '../../../utils/alignment'
 import TextError from '../../Text/TextError/TextError'
@@ -39,6 +39,20 @@ import { addFavouriteRestaurant } from '../../../apollo/mutations'
 import { profile } from '../../../apollo/queries'
 import { calculateDistance } from '../../../utils/customFunctions'
 import { LocationContext } from '../../../context/Location'
+import Animated, {
+  Extrapolation,
+  interpolate,
+  useAnimatedStyle
+} from 'react-native-reanimated'
+
+const AnimatedText = Animated.createAnimatedComponent(Text)
+const AnimatedBorderless = Animated.createAnimatedComponent(BorderlessButton)
+
+const { height } = Dimensions.get('screen')
+const TOP_BAR_HEIGHT = height * 0.05
+const HEADER_MAX_HEIGHT = height * 0.4
+const HEADER_MIN_HEIGHT = height * 0.07 + TOP_BAR_HEIGHT
+const SCROLL_RANGE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
 
 const ADD_FAVOURITE = gql`
   ${addFavouriteRestaurant}
@@ -109,6 +123,78 @@ function ImageTextCenterHeader(props, ref) {
     }
   }
 
+  const minutesOpacity = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(
+        translationY.value,
+        [0, TOP_BAR_HEIGHT, SCROLL_RANGE / 2],
+        [0, 0.8, 1],
+        Extrapolation.CLAMP
+      )
+    }
+  })
+
+  const headerHeight = useAnimatedStyle(() => {
+    return {
+      height: interpolate(
+        translationY.value,
+        [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+        [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+        Extrapolation.CLAMP
+      )
+    }
+  })
+
+  const headerHeightWithoutTopbar = useAnimatedStyle(() => {
+    return {
+      height: interpolate(
+        translationY.value,
+        [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+        [
+          HEADER_MAX_HEIGHT - TOP_BAR_HEIGHT,
+          HEADER_MIN_HEIGHT - TOP_BAR_HEIGHT
+        ],
+        Extrapolation.CLAMP
+      )
+    }
+  })
+
+  const opacity = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(
+        translationY.value,
+        [0, height * 0.05, SCROLL_RANGE / 2],
+        [1, 0.8, 0],
+        Extrapolation.CLAMP
+      )
+    }
+  })
+
+  const headerTextFlex = useAnimatedStyle(() => {
+    const concat = (...args) => args.join('')
+    return {
+      marginBottom: concat(
+        interpolate(
+          translationY.value,
+          [0, 80, SCROLL_RANGE],
+          [-10, -10, 0],
+          Extrapolation.CLAMP
+        ),
+        '%'
+      )
+    }
+  })
+
+  const iconBackColor = currentTheme.white
+
+  const iconRadius = scale(15)
+
+  const iconSize = scale(20)
+
+  const iconTouchHeight = scale(30)
+
+  const iconTouchWidth = scale(30)
+
   const distance = calculateDistance(
     aboutObject?.latitude,
     aboutObject?.longitude,
@@ -135,13 +221,105 @@ function ImageTextCenterHeader(props, ref) {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={hideKeyboard}>
-      <View style={styles(currentTheme).mainContainer}>
-        <View style={styles().topBar}>
-          <View style={styles().overlayContainer}>
-            <View style={styles().fixedViewNavigation}>
-              <View style={styles().backIcon}>
-                {props.searchOpen ? (
+    // <TouchableWithoutFeedback onPress={hideKeyboard}>
+    <Animated.View style={[styles(currentTheme).mainContainer, headerHeight]}>
+      <Animated.View
+        style={[
+          headerHeightWithoutTopbar,
+          {
+            backgroundColor: 'white'
+          }
+        ]}
+      >
+        <Animated.View style={[styles().overlayContainer]}>
+          <View style={styles().fixedViewNavigation}>
+            <View style={styles().backIcon}>
+              {props.searchOpen ? (
+                <AnimatedBorderless
+                  activeOpacity={0.7}
+                  style={[
+                    styles().touchArea,
+                    {
+                      backgroundColor: props.iconBackColor,
+                      borderRadius: props.iconRadius,
+                      height: props.iconTouchHeight
+                    }
+                  ]}
+                  onPress={props.searchPopupHandler}
+                >
+                  <Entypo
+                    name='cross'
+                    style={{
+                      color: props.black,
+                      fontSize: props.iconSize
+                    }}
+                  />
+                </AnimatedBorderless>
+              ) : (
+                <AnimatedBorderless
+                  activeOpacity={0.7}
+                  style={[
+                    styles().touchArea,
+                    {
+                      backgroundColor: props.iconBackColor,
+                      borderRadius: props.iconRadius,
+                      height: props.iconTouchHeight
+                    }
+                  ]}
+                  onPress={() => navigation.goBack()}
+                >
+                  <Ionicons
+                    name='ios-arrow-back'
+                    style={{
+                      color: props.black,
+                      fontSize: props.iconSize
+                    }}
+                  />
+                </AnimatedBorderless>
+              )}
+            </View>
+            <View style={styles().fixedIcons}>
+              {props.searchOpen ? (
+                <>
+                  <Search
+                    setSearch={props.setSearch}
+                    search={props.search}
+                    newheaderColor={newheaderColor}
+                    cartContainer={cartContainer}
+                    placeHolder={t('searchItems')}
+                  />
+                </>
+              ) : (
+                <>
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    disabled={loadingMutation}
+                    style={[
+                      styles().touchArea,
+                      {
+                        backgroundColor: props.iconBackColor,
+                        borderRadius: props.iconRadius,
+                        height: props.iconTouchHeight
+                      }
+                    ]}
+                    onPress={handleAddToFavorites}
+                  >
+                    <View>
+                      {loadingMutation ? (
+                        <Spinner
+                          size={'small'}
+                          backColor={'transparent'}
+                          spinnerColor={currentTheme.iconColorDark}
+                        />
+                      ) : (
+                        <AntDesign
+                          name={heart ? 'heart' : 'hearto'}
+                          size={scale(15)}
+                          color={currentTheme.iconColorDark}
+                        />
+                      )}
+                    </View>
+                  </TouchableOpacity>
                   <TouchableOpacity
                     activeOpacity={0.7}
                     style={[
@@ -152,17 +330,19 @@ function ImageTextCenterHeader(props, ref) {
                         height: props.iconTouchHeight
                       }
                     ]}
-                    onPress={props.searchPopupHandler}
+                    onPress={() => {
+                      navigation.navigate('About', {
+                        restaurantObject: { ...aboutObject, isOpen: null },
+                        tab: false
+                      })
+                    }}
                   >
-                    <Entypo
-                      name='cross'
-                      style={{
-                        color: props.black,
-                        fontSize: props.iconSize
-                      }}
+                    <SimpleLineIcons
+                      name='info'
+                      size={scale(17)}
+                      color={currentTheme.iconColorDark}
                     />
                   </TouchableOpacity>
-                ) : (
                   <TouchableOpacity
                     activeOpacity={0.7}
                     style={[
@@ -173,299 +353,209 @@ function ImageTextCenterHeader(props, ref) {
                         height: props.iconTouchHeight
                       }
                     ]}
-                    onPress={() => navigation.goBack()}
+                    onPress={props.searchHandler}
                   >
                     <Ionicons
-                      name='ios-arrow-back'
+                      name='search-outline'
                       style={{
-                        color: props.black,
                         fontSize: props.iconSize
                       }}
+                      color={currentTheme.iconColorDark}
                     />
                   </TouchableOpacity>
-                )}
-              </View>
-              <View style={styles().fixedIcons}>
-                {props.searchOpen ? (
-                  <>
-                    <Search
-                      setSearch={props.setSearch}
-                      search={props.search}
-                      newheaderColor={newheaderColor}
-                      cartContainer={cartContainer}
-                      placeHolder={t('searchItems')}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <TouchableOpacity
-                      activeOpacity={0.7}
-                      disabled={loadingMutation}
-                      style={[
-                        styles().touchArea,
-                        {
-                          backgroundColor: props.iconBackColor,
-                          borderRadius: props.iconRadius,
-                          height: props.iconTouchHeight
-                        }
-                      ]}
-                      onPress={handleAddToFavorites}
-                    >
-                      <View>
-                        {loadingMutation ? (
-                          <Spinner
-                            size={'small'}
-                            backColor={'transparent'}
-                            spinnerColor={currentTheme.iconColorDark}
-                          />
-                        ) : (
-                          <AntDesign
-                            name={heart ? 'heart' : 'hearto'}
-                            size={scale(15)}
-                            color={currentTheme.iconColorDark}
-                          />
-                        )}
-                      </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      activeOpacity={0.7}
-                      style={[
-                        styles().touchArea,
-                        {
-                          backgroundColor: props.iconBackColor,
-                          borderRadius: props.iconRadius,
-                          height: props.iconTouchHeight
-                        }
-                      ]}
-                      onPress={() => {
-                        navigation.navigate('About', {
-                          restaurantObject: { ...aboutObject, isOpen: null },
-                          tab: false
-                        })
-                      }}
-                    >
-                      <SimpleLineIcons
-                        name='info'
-                        size={scale(17)}
-                        color={currentTheme.iconColorDark}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      activeOpacity={0.7}
-                      style={[
-                        styles().touchArea,
-                        {
-                          backgroundColor: props.iconBackColor,
-                          borderRadius: props.iconRadius,
-                          height: props.iconTouchHeight
-                        }
-                      ]}
-                      onPress={props.searchHandler}
-                    >
-                      <Ionicons
-                        name='search-outline'
-                        style={{
-                          fontSize: props.iconSize
-                        }}
-                        color={currentTheme.iconColorDark}
-                      />
-                    </TouchableOpacity>
-                  </>
-                )}
-              </View>
+                </>
+              )}
             </View>
           </View>
-        </View>
-
-        {!props.search && (
-          <>
-            <View style={styles().restaurantDetails}>
-              <View
-                style={{
+          <Animated.View style={[styles().restaurantDetails, opacity]}>
+            <Animated.View
+              style={[
+                {
                   display: 'flex',
                   flexDirection: 'row',
                   alignItems: 'center',
                   gap: scale(15),
                   marginBottom: scale(20)
+                }
+              ]}
+            >
+              <View style={[styles().restImageContainer]}>
+                <Image
+                  resizeMode='cover'
+                  source={{ uri: aboutObject.restaurantImage }}
+                  style={[styles().restaurantImg]}
+                />
+              </View>
+              <View style={styles().restaurantTitle}>
+                <TextDefault
+                  H4
+                  bolder
+                  Center
+                  textColor={currentTheme.fontMainColor}
+                  numberOfLines={1}
+                  ellipsizeMode='tail'
+                >
+                  {aboutObject.restaurantName}
+                </TextDefault>
+              </View>
+            </Animated.View>
+            <View style={{ display: 'flex', flexDirection: 'row', gap: 7 }}>
+              <Text style={styles().restaurantAbout}>
+                {distance.toFixed(2)}km {t('away')}
+              </Text>
+              <Text style={styles().restaurantAbout}>|</Text>
+              <Text style={styles().restaurantAbout}>
+                ${aboutObject.restaurantTax} {t('deliveryCharges')}
+              </Text>
+            </View>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                gap: 7,
+                marginTop: scale(5)
+              }}
+            >
+              <Text style={styles().restaurantAbout}>
+                ${aboutObject.restaurantMinOrder} {t('minimum')}
+              </Text>
+              <Text style={styles().restaurantAbout}>|</Text>
+              <Text style={styles().restaurantAbout}>
+                {t('serviceFeeApply')}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginTop: scale(15)
+              }}
+            >
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles().ratingBox}
+                onPress={() => {
+                  navigation.navigate('Reviews', {
+                    restaurantObject: { ...aboutObject, isOpen: null },
+                    tab: false
+                  })
                 }}
               >
-                <View style={styles().restImageContainer}>
-                  <Image
-                    resizeMode='cover'
-                    source={{ uri: aboutObject.restaurantImage }}
-                    style={styles().restaurantImg}
-                  />
-                </View>
-                <View style={styles().restaurantTitle}>
-                  <TextDefault
-                    H4
-                    bolder
-                    Center
-                    textColor={currentTheme.fontMainColor}
-                    numberOfLines={1}
-                    ellipsizeMode='tail'
-                  >
-                    {aboutObject.restaurantName}
-                  </TextDefault>
-                </View>
-              </View>
-              <View style={{ display: 'flex', flexDirection: 'row', gap: 7 }}>
-                <Text style={styles().restaurantAbout}>
-                  {distance.toFixed(2)}km {t('away')}
-                </Text>
-                <Text style={styles().restaurantAbout}>|</Text>
-                <Text style={styles().restaurantAbout}>
-                  ${aboutObject.restaurantTax} {t('deliveryCharges')}
-                </Text>
-              </View>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: 7,
-                  marginTop: scale(5)
-                }}
-              >
-                <Text style={styles().restaurantAbout}>
-                  ${aboutObject.restaurantMinOrder} {t('minimum')}
-                </Text>
-                <Text style={styles().restaurantAbout}>|</Text>
-                <Text style={styles().restaurantAbout}>
-                  {t('serviceFeeApply')}
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: scale(15)
-                }}
-              >
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  style={styles().ratingBox}
-                  disabled={props.loading}
-                  onPress={() => {
-                    navigation.navigate('Reviews', {
-                      restaurantObject: { ...aboutObject, isOpen: null },
-                      tab: false
-                    })
+                <MaterialIcons
+                  name='star-border'
+                  size={scale(20)}
+                  color='#111827'
+                />
+
+                <Text
+                  style={{
+                    fontWeight: '700',
+                    fontSize: scale(16),
+                    color: '#374151'
                   }}
                 >
-                  <MaterialIcons
-                    name='star-border'
-                    size={scale(20)}
-                    color='#111827'
-                  />
-
-                  <Text
-                    style={{
-                      fontWeight: '700',
-                      fontSize: scale(16),
-                      color: '#374151'
-                    }}
-                  >
-                    {aboutObject.average}
-                  </Text>
-                  <Text
-                    style={{
-                      fontWeight: '400',
-                      fontSize: scale(14),
-                      color: '#6B7280',
-                      marginLeft: scale(5)
-                    }}
-                  >
-                    ({aboutObject.total})
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  style={styles().ratingBox}
-                  disabled={props.loading}
-                  onPress={() =>
-                    navigation.navigate('Reviews', {
-                      restaurantObject: { ...aboutObject, isOpen: null },
-                      tab: false
-                    })
-                  }
-                >
-                  <Text
-                    style={{
-                      fontSize: scale(14),
-                      fontWeight: '600',
-                      color: '#3B82F6'
-                    }}
-                  >
-                    {t('seeReviews')}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={[styles().ratingBox, { marginTop: scale(9) }]}>
-                <MaterialIcons name='timer' size={scale(20)} color='#111827' />
+                  {aboutObject.average}
+                </Text>
                 <Text
                   style={{
                     fontWeight: '400',
                     fontSize: scale(14),
-                    color: '#6B7280'
+                    color: '#6B7280',
+                    marginLeft: scale(5)
                   }}
                 >
-                  {aboutObject.deliveryTime} {t('Min')}
+                  ({aboutObject.total})
                 </Text>
-              </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles().ratingBox}
+                disabled={props.loading}
+                onPress={() =>
+                  navigation.navigate('Reviews', {
+                    restaurantObject: { ...aboutObject, isOpen: null },
+                    tab: false
+                  })
+                }
+              >
+                <Text
+                  style={{
+                    fontSize: scale(14),
+                    fontWeight: '600',
+                    color: '#3B82F6'
+                  }}
+                >
+                  {t('seeReviews')}
+                </Text>
+              </TouchableOpacity>
             </View>
-            <View>
-              {!props.loading && (
-                <FlatList
-                  ref={flatListRef}
-                  style={styles(currentTheme).flatListStyle}
-                  contentContainerStyle={{ flexGrow: 1 }}
-                  data={props.loading ? [] : [...props.topaBarData]}
-                  horizontal={true}
-                  ListEmptyComponent={emptyView()}
-                  showsVerticalScrollIndicator={false}
-                  showsHorizontalScrollIndicator={false}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item, index }) => (
-                    <View
-                      style={
-                        props.selectedLabel === index
-                          ? styles(currentTheme).activeHeader
-                          : null
-                      }
-                    >
-                      <RectButton
-                        rippleColor={currentTheme.rippleColor}
-                        onPress={() => props.changeIndex(index)}
-                        style={styles(currentTheme).headerContainer}
+            <View style={[styles().ratingBox, { marginTop: scale(9) }]}>
+              <MaterialIcons name='timer' size={scale(20)} color='#111827' />
+              <Text
+                style={{
+                  fontWeight: '400',
+                  fontSize: scale(14),
+                  color: '#6B7280'
+                }}
+              >
+                {aboutObject.deliveryTime} {t('Min')}
+              </Text>
+            </View>
+          </Animated.View>
+        </Animated.View>
+      </Animated.View>
+
+      {!props.search && (
+        <>
+          {!props.loading && (
+            <FlatList
+              ref={flatListRef}
+              style={styles(currentTheme).flatListStyle}
+              contentContainerStyle={{ flexGrow: 1 }}
+              data={props.loading ? [] : [...props.topaBarData]}
+              horizontal={true}
+              ListEmptyComponent={emptyView()}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }) => (
+                <View
+                  style={
+                    props.selectedLabel === index
+                      ? styles(currentTheme).activeHeader
+                      : null
+                  }
+                >
+                  <RectButton
+                    rippleColor={currentTheme.rippleColor}
+                    onPress={() => props.changeIndex(index)}
+                    style={styles(currentTheme).headerContainer}
+                  >
+                    <View style={styles().navbarTextContainer}>
+                      <TextDefault
+                        style={
+                          props.selectedLabel === index
+                            ? textStyles.Bolder
+                            : textStyles.H5
+                        }
+                        textColor={
+                          props.selectedLabel === index ? '#111827' : '#6B7280'
+                        }
+                        center
+                        H5
                       >
-                        <View style={styles().navbarTextContainer}>
-                          <TextDefault
-                            style={
-                              props.selectedLabel === index
-                                ? textStyles.Bolder
-                                : textStyles.H5
-                            }
-                            textColor={
-                              props.selectedLabel === index
-                                ? '#111827'
-                                : '#6B7280'
-                            }
-                            center
-                            H5
-                          >
-                            {item.title}
-                          </TextDefault>
-                        </View>
-                      </RectButton>
+                        {item.title}
+                      </TextDefault>
                     </View>
-                  )}
-                />
+                  </RectButton>
+                </View>
               )}
-            </View>
-          </>
-        )}
-      </View>
-    </TouchableWithoutFeedback>
+            />
+          )}
+        </>
+      )}
+    </Animated.View>
+    // </TouchableWithoutFeedback>
   )
 }
 

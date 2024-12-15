@@ -57,6 +57,15 @@ const CartItem = props => {
               : props.dealName}
           </TextDefault>
 
+          {props.optionsTitle?.map((option, index) => (
+            <TextDefault
+              key={`options${props.dealName + option + index}`}
+              numberOfLines={1}
+              textColor={currentTheme.fontSecondColor}
+              bolder>
+              +{option}
+            </TextDefault>
+          ))}
           {props?.itemAddons?.length > 0 && (
             <View style={styles().additionalItem}>
               <View>
@@ -68,8 +77,7 @@ const CartItem = props => {
                     style={{ marginRight: scale(5) }}
                     textColor={currentTheme.secondaryText}
                     Normal>
-                    {props?.optionsTitle?.slice(0, 3)?.length}{' '}
-                    {t('additionalItems')}
+                    {props?.itemAddons?.length} {t('additionalItems')}
                   </TextDefault>
                   <Feather
                     name={isDropdownOpen ? 'chevron-up' : 'chevron-down'}
@@ -79,7 +87,7 @@ const CartItem = props => {
                 </TouchableOpacity>
                 {isDropdownOpen && (
                   <View style={styles().itemsDropdown}>
-                    {props?.optionsTitle?.slice(0, 3)?.map((item, index) => (
+                    {props?.itemAddons?.map((item, index) => (
                       <TextDefault
                         key={index}
                         textColor={currentTheme.secondaryText}

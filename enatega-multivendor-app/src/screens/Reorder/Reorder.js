@@ -153,16 +153,13 @@ function Reorder(props) {
         })
       })
     }
-    const populateAddons = addons.filter((addon) =>
-      food?.variations[0]?.addons?.includes(addon._id)
-    )
     return {
       ...cartItem,
       optionsTitle,
       title: title,
       price: price.toFixed(2),
       image: food.image,
-      addons: populateAddons
+      addons: food.variations[0].addons
     }
   }
 

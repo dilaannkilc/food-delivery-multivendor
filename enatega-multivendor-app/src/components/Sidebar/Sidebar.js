@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { View, StatusBar, Platform } from 'react-native'
 import SideDrawerItems from '../Drawer/Items/DrawerItems'
 import SideDrawerProfile from '../Drawer/Profile/DrawerProfile'
@@ -9,7 +9,6 @@ import UserContext from '../../context/User'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import styles from './styles'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
-import LogoutModal from './LogoutModal/LogoutModal'
 
 import analytics from '../../utils/analytics'
 
@@ -69,23 +68,6 @@ function SidebBar(props) {
   const { isLoggedIn, logout } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-  const [modalVisible, setModalVisible] = useState(false)
-
-  const handleCancel = () => {
-    setModalVisible(false)
-  }
-  const handleLogout = async () => {
-    setModalVisible(false)
-    await Analytics.track(Analytics.events.USER_LOGGED_OUT)
-    await Analytics.identify(null, null)
-    logout()
-    props.navigation.closeDrawer()
-    FlashMessage({ message: t('logoutMessage') })
-  }
-  const logoutClick = () => {
-    setModalVisible(true)
-  }
-
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor('transparent')
@@ -127,7 +109,13 @@ function SidebBar(props) {
           {isLoggedIn && (
             <View style={styles().item}>
               <SideDrawerItems
-                onPress={logoutClick}
+                onPress={async () => {
+                  await Analytics.track(Analytics.events.USER_LOGGED_OUT)
+                  await Analytics.identify(null, null)
+                  logout()
+                  props.navigation.closeDrawer()
+                  FlashMessage({ message: t('logoutMessage') })
+                }}
                 icon={'logout'}
                 title={t('titleLogout')}
               />
@@ -135,12 +123,6 @@ function SidebBar(props) {
           )}
         </View>
       </View>
-
-      <LogoutModal
-        visible={modalVisible}
-        onCancel={handleCancel}
-        onLogout={handleLogout}
-      />
     </View>
   )
 }
