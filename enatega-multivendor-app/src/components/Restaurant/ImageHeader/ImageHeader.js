@@ -174,7 +174,7 @@ function ImageTextCenterHeader(props, ref) {
                     onPress={() => navigation.goBack()}
                   >
                     <Ionicons
-                      name="arrow-back"
+                      name="ios-arrow-back"
                       color= {currentTheme.newIconColor}
                       size={scale(17)}
                     />

@@ -120,7 +120,7 @@ function ImageTextCenterHeader(props, ref) {
                 ]}
                 onPress={() => navigation.goBack()}>
                 <AnimatedIon
-                  name="arrow-back"
+                  name="ios-arrow-back"
                   style={{
                     color: props.black,
                     fontSize: props.iconSize
