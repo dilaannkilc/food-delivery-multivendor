@@ -18,6 +18,7 @@ function StripeCheckout(props) {
   const Analytics = analytics()
 
   const { SERVER_URL } = useEnvVars()
+  console.log('SERVER_URL', SERVER_URL)
   const { t } = useTranslation()
   const [loading, loadingSetter] = useState(true)
   const { clearCart } = useContext(UserContext)
@@ -50,6 +51,7 @@ function StripeCheckout(props) {
       })
       const order = result.data.orders.find(order => order.orderId === _id)
       await clearCart()
+      console.log('cart clear')
       props.navigation.reset({
         routes: [
           { name: 'Main' },
@@ -73,6 +75,7 @@ function StripeCheckout(props) {
         bounces={false}
         onLoad={() => {
           loadingSetter(false)
+          console.log(loading)
         }}
         source={{
           uri: `${SERVER_URL}stripe/create-checkout-session?id=${_id}`
