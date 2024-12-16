@@ -10,18 +10,9 @@ const styles = (props = null) => {
       justifyContent: 'center',
       paddingBottom: scale(8),
     },
-    locationIcon:{
-      backgroundColor: props != null ? props.iconBackground : '#E5E7EB',
-      width: 24,
-    height: 24,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop:scale(10)
-    },
     headerContainer: {
       height: '100%',
-      width: '90%',
+      width: '110%',
       flexDirection: 'column-reverse',
       paddingLeft: scale(5),
       paddingTop: scale(10)

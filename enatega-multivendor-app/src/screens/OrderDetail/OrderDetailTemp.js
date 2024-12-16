@@ -85,11 +85,9 @@ function OrderDetail(props) {
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.menuBar)
+      StatusBar.setBackgroundColor(currentTheme.headerBackground)
     }
-    StatusBar.setBarStyle(
-      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
-    )
+    StatusBar.setBarStyle('light-content')
   })
 
   function timeConvert(n) {

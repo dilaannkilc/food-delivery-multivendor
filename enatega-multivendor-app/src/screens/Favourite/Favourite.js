@@ -27,8 +27,6 @@ import { HeaderBackButton } from '@react-navigation/elements'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useTranslation } from 'react-i18next'
 import navigationService from '../../routes/navigationService'
-import ErrorView from '../../components/ErrorView/ErrorView'
-import EmptyView from '../../components/EmptyView/EmptyView'
 
 const RESTAURANTS = gql`
   ${FavouriteRestaurant}
@@ -60,32 +58,31 @@ function Favourite() {
   }, [])
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
-      StatusBar.setBackgroundColor(currentTheme.menuBar)
+      StatusBar.setBackgroundColor(currentTheme.headerBackground)
     }
-    StatusBar.setBarStyle(
-      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
-    )
+    StatusBar.setBarStyle('light-content')
   })
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       title: t('titleFavourite'),
       headerTitleAlign: 'center',
       headerRight: null,
-      headerTitleStyle: {
-        color:currentTheme.newFontcolor,
-        fontWeight: 'bold'
-      },
       headerTitleContainerStyle: {
-        marginTop: '2%',
+        marginTop: '1%',
         paddingLeft: scale(25),
         paddingRight: scale(25),
         height: '75%',
-        marginLeft: 0
+        borderRadius: scale(10),
+        backgroundColor: currentTheme.black,
+        borderColor: currentTheme.white,
+        borderWidth: 1
       },
       headerStyle: {
-        backgroundColor: currentTheme.newheaderBG,
-        elevation: 0
+        backgroundColor: currentTheme.headerColor,
+        shadowColor: 'transparent',
+        shadowRadius: 0,
+        // marginBottom: 10
       },
       headerTitleAlign: 'center',
       headerRight: null,
@@ -93,8 +90,15 @@ function Favourite() {
         <HeaderBackButton
           truncatedLabel=""
           backImage={() => (
-            <View>
-              <MaterialIcons name="arrow-back" size={25} color={currentTheme.newFontcolor} />
+            <View
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 50,
+                marginLeft: 10,
+                width: 55,
+                alignItems: 'center'
+              }}>
+              <MaterialIcons name="arrow-back" size={25} color="black" />
             </View>
           )}
           onPress={() => {
@@ -105,28 +109,54 @@ function Favourite() {
     })
   }, [navigation])
 
-  const emptyView = () => {
+  function emptyView() {
     return (
-      <EmptyView
-        title={'titleEmptyFav'}
-        description={'emptyFavDesc'}
-        buttonText={'emptyFavBtn'}
-      />
+      <View style={[styles().flex, styles(currentTheme).mainContainerEmpty]}>
+        <View style={styles().subContainerImage}>
+          <View style={styles().imageContainer}>
+            <EmptyCart width={scale(200)} height={scale(200)} />
+          </View>
+          <View style={styles().descriptionEmpty}>
+            <TextDefault
+              textColor={currentTheme.fontMainColor}
+              bolder
+              center
+              B700>
+              {t('titleEmptyFav')}
+            </TextDefault>
+            <TextDefault textColor={currentTheme.fontSecondColor} center>
+              {t('emptyFavDesc')}
+            </TextDefault>
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles(currentTheme).emptyButton}
+            onPress={() =>
+              navigation.navigate({
+                name: 'Main',
+                merge: true
+              })
+            }>
+            <TextDefault
+              textColor={currentTheme.black}
+              bolder
+              B700
+              center
+              uppercase>
+              {t('emptyFavBtn')}
+            </TextDefault>
+          </TouchableOpacity>
+        </View>
+      </View>
     )
   }
 
-  if (loading)
-    return (
-      <Spinner
-        backColor={currentTheme.themeBackground}
-        spinnerColor={currentTheme.main}
-      />
-    )
-  if (error) return <ErrorView />
+  if (loading) return <Spinner />
+  if (error) return <TextError text={error.message} />
   return (
     <SafeAreaView edges={['bottom']} style={styles(currentTheme).flex}>
       <FlatList
-        data={data ? data?.userFavourite : []}
+        data={data ? data.userFavourite : []}
         keyExtractor={(item, index) => item._id}
         showsVerticalScrollIndicator={false}
         refreshing={networkStatus === 4}

@@ -39,18 +39,18 @@ function CheckComponent(props) {
             />
             <TextDefault
               numberOfLines={1}
-              textColor={currentTheme.gray900}
+              textColor={currentTheme.fontSecondColor}
               style={[alignment.MLsmall, alignment.PRsmall, alignment.MRlarge]}
-              H6
-              bolder>
+              H5
+              bold>
               {option.title}
             </TextDefault>
           </View>
           <View style={styles.rightContainer}>
             <TextDefault
-              textColor={currentTheme.gray900}
-              H6
-              bolder>{`${configuration.currencySymbol}${option.price}`}</TextDefault>
+              textColor={currentTheme.fontSecondColor}
+              H5
+              bold>{`${configuration.currencySymbol} ${option.price}`}</TextDefault>
           </View>
         </TouchableOpacity>
       ))}

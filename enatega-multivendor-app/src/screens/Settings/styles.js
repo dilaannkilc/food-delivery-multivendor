@@ -9,8 +9,7 @@ const styles = (props = null) =>
       flex: 1
     },
     width85: {
-      width: '70%',
-      //backgroundColor: theme.Pink.deleteButton
+      width: '85%'
     },
     shadow: {
       shadowOffset: { width: 0, height: scale(2) },
@@ -24,9 +23,9 @@ const styles = (props = null) =>
     backButton: {
       backgroundColor: theme.Pink.white,
       borderRadius: scale(50),
-      width: scale(40),
-      alignItems: 'flex-start',
-      marginLeft: scale(5)
+      marginLeft: scale(10),
+      width: scale(55),
+      alignItems: 'center'
     },
     mainContainerArea: {
       backgroundColor: props !== null ? props.themeBackground : 'transparent',
@@ -38,18 +37,12 @@ const styles = (props = null) =>
     },
     mainContainer: {
       backgroundColor: props !== null ? props.themeBackground : 'transparent',
-      ...alignment.PLxSmall,
-      ...alignment.PRxSmall,
-      ...alignment.PTmedium,
+      ...alignment.PxSmall
     },
     languageContainer: {
       width: '100%',
-      backgroundColor: props !== null ? props.gray100 : '#FFF',
-      borderRadius: scale(10),
-      borderWidth: 1,
-      flexDirection: 'row',
-      alignSelf: 'center',
-      borderColor: props !== null ? props.gray200 : '#E5E7EB',
+      backgroundColor: props !== null ? props.cartContainer : '#FFF',
+      borderRadius: scale(12),
       ...alignment.PRmedium,
       ...alignment.PTlarge,
       ...alignment.PBlarge,
@@ -62,8 +55,7 @@ const styles = (props = null) =>
       ...alignment.MBsmall
     },
     button: {
-      flex: 1,
-      justifyContent: 'center',
+      width: '15%',
       alignItems: 'flex-end'
     },
     notificationContainer: {
@@ -113,11 +105,7 @@ const styles = (props = null) =>
       width: '100%',
       backgroundColor: props !== null ? props.themeBackground : '#FFF',
       borderRadius: verticalScale(4),
-      ...alignment.Plarge,
-      borderColor: props !== null ? props.gray200 : '#E5E7EB',
-      borderWidth:scale(1),
-      borderRadius:scale(10)
-
+      ...alignment.Plarge
     },
     radioContainer: {
       width: '100%',
@@ -136,9 +124,6 @@ const styles = (props = null) =>
       marginBottom: 0,
       ...alignment.PTxSmall,
       ...alignment.PBxSmall
-    },
-    checkboxSettings: {
-      marginBottom: scale(10)
     }
   })
 
