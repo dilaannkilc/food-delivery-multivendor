@@ -145,9 +145,6 @@ const styles = (props = null) =>
       ...alignment.PRlarge,
       
     },
-    cartAmount:{
-      width:'50%'
-    },
     buttonContainer: {     
       flexDirection: 'row',
       justifyContent: 'space-between',

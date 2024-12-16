@@ -370,8 +370,6 @@ function Profile(props) {
           behavior={Platform.OS === 'ios' ? 'padding' : null}
           style={styles(currentTheme).flex}
         >
-           <View style={styles(currentTheme).mainContainer}>
-          <View >
           <View style={styles(currentTheme).formSubContainer}>
             <View style={{ flex: 3 }}>
               <View style={styles(currentTheme).containerHeading}>
@@ -614,14 +612,12 @@ function Profile(props) {
               </TouchableOpacity>
             </View>
           </View>
-          </View>
-          <View style={{ alignItems: 'center'}}>
+          <View style={{ alignItems: 'center', marginTop: '65%' }}>
             <TouchableOpacity onPress={() => setDeleteModalVisible(true)}>
               <TextDefault bolder H4 textColor={currentTheme.deleteAccountBtn}>
-                {t('DeleteAccount')}
+                Delete my account
               </TextDefault>
             </TouchableOpacity>
-          </View>
           </View>
             <Modal
               onBackdropPress={() => setDeleteModalVisible(false)}
@@ -632,28 +628,32 @@ function Profile(props) {
               }}
             >
               <View style={styles().centeredView}>
-                <View style={styles(currentTheme).modalView}>
+              <View style={styles().centeredView}>
+                <View style={styles().modalView}>
                   <View
                     style={{
                       flexDirection: 'row',
                       gap: 24,
                       alignItems: 'center',
-                      justifyContent: 'space-between',
-                      paddingHorizontal:scale(10)
+                      justifyContent: 'space-between'
                     }}
                   >
-                    <TextDefault bolder H3 textColor={currentTheme.newFontcolor}>
-                      {t('DeleteConfirmation')}
+                    <TextDefault bolder H3>
+                      Are you sure you want to delete your account
                     </TextDefault>
                     <Feather
                       name='x-circle'
                       size={24}
-                      color={currentTheme.newFontcolor}
+                      color='black'
                       onPress={() => setDeleteModalVisible(!deleteModalVisible)}
                     />
                   </View>
-                  <TextDefault H5 textColor={currentTheme.newFontcolor}>
-                    {t('permanentDeleteMessage')}
+                  <TextDefault H5 textColor='#6B7280'>
+                    Are you sure you want to delete your account? This action
+                    cannot be undone. Deleting your account will permanently
+                    remove all of your data, including your orders and
+                    preferences. If you proceed, you will lose access to your
+                    account and its benefits
                   </TextDefault>
                   <TouchableOpacity
                     style={[
@@ -668,7 +668,7 @@ function Profile(props) {
                       <Spinner backColor='transparent' size='small' />
                     ) : (
                       <TextDefault bolder H4 textColor={currentTheme.white}>
-                        {t('yesSure')}
+                        Yes, I'm Sure
                       </TextDefault>
                     )}
                   </TouchableOpacity>
@@ -678,10 +678,11 @@ function Profile(props) {
                     disabled={deactivateLoading}
                   >
                     <TextDefault bolder H4 textColor={currentTheme.black}>
-                      {t('noDelete')}
+                      No, Don't Delete it
                     </TextDefault>
                   </TouchableOpacity>
                 </View>
+              </View>
               </View>
             </Modal>
         </KeyboardAvoidingView>
