@@ -529,7 +529,7 @@ function Cart(props) {
 
             <View style={styles().totalBillContainer}>
               <View style={styles(currentTheme).buttonContainer}>
-                <View style={styles().cartAmount}> 
+                <View>
                   <TextDefault
                     textColor={currentTheme.black}
                     style={styles().totalBill}

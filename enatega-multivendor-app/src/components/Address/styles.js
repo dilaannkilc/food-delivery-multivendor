@@ -13,7 +13,6 @@ const styles = (props = null) =>
       alignItems: 'flex-end',
       ...alignment.PBsmall
     },
-  
     modalContainer: {
       flex: 1,
       backgroundColor: props !== null ? props.themeBackground : '#FAFAFA',

@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { useQuery, useMutation, gql } from '@apollo/client'
 import { withTranslation } from 'react-i18next'
 import CustomLoader from '../components/Loader/CustomLoader'
@@ -10,7 +10,7 @@ import DataTable from 'react-data-table-component'
 import orderBy from 'lodash/orderBy'
 import Loader from 'react-loader-spinner'
 import SearchBar from '../components/TableHeader/SearchBar'
-import { Container, Button, Box, useTheme, Snackbar } from '@mui/material'
+import { Container, Button, Box, useTheme } from '@mui/material'
 import { customStyles } from '../utils/tableCustomStyles'
 import useGlobalStyles from '../utils/globalStyles'
 import { ReactComponent as RestIcon } from '../assets/svg/svg/Restaurant.svg'
@@ -26,15 +26,10 @@ const DELETE_RESTAURANT = gql`
 const Restaurants = props => {
   const { t } = props
   const [searchQuery, setSearchQuery] = useState('')
-  const [error, setError] = useState(null)
   const onChangeSearch = e => setSearchQuery(e.target.value)
   const globalClasses = useGlobalStyles()
 
-  const [mutate, { loading }] = useMutation(DELETE_RESTAURANT, {
-    onError: (error)=> {
-      setError(error.graphQLErrors[0].message || 'Something went wrong') 
-    }
-  })
+  const [mutate, { loading }] = useMutation(DELETE_RESTAURANT)
   const {
     data,
     loading: loadingQuery,
@@ -153,24 +148,21 @@ const Restaurants = props => {
     }
   ]
 
-  const regex = useMemo(()=>(
+  const regex =
     searchQuery.length > 2 ? new RegExp(searchQuery.toLowerCase(), 'g') : null
-  ),[searchQuery])
-
-  const filtered = useMemo(()=>(
+  const filtered =
     searchQuery.length < 3
       ? data && data.restaurants
       : data &&
         data.restaurants.filter(restaurant => {
           return (
-            (restaurant.name && restaurant.name.toLowerCase().search(regex) > -1) ||
-            (restaurant.orderPrefix && restaurant.orderPrefix.toLowerCase().search(regex) > -1) ||
-            (restaurant.owner && restaurant.owner.email.toLowerCase().search(regex) > -1) ||
-            (restaurant.address && restaurant.address.toLowerCase().search(regex) > -1)
+            restaurant.name.toLowerCase().search(regex) > -1 ||
+            restaurant.orderPrefix.toLowerCase().search(regex) > -1 ||
+            restaurant.owner.email.toLowerCase().search(regex) > -1 ||
+            restaurant.address.toLowerCase().search(regex) > -1
           )
         })
-  ), [searchQuery, data, regex])
-    
+
   return (
     <>
       <Header />
@@ -209,12 +201,6 @@ const Restaurants = props => {
             selectableRows
           />
         )}
-        <Snackbar
-          open={error}
-          autoHideDuration={5000}
-          onClose={()=>setError(null)}
-          message={error}
-        />
       </Container>
     </>
   )
