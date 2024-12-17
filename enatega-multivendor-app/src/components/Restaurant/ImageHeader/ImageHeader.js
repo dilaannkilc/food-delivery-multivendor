@@ -247,7 +247,7 @@ function ImageTextCenterHeader(props, ref) {
                   <Entypo
                     name='cross'
                     color={currentTheme.newIconColor}
-                    size={scale(22)}
+                    size={scale(17)}
                   />
                 </AnimatedBorderless>
               ) : (
@@ -273,7 +273,7 @@ function ImageTextCenterHeader(props, ref) {
                   <Ionicons
                     name='arrow-back'
                     color={currentTheme.newIconColor}
-                    size={scale(22)}
+                    size={scale(17)}
                   />
                 </AnimatedBorderless>
               )}
