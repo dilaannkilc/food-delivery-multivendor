@@ -1,7 +1,7 @@
 {
   "build": {
     "development": {
-      "developmentClient": true,
+      "developmentClient": false,
       "channel": "development",
       "distribution": "internal"
     },
@@ -11,7 +11,10 @@
       "distribution": "internal"
     },
     "production": {
-      "channel": "production"
+      "channel": "production",
+      "android": {
+        "buildType": "apk"
+      }
     }
   },
   "submit": {
