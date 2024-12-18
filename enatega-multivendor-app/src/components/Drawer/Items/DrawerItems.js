@@ -19,7 +19,7 @@ function DrawerItems(props) {
         <View style={styles.leftContainer}>
           <SimpleLineIcons
             name={props.icon}
-            size={verticalScale(15)}
+            size={verticalScale(16)}
             color={currentTheme.darkBgFont}
           />
         </View>
