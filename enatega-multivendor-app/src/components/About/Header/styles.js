@@ -27,8 +27,7 @@ const styles = (props = null) =>
     headerImage: {
       width: scale(66),
       height: scale(66),
-      objectFit: 'cover',
-      borderRadius: 8
+      objectFit: 'cover'
     },
     headingTitle: {
       bottom: scale(10),

@@ -84,7 +84,7 @@ const styles = (props = null, hasActiveOrders = false) =>
       width: '90%',
       alignSelf: 'center',
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'center'
     },
     content: {
       ...alignment.PTlarge
@@ -175,8 +175,7 @@ const styles = (props = null, hasActiveOrders = false) =>
     },
     titleAddress: {
       width: '55%',
-      justifyContent: 'center',
-      marginTop: -6
+      justifyContent: 'center'
     },
     labelStyle: {
       textAlignVertical: 'bottom',

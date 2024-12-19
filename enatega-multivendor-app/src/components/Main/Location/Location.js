@@ -32,7 +32,7 @@ function Location(props) {
           <View style={[styles().locationIcon, props.locationIconGray]}>
             <EvilIcons
               name="location"
-              size={24}
+              size={16}
               color={props.locationIcon}
              
             />

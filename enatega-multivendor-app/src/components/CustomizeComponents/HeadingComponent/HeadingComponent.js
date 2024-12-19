@@ -5,7 +5,6 @@ import ThemeContext from '../../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../../utils/themeColors'
 import styles from './styles'
 import TextDefault from '../../Text/TextDefault/TextDefault'
-import { formatNumber } from '../../../utils/formatNumber'
 
 function HeadingComponent(props) {
   const configuration = useContext(ConfigurationContext)
@@ -17,7 +16,7 @@ function HeadingComponent(props) {
       <View style={styles.topContainer}>
         <View style={styles.titleContainer}>
           <TextDefault
-            numberOfLines={2}
+            numberOfLines={1}
             textColor={currentTheme.fontMainColor}
             H4
             bolder>
@@ -28,7 +27,7 @@ function HeadingComponent(props) {
           <TextDefault
             textColor={currentTheme.fontMainColor}
             H4
-            bolder>{`${configuration.currencySymbol}${formatNumber(props.price)}`}</TextDefault>
+            bolder>{`${configuration.currencySymbol}${props.price}`}</TextDefault>
         </View>
       </View>
       <View style={styles.descContainer}>

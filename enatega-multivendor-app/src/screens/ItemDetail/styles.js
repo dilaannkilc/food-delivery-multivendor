@@ -30,9 +30,7 @@ const styles = (props = null) =>
       borderRadius: scale(10),
       height: scale(50),
       paddingLeft: scale(10),
-      textAlignVertical: 'center',
-      borderWidth: 1,
-      borderColor: props != null ? props.verticalLine : '#B8B8B8',
+      textAlignVertical: 'center'
     },
     inputContainer: {
       width: '90%',
