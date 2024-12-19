@@ -541,8 +541,5 @@ export const ar = {
   noDelete: 'لا، لا تحذفه',
   loginOrSignUp: 'تسجيل الدخول / التسجيل',
   salesTax: 'ضريبة المبيعات',
-  minimumOrder: 'الحد الأدنى للطلب',
-  deliveryTime: 'وقت التسليم',
-  pickupTime: 'وقت الاستلام',
-  asap: 'فورًا'
+  minimumOrder: 'الحد الأدنى للطلب'
 }
