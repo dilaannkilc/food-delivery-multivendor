@@ -25,14 +25,13 @@ import TextDefault from '../Text/TextDefault/TextDefault'
 import styles from './styles'
 
 import { useTranslation } from 'react-i18next'
-import { AntDesign, Ionicons } from '@expo/vector-icons'
 
 const { height } = Dimensions.get('screen')
 
 export default function SearchModal({
   visible = false,
-  onClose = () => {},
-  onSubmit = () => {}
+  onClose = () => { },
+  onSubmit = () => { }
 }) {
   const { t } = useTranslation()
   const animation = useSharedValue(0)
@@ -54,8 +53,7 @@ export default function SearchModal({
 
   const borderTopLeftRadius = useAnimatedStyle(() => {
     return {
-      borderTopLeftRadius: interpolate(
-        animation.value,
+      borderTopLeftRadius: interpolate(animation.value,
         [0, 1],
         [30, 0],
         Extrapolation.CLAMP
@@ -65,8 +63,7 @@ export default function SearchModal({
 
   const borderTopRightRadius = useAnimatedStyle(() => {
     return {
-      borderTopRightRadius: interpolate(
-        animation.value,
+      borderTopRightRadius: interpolate(animation.value,
         [0, 1],
         [30, 0],
         Extrapolation.CLAMP
@@ -96,11 +93,12 @@ export default function SearchModal({
 
   const animate = (hide = false) => {
     withTiming(
-      (animation.value = hide ? 0 : 1),
+      animation.value = hide ? 0 : 1,
       { duration: 300 },
       { easing: EasingNode.inOut(EasingNode.ease) }
     )
-  }
+  };
+
 
   function close() {
     animation.value = 0
@@ -112,45 +110,26 @@ export default function SearchModal({
       visible={visible}
       transparent
       animationType={'slide'}
-      onRequestClose={onClose}
-    >
+      onRequestClose={onClose}>
       <Animated.View
         style={[
-          styles(currentTheme).modalContainer,
-          marginTop,
-          borderTopLeftRadius,
-          borderTopRightRadius,
-          {
-            borderWidth: 1,
-            borderColor: '#DAD6D6'
-          }
-        ]}
-      >
+          styles(currentTheme).modalContainer, marginTop, borderTopLeftRadius, borderTopRightRadius,
+        ]}>
+        <TouchableOpacity style={styles().modalTextBtn} onPress={close}>
+          <CloseIcon fill={currentTheme.newIconColor}/>
+        </TouchableOpacity>
+        <TextDefault bold H4 textColor={currentTheme.newFontcolor}>
+          {t('searchAddress')}
+        </TextDefault>
         <View style={[styles(currentTheme).flex, alignment.MTsmall]}>
-          <TouchableOpacity style={styles().modalTextBtn} onPress={close}>
-            <AntDesign
-              name='arrowleft'
-              size={24}
-              color={currentTheme.newIconColor}
-            />
-          </TouchableOpacity>
           <GooglePlacesAutocomplete
             placeholder={t('search')}
             minLength={2} // minimum length of text to search
             autoFocus={true}
             returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-            listViewDisplayed='auto' // true/false/undefined
+            listViewDisplayed="auto" // true/false/undefined
             fetchDetails={true}
-            renderDescription={(row) => row.description} // custom description render
-            renderRow={(data) =>(
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                    <View style={styles(currentTheme).locationIcon} >
-                      <Ionicons name="location-outline" size={16} color={currentTheme.newIconColor} />
-                    </View>
-                    <TextDefault>{data?.description}</TextDefault>
-                  </View>
-              )
-            } //
+            renderDescription={row => row.description} // custom description render
             onPress={(data, details = null) => {
               onSubmit(data.description, details.geometry.location)
             }}
@@ -163,12 +142,10 @@ export default function SearchModal({
               language: 'en' // language of the results
             }}
             textInputProps={{
-              placeholderTextColor: currentTheme.fontMainColor
+              placeholderTextColor: currentTheme.fontMainColor,
             }}
             styles={{
-              listView: {
-                marginLeft: -50,
-              },
+              
               description: {
                 fontWeight: 'bold',
                 color: currentTheme.black,
@@ -179,17 +156,17 @@ export default function SearchModal({
               textInputContainer: {
                 borderWidth: 1,
                 borderColor: currentTheme.verticalLine,
-                borderRadius: scale(6),
-                backgroundColor: currentTheme.themeBackground
+                borderRadius:scale(6),
+                backgroundColor:currentTheme.themeBackground,
               },
               textInput: {
                 ...alignment.MTxSmall,
                 color: currentTheme.newFontcolor,
-                backgroundColor: currentTheme.themeBackground,
-                height: 38
+                backgroundColor:currentTheme.themeBackground,
+
               }
             }}
-            nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+            nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
             GoogleReverseGeocodingQuery={
               {
                 // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro

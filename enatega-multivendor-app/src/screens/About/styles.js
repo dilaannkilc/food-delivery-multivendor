@@ -42,8 +42,9 @@ const styles = (props = null) =>
       alignItems: 'center'
     },
     mapContainer: {
+      marginBottom: scale(20),
       borderRadius: scale(10),
-      height: scale(210),
+      height: 200,
       backgroundColor: props != null ? props.themeBackground : 'white'
     },
     marker: {
@@ -134,12 +135,12 @@ const styles = (props = null) =>
     // },
     timingRow: {
       flexDirection: 'row',
-      justifyContent: 'space-evenly',
+      justifyContent: 'space-between',
       alignSelf: 'center',
-      backgroundColor: '#F3F4F6',
-      borderRadius: 10,
-      padding: 10,
-      marginBottom: 10,
+      borderBottomWidth: 1,
+      borderBlockColor: '#D1D5DB',
+      paddingBottom: 15,
+      marginBottom: 15,
       width: '100%'
     },
     marker: {

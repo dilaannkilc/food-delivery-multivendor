@@ -115,15 +115,6 @@ function PhoneOtp(props) {
             )}
           </View>
         </View>
-        <View>
-          {loading || updateUserLoading && (
-            <Spinner
-              backColor={currentTheme.themeBackground}
-              spinnerColor={currentTheme.main}
-              size='large'
-            />
-          )}
-        </View>
         <View style={styles().btnContainer}>
           <View style={alignment.MBxSmall}>
             <TextDefault center H4 bold textColor={currentTheme.fontNewColor} style={alignment.MTsmall}>
@@ -133,8 +124,8 @@ function PhoneOtp(props) {
           <View>
             {loading || updateUserLoading ? (
               <Spinner
-              backColor={currentTheme.color3}
-              spinnerColor={currentTheme.color3}
+              backColor={currentTheme.themeBackground}
+              spinnerColor={currentTheme.main}
                 size='small'
               />
             ) : (
