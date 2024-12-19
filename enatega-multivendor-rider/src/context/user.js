@@ -31,6 +31,7 @@ const UPDATE_LOCATION = gql`
 const UserContext = React.createContext({})
 
 export const UserProvider = props => {
+  console.log('riderOrders', riderOrders)
   const locationListener = useRef(null)
   const { locationPermission } = useLocationContext()
 
@@ -78,9 +79,9 @@ export const UserProvider = props => {
   }, [dataProfile])
 
   useEffect(() => {
-    const trackRiderLocation = async() => {
+    const trackRiderLocation = async () => {
       locationListener.current = await watchPositionAsync(
-        { accuracy: LocationAccuracy.BestForNavigation, timeInterval: 10000 },
+        { accuracy: LocationAccuracy.BestForNavigation, distanceInterval: 100 },
         async location => {
           client.mutate({
             mutation: UPDATE_LOCATION,
