@@ -29,7 +29,7 @@ export const LocationProvider = ({ children }) => {
     if (!locationPermission) return
     const trackRiderLocation = async() => {
       locationListener.current = await Location.watchPositionAsync(
-        { accuracy: LocationAccuracy.BestForNavigation, timeInterval: 10000 },
+        { accuracy: LocationAccuracy.BestForNavigation, distanceInterval: 100 },
         location => {
           setLocation({
             latitude: location.coords.latitude.toString(),

@@ -13,8 +13,7 @@ import {
   Platform,
   Alert,
   Image,
-  Text,
-  Dimensions
+  Text
 } from 'react-native'
 import { useQuery } from '@apollo/client'
 import gql from 'graphql-tag'
@@ -46,8 +45,6 @@ import WouldYouLikeToAddThese from './Section'
 import moment from 'moment'
 import { Modalize } from 'react-native-modalize'
 import Pickup from '../../components/Pickup'
-
-const { height: HEIGHT } = Dimensions.get('window')
 // Constants
 const TIPPING = gql`
   ${getTipping}
@@ -110,23 +107,23 @@ function Cart(props) {
 
   useEffect(() => {
     let isSubscribed = true
-      ; (async () => {
-        if (data && data?.restaurant) {
-          const latOrigin = Number(data?.restaurant.location.coordinates[1])
-          const lonOrigin = Number(data?.restaurant.location.coordinates[0])
-          const latDest = Number(location.latitude)
-          const longDest = Number(location.longitude)
-          const distance = await calculateDistance(
-            latOrigin,
-            lonOrigin,
-            latDest,
-            longDest
-          )
-          const amount = Math.ceil(distance) * configuration.deliveryRate
-          isSubscribed &&
-            setDeliveryCharges(amount > 0 ? amount : configuration.deliveryRate)
-        }
-      })()
+    ;(async () => {
+      if (data && data?.restaurant) {
+        const latOrigin = Number(data?.restaurant.location.coordinates[1])
+        const lonOrigin = Number(data?.restaurant.location.coordinates[0])
+        const latDest = Number(location.latitude)
+        const longDest = Number(location.longitude)
+        const distance = await calculateDistance(
+          latOrigin,
+          lonOrigin,
+          latDest,
+          longDest
+        )
+        const amount = Math.ceil(distance) * configuration.deliveryRate
+        isSubscribed &&
+          setDeliveryCharges(amount > 0 ? amount : configuration.deliveryRate)
+      }
+    })()
     return () => {
       isSubscribed = false
     }
@@ -222,7 +219,7 @@ function Cart(props) {
         },
         {
           text: t('continueBtn'),
-          onPress: () => { },
+          onPress: () => {},
           style: 'cancel'
         }
       ],
@@ -425,8 +422,9 @@ function Cart(props) {
     )
     if (!variation) return null
 
-    const title = `${food.title}${variation.title ? `(${variation.title})` : ''
-      }`
+    const title = `${food.title}${
+      variation.title ? `(${variation.title})` : ''
+    }`
     let price = variation.price
     const optionsTitle = []
     if (cartItem.addons) {
@@ -661,7 +659,7 @@ function Cart(props) {
       <Modalize
         ref={modalRef}
         modalStyle={styles(currentTheme).modal}
-        modalHeight={HEIGHT / 2}
+        modalHeight={Platform.OS === 'android' ? 300 : 420}
         overlayStyle={styles(currentTheme).overlay}
         handleStyle={styles(currentTheme).handle}
         handlePosition='inside'

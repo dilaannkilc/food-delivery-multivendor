@@ -280,7 +280,7 @@ const styles = (props = null) =>
       ...alignment.PRsmall
     },
     imageContainer: {
-      flexDirection: 'row',
+      display: 'flex',
       width: '100%',
       alignItems: 'center'
     },
