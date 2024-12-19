@@ -56,7 +56,6 @@ const Section = ({ itemId, restaurantId }) => {
                     </View>
                 }
                     <TextDefault
-                        numberOfLines={1}
                         style={styles().suggestItemName}
                         textColor={currentTheme.fontFourthColor}
                         H5
@@ -66,7 +65,7 @@ const Section = ({ itemId, restaurantId }) => {
                     <View
                         style={{
                             flexDirection: 'row',
-                            alignItems: 'flex-start',
+                            alignItems: 'flex-end',
                             justifyContent: 'space-between'
                         }}>
                         <TextDefault

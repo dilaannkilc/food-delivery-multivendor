@@ -544,6 +544,5 @@ yesSure:"Yes, I'm Sure",
 noDelete:"No, Don't Delete it",
 deliveryTime:'Delivery Time',
 pickupTime:'Pickup Time',
-asap:'ASAP',
-loginOrSignUp: 'Login/Sign Up',
+asap:'ASAP'
 }

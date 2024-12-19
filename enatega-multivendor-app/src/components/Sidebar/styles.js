@@ -18,9 +18,7 @@ const styles = (props = null) => {
     item: {
       height: '9.5%',
       borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBottomColor: props !== null ? props.horizontalLine : '#9B9A9A',
-      ...alignment.PBxSmall,
-      ...alignment.MBxSmall
+      borderBottomColor: props !== null ? props.horizontalLine : '#9B9A9A'
     },
     iconContainer: {
       backgroundColor: theme.Pink.deleteButton
