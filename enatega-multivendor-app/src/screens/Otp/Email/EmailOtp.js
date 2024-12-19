@@ -111,15 +111,6 @@ function EmailOtp(props) {
             )}
           </View>
         </View>
-        <View>
-          {loading || updateUserLoading && (
-            <Spinner
-              backColor={currentTheme.themeBackground}
-              spinnerColor={currentTheme.main}
-              size='large'
-            />
-          )}
-        </View>
         <View
           style={{
             ...alignment.MTlarge,
@@ -140,11 +131,7 @@ function EmailOtp(props) {
             </TextDefault>
           </View>
           {loading || updateUserLoading ? (
-            <Spinner
-              backColor={currentTheme.color3}
-              spinnerColor={currentTheme.color3}
-                size='small'
-              />
+            <Spinner backColor='transparent' size='small' spinnerColor={currentTheme.main} />
           ) : (
             <TouchableOpacity
               activeOpacity={0.7}
