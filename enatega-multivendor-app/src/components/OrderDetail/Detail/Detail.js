@@ -40,7 +40,7 @@ export default function Detail({
         textColor={theme.gray500}
         bolder
         H5
-        style={{ ...alignment.MBmedium }}
+        style={{ ...alignment.MBsmall }}
       >
         {t('yourOrder')}: #{orderNo}
       </TextDefault>
@@ -48,22 +48,24 @@ export default function Detail({
         textColor={theme.gray500}
         bolder
         H5
-        style={{ ...alignment.MBmedium }}
+        style={{ ...alignment.MBsmall }}
       >
         {t('restaurantName')}: {from}
       </TextDefault>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems:'center' }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <TextDefault
           textColor={theme.gray500}
           bolder
-          H5
+          Normal
+          style={{ ...alignment.MBsmall }}
         >
           {t('itemsAndQuantity')} ({items.length})
         </TextDefault>
         <TextDefault
           textColor={theme.gray500}
           bolder
-          H5
+          Normal
+          style={{ ...alignment.MBsmall }}
         >
           {t('price')}
         </TextDefault>

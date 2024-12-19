@@ -5,50 +5,50 @@ const styles = (props = null) => {
   return StyleSheet.create({
     tabStyles: {
       flex: 1,
+
       alignItems: 'center',
       justifyContent: 'center',
       height: 40
     },
     tabContainer: {
-      margin: scale(15),
+      margin: 15,
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderColor: props?.borderLight
+      width: '90%'
     },
     tabHeading: {
       textAlign: 'center',
       fontSize: 20,
-      fontWeight: '700'
+      fontWeight: '700',
+    
     },
     tabSubHeading: {
       fontSize: 20,
       fontWeight: '500'
     },
-    tabSubHeadingActive: {
-      borderBottomWidth: 2,
-      borderBottomColor: props?.editProfileButton,
-      paddingBottom:scale(10)
-    },
     activeLabel: {
       flex: 1,
-      justifyContent: 'flex-end',
-      // borderBottomWidth: 1,
-      // borderBottomColor: props !== null ? props.tagColor : 'transparent',
+      borderWidth: 2,
+      justifyContent: 'center',
+      backgroundColor: props !== null ? props.tagColor : 'transparent',
+      color: props !== null ? props.tagColor : 'transparent',
+      borderColor: props !== null ? props.tagColor : 'transparent',
       height: scale(35),
-      alignItems: 'center'
-      // marginRight: scale(-15),
+      alignItems: 'center',
+      borderRadius: scale(10),
+      marginRight: scale(-15),
+      zIndex: 999
     },
     labelButton: {
       flex: 1,
-      // borderWidth: StyleSheet.hairlineWidth,
-      // borderColor: props !== null ? props.horizontalLine : 'transparent',
-      justifyContent: 'flex-end',
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: props !== null ? props.horizontalLine : 'transparent',
+      justifyContent: 'center',
       height: scale(35),
       alignItems: 'center',
-      borderRadius: scale(10)
-      // marginRight: scale(-15),
+      borderRadius: scale(10),
+      marginRight: scale(-15)
     },
     iosDateFormat: {
       fontSize: 16

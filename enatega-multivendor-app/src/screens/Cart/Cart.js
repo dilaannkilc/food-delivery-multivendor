@@ -75,7 +75,7 @@ function Cart(props) {
   const [selectedRestaurant, setSelectedRestaurant] = useState({})
   const [deliveryCharges, setDeliveryCharges] = useState(0)
 
-  const [orderDate, setOrderDate] = useState(new Date())
+  const [orderDate, setOrderDate] = useState(moment().add(5, 'minute'))
   const isCartEmpty = cart?.length === 0
   const cartLength = !isCartEmpty ? cart?.length : 0
   const { loading, data } = useRestaurant(cartRestaurant)
@@ -451,8 +451,7 @@ function Cart(props) {
       addons: populateAddons
     }
   }
-  let deliveryTime = Math.floor((orderDate - Date.now()) / 1000 / 60)
-  if (deliveryTime < 1) deliveryTime += restaurant?.deliveryTime
+
   return (
     <>
       <View style={styles(currentTheme).mainContainer}>
@@ -482,11 +481,11 @@ function Cart(props) {
                       marginLeft: scale(20)
                     }}
                   >
-                    <TextDefault H5 textColor={currentTheme.darkBgFont} bold>
-                      {isPickup ? t('pickupTime') : t('deliveryTime')}{' '}
+                    <TextDefault textColor={currentTheme.darkBgFont} bolder>
+                      {isPickup ? t('pickUp') : t('delivery')}{' '}
                     </TextDefault>
-                    <TextDefault textColor={currentTheme.darkBgFont} bolder H4>
-                      {t('asap')}({deliveryTime} {t('mins')})
+                    <TextDefault textColor={currentTheme.darkBgFont} bold>
+                      {`${orderDate.format('MM-D-YYYY, h:mm a')}`}
                     </TextDefault>
                     <TouchableOpacity
                       onPress={() => onModalOpen(modalRef)}
@@ -679,7 +678,7 @@ function Cart(props) {
         }}
       >
         <Pickup
-          minimumTime={restaurant?.deliveryTime}
+          minimumTime={moment().add(5, 'minute')}
           setOrderDate={setOrderDate}
           isPickedUp={isPickup}
           setIsPickedUp={setIsPickup}

@@ -28,8 +28,7 @@ const styles = (props = null, hasActiveOrders = false) =>
     },
     popularMenuImg: {
       width: '100%',
-      // aspectRatio: 15 / 8
-      height: scale(90)
+      aspectRatio: 15 / 8
     },
 
     screenBackground: {
@@ -84,7 +83,7 @@ const styles = (props = null, hasActiveOrders = false) =>
       width: '90%',
       alignSelf: 'center',
       flexDirection: 'row',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     content: {
       ...alignment.PTlarge
@@ -175,7 +174,8 @@ const styles = (props = null, hasActiveOrders = false) =>
     },
     titleAddress: {
       width: '55%',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      marginTop: -6
     },
     labelStyle: {
       textAlignVertical: 'bottom',

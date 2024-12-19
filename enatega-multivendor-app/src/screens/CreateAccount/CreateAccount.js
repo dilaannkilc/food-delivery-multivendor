@@ -30,7 +30,6 @@ const CreateAccount = (props) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: null,
-      headerLeft: null,
       title: t(''),
       headerTransparent: true,
       headerTitleAlign: 'center'

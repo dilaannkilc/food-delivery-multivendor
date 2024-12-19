@@ -21,7 +21,7 @@ import { Modalize } from 'react-native-modalize'
 import {
   MaterialIcons,
   AntDesign,
-  MaterialCommunityIcons
+  SimpleLineIcons
 } from '@expo/vector-icons'
 import { useMutation, useQuery, gql } from '@apollo/client'
 import { useCollapsibleSubHeader } from 'react-navigation-collapsible'
@@ -202,13 +202,10 @@ function Main(props) {
           style={[styles(currentTheme).addButton]}
           activeOpacity={0.7}
           onPress={setCurrentLocation}
+          disabled={busy}
         >
           <View style={styles().addressSubContainer}>
-            <MaterialCommunityIcons
-              name='target'
-              size={scale(25)}
-              color={currentTheme.black}
-            />
+            <SimpleLineIcons name="target" size={scale(18)} color={currentTheme.black} />
             <View style={styles().mL5p} />
             <TextDefault bold>{t('currentLocation')}</TextDefault>
           </View>
@@ -393,9 +390,9 @@ function Main(props) {
                           </TextDefault>
                         </View>
                         <Image
-                          source={require('../../assets/images/ItemsList/menu-new.png')}
+                          source={require('../../assets/images/ItemsList/menu.png')}
                           style={styles().popularMenuImg}
-                          // resizeMode='contain'
+                          resizeMode='contain'
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
@@ -406,27 +403,25 @@ function Main(props) {
                           })
                         }
                       >
-                        <View>
-                          <TextDefault
-                            H4
-                            bolder
-                            textColor={currentTheme.fontThirdColor}
-                            style={styles().ItemName}
-                          >
-                            {t('grocery')}
-                          </TextDefault>
-                          <TextDefault
-                            Normal
-                            textColor={currentTheme.fontThirdColor}
-                            style={styles().ItemDescription}
-                          >
-                            {t('essentialsDeliveredFast')}
-                          </TextDefault>
-                        </View>
+                        <TextDefault
+                          H4
+                          bolder
+                          textColor={currentTheme.fontThirdColor}
+                          style={styles().ItemName}
+                        >
+                          {t('grocery')}
+                        </TextDefault>
+                        <TextDefault
+                          Normal
+                          textColor={currentTheme.fontThirdColor}
+                          style={styles().ItemDescription}
+                        >
+                          {t('essentialsDeliveredFast')}
+                        </TextDefault>
                         <Image
-                          source={require('../../assets/images/ItemsList/grocery-new.png')}
+                          source={require('../../assets/images/ItemsList/grocery.png')}
                           style={styles().popularMenuImg}
-                          // resizeMode='contain'
+                          resizeMode='contain'
                         />
                       </TouchableOpacity>
                     </View>
@@ -462,12 +457,8 @@ function Main(props) {
                         )}
                       </View>
                     </View>
-                    <View
-                      style={
-                        styles(currentTheme, hasActiveOrders).topBrandsMargin
-                      }
-                    >
-                      {orderLoading ? <TopBrandsLoadingUI /> : <TopBrands />}
+                    <View style={ styles(currentTheme, hasActiveOrders).topBrandsMargin } >
+                        {orderLoading ? <TopBrandsLoadingUI /> : <TopBrands />}
                     </View>
                   </ScrollView>
                 )}
@@ -508,7 +499,7 @@ function Main(props) {
                       <View style={[styles(currentTheme).homeIcon]}>
                         {addressIcons[address.label]
                           ? React.createElement(addressIcons[address.label], {
-                              fill: currentTheme.darkBgFont
+                              fill: currentTheme.darkBgFont,
                             })
                           : React.createElement(addressIcons['Other'], {
                               fill: currentTheme.darkBgFont
