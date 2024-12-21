@@ -531,6 +531,5 @@ export const he = {
   minimumOrder: 'הזמנה מינימלית',
   deliveryTime: 'זמן משלוח',
   pickupTime: 'זמן איסוף',
-  asap: 'בהקדם האפשרי',
-  selectOptionforAddon: 'בבקשה בחר אפשרות עבור התוסף'
+  asap: 'בהקדם האפשרי'
 }

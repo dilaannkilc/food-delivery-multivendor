@@ -561,6 +561,5 @@ export const de = {
   minimumOrder: 'Mindestbestellung',
   deliveryTime: 'Levertijd',
   pickupTime: 'Ophaaltijd',
-  asap: 'Zo snel mogelijk',
-  selectOptionforAddon: 'Bitte wählen Sie eine Option für das Add-On aus'
+  asap: 'Zo snel mogelijk'
 }

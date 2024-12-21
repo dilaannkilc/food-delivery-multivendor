@@ -558,6 +558,5 @@ export const fr = {
   minimumOrder: 'Commande minimum',
   deliveryTime: 'Heure de livraison',
   pickupTime: 'Heure de ramassage',
-  asap: 'Dès que possible',
-  selectOptionforAddon: "Veuillez sélectionner une option pour l'addon",
+  asap: 'Dès que possible'
 }

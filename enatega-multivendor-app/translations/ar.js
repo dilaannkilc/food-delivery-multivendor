@@ -544,6 +544,5 @@ export const ar = {
   minimumOrder: 'الحد الأدنى للطلب',
   deliveryTime: 'وقت التسليم',
   pickupTime: 'وقت الاستلام',
-  asap: 'فورًا',
-  selectOptionforAddon: 'يرجى اختيار خيار للوظيفة الإضافية'
+  asap: 'فورًا'
 }

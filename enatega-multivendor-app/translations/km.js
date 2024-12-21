@@ -542,6 +542,5 @@ export const km = {
   minimumOrder: '최소 주문',
   deliveryTime: 'ពេលវេលា​ដឹកជញ្ជូន',
   pickupTime: 'ពេលវេលា​យកឡើង',
-  asap: 'ដោយសារយោង',
-  selectOptionforAddon: 'សូមជ្រើសរើស​ជម្រើសសម្រាប់​គ្រឿង​បន្ថែម'
+  asap: 'ដោយសារយោង'
 }

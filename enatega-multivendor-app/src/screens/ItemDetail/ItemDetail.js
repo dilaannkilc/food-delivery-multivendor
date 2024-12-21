@@ -27,7 +27,6 @@ import navigationService from '../../routes/navigationService'
 import { useTranslation } from 'react-i18next'
 import FrequentlyBoughtTogether from '../../components/ItemDetail/Section'
 import { IMAGE_LINK } from '../../utils/constants'
-import TextDefault from '../../components/Text/TextDefault/TextDefault'
 
 function ItemDetail(props) {
   const Analytics = analytics()
@@ -295,31 +294,17 @@ function ItemDetail(props) {
   function renderOption(addon) {
     if (addon.quantityMinimum === 1 && addon.quantityMaximum === 1) {
       return (
-        <View>
-          <RadioComponent
-            options={addon.options}
-            onPress={onSelectOption.bind(this, addon)}
-          />
-          {addon.error && (
-            <TextDefault small textColor={currentTheme.textErrorColor}>
-              {t('selectOptionforAddon')}
-            </TextDefault>
-          )}
-        </View>
+        <RadioComponent
+          options={addon.options}
+          onPress={onSelectOption.bind(this, addon)}
+        />
       )
     } else {
       return (
-        <View>
-          <CheckComponent
-            options={addon.options}
-            onPress={onSelectOption.bind(this, addon)}
-          />
-          {addon.error && (
-            <TextDefault small textColor={currentTheme.textErrorColor}>
-              {t('selectOptionforAddon')}
-            </TextDefault>
-          )}
-        </View>
+        <CheckComponent
+          options={addon.options}
+          onPress={onSelectOption.bind(this, addon)}
+        />
       )
     }
   }
