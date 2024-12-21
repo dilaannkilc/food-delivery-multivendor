@@ -57,6 +57,7 @@ const styles = (props = null) =>
     },
     priceContainer: {
       width: '100%',
+      backgroundColor: props !== null ? props.cartContainer : 'transparent',
       borderRadius: scale(20),
       borderBottomColor:
         props !== null ? props.lightHorizontalLine : 'transparent',
@@ -64,7 +65,7 @@ const styles = (props = null) =>
       ...alignment.PRsmall
     },
     modal: {
-      backgroundColor: props != null ? props.themeBackground : '#FFF',
+      backgroundColor: props != null ? props.cartContainer : '#FFF',
       borderTopEndRadius: scale(20),
       borderTopStartRadius: scale(20),
       shadowOpacity: 0
@@ -280,7 +281,7 @@ const styles = (props = null) =>
     },
     imageContainer: {
       alignItems: 'center',
-      // flexDirection: 'row'
+      flexDirection:'row',
     },
     cartInnerContainer: {
       ...alignment.MTxSmall
@@ -331,21 +332,13 @@ const styles = (props = null) =>
       borderColor: props?.iconBackground || '#E5E7EB'
     },
     pickupButton: {
-      backgroundColor: props !== null ? props.color3 : 'transparent',
-      justifyContent: 'center',
+      backgroundColor: props?.buttonBackground,
       alignItems: 'center',
-      flexDirection: 'row',
-      height: scale(40),
-      borderRadius: 40,
-      borderWidth: 1,
-      borderColor: props !== null ? props.borderColor : 'black',
-      width: '70%',
+      height: scale(35),
+      justifyContent: 'center',
+      borderRadius: scale(10),
+      width: '90%',
       alignSelf: 'center'
-    },
-    applyButton: {
-      fontSize: 20,
-      fontWeight: '500',
-      color: props != null ? props.newFontcolor : '#E5E7EB'
     }
   })
 export default styles

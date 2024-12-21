@@ -65,17 +65,21 @@ const CreateAccount = (props) => {
                 AppleAuthentication.AppleAuthenticationScope.EMAIL
               ]
             })
-            const name = credential.fullName?.givenName ? credential.fullName?.givenName + ' ' + credential.fullName?.familyName : ''
-            const user = {
-              appleId: credential.user,
-              phone: '',
-              email: credential.email,
-              password: '',
-              name: name,
-              picture: '',
-              type: 'apple'
+            {
+              const user = {
+                appleId: credential.user,
+                phone: '',
+                email: credential.email,
+                password: '',
+                name:
+                  credential.fullName.givenName +
+                  ' ' +
+                  credential.fullName.familyName,
+                picture: '',
+                type: 'apple'
+              }
+              mutateLogin(user)
             }
-            mutateLogin(user)
             loginButtonSetter('Apple')
             // signed in
           } catch (e) {
