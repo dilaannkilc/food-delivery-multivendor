@@ -9,7 +9,6 @@ import TextDefault from '../Text/TextDefault/TextDefault'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
 import { formatNumber } from '../../utils/formatNumber'
-import { LinearGradient } from 'expo-linear-gradient';
 
 const ItemCard = ({ item, onPressItem, restaurant, tagCart }) => {
    
@@ -28,8 +27,7 @@ const currentTheme = theme[themeContext.ThemeValue]
 
   return (
     <TouchableOpacity onPress={handleAddToCart}>
-      <LinearGradient style={styles(currentTheme).card} colors={[currentTheme.gray100, currentTheme.white]}>
-      
+      <View style={styles(currentTheme).card}>
         {tagCart(item._id)}
         <TextDefault
         textColor={currentTheme.gray600}
@@ -62,7 +60,7 @@ const currentTheme = theme[themeContext.ThemeValue]
             )}
           </View>
         </View>
-      </LinearGradient>
+      </View>
     </TouchableOpacity>
   )
 }

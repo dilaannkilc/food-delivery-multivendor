@@ -53,7 +53,6 @@ import ItemCard from '../../components/ItemCards/ItemCards'
 import { ScrollView } from 'react-native-gesture-handler'
 import { IMAGE_LINK } from '../../utils/constants'
 import { LocationContext } from '../../context/Location'
-import PopularIcon from '../../assets/SVG/popular'
 
 const { height } = Dimensions.get('screen')
 
@@ -712,15 +711,12 @@ function Restaurant(props) {
                   }
                   return (
                     <View style={styles(currentTheme).restaurantItems}>
-                      <View style={styles().popularHeading}>
-                      <PopularIcon color={currentTheme.iconColorDark} />  
                       <TextDefault
-                        style={styles(currentTheme).popularText}
+                        style={styles(currentTheme).sectionHeaderText}
                         textColor={currentTheme.fontFourthColor}
                         bolder>
                         {title}
                       </TextDefault>
-                      </View>
                       <TextDefault
                         textColor={currentTheme.fontFourthColor}
                         style={{                        

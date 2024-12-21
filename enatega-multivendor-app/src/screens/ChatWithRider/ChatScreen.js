@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Image, KeyboardAvoidingView, Platform, View } from 'react-native'
+import { Image, Platform, Text, View } from 'react-native'
 import {
   GiftedChat,
   Bubble,
@@ -128,7 +128,6 @@ const ChatScreen = ({ navigation, route }) => {
         <TextDefault
           style={styles().emptyChat}
           textColor={currentTheme.fontSecondColor}
-          center
           H3>
           {t('chatWithRider')}
         </TextDefault>
@@ -243,7 +242,6 @@ const ChatScreen = ({ navigation, route }) => {
         onInputTextChanged={m => setInputMessage(m)}
         messagesContainerStyle={{ paddingBottom: scale(40) }}
       />
-      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-200} />
     </View>
   )
 }

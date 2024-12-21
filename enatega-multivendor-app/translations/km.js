@@ -539,5 +539,9 @@ export const km = {
   noDelete: ' ទេ, កុំ​លុបវាឡើង',
   loginOrSignUp: 'ចូល​ប្រើ​គណនី/ចុះឈ្មោះ',
   salesTax: '판매세',
-  minimumOrder: '최소 주문'
+  minimumOrder: '최소 주문',
+  deliveryTime: 'ពេលវេលា​ដឹកជញ្ជូន',
+  pickupTime: 'ពេលវេលា​យកឡើង',
+  asap: 'ដោយសារយោង',
+  selectOptionforAddon: 'សូមជ្រើសរើស​ជម្រើសសម្រាប់​គ្រឿង​បន្ថែម'
 }
