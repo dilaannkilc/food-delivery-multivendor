@@ -558,8 +558,5 @@ export const de = {
   noDelete: 'Nein, bitte nicht löschen',
   loginOrSignUp: 'Anmelden/Registrieren',
   salesTax: 'Umsatzsteuer',
-  minimumOrder: 'Mindestbestellung',
-  deliveryTime: 'Levertijd',
-  pickupTime: 'Ophaaltijd',
-  asap: 'Zo snel mogelijk'
+  minimumOrder: 'Mindestbestellung'
 }

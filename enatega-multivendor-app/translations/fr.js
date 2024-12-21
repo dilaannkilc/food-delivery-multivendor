@@ -555,8 +555,5 @@ export const fr = {
   noDelete: 'Non, ne le supprimez pas',
   loginOrSignUp: 'Connexion/Inscription',
   salesTax: 'Taxe de vente',
-  minimumOrder: 'Commande minimum',
-  deliveryTime: 'Heure de livraison',
-  pickupTime: 'Heure de ramassage',
-  asap: 'Dès que possible'
+  minimumOrder: 'Commande minimum'
 }
