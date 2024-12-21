@@ -1,104 +1,50 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { TouchableOpacity, View, Platform } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { Text, TouchableOpacity, View, Platform } from 'react-native'
 import styles from './styles'
 import { theme } from '../../utils/themeColors'
-import DatePicker, {
-  DateTimePickerAndroid
-} from '@react-native-community/datetimepicker'
+import DatePicker from '@react-native-community/datetimepicker'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { FontAwesome } from '@expo/vector-icons'
 import moment from 'moment'
 import { scale } from '../../utils/scaling'
-import { useTranslation } from 'react-i18next'
-import TextDefault from '../Text/TextDefault/TextDefault'
+import {useTranslation} from 'react-i18next'
 
 function PickUp(props) {
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-  const [isPickUp, setIsPickup] = useState(props?.isPickedUp)
-  const currentDate = new Date().getTime() + (props?.minimumTime * 60000 || 0)
-  const { t } = useTranslation()
-
-  const datePickerOptions = {
-    // Note that on Android, minimumDate only works for date mode because TimePicker does not support this.
-    minimumDate: new Date(currentDate),
-    mode: 'time',
-    display: 'spinner',
-    value: props.orderDate,
-    onChange: (event, date) => {
-      if (date && new Date(date) >= new Date(currentDate)) {
-        props.setOrderDate(date)
-      }
-    }
-  }
-
-  useEffect(() => {
-    props?.setIsPickedUp(isPickUp)
-  }, [isPickUp])
-
-
-  const onEditPress = () => {
-    if (Platform.OS === 'android') DateTimePickerAndroid.open(datePickerOptions)
-  }
-
+  const [showPicker, setShowPicker] = useState(false)
+  const currentDate = props.minimumTime
+  const {t} = useTranslation()
   return (
     <View style={{ paddingTop: 30 }}>
-      {isPickUp ? (
-        <TextDefault style={styles().tabHeading}>
-          {t('SelectPickupDT')}
-        </TextDefault>
+      {props.isPickedUp ? (
+        <Text style={styles().tabHeading}>{t('SelectPickupDT')}</Text>
       ) : (
-        <TextDefault style={styles().tabHeading}>
-          {t('SelectDeliveryDT')}
-        </TextDefault>
+          <Text style={styles().tabHeading} >{t('SelectDeliveryDT')}</Text>
       )}
 
-      <View style={styles(currentTheme).tabContainer}>
+      <View style={styles().tabContainer}>
         <TouchableOpacity
           onPress={() => {
-            setIsPickup(true)
+            props.setIsPickedUp(true)
           }}
           style={
-            isPickUp
+            props.isPickedUp
               ? styles(currentTheme).activeLabel
               : styles(currentTheme).labelButton
-          }
-        >
-          <View
-            style={isPickUp ? styles(currentTheme).tabSubHeadingActive : {}}
-          >
-            <TextDefault
-              style={styles(currentTheme).tabSubHeading}
-              textColor={isPickUp ? currentTheme.editProfileButton : ''}
-              bolder
-              H5
-            >
-              {t('pickUp')}
-            </TextDefault>
-          </View>
+          }>
+          <Text style={styles().tabSubHeading}>{t('pickUp')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            setIsPickup(false)
+            props.setIsPickedUp(false)
           }}
           style={
-            !isPickUp
+            !props.isPickedUp
               ? styles(currentTheme).activeLabel
               : styles(currentTheme).labelButton
-          }
-        >
-          <View
-            style={!isPickUp ? styles(currentTheme).tabSubHeadingActive : {}}
-          >
-            <TextDefault
-              style={styles(currentTheme).tabSubHeading}
-              bolder
-              H5
-              textColor={!isPickUp ? currentTheme.editProfileButton : ''}
-            >
-              {t('delivery')}
-            </TextDefault>
-          </View>
+          }>
+          <Text style={styles().tabSubHeading}>{t('delivery')}</Text>
         </TouchableOpacity>
       </View>
       <View
@@ -107,32 +53,48 @@ function PickUp(props) {
           justifyContent: 'center',
           alignContent: 'center',
           paddingTop: scale(4)
-        }}
-      >
+        }}>
         <TouchableOpacity
           disabled={Platform.OS === 'ios'}
-          onPress={onEditPress}
-        >
-          <TextDefault
+          onPress={() => {
+            setShowPicker(true)
+          }}>
+          <Text
             style={
               Platform.OS === 'android'
                 ? styles().androidDateFormat
                 : styles().iosDateFormat
-            }
-          >
-            {moment(props.orderDate).format('MM-D-YYYY, h:mm a')}{' '}
+            }>
+            {props.orderDate.format('MM-D-YYYY, h:mm a')}{' '}
             {Platform.OS === 'android' && (
               <FontAwesome
-                name='edit'
+                name="edit"
                 size={25}
                 color={theme.Pink.iconColorPink}
               />
             )}
-          </TextDefault>
+          </Text>
         </TouchableOpacity>
       </View>
       <View>
-        {Platform.OS === 'ios' && <DatePicker {...datePickerOptions} />}
+        {((Platform.OS === 'android' && showPicker) ||
+          Platform.OS === 'ios') && (
+          <DatePicker
+            minimumDate={currentDate}
+            mode={'time'}
+            display={'spinner'}
+            value={new Date(props.orderDate)}
+            onChange={(event, date) => {
+              if (
+                date !== undefined &&
+                currentDate.getTime() <= date.getTime()
+              ) {
+                props.setOrderDate(moment(date))
+              }
+              Platform.OS === 'android' && setShowPicker(false)
+            }}
+          />
+        )}
       </View>
     </View>
   )

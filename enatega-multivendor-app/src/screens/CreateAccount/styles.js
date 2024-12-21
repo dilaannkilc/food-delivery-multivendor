@@ -12,47 +12,15 @@ const styles = (props = null) =>
       alignItems: 'center',
       backgroundColor: props !== null ? props.buttonText : 'transparent'
     },
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#f3f0eb'
-    },
-    image: {
-      height: height * 0.5,
-      width: '100%',
-      marginBottom: scale(-20),
-
-      flex: 1,
-      backgroundColor: '#f3f0eb',
-      shadowColor: '#f3f0eb',
-      shadowOffset: { width: 16, height: 8 },
-      shadowOpacity: 0.1,
-      shadowRadius: 19
-    },
-    image1: {
-      height: '100%',
-      width: '100%',
-      // marginBottom: scale(-10),
-      overflow: 'hidden'
-    },
     subContainer: {
-      alignSelf: 'center',
-      width: '100%',
-      flex: 1,
-      borderTopLeftRadius: scale(30),
-      borderTopRightRadius: scale(30),
-      backgroundColor: props != null ? props.themeBackground : '#FFF',
-      borderWidth: scale(1),
-      borderColor: props != null ? props.borderBottomColor : '#DAD6D6'
-    },
-    signupContainer: {
-      paddingVertical: scale(20),
       display: 'flex',
       alignSelf: 'center',
       width: '100%',
+      paddingBottom: 10,
       flex: 1,
-      justifyContent: 'space-between'
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: props !== null ? props.themeBackground : 'transparent'
     },
     whiteColor: {
       backgroundColor: props !== null ? props.buttonText : 'transparent'
@@ -77,13 +45,13 @@ const styles = (props = null) =>
     },
     buttonBackground: {
       width: '100%',
-      backgroundColor: props !== null ? props.newFontcolor : '#000',
+      backgroundColor: props !== null ? props.black : '#000',
       alignItems: 'center'
     },
     appleBtn: {
-      width: '90%',
-      alignSelf: 'center',
-      height: height * 0.08
+      width: '100%',
+      height: height * 0.07,
+      fontSize: 20
     },
     orText: {
       flexDirection: 'row',
@@ -92,21 +60,10 @@ const styles = (props = null) =>
     line: {
       flex: 1,
       height: 1,
-      backgroundColor: props !== null ? props.color6 : '#9B9A9A'
+      backgroundColor: props !== null ? props.horizontalLine : '#9B9A9A'
     },
-    guestButton: {
-      width: '90%',
-
-      alignSelf: 'center',
-      height: height * 0.08,
-      flexDirection: 'row',
-      alignItems: 'center',
-      ...alignment.PRlarge,
-      backgroundColor: 'transparent',
-      justifyContent: 'space-evenly',
-      borderRadius: scale(28),
-      borderWidth: scale(1),
-      borderColor: props !== null ? props.newIconColor : '#9B9A9A'
-    }
+    marginBottom5: {
+      ...alignment.MBsmall
+    },
   })
 export default styles

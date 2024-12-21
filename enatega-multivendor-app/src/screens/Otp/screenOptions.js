@@ -1,22 +1,22 @@
 import React from 'react'
 import styles from './styles'
-import { AntDesign } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 
 const navigationOptions = props => {
   return {
     title: null,
     // eslint-disable-next-line react/display-name
     headerRight: () => (
-      <AntDesign
+      <Ionicons
         onPress={() =>
           props.navigation.navigate({
             name: 'Main',
             merge: true
           })
         }
-        name='closecircleo'
+        name="close"
         size={24}
-        color={props.fontColor}
+        color="black"
         style={styles().headerRightIcon}
       />
     ),

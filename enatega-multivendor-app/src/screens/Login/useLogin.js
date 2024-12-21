@@ -1,8 +1,6 @@
-import { useState, useContext, useRef } from 'react'
-import { Alert } from 'react-native'
+import { useState, useContext } from 'react'
 import _ from 'lodash' // Import lodash
 import * as Device from 'expo-device'
-import Constants from 'expo-constants'
 import { useMutation } from '@apollo/client'
 import gql from 'graphql-tag'
 import { login, emailExist } from '../../apollo/mutations'
@@ -26,7 +24,7 @@ export const useLogin = () => {
   const Analytics = analytics()
 
   const navigation = useNavigation()
-  const emailRef = useRef('demo-customer@enatega.com')
+  const [email, setEmail] = useState('demo-customer@enatega.com')
   const [password, setPassword] = useState('DemoCustomer55!')
   const [showPassword, setShowPassword] = useState(true)
   const [emailError, setEmailError] = useState(null)
@@ -48,19 +46,20 @@ export const useLogin = () => {
   })
 
   // Debounce the setEmail function
-  const setEmail = (email)=>{
-    emailRef.current = email
-  }
+  const debouncedSetEmail = _.debounce(text => {
+    setEmail(text.toLowerCase().trim())
+  }, 300) // Adjust the delay as needed (in milliseconds)
+
   function validateCredentials() {
     let result = true
     setEmailError(null)
     setPasswordError(null)
-    if (!emailRef.current) {
+    if (!email) {
       setEmailError(t('emailErr1'))
       result = false
     } else {
       const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/
-      if (emailRegex.test(emailRef.current) !== true) {
+      if (emailRegex.test(email) !== true) {
         setEmailError(t('emailErr2'))
         result = false
       }
@@ -90,7 +89,7 @@ export const useLogin = () => {
           navigation.navigate({ name: 'Main', merge: true })
         }
       } else {
-        navigation.navigate('Register', { email:emailRef.current })
+        navigation.navigate('Register', { email })
       }
     }
   }
@@ -153,9 +152,7 @@ export const useLogin = () => {
             status: existingStatus
           } = await Notifications.getPermissionsAsync()
           if (existingStatus === 'granted') {
-            notificationToken = (await Notifications.getExpoPushTokenAsync({
-              projectId: Constants.expoConfig.extra.eas.projectId 
-            }))
+            notificationToken = (await Notifications.getExpoPushTokenAsync())
               .data
           }
         }
@@ -176,8 +173,8 @@ export const useLogin = () => {
     }
   }
 
-  function checkEmailExist() {
-    EmailEixst({ variables: { email:emailRef.current } })
+  function checkEmailExist(email) {
+    EmailEixst({ variables: { email } })
   }
 
   function onBackButtonPressAndroid() {
@@ -189,7 +186,8 @@ export const useLogin = () => {
   }
 
   return {
-    setEmail,
+    email,
+    setEmail: debouncedSetEmail, // Use the debounced setEmail
     password,
     setPassword,
     showPassword,
@@ -202,7 +200,6 @@ export const useLogin = () => {
     loginLoading,
     loginAction,
     checkEmailExist,
-    onBackButtonPressAndroid,
-    emailRef
+    onBackButtonPressAndroid
   }
 }
