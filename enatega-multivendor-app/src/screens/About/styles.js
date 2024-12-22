@@ -24,16 +24,12 @@ const styles = (props = null) =>
       width: '90%',
       paddingLeft: 10
     },
-    // mapMainContainer: {
-    //   backgroundColor: props != null ? props.themeBackground : 'white',
-    //   flexGrow: 1,
-    //   ...alignment.PTlarge,
-    //   ...alignment.PLmedium,
-    //   ...alignment.PRmedium
-    // },
-
-    location: {
-      marginLeft: scale(3)
+    mapMainContainer: {
+      backgroundColor: props != null ? props.themeBackground : 'white',
+      flexGrow: 1,
+      ...alignment.PTlarge,
+      ...alignment.PLmedium,
+      ...alignment.PRmedium
     },
     inlineFloat: {
       width: '100%',
@@ -42,9 +38,13 @@ const styles = (props = null) =>
       alignItems: 'center'
     },
     mapContainer: {
+      marginTop: 10,
+      marginBottom: 20,
       borderRadius: scale(10),
-      height: scale(210),
-      backgroundColor: props != null ? props.themeBackground : 'white'
+      borderColor: props != null ? props.white : 'white',
+      borderWidth: 2,
+      height: 200,
+      backgroundColor: props != null ? props.white : 'white'
     },
     marker: {
       width: 50,
@@ -60,9 +60,7 @@ const styles = (props = null) =>
       transform: [{ translateX: -25 }, { translateY: -25 }]
     },
     mainContainer: {
-      backgroundColor: props != null ? props.themeBackground : 'white',
-
-      ...alignment.Pmedium
+      backgroundColor: props != null ? props.themeBackground : 'white'
     },
     restaurantContainer: {
       width: '100%',
@@ -96,13 +94,14 @@ const styles = (props = null) =>
     },
     ratingContainer: {
       flexDirection: 'row',
-      alignItems: 'center',
-      marginVertical: scale(8)
+      width: '25%',
+      justifyContent: 'flex-end',
+      alignItems: 'center'
     },
     timingContainer: {
-      // alignSelf: 'center',
-      width: '100%',
-      ...alignment.PTmedium
+      alignSelf: 'center',
+      width: '90%',
+      marginBottom: scale(20)
     },
     dateReview: {
       marginTop: -8,
@@ -112,35 +111,37 @@ const styles = (props = null) =>
       ...alignment.PTsmall,
       ...alignment.PBxSmall
     },
-    // navigationContainer: {
-    //   flexDirection: 'row',
-    //   alignItems: 'flex-start',
-    //   justifyContent: 'center',
-    //   width: '100%',
-    //   zIndex: 999
-    // },
-    // tab: {
-    //   backgroundColor: '#E4FFD9',
-    //   width: '48%',
-    //   height: verticalScale(35),
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
-    //   borderRadius: scale(10),
-    //   margin: scale(-10)
-    // },
-    // selectedTab: {
-    //   backgroundColor: props != null ? props.main : '#90EA93',
-    //   borderRadius: scale(10)
-    // },
+    navigationContainer: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+      width: '100%',
+      zIndex: 999
+    },
+    tab: {
+      backgroundColor: props != null ? props.radioOuterColor : 'white',
+      marginTop: scale(-15),
+      width: '48%',
+      height: verticalScale(35),
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: scale(10),
+      margin: scale(-10)
+    },
+    selectedTab: {
+      backgroundColor: props != null ? props.main : '#90EA93',
+      borderRadius: scale(10),
+      margin: scale(-10)
+    },
     timingRow: {
       flexDirection: 'row',
-      justifyContent: 'space-evenly',
+      alignItems: 'flex-end',
       alignSelf: 'center',
-      backgroundColor: '#F3F4F6',
-      borderRadius: 10,
+      backgroundColor: props != null ? props.main : '#90EA93',
+      borderRadius: 30,
       padding: 10,
       marginBottom: 10,
-      width: '100%'
+      width: '90%'
     },
     marker: {
       width: 50,
@@ -162,10 +163,10 @@ const styles = (props = null) =>
       backgroundColor: props != null ? props.black : 'black',
       padding: 10,
       borderRadius: 10
+    },
+    timingText: {
+      width: scale(140),
+      textAlign: 'left'
     }
-    // timingText: {
-    //   width: scale(140),
-    //   textAlign: 'left'
-    // }
   })
 export default styles
