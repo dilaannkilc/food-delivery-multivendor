@@ -33,7 +33,6 @@ import { HeaderBackButton } from '@react-navigation/elements'
 import CustomHomeIcon from '../../assets/SVG/imageComponents/CustomHomeIcon'
 import CustomWorkIcon from '../../assets/SVG/imageComponents/CustomWorkIcon'
 import CustomOtherIcon from '../../assets/SVG/imageComponents/CustomOtherIcon'
-import CustomApartmentIcon from '../../assets/SVG/imageComponents/CustomApartmentIcon'
 import { useTranslation } from 'react-i18next'
 
 const DELETE_ADDRESS = gql`
@@ -109,10 +108,10 @@ function Addresses() {
   }, [])
 
   const addressIcons = {
+    Home: CustomHomeIcon,
+    Work: CustomWorkIcon,
+    Other: CustomOtherIcon,
     House: CustomHomeIcon,
-    Office: CustomWorkIcon,
-    Apartment: CustomApartmentIcon,
-    Other: CustomOtherIcon
   }
 
   function emptyView() {

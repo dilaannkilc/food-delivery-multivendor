@@ -10,17 +10,18 @@ const styles = (props = null) =>
     },
     screenBackground: {
       backgroundColor: props != null ? props.themeBackground : '#FFF',
-      ...alignment.PBlarge
+      
     },
-    searchbar: {
+    searchbar:{
       ...alignment.PBmedium,
-      backgroundColor: props != null ? props.main : '#FFF'
+      backgroundColor: props != null ? props.main : '#FFF',
+
     },
 
     mainContentContainer: {
       width: '100%',
       height: '100%',
-      alignSelf: 'center'
+      alignSelf: 'center',
     },
 
     ML20: {
@@ -33,7 +34,7 @@ const styles = (props = null) =>
       ...alignment.MLsmall
     },
     addressbtn: {
-      backgroundColor: props != null ? props.color8 : '#f0f0f0',
+      backgroundColor: props != null ? props.lightHorizontalLine : '#f0f0f0',
       marginLeft: scale(10),
       marginRight: scale(10),
       marginBottom: scale(10),
@@ -41,11 +42,8 @@ const styles = (props = null) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: scale(5),
       ...alignment.PLmedium,
-      ...alignment.PRmedium,
-      borderWidth: scale(1),
-      borderColor: props != null ? props.color10 : '#FFF'
+      ...alignment.PRmedium
     },
     addNewAddressbtn: {
       padding: scale(5),
@@ -76,15 +74,12 @@ const styles = (props = null) =>
       ...alignment.PTlarge
     },
     modal: {
-      backgroundColor: props != null ? props.themeBackground : '#FFF',
+      backgroundColor: props != null ? props.cartContainer : '#FFF',
       paddingTop: scale(10),
       borderTopEndRadius: scale(20),
       borderTopStartRadius: scale(20),
-      position: 'relative',
-      zIndex: 999,
-      shadowOpacity: 0,
-      borderWidth: scale(1),
-      borderColor: props != null ? props.color10 : '#FFF'
+
+      shadowOpacity: 0
     },
     addressTextContainer: {
       display: 'flex',

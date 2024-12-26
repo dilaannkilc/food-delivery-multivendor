@@ -541,6 +541,5 @@ export const ar = {
   deliveryTime: 'وقت التسليم',
   pickupTime: 'وقت الاستلام',
   asap: 'فورًا',
-  selectOptionforAddon: 'يرجى اختيار خيار للوظيفة الإضافية',
-  whatsAppText: 'تحتاج مساعدة أكثر؟ اتصل بنا'
+  selectOptionforAddon: 'يرجى اختيار خيار للوظيفة الإضافية'
 }

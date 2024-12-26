@@ -8,7 +8,6 @@ import { theme } from '../../../utils/themeColors'
 import { useTranslation } from 'react-i18next'
 import { EvilIcons } from '@expo/vector-icons'
 import { alignment } from '../../../utils/alignment'
-import { scale } from '../../../utils/scaling'
 
 function Location(props) {
   const { t } = useTranslation()
@@ -33,7 +32,8 @@ function Location(props) {
           <View style={[styles().locationIcon, props.locationIconGray]}>
             <EvilIcons
               name="location"
-              size={scale(20)}
+              size={24}
+              color={props.locationIcon}
             />
           </View>
           <View style={styles(currentTheme).headerContainer}>
