@@ -7,16 +7,15 @@ const styles = (props = null) =>
     flex: {
       flex: 1
     },
-
     pT10: {
       ...alignment.PTsmall
     },
-    locationContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center'
+    pB10: {
+      ...alignment.PBsmall
     },
-
+    pB5: {
+      ...alignment.PBxSmall
+    },
     mB10: {
       ...alignment.MBsmall
     },
@@ -36,13 +35,10 @@ const styles = (props = null) =>
     },
     dealContainer: {
       width: '100%',
-      backgroundColor: props !== null ? props.themeBackground : 'transparent',
+      backgroundColor: props !== null ? props.cartContainer : 'transparent',
       borderRadius: scale(10),
       ...alignment.PLsmall,
       ...alignment.PRsmall
-    },
-    totalOrder: {
-      marginBottom: scale(12)
     },
     termsContainer: {
       width: '100%',
@@ -53,10 +49,12 @@ const styles = (props = null) =>
     },
     itemContainer: {
       width: '100%',
-      backgroundColor: props !== null ? props.backgroundColor : 'transparent'
+      backgroundColor: props !== null ? props.backgroundColor : 'transparent',
+   
     },
     priceContainer: {
       width: '100%',
+      backgroundColor: props !== null ? props.cartContainer : 'transparent',
       borderRadius: scale(20),
       borderBottomColor:
         props !== null ? props.lightHorizontalLine : 'transparent',
@@ -64,7 +62,7 @@ const styles = (props = null) =>
       ...alignment.PRsmall
     },
     modal: {
-      backgroundColor: props != null ? props.themeBackground : '#FFF',
+      backgroundColor: props != null ? props.cartContainer : '#FFF',
       borderTopEndRadius: scale(20),
       borderTopStartRadius: scale(20),
       shadowOpacity: 0
@@ -93,92 +91,53 @@ const styles = (props = null) =>
       borderBottomColor: props !== null ? props.black : 'black',
       borderBottomWidth: StyleSheet.hairlineWidth
     },
-    suggestedItems: {
-      paddingBottom: scale(30),
-      ...alignment.PLlarge
-    },
-    suggestItemDesciption: {
-      ...alignment.PRlarge
-    },
-    suggestItemImg: {
-      width: '100%',
-      // aspectRatio: 18/8,
-      height: scale(70)
-    },
-    suggestItemContainer: {
-      borderWidth: 1,
-      borderColor: '#D1D5DB',
-      borderRadius: 12,
-      padding: scale(8),
-      width: scale(120),
-      marginTop: scale(14)
-    },
-    suggestItemImgContainer: {
-      backgroundColor: '#F3F4F6',
-      borderWidth: 1,
-      borderColor: '#E5E7EB',
-      borderRadius: 8,
-      padding: scale(4)
-    },
-    suggestItemName: {
-      marginVertical: scale(10)
-    },
-    suggestItemPrice: {
-      marginTop: scale(5)
-    },
-    addToCart: {
-      width: scale(25),
-      height: scale(25),
-      borderRadius: scale(12.5),
-      backgroundColor: props !== null ? props.newFontcolor : '#f0f0f0',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    totalBillContainer: {
-      width: '100%',
-      height: '20%',
-      backgroundColor: props !== null ? props.newheaderColor : '#90E36D',
-      ...alignment.PLlarge,
-      ...alignment.PRlarge
-    },
-    cartAmount: {
-      width: '50%'
+    arrowRight: {
+      width: '50%',
+      textAlign: 'right'
     },
     buttonContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingTop: scale(28)
-    },
-    button: {
-      backgroundColor: '#111827',
+      width: '100%',
+      height: '10%',
+      backgroundColor: props !== null ? props.themeBackground : 'black',
       justifyContent: 'center',
       alignItems: 'center',
-      width: scale(140),
-      height: scale(40),
-      borderRadius: 40
+      elevation: 12,
+      shadowColor: props !== null ? props.shadowColor : 'black',
+      shadowOffset: {
+        width: 0,
+        height: -verticalScale(3)
+      },
+      shadowOpacity: 0.5,
+      shadowRadius: verticalScale(2)
     },
-
-    // totalBill:{
-    //   fontSize:scale(27)
-    // },
-    // buttontLeft: {
-    //   width: '35%',
-    //   height: '50%',
-    //   justifyContent: 'center'
-    // },
-    // buttonLeftCircle: {
-    //   backgroundColor: props != null ? props.black : 'black',
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
-    //   width: scale(18),
-    //   height: scale(18),
-    //   borderRadius: scale(9)
-    // },
-    // iconStyle: {
-    //   height: verticalScale(18),
-    //   width: verticalScale(18)
-    // },
+    button: {
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: scale(16),
+      backgroundColor: props !== null ? props.buttonBackground : 'black',
+      height: '75%',
+      width: '95%',
+      ...alignment.PLsmall,
+      ...alignment.PRsmall
+    },
+    buttontLeft: {
+      width: '35%',
+      height: '50%',
+      justifyContent: 'center'
+    },
+    buttonLeftCircle: {
+      backgroundColor: props != null ? props.black : 'black',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: scale(18),
+      height: scale(18),
+      borderRadius: scale(9)
+    },
+    iconStyle: {
+      height: verticalScale(18),
+      width: verticalScale(18)
+    },
     subContainerImage: {
       flex: 1,
       justifyContent: 'center',
@@ -199,10 +158,10 @@ const styles = (props = null) =>
       ...alignment.Plarge
     },
     emptyButton: {
-      backgroundColor: props !== null ? props.newheaderColor : 'transparent',
-      width: '70%',
-      height: scale(40),
-      borderRadius: scale(20),
+      borderRadius: scale(10),
+      width: '60%',
+      height: '8%',
+      backgroundColor: props !== null ? props.buttonBackground : 'transparent',
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center'
@@ -215,7 +174,7 @@ const styles = (props = null) =>
       padding: 12
     },
     placeHolderFadeColor: {
-      backgroundColor: props != null ? props.gray : '#B8B8B8'
+      backgroundColor: props != null ? props.fontSecondColor : '#B8B8B8'
     },
     height100: {
       height: 100
@@ -267,23 +226,25 @@ const styles = (props = null) =>
       height: scale(30)
     },
     headerContainer: {
-      backgroundColor: props !== null ? props.themeBackground : '#6FCF97',
+      backgroundColor: props !== null ? props.headerBackground : '#6FCF97',
       borderBottomRightRadius: 20,
       borderBottomLeftRadius: 20,
-      ...alignment.PLsmall,
-      ...alignment.PRlarge,
-      ...alignment.PBsmall
-    },
-    location: {
-      ...alignment.PLsmall,
-      ...alignment.PRsmall
+      padding: 10,
+      paddingBottom: 0
     },
     imageContainer: {
-      alignItems: 'center',
-      flexDirection: 'row'
+      display: 'flex',
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     cartInnerContainer: {
-      ...alignment.MTxSmall
+      marginTop: 4,
+      padding: 6,
+      backgroundColor: props != null ? props.black : '#B8B8B8',
+      width: '50%',
+      borderRadius: 6
     },
     couponContainer: {
       flexDirection: 'row',
@@ -308,9 +269,9 @@ const styles = (props = null) =>
       height: scale(30)
     },
     addressAllignment: {
-      // display: 'flex',
-      // flexDirection: 'column',
-      // // justifyContent: 'flex-end',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
       width: '100%',
       marginLeft: scale(15)
     },
@@ -318,34 +279,6 @@ const styles = (props = null) =>
       width: '65%',
       display: 'flex',
       alignItems: 'flex-end'
-    },
-    locationIcon: {
-      backgroundColor: props != null ? props.newBorderColor : '#E5E7EB',
-      width: scale(30),
-      height: scale(30),
-      borderRadius: 30,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: scale(10),
-      borderWidth: 1,
-      borderColor: props?.iconBackground || '#E5E7EB'
-    },
-    pickupButton: {
-      backgroundColor: props !== null ? props.color3 : 'transparent',
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'row',
-      height: scale(40),
-      borderRadius: 40,
-      borderWidth: 1,
-      borderColor: props !== null ? props.borderColor : 'black',
-      width: '70%',
-      alignSelf: 'center'
-    },
-    applyButton: {
-      fontSize: 20,
-      fontWeight: '500',
-      color: props != null ? props.newFontcolor : '#E5E7EB'
     }
   })
 export default styles

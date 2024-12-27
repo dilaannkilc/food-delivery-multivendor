@@ -14,14 +14,17 @@ const styles = (props = null) =>
     mainContainer: {
       flex: 1,
       alignItems: 'center',
-      backgroundColor: props !== null ? props.themeBackground : 'transparent',
-      ...alignment.MTlarge,
-      ...alignment.PLmedium,
-      ...alignment.PRmedium,
-      flexDirection: 'column',
-      justifyContent: 'space-between'
+      backgroundColor: props !== null ? props.themeBackground : 'transparent'
     },
-
+    subContainer: {
+      width: '85%',
+      height: '100%'
+    },
+    logoContainer: {
+      width: scale(120),
+      height: scale(130),
+      alignSelf: 'center'
+    },
     marginTop3: {
       ...alignment.MTxSmall
     },
@@ -40,17 +43,21 @@ const styles = (props = null) =>
       justifyContent: 'center',
       alignItems: 'center'
     },
-    emailHeading: {
-      paddingBottom: scale(15)
-    },
     textField: {
-      borderColor: props !== null ? props.borderColor : '#efefef',
+      borderColor: props !== null ? props.borderColor :'#efefef',
       borderWidth: scale(1),
-      borderRadius: scale(6),
-      backgroundColor: props !== null ? props.themeBackground : 'white',
-      padding: scale(12),
-      color: props !==null ? props.newFontcolor : 'red',
-      shadowColor: props !== null ? props.fontSecondColor : '#545454'
+      borderRadius: scale(10),
+      backgroundColor: props !== null ? props.white : 'white',
+      padding: scale(14),
+      shadowColor: props !== null ? props.fontSecondColor : '#545454',
+      shadowOffset: {
+        width: scale(0),
+        height: scale(2)
+      },
+      shadowOpacity: scale(0.25),
+      shadowRadius: scale(3.84),
+      elevation: scale(5),
+      ...alignment.MTlarge
     },
     errorInput: {
       backgroundColor: props !== null ? props.errorInputBack : '#F7E7E5',
@@ -60,31 +67,24 @@ const styles = (props = null) =>
       ...alignment.MTxSmall
     },
     btn: {
-      width: '100%',
+      width: '70%',
       alignItems: 'center',
-      backgroundColor: props !== null ? props.main : '#F7E7E5',
+      backgroundColor: props !== null ? props.black : '#000',
       alignSelf: 'center',
-      padding: 15,
-      borderRadius: 40,
+      padding: scale(15),
+      borderRadius: scale(10),
       ...alignment.MTlarge
     },
     passwordField: {
       display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center'
-    },
-    enterPass: {
-      paddingBottom: scale(15)
-    },
-    confirmField: {
-      marginTop: scale(15)
+      flexDirection: 'row'
     },
     passwordInput: {
       width: '100%'
     },
     eyeBtn: {
-      marginLeft: scale(-40),
-      elevation: scale(999)
+      marginTop: scale(32),
+      marginLeft: scale(-40)
     },
     headerLeftIcon: {
       ...alignment.PLsmall

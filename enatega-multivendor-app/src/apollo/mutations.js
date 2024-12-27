@@ -30,7 +30,6 @@ export const placeOrder = `
       deliveryAddress{
         location{coordinates}
         deliveryAddress
-        id
       }
       items{
         _id
@@ -81,7 +80,6 @@ export const placeOrder = `
       taxationAmount
       createdAt
       completionTime
-      preparationTime
       deliveryCharges
       acceptedAt
       pickedAt
@@ -200,7 +198,6 @@ export const reviewOrder = `mutation ReviewOrder(
       deliveryAddress{
         location{coordinates}
         deliveryAddress
-        id
       }
       items{
         _id
@@ -248,7 +245,6 @@ export const reviewOrder = `mutation ReviewOrder(
       taxationAmount
       createdAt
       completionTime
-      preparationTime
       orderDate
       expectedTime
       isPickedUp
@@ -284,15 +280,6 @@ export const emailExist = `
     }
   }`
 
-export const phoneExist = `
-  mutation PhoneExist($phone: String!) {
-    phoneExist(phone: $phone) {
-      userType
-      _id
-      phone
-    }
-  }`
-
 export const sendOtpToEmail = `
   mutation SendOtpToEmail($email: String!, $otp: String!) {
     sendOtpToEmail(email: $email, otp: $otp) {
@@ -307,7 +294,7 @@ export const sendOtpToPhoneNumber = `
     }
   }
   `
-export const Deactivate = `
+  export const Deactivate = `
   mutation deactivated($isActive: Boolean!, $email: String!) {
     Deactivate(isActive: $isActive,email: $email) {
       isActive
@@ -365,13 +352,5 @@ export const updateNotificationStatus = `
               notificationToken
               isOrderNotification
               isOfferNotification
-            }
-          }`
-
-export const cancelOrder = `
-          mutation($abortOrderId: String!){
-            abortOrder(id: $abortOrderId) {
-              _id
-              orderStatus
             }
           }`
