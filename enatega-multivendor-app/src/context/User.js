@@ -50,7 +50,6 @@ export const UserProvider = props => {
   const [cart, setCart] = useState([])
   const [restaurant, setRestaurant] = useState(null)
   const [isPickup, setIsPickup] = useState(false)
-  const [instructions, setInstructions] = useState('')
 
   const {
     called: calledProfile,
@@ -121,7 +120,6 @@ export const UserProvider = props => {
   const clearCart = async () => {
     setCart([])
     setRestaurant(null)
-    setInstructions('')
     await AsyncStorage.removeItem('cartItems')
     await AsyncStorage.removeItem('restaurant')
   }
@@ -233,9 +231,7 @@ export const UserProvider = props => {
         refetchProfile,
         networkStatus,
         isPickup,
-        setIsPickup,
-        instructions,
-        setInstructions
+        setIsPickup
       }}>
       {props.children}
     </UserContext.Provider>
