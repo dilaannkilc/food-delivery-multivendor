@@ -79,8 +79,7 @@ function Checkout(props) {
     cart,
     cartCount,
     updateCart,
-    isPickup,
-    instructions
+    isPickup
   } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const { location } = useContext(LocationContext)
@@ -549,8 +548,7 @@ function Checkout(props) {
             details: location.details,
             longitude: '' + location.longitude,
             latitude: '' + location.latitude
-          },
-          instructions
+          }
         }
       })
     } else {
