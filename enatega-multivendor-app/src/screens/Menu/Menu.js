@@ -55,7 +55,6 @@ import CustomOtherIcon from '../../assets/SVG/imageComponents/CustomOtherIcon'
 import CustomWorkIcon from '../../assets/SVG/imageComponents/CustomWorkIcon'
 import CustomApartmentIcon from '../../assets/SVG/imageComponents/CustomApartmentIcon'
 import ErrorView from '../../components/ErrorView/ErrorView'
-import Spinner from '../../components/Spinner/Spinner'
 
 const RESTAURANTS = gql`
   ${restaurantList}
@@ -250,19 +249,15 @@ function Menu({ route, props }) {
         <TouchableOpacity
           style={[styles(currentTheme).addButton]}
           activeOpacity={0.7}
-          onPress={setCurrentLocation}
-          disabled={busy}
-        >
+          onPress={setCurrentLocation}>
           <View style={styles().addressSubContainer}>
-            {
-              busy ? <Spinner size='small' /> : (
-                <>
-                <SimpleLineIcons name="target" size={scale(18)} color={currentTheme.black} />
-                <View style={styles().mL5p} />
-                <TextDefault bold>{t('currentLocation')}</TextDefault>
-                </>
-              )
-            }
+            <MaterialCommunityIcons
+              name="target"
+              size={scale(25)}
+              color={currentTheme.black}
+            />
+            <View style={styles().mL5p} />
+            <TextDefault bold>{t('currentLocation')}</TextDefault>
           </View>
         </TouchableOpacity>
       </View>
@@ -299,7 +294,7 @@ function Menu({ route, props }) {
             } else {
               const modal = modalRef.current
               modal?.close()
-              navigation.navigate({ name: 'CreateAccount' })
+              props.navigation.navigate({ name: 'CreateAccount' })
             }
           }}>
           <View style={styles().addressSubContainer}>
