@@ -20,7 +20,6 @@ import analytics from '../../utils/analytics'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
 import ConfigurationContext from '../../context/Configuration'
-
 function About(props) {
   const Analytics = analytics()
   const { t } = useTranslation()
