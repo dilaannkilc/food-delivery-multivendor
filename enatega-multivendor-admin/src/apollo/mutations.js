@@ -712,7 +712,6 @@ export const editRestaurant = `mutation EditRestaurant($restaurantInput:Restaura
       orderPrefix
       name
       image
-      logo
       slug
       address
       username
@@ -805,7 +804,6 @@ export const createRestaurant = `mutation CreateRestaurant($restaurant:Restauran
     name
     slug
     image
-    logo
     address
     username
     password

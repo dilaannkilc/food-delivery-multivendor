@@ -314,7 +314,6 @@ const en = {
     DELIVERED: 'DELIVERED',
     REJECTED: 'REJECTED',
     shopType: 'Shop Type',
-    UploadaLogo: 'Upload a logo'
   }
 }
 

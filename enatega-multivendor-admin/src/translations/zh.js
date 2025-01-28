@@ -298,8 +298,7 @@ const zh = {
     PICKED: '已选择',
     ASSIGNED: '已分配',
     DELIVERED: '已交付',
-    REJECTED: '已拒绝',
-    UploadaLogo: '上传徽标'
+    REJECTED: '已拒绝'
   }
 }
 export default zh
