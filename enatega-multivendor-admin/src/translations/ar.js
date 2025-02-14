@@ -299,10 +299,7 @@ const ar = {
     ASSIGNED: 'تم التعيين',
     DELIVERED: 'تم التسليم',
     REJECTED: 'تم رفضه',
-    UploadaLogo: 'تحميل الشعار',
-    "CostType": "نوع التكلفة",
-    "PerKM": "لكل كيلومتر",
-    "FixedCost": "تكلفة ثابتة"
+    UploadaLogo: 'تحميل الشعار'
   }
 }
 

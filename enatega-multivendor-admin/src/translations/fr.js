@@ -310,10 +310,7 @@ const fr = {
     ASSIGNED: 'ATTRIBUÉ',
     DELIVERED: 'LIVRÉ',
     REJECTED: 'REJETÉ',
-    UploadaLogo: 'Télécharger un logo',
-    "CostType": "Type de coût",
-    "PerKM": "Par KM",
-    "FixedCost": "Coût fixe"
+    UploadaLogo: 'Télécharger un logo'
   }
 }
 

@@ -314,11 +314,7 @@ const en = {
     DELIVERED: 'DELIVERED',
     REJECTED: 'REJECTED',
     shopType: 'Shop Type',
-    UploadaLogo: 'Upload a logo',
-    CostType: 'Cost Type',
-    PerKM: 'Per KM',
-    FixedCost: 'Fixed Cost',
-    
+    UploadaLogo: 'Upload a logo'
   }
 }
 

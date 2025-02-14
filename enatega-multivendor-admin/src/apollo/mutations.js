@@ -289,13 +289,12 @@ export const saveAppConfiguration = `
     }
   }
 `
-export const saveDeliveryRateConfiguration = `mutation SaveDeliveryRateConfiguration($configurationInput: DeliveryCostConfigurationInput!) {
-  saveDeliveryRateConfiguration(configurationInput: $configurationInput) {
+export const saveDeliveryRateConfiguration = `mutation SaveDeliveryRateConfiguration($deliveryRate: Float!){
+  saveDeliveryRateConfiguration(deliveryRate:$deliveryRate){
     _id
     deliveryRate
-    costType
   }
-}`;
+}`
 
 export const savePaypalConfiguration = `mutation SavePaypalConfiguration($configurationInput:PaypalConfigurationInput!){
   savePaypalConfiguration(configurationInput:$configurationInput){

@@ -261,7 +261,6 @@ export const getConfiguration = `query GetConfiguration{
       isPaidVersion
       skipEmailVerification
       skipMobileVerification
-      costType
     }
   }`
 

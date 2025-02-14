@@ -299,10 +299,7 @@ const zh = {
     ASSIGNED: '已分配',
     DELIVERED: '已交付',
     REJECTED: '已拒绝',
-    UploadaLogo: '上传徽标',
-    "CostType": "费用类型",
-    "PerKM": "每公里",
-    "FixedCost": "固定费用"
+    UploadaLogo: '上传徽标'
   }
 }
 export default zh

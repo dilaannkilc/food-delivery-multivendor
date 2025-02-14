@@ -311,10 +311,7 @@ const de = {
     ASSIGNED: 'TOEGEWEZEN',
     DELIVERED: 'BEZORGD',
     REJECTED: 'AFGEWEZEN',
-    UploadaLogo: 'Ein Logo hochladen',
-    "CostType": "Kostenart",
-    "PerKM": "Pro KM",
-    "FixedCost": "Feste Kosten"
+    UploadaLogo: 'Ein Logo hochladen'
   }
 }
 
