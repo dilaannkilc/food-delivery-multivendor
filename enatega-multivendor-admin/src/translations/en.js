@@ -314,20 +314,7 @@ const en = {
     DELIVERED: 'DELIVERED',
     REJECTED: 'REJECTED',
     shopType: 'Shop Type',
-    UploadaLogo: 'Upload a logo',
-
-    StatusUpdated: 'Status Updated!',
-    "Status updated to {{status}}": "Status updated to {{status}}",
-    "Failed to update status!": "Failed to update status!",
-    UpdateSuccessful: "Update Successful",
-    UpdateError: "Update Error",
-    "The value Should not be in the negative": "The value should not be negative",
-
-    CostType: 'Cost Type',
-    PerKM: 'Per KM',
-    FixedCost: 'Fixed Cost',
-    
-
+    UploadaLogo: 'Upload a logo'
   }
 }
 

@@ -210,12 +210,6 @@ function Food(props) {
           ? event.target.value.toUpperCase()
           : event.target.value
       variationSetter([...variations])
-    } else if (type === 'discounted') {
-      // Enforce non-negative discounted price
-      const newValue = Math.max(0, parseFloat(event.target.value))
-      variations[index][type] = newValue
-      variations[index][type + 'Error'] = newValue < 0 // Update error based on new value
-      variationSetter([...variations])
     } else {
       variations[index][type] = event.target.value
       variationSetter([...variations])
@@ -405,18 +399,14 @@ function Food(props) {
                   </MenuItem>
                 )}
                 {dataCategories &&
-                  dataCategories.restaurant.categories
-                    .filter(category => {
-                      return category.title !== 'Default Category' 
-                    })
-                    .map(category => (
-                      <MenuItem
-                        value={category._id}
-                        key={category._id}
-                        style={{ color: 'black' }}>
-                        {category.title}
-                      </MenuItem>
-                    ))}
+                  dataCategories.restaurant.categories.map(category => (
+                    <MenuItem
+                      value={category._id}
+                      key={category._id}
+                      style={{ color: 'black' }}>
+                      {category.title}
+                    </MenuItem>
+                  ))}
               </Select>
             </Box>
             <Box
@@ -431,9 +421,7 @@ function Food(props) {
                   'https://enatega.com/wp-content/uploads/2023/11/man-suit-having-breakfast-kitchen-side-view.webp'
                 }
               />
-              <label
-                htmlFor={props.food ? 'edit-food-image' : 'add-food-image'}
-                className={classes.fileUpload}>
+              <label htmlFor={props.food ? 'edit-food-image' : 'add-food-image'} className={classes.fileUpload}>
                 {t('UploadAnImage')}
               </label>
               <input
@@ -587,11 +575,7 @@ function Food(props) {
                       {loadingAddons && t('LoadingDots')}
                       {errorAddons && t('ErrorDots')}
                       {dataAddons &&
-                        dataAddons.restaurant.addons
-                        .filter(
-                          addon => addon.title !== 'Default Addon'
-                        )
-                        .map(addon => (
+                        dataAddons.restaurant.addons.map(addon => (
                           <Grid
                             item
                             xs={12}

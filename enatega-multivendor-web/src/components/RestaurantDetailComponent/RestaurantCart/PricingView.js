@@ -6,7 +6,7 @@ import ConfigurationContext from "../../../context/Configuration";
 import UserContext from "../../../context/User";
 import useStyles from "./styles";
 import { useTranslation } from "react-i18next";
-import { calculateDistance, calculateAmount } from "../../../utils/customFunction";
+import { calculateDistance } from "../../../utils/customFunction";
 
 function PricingView(props) {
   const { t } = useTranslation();
@@ -31,8 +31,7 @@ function PricingView(props) {
         latDest,
         longDest
       );
-      let costType = configuration.costType;
-      let amount = calculateAmount(costType, configuration.deliveryRate, distance);
+      const amount = Math.ceil(distance) * configuration.deliveryRate;
       setDeliveryCharges(amount > 0 ? amount : configuration.deliveryRate);
     })();
   }, [restaurantData]);
