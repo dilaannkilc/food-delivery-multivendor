@@ -122,7 +122,9 @@ function Addon(props) {
         { addonQuantityMinimum: addons[index][state] },
         'addonQuantityMinimum'
       )
-      addons[index].quantityMinimumError = addons[index].quantityMinimum < 0
+      addons[index].quantityMinimumError =
+        addons[index].quantityMinimumError ||
+        addons[index].quantityMinimum > addons[index].quantityMaximum
       addons[index].quantityMinimumError =
         addons[index].options.length < addons[index][state]
     }
@@ -131,8 +133,8 @@ function Addon(props) {
         { addonQuantityMaximum: addons[index][state] },
         'addonQuantityMaximum'
       )
-      addons[index].quantityMinimumError = addons[index].quantityMaximum <= 1
       addons[index].quantityMaximumError =
+        addons[index].quantityMaximumError ||
         addons[index].quantityMaximum < addons[index].quantityMinimum
     }
     if (state === 'options') {

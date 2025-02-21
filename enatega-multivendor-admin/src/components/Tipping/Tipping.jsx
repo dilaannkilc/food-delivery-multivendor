@@ -109,7 +109,6 @@ function Tipping(props) {
                   id="input-type-tip1"
                   placeholder={t('PHTip1')}
                   type="number"
-                  inputProps={{ min: 0 }}
                   defaultValue={
                     data && data.tips.tipVariations
                       ? data.tips.tipVariations[0]
@@ -138,7 +137,6 @@ function Tipping(props) {
                   id="input-type-tip2"
                   placeholder={t('PHTip2')}
                   type="number"
-                  inputProps={{ min: 0 }}
                   defaultValue={
                     data && data.tips.tipVariations
                       ? data.tips.tipVariations[1]
@@ -170,7 +168,6 @@ function Tipping(props) {
                   id="input-type-tip3"
                   placeholder={t('PHTip2')}
                   type="number"
-                  inputProps={{ min: 0 }}
                   defaultValue={
                     data && data.tips.tipVariations
                       ? data.tips.tipVariations[2]

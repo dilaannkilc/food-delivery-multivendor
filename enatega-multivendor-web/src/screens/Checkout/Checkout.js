@@ -46,7 +46,7 @@ import UserContext from "../../context/User";
 import { useRestaurant } from "../../hooks";
 import { DAYS } from "../../utils/constantValues";
 import { paypalCurrencies, stripeCurrencies } from "../../utils/currencies";
-import { calculateDistance, calculateAmount } from "../../utils/customFunction";
+import { calculateDistance } from "../../utils/customFunction";
 import useStyle from "./styles";
 
 import Analytics from "../../utils/analytics";
@@ -146,8 +146,7 @@ function Checkout() {
           latDest,
           longDest
         );
-        let costType = configuration.costType;
-        let amount = calculateAmount(costType, configuration.deliveryRate, distance);
+        const amount = Math.ceil(distance) * configuration.deliveryRate;
         setDeliveryCharges(amount > 0 ? amount : configuration.deliveryRate);
       }
     })();

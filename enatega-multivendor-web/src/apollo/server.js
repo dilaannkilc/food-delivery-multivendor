@@ -555,7 +555,6 @@ export const getConfiguration = `query Configuration{
     clientId
     skipEmailVerification
     skipMobileVerification
-    costType
   }
 }`;
 

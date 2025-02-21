@@ -159,6 +159,12 @@ function AppConfigurations(props) {
                   mutate({
                     variables: {
                       configurationInput: {
+                        graphqlUrlApp:
+                          formRef.current['input-graphqlUrlApp'].value,
+                        wsGraphqlUrlApp:
+                          formRef.current['input-wsGraphqlUrlApp'].value,
+                        serverUrlApp:
+                          formRef.current['input-serverUrlApp'].value,
                         termsAndConditions:
                           formRef.current['input-termsAndConditions'].value,
                         privacyPolicy:
