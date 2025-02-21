@@ -57,8 +57,6 @@ import ErrorView from '../../components/ErrorView/ErrorView'
 import Spinner from '../../components/Spinner/Spinner'
 import MainModalize from '../../components/Main/Modalize/MainModalize'
 
-import { escapeRegExp } from '../../utils/regex'
-
 const RESTAURANTS = gql`
   ${restaurantListPreview}
 `
@@ -377,8 +375,8 @@ function Menu({ route, props }) {
 
   const searchRestaurants = searchText => {
     const data = []
-    const escapedSearchText = escapeRegExp(searchText);
-    const regex = new RegExp(escapedSearchText, 'i');
+    const regex = new RegExp(searchText, 'i')
+    console.log("🚀 ~ searchRestaurants ~ regex:", regex)
     restaurantData?.forEach(restaurant => {
       const resultCatFoods = restaurant.keywords.some(keyword => {
         const result = keyword.search(regex)
