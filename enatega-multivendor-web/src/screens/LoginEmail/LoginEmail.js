@@ -134,7 +134,7 @@ function LoginEmail() {
         <Box mt={theme.spacing(2)} />
         <TextField
           name={"userPass"}
-          defaultValue={"123123"}
+          defaultValue={"DemoCustomer55!"}
           InputLabelProps={{
             style: {
               color: theme.palette.grey[600],
