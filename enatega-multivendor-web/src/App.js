@@ -37,12 +37,7 @@ import VerifyPhone from "./screens/VerifyPhone/VerifyPhone";
 import UserContext from "./context/User";
 import { useTranslation } from "react-i18next";
 
-const GoogleMapsLoader = ({
-  children,
-  LIBRARIES,
-  GOOGLE_MAPS_KEY,
-  VAPID_KEY,
-}) => {
+const GoogleMapsLoader = ({ children, LIBRARIES, GOOGLE_MAPS_KEY }) => {
   const [message, setMessage] = useState(null);
   const { t, i18n } = useTranslation();
 
@@ -53,7 +48,8 @@ const GoogleMapsLoader = ({
         Notification.requestPermission()
           .then(() => {
             getToken(messaging, {
-              vapidKey: VAPID_KEY,
+              vapidKey:
+                "BOpVOtmawD0hzOR0F5NQTz_7oTlNVwgKX_EgElDnFuILsaE_jWYPIExAMIIGS-nYmy1lhf2QWFHQnDEFWNG_Z5w",
             })
               .then((token) => {
                 localStorage.setItem("messaging-token", token);
@@ -136,16 +132,12 @@ const GoogleMapsLoader = ({
 };
 
 function App() {
-  const { GOOGLE_MAPS_KEY, LIBRARIES, VAPID_KEY } = ConfigurableValues();
+  const { GOOGLE_MAPS_KEY, LIBRARIES } = ConfigurableValues();
   const { isLoggedIn } = useContext(UserContext);
 
   return GOOGLE_MAPS_KEY ? (
     <HashRouter>
-      <GoogleMapsLoader
-        GOOGLE_MAPS_KEY={GOOGLE_MAPS_KEY}
-        LIBRARIES={LIBRARIES}
-        VAPID_KEY={VAPID_KEY}
-      >
+      <GoogleMapsLoader GOOGLE_MAPS_KEY={GOOGLE_MAPS_KEY} LIBRARIES={LIBRARIES}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/restaurant-list" element={<Restaurants />} />

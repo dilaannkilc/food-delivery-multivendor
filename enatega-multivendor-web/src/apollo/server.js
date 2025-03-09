@@ -556,7 +556,6 @@ export const getConfiguration = `query Configuration{
     skipEmailVerification
     skipMobileVerification
     costType
-    vapidKey
   }
 }`;
 
