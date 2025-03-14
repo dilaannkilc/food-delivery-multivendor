@@ -24,7 +24,7 @@ const CreateAccount = (props) => {
     navigateToLogin,
     navigation,
     signIn,
-    //user
+    user
   } = useCreateAccount()
   const { t } = useTranslation()
   useLayoutEffect(() => {
@@ -40,7 +40,10 @@ const CreateAccount = (props) => {
     if (loading && loginButton === 'Apple') {
       return (
         <View style={styles(currentTheme).buttonBackground}>
-          <Spinner backColor='transparent' spinnerColor={currentTheme.main} />
+          <Spinner
+            backColor='transparent'
+            spinnerColor={currentTheme.main}
+          />
         </View>
       )
     }
@@ -62,11 +65,7 @@ const CreateAccount = (props) => {
                 AppleAuthentication.AppleAuthenticationScope.EMAIL
               ]
             })
-            const name = credential.fullName?.givenName
-              ? credential.fullName?.givenName +
-                ' ' +
-                credential.fullName?.familyName
-              : ''
+            const name = credential.fullName?.givenName ? credential.fullName?.givenName + ' ' + credential.fullName?.familyName : ''
             const user = {
               appleId: credential.user,
               phone: '',
@@ -101,13 +100,7 @@ const CreateAccount = (props) => {
           loginButtonSetter('Google')
         }}
         disabled={loading && loginButton === 'Google'}
-        onPress={async () => {
-          try {
-            await signIn()
-          } catch (error) {
-            console.error('Google sign-in error:', error)
-          }
-        }}
+        onPress={signIn}
       />
     )
   }
@@ -156,7 +149,7 @@ const CreateAccount = (props) => {
             </TextDefault>
           </View>
 
-          <View style={{ marginBottom: scale(5) }}>{renderGoogleAction()}</View>
+          {/* <View style={{ marginBottom: scale(5) }}>{renderGoogleAction()}</View> */}
           {enableApple && (
             <View style={{ marginBottom: scale(5) }}>
               {renderAppleAction()}

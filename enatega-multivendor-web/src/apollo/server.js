@@ -560,12 +560,6 @@ export const getConfiguration = `query Configuration{
   }
 }`;
 
-export const getConfigurationSpecific = `query Configuration{
-  configuration{
-    webAmplitudeApiKey
-  }
-}`;
-
 export const getCoupon = `mutation Coupon($coupon:String!){
   coupon(coupon:$coupon){
     _id

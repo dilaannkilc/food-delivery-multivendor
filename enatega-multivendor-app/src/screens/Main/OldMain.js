@@ -50,8 +50,6 @@ import React, {
   import analytics from '../../utils/analytics'
   import MapSection from '../MapSection/index'
   import { useTranslation } from 'react-i18next'
-
-  import { escapeRegExp } from '../../utils/regex'
   
   const RESTAURANTS = gql`
     ${restaurantList}
@@ -315,8 +313,7 @@ import React, {
   
     const searchRestaurants = searchText => {
       const data = []
-      const escapedSearchText = escapeRegExp(searchText);
-      const regex = new RegExp(escapedSearchText, 'i');
+      const regex = new RegExp(searchText, 'i')
       restaurants.forEach(restaurant => {
         const resultName = restaurant.name.search(regex)
         if (resultName < 0) {

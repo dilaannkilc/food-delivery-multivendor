@@ -44,7 +44,6 @@ import { addFavouriteRestaurant } from '../../../apollo/mutations'
 import { profile } from '../../../apollo/queries'
 import { calculateDistance } from '../../../utils/customFunctions'
 import { LocationContext } from '../../../context/Location'
-import ConfigurationContext from '../../../context/Configuration'
 import Animated, {
   Extrapolation,
   interpolate,
@@ -79,7 +78,6 @@ function ImageTextCenterHeader(props, ref) {
   const newheaderColor = currentTheme.backgroundColor
   const cartContainer = currentTheme.gray500
   const { profile } = useContext(UserContext)
-  const configuration = useContext(ConfigurationContext)
   const heart = profile ? profile.favourite.includes(props.restaurantId) : false
   const [mutate, { loading: loadingMutation }] = useMutation(ADD_FAVOURITE, {
     onCompleted,
@@ -142,8 +140,6 @@ function ImageTextCenterHeader(props, ref) {
     }
   })
 
-
-
   const headerHeight = useAnimatedStyle(() => {
     return {
       height: interpolate(
@@ -168,7 +164,6 @@ function ImageTextCenterHeader(props, ref) {
       )
     }
   })
-
 
   const opacity = useAnimatedStyle(() => {
     return {
@@ -404,7 +399,7 @@ function ImageTextCenterHeader(props, ref) {
                   style={styles().restaurantAbout}
                   textColor={currentTheme.fontMainColor}
                 >
-                  {configuration.currencySymbol}{' '}{aboutObject.restaurantTax} {t('deliveryCharges')}
+                  ${aboutObject.restaurantTax} {t('deliveryCharges')}
                 </TextDefault>
               </View>
               <View
@@ -419,7 +414,7 @@ function ImageTextCenterHeader(props, ref) {
                   style={styles().restaurantAbout}
                   textColor={currentTheme.fontMainColor}
                 >
-                  {configuration.currencySymbol}{' '}{aboutObject.restaurantMinOrder} {t('minimum')}
+                  ${aboutObject.restaurantMinOrder} {t('minimum')}
                 </TextDefault>
                 <TextDefault
                   style={styles().restaurantAbout}

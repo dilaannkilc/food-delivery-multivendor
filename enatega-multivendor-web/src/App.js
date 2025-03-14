@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useJsApiLoader } from "@react-google-maps/api";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect,useContext, useState } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { getToken, onMessage } from "firebase/messaging";
 import { initialize, isFirebaseSupported } from "./firebase";
@@ -36,7 +36,9 @@ import PrivateRoute from "./routes/PrivateRoute";
 import VerifyPhone from "./screens/VerifyPhone/VerifyPhone";
 import UserContext from "./context/User";
 import { useTranslation } from "react-i18next";
-import { fetchConfiguration } from "./utils/helper";
+
+
+import { Integrations } from "@sentry/tracing";
 
 const GoogleMapsLoader = ({
   children,
@@ -46,26 +48,6 @@ const GoogleMapsLoader = ({
 }) => {
   const [message, setMessage] = useState(null);
   const { t, i18n } = useTranslation();
-
-  //Handlers
-  const onWindowUpdateAmplitude = async () => {
-    const { webAmplitudeApiKey } = await fetchConfiguration();
-
-    if (webAmplitudeApiKey) {
-      // Set the API key to a global variable
-      window.amplitudeApiKey = webAmplitudeApiKey;
-
-      // Now you can initialize Amplitude
-      if (window.amplitude) {
-        window.amplitude
-          .add(window.sessionReplay.plugin({ sampleRate: 1 }))
-          .promise.then(function () {
-            window.amplitude.add(window.amplitudeAutocapturePlugin.plugin());
-            window.amplitude.init(window.amplitudeApiKey);
-          });
-      }
-    }
-  };
 
   useEffect(() => {
     const initializeFirebase = async () => {
@@ -118,10 +100,6 @@ const GoogleMapsLoader = ({
     initializeFirebase();
   }, [t, i18n, VAPID_KEY]);
 
-  useEffect(() => {
-    onWindowUpdateAmplitude();
-  }, []);
-
   const handleClose = () => {
     setMessage(null);
   };
@@ -161,8 +139,24 @@ const GoogleMapsLoader = ({
 };
 
 function App() {
-  const { GOOGLE_MAPS_KEY, LIBRARIES, VAPID_KEY } = ConfigurableValues();
+  const { GOOGLE_MAPS_KEY, LIBRARIES, VAPID_KEY,SENTRY_DSN } = ConfigurableValues();
   const { isLoggedIn } = useContext(UserContext);
+
+  useEffect(() => {
+    console.log({SENTRY_DSN})
+    if (SENTRY_DSN) {
+      Sentry.init({
+        dsn: SENTRY_DSN,
+      //SENTRY_DSN  integrations: [new Integrations.BrowserTracing()],
+        environment: "development",
+        enableInExpoDevelopment: true,
+        debug: true,
+        tracesSampleRate: 1.0, // to be changed to 0.2 in production
+      });
+   
+    }
+
+  }, [SENTRY_DSN]);
 
   return GOOGLE_MAPS_KEY ? (
     <HashRouter>
