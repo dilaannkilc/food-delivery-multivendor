@@ -300,21 +300,7 @@ function DeliveryBoundsAndLocation() {
                     longitude: marker.lng
                   }
                   const bounds = transformPath(path)
-                  let variables = {
-                    id: restaurantId,
-                    location,
-                    boundType: "Polygon",
-                    address: "nil",
-                    location, bounds
-                  };
-          
-                  variables = {
-                    ...variables,
-                    circleBounds: {
-                      radius: 0.0, // Convert kilometers to meters
-                    },
-                  };
-                  mutate({variables})
+                  mutate({ variables: { id: restaurantId, location, bounds } })
                 }
               }}>
               {t('Save')}

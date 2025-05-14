@@ -24,11 +24,9 @@ const Users = props => {
   const { data, error: errorQuery, loading: loadingQuery, refetch } = useQuery(
     GET_USERS,
     {
-      variables: { page: 0 },
-      
+      variables: { page: 0 }
     }
   )
-  console.log("errorQuery",errorQuery);
   const columns = [
     {
       name: t('Name'),

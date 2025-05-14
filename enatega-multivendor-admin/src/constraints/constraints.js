@@ -25,12 +25,7 @@ const constraints = {
   },
   phone: {
     presence: {
-      allowEmpty: false,
-      message: "number is required."
-    },
-    length: {
-      maximum: 25,
-      tooLong: "number invalid"
+      allowEmpty: false
     }
   },
   address: {
@@ -234,7 +229,7 @@ const constraints = {
       allowEmpty: false
     },
     numericality: {
-      greaterThanOrEqualTo: 0,
+      greaterThan: 0,
       lessThan: 100
     }
   },
@@ -282,10 +277,8 @@ export const validateFuncForRider = (value, constraint) => {
     if (!constraints[constraint]) {
       return { isValid: false, errorMessage: 'Invalid constraint' }
     }
-    return { isValid: false, errorMessage: validationResult[constraint][0] 
-    }
+    return { isValid: false, errorMessage: validationResult[constraint][0] }
   } else {
     return { isValid: true, errorMessage: null }
   }
 }
-
