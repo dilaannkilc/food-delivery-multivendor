@@ -78,6 +78,7 @@
       ]
     },
     "plugins": [
+      "@react-native-google-signin/google-signin",
       [
         "expo-tracking-transparency",
         {
