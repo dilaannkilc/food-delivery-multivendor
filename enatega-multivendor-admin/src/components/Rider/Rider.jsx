@@ -156,7 +156,7 @@ function Rider(props) {
   const globalClasses = useGlobalStyles()
 
   const handlePhoneInput = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, '')?.slice(0, 15);
+    const value = e.target.value.replace(/[^0-9]/g, '');
     e.target.value = value;
   };
 
@@ -304,7 +304,7 @@ function Rider(props) {
                 id="input-phone"
                 name="input-phone"
                 placeholder={t('PhoneNumber')}
-                type="tel"
+                type="number"
                 defaultValue={phone}
                 onInput={handlePhoneInput}
                 onBlur={event =>
