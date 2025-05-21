@@ -379,7 +379,6 @@ export const myOrders = `query Orders($offset:Int){
   orders(offset:$offset){
     _id
     orderId
-    id
     restaurant{
       _id
       name
@@ -394,7 +393,6 @@ export const myOrders = `query Orders($offset:Int){
     }
     items{
       _id
-      id
       title
       food
       description
@@ -402,17 +400,14 @@ export const myOrders = `query Orders($offset:Int){
       image
       variation{
         _id
-        id
         title
         price
         discounted
       }
       addons{
         _id
-        id
         options{
           _id
-           id
           title
           description
           price
