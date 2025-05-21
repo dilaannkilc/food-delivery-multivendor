@@ -67,10 +67,12 @@ const Coupon = props => {
     }
   )
 
+  console.log("🚀 ~ Coupon ~ data:", data)
 
   const coupons = data?.coupons.coupons || []
-
+  console.log("🚀 ~ Coupon ~ coupons:", coupons)
   const totalCount = data?.coupons.totalCount || 0
+  console.log("🚀 ~ Coupon ~ totalCount:", totalCount)
 
   const toggleModal = coupon => {
     setEditModal(!editModal)

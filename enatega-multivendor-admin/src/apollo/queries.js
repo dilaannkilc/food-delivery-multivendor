@@ -746,41 +746,31 @@ query PageCount($restaurant:String!){
   pageCount(restaurant:$restaurant)
 }
 `
-export const getUsers = `
-  query Users($page: Int, $rowsPerPage: Int, $search: String) {
-    users(page: $page, rowsPerPage: $rowsPerPage, search: $search) {
-      users {
-        _id
-        name
-        email
-        phone
-        addresses {
-          location {
-            coordinates
-          }
-          deliveryAddress
-        }
+export const getUsers = `query{
+    users{
+      _id
+      name
+      email
+      phone
+      addresses{
+        location{coordinates}
+        deliveryAddress
       }
-      totalCount
     }
-  }
-`;
+  }`
 
-export const getRiders = `query Riders($page: Int, $rowsPerPage: Int, $search: String) {
-    riders(page: $page, rowsPerPage: $rowsPerPage, search: $search) {
-      riders {
+export const getRiders = `query{
+    riders{
+      _id
+      name
+      username
+      password
+      phone
+      available
+      zone{
         _id
-        name
-        username
-        password
-        phone
-        available
-        zone {
-          _id
-          title
-        }
+        title
       }
-      totalCount
     }
   }`
 
@@ -797,22 +787,46 @@ export const getAvailableRiders = `query{
     }
   }`
 
-export const withdrawRequestQuery = `
-  query GetWithdrawRequests($page: Int, $rowsPerPage: Int, $search: String) {
-    withdrawRequests(page: $page, rowsPerPage: $rowsPerPage, search: $search) {
-      requests {
-        _id
-        requestId
-        requestAmount
-        requestTime
-        rider {
-          _id
-          name
-          currentWalletAmount
-        }
-        status
+export const withdrawRequestQuery = `query GetWithdrawRequests($offset:Int){
+      getAllWithdrawRequests(offset:$offset){
+          success
+          message
+          data{
+            _id
+            requestId
+            requestAmount
+            requestTime
+            rider{
+              _id
+              name
+              currentWalletAmount
+            }
+            status
+          }
+          pagination{
+            total
+          }
       }
-      totalCount
+  }`
+
+  export const withdrawRequestQueryWithPagination = `query GetWithdrawRequests($offset:Int, $page: Int, $rowsPerPage: Int, $search: String){
+    getAllWithdrawRequests(offset:$offset, $page: Int, $rowsPerPage: Int, $search: String){
+        success
+        message
+        data{
+          _id
+          requestId
+          requestAmount
+          requestTime
+          rider{
+            _id
+            name
+            currentWalletAmount
+          }
+          status
+        }
+        pagination{
+          total
+        }
     }
-  }
-`
+}`
