@@ -2,7 +2,6 @@ export const orders = `query Orders{
     restaurantOrders{
       _id
       orderId
-      id
       restaurant{
         _id
         name
@@ -18,24 +17,20 @@ export const orders = `query Orders{
       }
       items{
         _id
-        id
         title
         description
         image
         quantity
         variation{
           _id
-          id
           title
           price
           discounted
         }
         addons{
           _id
-          id
           options{
             _id
-             id
             title
             description
             price
