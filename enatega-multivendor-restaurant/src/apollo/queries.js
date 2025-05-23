@@ -15,6 +15,7 @@ export const orders = `query Orders{
         deliveryAddress
         details
         label
+        id
       }
       items{
         _id
@@ -73,7 +74,6 @@ export const orders = `query Orders{
       preparationTime
       acceptedAt
       isRinged
-      instructions
       rider{
         _id
         name

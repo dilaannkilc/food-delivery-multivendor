@@ -392,11 +392,6 @@ function ItemDetail(props) {
   return (
     <>
       <View style={[styles().flex, styles(currentTheme).mainContainer]}>
-      <KeyboardAvoidingView
-          style={{ flex: 1 }}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0} 
-        >
         <Animated.View
           style={[styles(currentTheme).headerContainer, animatedHeaderStyle]}
         >
@@ -409,7 +404,7 @@ function ItemDetail(props) {
           scrollEventThrottle={1}
           contentContainerStyle={{
             paddingTop: HEADER_MAX_HEIGHT,
-            paddingBottom: scale(height * 0.001),
+            paddingBottom: scale(height * 0.09),
             backgroundColor: currentTheme.themeBackground,
           }}
         >
@@ -447,7 +442,7 @@ function ItemDetail(props) {
             </View>
 
             <View style={styles(currentTheme).line}></View>
-            <View style={styles(currentTheme).inputContainer} >
+            <View style={styles(currentTheme).inputContainer}>
               <TitleComponent
                 title={t('specialInstructions')}
                 subTitle={t('anySpecificPreferences')}
@@ -492,7 +487,6 @@ function ItemDetail(props) {
             backgroundColor: currentTheme.themeBackground
           }}
         />
-        </KeyboardAvoidingView>
       </View>
     </>
   )

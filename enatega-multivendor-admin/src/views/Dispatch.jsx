@@ -21,7 +21,6 @@ import { ReactComponent as DispatchIcon } from '../assets/svg/svg/Dispatch.svg'
 import TableHeader from '../components/TableHeader'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css'
-import { useDebounce } from '../utils/debounce'
 
 const SUBSCRIPTION_ORDER = gql`
   ${subscriptionOrder}
@@ -51,7 +50,6 @@ const Orders = props => {
   const [mutateAssign] = useMutation(ASSIGN_RIDER)
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  const debouncedSearchQuery = useDebounce(searchQuery, 500) // Debounce search query
 
   const riderFunc = row => {
     const { data: dataZone } = useQuery(GET_RIDERS_BY_ZONE, {
@@ -111,7 +109,7 @@ const Orders = props => {
     variables: {
       page,
       rowsPerPage,
-      search: debouncedSearchQuery.length > 3 ? debouncedSearchQuery : null
+      search: searchQuery.length > 5 ? searchQuery : ''
     },
     pollInterval: 100000
   })

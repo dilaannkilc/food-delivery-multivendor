@@ -27,9 +27,7 @@ const Commission = () => {
   const { data, error: errorQuery, loading: loadingQuery } = useQuery(
     GET_RESTAURANTS
   )
-
-  console.log("🚀 ~ Commission ~ data:", data)
-  
+  console.log(data)
   const globalClasses = useGlobalStyles()
   const classes = useStyles()
   const { t } = useTranslation()
@@ -92,7 +90,7 @@ const Commission = () => {
                 ) : (
                   data && (
                     <>
-                      {data.restaurants.restaurants.map(restaurant => (
+                      {data.restaurants.map(restaurant => (
                         <Grid key={restaurant._id} container spacing={1}>
                           <Grid item sm={5} mt={3}>
                             {restaurant.name}
