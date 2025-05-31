@@ -10,7 +10,7 @@ import {useTranslation} from 'react-i18next'
 const Tabs = props => {
   const {t} = useTranslation()
   const { active } = useContext(TabsContext)
-  const { assignedOrders, dataProfile } = useContext(UserContext)
+  const { assignedOrders } = useContext(UserContext)
   const [ordersLength, setOrderslength] = useState(
     assignedOrders?.filter(
       o => o.orderStatus === 'ACCEPTED' && !o.rider && !o.isPickedUp
@@ -23,7 +23,6 @@ const Tabs = props => {
         !o.isPickedUp
     ).length
   )
-
 
   useEffect(() => {
     setOrderslength(
@@ -45,7 +44,7 @@ const Tabs = props => {
       {active === 'MyOrders' && (
         <View style={styles.badge}>
           <TextDefault textColor={colors.black}>
-            { ( ordersLength > 0 && dataProfile?.rider.available ) ? ordersLength : 0}
+            {ordersLength > 0 ? ordersLength : 0}
           </TextDefault>
         </View>
       )}
@@ -83,7 +82,7 @@ const Tabs = props => {
         {active === 'NewOrders' && (
           <View style={styles.rightBadge}>
             <TextDefault textColor={colors.black}>
-              { myOrdersLength > 0 ? myOrdersLength : 0}
+              {myOrdersLength > 0 ? myOrdersLength : 0}
             </TextDefault>
           </View>
         )}
