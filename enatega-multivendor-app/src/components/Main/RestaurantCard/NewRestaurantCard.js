@@ -155,7 +155,7 @@ function NewRestaurantCard(props) {
                 numberOfLines={1}
                 bold
                 Normal>
-               {configuration.currencySymbol + ' ' + props.tax}{' '}
+                ${props.tax}
               </TextDefault>
             </View>
           </View>
