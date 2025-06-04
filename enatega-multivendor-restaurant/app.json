@@ -56,7 +56,6 @@
       "expo-localization",
       "expo-secure-store",
       "sentry-expo"
-    ],
-    "newArchEnabled": true
+    ]
   }
 }
