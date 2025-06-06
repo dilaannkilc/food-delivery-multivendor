@@ -4,5 +4,7 @@
   "dev": true,
   "minify": false,
   "urlRandomness": "ji-w5v",
-  "https": false
+  "https": false,
+  "scheme": "exp+food-delivery-rider-multivendor",
+  "devClient": false
 }

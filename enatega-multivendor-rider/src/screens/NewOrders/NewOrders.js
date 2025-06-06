@@ -49,7 +49,7 @@ const NewOrders = ({ navigation }) => {
   const noNewOrders = orders.length === 0
   useEffect(() => {
     // Trigger refetch when orders length changes
-    if (noNewOrders && dataProfile?.rider.available) {
+    if (noNewOrders) {
       refetchAssigned()
     }
   }, [noNewOrders])
