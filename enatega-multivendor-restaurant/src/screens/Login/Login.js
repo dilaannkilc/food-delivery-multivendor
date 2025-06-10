@@ -27,6 +27,7 @@ export default function Login() {
     username,
     password
   } = useLogin()
+
   const [showPassword, setShowPassword] = useState(false)
   const {t} = useTranslation()
   return (
@@ -62,13 +63,13 @@ export default function Login() {
                 onChangeText={text => setUserName(text)}
                 inputContainerStyle={styles.inputStyle}
                 errorMessage={
-                  errors && errors.username ? errors.username.join(',') : null
+                  errors && errors.username ? errors.username.join(',') : ''
                 }
                 onBlur={isValid}
                 autoCapitalize="none"
                 errorStyle={{ color: colors.textErrorColor }}
                 keyboardType="email-address"
-                // defaultValue={username}
+                defaultValue={username}
                 returnKeyType="next"
                 style={{ paddingLeft: 8 }}
               />
@@ -82,12 +83,12 @@ export default function Login() {
                 secureTextEntry={!showPassword}
                 rightIconContainerStyle={{ marginRight: 10 }}
                 errorMessage={
-                  errors && errors.password ? errors.password.join(',') : null
+                  errors && errors.password ? errors.password.join(',') : ''
                 }
                 onBlur={isValid}
                 autoCapitalize="none"
                 errorStyle={{ color: colors.textErrorColor }}
-                // defaultValue={password}
+                defaultValue={password}
                 rightIcon={
                   <Icon
                     onPress={() => setShowPassword(!showPassword)}

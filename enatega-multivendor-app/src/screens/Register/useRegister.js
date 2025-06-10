@@ -15,7 +15,7 @@ const PHONE = gql`
 
 const useRegister = () => {
   const navigation = useNavigation()
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const route = useRoute()
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
@@ -28,16 +28,16 @@ const useRegister = () => {
   const [emailError, setEmailError] = useState(null)
   const [passwordError, setPasswordError] = useState(null)
   const [phoneError, setPhoneError] = useState(null)
-  const [countryCode, setCountryCode] = useState('IL')
+  const [countryCode, setCountryCode] = useState('PK')
   const [country, setCountry] = useState({
-    callingCode: ['972'],
-    cca2: 'IL',
-    currency: ['ILS'],
-    flag: 'flag-il',
-    name: 'Israel',
+    callingCode: ['92'],
+    cca2: 'PK',
+    currency: ['PKR'],
+    flag: 'flag-pk',
+    name: 'Pakistan',
     region: 'Asia',
-    subregion: 'Western Asia'
-  });
+    subregion: 'Southern Asia'
+  })
 
   const [phoneExist, { loading }] = useMutation(PHONE, {
     onCompleted,
@@ -50,7 +50,7 @@ const useRegister = () => {
   }
 
   const themeContext = useContext(ThemeContext)
-  const currentTheme = {isRTL : i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue]}
+  const currentTheme = theme[themeContext.ThemeValue]
 
   function validateCredentials() {
     let result = true

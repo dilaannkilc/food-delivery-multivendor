@@ -1,5 +1,6 @@
 import React from 'react'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
+
 const CustomMapView = React.memo(
   React.forwardRef(function CustomMapView(
     { initialRegion, customMapStyle, onRegionChangeComplete },
@@ -26,4 +27,5 @@ const CustomMapView = React.memo(
     )
   }
 )
+
 export default CustomMapView

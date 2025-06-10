@@ -4,9 +4,6 @@
 
 # OSX
 #
-
-#dist
-/dist
 .DS_Store
 
 # Xcode

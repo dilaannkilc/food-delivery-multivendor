@@ -18,9 +18,9 @@ import Spinner from '../Spinner/Spinner'
 import EmptyView from '../EmptyView/EmptyView'
 
 const ActiveOrders = ({ navigation, loading, error, activeOrders }) => {
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const themeContext = useContext(ThemeContext)
-  const currentTheme = {isRTL : i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue]}
+  const currentTheme = theme[themeContext.ThemeValue]
   const configuration = useContext(ConfigurationContext)
 
   const emptyView = () => {
@@ -90,12 +90,12 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
       <View style={{ flex: 1 }}>
         <View style={styles(currentTheme).subContainer}>
           <View style={styles().orderDescriptionContainer}>
-            <TextDefault h5 bold textColor={currentTheme.gray500} isRTL>
+            <TextDefault h5 bold textColor={currentTheme.gray500}>
               {t('estimatedDeliveryTime')}
             </TextDefault>
           </View>
           <View style={styles().orderDescriptionContainer}>
-            <TextDefault Regular textColor={currentTheme.gray900} H1 bolder isRTL>
+            <TextDefault Regular textColor={currentTheme.gray900} H1 bolder>
               {remainingTime}-{remainingTime + 5} {t('mins')}
             </TextDefault>
           </View>
@@ -106,7 +106,6 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
               item={item}
               navigation={navigation}
               customWidth={scale(65)}
-              isPicked={item?.isPickedUp}
             />
           </View>
           <View
@@ -114,7 +113,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
               ...styles().orderDescriptionContainer,
               ...alignment.PTxSmall
             }}>
-            <TextDefault h5 bold textColor={currentTheme.secondaryText} isRTL>
+            <TextDefault h5 bold textColor={currentTheme.secondaryText}>
               {item.orderStatus === 'PENDING'
                 ? t('PenddingText')
                 : t('PenddingText1')}
@@ -123,7 +122,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
           <View
             style={{
               flex: 1,
-              flexDirection: currentTheme?.isRTL ? 'row-reverse' : 'row',
+              flexDirection: 'row',
               //alignItems: 'center',
               justifyContent: 'center',
               ...alignment.Mmedium,
@@ -133,7 +132,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
             <Image
               style={styles(currentTheme).restaurantImage1}
               resizeMode="cover"
-              source={{ uri: item?.restaurant?.image }}
+              source={{ uri: item.restaurant.image }}
             />
             <View style={styles(currentTheme).textContainer2}>
               <View style={styles().subContainerLeft}>
@@ -142,18 +141,15 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
                   uppercase
                   bolder
                   numberOfLines={2}
-                  style={styles(currentTheme).orderInfo}
-                isRTL>
+                  style={styles(currentTheme).restaurantName}>
                   {item.restaurant.name}
                 </TextDefault>
                 <TextDefault
-                  numberOfLines={2}
-                  // style={{ ...alignment.MTxSmall }}
-                  style={styles(currentTheme).orderInfo}
+                  numberOfLines={1}
+                  style={{ ...alignment.MTxSmall }}
                   textColor={currentTheme.fontMainColor}
                   bolder
-                  small
-                isRTL>
+                  small>
                   {getItems(item.items)}
                 </TextDefault>
               </View>
@@ -162,8 +158,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
               <TextDefault
                 //numberOfLines={1}
                 textColor={currentTheme.fontMainColor}
-                bolder
-              isRTL>
+                bolder>
                 {configuration.currencySymbol}
                 {parseFloat(item.orderAmount).toFixed(2)}
               </TextDefault>

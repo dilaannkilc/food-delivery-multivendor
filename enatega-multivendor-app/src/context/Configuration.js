@@ -10,25 +10,76 @@ const GETCONFIGURATION = gql`
 
 const ConfigurationContext = React.createContext({})
 
-export const ConfigurationProvider = props => {
+const initialConfig = {
+  _id: '',
+  email: '',
+  password: '',
+  emailName: '',
+  enableEmail: true,
+  clientId: '',
+  clientSecret: '',
+  sandbox: false,
+  publishableKey: '',
+  secretKey: '',
+  currency: '',
+  currencySymbol: '',
+  deliveryRate: 5,
+  twilioAccountSid: '',
+  twilioAuthToken: '',
+  twilioPhoneNumber: '',
+  twilioEnabled: false,
+  formEmail: '',
+  sendGridApiKey: '',
+  sendGridEnabled: false,
+  sendGridEmail: '',
+  sendGridEmailName: '',
+  sendGridPassword: '',
+  dashboardSentryUrl: '',
+  webSentryUrl: '',
+  apiSentryUrl: '',
+  customerAppSentryUrl: '',
+  restaurantAppSentryUrl: '',
+  riderAppSentryUrl: '',
+  googleApiKey: '',
+  cloudinaryUploadUrl: '',
+  cloudinaryApiKey: '',
+  webClientID: '',
+  androidClientID: '',
+  iOSClientID: '',
+  expoClientID: '',
+  googleMapLibraries: '',
+  googleColor: '',
+  termsAndConditions: '',
+  privacyPolicy: '',
+  testOtp: '',
+  firebaseKey: '',
+  authDomain: '',
+  projectId: '',
+  storageBucket: '',
+  msgSenderId: '',
+  appId: '',
+  measurementId: '',
+  isPaidVersion: false,
+  skipMobileVerification: false,
+  skipEmailVerification: false,
+  costType: '',
+  vapidKey: ''
+}
+export const ConfigurationProvider = (props) => {
   const { loading, data, error } = useQuery(GETCONFIGURATION)
 
   const configuration =
     loading || error || !data.configuration
       ? {
-          currency: '',
-          currencySymbol: '',
-        deliveryRate: 10,
-          costType: 'perKM',
+         ...initialConfig,
           expoClientID:
-            '139790486043-9jp4uj64spndf1aqh5fcjt6mc2dj8luu.apps.googleusercontent.com',
+            '967541328677-d46sl62t52g5r3o5m0mnl2hpptr242nl.apps.googleusercontent.com',
           androidClientID:
-            '139790486043-1uis4uui8j0i999pj2efke5ckts1sqic.apps.googleusercontent.com',
+            '967541328677-7264tf7tkdtoufk844rck9mimrve135c.apps.googleusercontent.com',
           iOSClientID:
-            '139790486043-60c2ah0hd8v5cecnq8gqdtokhm2q35m1.apps.googleusercontent.com'
+            '967541328677-nf8h4ou7rhmq9fahs87p057rggo95eah.apps.googleusercontent.com'
         }
       : data.configuration
-  
   return (
     <ConfigurationContext.Provider value={configuration}>
       {props.children}

@@ -59,8 +59,7 @@ const useOrder = order => {
     ASSIGN_ORDER,
     {
       onCompleted,
-      onError,
-      refetchQueries: [{ query: refetchAssigned }]
+      onError
     }
   )
 
