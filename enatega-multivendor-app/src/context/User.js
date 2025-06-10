@@ -51,7 +51,7 @@ export const UserProvider = props => {
   const [restaurant, setRestaurant] = useState(null)
   const [isPickup, setIsPickup] = useState(false)
   const [instructions, setInstructions] = useState('')
-  
+
   const {
     called: calledProfile,
     loading: loadingProfile,
@@ -139,7 +139,7 @@ export const UserProvider = props => {
       cart.splice(cartIndex, 1)
       const items = [...cart.filter(c => c.quantity > 0)]
       setCart(items)
-      if (items.length === 0) setRestaurant(null)
+      if (items?.length === 0) setRestaurant(null)
       await AsyncStorage.setItem('cartItems', JSON.stringify(items))
     }
   }
@@ -149,7 +149,7 @@ export const UserProvider = props => {
     cart[cartIndex].quantity -= 1
     const items = [...cart.filter(c => c.quantity > 0)]
     setCart(items)
-    if (items.length === 0) setRestaurant(null)
+    if (items?.length === 0) setRestaurant(null)
     await AsyncStorage.setItem('cartItems', JSON.stringify(items))
   }
 
