@@ -18,7 +18,7 @@ const UPDATEUSER = gql`
 `
 
 const useRegister = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const navigation = useNavigation()
   const route = useRoute()
   const [phone, setPhone] = useState('')
@@ -30,7 +30,6 @@ const useRegister = () => {
   const [ipAddress, setIpAddress] = useState(null)
   const [countryCallingCode, setCountryCallingCode] = useState(null)
   const [count, setCount] = useState(0)
-  const { name } = route?.params
 
   const retryCount = 3 // Number of retries
   let currentRetry = 0
@@ -106,7 +105,7 @@ const useRegister = () => {
   const { profile } = useContext(UserContext)
   const { refetchProfile } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
-  const currentTheme = {isRTL : i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue]}
+  const currentTheme = theme[themeContext.ThemeValue]
 
   const [mutate, { loading }] = useMutation(UPDATEUSER, {
     onCompleted,
@@ -127,7 +126,6 @@ const useRegister = () => {
   }
 
   async function onCompleted(data) {
-    let concatPhone = '+'.concat(country.callingCode[0] ?? "").concat(phone ?? "")
     if (navigation && route && profile) {
       if (configuration.twilioEnabled) {
         FlashMessage({
@@ -137,13 +135,13 @@ const useRegister = () => {
         navigation.navigate({
           name: 'PhoneOtp',
           merge: true,
-          params: {name, phone: concatPhone}
+          params: route.params
         })
       } else {
         mutate({
           variables: {
             name: profile.name,
-            phone: concatPhone,
+            phone: '+'.concat(country.callingCode[0]).concat(phone),
             phoneIsVerified: true
           }
         })
@@ -171,7 +169,7 @@ const useRegister = () => {
     mutate({
       variables: {
         name: profile.name,
-        phone: '+'.concat(country.callingCode[0] ?? "").concat(phone ?? ""),
+        phone: '+'.concat(country.callingCode[0]).concat(phone),
         phoneIsVerified: false
       }
     })

@@ -33,7 +33,7 @@ const styles = (props = null, hasActiveOrders = false) =>
     },
 
     screenBackground: {
-      backgroundColor: props != null ? props?.themeBackground : '#FFF',
+      backgroundColor: props != null ? props.themeBackground : '#FFF',
       ...alignment.PBlarge
     },
     mainContentContainer: {
@@ -42,20 +42,24 @@ const styles = (props = null, hasActiveOrders = false) =>
       alignSelf: 'center'
     },
     searchbar:{
-      backgroundColor: props != null ? props?.main : 'black',
+      backgroundColor: props != null ? props.main : 'black',
       ...alignment.PBmedium
     },
 
     addressbtn: {
-      backgroundColor: props != null ? props?.color8 : '#f0f0f0',
-      marginHorizontal: scale(10),
+      backgroundColor: props != null ? props.color8 : '#f0f0f0',
+      marginLeft: scale(10),
+      marginRight: scale(10),
       marginBottom: scale(10),
       borderRadius: scale(10),
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
+      flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'center',
       padding: scale(5),
+      ...alignment.PLmedium,
+      ...alignment.PRmedium,
       borderWidth:scale(1),
-      borderColor: props != null ? props?.customBorder : '#FFF'
+      borderColor:props != null ? props.color10 : '#FFF', 
     },
     addNewAddressbtn: {
       padding: scale(5),
@@ -63,12 +67,12 @@ const styles = (props = null, hasActiveOrders = false) =>
       ...alignment.PRmedium
     },
     addressContainer: {
-      width: '90%',
+      width: '100%',
       ...alignment.PTsmall,
       ...alignment.PBsmall
     },
     addButton: {
-      backgroundColor: props !== null ? props?.newheaderColor : 'transparent',
+      backgroundColor: props !== null ? props.newheaderColor : 'transparent',
       width: '100%',
       height: scale(40),
       borderRadius: 50,
@@ -79,21 +83,26 @@ const styles = (props = null, hasActiveOrders = false) =>
     addressSubContainer: {
       width: '90%',
       alignSelf: 'center',
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
+      flexDirection: 'row',
       alignItems: 'center',
-      gap: 6
     },
     content: {
       ...alignment.PTlarge
     },
     modal: {
-      backgroundColor: props != null ? props?.cardBackground : '#181818',
+      backgroundColor: props != null ? props.themeBackground : '#FFF',
       paddingTop: scale(10),
       borderTopEndRadius: scale(20),
       borderTopStartRadius: scale(20),
       position: 'relative',
       zIndex: 999,
-      shadowOpacity: 0
+      shadowOpacity: 0 ,
+      borderWidth:scale(1),
+      borderColor:props != null ? props.color10 : '#FFF', 
+    },
+    addressTextContainer: {
+      display: 'flex',
+      flexDirection: 'row'
     },
     addressTick: {
       width: '10%',
@@ -103,24 +112,24 @@ const styles = (props = null, hasActiveOrders = false) =>
     },
     overlay: {
       backgroundColor:
-        props != null ? props?.backgroundColor2 : 'rgba(0, 0, 0, 0.5)'
+        props != null ? props.backgroundColor2 : 'rgba(0, 0, 0, 0.5)'
     },
     handle: {
       width: scale(150),
-      backgroundColor: props != null ? props?.backgroundColor : 'transparent'
+      backgroundColor: props != null ? props.backgroundColor : 'transparent'
     },
     relative: {
       position: 'relative'
     },
     placeHolderContainer: {
-      backgroundColor: props != null ? props?.cartContainer : '#B8B8B8',
+      backgroundColor: props != null ? props.cartContainer : '#B8B8B8',
       borderRadius: scale(3),
       elevation: scale(3),
       marginBottom: scale(12),
       padding: scale(12)
     },
     brandsPlaceHolderContainer: {
-      backgroundColor: props != null ? props?.cartContainer : '#B8B8B8',
+      backgroundColor: props != null ? props.cartContainer : '#B8B8B8',
       borderRadius: scale(3),
       paddingHorizontal: scale(20)
     },
@@ -131,7 +140,7 @@ const styles = (props = null, hasActiveOrders = false) =>
       height: scale(80)
     },
     placeHolderFadeColor: {
-      backgroundColor: props != null ? props?.fontSecondColor : '#B8B8B8'
+      backgroundColor: props != null ? props.fontSecondColor : '#B8B8B8'
     },
     emptyViewContainer:{
       flex: 1,
@@ -139,7 +148,7 @@ const styles = (props = null, hasActiveOrders = false) =>
       alignItems: 'center'
     },
     emptyViewBox: {
-      backgroundColor: props != null ? props?.newBackground : '#f0f0f0',
+      backgroundColor: props != null ? props.newBackground : '#f0f0f0',
       borderRadius: scale(10),
       width: '85%',
       height: verticalScale(130),
@@ -147,7 +156,7 @@ const styles = (props = null, hasActiveOrders = false) =>
       alignItems: 'center',
       padding: scale(15),
       marginTop: scale(30),
-      borderColor: props !== null ? props?.gray200 : '#E5E7EB',
+      borderColor: props !== null ? props.gray200 : '#E5E7EB',
       borderWidth:scale(1),
       borderRadius:scale(10)
     },
@@ -158,13 +167,14 @@ const styles = (props = null, hasActiveOrders = false) =>
       ...alignment.MLsmall
     },
     homeIcon: {
-      color: props !== null ? props?.darkBgFont : '#000',
-      width: '10%',
+      color: props !== null ? props.darkBgFont : '#000',
+      width: '15%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
     },
     titleAddress: {
+      width: '55%',
       justifyContent: 'center',
       marginTop: -6
     },
@@ -174,11 +184,12 @@ const styles = (props = null, hasActiveOrders = false) =>
       fontWeight: '700',
       textAlign: 'left'
     },
-    addressTextContainer: {
-      display: 'flex',
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
-      paddingHorizontal: scale(50),
-      width: 'auto',
+    addressDetail: {
+      alignSelf: 'flex-end',
+      fontSize: scale(4),
+      fontWeight: '300',
+      textAlign: 'justify',
+      paddingLeft: scale(38)
     },
     topBrandsMargin: {
       marginBottom: hasActiveOrders ? MODAL_HEIGHT : 0

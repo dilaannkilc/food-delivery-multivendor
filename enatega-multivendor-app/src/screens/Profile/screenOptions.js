@@ -13,32 +13,32 @@ const navigationOptions = props => ({
     <RightButton
       icon="dots"
       modalVisible={option => {
-        props?.modalSetter(option)
+        props.modalSetter(option)
       }}
       titlePosition={option => {
-        props?.passwordButton(option)
+        props.passwordButton(option)
       }}
       textColor="black"
-      textBackColor={props?.backColor}
+      textBackColor={props.backColor}
     />
   ),
-  title: props?.title,
+  title: props.title,
   headerTitleAllowFontScaling: true,
   headerTitleAlign: 'left',
   headerTitleStyle: {
-    color: props?.fontColor,
+    color: props.fontColor,
     ...textStyles.H4,
     ...textStyles.Bolder
   },
   headerTitleContainerStyle: {
-    marginRight: props?.passChecker ? scale(100) : scale(35)
+    marginRight: props.passChecker ? scale(100) : scale(35)
   },
   headerLeft: () => (
     <LeftButton
-      iconColor={props?.fontColor}
+      iconColor={props.fontColor}
       toggle={true}
-      toggleValue={props?.closeIcon}
-      toggleView={option => props?.closeModal(option)}
+      toggleValue={props.closeIcon}
+      toggleView={option => props.closeModal(option)}
     />
   )
 })

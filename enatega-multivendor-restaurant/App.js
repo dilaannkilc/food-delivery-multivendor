@@ -12,11 +12,8 @@ import setupApolloClient from './src/apollo/client'
 import { Spinner, TextDefault } from './src/components'
 import { colors } from './src/utilities'
 import { ActivityIndicator, StyleSheet, View, LogBox } from 'react-native'
-import * as Sentry from 'sentry-expo'
-import getEnvVars, {isProduction} from './environment'
 import 'react-native-gesture-handler'
 import * as SecureStore from 'expo-secure-store'
-import { useKeepAwake } from 'expo-keep-awake';
 
 LogBox.ignoreLogs([
   'Warning: ...',
@@ -29,40 +26,19 @@ export default function App() {
   const [isAppReady, setIsAppReady] = useState(false)
   const [token, setToken] = useState(null)
   const [isUpdating, setIsUpdating] = useState(false)
-  const [appError, setAppError] = useState(null); // Track initialization errors
 
-  const { SENTRY_DSN } = getEnvVars()
+
   const client = setupApolloClient()
 
-  useKeepAwake()
+
 
   useEffect(() => {
-    if (SENTRY_DSN) {
-      Sentry.init({
-        dsn: SENTRY_DSN,
-        enableInExpoDevelopment: !isProduction ? true : false,
-        environment: !isProduction ? 'development' : 'production',
-        debug: !isProduction,
-        tracesSampleRate: 1.0 // to be changed to 0.2 in production
-      })
-    }
-  }, [SENTRY_DSN])
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const token = await SecureStore.getItemAsync('token');
-        if (token) {
-          setToken(token);
-        }
-        setIsAppReady(true);
-      } catch (error) {
-        console.error("Error retrieving token:", error);
-        setIsAppReady(false);
-        setAppError("Failed to initialize application. Please try again.");
-      }
-    })();
-  }, []);
+    ;(async () => {
+      const token = await SecureStore.getItemAsync('token')
+      if (token) setToken(token)
+      setIsAppReady(true)
+    })()
+  }, [])
 
   useEffect(() => {
     // eslint-disable-next-line no-undef
@@ -86,38 +62,22 @@ export default function App() {
   }, [])
 
   const login = async (token, restaurantId) => {
-    try {
-      await SecureStore.setItemAsync('token', token);
-      await AsyncStorage.setItem('restaurantId', restaurantId);
-      setToken(token);
-    } catch (error) {
-      console.error("Login error:", error);
-    }
-  };
+    await SecureStore.setItemAsync('token', token)
+    await AsyncStorage.setItem('restaurantId', restaurantId)
+    setToken(token)
+  }
 
   const logout = async () => {
-    try {
-      await SecureStore.deleteItemAsync('token');
-      await AsyncStorage.removeItem('restaurantId');
-      setToken(null);
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
+    await SecureStore.deleteItemAsync('token')
+    await AsyncStorage.removeItem('restaurantId')
+    setToken(null)
+  }
 
-  const [fontLoaded, fontError] = useFonts({
+  const [fontLoaded] = useFonts({
     MuseoSans300: require('./assets/font/MuseoSans/MuseoSans300.ttf'),
     MuseoSans500: require('./assets/font/MuseoSans/MuseoSans500.ttf'),
-    MuseoSans700: require('./assets/font/MuseoSans/MuseoSans700.ttf'),
-  });
-
-    // Monitor font loading errors
-    useEffect(() => {
-      if (fontError) {
-        console.error("Error loading fonts:", fontError);
-        setAppError("Failed to load fonts. Please restart the app.");
-      }
-    }, [fontError]);
+    MuseoSans700: require('./assets/font/MuseoSans/MuseoSans700.ttf')
+  })
 
   if (isUpdating) {
     return (
@@ -135,21 +95,6 @@ export default function App() {
     )
   }
 
-
-  if (appError) {
-    // Display an error screen if initialization fails
-    return (
-      <View style={[styles.flex, styles.mainContainer]}>
-        <TextDefault textColor={colors.red} bold>
-          {appError}
-        </TextDefault>
-        <TextDefault textColor={colors.grey} style={{ marginTop: 10 }}>
-          Please restart the app or contact support.
-        </TextDefault>
-      </View>
-    );
-  }
-  
   if (fontLoaded && isAppReady) {
     return (
       <ApolloProvider client={client}>

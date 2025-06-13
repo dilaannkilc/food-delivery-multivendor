@@ -45,25 +45,26 @@ export const OrdersProvider = ({ children }) => {
     try {
       const unsubscribeOrders = subscribeToMoreOrders({
         document: SUBSCRIPTION_ORDERS,
-        variables: { userId: profile?._id },
+        variables: { userId: profile._id },
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) return prev
           const { _id } = subscriptionData.data.orderStatusChanged.order
           if (subscriptionData.data.orderStatusChanged.origin === 'new') {
-            if (prev.orders.findIndex(o => o?._id === _id) > -1) return prev
+            if (prev.orders.findIndex(o => o._id === _id) > -1) return prev
             return {
               orders: [
                 subscriptionData.data.orderStatusChanged.order,
                 ...prev.orders
               ]
             }
-          } else if (subscriptionData.data.orderStatusChanged.origin === 'update') {
+          }
+          else if (subscriptionData.data.orderStatusChanged.origin === 'update') {
             return {
               orders: [
-                ...prev.orders.filter((order) => order?._id !== subscriptionData?.data?.orderStatusChanged?.order?._id),
+                ...prev.orders.filter((order) => order._id !== subscriptionData.data.orderStatusChanged.order._id),
                 subscriptionData.data.orderStatusChanged.order
               ]
-            }
+            }     
           }
           return prev
         }
@@ -77,7 +78,7 @@ export const OrdersProvider = ({ children }) => {
   const fetchMoreOrdersFunc = () => {
     if (networkStatusOrders === 7) {
       fetchMoreOrders({
-        variables: { offset: dataOrders.orders?.length + 1 }
+        variables: { offset: dataOrders.orders.length + 1 }
       })
     }
   }

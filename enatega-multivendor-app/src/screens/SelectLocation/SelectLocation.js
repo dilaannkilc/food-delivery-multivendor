@@ -25,19 +25,18 @@ import { useTranslation } from 'react-i18next'
 import ModalDropdown from '../../components/Picker/ModalDropdown'
 import Spinner from '../../components/Spinner/Spinner'
 
-const LATITUDE = 32.953491
-const LONGITUDE = 35.211990
-const LATITUDE_DELTA = 0.02
-const LONGITUDE_DELTA = 0.02
+const LATITUDE = 33.699265
+const LONGITUDE = 72.974575
+const LATITUDE_DELTA = 40
+const LONGITUDE_DELTA = 40
 
 export default function SelectLocation(props) {
-
   const Analytics = analytics()
 
-  const { t, i18n } = useTranslation()
-  const { longitude, latitude } = props?.route.params || {}
+  const { t } = useTranslation()
+  const { longitude, latitude } = props.route.params || {}
   const themeContext = useContext(ThemeContext)
-  const currentTheme = {isRTL : i18n.dir() == 'rtl', ...theme[themeContext.ThemeValue]}
+  const currentTheme = theme[themeContext.ThemeValue]
   const navigation = useNavigation()
   const inset = useSafeAreaInsets()
   const [loading, setLoading] = useState(false)
@@ -67,12 +66,10 @@ export default function SelectLocation(props) {
         backColor: currentTheme.newheaderBG,
         iconColor: currentTheme.newIconColor,
         lineColor: currentTheme.newIconColor,
-        setCurrentLocation,
-        locationPrevScreen : props?.route?.params?.prevScreen
+        setCurrentLocation
       })
     )
   })
-
 
   StatusBar.setBarStyle('dark-content')
 
@@ -101,7 +98,7 @@ export default function SelectLocation(props) {
     navigation.navigate('AddNewAddress', {
       latitude: coords.latitude,
       longitude: coords.longitude,
-      prevScreen: props?.route?.params?.prevScreen ? props?.route?.params?.prevScreen : null
+      prevScreen: props?.route?.params?.prevScreen ? props.route.params.prevScreen : null
     })
   }
 
@@ -116,7 +113,7 @@ export default function SelectLocation(props) {
     navigation.navigate('AddNewAddress', {
       latitude: +city.latitude,
       longitude: +city.longitude,
-      prevScreen: props?.route?.params?.prevScreen ? props?.route?.params?.prevScreen : null
+      prevScreen: props?.route?.params?.prevScreen ? props.route.params.prevScreen : null
     })
   }
 
@@ -132,7 +129,9 @@ export default function SelectLocation(props) {
             provider={PROVIDER_GOOGLE}
             showsTraffic={false}
             maxZoomLevel={15}
-            customMapStyle={customMapStyle}
+            customMapStyle={
+              themeContext.ThemeValue === 'Dark' ? mapStyle : customMapStyle
+            }
             onRegionChangeComplete={onRegionChangeComplete}
           />
           <View style={styles().mainContainer}>
@@ -149,8 +148,8 @@ export default function SelectLocation(props) {
             textColor={currentTheme.newFontcolor}
             H3
             bolder
-            isRTL
-            style={styles(currentTheme).heading}
+            Left
+            style={styles().heading}
           >
             {t('selectLocation')}
           </TextDefault>
@@ -169,12 +168,11 @@ export default function SelectLocation(props) {
             {loading && (
               <Spinner
                 size={'small'}
-                backColor={currentTheme.color3}
+                backColor={currentTheme.themeBackground}
                 spinnerColor={currentTheme.main}
               />
             )}
           </TouchableOpacity>
-
           <View style={styles(currentTheme).line} />
 
           <TouchableOpacity
@@ -190,7 +188,6 @@ export default function SelectLocation(props) {
               {t('browseCities')}
             </TextDefault>
           </TouchableOpacity>
-
           <View style={styles(currentTheme).line} />
         </View>
         <View style={{ paddingBottom: inset.bottom }} />

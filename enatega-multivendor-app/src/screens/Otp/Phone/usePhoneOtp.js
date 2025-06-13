@@ -29,11 +29,10 @@ const usePhoneOtp = () => {
   const [otp, setOtp] = useState('')
   const [otpError, setOtpError] = useState(false)
   const otpFrom = useRef(null)
-  const { profile, loadingProfile } = useContext(UserContext)
+  const { profile } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
   const [seconds, setSeconds] = useState(30)
-  const { name, phone} = route?.params
 
   function onError(error) {
     if (error.networkError) {
@@ -94,8 +93,8 @@ const usePhoneOtp = () => {
     if (configuration.skipMobileVerification || code === otpFrom.current || code === TEST_OTP) {
       mutateUser({
         variables: {
-          name: name ?? profile?.name,
-          phone: phone ?? profile?.phone,
+          name: profile.name,
+          phone: profile.phone,
           phoneIsVerified: true
         }
       })
@@ -104,29 +103,9 @@ const usePhoneOtp = () => {
     }
   }
 
-  const onSendOTPHandler = () => {
-    try {
-
-      if (!profile?.phone && !phone) {
-        FlashMessage({
-          message: t('mobileErr1')
-        })
-        return
-      }
-
-      mutate({ variables: { phone: profile?.phone ?? phone, otp: otpFrom.current } })
-    }
-    catch (err) {
-      FlashMessage({
-        message: t('somethingWentWrong')
-      })
-    }
-  }
-
-
   const resendOtp = () => {
     otpFrom.current = Math.floor(100000 + Math.random() * 900000).toString()
-    onSendOTPHandler()
+    mutate({ variables: { phone: profile.phone, otp: otpFrom.current } })
     setSeconds(30)
   }
 
@@ -148,9 +127,9 @@ const usePhoneOtp = () => {
     if (!configuration) return
     if (!configuration.skipMobileVerification) {
       otpFrom.current = Math.floor(100000 + Math.random() * 900000).toString()
-      onSendOTPHandler()
+      mutate({ variables: { phone: profile?.phone, otp: otpFrom.current } })
     }
-  }, [configuration, profile?.phone, phone])
+  }, [configuration])
 
   useEffect(() => {
     let timer = null
@@ -176,8 +155,7 @@ const usePhoneOtp = () => {
     onCodeFilled,
     resendOtp,
     currentTheme,
-    themeContext,
-    loadingProfile
+    themeContext
   }
 }
 

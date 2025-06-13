@@ -13,32 +13,35 @@ const styles = (props = null) =>
     },
     container: {
       flex: 1,
+      backgroundColor: 'red',
       height: '90%',
       overflow: 'visible',
       justifyContent: 'space-around',
       borderTopLeftRadius: scale(30),
       borderTopRightRadius: scale(30),
-      backgroundColor: props !==null ? props?.cardBackground : '#f5f5f5',
+      backgroundColor: props !==null ? props.themeBackground : '#f5f5f5',
       borderWidth: scale(1),
-      borderColor: props !==null ? props?.customBorder : 'transparent',
+      borderColor: '#DAD6D6',
       paddingTop: scale(20),
       paddingBottom: scale(20)
     },
     container2: {
       flex: 1,
+  
       height: '90%',
       overflow: 'visible',
       justifyContent: 'space-around',
       borderTopLeftRadius: scale(30),
       borderTopRightRadius: scale(30),
-      backgroundColor:props !==null ? props?.cardBackground : '#f5f5f5',
+      backgroundColor:props !==null ? props.themeBackground : '#f5f5f5',
       borderWidth: scale(1),
-      borderColor: props !==null ? props?.customBorder : 'transparent',
+      borderColor: '#DAD6D6',
       padding: scale(25)
     },
     heading: {
+      paddingLeft: scale(20),
       ...alignment.MBlarge,
-      ...props?.isRTL ? {paddingRight: scale(20)} : {paddingLeft: scale(20)}
+      ...alignment.MRmedium
     },
     addressHeading: {
       marginBottom: scale(30)
@@ -48,11 +51,11 @@ const styles = (props = null) =>
       height: '20%',
       alignItems: 'center',
       display: 'flex',
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
-      paddingHorizontal: scale(20),
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      paddingLeft: scale(20),
       marginTop: scale(10),
-      marginBottom: scale(10),
-      gap: scale(15)
+      marginBottom: scale(10)
     },
     dropdownContainer: {
       borderWidth: 1,
@@ -63,13 +66,13 @@ const styles = (props = null) =>
       justifyContent: 'center'
     },
     button1: {
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
+      flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       padding: 10
     },
     cityField: {
-      color:props != null ? props?.newFontcolor : '#E5E7EB',
+      color:props != null ? props.newFontcolor : '#E5E7EB',
     },
     icon1: {
       marginLeft: 10
@@ -81,7 +84,7 @@ const styles = (props = null) =>
       paddingHorizontal: scale(10),
       marginTop: scale(15),
       borderWidth: 1,
-      borderColor: props != null ? props?.borderBottomColor : '#E5E7EB',
+      borderColor: props != null ? props.borderBottomColor : '#E5E7EB',
       borderRadius: scale(8)
     },
     overlay: {
@@ -92,17 +95,17 @@ const styles = (props = null) =>
       backgroundColor: 'rgba(0,0,0,0.2)'
     },
     icon: {
-      backgroundColor: props != null ? props?.iconBackground : '#E5E7EB',
+      backgroundColor: props != null ? props.iconBackground : '#E5E7EB',
       height: scale(36),
       width: scale(36),
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: scale(18),
-      // marginRight: scale(16)
+      marginRight: scale(16)
     },
     line: {
       borderBottomWidth: scale(1),
-      borderBottomColor: props != null ? props?.borderBottomColor : '#DAD6D6',
+      borderBottomColor: props != null ? props.borderBottomColor : '#DAD6D6',
       width: '100%'
     },
     emptyButton: {
@@ -110,7 +113,7 @@ const styles = (props = null) =>
       flexDirection: 'row',
       width: '100%',
       height: '20%',
-      backgroundColor: props !== null ? props?.main : 'transparent',
+      backgroundColor: props !== null ? props.main : 'transparent',
       justifyContent: 'space-evenly',
       alignItems: 'center',
       alignSelf: 'center',

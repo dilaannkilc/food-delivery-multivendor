@@ -50,6 +50,8 @@ import React, {
   import analytics from '../../utils/analytics'
   import MapSection from '../MapSection/index'
   import { useTranslation } from 'react-i18next'
+
+  import { escapeRegExp } from '../../utils/regex'
   
   const RESTAURANTS = gql`
     ${restaurantList}
@@ -243,7 +245,7 @@ import React, {
               } else {
                 const modal = modalRef.current
                 modal?.close()
-                props?.navigation.navigate({ name: 'CreateAccount' })
+                props.navigation.navigate({ name: 'CreateAccount' })
               }
             }}>
             <View style={styles().addressSubContainer}>
@@ -313,14 +315,15 @@ import React, {
   
     const searchRestaurants = searchText => {
       const data = []
-      const regex = new RegExp(searchText, 'i')
+      const escapedSearchText = escapeRegExp(searchText);
+      const regex = new RegExp(escapedSearchText, 'i');
       restaurants.forEach(restaurant => {
         const resultName = restaurant.name.search(regex)
         if (resultName < 0) {
-          const resultCatFoods = restaurant.categories?.some(category => {
+          const resultCatFoods = restaurant.categories.some(category => {
             const result = category.title.search(regex)
             if (result < 0) {
-              const result = category.foods?.some(food => {
+              const result = category.foods.some(food => {
                 const result = food.title.search(regex)
                 return result > -1
               })
@@ -329,12 +332,12 @@ import React, {
             return true
           })
           if (!resultCatFoods) {
-            const resultOptions = restaurant.options?.some(option => {
+            const resultOptions = restaurant.options.some(option => {
               const result = option.title.search(regex)
               return result > -1
             })
             if (!resultOptions) {
-              const resultAddons = restaurant.addons?.some(addon => {
+              const resultAddons = restaurant.addons.some(addon => {
                 const result = addon.title.search(regex)
                 return result > -1
               })

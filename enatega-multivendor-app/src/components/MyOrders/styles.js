@@ -6,7 +6,7 @@ const styles = (props = null) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: props !== null ? props?.cartContainer : '#FFF',
+      backgroundColor: props !== null ? props.cartContainer : '#FFF',
       borderRadius: scale(8),
       elevation: 3,
       shadowColor: 'black',
@@ -39,7 +39,9 @@ const styles = (props = null) =>
     },
     textContainer2: {
       width: '58%',
-      paddingHorizontal: scale(10)
+      // ...alignment.PTsmall,
+      ...alignment.PLsmall,
+      //backgroundColor: props !== null ? props.newheaderColor : '#90E36D'
     },
     subContainerLeft: {
       width: '100%'
@@ -65,7 +67,7 @@ const styles = (props = null) =>
       alignItems: 'flex-end'
     },
     subContainerButton: {
-      backgroundColor: props !== null ? props?.newheaderColor : '#90E36D',
+      backgroundColor: props !== null ? props.newheaderColor : '#90E36D',
       ...alignment.MTxSmall,
       borderRadius: 40,
       width: '100%',
@@ -74,7 +76,7 @@ const styles = (props = null) =>
       justifyContent: 'center'
     },
     subContainerReviewButton: {
-      backgroundColor: props !== null ? props?.secondaryBackground : 'grey',
+      backgroundColor: props !== null ? props.secondaryBackground : 'grey',
       ...alignment.MTxSmall,
       borderRadius: 10,
       width: scale(80),
@@ -86,7 +88,7 @@ const styles = (props = null) =>
       width: '100%',
       flexDirection: 'row',
       justifyContent: 'center',
-      backgroundColor: props !== null ? props?.themeBackground : 'grey',
+      backgroundColor: props !== null ? props.themeBackground : 'grey',
       alignItems: 'center',
       ...alignment.PTlarge,
       ...alignment.PBlarge,
@@ -94,16 +96,16 @@ const styles = (props = null) =>
     },
     line: {
       borderRightWidth: StyleSheet.hairlineWidth,
-      borderRightColor: props !== null ? props?.horizontalLine : 'grey'
+      borderRightColor: props !== null ? props.horizontalLine : 'grey'
     },
     headingLine: {
       borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBottomColor: props !== null ? props?.horizontalLine : 'grey'
+      borderBottomColor: props !== null ? props.horizontalLine : 'grey'
     },
     subContainer: {
       flex: 1,
-      backgroundColor: props !== null ? props?.cardBackground : '#F3F4F6',
-      borderColor: props !== null ? props?.customBorder : '#fff',
+      backgroundColor: props !== null ? props.gray100 : '#F3F4F6',
+      borderColor: props !== null ? props.color10 : '#fff',
       borderWidth:scale(1),
       borderRadius: scale(8),
       elevation: 1,
@@ -122,9 +124,7 @@ const styles = (props = null) =>
       width: 85,
       borderRadius: 10
     },
-    orderInfo: {
-      ...alignment.MBxSmall
-    },
+    restaurantName: { ...alignment.MBxSmall, width: '65%' },
     subContainerImage: {
       flex: 1,
       justifyContent: 'center',
@@ -144,22 +144,22 @@ const styles = (props = null) =>
     emptyButton: {
       width: '85%',
       padding: scale(10),
-      backgroundColor: props !== null ? props?.buttonBackground : 'grey',
+      backgroundColor: props !== null ? props.buttonBackground : 'grey',
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
       borderRadius: scale(10)
     },
     starsContainer: {
-      flexDirection: props?.isRTL ? 'row-reverse' :'row',
+      flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       width: '100%',
       height: scale(50)
-      //backgroundColor: props !== null ? props?.gray200 : '#F3F4F6'
+      //backgroundColor: props !== null ? props.gray200 : '#F3F4F6'
     },
     starsStyle: {
-      borderColor: props !== null ? props?.newheaderColor : '#90E36D',
+      borderColor: props !== null ? props.newheaderColor : '#90E36D',
       borderWidth: 1,
       borderRadius: 5,
       justifyContent: 'center',
