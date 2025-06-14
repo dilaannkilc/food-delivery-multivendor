@@ -5,6 +5,8 @@ const { width: WIDTH } = Dimensions.get('window')
 export default StyleSheet.create({
   container: theme => ({
     marginHorizontal: scale(10),
+
+  
   }),
   line: theme => ({
     height: 1,
@@ -16,7 +18,7 @@ export default StyleSheet.create({
     // paddingHorizontal: scale(100),
     backgroundColor: theme.themeBackground,
     borderRadius: scale(20),
-    flexDirection: theme?.isRTL ? 'row-reverse' : 'row'
+    flexDirection: 'row'
   }),
 
   orderDetailsContainer: theme => ({
@@ -29,6 +31,7 @@ export default StyleSheet.create({
     paddingTop: scale(25),
     flexDirection: 'row'
   },
+  addressText: { width: '50%', textAlign: 'left' },
   itemsContainer: {
     width: WIDTH - 20,
   },
@@ -39,7 +42,7 @@ export default StyleSheet.create({
     width: '100%'
   }),
   itemRow: theme=>({
-    flexDirection: theme?.isRTL ? 'row-reverse' : 'row',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center', 
     marginVertical: scale(5),
@@ -54,7 +57,7 @@ export default StyleSheet.create({
   },
   chatIcon: theme => ({
     flex: 1,
-    alignItems: theme?.isRTL ? 'flex-start' : 'flex-end',
+    alignItems: 'flex-end',
     justifyContent: 'center',
   })
 })

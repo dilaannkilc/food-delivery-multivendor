@@ -10,7 +10,7 @@ const styles = (props = null) =>
     mainContainer: {
       flex: 1,
       alignItems: 'center',
-      backgroundColor: props !== null ? props?.themeBackground : 'transparent',
+      backgroundColor: props !== null ? props.themeBackground : 'transparent',
       ...alignment.MTlarge,
       ...alignment.MBlarge,
       ...alignment.MLmedium,
@@ -49,19 +49,18 @@ const styles = (props = null) =>
       width: '100%'
     },
     textField: {
-      borderColor: props !== null ? props?.borderColor : '#efefef',
+      borderColor: props !== null ? props.borderColor : '#efefef',
       borderWidth: scale(1),
       borderRadius: scale(10),
-      backgroundColor: props !== null ? props?.themeBackground : 'white',
+      backgroundColor: props !== null ? props.themeBackground : 'white',
       padding: scale(12),
-      color: props !== null ? props?.newFontcolor : 'red',
+      color: props !==null ? props.newFontcolor : 'red',
       ...alignment.MBxSmall,
-      ...alignment.MTxSmall,
-      textAlign: props?.isRTL ? 'right' : 'left'
+      ...alignment.MTxSmall
     },
     passwordField: {
       display: 'flex',
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
+      flexDirection: 'row',
       alignItems: 'center'
     },
     passwordInput: {
@@ -71,26 +70,25 @@ const styles = (props = null) =>
     eyeBtn: {
       zIndex: 1,
       elevation: 999,
-      ...props?.isRTL ? {marginRight: -40} : {marginLeft: -40}
+      marginLeft: -40
     },
     btnContainer: {
-      width: '100%',
-      marginTop: scale(10)
+      width: '100%'
     },
     btn: {
       width: '100%',
       alignItems: 'center',
-      backgroundColor: props !== null ? props?.main : '#000',
+      backgroundColor: props !== null ? props.main : '#000',
       alignSelf: 'center',
       padding: 15,
       borderRadius: 40
     },
     number: {
       display: 'flex',
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
+      flexDirection: 'row'
     },
     countryCode: {
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
+      flexDirection: 'row',
       width: '27%',
       marginRight: '3%'
     },
@@ -101,18 +99,15 @@ const styles = (props = null) =>
       flexDirection: 'row',
       alignItems: 'center'
     },
-    phoneField: {
-      color: props !== null ? props?.newFontcolor : 'red',
-      width: '100%',
-      padding: scale(12),
-      textAlign: props?.isRTL ? 'right' : 'left'
+    phoneField:{
+     color: props !== null ? props.newFontcolor : 'red',
     },
     error: {
       marginTop: 3
     },
     errorInput: {
-      backgroundColor: props !== null ? props?.errorInputBack : '#F7E7E5',
-      borderColor: props !== null ? props?.errorInputBorder : '#DB4A39'
+      backgroundColor: props !== null ? props.errorInputBack : '#F7E7E5',
+      borderColor: props !== null ? props.errorInputBorder : '#DB4A39'
     },
     headerLeftIcon: {
       ...alignment.PLsmall

@@ -23,9 +23,8 @@ function ActiveOrdersAndSections(props) {
         textColor={currentTheme.fontFourthColor}
         bolder
         H4
-        isRTL
       >
-        {t(props?.menuPageHeading)}
+        {props?.menuPageHeading}
       </TextDefault>
       <TextDefault
         Normal
@@ -34,9 +33,8 @@ function ActiveOrdersAndSections(props) {
         style={{
           marginTop: scale(5)
         }}
-        isRTL
       >
-        {t(props?.subHeading)}
+        {t('mostOrderedNow')}
       </TextDefault>
     </View>
   )

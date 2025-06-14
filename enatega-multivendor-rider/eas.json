@@ -8,10 +8,7 @@
     "staging": {
       "developmentClient": false,
       "channel": "staging",
-      "distribution": "internal",
-      "android": {
-        "buildType": "apk"
-      }
+      "distribution": "internal"
     },
     "production": {
       "channel": "production"

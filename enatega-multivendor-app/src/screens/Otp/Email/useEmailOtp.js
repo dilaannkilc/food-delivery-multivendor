@@ -88,10 +88,7 @@ const useEmailOtp = () => {
         type: 'email'
       })
       await setTokenAsync(data.createUser.token)
-      navigation.navigate('PhoneOtp', {
-        name: data?.createUser?.name,
-        phone: data?.createUser?.phone
-      })
+      navigation.navigate('PhoneOtp')
     } catch (e) {
       console.log(e)
     }
@@ -108,27 +105,23 @@ const useEmailOtp = () => {
   })
 
   async function mutateRegister() {
-    try {
-      let notificationToken = null
-      if (Device.isDevice) {
-        const { status } = await Notifications.requestPermissionsAsync()
-        if (status === 'granted') {
-          notificationToken = (await Notifications.getExpoPushTokenAsync({  projectId: Constants.expoConfig.extra.eas.projectId})).data
-        }
+    let notificationToken = null
+    if (Device.isDevice) {
+      const { status } = await Notifications.requestPermissionsAsync()
+      if (status === 'granted') {
+        notificationToken = (await Notifications.getExpoPushTokenAsync({  projectId: Constants.expoConfig.extra.eas.projectId})).data
       }
-      mutateUser({
-        variables: {
-          phone: user?.phone ?? "",
-          email: user.email,
-          password: user.password,
-          name: user.name,
-          picture: '',
-          notificationToken: notificationToken
-        }
-      })
-    } catch (error) {
-      FlashMessage({ message: t('somethingWentWrong') })
     }
+    mutateUser({
+      variables: {
+        phone: user.phone,
+        email: user.email,
+        password: user.password,
+        name: user.name,
+        picture: '',
+        notificationToken: notificationToken
+      }
+    })
   }
 
   const onCodeFilled = code => {

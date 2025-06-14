@@ -11,8 +11,8 @@ import {
   TouchableOpacity,
   StatusBar,
   Platform,
-  Alert
-} from 'react-native'
+  Alert,
+  Button} from 'react-native'
 import { useQuery } from '@apollo/client'
 import gql from 'graphql-tag'
 import { AntDesign } from '@expo/vector-icons'
@@ -33,19 +33,13 @@ import EmptyCart from '../../assets/SVG/imageComponents/EmptyCart'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { DAYS } from '../../utils/enums'
 import { textStyles } from '../../utils/textStyles'
-import { calculateAmount, calculateDistance } from '../../utils/customFunctions'
+import { calculateDistance } from '../../utils/customFunctions'
 import analytics from '../../utils/analytics'
 import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
 import { useTranslation } from 'react-i18next'
 import WouldYouLikeToAddThese from './Section'
 import { SpecialInstructions } from '../../components/Cart/SpecialInstructions'
-import { isOpen } from '../../utils/customFunctions'
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring
-} from 'react-native-reanimated'
 
 // Constants
 const TIPPING = gql`
@@ -71,11 +65,8 @@ function Cart(props) {
   } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
   const { location } = useContext(LocationContext)
-  const { t, i18n } = useTranslation()
-  const currentTheme = {
-    isRTL: i18n.dir() === 'rtl',
-    ...theme[themeContext.ThemeValue]
-  }
+  const currentTheme = theme[themeContext.ThemeValue]
+  const { t } = useTranslation()
   const [loadingData, setLoadingData] = useState(true)
   const [minimumOrder, setMinimumOrder] = useState('')
   const [selectedRestaurant, setSelectedRestaurant] = useState({})
@@ -89,37 +80,15 @@ function Cart(props) {
   const { loading: loadingTip, data: dataTip } = useQuery(TIPPING, {
     fetchPolicy: 'network-only'
   })
-  const animatedQuantity = useSharedValue(1)
-
-  const animateQuantityChange = () => {
-    animatedQuantity.value = withSpring(1.9, {
-      damping: 2, // Adjust for desired bounciness
-      stiffness: 20 // Adjust for desired spring effect
-    })
-
-    setTimeout(() => {
-      animatedQuantity.value = withSpring(1) // Reset scale to 1
-    }, 200) // Match this duration with the spring duration
-  }
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: animatedQuantity.value }]
-    }
-  })
-
-  useEffect(() => {
-    animateQuantityChange()
-  }, [addQuantity, removeQuantity])
 
   const coupon =
-    props?.route.params && props?.route.params.coupon
-      ? props?.route.params.coupon
+    props.route.params && props.route.params.coupon
+      ? props.route.params.coupon
       : null
 
   const tip =
-    props?.route.params && props?.route.params.tipAmount
-      ? props?.route.params.tipAmount
+    props.route.params && props.route.params.tipAmount
+      ? props.route.params.tipAmount
       : null
 
   const [selectedTip, setSelectedTip] = useState()
@@ -135,30 +104,23 @@ function Cart(props) {
 
   useEffect(() => {
     let isSubscribed = true
-    ;(async () => {
-      if (data && data?.restaurant) {
-        const latOrigin = Number(data?.restaurant.location.coordinates[1])
-        const lonOrigin = Number(data?.restaurant.location.coordinates[0])
-        const latDest = Number(location.latitude)
-        const longDest = Number(location.longitude)
-        const distance = await calculateDistance(
-          latOrigin,
-          lonOrigin,
-          latDest,
-          longDest
-        )
-        let costType = configuration.costType
-        let amount = calculateAmount(
-          costType,
-          configuration.deliveryRate,
-          distance
-        )
-
-        if (isSubscribed) {
-          setDeliveryCharges(amount > 0 ? amount : configuration.deliveryRate)
+      ; (async () => {
+        if (data && data?.restaurant) {
+          const latOrigin = Number(data?.restaurant.location.coordinates[1])
+          const lonOrigin = Number(data?.restaurant.location.coordinates[0])
+          const latDest = Number(location.latitude)
+          const longDest = Number(location.longitude)
+          const distance = await calculateDistance(
+            latOrigin,
+            lonOrigin,
+            latDest,
+            longDest
+          )
+          const amount = Math.ceil(distance) * configuration.deliveryRate
+          isSubscribed &&
+            setDeliveryCharges(amount > 0 ? amount : configuration.deliveryRate)
         }
-      }
-    })()
+      })()
     return () => {
       isSubscribed = false
     }
@@ -174,7 +136,7 @@ function Cart(props) {
   })
 
   useLayoutEffect(() => {
-    props?.navigation.setOptions({
+    props.navigation.setOptions({
       title: t('titleCart'),
       headerRight: null,
       headerTitleAlign: 'center',
@@ -213,7 +175,7 @@ function Cart(props) {
         />
       )
     })
-  }, [props?.navigation])
+  }, [props.navigation])
 
   useLayoutEffect(() => {
     if (!data) return
@@ -225,17 +187,18 @@ function Cart(props) {
     }
     Track()
   }, [])
-  // useEffect(() => {
-  //   if (cart && cartCount > 0) {
-  //     if (
-  //       data &&
-  //       data?.restaurant &&
-  //       (!data?.restaurant?.isAvailable || !isOpen(data?.restaurant))
-  //     ) {
-  //       showAvailablityMessage()
-  //     }
-  //   }
-  // }, [data])
+  useEffect(() => {
+    if (cart && cartCount > 0) {
+      if (
+        data &&
+        data?.restaurant &&
+        (!data.restaurant.isAvailable || !isOpen())
+      ) {
+        showAvailablityMessage()
+      }
+    }
+    
+  }, [data])
 
   const showAvailablityMessage = () => {
     Alert.alert(
@@ -245,7 +208,7 @@ function Cart(props) {
         {
           text: t('backToRestaurants'),
           onPress: () => {
-            props?.navigation.navigate({
+            props.navigation.navigate({
               name: 'Main',
               merge: true
             })
@@ -253,8 +216,8 @@ function Cart(props) {
           style: 'cancel'
         },
         {
-          text: isLoggedIn && profile ? t('continueBtn') : t('close'),
-          onPress: () => {},
+          text: t('continueBtn'),
+          onPress: () => { },
           style: 'cancel'
         }
       ],
@@ -272,8 +235,8 @@ function Cart(props) {
     if (withDiscount && coupon && coupon.discount) {
       itemTotal = itemTotal - (coupon.discount / 100) * itemTotal
     }
-    // const deliveryAmount = delivery > 0 ? deliveryCharges : 0
-    return itemTotal.toFixed(2)
+    const deliveryAmount = delivery > 0 ? deliveryCharges : 0
+    return (itemTotal + deliveryAmount).toFixed(2)
   }
 
   function calculateTotal() {
@@ -283,6 +246,25 @@ function Cart(props) {
     // total += +taxCalculation()
     // total += +calculateTip()
     return parseFloat(total).toFixed(2)
+  }
+
+  const isOpen = () => {
+    const date = new Date()
+    const day = date.getDay()
+    const hours = date.getHours()
+    const minutes = date.getMinutes()
+    const todaysTimings = data?.restaurant.openingTimes.find(
+      (o) => o.day === DAYS[day]
+    )
+    const times = todaysTimings.times.filter(
+      (t) =>
+        hours >= Number(t.startTime[0]) &&
+        minutes >= Number(t.startTime[1]) &&
+        hours <= Number(t.endTime[0]) &&
+        minutes <= Number(t.endTime[1])
+    )
+
+    return times.length > 0
   }
 
   async function didFocus() {
@@ -310,7 +292,7 @@ function Cart(props) {
           activeOpacity={0.7}
           style={styles(currentTheme).emptyButton}
           onPress={() =>
-            props?.navigation.navigate({
+            props.navigation.navigate({
               name: 'Main',
               merge: true
             })
@@ -432,9 +414,8 @@ function Cart(props) {
     )
     if (!variation) return null
 
-    const title = `${food.title}${
-      variation.title ? `(${variation.title})` : ''
-    }`
+    const title = `${food.title}${variation.title ? `(${variation.title})` : ''
+      }`
     let price = variation.price
     const optionsTitle = []
     if (cartItem.addons) {
@@ -461,9 +442,10 @@ function Cart(props) {
       addons: populateAddons
     }
   }
-
   let deliveryTime = Math.floor((orderDate - Date.now()) / 1000 / 60)
   if (deliveryTime < 1) deliveryTime += restaurant?.deliveryTime
+
+
   return (
     <>
       <View style={styles(currentTheme).mainContainer}>
@@ -475,19 +457,12 @@ function Cart(props) {
               showsVerticalScrollIndicator={false}
               style={[styles().flex, styles().cartItems]}
             >
-              <View
-                style={{
-                  ...alignment.PLsmall,
-                  ...alignment.PRsmall,
-                  marginTop: 10
-                }}
-              >
-                <SpecialInstructions
-                  instructions={instructions}
-                  onSubmitInstructions={setInstructions}
-                  theme={currentTheme}
-                  t={t}
-                />
+              <View style={{
+                ...alignment.PLsmall,
+                ...alignment.PRsmall,
+                marginTop: 10
+              }}>
+                <SpecialInstructions instructions={instructions} onSubmitInstructions={setInstructions} theme={currentTheme} />
               </View>
               <View
                 style={{
@@ -504,10 +479,11 @@ function Cart(props) {
                     style={styles().totalOrder}
                     H5
                     bolder
-                    isRTL
+                    
                   >
                     {t('yourOrder')} ({cartLength})
                   </TextDefault>
+                 
                   {cart?.map((cartItem, index) => {
                     const food = populateFood(cartItem)
                     if (!food) return null
@@ -522,6 +498,7 @@ function Cart(props) {
                           optionsTitle={food.optionsTitle}
                           itemImage={food.image}
                           itemAddons={food.addons}
+                          cartRestaurant= {cartRestaurant}
                           dealPrice={(
                             parseFloat(food.price) * food.quantity
                           ).toFixed(2)}
@@ -540,7 +517,7 @@ function Cart(props) {
               <View style={styles().suggestedItems}>
                 <WouldYouLikeToAddThese
                   itemId={foods[0]._id}
-                  restaurantId={restaurant?._id}
+                  restaurantId={restaurant._id}
                 />
               </View>
             </ScrollView>
@@ -548,25 +525,20 @@ function Cart(props) {
             <View style={styles().totalBillContainer}>
               <View style={styles(currentTheme).buttonContainer}>
                 <View style={styles().cartAmount}>
-                  <Animated.View style={[animatedStyle]}>
-                    <TextDefault
-                      textColor={currentTheme.black}
-                      style={styles().totalBill}
-                      bolder
-                      H2
-                      isRTL
-                    >
-                      {configuration.currencySymbol}
-                      {calculateTotal()}
-                    </TextDefault>
-                  </Animated.View>
-
+                  <TextDefault
+                    textColor={currentTheme.black}
+                    style={styles().totalBill}
+                    bolder
+                    H2
+                  >
+                    {configuration.currencySymbol}
+                    {calculateTotal()}
+                  </TextDefault>
                   <TextDefault
                     textColor={currentTheme.black}
                     style={styles().totalBill}
                     bolder
                     Smaller
-                    isRTL
                   >
                     {t('exclusiveVAt')}
                   </TextDefault>
@@ -584,7 +556,6 @@ function Cart(props) {
                       style={styles().checkoutBtn}
                       bold
                       H5
-                      isRTL
                     >
                       {t('checkoutBtn')}
                     </TextDefault>
@@ -593,17 +564,16 @@ function Cart(props) {
                   <TouchableOpacity
                     activeOpacity={0.7}
                     onPress={() => {
-                      props?.navigation.navigate({ name: 'CreateAccount' })
+                      props.navigation.navigate({ name: 'CreateAccount' })
                     }}
                     style={styles(currentTheme).button}
                   >
                     <TextDefault
                       textColor={currentTheme.white}
-                      style={{ width: '100%', textAlign:'center'}}
+                      style={{ width: '100%' }}
                       H5
                       bolder
                       center
-                      isRTL
                     >
                       {t('loginOrSignUp')}
                     </TextDefault>

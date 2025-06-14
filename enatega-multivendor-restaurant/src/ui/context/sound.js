@@ -1,41 +1,27 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Audio } from 'expo-av'
 import { useRestaurantContext } from './restaurant'
-import AuthContext from '../context/auth'
-
-const SoundContext = createContext()
-
+const SoundContext = React.createContext()
 export const SoundContextProvider = ({ children }) => {
   const [sound, setSound] = useState(null)
   const { data } = useRestaurantContext()
-  const { isLoggedIn } = useContext(AuthContext)
 
   useEffect(() => {
-    if (isLoggedIn && data) {
-      const activeOrders = data.restaurantOrders.filter(order => order.orderStatus === 'PENDING');
+    if (data) {
+      const activeOrders =
+        data &&
+        data.restaurantOrders.filter(order => order.orderStatus === 'PENDING')
       const shouldPlaySound = activeOrders.some(o => o.isRinged)
-      if (shouldPlaySound && !sound) {
-        playSound()
-      } else if (!shouldPlaySound && sound) {
-        stopSound()
-      }
-    } else {
-      stopSound();
+      if (shouldPlaySound) playSound()
+      else stopSound()
     }
-
-    return () => {
-      if (sound) {
-        stopSound();
-      }
-    };
-  }, [data, isLoggedIn, sound]);
-
+  }, [data])
   const playSound = async () => {
     await stopSound()
-    const { sound: newSound } = await Audio.Sound.createAsync(
+    const { sound } = await Audio.Sound.createAsync(
       require('../../assets/beep.mp3')
     )
-    await newSound.setIsLoopingAsync(true)
+    await sound.setIsLoopingAsync(true)
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       staysActiveInBackground: true,
@@ -45,14 +31,11 @@ export const SoundContextProvider = ({ children }) => {
       interruptionModeAndroid: (Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2),
       playThroughEarpieceAndroid: false
     })
-    await newSound.playAsync()
-    setSound(newSound)
+    await sound.playAsync()
+    setSound(sound)
   }
   const stopSound = async () => {
-    if (sound) {
-      await sound.unloadAsync();
-      setSound(null);
-    }
+    await sound?.unloadAsync()
   }
   return (
     <SoundContext.Provider value={{ playSound, stopSound }}>

@@ -23,13 +23,6 @@ export const ar = {
   password: 'كلمة المرور',
   login: 'تسجيل الدخول',
   signIn: 'تسجيل الدخول',
-  orderType:"نوع الطلب",
-  orderInstructions:"تعليمات الطلب",
-  variations:"الاختلافات",
-  addOns:"الإضافات",
-  specialInstructions:"تعليمات خاصة",
-  pickUp:"يلتقط",
-  delivery: "توصيل",
   orderId: 'رقم الطلب',
   orderAmount: 'مبلغ الطلب',
   paymentMethod: 'طريقة الدفع',
@@ -58,9 +51,5 @@ export const ar = {
   acceptAndPrint: 'قبول وطباعة',
   accept: 'قبول',
   language: 'لغة',
-  notificationText: 'يجب استخدام جهاز فيزيائي للإشعارات الفورية',
-  dashboard: 'لوحة القيادة',
-  name: 'الاسم',
-  pullDownRefresh: 'اسحب للأسفل للتحديث',
-  assigned: 'مُخصص'
+  notificationText: 'يجب استخدام جهاز فيزيائي للإشعارات الفورية'
 }

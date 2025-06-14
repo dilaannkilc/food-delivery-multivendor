@@ -4,8 +4,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
-  TextInput,
-  ScrollView
+  TextInput
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './styles'
@@ -18,7 +17,6 @@ import { useForgotPassword } from './useForgotPassword'
 import { useTranslation } from 'react-i18next'
 import { Feather } from '@expo/vector-icons'
 import { scale } from '../../utils/scaling'
-import SignUpSvg from '../../assets/SVG/imageComponents/SignUpSvg'
 
 function ForgotPassword(props) {
   const Analytics = analytics()
@@ -41,14 +39,14 @@ function ForgotPassword(props) {
   }, [])
 
   useLayoutEffect(() => {
-    props?.navigation.setOptions(
+    props.navigation.setOptions(
       screenOptions({
         backColor: currentTheme.themeBackground,
-        iconColor: currentTheme.newIconColor,
-        navigation: props?.navigation
+        iconColor:currentTheme.newIconColor,
+        navigation: props.navigation
       })
     )
-  }, [props?.navigation])
+  }, [props.navigation])
 
   return (
     <SafeAreaView style={styles(currentTheme).safeAreaViewStyles}>
@@ -58,88 +56,76 @@ function ForgotPassword(props) {
           themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
         }
       />
-      <ScrollView
-        style={styles().flex}
-        contentContainerStyle={{ flexGrow: 1 }}
-        showsVerticalScrollIndicator={false}
-        alwaysBounceVertical={false}
-      >
-        <View style={styles(currentTheme).mainContainer}>
-          <View style={styles().subContainer}>
-            <View>
-              <SignUpSvg
-                fillColor={currentTheme.svgFill}
-                strokeColor={currentTheme.newIconColor}
-              />
-            </View>
-            <View>
-              <TextDefault
-                H2
-                bolder
-                textColor={currentTheme.newFontcolor}
-                style={{
-                  ...alignment.MTlarge,
-                  ...alignment.MBmedium
-                }}
-                isRTL
-              >
-                {t('forgotPassword')}
-              </TextDefault>
-              <TextDefault
-                H5
-                bold
-                textColor={currentTheme.fontSecondColor}
-                style={styles().emailHeading}
-                isRTL
-              >
-                {t('enterYourEmail')}
-              </TextDefault>
-            </View>
-            <View>
-              <TextInput
-                placeholder={t('email')}
-                style={[
-                  styles(currentTheme).textField,
-                  emailError !== null && styles(currentTheme).errorInput
-                ]}
-                placeholderTextColor={currentTheme.fontSecondColor}
-                value={email}
-                onChangeText={(e) => setEmail(e)}
-              />
-              {emailError && (
-                <TextDefault
-                  style={styles().error}
-                  bold
-                  textColor={currentTheme.textErrorColor}
-                >
-                  {emailError}
-                </TextDefault>
-              )}
-            </View>
+      <View style={styles(currentTheme).mainContainer}>
+        <View style={styles().subContainer}>
+          <View style={styles().logoContainer}>
+            <Feather
+              name="lock"
+              size={30}
+              color={currentTheme.newIconColor}
+            />
           </View>
-          <View style={{ width: '100%', marginBottom: 20 }}>
-            <View>
-              <TouchableOpacity
-                activeOpacity={0.7}
-                style={styles(currentTheme).btn}
-                onPress={() => forgotPassword()}
-              >
-                <TextDefault H4 textColor={currentTheme.black} bold>
-                  {loading ? (
-                    <Spinner
-                      backColor='transparent'
-                      spinnerColor={currentTheme.white}
-                      size='small'
-                    />
-                  ) : (
-                    t('continueBtn')
-                  )}
-                </TextDefault>
-              </TouchableOpacity>
-            </View>
+          <View>
+            <TextDefault
+              H3
+              bolder
+              textColor={currentTheme.newFontcolor}
+              style={{
+                ...alignment.MTlarge,
+                ...alignment.MBmedium
+              }}>
+              {t('forgotPassword')}
+            </TextDefault>
+            <TextDefault
+              H5
+              bold
+              textColor={currentTheme.fontSecondColor}
+              style={styles().emailHeading}>
+              {t('enterYourEmail')}
+            </TextDefault>
+          </View>
+          <View>
+            <TextInput
+              placeholder={t('email')}
+              style={[
+                styles(currentTheme).textField,
+                emailError !== null && styles(currentTheme).errorInput
+              ]}
+              placeholderTextColor={currentTheme.fontSecondColor}
+              value={email}
+              onChangeText={e => setEmail(e)}
+            />
+            {emailError && (
+              <TextDefault
+                style={styles().error}
+                bold
+                textColor={currentTheme.textErrorColor}>
+                {emailError}
+              </TextDefault>
+            )}
           </View>
         </View>
-      </ScrollView>
+        <View style={{ width: '100%', marginBottom: 20 }}>
+          <View>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles(currentTheme).btn}
+              onPress={() => forgotPassword()}>
+              <TextDefault H4 textColor={currentTheme.black} bold>
+                {loading ? (
+                  <Spinner
+                  backColor='transparent'
+                  spinnerColor={currentTheme.white}
+                    size="small"
+                  />
+                ) : (
+                  t('continueBtn')
+                )}
+              </TextDefault>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
     </SafeAreaView>
   )
 }

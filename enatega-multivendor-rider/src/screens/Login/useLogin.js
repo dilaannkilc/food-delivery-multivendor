@@ -40,7 +40,6 @@ const useLogin = () => {
     let result = true
     setUsernameError('')
     setPasswordError('')
-
     if (!username) {
       setUsernameError(t('emptyUsernameError'))
       result = false
@@ -52,20 +51,34 @@ const useLogin = () => {
     return result
   }
 
-  async function onCompleted({ riderLogin }) {
+  async function onCompleted({ riderLogin, lastOrderCreds }) {
+    console.log('onCompleted data')
     if (riderLogin) {
       FlashMessage({ message: t('loginFlashMsg') })
       await AsyncStorage.setItem('rider-id', riderLogin.userId)
       await setTokenAsync(riderLogin.token)
+    } else {
+      if (
+        lastOrderCreds &&
+        lastOrderCreds.riderUsername &&
+        lastOrderCreds.riderPassword
+      ) {
+        setUsername(lastOrderCreds.riderUsername || '')
+        setPassword(lastOrderCreds.riderPassword || '')
+      } else {
+        setUsername('')
+        setPassword('')
+      }
     }
   }
   function onError(error) {
-    console.log('error', JSON.stringify(error))
     let message = 'Check internet connection'
+    console.log("going in")
     try {
       message = error.message
     } catch (error) {}
-    FlashMessage({ message: message })
+    setUsername('')
+    setPassword('')
   }
 
   async function onSubmit() {
@@ -109,7 +122,7 @@ const useLogin = () => {
       // Perform mutation with the obtained data
       mutate({
         variables: {
-          username: username.toLowerCase(),
+          username: username,
           password: password,
           notificationToken: notificationToken
         }

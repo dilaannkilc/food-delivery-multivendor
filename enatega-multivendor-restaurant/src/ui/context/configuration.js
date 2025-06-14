@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { configuration } from '../../apollo/queries'
+import { configuration } from '../../apollo'
 
 const Context = React.createContext({})
 

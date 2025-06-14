@@ -5,7 +5,6 @@ import styles from './styles'
 import { alignment } from '../../../utils/alignment'
 import RiderChatIcon from '../../../assets/SVG/rider-chat'
 import ChatIcon from '../../../assets/SVG/chat-icon'
-import { scale } from '../../../utils/scaling'
 
 export const ChatButton = ({ onPress, theme, title, description }) => {
   return (
@@ -13,18 +12,16 @@ export const ChatButton = ({ onPress, theme, title, description }) => {
       <View>
         <RiderChatIcon/>
       </View>
-      <View style={{ width: '60%', marginHorizontal: scale(10) }}>
+      <View style={{ width: '60%', ...alignment.MLsmall }}>
         <TextDefault
           H4
           bolder
           textColor={theme.newFontcolor}
-          isRTL
         >{title}
         </TextDefault>
         <TextDefault
           H5
           textColor={theme.newFontcolor}
-          isRTL
         >{description}
         </TextDefault>
       </View>

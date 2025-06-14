@@ -11,16 +11,15 @@ import TextDefault from '../../../components/Text/TextDefault/TextDefault'
 import { useTranslation } from 'react-i18next'
 
 const FdEmailBtn = props => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const themeContext = useContext(ThemeContext)
-  const currentTheme = { isRTL: i18n.dir() === 'rtl' , ...theme[themeContext.ThemeValue]}
-
+  const currentTheme = theme[themeContext.ThemeValue]
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       style={styles(currentTheme).mainContainer}
-      onPress={props?.onPress}>
-      {props?.loadingIcon ? (
+      onPress={props.onPress}>
+      {props.loadingIcon ? (
         <Spinner backColor="rgba(0,0,0,0.1)" spinnerColor={currentTheme.main} />
       ) : (
         <>
@@ -32,6 +31,7 @@ const FdEmailBtn = props => {
           <TextDefault
             H4
             textColor={currentTheme.newFontcolor}
+            style={alignment.MLlarge}
             bold>
             {t('ContinueWithEmail')}
           </TextDefault>
