@@ -71,15 +71,10 @@ const styles = (props = null) =>
     alignItemsCenter: {
       alignItems: 'center'
     },
-    buttoContainer: {
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
     buttonBackground: {
-      width: '90%',
+      width: '100%',
       backgroundColor: props !== null ? props?.newFontcolor : '#000',
-      borderRadius: scale(30),
-      height: height * 0.07,
+      alignItems: 'center'
     },
     appleBtn: {
       width: '90%',

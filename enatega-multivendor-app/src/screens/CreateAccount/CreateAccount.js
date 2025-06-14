@@ -32,7 +32,7 @@ const CreateAccount = (props) => {
     mutateLogin,
     navigateToLogin,
     navigation,
-    signIn
+    signIn,
     //user
   } = useCreateAccount()
   const { t } = useTranslation()
@@ -49,10 +49,8 @@ const CreateAccount = (props) => {
   function renderAppleAction() {
     if (loading && loginButton === 'Apple') {
       return (
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <View style={styles(currentTheme).buttonBackground}>
-            <Spinner backColor='transparent' spinnerColor={currentTheme.main} />
-          </View>
+        <View style={styles(currentTheme).buttonBackground}>
+          <Spinner backColor='transparent' spinnerColor={currentTheme.main} />
         </View>
       )
     }
@@ -227,7 +225,7 @@ const CreateAccount = (props) => {
                 activeOpacity={0.7}
                 style={styles(currentTheme).guestButton}
                 onPress={() => {
-                  navigation.navigate('Discovery')
+                  navigation.navigate('Main')
                 }}
               >
                 {props.loadingIcon ? (
