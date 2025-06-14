@@ -18,16 +18,6 @@ export const ORDER_SUPER_ADMIN_COLUMNS = [
     propertyName: 'orderStatus',
   },
   {
-    headerName: 'Reason',
-    propertyName: 'reason',
-    body: (rowData: IExtendedOrder) => {
-      if (!rowData.reason) {
-        return <span>-</span>;
-      }
-      return <span>{rowData.reason}</span>;
-    },
-  },
-  {
     headerName: 'Created At',
     propertyName: 'DateCreated',
     body: (rowData: IExtendedOrder) => {
@@ -36,7 +26,7 @@ export const ORDER_SUPER_ADMIN_COLUMNS = [
         1000;
       if (date) {
         const newDate = new Date(date).toDateString();
-        return <span className="text-center">{newDate}</span>;
+        return <span>{newDate}</span>;
       }
     },
   },
