@@ -29,8 +29,6 @@ import { useTranslation } from 'react-i18next'
 import navigationService from '../../routes/navigationService'
 import ErrorView from '../../components/ErrorView/ErrorView'
 import EmptyView from '../../components/EmptyView/EmptyView'
-import NewRestaurantCard from '../../components/Main/RestaurantCard/NewRestaurantCard'
-import { isOpen, sortRestaurantsByOpenStatus } from '../../utils/customFunctions'
 
 const RESTAURANTS = gql`
   ${FavouriteRestaurant}
@@ -128,30 +126,16 @@ function Favourite() {
   return (
     <SafeAreaView edges={['bottom']} style={styles(currentTheme).flex}>
       <FlatList
-        data={data ? sortRestaurantsByOpenStatus(data?.userFavourite) : []}
+        data={data ? data?.userFavourite : []}
         keyExtractor={(item, index) => item._id}
         showsVerticalScrollIndicator={false}
         refreshing={networkStatus === 4}
         onRefresh={() => networkStatus === 7 && refetch()}
-        // style={[styles().flex, styles(currentTheme).container]}
+        style={[styles().flex, styles(currentTheme).container]}
         contentContainerStyle={styles(currentTheme).contentContainer}
         ListEmptyComponent={emptyView()}
         ListHeaderComponent={null}
-        renderItem={({ item }) => {
-          const averageRating = item?.reviewData?.ratings;
-          const numberOfReviews = item?.reviewData?.total;
-          const restaurantOpen = isOpen(item);
-          return (
-            <NewRestaurantCard
-              {...item}
-              reviewAverage={averageRating}
-              reviewCount={numberOfReviews}
-              isCategories
-              fullWidth
-              isOpen={restaurantOpen}
-            />
-          )
-        }}
+        renderItem={({ item }) => <Item item={item} />}
       />
     </SafeAreaView>
   )

@@ -12,17 +12,16 @@ import { useTranslation } from 'react-i18next'
 
 
 const FdGoogleBtn = props => {
-  const { t, i18n } = useTranslation()
   const themeContext = useContext(ThemeContext)
-  const currentTheme = { isRTL: i18n.dir() === "rtl", ...theme[themeContext.ThemeValue] }
-
+  const currentTheme = theme[themeContext.ThemeValue]
+  const { t } = useTranslation()
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       style={styles(currentTheme).mainContainer}
-      onPressIn={props?.onPressIn}
-      onPress={props?.onPress}>
-      {props?.loadingIcon ? (
+      onPressIn={props.onPressIn}
+      onPress={props.onPress}>
+      {props.loadingIcon ? (
         <Spinner
         backColor={currentTheme.themeBackground}
         spinnerColor={currentTheme.main}
@@ -30,7 +29,7 @@ const FdGoogleBtn = props => {
       ) : (
         <>
           <FontAwesome name="google" size={scale(18)} color={currentTheme.newIconColor} />
-          <TextDefault H4 center textColor={currentTheme.newFontcolor} bold>
+          <TextDefault H4 textColor={currentTheme.newFontcolor} style={alignment.MLlarge} bold>
             {t('ContinueWithGoogle')}
           </TextDefault>
         </>

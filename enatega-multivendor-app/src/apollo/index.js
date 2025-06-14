@@ -49,7 +49,7 @@ const setupApollo = () => {
           }
         }
       },
-      RestaurantPreview: {
+      Restaurant: {
         fields: {
           distanceWithCurrentLocation: {
             read(_existing, {variables, field, readField}) {

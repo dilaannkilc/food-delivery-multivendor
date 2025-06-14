@@ -23,17 +23,6 @@ export const fr = {
   password: 'Mot de passe',
   login: 'Connexion',
   signIn: 'Se connecter',
-  orderType:"Type de commande",
-  orderInstructions:"Instructions de commande",
-  variations:"Variantes",
-  addOns:"Modules complémentaires",
-  specialInstructions: 'instructions spéciales',
-  pickUp:"Ramasser",
-  delivery: "Livraison",
-  orderId: 'Identifiant de commande',
-  orderAmount: 'Montant de la commande',
-  pickUp:"Ramasser",
-  delivery: "Livraison",
   orderId: 'Identifiant de commande',
   orderAmount: 'Montant de la commande',
   paymentMethod: 'Méthode de paiement',
@@ -62,9 +51,5 @@ export const fr = {
   acceptAndPrint: 'Accepter et Imprimer',
   accept: 'Accepter',
   language: 'Langue',
-   notificationText: 'Doit utiliser un appareil physique pour les notifications push',
-  deliveredToRider: "Livré au cavalier",
-  name: 'Nom',
-  pullDownRefresh: 'Tirez vers le bas pour rafraîchir',
-  assigned: 'Assigné'
+  notificationText: 'Doit utiliser un appareil physique pour les notifications push'
 }

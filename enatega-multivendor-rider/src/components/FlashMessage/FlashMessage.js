@@ -3,14 +3,12 @@ import PropTypes from 'prop-types'
 
 export const FlashMessage = props => {
   showMessage({
+    backgroundColor: 'rgba(52, 52, 52, .9)',
     message: props.message,
-    backgroundColor: 'rgba(52, 52, 52, .9)', // Dark semi-transparent background
-    position: 'center', // Center position
-    style: {
-      borderRadius: 40,
-      minHeight: 50, 
-    },
-  });
+    position: 'center',
+    style: { borderRadius: 40 }
+  })
+}
 FlashMessage.propTypes = {
   message: PropTypes.string.isRequired
-}}
+}

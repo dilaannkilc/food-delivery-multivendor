@@ -1,18 +1,18 @@
 const colors = {
-  primary: '#61d921',
+  primary: '#90EA93',
   themeBackground: '#FAFAFA',
   iconColor: '#333333',
-  tagColor: '#94e469',
-  iconPink: '#94e469',
+  tagColor: '#6FCF97',
+  iconPink: '#6FCF97',
   radioColor: '#FFF',
-  radioOuterColor: '#94e469',
-  spinnerColor: '#94e469',
-  orderComplete: '#61d921',
+  radioOuterColor: '#6FCF97',
+  spinnerColor: '#6FCF97',
+  orderComplete: '#1DB20D',
   orderUncomplete: '#fe0000',
   horizontalLine: '#B8B8B8',
-  buttonBackground: '#94e469',
+  buttonBackground: '#6FCF97',
   buttonText: '#FFF',
-  buttonBackgroundPink: '#94e469',
+  buttonBackgroundPink: '#6FCF97',
   buttonTextPink: '#FFF',
   textErrorColor: '#FA7751',
   headerBackground: '#FFF',
@@ -20,10 +20,9 @@ const colors = {
   fontMainColor: '#212121',
   fontSecondColor: '#949393',
   cartContainer: '#FFF',
-  startColor: '#94e469',
+  startColor: '#6FCF97',
   white: '#FFF',
-  black: '#000',
-  transparent: '#FFFFFF00'
+  black: '#000'
 }
 
 export default colors
