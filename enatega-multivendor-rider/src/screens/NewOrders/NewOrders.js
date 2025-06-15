@@ -14,7 +14,7 @@ import LottieView from 'lottie-react-native'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import colors from '../../utilities/colors'
 import { NetworkStatus } from '@apollo/client'
-
+import i18next from '../../../i18next'
 import { useTranslation } from 'react-i18next'
 
 const { height, width } = Dimensions.get('window')
@@ -25,13 +25,12 @@ const NewOrders = ({ navigation }) => {
   const {
     loadingAssigned,
     errorAssigned,
+    dataProfile,
     assignedOrders,
     refetchAssigned,
     networkStatusAssigned
   } = useContext(UserContext)
   const [orders, setOrders] = useState([])
-
-  const networkError = [t('errorText')]
 
   useFocusEffect(() => {
     setActive('NewOrders')
@@ -48,10 +47,9 @@ const NewOrders = ({ navigation }) => {
   }, [assignedOrders])
 
   const noNewOrders = orders.length === 0
-
   useEffect(() => {
     // Trigger refetch when orders length changes
-    if (noNewOrders) {
+    if (noNewOrders && dataProfile?.rider.available) {
       refetchAssigned()
     }
   }, [noNewOrders])
@@ -67,16 +65,12 @@ const NewOrders = ({ navigation }) => {
             <Spinner />
           </View>
         )}
-        {errorAssigned ? (
-          <FlatList
-            data={networkError}
-            onRefresh={refetchAssigned}
-            refreshing={networkStatusAssigned === NetworkStatus.loading}
-            renderItem={({ item }) => {
-              return <TextError backColor={colors.transparent} text={t(item)} />
-            }}
-          />
-        ) : (
+        {errorAssigned && (
+          <View style={styles.margin500}>
+            <TextError text={t('errorText')} />
+          </View>
+        )}
+        {dataProfile?.rider.available === true ? (
           <FlatList
             ListEmptyComponent={() => {
               return (
@@ -134,6 +128,27 @@ const NewOrders = ({ navigation }) => {
               />
             )}
           />
+        ) : (
+          <View
+            style={{
+              minHeight:
+                height > 670 ? height - height * 0.5 : height - height * 0.6,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+            <LottieView
+              style={{
+                width: width - 100,
+                height: 250
+              }}
+              source={require('../../assets/loader.json')}
+              autoPlay
+              loop
+            />
+            <TextDefault bolder center H3 textColor={colors.fontSecondColor}>
+              {t('notAnyOrdersYet')}
+            </TextDefault>
+          </View>
         )}
       </View>
     </ScreenBackground>

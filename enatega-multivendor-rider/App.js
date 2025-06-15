@@ -13,7 +13,6 @@ import FlashMessage from 'react-native-flash-message'
 import * as Location from 'expo-location'
 import * as SplashScreen from 'expo-splash-screen'
 import * as Updates from 'expo-updates'
-import * as Sentry from 'sentry-expo'
 import AppContainer from './src/routes/index'
 import colors from './src/utilities/colors'
 import setupApolloClient from './src/apollo/index'
@@ -22,9 +21,9 @@ import { AuthContext } from './src/context/auth'
 import { TabsContext } from './src/context/tabs'
 import TextDefault from './src/components/Text/TextDefault/TextDefault'
 import { LocationProvider } from './src/context/location'
-import getEnvVars, { isProduction } from './environment'
+import getEnvVars from './environment'
 import moment from 'moment-timezone'
-import { useKeepAwake } from 'expo-keep-awake'
+import { useTranslation } from 'react-i18next'
 
 moment.tz.setDefault('Asia/Karachi')
 LogBox.ignoreLogs([
@@ -42,21 +41,7 @@ export default function App() {
   const [active, setActive] = useState('NewOrder')
 
   const client = setupApolloClient()
-  const { SENTRY_DSN } = getEnvVars()
-
-  useKeepAwake()
-
-  useEffect(() => {
-    if (SENTRY_DSN) {
-      Sentry.init({
-        dsn: SENTRY_DSN,
-        enableInExpoDevelopment: !isProduction,
-        environment: !isProduction ? 'development' : 'production',
-        debug: !isProduction,
-        tracesSampleRate: 1.0 // to be changed to 0.2 in production
-      })
-    }
-  }, [SENTRY_DSN])
+ 
 
   useEffect(() => {
     ;(async() => {
@@ -101,7 +86,7 @@ export default function App() {
     setToken(token)
   }
 
-  const logout = async() => {
+  const logout = async () => {
     try {
       client.clearStore()
       await AsyncStorage.removeItem('rider-token')

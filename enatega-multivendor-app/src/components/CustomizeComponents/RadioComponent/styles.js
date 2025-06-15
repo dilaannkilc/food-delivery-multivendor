@@ -1,27 +1,21 @@
 import { StyleSheet } from 'react-native'
 import { alignment } from '../../../utils/alignment'
-import { scale } from '../../../utils/scaling'
 
-const styles = (props = null) =>
-  StyleSheet.create({
+const styles = StyleSheet.create({
   mainContainer: {
     width: '100%',
-    flexDirection: props?.isRTL ? 'row-reverse' : 'row',
-    ...alignment.MBsmall,
-    justifyContent: 'space-between'
+    flexDirection: 'row',
+    ...alignment.MBsmall
   },
   leftContainer: {
-    width: '70%',
-    flexDirection: props?.isRTL ? 'row-reverse' : 'row',
-    alignItems: 'center',
+    width: '80%',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   rightContainer: {
-    width: '30%',
-    flexDirection: props?.isRTL ? 'row-reverse' : 'row',
+    width: '20%',
+    flexDirection: 'row',
     justifyContent: 'flex-end'
-    },
-    title: {
-      paddingHorizontal: scale(10)
-    }
+  }
 })
 export default styles

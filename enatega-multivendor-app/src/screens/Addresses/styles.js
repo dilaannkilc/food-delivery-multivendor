@@ -8,6 +8,15 @@ const styles = (props = null) =>
       flex: 1,
       backgroundColor: props !== null ? props.themeBackground : 'transparent'
     },
+    containerInfo: {
+      width: '100%',
+      flex: 1,
+      alignItems: 'center',
+      backgroundColor: 'white',
+      marginTop: scale(20),
+      paddingBottom: scale(20),
+      borderRadius: scale(20)
+    },
     subContainerImage: {
       width: '100%',
       alignContent: 'center',
@@ -20,6 +29,10 @@ const styles = (props = null) =>
     viewTitle: {
       ...alignment.Msmall
     },
+    mainView: {
+      paddingBottom: scale(100),
+      marginBottom: scale(65)
+    },
     containerButton: {
       backgroundColor: props !== null ? props.themeBackground : 'transparent',
       width: '90%',
@@ -27,8 +40,7 @@ const styles = (props = null) =>
       bottom: verticalScale(0),
       justifyContent: 'center',
       alignItems: 'center',
-      alignSelf: 'center',
-      ...alignment.PBmedium
+      alignSelf: 'center'
     },
     addButton: {
       backgroundColor: props !== null ? props.newheaderColor : 'transparent',
@@ -40,43 +52,75 @@ const styles = (props = null) =>
       alignSelf: 'center'
     },
     containerSpace: {
-      width: '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
+      backgroundColor: props !== null ? props.gray100 : 'transparent',
+      width: '92%',
+      margin: scale(10),
+      padding: scale(5),
+      borderRadius: scale(10),
+      borderWidth: 1,
+      alignSelf: 'center',
+      borderColor: props !== null ? props.gray200 : '#E5E7EB'
     },
     width100: {
       width: '100%'
     },
+    width10: {
+      width: '10%'
+    },
     titleAddress: {
-      marginBottom: scale(5)
+      width: '55%',
+      justifyContent: 'center',
+      marginTop: -4
+    },
+    labelStyle: {
+      textAlignVertical: 'bottom',
+      fontSize: scale(14),
+      fontWeight: '700',
+      textAlign: 'left'
     },
     midContainer: {
       display: 'flex',
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
+      flexDirection: 'row'
     },
     homeIcon: {
       color: props !== null ? props.darkBgFont : '#000',
       width: '15%',
       display: 'flex',
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
       alignItems: 'center',
       justifyContent: 'center'
+    },
+    addressDetail: {
+      width: '80%',
+      alignSelf: 'flex-end',
+      fontSize: scale(4),
+      fontWeight: '300',
+      textAlign: 'justify',
+      paddingLeft: scale(45)
     },
     line: {
-      height: 0.5,
-      backgroundColor: props !== null ? props.borderBottomColor : '#f9f9f9',
+      width: '80%',
+      alignSelf: 'flex-end',
+      borderBottomColor: props !== null ? 'transparent' : 'transparent',
+      borderBottomWidth: StyleSheet.hairlineWidth
     },
     buttonsAddress: {
+      width: '35%',
       display: 'flex',
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
+      flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      paddingBottom: scale(3)
     },
     rowContainer: {
-      flexDirection: props?.isRTL ? 'row-reverse' : 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      ...alignment.Psmall,
+      marginTop: scale(5),
+      flexDirection: 'row',
+      alignItems: 'center', // Adjust this as needed
+      justifyContent: 'space-between'
+    },
+    footer: {
+      flex: 1,
+      width: '100%',
+      backgroundColor: props !== null ? props.white : 'transparent'
     }
   })
 export default styles

@@ -1,4 +1,5 @@
-import { View, ScrollView, Dimensions } from 'react-native'
+import { TouchableOpacity, View, ScrollView, Dimensions } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
 import TextDefault from '../../components/Text/TextDefault/TextDefault'
 import { scale } from '../../utils/scaling'
 import { alignment } from '../../utils/alignment'
@@ -10,7 +11,7 @@ import TextError from '../../components/Text/TextError/TextError'
 import ConfigurationContext from '../../context/Configuration'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
-// import analytics from '../../utils/analytics'
+import analytics from '../../utils/analytics'
 import Detail from '../../components/OrderDetail/Detail/Detail'
 import RestaurantMarker from '../../assets/SVG/restaurant-marker'
 import CustomerMarker from '../../assets/SVG/customer-marker'
@@ -45,47 +46,55 @@ const CANCEL_ORDER = gql`
 `
 
 function OrderDetail(props) {
-  console.log("props=>>", props)
   const [cancelModalVisible, setCancelModalVisible] = useState(false)
-  //const Analytics = analytics()
-  const { t, i18n } = useTranslation()
-  const id = props?.route?.params ? props?.route?.params?._id : null
-  const user = props?.route?.params ? props?.route?.params?.user : null
+  const Analytics = analytics()
+  const id = props.route.params ? props.route.params._id : null
+  const user = props.route.params ? props.route.params.user : null
   const { loadingOrders, errorOrders, orders } = useContext(OrdersContext)
   const configuration = useContext(ConfigurationContext)
   const themeContext = useContext(ThemeContext)
-  const currentTheme = {isRTL : i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue]}
+  const currentTheme = theme[themeContext.ThemeValue]
+  const { t } = useTranslation()
   const navigation = useNavigation()
+  const headerRef = useRef(false)
   const { GOOGLE_MAPS_KEY } = useEnvVars()
   const mapView = useRef(null)
+
   const [cancelOrder, { loading: loadingCancel }] = useMutation(CANCEL_ORDER, {
     onError,
+    onCompleted:(data)=>
+    {
+     if(data.abortOrder.orderStatus === 'CANCELLED')
+     {
+        navigation.navigate("Main")
+     }
+    },
     variables: { abortOrderId: id }
   })
 
-  // useEffect(() => {
-  //   /* async function Track() {
-  //     await Analytics.track(Analytics.events.NAVIGATE_TO_ORDER_DETAIL, {
-  //       orderId: id
-  //     })
-  //   }
-  //   Track() */
-  // }, [])
+  useEffect(() => {
+    async function Track() {
+      await Analytics.track(Analytics.events.NAVIGATE_TO_ORDER_DETAIL, {
+        orderId: id
+      })
+    }
+    Track()
+  }, [])
 
   const cancelModalToggle = () => {
     setCancelModalVisible(!cancelModalVisible)
   }
   function onError(error) {
+
     FlashMessage({
       message: error.message
     })
   }
-console.log('orderrrrrrrr',orders)
-  const order = orders?.find(o => o?._id??order?.id === id)
 
- 
+  const order = orders?.find(o => o?._id === id)
+
   useEffect(() => {
-    props?.navigation.setOptions({
+    props.navigation.setOptions({
       headerRight: () => HelpButton({ iconBackground: currentTheme.main, navigation, t }),
       headerTitle: `${order ? order?.deliveryAddress?.deliveryAddress?.substr(0, 15) : ""}...`,
       headerTitleStyle: { color: currentTheme.newFontcolor },
@@ -93,7 +102,7 @@ console.log('orderrrrrrrr',orders)
     })
   }, [orders])
 
-  if (loadingOrders) {
+  if (loadingOrders || !order) {
     return (
       <Spinner
         backColor={currentTheme.themeBackground}
@@ -101,14 +110,11 @@ console.log('orderrrrrrrr',orders)
       />
     )
   }
-  if (errorOrders) {
-    console.log({errorOrders})
-    return <TextError text={JSON.stringify(errorOrders)} />}
+  if (errorOrders) return <TextError text={JSON.stringify(errorOrders)} />
 
   const remainingTime = calulateRemainingTime(order)
   const {
     _id,
-    id:orderId,
     restaurant,
     deliveryAddress,
     items,
@@ -129,7 +135,7 @@ console.log('orderrrrrrrr',orders)
         showsVerticalScrollIndicator={false}
         overScrollMode='never'
       >
-        {order?.rider && order?.orderStatus === ORDER_STATUS_ENUM.PICKED && (
+        {order.rider && order.orderStatus === ORDER_STATUS_ENUM.PICKED && (
           <MapView
             ref={(c) => (mapView.current = c)}
             style={{ flex: 1, height: HEIGHT * 0.6 }}
@@ -192,7 +198,7 @@ console.log('orderrrrrrrr',orders)
                 console.log('onerror', error)
               }}
             />
-            {order?.rider && <TrackingRider id={order?.rider?._id} />}
+            {order.rider && <TrackingRider id={order.rider._id} />}
           </MapView>
         )}
         <View
@@ -202,8 +208,8 @@ console.log('orderrrrrrrr',orders)
             ...alignment.Pmedium
           }}
         >
-          <OrderStatusImage status={order?.orderStatus} />
-          {order?.orderStatus !== ORDER_STATUS_ENUM.DELIVERED && (
+          <OrderStatusImage status={order.orderStatus} />
+          {order.orderStatus !== ORDER_STATUS_ENUM.DELIVERED && (
             <View
               style={{
                 ...alignment.MTxSmall,
@@ -214,7 +220,7 @@ console.log('orderrrrrrrr',orders)
               {![
                 ORDER_STATUS_ENUM.PENDING,
                 ORDER_STATUS_ENUM.CANCELLED
-              ].includes(order?.orderStatus) && (
+              ].includes(order.orderStatus) && (
                   <>
                     <TextDefault
                       style={{ ...alignment.MTxSmall }}
@@ -237,7 +243,6 @@ console.log('orderrrrrrrr',orders)
                       currentTheme={currentTheme}
                       item={order}
                       navigation={navigation}
-                      isPicked={order?.isPickedUp}
                     />
                   </>
                 )}
@@ -248,18 +253,18 @@ console.log('orderrrrrrrr',orders)
                 bold
               >
                 {' '}
-                {t(checkStatus(order?.orderStatus).statusText)}
+                {t(checkStatus(order.orderStatus).statusText)}
               </TextDefault>
             </View>
           )}
         </View>
-        <Instructions title={'Instructions'} theme={currentTheme} message={order?.instructions} />
+        <Instructions title={'Instructions'} theme={currentTheme} message={order.instructions} />
         <Detail
-          navigation={props?.navigation}
+          navigation={props.navigation}
           currencySymbol={configuration.currencySymbol}
           items={items}
           from={restaurant.name}
-          orderNo={order?.orderId}
+          orderNo={order.orderId}
           deliveryAddress={deliveryAddress.deliveryAddress}
           subTotal={subTotal}
           tip={tip}
@@ -267,9 +272,9 @@ console.log('orderrrrrrrr',orders)
           deliveryCharges={deliveryCharges}
           total={total}
           theme={currentTheme}
-          id={_id??orderId}
-          rider={order?.rider}
-          orderStatus={order?.orderStatus}
+          id={_id}
+          rider={order.rider}
+          orderStatus={order.orderStatus}
         />
       </ScrollView>
       <View style={styles().bottomContainer(currentTheme)}>
@@ -279,7 +284,7 @@ console.log('orderrrrrrrr',orders)
           currency={configuration.currencySymbol}
           price={total.toFixed(2)}
         />
-        {order?.orderStatus === ORDER_STATUS_ENUM.PENDING && (
+        {order.orderStatus === ORDER_STATUS_ENUM.PENDING && (
           <View style={{ margin: scale(20) }}>
             <Button
               text={t('cancelOrder')}
@@ -297,7 +302,7 @@ console.log('orderrrrrrrr',orders)
         setModalVisible={cancelModalToggle}
         cancelOrder={cancelOrder}
         loading={loadingCancel}
-        orderStatus={order?.orderStatus}
+        orderStatus={order.orderStatus}
       />
     </View>
   )

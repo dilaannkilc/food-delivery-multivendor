@@ -23,13 +23,6 @@ export const de = {
   password: 'Passwort',
   login: 'Anmelden',
   signIn: 'Anmelden',
-  orderType:'Auftragsart',
-  orderInstructions:"Bestellanweisungen",
-  variations:"Variationen",
-  addOns:"Add-ons",
-  specialInstructions: 'spezielle Anweisungen',
-  pickUp:"Abholen",
-  delivery: "Lieferung",
   orderId: 'Bestellnummer',
   orderAmount: 'Bestellmenge',
   paymentMethod: 'Zahlungsmethode',
@@ -59,9 +52,6 @@ export const de = {
   acceptAndPrint: 'Akzeptieren und Drucken',
   accept: 'Akzeptieren',
   language: 'Sprache',
-  notificationText: 'Muss ein physisches Gerät für Push-Benachrichtigungen verwenden',
-  deliveredToRider: "An Fahrer geliefert",
-  name: 'Name',
-  pullDownRefresh: 'Zum Aktualisieren nach unten ziehen',
-  assigned: 'Zugewiesen'
+  notificationText: 'Muss ein physisches Gerät für Push-Benachrichtigungen verwenden'
+
 }

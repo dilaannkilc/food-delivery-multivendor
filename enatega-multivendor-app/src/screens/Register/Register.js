@@ -17,10 +17,6 @@ import { FontAwesome, SimpleLineIcons } from '@expo/vector-icons'
 import CountryPicker from 'react-native-country-picker-modal'
 import useRegister from './useRegister'
 import { useTranslation } from 'react-i18next'
-import SignUpSvg from '../../assets/SVG/imageComponents/SignUpSvg'
-import { useHeaderHeight } from '@react-navigation/elements'
-import { scale } from '../../utils/scaling'
-import { I18nManager } from 'react-native'
 
 function Register(props) {
   const {
@@ -49,18 +45,16 @@ function Register(props) {
   } = useRegister()
 
   const { t } = useTranslation()
-  const headerHeight = useHeaderHeight()
   useLayoutEffect(() => {
-    props?.navigation.setOptions(
+    props.navigation.setOptions(
       screenOptions({
         fontColor: currentTheme.newFontcolor,
         backColor: currentTheme.themeBackground,
         iconColor: currentTheme.newIconColor,
-        navigation: props?.navigation
+        navigation: props.navigation
       })
     )
-  }, [props?.navigation])
-
+  }, [props.navigation])
 
   return (
     <SafeAreaView
@@ -70,7 +64,6 @@ function Register(props) {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles().flex}
-        keyboardVerticalOffset={headerHeight}
       >
         <ScrollView
           style={styles().flex}
@@ -80,22 +73,23 @@ function Register(props) {
         >
           <View style={styles(currentTheme).mainContainer}>
             <View style={styles().subContainer}>
-              <View>
-                <SignUpSvg
-                  fillColor={currentTheme.svgFill}
-                  strokeColor={currentTheme.newIconColor}
-                />
+              <View style={styles().logoContainer}>
+                {/* <Image
+                  source={require('../../../assets/login-icon.png')}
+                  style={styles().logoContainer}
+                /> */}
+
+                <SimpleLineIcons name='user' size={30} color={currentTheme.newIconColor} />
               </View>
               <View>
                 <TextDefault
-                  H2
+                  H3
                   bolder
                   textColor={currentTheme.newFontcolor}
                   style={{
                     ...alignment.MTlarge,
                     ...alignment.MBmedium
                   }}
-                  isRTL
                 >
                   {t('letsGetStarted')}
                 </TextDefault>
@@ -104,9 +98,8 @@ function Register(props) {
                   bold
                   textColor={currentTheme.fontSecondColor}
                   style={{ ...alignment.PBmedium }}
-                  isRTL
                 >
-                  {t('createAccountFirst')}
+                  {t('createAccount')}
                 </TextDefault>
               </View>
               <View style={styles().form}>
@@ -126,7 +119,6 @@ function Register(props) {
                       style={styles().error}
                       bold
                       textColor={currentTheme.textErrorColor}
-                      isRTL
                     >
                       {emailError}
                     </TextDefault>
@@ -148,7 +140,6 @@ function Register(props) {
                       style={styles().error}
                       bold
                       textColor={currentTheme.textErrorColor}
-                      isRTL
                     >
                       {firstnameError}
                     </TextDefault>
@@ -170,13 +161,12 @@ function Register(props) {
                       style={styles().error}
                       bold
                       textColor={currentTheme.textErrorColor}
-                      isRTL
                     >
                       {lastnameError}
                     </TextDefault>
                   )}
                 </View>
-                <View style={styles(currentTheme).passwordField}>
+                <View style={styles().passwordField}>
                   <TextInput
                     secureTextEntry={showPassword}
                     placeholder={t('password')}
@@ -195,7 +185,7 @@ function Register(props) {
                       name={showPassword ? 'eye' : 'eye-slash'}
                       size={24}
                       color={currentTheme.fontFourthColor}
-                      style={styles(currentTheme).eyeBtn}
+                      style={styles().eyeBtn}
                     />
                   </View>
                 </View>
@@ -205,18 +195,16 @@ function Register(props) {
                       style={styles().error}
                       bold
                       textColor={currentTheme.textErrorColor}
-                      isRTL
                     >
                       {passwordError}
                     </TextDefault>
                   </View>
                 )}
-                <View style={styles(currentTheme).number}>
+                <View style={styles().number}>
                   <View
                     style={[
                       styles(currentTheme).textField,
-                      styles(currentTheme).countryCode,
-                      { padding: Platform.OS === 'ios' ? scale(5) : scale(12) }
+                      styles().countryCode
                     ]}
                   >
                     <CountryPicker
@@ -226,27 +214,23 @@ function Register(props) {
                       withFilter
                     />
                     <TextDefault
-                      textColor={currentTheme.newFontcolor}
+                    textColor={currentTheme.newFontcolor}
                       style={{ marginTop: Platform.OS === 'android' ? 7 : 10 }}
-                      isRTL
                     >
-                      {/* {country?.cca2} */}+{country?.callingCode[0]}
+                      {country?.cca2}
                     </TextDefault>
                   </View>
                   <View
                     style={[
                       styles(currentTheme).textField,
-                      styles(currentTheme).phoneNumber,
-                      phoneError && styles(currentTheme).errorInput,
-                      { padding: scale(0) }
+                      styles().phoneNumber,
+                      phoneError && styles(currentTheme).errorInput
                     ]}
                   >
                     <View style={styles().phoneFieldInner}>
-                      {/* <TextDefault textColor={currentTheme.newFontcolor}>
-                        +{country.callingCode[0]}{' '}
-                      </TextDefault> */}
+                      <TextDefault textColor={currentTheme.newFontcolor}>+{country.callingCode[0]} </TextDefault>
                       <TextInput
-                        placeholder={t('phoneNumber')}
+                        placeholder={t('mobileNumber')}
                         placeholderTextColor={currentTheme.fontSecondColor}
                         value={phone}
                         onChangeText={(e) => setPhone(e)}
@@ -261,7 +245,6 @@ function Register(props) {
                       style={styles(currentTheme).error}
                       bold
                       textColor={currentTheme.textErrorColor}
-                      isRTL
                     >
                       {phoneError}
                     </TextDefault>
@@ -276,7 +259,7 @@ function Register(props) {
                 style={styles(currentTheme).btn}
               >
                 <TextDefault H4 textColor={currentTheme.black} bold>
-                  {t('getRegistered')}
+                  {t('createAccount')}
                 </TextDefault>
               </TouchableOpacity>
             </View>

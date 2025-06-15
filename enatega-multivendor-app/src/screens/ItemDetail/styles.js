@@ -8,57 +8,56 @@ const styles = (props = null) =>
       flex: 1
     },
     mainContainer: {
-      backgroundColor: props != null ? props?.themeBackground : '#fff'
+      backgroundColor: props != null ? props.themeBackground : '#fff'
     },
     scrollViewContainer: {
       width: '100%',
-      height: '100%',
-      backgroundColor: props != null ? props?.themeBackground : '#fff'
+      height: '100%'
     },
     subContainer: {
       width: '90%',
-     backgroundColor: props != null ? props?.themeBackground : '#fff',
+      backgroundColor: 'black',
       alignSelf: 'center'
     },
     scrollViewStyle: {
-      backgroundColor: props != null ? props?.themeBackground : '#fff',
-      
+      backgroundColor: 'black',
     },
     headerContainer: {
       position: 'absolute',
       top: 0,
       left: 0,
       right: 0,
-     backgroundColor: props != null ? props?.themeBackground : '#fff',
-      zIndex: 3,
+      backgroundColor: props != null ? props.themeBackground : '#fff',
+      zIndex: 1,
     },
     titleContainer: {
       position: 'absolute',
       top: 0,
       left: 0,
       right: 0,
-      backgroundColor: props != null ? props?.themeBackground : '#fff',
+      backgroundColor: props != null ? props.themeBackground : '#fff',
       justifyContent: 'center',
       alignItems: 'center',
+      zIndex: 2,
     },
     line: {
       marginLeft: scale(10),
       width: '95%',
       height: StyleSheet.hairlineWidth,
       ...alignment.MBsmall,
-      backgroundColor: props !== null ? props?.black : 'black'
+      backgroundColor: props !== null ? props.black : 'black'
     },
     input: {
-      backgroundColor: props !== null ? props?.themeBackground : 'black',
+      backgroundColor: props !== null ? props.themeBackground : 'black',
       borderRadius: scale(10),
       height: scale(50),
       paddingLeft: scale(10),
       textAlignVertical: 'center',
       borderWidth: 1,
-      borderColor: props != null ? props?.verticalLine : '#B8B8B8',
-      textAlign: props?.isRTL ? 'right' : 'left'
+      borderColor: props != null ? props.verticalLine : '#B8B8B8',
     },
     inputContainer: {
+      width: '90%',
       alignSelf: 'center',
       zIndex: scale(1)
 
@@ -68,13 +67,6 @@ const styles = (props = null) =>
       borderRadius: scale(50),
       width: scale(55),
       alignItems: 'center'
-    },
-    descriptionText: {
-      color: props != null ? props?.darkBgFont : 'white',
-      fontSize: 13,
-      paddingTop: scale(10),
-      maxWidth: '100%',
-      ...alignment.MRxSmall
-    },
+    }
   })
 export default styles
