@@ -802,9 +802,6 @@ export const FavouriteRestaurant = `query UserFavourite ($latitude:Float,$longit
       deliveryTime
       minimumOrder
       tax
-      isAvailable
-      reviewCount
-      reviewAverage
       reviewData{
         total
         ratings
@@ -855,6 +852,7 @@ export const FavouriteRestaurant = `query UserFavourite ($latitude:Float,$longit
         quantityMaximum
       }
       rating
+      isAvailable
       openingTimes{
         day
         times{
