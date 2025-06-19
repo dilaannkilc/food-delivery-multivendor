@@ -64,7 +64,6 @@ function OrderDetail(props) {
     onError,
     variables: { abortOrderId: id }
   })
-  
   // useEffect(() => {
   //   /* async function Track() {
   //     await Analytics.track(Analytics.events.NAVIGATE_TO_ORDER_DETAIL, {
@@ -82,10 +81,15 @@ function OrderDetail(props) {
       message: error.message
     })
   }
+let order=orders?.find((o)=>
+{
+  return o?._id === id
+})
 
-const order = orders?.find(o => o?._id??order?.id === id) ?? orderData
-//  console.log("IDSSSS:  ", {orderids: orders?.map((o) => o?._id)})
-  // console.log({order, id})
+if(!order)
+{
+  order=orderData
+}
 
   useEffect(() => {
     props?.navigation.setOptions({

@@ -14,4 +14,3 @@ export * from './configuration';
 export * from './food';
 export * from './variation';
 export * from './coupon-restaurant';
-export * from './app-versions'
