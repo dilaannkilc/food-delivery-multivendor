@@ -9,7 +9,7 @@ import {
 import React, { useEffect } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import TwitterIcon from "@mui/icons-material/Twitter";
-// import GitHubIcon from "@mui/icons-material/GitHub";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -32,15 +32,16 @@ function Footer() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  const handleButtonClick = () => {
-    try {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } catch (error) {
-      console.error("Smooth scroll failed", error);
-      // Fallback to instant scroll
-      window.scrollTo(0, 0);
-    }
-  };
+  const handleButtonClick = () => {  
+    try {  
+      window.scrollTo({ top: 0, behavior: 'smooth' });  
+    } catch (error) {  
+      console.error("Smooth scroll failed", error);  
+      // Fallback to instant scroll  
+      window.scrollTo(0, 0);  
+    }  
+  };  
+
 
   return (
     <Grid container alignItems="center">
@@ -61,7 +62,7 @@ function Footer() {
             }}
             align="center"
           >
-            {t("Enatega")}
+            Enatega
           </Typography>
           <Typography
             variant="body2"
@@ -97,11 +98,7 @@ function Footer() {
               {t("footerLinkHome")}
             </Typography>
           </RouterLink>
-          <RouterLink
-            to="/privacy"
-            onClick={handleButtonClick}
-            style={{ textDecoration: "none" }}
-          >
+          <RouterLink to="/privacy" onClick={handleButtonClick} style={{ textDecoration: "none" }}>
             <Typography
               variant="body2"
               style={{ fontWeight: 700, marginTop: 10, color: "black" }}
@@ -109,11 +106,7 @@ function Footer() {
               {t("footerLinkPP")}
             </Typography>
           </RouterLink>
-          <RouterLink
-            to="/terms"
-            onClick={handleButtonClick}
-            style={{ textDecoration: "none" }}
-          >
+          <RouterLink to="/terms" onClick={handleButtonClick} style={{ textDecoration: "none" }}>
             <Typography
               variant="body2"
               style={{ fontWeight: 700, marginTop: 10, color: "black" }}
@@ -194,7 +187,7 @@ function Footer() {
           >
             <LinkedInIcon style={{ color: theme.palette.primary.main }} />
           </Box>
-          {/* <Box
+          <Box
             className={classes.iconContainer}
             style={{ marginLeft: 10 }}
             onClick={() =>
@@ -204,9 +197,9 @@ function Footer() {
             }
           >
             <GitHubIcon style={{ color: theme.palette.primary.main }} />
-          </Box> */}
+          </Box>
         </Box>
-        {/* <Typography
+        <Typography
           variant="body2"
           style={{ fontWeight: 700, display: "inline" }}
         >
@@ -236,7 +229,7 @@ function Footer() {
           >
             ninjascode
           </Typography>
-        </Box> */}
+        </Box>
 
         <Divider
           style={{

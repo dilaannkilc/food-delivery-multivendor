@@ -35,7 +35,7 @@ export default function CategoryCards({
       <Box className={classes.top}>
         <Box pb={3}>
           <Typography variant="h5" style={{ fontWeight: 600 }}>
-            {t(title)}
+            {title}
           </Typography>
         </Box>
       </Box>
@@ -86,7 +86,7 @@ export default function CategoryCards({
               disableElevation
               onClick={() => window.open(android, "_blank")}
             >
-              {t('PlayStore')}
+              Play Store
             </Button>
             <Button
               className={classes.btn}
@@ -106,7 +106,7 @@ export default function CategoryCards({
               disableElevation
               onClick={() => window.open(ios, "_blank")}
             >
-              {t('IosStore')}
+              Ios Store
             </Button>
           </Box>
         ) : (

@@ -1,12 +1,11 @@
-import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
-import ar from './translations/ar'
-import en from './translations/en'
-import zh from './translations/zh'
-import de from './translations/de'
-import km from './translations/km'
-import fr from './translations/fr'
-import he from './translations/he'
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import ar from "./translations/ar";
+import en from "./translations/en";
+import zh from "./translations/zh";
+import de from "./translations/de";
+import km from "./translations/km";
+import fr from "./translations/fr";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -16,7 +15,6 @@ i18n.use(initReactI18next).init({
     zh: zh,
     fr: fr,
     km: km,
-    he: he
   },
   lng: localStorage.getItem("enatega-language") || "en",
   fallbackLng: "en",

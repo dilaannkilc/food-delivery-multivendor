@@ -26,8 +26,6 @@ function a11yProps(index) {
 }
 
 function RestaurantInfo({ isVisible, toggleModal, restaurantInfo }) {
-
-  console.log(restaurantInfo)
   const theme = useTheme();
   const classes = useStyles();
   const extraSmall = useMediaQuery(theme.breakpoints.down("md"));
@@ -95,7 +93,7 @@ function RestaurantInfo({ isVisible, toggleModal, restaurantInfo }) {
             justifyContent="center"
             pt={theme.spacing(2)}
           >
-            {restaurantInfo?.deals?.map((item, index) => (
+            {restaurantInfo.deals.map((item, index) => (
               <Box
                 display="flex"
                 alignItems="center"
@@ -148,7 +146,7 @@ function RestaurantInfo({ isVisible, toggleModal, restaurantInfo }) {
             {t("deliveryHours")}
           </Typography>
           <Box pt={theme.spacing(2)} />
-          {restaurantInfo.openingTimes?.map((dayOb, index) => (
+          {restaurantInfo.openingTimes.map((dayOb, index) => (
             <Box
               display="flex"
               key={`${dayOb}_${index}`}
@@ -176,7 +174,7 @@ function RestaurantInfo({ isVisible, toggleModal, restaurantInfo }) {
                     {t("closedAllDay")}
                   </Typography>
                 ) : (
-                  dayOb.times?.map((timeObj, index) => (
+                  dayOb.times.map((timeObj, index) => (
                     <Typography
                       key={`TIME_${index}`}
                       className={classes.smallText}
@@ -232,7 +230,7 @@ function RestaurantInfo({ isVisible, toggleModal, restaurantInfo }) {
           <Box className={classes.line}>
             <Divider />
           </Box>
-          {restaurantInfo.reviewData.reviews?.map((review, index) => (
+          {restaurantInfo.reviewData.reviews.map((review, index) => (
             <Box key={`REVIEW_${review._id}`}>
               <Box className={classes.reviewContainer}>
                 <Box display="flex" justifyContent="space-between">
