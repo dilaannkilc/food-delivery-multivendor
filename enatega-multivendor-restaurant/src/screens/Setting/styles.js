@@ -8,6 +8,12 @@ const styles = StyleSheet.create({
   scrollContainer: {
     justifyContent: 'center'
   },
+  topContainer: {
+    backgroundColor: colors.white,
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   bgColor: {
     backgroundColor: colors.white
   },
@@ -17,6 +23,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     justifyContent: 'space-around'
+  },
+  headingText: {
+    flex: 0.2,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   inputStyle: {
     borderBottomWidth: 0,
@@ -46,7 +57,7 @@ const styles = StyleSheet.create({
   topContainer: {
     flex: 3,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   image: {
     width: 150,
