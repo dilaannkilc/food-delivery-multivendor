@@ -10,6 +10,7 @@ import {
 import { useLocation } from '../../ui/hooks'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
 import styles from './styles'
@@ -18,6 +19,7 @@ import analytics from '../../utils/analytics'
 import { useTranslation } from 'react-i18next'
 import MapView, { PROVIDER_GOOGLE, Polygon, Marker } from 'react-native-maps'
 import { customMapStyle } from '../../utils/customMapStyles'
+import LanguageModal from '../../components/LanguageModalize/LanguageModal'
 import ModalDropdown from '../../components/Picker/ModalDropdown'
 import { LocationContext } from '../../context/Location'
 import markerIcon from '../../../assets/Group1000003768.png'
@@ -33,6 +35,7 @@ export default function CurrentLocation() {
   const { t, i18n } = useTranslation()
   const [loading, setLoading] = useState(false)
   const [isCheckingZone, setIsCheckingZone] = useState(false)
+  const inset = useSafeAreaInsets()
   const navigation = useNavigation()
   const themeContext = useContext(ThemeContext)
   const currentTheme = {
@@ -40,6 +43,7 @@ export default function CurrentLocation() {
     ...theme[themeContext.ThemeValue]
   }
   const { getCurrentLocation, getLocationPermission } = useLocation()
+  const [modalVisible, setModalVisible] = useState(false)
   const [citiesModalVisible, setCitiesModalVisible] = useState(false)
   const [currentLocation, setCurrentLocation] = useState(null)
   const { getAddress } = useGeocoding()
@@ -288,9 +292,15 @@ export default function CurrentLocation() {
             <ActivityIndicator size='large' color={currentTheme.spinnerColor} />
           </View>
         )}
-        
-        <ForceUpdate />
 
+        {!modalVisible && <ForceUpdate />}
+
+        <LanguageModal
+          currentTheme={currentTheme}
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          dontClose
+        />
         <ModalDropdown
           theme={currentTheme}
           visible={citiesModalVisible}
