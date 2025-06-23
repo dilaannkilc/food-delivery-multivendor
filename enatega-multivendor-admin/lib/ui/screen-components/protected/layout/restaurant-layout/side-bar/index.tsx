@@ -26,7 +26,6 @@ import {
 import SidebarItem from './side-bar-item';
 import { useUserContext } from '@/lib/hooks/useUser';
 import { onUseLocalStorage } from '@/lib/utils/methods';
-import { useTranslations } from 'next-intl';
 
 function AdminSidebar({ children }: IGlobalComponentProps) {
   // Context
@@ -50,9 +49,6 @@ function AdminSidebar({ children }: IGlobalComponentProps) {
 }
 
 export default function MakeSidebar() {
-  // Hooks
-  const t = useTranslations();
-
   const { isRestaurantSidebarVisible } =
     useContext<LayoutContextProps>(LayoutContext);
   const { user } = useUserContext();
@@ -65,7 +61,7 @@ export default function MakeSidebar() {
 
   const navBarItems: ISidebarMenuItem[] = [
     {
-      text: t('Dashboard'),
+      text: 'Dashboard',
       route: '/admin/store/dashboard',
       isParent: true,
       icon: faHome,
@@ -73,28 +69,28 @@ export default function MakeSidebar() {
     },
 
     {
-      text: t('Store'),
+      text: 'Store',
       route: '/admin/store/general',
       isParent: true,
       icon: faStore,
       subMenu: [
         {
-          text: t('Profile'),
+          text: 'Profile',
           route: '/admin/store/profile',
           isParent: false,
         },
         {
-          text: t('Timing'),
+          text: 'Timing',
           route: '/admin/store/general/timing',
           isParent: false,
         },
         {
-          text: t('Location'),
+          text: 'Location',
           route: '/admin/store/general/location',
           isParent: false,
         },
         {
-          text: t('Payment'),
+          text: 'Payment',
           route: '/admin/store/general/payment',
           isParent: false,
         },
@@ -102,28 +98,28 @@ export default function MakeSidebar() {
     },
 
     {
-      text: t('Product Management'),
+      text: 'Product Management',
       route: '/admin/store/product-management',
       isParent: true,
       icon: faCog,
       subMenu: [
         {
-          text: t('Products'),
+          text: 'Products',
           route: '/admin/store/product-management/food',
           isParent: false,
         },
         {
-          text: t('Categories'),
+          text: 'Categories',
           route: '/admin/store/product-management/category',
           isParent: false,
         },
         {
-          text: t('Options'),
+          text: 'Options',
           route: '/admin/store/product-management/options',
           isParent: false,
         },
         {
-          text: t('Addons'),
+          text: 'Addons',
           route: '/admin/store/product-management/add-ons',
           isParent: false,
         },
@@ -131,28 +127,28 @@ export default function MakeSidebar() {
     },
 
     {
-      text: t('Orders'),
+      text: 'Orders',
       route: '/admin/store/orders',
       isParent: true,
       icon: faRectangleList,
       isClickable: true,
     },
     {
-      text: t('Marketing'),
+      text: 'Marketing',
       route: '/admin/store/coupons',
       isParent: true,
       icon: faMoneyBillTrendUp,
       isClickable: true,
     },
     {
-      text: t('Reviews'),
+      text: 'Reviews',
       route: '/admin/store/ratings',
       isParent: true,
       icon: faStar,
       isClickable: true,
     },
     {
-      text: lastRoute ? t(`Back to ${lastRoute}`) : 'Back',
+      text: lastRoute ? `Back to ${lastRoute}` : 'Back',
       route: lastRoute == 'Vendor' ? `/admin/vendor/dashboard` : '/home',
       isParent: true,
       icon: faArrowLeft,

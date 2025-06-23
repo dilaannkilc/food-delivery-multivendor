@@ -24,16 +24,12 @@ import useToast from '@/lib/hooks/useToast';
 import { CREATE_TIPPING, EDIT_TIPPING, GET_TIPPING } from '@/lib/api/graphql';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { useMutation } from '@apollo/client';
-import { useTranslations } from 'next-intl';
 
 const TippingAddForm = () => {
   // Query
   const { loading, data } = useQueryGQL(GET_TIPPING, {
     fetchPolicy: 'cache-and-network',
   }) as IQueryResult<ITippingResponse | undefined, undefined>;
-
-  // Hooks
-  const t = useTranslations();
 
   // State
   const initialValues: ITippingsForm = {
@@ -66,8 +62,8 @@ const TippingAddForm = () => {
         onCompleted: () => {
           showToast({
             type: 'success',
-            title: t('Success'),
-            message: t('Tipping updated'),
+            title: 'Success!',
+            message: 'Tipping updated',
             duration: 3000,
           });
           resetForm();
@@ -77,11 +73,11 @@ const TippingAddForm = () => {
           try {
             message = error.graphQLErrors[0]?.message;
           } catch (err) {
-            message = t('ActionFailedTryAgain');
+            message = 'ActionFailedTryAgain';
           }
           showToast({
             type: 'error',
-            title: t('Error'),
+            title: 'Error!',
             message,
             duration: 3000,
           });
@@ -105,7 +101,7 @@ const TippingAddForm = () => {
             <div className="relative">
               <CustomNumberTextField
                 name="tip1"
-                placeholder={t('Tip 1 eg 10')}
+                placeholder="Tip 1 e.g 10"
                 min={1}
                 max={100}
                 value={values.tip1}
@@ -123,7 +119,7 @@ const TippingAddForm = () => {
             <div className="relative">
               <CustomNumberTextField
                 name="tip2"
-                placeholder={t('Tip 2 eg 20')}
+                placeholder="Tip 2 e.g 20"
                 min={1}
                 max={100}
                 isLoading={loading}
@@ -143,7 +139,7 @@ const TippingAddForm = () => {
                 name="tip3"
                 min={1}
                 max={100}
-                placeholder={t('Tip 3 eg 30')}
+                placeholder="Tip 3 e.g 30"
                 isLoading={loading}
                 showLabel={true}
                 value={values.tip3}
@@ -158,7 +154,7 @@ const TippingAddForm = () => {
             </div>
             <CustomButton
               className="mb-[2px] mt-auto flex h-11 rounded-md border-gray-300 bg-[black] px-10 text-white"
-              label={data?.tips._id ? t('Update') : t('Add')}
+              label={data?.tips._id ? 'Update' : 'Add'}
               rounded={false}
               type="submit"
               loading={mutationLoading}

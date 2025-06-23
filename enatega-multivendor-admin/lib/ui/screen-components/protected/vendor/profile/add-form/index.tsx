@@ -33,7 +33,6 @@ import { EDIT_VENDOR } from '@/lib/api/graphql';
 
 // Icons
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { useTranslations } from 'next-intl';
 
 const initialValues: IVendorForm = {
   name: '',
@@ -48,9 +47,6 @@ export default function VendorUpdateForm({
   vendorFormVisible,
   setIsUpdateProfileVisible,
 }: IVendorUpdateFormComponentProps) {
-  // Hooks
-  const t = useTranslations();
-
   // Context
   const { showToast } = useContext(ToastContext);
   const { vendorProfileResponse } = useContext(ProfileContext);
@@ -61,6 +57,7 @@ export default function VendorUpdateForm({
     ...initialValues,
   });
 
+  // API
   // Mutations
   const [createVendor] = useMutation(EDIT_VENDOR, {
     //  refetchQueries: [{ query: GET_VENDORS, fetchPolicy: 'network-only' }],
@@ -87,8 +84,8 @@ export default function VendorUpdateForm({
 
       showToast({
         type: 'success',
-        title: t('New Vendor'),
-        message: t(`Vendor has been edited successfully`),
+        title: 'New Vendor',
+        message: `Vendor has been edited successfully`,
         duration: 3000,
       });
 
@@ -96,8 +93,8 @@ export default function VendorUpdateForm({
     } catch (error) {
       showToast({
         type: 'error',
-        title: t(`Edit Vendor`),
-        message: t(`Vendor Edit Failed`),
+        title: `Edit Vendor`,
+        message: `Vendor Edit Failed`,
         duration: 2500,
       });
     }
@@ -105,11 +102,11 @@ export default function VendorUpdateForm({
   function onError({ graphQLErrors, networkError }: ApolloError) {
     showToast({
       type: 'error',
-      title: t(`Edit Vendor`),
+      title: `Edit Vendor`,
       message:
         graphQLErrors[0]?.message ??
         networkError?.message ??
-        t(`Vendor Edit Failed`),
+        `Vendor Edit Failed`,
       duration: 2500,
     });
   }
@@ -140,7 +137,7 @@ export default function VendorUpdateForm({
         <div className="h-full w-full">
           <div className="flex flex-col gap-2">
             <div className="mb-2 flex flex-col">
-              <span className="text-lg">{t('Edit Vendor')}</span>
+              <span className="text-lg">Edit Vendor</span>
             </div>
 
             <div>
@@ -167,7 +164,7 @@ export default function VendorUpdateForm({
                         <CustomTextField
                           type="text"
                           name="name"
-                          placeholder={t('Name')}
+                          placeholder="Name"
                           maxLength={35}
                           value={values.name}
                           onChange={handleChange}
@@ -185,7 +182,7 @@ export default function VendorUpdateForm({
                         <CustomIconTextField
                           type="email"
                           name="email"
-                          placeholder={t('Email')}
+                          placeholder="Email"
                           maxLength={35}
                           showLabel={true}
                           iconProperties={{
@@ -208,7 +205,7 @@ export default function VendorUpdateForm({
 
                         <CustomPasswordTextField
                           autoComplete="new-password"
-                          placeholder={t('Password')}
+                          placeholder="Password"
                           name="password"
                           maxLength={20}
                           value={values.password}
@@ -227,7 +224,7 @@ export default function VendorUpdateForm({
 
                         <CustomPasswordTextField
                           autoComplete="new-password"
-                          placeholder={t('Confirm Password')}
+                          placeholder="Confirm Password"
                           name="confirmPassword"
                           maxLength={20}
                           showLabel={true}
@@ -247,7 +244,7 @@ export default function VendorUpdateForm({
                         <CustomUploadImageComponent
                           key="image"
                           name="image"
-                          title={t('Upload Profile Image')}
+                          title="Upload Profile Image"
                           fileTypes={['image/jpg', 'image/webp', 'image/jpeg']}
                           maxFileHeight={1080}
                           maxFileWidth={1080}
@@ -270,7 +267,7 @@ export default function VendorUpdateForm({
                         <div className="mt-4 flex justify-end">
                           <CustomButton
                             className="h-10 w-fit border-gray-300 bg-black px-8 text-white"
-                            label={t('Update')}
+                            label={'Update'}
                             type="submit"
                             loading={isSubmitting}
                           />

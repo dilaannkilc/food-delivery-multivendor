@@ -32,7 +32,6 @@ import { onErrorMessageMatcher } from '@/lib/utils/methods/error';
 import { UPDATE_RESTAURANT_DELIVERY } from '@/lib/api/graphql';
 import { ApolloError, useMutation } from '@apollo/client';
 import UpdateRestaurantLocation from './update-restaurant-location';
-import { useTranslations } from 'next-intl';
 
 export default function UpdateDelivery({
   stepperProps,
@@ -42,9 +41,6 @@ export default function UpdateDelivery({
     type: '',
     order: -1,
   };
-
-  // Hooks
-  const t = useTranslations();
 
   // Context
   const { showToast } = useContext(ToastContext);
@@ -66,8 +62,8 @@ export default function UpdateDelivery({
     onCompleted: () => {
       showToast({
         type: 'success',
-        title: t('Store Delivery Info'),
-        message: t(`Store delivery info has been added successfully`),
+        title: 'Store Delivery Info',
+        message: `Store delivery info has been added successfully`,
         duration: 3000,
       });
 
@@ -89,8 +85,8 @@ export default function UpdateDelivery({
     } catch (error) {
       showToast({
         type: 'error',
-        title: t(`Failed to add Store delivery info`),
-        message: t(`Store Creation Failed`),
+        title: `Failed to add Store delivery info`,
+        message: `Store Create Failed`,
         duration: 2500,
       });
     }
@@ -99,11 +95,11 @@ export default function UpdateDelivery({
   function onError({ graphQLErrors, networkError }: ApolloError) {
     showToast({
       type: 'error',
-      title: t('Store delivery info'),
+      title: 'Store delivery info',
       message:
         graphQLErrors[0]?.message ??
         networkError?.message ??
-        t(`Store Creation Failed`),
+        `Store Create Failed`,
       duration: 2500,
     });
   }
@@ -113,7 +109,7 @@ export default function UpdateDelivery({
       <div className="h-full w-full">
         <div className="flex flex-col gap-2">
           <div className="mb-2 flex flex-col">
-            <span className="text-lg">{t('Update Delivery')}</span>
+            <span className="text-lg">Update Delivery</span>
           </div>
 
           <div>
@@ -140,7 +136,7 @@ export default function UpdateDelivery({
                         <CustomNumberField
                           min={1}
                           max={99999}
-                          placeholder={t('Min Delivery Fee')}
+                          placeholder="Min Delivery Fee"
                           name="minDeliveryFee"
                           showLabel={true}
                           useGrouping={false}
@@ -162,7 +158,7 @@ export default function UpdateDelivery({
                         <CustomNumberField
                           min={1}
                           max={99999}
-                          placeholder={t("Delivery Distance (In Km's)")}
+                          placeholder="Delivery Distance (In Km's)"
                           name="deliveryDistance"
                           showLabel={true}
                           value={values.deliveryDistance}
@@ -184,9 +180,7 @@ export default function UpdateDelivery({
                         <CustomNumberField
                           min={1}
                           max={99999}
-                          placeholder={t(
-                            "Delivery Fee (per Km's) when delivery distance exceeded"
-                          )}
+                          placeholder="Delivery Fee (per Km's) when delivery distance exceeded"
                           name="deliveryFee"
                           showLabel={true}
                           value={values.deliveryFee}
@@ -214,7 +208,7 @@ export default function UpdateDelivery({
                       <div className="mt-4 flex justify-end">
                         <CustomButton
                           className="h-10 w-fit border-gray-300 bg-black px-8 text-white"
-                          label={t('Add')}
+                          label="Add"
                           type="submit"
                           loading={isSubmitting}
                         />

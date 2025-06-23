@@ -8,7 +8,6 @@ import { IDispatchTableHeaderProps } from '@/lib/utils/interfaces/dispatch.inter
 
 // Icons
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
-import { useTranslations } from 'next-intl';
 
 // Prime react
 import { Checkbox } from 'primereact/checkbox';
@@ -21,9 +20,6 @@ export default function DispatchTableHeader({
   selectedActions,
   setSelectedActions,
 }: IDispatchTableHeaderProps) {
-  // Hooks
-  const t = useTranslations();
-
   // Ref
   const overlayPanelRef = useRef<OverlayPanel>(null);
 
@@ -40,15 +36,15 @@ export default function DispatchTableHeader({
 
   const menuItems = [
     {
-      label: t('Pending'),
+      label: 'Pending',
       value: 'PENDING',
     },
     {
-      label: t('Assigned'),
+      label: 'Assigned',
       value: 'ASSIGNED',
     },
     {
-      label: t('Accepted'),
+      label: 'Accepted',
       value: 'ACCEPTED',
     },
   ];
@@ -64,7 +60,7 @@ export default function DispatchTableHeader({
             showLabel={false}
             value={globalFilterValue}
             onChange={onGlobalFilterChange}
-            placeholder={t("Keyword Search")}
+            placeholder="Keyword Search"
           />
         </div>
         <div className="flex items-center">
@@ -74,7 +70,7 @@ export default function DispatchTableHeader({
                 <CustomTextField
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
-                  placeholder={t("Search")}
+                  placeholder="Search"
                   className="h-8 w-full"
                   type="text"
                   name="search"
@@ -103,7 +99,7 @@ export default function DispatchTableHeader({
                           htmlFor={`action-${item.value}`}
                           className="ml-1 text-sm"
                         >
-                          {t(item.label)}
+                          {item.label}
                         </label>
                       </div>
                     </div>
@@ -113,7 +109,7 @@ export default function DispatchTableHeader({
                 className="mt-3 text-center text-sm cursor-pointer"
                 onClick={() => setSelectedActions([])}
               >
-                {t("Clear filters")}
+                Clear filters
               </p>
             </div>
           </OverlayPanel>
@@ -122,7 +118,7 @@ export default function DispatchTableHeader({
             className="w-20 rounded border border-dotted border-[#E4E4E7] text-black"
             icon={faAdd}
             iconStyles={{ color: 'black' }}
-            title={selectedActions.length > 0 ? t('Filter') : t('Action')}
+            title={selectedActions.length > 0 ? 'Filter' : 'Action'}
             onClick={(e) => overlayPanelRef.current?.toggle(e)}
           />
         </div>

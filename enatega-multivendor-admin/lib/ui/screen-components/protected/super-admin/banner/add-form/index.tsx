@@ -26,7 +26,6 @@ import { getLabelByCode } from '@/lib/utils/methods/label-by-code';
 import { BannerSchema } from '@/lib/utils/schema/banner';
 import { useMutation } from '@apollo/client';
 import { Form, Formik, FormikHelpers } from 'formik';
-import { useTranslations } from 'next-intl';
 import { Sidebar } from 'primereact/sidebar';
 
 const BannersAddForm = ({
@@ -35,13 +34,9 @@ const BannersAddForm = ({
   banner,
   position = 'right',
 }: IBannersAddFormComponentProps) => {
-  // Queries
   const { data, loading } = useQueryGQL(GET_RESTAURANTS, {
     fetchPolicy: 'cache-and-network',
   }) as IQueryResult<IRestaurantsResponseGraphQL | undefined, undefined>;
-
-  // Hooks
-  const t = useTranslations();
 
   const RESTAURANT_NAMES =
     data?.restaurants?.map((v) => {
@@ -102,8 +97,8 @@ const BannersAddForm = ({
         onCompleted: () => {
           showToast({
             type: 'success',
-            title: t('Success'),
-            message: banner ? t('Banner updated') : t('Banner added'),
+            title: 'Success!',
+            message: banner ? 'Banner updated' : 'Banner added',
             duration: 3000,
           });
           resetForm();
@@ -114,11 +109,11 @@ const BannersAddForm = ({
           try {
             message = error.graphQLErrors[0]?.message;
           } catch (err) {
-            message = t('ActionFailedTryAgain');
+            message = 'ActionFailedTryAgain';
           }
           showToast({
             type: 'error',
-            title: t('Error'),
+            title: 'Error!',
             message,
             duration: 3000,
           });
@@ -138,9 +133,7 @@ const BannersAddForm = ({
         <div className="h-full w-full">
           <div className="flex flex-col gap-2">
             <div className="mb-2 flex flex-col">
-              <span className="text-lg">
-                {banner ? t('Edit') : t('Add')} {t('Banner')}
-              </span>
+              <span className="text-lg">{banner ? 'Edit' : 'Add'} Banner</span>
             </div>
 
             <div>
@@ -166,7 +159,7 @@ const BannersAddForm = ({
                           <CustomTextField
                             type="text"
                             name="title"
-                            placeholder={t('Title')}
+                            placeholder="Title"
                             maxLength={35}
                             value={values.title}
                             onChange={handleChange}
@@ -186,7 +179,7 @@ const BannersAddForm = ({
                           <CustomTextField
                             type="text"
                             name="description"
-                            placeholder={t('Description')}
+                            placeholder="Description"
                             maxLength={35}
                             value={values.description}
                             onChange={handleChange}
@@ -205,7 +198,7 @@ const BannersAddForm = ({
 
                         <div>
                           <CustomDropdownComponent
-                            placeholder={t('Actions')}
+                            placeholder="Actions"
                             options={ACTION_TYPES}
                             showLabel={true}
                             name="action"
@@ -226,7 +219,7 @@ const BannersAddForm = ({
 
                         <div>
                           <CustomDropdownComponent
-                            placeholder={t('Screen')}
+                            placeholder="Screen"
                             options={
                               values.action?.code ===
                               'Navigate Specific Restaurant'
@@ -263,7 +256,7 @@ const BannersAddForm = ({
                           <CustomUploadImageComponent
                             key={'file'}
                             name="file"
-                            title={t('Upload file')}
+                            title="Upload Image"
                             fileTypes={[
                               'image/jpg',
                               'image/webp',
@@ -275,7 +268,7 @@ const BannersAddForm = ({
                               'image/gif',
                             ]}
                             maxFileHeight={841}
-                            maxFileWidth={1980}
+                            maxFileWidth={1080}
                             maxFileSize={MAX_LANSDCAPE_FILE_SIZE}
                             maxVideoSize={MAX_VIDEO_FILE_SIZE}
                             orientation="LANDSCAPE"
@@ -288,7 +281,7 @@ const BannersAddForm = ({
                         <div className="m-4 flex justify-end">
                           <CustomButton
                             className="h-10 w-fit border-gray-300 bg-black px-8 text-white"
-                            label={banner ? t('Update') : t('Add')}
+                            label={banner ? 'Update' : 'Add'}
                             type="submit"
                             loading={mutationLoading}
                           />

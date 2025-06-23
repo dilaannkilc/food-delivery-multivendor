@@ -1,29 +1,14 @@
-// Hooks
-import { useState, useContext, useEffect } from 'react';
-import { useConfiguration } from '@/lib/hooks/useConfiguration';
-import { useTranslations } from 'next-intl';
-
-// Components
+import React, { useState, useContext, useEffect } from 'react';
 import PaymentCard from '@/lib/ui/useable-components/PaymentCard';
 import PaymentCardSkeleton from '@/lib/ui/useable-components/custom-skeletons/payment.card.skeleton';
-
-// Contexts
+import { useConfiguration } from '@/lib/hooks/useConfiguration';
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
+import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
+import { IPaymentMethod } from '@/lib/utils/interfaces/payment.card.interface';
 import { ToastContext } from '@/lib/context/global/toast.context';
 
-// Icons
-import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
-
-// Interfaces
-import { IPaymentMethod } from '@/lib/utils/interfaces/payment.card.interface';
-
 export default function PaymentMain() {
-
-  // Hooks
   const { SERVER_URL } = useConfiguration();
-  const t = useTranslations()
-
-  // Contexts
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const { showToast } = useContext(ToastContext);
   const { restaurantId } = restaurantLayoutContextData;
@@ -47,8 +32,8 @@ export default function PaymentMain() {
     } catch (error) {
       showToast({
         type: 'error',
-        title: t('Stripe Payment'),
-        message: t('Error connecting to Stripe'),
+        title: 'Stripe Payment',
+        message: 'Error connecting to Stripe',
       });
     } finally {
       setSubmittingMethod(null);
@@ -62,7 +47,7 @@ export default function PaymentMain() {
         {
           id: 'stripe',
           name: 'Stripe',
-          description: 'Connect with Stripe for payments',
+          description: 'Connect with Stripe for payments.',
           icon: faCreditCard,
           type: 'stripe',
           onClick: handleStripeSubmit,

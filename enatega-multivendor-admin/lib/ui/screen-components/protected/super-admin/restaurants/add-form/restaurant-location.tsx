@@ -28,7 +28,6 @@ export default function RestaurantLocation({
     onStepChange: () => {},
   };
 
-  // Contexts
   const { isLoaded } = useContext(GoogleMapsContext);
 
   // States

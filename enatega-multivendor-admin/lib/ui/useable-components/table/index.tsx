@@ -11,7 +11,6 @@ import {
   DataTableSelectionMultipleChangeEvent,
 } from 'primereact/datatable';
 import DataTableColumnSkeleton from '../custom-skeletons/datatable.column.skeleton';
-import { useTranslations } from 'next-intl';
 const Table = <T extends ITableExtends>({
   header,
   data,
@@ -31,9 +30,6 @@ const Table = <T extends ITableExtends>({
   ) => {
     setSelectedData(e.value);
   };
-
-  // Hooks
-  const t = useTranslations();
 
   const rowClassName = (data: T) => {
     let className = '';
@@ -74,7 +70,6 @@ const Table = <T extends ITableExtends>({
         removableSort
         rowClassName={rowClassName}
         onRowClick={handleRowClick}
-        emptyMessage={t("No available options")}
       >
         {isSelectable && (
           <Column

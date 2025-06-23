@@ -28,7 +28,6 @@ import Table from '@/lib/ui/useable-components/table';
 import CuisineTableHeader from '../header/table-header';
 import { generateDummyCuisines } from '@/lib/utils/dummy';
 import { CUISINE_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/cuisine-columns';
-import { useTranslations } from 'next-intl';
 
 export default function CuisinesMain({
   setVisible,
@@ -49,8 +48,7 @@ export default function CuisinesMain({
     onCompleted: () => setIsLoading(false),
   }) as ILazyQueryResult<IGetCuisinesData | undefined, undefined>;
 
-  // Hooks
-  const t = useTranslations();
+  // Toast
   const { showToast } = useContext(ToastContext);
 
   // States
@@ -85,7 +83,7 @@ export default function CuisinesMain({
   // Menu Items
   const menuItems: IActionMenuItem<ICuisine>[] = [
     {
-      label: t('Edit'),
+      label: 'Edit',
       command: (data?: ICuisine) => {
         if (data) {
           setIsEditing({
@@ -107,7 +105,7 @@ export default function CuisinesMain({
       },
     },
     {
-      label: t('Delete'),
+      label: 'Delete',
       command: (data?: ICuisine) => {
         if (data) {
           setIsDeleting({
@@ -135,17 +133,17 @@ export default function CuisinesMain({
     try {
       await deleteCuisine({ variables: { id: isDeleting?.data?._id } });
       showToast({
-        title: t('Delete Cuisine'),
+        title: 'Delete Cuisine',
         type: 'success',
-        message: t('Cuisine has been deleted successfully'),
+        message: 'Cuisine has been deleted successfully',
         duration: 2000,
       });
       setIsDeleting({ bool: false, data: { ...isDeleting.data } });
     } catch (err) {
       showToast({
-        title: t('Delete Cuisine'),
+        title: 'Delete Cuisine',
         type: 'error',
-        message: t('Cuisine Deletion Failed'),
+        message: 'Cuisine Deletion Failed',
         duration: 2000,
       });
     }
@@ -191,7 +189,7 @@ export default function CuisinesMain({
         }}
         visible={isDeleting.bool}
         loading={deleteCuisineLoading}
-        message={t('Are you sure to delete the cuisine?')}
+        message="Are you sure to delete the cuisine?"
       />
     </div>
   );

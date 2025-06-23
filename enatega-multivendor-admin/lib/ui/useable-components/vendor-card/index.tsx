@@ -38,7 +38,6 @@ import { ToastContext } from '@/lib/context/global/toast.context';
 
 // Utils & Constants
 import { SELECTED_VENDOR_EMAIL } from '@/lib/utils/constants';
-import { useTranslations } from 'next-intl';
 
 export default function VendorCard({
   _id,
@@ -47,17 +46,14 @@ export default function VendorCard({
   totalRestaurants,
   name,
   image,
-  isLast = false,
+  isLast,
 }: IVendorCardProps) {
-  // Hooks
-  const t = useTranslations();
-
   // Context
   const { vendorId, onSetVendorId, vendorResponse, onResetVendor } =
     useContext(VendorContext);
   const { onSetVendorFormVisible } = useContext(VendorContext);
   const { showToast } = useContext(ToastContext);
-  // States
+  // Statees
   const [isPopupOpen, setPopupOpen] = useState<boolean>(false);
   const [isDeletePopupOpen, setDeletePopupOpen] = useState<boolean>(false);
   const router = useRouter();
@@ -68,8 +64,8 @@ export default function VendorCard({
     onCompleted: () => {
       showToast({
         type: 'success',
-        title: t('Vendor Delete'),
-        message: t('Vendor has been deleted successfully'),
+        title: 'Vendor Delete',
+        message: 'Vendor has been deleted successfully',
       });
 
       onResetVendor(true); // so after refetching is vendor can be selected.
@@ -78,11 +74,11 @@ export default function VendorCard({
     onError: ({ networkError, graphQLErrors }: ApolloError) => {
       showToast({
         type: 'error',
-        title: t('Vendor Delete'),
+        title: 'Vendor Delete',
         message:
           graphQLErrors[0]?.message ??
           networkError?.message ??
-          t('Vendor Deletion  Failed'),
+          'Vendor Deletion  Failed',
         duration: 2500,
       });
     },
@@ -107,8 +103,8 @@ export default function VendorCard({
     } catch (error) {
       showToast({
         type: 'error',
-        title: t('Vendor Delete'),
-        message: t('Vendor delete failed'),
+        title: 'Vendor Delete',
+        message: 'Vendor delete failed',
       });
     }
   };
@@ -155,7 +151,7 @@ export default function VendorCard({
         <div className="flex flex-1 flex-col gap-y-1">
           <TextComponent
             className={`text-card-h3 flex flex-1 text-xs text-${vendorId === _id ? 'white' : 'black'}`}
-            text={name ?? t('Vendor')}
+            text={name ?? 'Vendor'}
           />
           <TextComponent
             className={`text-card-h3 flex flex-1 text-xs text-${vendorId === _id ? 'white' : 'black'}`}
@@ -203,21 +199,21 @@ export default function VendorCard({
                 close={() => setPopupOpen(false)}
                 items={[
                   {
-                    title: t('View'),
+                    title: 'View',
                     icon: faEye,
                     fn: onHandlerView,
                     data: vendorId,
                     color: 'text-gray-600',
                   },
                   {
-                    title: t('Edit'),
+                    title: 'Edit',
                     icon: faEdit,
                     fn: onHandlerEdit,
                     data: vendorId,
                     color: 'text-gray-600',
                   },
                   {
-                    title: t('Delete'),
+                    title: 'Delete',
                     icon: faTrash,
                     fn: onHandlerDelete,
                     data: null,

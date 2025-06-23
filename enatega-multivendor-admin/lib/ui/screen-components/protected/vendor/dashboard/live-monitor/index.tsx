@@ -7,21 +7,17 @@ import {
   IVendorLiveMonitorProps,
   IVendorLiveMonitorResponseGraphQL,
 } from '@/lib/utils/interfaces';
-import { useTranslations } from 'next-intl';
 import React, { useContext } from 'react';
 
 export default function VendorLiveMonitor({
   dateFilter,
 }: IVendorLiveMonitorProps) {
-  // Hooks
-  const t = useTranslations();
-
-  // Contexts
   const {
     vendorLayoutContextData: { vendorId },
   } = useContext(VendorLayoutContext);
 
-  // Queries
+  console.log(dateFilter);
+
   const { data } = useQueryGQL(
     GET_VENDOR_LIVE_MONITOR,
     {
@@ -47,11 +43,9 @@ export default function VendorLiveMonitor({
 
   return (
     <div className="mx-auto max-w-md p-2 lg:p-4">
-      <h1 className="text-base font-semibold lg:text-lg">
-        {t('Live Monitor')}
-      </h1>
+      <h1 className="text-base font-semibold lg:text-lg">Live Monitor</h1>
       <p className="mb-2 text-sm text-gray-500 lg:mb-4 lg:text-base">
-        {t('Track the health of your business')}
+        Track the health of your business
       </p>
       <div className="grid grid-cols-2 gap-2 lg:grid-cols-1 lg:gap-4">
         <div className="flex items-center rounded-lg border p-2 lg:p-4">
@@ -61,7 +55,7 @@ export default function VendorLiveMonitor({
             </span>
           </div>
           <div className="ml-2 lg:ml-4">
-            <h2 className="lg:text-md text-sm font-semibold">{t('Stores')}</h2>
+            <h2 className="lg:text-md text-sm font-semibold">Stores</h2>
             <p className="text-xs text-gray-500 lg:text-sm">
               {dateFilter.dateKeyword}
             </p>
@@ -75,7 +69,7 @@ export default function VendorLiveMonitor({
           </div>
           <div className="ml-2 lg:ml-4">
             <h2 className="lg:text-md text-sm font-semibold">
-              {t('Cancelled Orders')}
+              Cancelled Orders
             </h2>
             <p className="text-xs text-gray-500 lg:text-sm">
               {dateFilter.dateKeyword}
@@ -89,9 +83,7 @@ export default function VendorLiveMonitor({
             </span>
           </div>
           <div className="ml-2 lg:ml-4">
-            <h2 className="lg:text-md text-sm font-semibold">
-              {t('Delayed Orders')}
-            </h2>
+            <h2 className="lg:text-md text-sm font-semibold">Delayed Orders</h2>
             <p className="text-xs text-gray-500 lg:text-sm">
               {dateFilter.dateKeyword}
             </p>
@@ -104,7 +96,7 @@ export default function VendorLiveMonitor({
             </span>
           </div>
           <div className="ml-2 lg:ml-4">
-            <h2 className="lg:text-md text-sm font-semibold">{t('Ratings')}</h2>
+            <h2 className="lg:text-md text-sm font-semibold">Ratings</h2>
             <p className="text-xs text-gray-500 lg:text-sm">
               {dateFilter.dateKeyword}
             </p>

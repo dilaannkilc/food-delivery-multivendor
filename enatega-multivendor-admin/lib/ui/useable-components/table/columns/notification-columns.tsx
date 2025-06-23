@@ -11,11 +11,9 @@ import { GET_NOTIFICATIONS, SEND_NOTIFICATION_USER } from '@/lib/api/graphql';
 
 // Contexts
 import { ToastContext } from '@/lib/context/global/toast.context';
-import { useTranslations } from 'next-intl';
 
 export const NOTIFICATIONS_TABLE_COLUMNS = () => {
-  // Hooks
-  const t = useTranslations();
+  // Toast
   const { showToast } = useContext(ToastContext);
 
   // Mutations
@@ -25,17 +23,17 @@ export const NOTIFICATIONS_TABLE_COLUMNS = () => {
       onCompleted: () => {
         showToast({
           type: 'success',
-          title: t('Resend Notification'),
-          message: t('The notification has been resent successfully'),
+          title: 'Resend Notification',
+          message: 'The notification has been resent successfully',
         });
       },
       onError: (err) => {
         showToast({
           type: 'error',
-          title: t('Resend Notification'),
+          title: 'Resend Notification',
           message:
             err?.cause?.message ||
-            t('An error occured while resending the notification'),
+            'An error occured while resending the notification',
         });
       },
       refetchQueries: [{ query: GET_NOTIFICATIONS }],
@@ -56,15 +54,15 @@ export const NOTIFICATIONS_TABLE_COLUMNS = () => {
   const notification_columns = useMemo(
     () => [
       {
-        headerName: t('Title'),
+        headerName: 'Title',
         propertyName: 'title',
       },
       {
-        headerName: t('Description'),
+        headerName: 'description',
         propertyName: 'body',
       },
       {
-        headerName: t('Date'),
+        headerName: 'Date',
         propertyName: 'createdAt',
         body: (rowData: INotification) => {
           const seconds = parseInt(rowData.createdAt);
@@ -73,7 +71,7 @@ export const NOTIFICATIONS_TABLE_COLUMNS = () => {
         },
       },
       {
-        headerName: t('Change Status'),
+        headerName: 'Change Status',
         propertyName: 'status',
         body: (rowData: INotification) => (
           <CustomButton

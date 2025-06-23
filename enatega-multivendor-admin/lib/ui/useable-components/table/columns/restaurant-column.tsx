@@ -21,16 +21,12 @@ import { DELETE_RESTAURANT } from '@/lib/api/graphql';
 
 // Components
 import ActionMenu from '../../action-menu';
-import { useTranslations } from 'next-intl';
 
 export const RESTAURANT_TABLE_COLUMNS = ({
   menuItems,
 }: {
   menuItems: IActionMenuProps<IRestaurantResponse>['items'];
 }) => {
-  // Hooks
-  const t = useTranslations();
-
   // Context
   const { showToast } = useContext(ToastContext);
 
@@ -45,8 +41,8 @@ export const RESTAURANT_TABLE_COLUMNS = ({
     onCompleted: () => {
       showToast({
         type: 'success',
-        title: t('Store Status'),
-        message: `${t('Store has been marked as')} ${deletingRestaurant.isActive ? t('in-active') : t('active')}`,
+        title: 'Store Status',
+        message: `Store has been marked as ${deletingRestaurant.isActive ? 'in-active' : 'active'}`,
         duration: 2000,
       });
     },
@@ -67,8 +63,8 @@ export const RESTAURANT_TABLE_COLUMNS = ({
     } catch (err) {
       showToast({
         type: 'error',
-        title: t('Store Status'),
-        message: `${t('Store marked as')} ${isActive ? t('in-active') : t('active')} ${t('failed')}`,
+        title: 'Store Status',
+        message: `Store marked as ${isActive ? 'in-active' : 'active'} failed`,
         duration: 2000,
       });
     } finally {
@@ -82,11 +78,11 @@ export const RESTAURANT_TABLE_COLUMNS = ({
   function onError({ graphQLErrors, networkError }: ApolloError) {
     showToast({
       type: 'error',
-      title: t('Store Status Change'),
+      title: 'Store Status Change',
       message:
         graphQLErrors[0]?.message ??
         networkError?.message ??
-        t('Store Status Change Failed'),
+        'Store Status Change Failed',
       duration: 2500,
     });
 
@@ -98,14 +94,14 @@ export const RESTAURANT_TABLE_COLUMNS = ({
 
   return [
     {
-      headerName: t('Image'),
+      headerName: 'Image',
       propertyName: 'image',
       body: (restaurant: IRestaurantResponse) => {
         return (
           <Image
             width={30}
             height={30}
-            alt={t('Store')}
+            alt="Store"
             src={
               restaurant.image
                 ? restaurant.image
@@ -115,33 +111,36 @@ export const RESTAURANT_TABLE_COLUMNS = ({
         );
       },
     },
-    { headerName: t('ID'), propertyName: 'unique_restaurant_id' },
-    { headerName: t('Name'), propertyName: 'name' },
-    { headerName: t('Vendor'), propertyName: 'username' },
+    { headerName: 'ID', propertyName: 'unique_restaurant_id' },
+    { headerName: 'Name', propertyName: 'name' },
+    { headerName: 'Vendor', propertyName: 'username' },
     {
-      headerName: t('Email'),
+      headerName: 'Email',
       propertyName: 'owner.email',
     },
-    { headerName: t('Address'), propertyName: 'address' },
+    { headerName: 'Address', propertyName: 'address' },
     {
-      headerName: t('Status'),
+      headerName: 'Status',
       propertyName: 'actions',
       body: (rowData: IRestaurantResponse) => {
         return (
           <CustomInputSwitch
-            className="prevent-row-click"
+            // className="no-row-click2"
             loading={rowData?._id === deletingRestaurant?.id}
             isActive={rowData.isActive}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={async (e) => {
               e.stopPropagation();
-              onHandleRestaurantStatusChange(rowData.isActive, rowData._id);
+              await onHandleRestaurantStatusChange(
+                rowData.isActive,
+                rowData._id
+              );
             }}
           />
         );
       },
     },
     {
-      headerName: t('Actions'),
+      headerName: 'Actions',
       propertyName: 'actions',
       body: (rowData: IRestaurantResponse) => (
         <ActionMenu items={menuItems} data={rowData} />
