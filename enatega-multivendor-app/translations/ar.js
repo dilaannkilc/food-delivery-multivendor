@@ -642,7 +642,6 @@ loginRequired: 'مطلوب تسجيل الدخول',
   'Instruction for the courier': 'تعليمات للمندوب',
   'Instructions': 'التعليمات',
   Popular: 'شائع',
-  Reloading: '...جارٍ إعادة التحميل',
-  "Sorry! we can't deliver to your address.": ".عذرًا! لا يمكننا التوصيل إلى عنوانك",
+  Reloading: '...جارٍ إعادة التحميل'
 
 }

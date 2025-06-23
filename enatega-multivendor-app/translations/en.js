@@ -647,7 +647,5 @@ export const en = {
   'Instruction for the courier': 'Instruction for the courier',
   'Instructions': 'Instructions',
   Popular: 'Popular',
-  Reloading: 'Reloading...',
-  "Sorry! we can't deliver to your address.": "Sorry! we can't deliver to your address.",
-
+  Reloading: 'Reloading...'
 }
