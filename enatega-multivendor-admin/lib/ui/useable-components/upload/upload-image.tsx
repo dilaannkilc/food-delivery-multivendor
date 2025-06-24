@@ -30,7 +30,6 @@ import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { MAX_VIDEO_FILE_SIZE } from '@/lib/utils/constants';
-import { useTranslations } from 'next-intl';
 
 function CustomUploadImageComponent({
   name,
@@ -47,9 +46,6 @@ function CustomUploadImageComponent({
   orientation,
   maxVideoSize = MAX_VIDEO_FILE_SIZE,
 }: IImageUploadComponentProps) {
-  // Hoooks
-  const t = useTranslations();
-
   // Context
   const configuration: IConfiguration | undefined =
     useContext(ConfigurationContext);
@@ -82,48 +78,48 @@ function CustomUploadImageComponent({
           if (videoSize > maxVideoSize) {
             showToast({
               type: 'error',
-              title: t('Upload Video'),
-              message: `${t('Video size must be')} < ${maxVideoSize}`,
+              title: 'Upload Video',
+              message: `Video size must be < ${maxVideoSize}`,
             });
             setImageValidationErr({
               bool: true,
-              msg: `${t('Video size must be')} < ${maxVideoSize}`,
+              msg: `Video size must be < ${maxVideoSize}`,
             });
             resolve(false);
             return false;
           } else if (video.videoWidth > maxFileWidth) {
             showToast({
               type: 'error',
-              title: t('Upload Video'),
-              message: `${t('Video width must be')} < ${maxFileWidth}`,
+              title: 'Upload Video',
+              message: `Video width must be < ${maxFileWidth}`,
             });
             setImageValidationErr({
               bool: true,
-              msg: `${t('Video width must be')} < ${maxFileWidth}`,
+              msg: `Video width must be < ${maxFileWidth}`,
             });
             resolve(false);
             return false;
           } else if (video.videoHeight > maxFileHeight) {
             showToast({
               type: 'error',
-              title: t('Upload Video'),
-              message: `${t('Video height must be')} < ${maxFileHeight}`,
+              title: 'Upload Video',
+              message: `Video height must be < ${maxFileHeight}`,
             });
             setImageValidationErr({
               bool: true,
-              msg: `${t('Video height must be')} < ${maxFileHeight}`,
+              msg: `Video height must be < ${maxFileHeight}`,
             });
             resolve(false);
             return false;
           } else if (isInvalidVideo) {
             showToast({
               type: 'error',
-              title: t('Upload Video'),
-              message: t(`Video dimensions must follow the guidelines`),
+              title: 'Upload Video',
+              message: `Video dimensions must follow the guidelines`,
             });
             setImageValidationErr({
               bool: true,
-              msg: t(`Video dimensions must follow the guidelines`),
+              msg: `Video dimensions must follow the guidelines`,
             });
             resolve(false);
             return false;
@@ -169,12 +165,12 @@ function CustomUploadImageComponent({
               if (invalidOrientation) {
                 showToast({
                   type: 'error',
-                  title: t('Image Upload'),
-                  message: `${t('The image should be in')} ${orientation} ${t('orientation')}.`,
+                  title: 'Image Upload',
+                  message: `The image should be in ${orientation} orientation.`,
                 });
                 setImageValidationErr({
                   bool: true,
-                  msg: `${t('The image should be in')} ${orientation} ${t('orientation')}.`,
+                  msg: `Image should be ${orientation} oriented.`,
                 });
                 setImageFile('');
                 return resolve({ imgSrc: '', isValid: false });
@@ -184,8 +180,8 @@ function CustomUploadImageComponent({
               if (img.width > maxFileWidth) {
                 showToast({
                   type: 'error',
-                  title: t('Image Upload'),
-                  message: `${t('The file width exceeds the limit of')} ${maxFileWidth}.`,
+                  title: 'Image Upload',
+                  message: `The file width exceeds the limit of ${maxFileWidth}.`,
                 });
                 setImageValidationErr({
                   bool: true,
@@ -199,12 +195,12 @@ function CustomUploadImageComponent({
               if (img.height > maxFileHeight) {
                 showToast({
                   type: 'error',
-                  title: t('Image Upload'),
-                  message: `${t('The file height exceeds the limit of')} ${maxFileHeight}.`,
+                  title: 'Image Upload',
+                  message: `The file height exceeds the limit of ${maxFileHeight}.`,
                 });
                 setImageValidationErr({
                   bool: true,
-                  msg: `${t('File height should be')} < ${maxFileHeight}`,
+                  msg: `File height should be < ${maxFileHeight}`,
                 });
                 setImageFile('');
                 return resolve({ imgSrc: '', isValid: false });
@@ -219,12 +215,12 @@ function CustomUploadImageComponent({
             img.onerror = () => {
               showToast({
                 type: 'error',
-                title: t('Image Upload'),
-                message: t('An error occurred while loading the image'),
+                title: 'Image Upload',
+                message: 'An error occurred while loading the image.',
               });
               setImageValidationErr({
                 bool: true,
-                msg: t('Error during image load'),
+                msg: 'Error during image load.',
               });
               setImageFile('');
               resolve({ imgSrc: '', isValid: false });
@@ -236,12 +232,12 @@ function CustomUploadImageComponent({
           console.error(error);
           showToast({
             type: 'error',
-            title: t('Image Upload'),
-            message: t('An unexpected error occurred, Please try again'),
+            title: 'Image Upload',
+            message: 'An unexpected error occurred. Please try again.',
           });
           setImageValidationErr({
             bool: true,
-            msg: t('Unexpected error occurred'),
+            msg: 'Unexpected error occurred.',
           });
           setImageFile('');
           resolve({ imgSrc: '', isValid: false });
@@ -294,7 +290,7 @@ function CustomUploadImageComponent({
                 showToast({
                   type: 'info',
                   title: title,
-                  message: `${fileTypes.includes('video/webm') || fileTypes.includes('video/mp4') ? t('File') : t('Image')} ${t("has been uploaded successfully")}.`,
+                  message: `${fileTypes.includes('video/webm') || fileTypes.includes('video/mp4') ? 'File' : 'Image'} has been uploaded successfully.`,
                   duration: 2500,
                 });
               })
@@ -303,7 +299,7 @@ function CustomUploadImageComponent({
                 showToast({
                   type: 'error',
                   title: title,
-                  message: `${fileTypes.includes('video/webm') || fileTypes.includes('video/mp4') ? t('File') : t('Image')} ${t("Upload Failed")}`,
+                  message: `${fileTypes.includes('video/webm') || fileTypes.includes('video/mp4') ? 'File' : 'Image'} Upload Failed`,
                   duration: 2500,
                 });
                 console.log('errrror=====>', err);
@@ -356,7 +352,7 @@ function CustomUploadImageComponent({
   };
   return (
     <div className="flex flex-col items-center justify-center gap-3">
-      <span className="mx-auto self-start text-sm font-[600]">{t(title)}</span>
+      <span className="mx-auto self-start text-sm font-[600]">{title}</span>
       <div
         style={style}
         className={
@@ -382,7 +378,7 @@ function CustomUploadImageComponent({
                       <>
                         <FontAwesomeIcon icon={faUpload} size="sm" />
                         <p className="w-36 text-xs text-gray-600">
-                          {t('Drag & Drop Image Here')}
+                          Drag & Drop Image Here
                         </p>
                       </>
                     )}
@@ -428,17 +424,17 @@ function CustomUploadImageComponent({
               </button>
             );
           }}
-          chooseLabel={t("Upload Image")}
+          chooseLabel="Upload Image"
           chooseOptions={
             page === 'vendor-profile-edit'
               ? {
                   className: `z-50 bg-white max-[500px]:ml-[-20px] ${!imageFile ? 'text-gray-700' : imageValidationErr.bool && !imageFile ? 'text-[#E4E4E7]' : 'text-[#E4E4E7]'} border border-[#E4E4E7] rounded-md items-center justify-center relative left-[20%] translate-y-[45px] w-[173px] h-[40px] text-[14px] gap-[5px] font-medium`,
-                  label: t('Upload Image'),
+                  label: 'Upload Image',
                   icon: () => <FontAwesomeIcon icon={faArrowUpFromBracket} />,
                 }
               : {
                   className: `z-50 bg-gray-200 ${!imageFile ? 'text-gray-700' : imageValidationErr.bool && !imageFile ? 'text-red-900' : 'text-gray-700'} border border-gray-500 rounded-md items-center justify-center relative left-[20%] translate-y-[45px] w-32 h-8 text-xs`,
-                  label: t('Browse Files'),
+                  label: 'Browse Files',
                   icon: () => <></>,
                 }
           }
@@ -506,12 +502,12 @@ function CustomUploadImageComponent({
         {/* Rules  */}
         {page === 'vendor-profile-edit' ? (
           <pre className="w-full text-gray-600 text-[14px] text-[#71717A] font-medium mt-[10px] xl:ml-[31px] whitespace-normal lg:whitespace-nowrap">
-            <strong>{t('Recommended Size')}</strong>: {maxFileWidth} x{' '}
-            {maxFileHeight} pixel{' '}
+            <strong>Recommended Size</strong>: {maxFileWidth} x {maxFileHeight}{' '}
+            pixel{' '}
             <span className="ml-2 text-[14px] text-[#71717A] font-medium">
-              <strong>{t('Upload File Type')}:</strong>{' '}
+              <strong>Upload File Type:</strong>{' '}
               <span className="text-[14px] text-[#71717A] font-normal">
-                {t('PNG or JPG')}
+                PNG or JPG
               </span>{' '}
             </span>
             {/* {fileTypes?.map((type, index) => {
@@ -525,15 +521,15 @@ function CustomUploadImageComponent({
         ) : (
           <>
             <pre className="w-full text-xs text-gray-600">
-              {`${t('Prefered dimensions')} ${maxFileWidth} x ${maxFileHeight}`}{' '}
+              {`Prefered dimensions ${maxFileWidth} x ${maxFileHeight}`}{' '}
               <span className="text-red-600">*</span>
             </pre>
             <pre className="w-full text-xs text-gray-600">
-              {`${t('Prefered File size')} < ${maxFileSize === 2097152 ? '2MB' : '500KB'}`}
+              {`Prefered File size < ${maxFileSize === 2097152 ? '2MB' : '500KB'}`}
               <span className="text-red-600">*</span>
             </pre>
             <pre className="max-auto flex w-full flex-wrap items-center text-wrap text-xs">
-              <strong>{t('Allowed file types')}:</strong>
+              <strong>Allowed file types:</strong>
               {fileTypes?.map((type, index) => {
                 return (
                   <pre className="w-full text-xs text-gray-600" key={index}>

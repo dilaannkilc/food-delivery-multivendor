@@ -20,6 +20,7 @@ import RestaurantDuplicateDialog from '../duplicate-dialog';
 import RestaurantsTableHeader from '../header/table-header';
 import Table from '@/lib/ui/useable-components/table';
 import CustomDialog from '@/lib/ui/useable-components/delete-dialog';
+import { RESTAURANT_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/restaurant-column';
 
 // Constants and Interfaces
 import {
@@ -42,13 +43,8 @@ import { onUseLocalStorage } from '@/lib/utils/methods';
 // Dummy
 import { generateDummyRestaurants } from '@/lib/utils/dummy';
 import { DataTableRowClickEvent } from 'primereact/datatable';
-import { useTranslations } from 'next-intl';
-import { RESTAURANT_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/restaurant-column';
 
 export default function RestaurantsMain() {
-  // Hooks
-  const t = useTranslations();
-
   // Context
   const { showToast } = useContext(ToastContext);
   const { currentTab } = useContext(RestaurantsContext);
@@ -87,8 +83,8 @@ export default function RestaurantsMain() {
       onCompleted: () => {
         showToast({
           type: 'success',
-          title: t('Store Delete'),
-          message: t(`Store has been deleted successfully`),
+          title: 'Store Delete',
+          message: `Store has been deleted successfully.`,
           duration: 2000,
         });
         setDeleteId('');
@@ -96,11 +92,11 @@ export default function RestaurantsMain() {
       onError: ({ networkError, graphQLErrors }: ApolloError) => {
         showToast({
           type: 'error',
-          title: t('Store Delete'),
+          title: 'Store Delete',
           message:
             graphQLErrors[0]?.message ??
             networkError?.message ??
-            t(`Store delete failed`),
+            `Store delete failed`,
           duration: 2500,
         });
         setDeleteId('');
@@ -150,8 +146,8 @@ export default function RestaurantsMain() {
     } catch (err) {
       showToast({
         type: 'error',
-        title: t('Store Delete'),
-        message: t(`Store delete failed`),
+        title: 'Store Delete',
+        message: `Store delete failed.`,
       });
       setDeleteId('');
     }
@@ -160,7 +156,7 @@ export default function RestaurantsMain() {
   // Constants
   const menuItems: IActionMenuItem<IRestaurantResponse>[] = [
     {
-      label: t('View'),
+      label: 'View',
       command: (data?: IRestaurantResponse) => {
         if (data) {
           onUseLocalStorage('save', 'restaurantId', data?._id);
@@ -171,7 +167,7 @@ export default function RestaurantsMain() {
       },
     },
     {
-      label: t('Duplicate'),
+      label: 'Duplicate',
       command: (data?: IRestaurantResponse) => {
         if (data) {
           setDuplicateId(data._id);
@@ -179,7 +175,7 @@ export default function RestaurantsMain() {
       },
     },
     {
-      label: t('Delete'),
+      label: 'Delete',
       command: (data?: IRestaurantResponse) => {
         if (data) {
           setDeleteId(data._id);
@@ -209,17 +205,16 @@ export default function RestaurantsMain() {
         columns={RESTAURANT_TABLE_COLUMNS({ menuItems })}
         loading={loading}
         handleRowClick={(event: DataTableRowClickEvent) => {
-          const target = event.originalEvent.target as HTMLElement | null;
-
-          if (target?.closest('.prevent-row-click')) {
+          const target = event.originalEvent.target as HTMLElement;
+          if (target.closest('.no-row-click2')) {
             return;
           }
-
           onUseLocalStorage('save', 'restaurantId', event.data._id);
           const routeStack = ['Admin'];
           onUseLocalStorage('save', 'routeStack', JSON.stringify(routeStack));
           router.push(`/admin/store/`);
         }}
+        
       />
 
       <CustomDialog
@@ -231,7 +226,7 @@ export default function RestaurantsMain() {
         onConfirm={() => {
           handleDelete(deleteId);
         }}
-        message={t('Are you sure you want to delete this store?')}
+        message="Are you sure you want to delete this store?"
       />
 
       <RestaurantDuplicateDialog

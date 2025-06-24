@@ -13,17 +13,12 @@ import { IRiderResponse } from '@/lib/utils/interfaces/rider.interface';
 import { GET_RIDERS, TOGGLE_RIDER } from '@/lib/api/graphql';
 import { useMutation } from '@apollo/client';
 import { ToastContext } from '@/lib/context/global/toast.context';
-import { useTranslations } from 'next-intl';
 
 export const RIDER_TABLE_COLUMNS = ({
   menuItems,
 }: {
   menuItems: IActionMenuProps<IRiderResponse>['items'];
 }) => {
-  // Hooks
-  const t = useTranslations();
-
-  // States
   const [selectedRider, setSelectedRider] = useState<{
     id: string;
     isActive: boolean;
@@ -38,8 +33,8 @@ export const RIDER_TABLE_COLUMNS = ({
     onError: () => {
       showToast({
         type: 'error',
-        title: t('Banner Status'),
-        message: t('Status Change Failed'),
+        title: 'Banner Status',
+        message: 'Status Change Failed',
       });
     },
   });
@@ -52,8 +47,8 @@ export const RIDER_TABLE_COLUMNS = ({
     } catch (error) {
       showToast({
         type: 'error',
-        title: t('Banner Status'),
-        message: t('Something went wrong'),
+        title: 'Banner Status',
+        message: 'Something went wrong',
       });
     } finally {
       setSelectedRider({ id: '', isActive: false });
@@ -61,16 +56,16 @@ export const RIDER_TABLE_COLUMNS = ({
   };
 
   return [
-    { headerName: t('Name'), propertyName: 'name' },
-    { headerName: t('Username'), propertyName: 'username' },
-    { headerName: t('Phone'), propertyName: 'phone' },
+    { headerName: 'Name', propertyName: 'name' },
+    { headerName: 'Username', propertyName: 'username' },
+    { headerName: 'Phone', propertyName: 'phone' },
     {
-      headerName: t('Zone'),
+      headerName: 'Zone',
       propertyName: 'zone',
       body: (rider: IRiderResponse) => rider.zone.title,
     },
     {
-      headerName: t('Available'),
+      headerName: 'Available',
       propertyName: 'available',
       body: (rider: IRiderResponse) => (
         <CustomInputSwitch

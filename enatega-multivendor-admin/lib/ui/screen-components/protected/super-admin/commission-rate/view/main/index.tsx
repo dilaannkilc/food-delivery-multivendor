@@ -22,20 +22,16 @@ import { useMutation } from '@apollo/client';
 import { useContext, useEffect, useState } from 'react';
 
 // Table column definitions
+import { COMMISSION_RATE_COLUMNS } from '@/lib/ui/useable-components/table/columns/comission-rate-columns';
 import { COMMISSION_RATE_ACTIONS } from '@/lib/utils/constants';
 
 import CommissionRateHeader from '../header/table-header';
-import { useTranslations } from 'next-intl';
-import { COMMISSION_RATE_COLUMNS } from '@/lib/ui/useable-components/table/columns/comission-rate-columns';
 
 interface RestaurantsData {
   restaurants: IRestaurantResponse[];
 }
 
 export default function CommissionRateMain() {
-  //Hooks
-  const t = useTranslations();
-
   // States
   const [restaurants, setRestaurants] = useState<IRestaurantResponse[]>([]);
   const [editingRestaurantIds, setEditingRestaurantIds] = useState<Set<string>>(
@@ -64,16 +60,17 @@ export default function CommissionRateMain() {
   // Handlers
   const handleSave = async (restaurantId: string) => {
     const restaurant = restaurants.find((r) => r._id === restaurantId);
+    // Validation
+    if (parseFloat(String(restaurant?.commissionRate)) > 100) {
+      return showToast({
+        type: 'error',
+        title: 'Update Commission',
+        message:
+          'As Commission Rate is a %age value, please enter a value in between 0 to 100',
+      });
+    }
     if (restaurant) {
       setLoadingRestaurant(restaurantId);
-      if(restaurant?.commissionRate>100){
-        setLoadingRestaurant(null);
-        return showToast({
-          type:"error",
-          title:t('Commission Updated'),
-          message:t('As commission rate is a %age value so it cannot exceed a max value of 100')
-        })
-      }
       try {
         await updateCommissionMutation({
           variables: {
@@ -83,8 +80,8 @@ export default function CommissionRateMain() {
         });
         showToast({
           type: 'success',
-          title: t('Commission Updated'),
-          message: `${t('Commission rate updated for')} ${restaurant.name}`,
+          title: 'Commission Updated',
+          message: `Commission rate updated for ${restaurant.name}`,
           duration: 2000,
         });
         setEditingRestaurantIds((prev) => {
@@ -96,8 +93,8 @@ export default function CommissionRateMain() {
       } catch (error) {
         showToast({
           type: 'error',
-          title: t('Error'),
-          message: `${t('Error updating commission rate for')} ${restaurant.name}`,
+          title: 'Error',
+          message: `Error updating commission rate for ${restaurant.name}`,
           duration: 2000,
         });
       } finally {
@@ -172,10 +169,9 @@ export default function CommissionRateMain() {
     } else if (error) {
       showToast({
         type: 'error',
-        title: t('Error Fetching Restaurants'),
-        message: t(
-          'An error occurred while fetching restaurants. Please try again later.'
-        ),
+        title: 'Error Fetching Restaurants',
+        message:
+          'An error occurred while fetching restaurants. Please try again later.',
         duration: 2000,
       });
     }

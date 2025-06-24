@@ -648,5 +648,6 @@ export const en = {
   'Instructions': 'Instructions',
   Popular: 'Popular',
   Reloading: 'Reloading...',
-  OrderPriceValidation:"Your order amount is below the restaurant's minimum order requirement. Please add more items to your cart."
+  "Sorry! we can't deliver to your address.": "Sorry! we can't deliver to your address.",
+
 }

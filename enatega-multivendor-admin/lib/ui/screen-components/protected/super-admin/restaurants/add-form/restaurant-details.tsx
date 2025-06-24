@@ -23,7 +23,12 @@ import CustomIconTextField from '@/lib/ui/useable-components/input-icon-field';
 import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-field';
 
 // Constants
-import { MAX_LANSDCAPE_FILE_SIZE, MAX_SQUARE_FILE_SIZE, RestaurantErrors, SHOP_TYPE } from '@/lib/utils/constants';
+import {
+  MAX_LANSDCAPE_FILE_SIZE,
+  MAX_SQUARE_FILE_SIZE,
+  RestaurantErrors,
+  SHOP_TYPE,
+} from '@/lib/utils/constants';
 
 // Interface
 import { IRestaurantForm } from '@/lib/utils/interfaces';
@@ -50,7 +55,6 @@ import { IRestaurantsAddRestaurantComponentProps } from '@/lib/utils/interfaces/
 import { toTextCase } from '@/lib/utils/methods';
 import { RestaurantSchema } from '@/lib/utils/schema/restaurant';
 import { ApolloCache, ApolloError, useMutation } from '@apollo/client';
-import { useTranslations } from 'next-intl';
 
 const initialValues: IRestaurantForm = {
   name: '',
@@ -71,9 +75,6 @@ const initialValues: IRestaurantForm = {
 export default function RestaurantDetailsForm({
   stepperProps,
 }: IRestaurantsAddRestaurantComponentProps) {
-  // Hooks
-  const t = useTranslations();
-
   // Props
   const { onStepChange, order } = stepperProps ?? {
     onStepChange: () => {},
@@ -96,8 +97,8 @@ export default function RestaurantDetailsForm({
     }) => {
       showToast({
         type: 'success',
-        title: t('New Store'),
-        message: t(`Store has been added successfully`),
+        title: 'New Store',
+        message: `Store has been added successfully`,
         duration: 3000,
       });
 
@@ -138,8 +139,8 @@ export default function RestaurantDetailsForm({
       if (!vendorId) {
         showToast({
           type: 'error',
-          title: t('Create Store'),
-          message: t(`Store Creation Failed - Please select a vendor.`),
+          title: 'Create Store',
+          message: `Store Creation Failed - Please select a vendor.`,
           duration: 2500,
         });
         return;
@@ -168,8 +169,8 @@ export default function RestaurantDetailsForm({
     } catch (error) {
       showToast({
         type: 'error',
-        title: t('New Store'),
-        message: t(`Store Creation Failed`),
+        title: 'New Store',
+        message: `Store Creation Failed`,
         duration: 2500,
       });
     }
@@ -178,11 +179,11 @@ export default function RestaurantDetailsForm({
   function onError({ graphQLErrors, networkError }: ApolloError) {
     showToast({
       type: 'error',
-      title: t('New Store'),
+      title: 'New Store',
       message:
         graphQLErrors[0]?.message ??
         networkError?.message ??
-        t('Store Creation  Failed'),
+        'Store Creation  Failed',
       duration: 2500,
     });
   }
@@ -241,7 +242,7 @@ export default function RestaurantDetailsForm({
                         <CustomTextField
                           type="text"
                           name="name"
-                          placeholder={t('Name')}
+                          placeholder="Name"
                           maxLength={35}
                           value={values.name}
                           onChange={handleChange}
@@ -262,7 +263,7 @@ export default function RestaurantDetailsForm({
                         <CustomIconTextField
                           type="email"
                           name="username"
-                          placeholder={t('Email')}
+                          placeholder="Email"
                           maxLength={35}
                           showLabel={true}
                           iconProperties={{
@@ -286,7 +287,7 @@ export default function RestaurantDetailsForm({
 
                       <div>
                         <CustomPasswordTextField
-                          placeholder={t('Password')}
+                          placeholder="Password"
                           name="password"
                           maxLength={20}
                           value={values.password}
@@ -306,7 +307,7 @@ export default function RestaurantDetailsForm({
 
                       <div>
                         <CustomPasswordTextField
-                          placeholder={t('Confirm Password')}
+                          placeholder="Confirm Password"
                           name="confirmPassword"
                           maxLength={20}
                           showLabel={true}
@@ -327,7 +328,7 @@ export default function RestaurantDetailsForm({
 
                       <div>
                         <CustomTextField
-                          placeholder={t('Address')}
+                          placeholder="Address"
                           name="address"
                           type="text"
                           maxLength={100}
@@ -351,7 +352,7 @@ export default function RestaurantDetailsForm({
                           suffix="m"
                           min={0}
                           max={500}
-                          placeholder={t('Delivery Time')}
+                          placeholder="Delivery Time"
                           name="deliveryTime"
                           showLabel={true}
                           value={values.deliveryTime}
@@ -372,7 +373,7 @@ export default function RestaurantDetailsForm({
                         <CustomNumberField
                           min={1}
                           max={99999}
-                          placeholder={t('Min Order')}
+                          placeholder="Min Order"
                           name="minOrder"
                           showLabel={true}
                           value={values.minOrder}
@@ -393,7 +394,7 @@ export default function RestaurantDetailsForm({
                           prefix="%"
                           min={0}
                           max={100}
-                          placeholder={t('Service Charges')}
+                          placeholder="Service Charges"
                           minFractionDigits={2}
                           maxFractionDigits={2}
                           name="salesTax"
@@ -414,7 +415,7 @@ export default function RestaurantDetailsForm({
                       <div>
                         <CustomDropdownComponent
                           name="shopType"
-                          placeholder={t('Shop Category')}
+                          placeholder="Shop Category"
                           selectedItem={values.shopType}
                           setSelectedItem={setFieldValue}
                           options={SHOP_TYPE}
@@ -434,7 +435,7 @@ export default function RestaurantDetailsForm({
                       <div>
                         <CustomMultiSelectComponent
                           name="cuisines"
-                          placeholder={t('Cuisines')}
+                          placeholder="Cuisines"
                           options={cuisinesDropdown ?? []}
                           selectedItems={values.cuisines}
                           setSelectedItems={setFieldValue}
@@ -454,7 +455,7 @@ export default function RestaurantDetailsForm({
                         <CustomUploadImageComponent
                           key="logo"
                           name="logo"
-                          title={t('Upload Profile Image')}
+                          title="Upload Profile Image"
                           onSetImageUrl={setFieldValue}
                           style={{
                             borderColor: onErrorMessageMatcher(
@@ -476,7 +477,7 @@ export default function RestaurantDetailsForm({
                         <CustomUploadImageComponent
                           key={'image'}
                           name="image"
-                          title={t('Upload Image')}
+                          title="Upload Image"
                           onSetImageUrl={setFieldValue}
                           style={{
                             borderColor: onErrorMessageMatcher(
@@ -491,7 +492,7 @@ export default function RestaurantDetailsForm({
                           showExistingImage={true}
                           fileTypes={['image/webp', 'image/jpg', 'image/jpeg']}
                           maxFileHeight={841}
-                          maxFileWidth={1980}
+                          maxFileWidth={1080}
                           maxFileSize={MAX_LANSDCAPE_FILE_SIZE}
                           orientation="LANDSCAPE"
                         />
@@ -500,13 +501,13 @@ export default function RestaurantDetailsForm({
                       <div className="mt-4 flex justify-between">
                         <CustomButton
                           className="h-10 w-fit border-gray-300 bg-black px-8 text-white"
-                          label={t('Back')}
+                          label="Back"
                           type="button"
                           onClick={() => onStepChange(order - 1)}
                         />
                         <CustomButton
                           className="h-10 w-fit border-gray-300 bg-black px-8 text-white"
-                          label={t('Save & Next')}
+                          label="Save & Next"
                           type="submit"
                           loading={isSubmitting}
                         />

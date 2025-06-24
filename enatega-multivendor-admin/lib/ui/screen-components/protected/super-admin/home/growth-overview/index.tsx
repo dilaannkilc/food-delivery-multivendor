@@ -10,14 +10,10 @@ import {
   IQueryResult,
 } from '@/lib/utils/interfaces';
 import DashboardUsersByYearStatsSkeleton from '@/lib/ui/useable-components/custom-skeletons/dasboard.user.year.stats.skeleton';
-import { useTranslations } from 'next-intl';
 
 // Dummy
 
 export default function GrowthOverView() {
-  // Hooks
-  const t = useTranslations();
-
   // States
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
@@ -57,22 +53,22 @@ export default function GrowthOverView() {
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
     const data = {
       labels: [
-        t('January'),
-        t('February'),
-        t('March'),
-        t('April'),
-        t('May'),
-        t('June'),
-        t('July'),
-        t('August'),
-        t('September'),
-        t('October'),
-        t('November'),
-        t('December'),
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
       ],
       datasets: [
         {
-          label: t('Stores'),
+          label: 'Stores',
           data: dashboardUsersByYear?.restaurantsCount ?? [],
           fill: false,
           borderColor: documentStyle.getPropertyValue('--pink-500'),
@@ -80,7 +76,7 @@ export default function GrowthOverView() {
           tension: 0.5,
         },
         {
-          label: t('Vendors'),
+          label: 'Vendors',
           data: dashboardUsersByYear?.vendorsCount ?? [],
           fill: false,
           borderColor: documentStyle.getPropertyValue('--blue-500'),
@@ -88,7 +84,7 @@ export default function GrowthOverView() {
           tension: 0.5,
         },
         {
-          label: t('Riders'),
+          label: 'Riders',
           data: dashboardUsersByYear?.ridersCount ?? [],
           fill: false,
           borderColor: documentStyle.getPropertyValue('--yellow-500'),
@@ -96,7 +92,7 @@ export default function GrowthOverView() {
           tension: 0.5,
         },
         {
-          label: t('Users'),
+          label: 'Users',
           data: dashboardUsersByYear?.usersCount ?? [],
           fill: true,
 
@@ -150,10 +146,10 @@ export default function GrowthOverView() {
   }, [dashboardUsersByYear]);
 
   return (
-    <div className={`w-full p-3`}>
-      <h2 className="text-lg font-semibold">{t('Growth Overview')}</h2>
+    <div className={`w-auto p-3`}>
+      <h2 className="text-lg font-semibold">Growth Overview</h2>
       <p className="text-gray-500">
-        {t('Tracking Stackholders Growth Over the Year')}
+        Tracking Stackholders Growth Over the Year
       </p>
       <div className="mt-4">
         {loading ? (

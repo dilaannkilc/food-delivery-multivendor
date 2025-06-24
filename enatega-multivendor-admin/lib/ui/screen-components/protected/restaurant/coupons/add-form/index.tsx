@@ -31,7 +31,6 @@ import {
   EDIT_RESTAURANT_COUPON,
 } from '@/lib/api/graphql/mutations/coupons-restaurant';
 import { GET_RESTAURANT_COUPONS } from '@/lib/api/graphql/queries/coupons-restaurant';
-import { useTranslations } from 'next-intl';
 
 export default function CouponsAddForm({
   onHide,
@@ -52,7 +51,6 @@ export default function CouponsAddForm({
   };
 
   // Hooks
-  const t = useTranslations();
   const { showToast } = useToast();
 
   // Mutation
@@ -81,8 +79,8 @@ export default function CouponsAddForm({
       onCompleted: () => {
         showToast({
           type: 'success',
-          title: t('Success'),
-          message: coupon ? t('Coupon updated') : t('Coupon added'),
+          title: 'Success!',
+          message: coupon ? 'Coupon updated' : 'Coupon added',
           duration: 3000,
         });
         resetForm();
@@ -93,11 +91,11 @@ export default function CouponsAddForm({
         try {
           message = error.graphQLErrors[0]?.message;
         } catch (err) {
-          message = t('ActionFailedTryAgain');
+          message = 'ActionFailedTryAgain';
         }
         showToast({
           type: 'error',
-          title: t('Error'),
+          title: 'Error!',
           message,
           duration: 3000,
         });
@@ -116,9 +114,7 @@ export default function CouponsAddForm({
         <div className="h-full w-full">
           <div className="flex flex-col gap-2">
             <div className="mb-2 flex flex-col">
-              <span className="text-lg">
-                {coupon ? t('Edit') : t('Add')} {t('Coupon')}
-              </span>
+              <span className="text-lg">{coupon ? 'Edit' : 'Add'} Coupon</span>
             </div>
 
             <div>
@@ -142,7 +138,7 @@ export default function CouponsAddForm({
                         <CustomTextField
                           type="text"
                           name="title"
-                          placeholder={t('Title')}
+                          placeholder="Title"
                           maxLength={35}
                           value={values.title}
                           onChange={handleChange}
@@ -155,7 +151,7 @@ export default function CouponsAddForm({
 
                         <CustomNumberField
                           min={0}
-                          placeholder={t('Discount')}
+                          placeholder="Discount"
                           minFractionDigits={0}
                           maxFractionDigits={2}
                           name="discount"
@@ -175,12 +171,12 @@ export default function CouponsAddForm({
                             setFieldValue('enabled', !values.enabled);
                           }}
                           showLabel
-                          placeholder={t('Status')}
+                          placeholder="Status"
                         />
 
                         <CustomButton
                           className="h-10 ml-auto  w-fit border-gray-300 bg-black px-8 text-white"
-                          label={coupon ? t('Update') : t('Add')}
+                          label={coupon ? 'Update' : 'Add'}
                           type="submit"
                           loading={mutationLoading}
                         />

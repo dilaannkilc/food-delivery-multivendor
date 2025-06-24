@@ -31,10 +31,8 @@ export default function useAccount() {
   }, [data])
 
   function onCompleted({ toggleAvailability }) {
-    console.log(toggleAvailability)
     if (toggleAvailability) {
-      setIsAvailable(
-        toggleAvailability.isAvailable)
+      setIsAvailable(toggleAvailability.isAvailable)
     }
   }
 

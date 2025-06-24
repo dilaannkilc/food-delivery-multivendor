@@ -48,7 +48,6 @@ import { faAdd, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Fieldset } from 'primereact/fieldset';
 import { useContext, useEffect, useMemo, useState } from 'react';
-import { useTranslations } from 'next-intl';
 
 // State
 const initialFormValuesTemplate: IAddonForm = {
@@ -74,7 +73,6 @@ export default function AddonAddForm({
   isAddAddonVisible,
 }: IAddonAddFormComponentProps) {
   // Hooks
-  const t = useTranslations();
   const { showToast } = useToast();
   // Context
 
@@ -123,8 +121,8 @@ export default function AddonAddForm({
       onCompleted: () => {
         showToast({
           type: 'success',
-          title: t('New Addon'),
-          message: `${t('Addon have been')} ${addon ? t('edited') : t('added')} ${t('successfully')}.`,
+          title: 'New Addons(s)',
+          message: `Addons(s) have been ${addon ? 'edited' : 'added'} successfully.`,
         });
 
         onHide();
@@ -134,11 +132,11 @@ export default function AddonAddForm({
         try {
           message = error.graphQLErrors[0]?.message;
         } catch (err) {
-          message = `${t('Something went wrong')}.`;
+          message = 'Something went wrong.';
         }
         showToast({
           type: 'error',
-          title: t('New Addon'),
+          title: 'New Addons(s)',
           message,
         });
       },
@@ -151,8 +149,8 @@ export default function AddonAddForm({
   function onErrorFetchAddonsByRestaurant() {
     showToast({
       type: 'error',
-      title: t('Addons Fetch'),
-      message: t('Addons fetch failed'),
+      title: 'Addons Fetch',
+      message: 'Addons fetch failed',
       duration: 2500,
     });
   }
@@ -224,9 +222,7 @@ export default function AddonAddForm({
         <div className="h-full w-full">
           <div className="flex flex-col gap-2">
             <div className="mb-2 flex flex-col">
-              <span className="text-lg">
-                {addon ? t('Edit') : t('Add')} {t('Option')}
-              </span>
+              <span className="text-lg">{addon ? 'Edit' : 'Add'} Option</span>
             </div>
 
             <div className="mb-2">
@@ -282,7 +278,7 @@ export default function AddonAddForm({
                                                 <CustomTextField
                                                   type="text"
                                                   name={`addons[${index}].title`}
-                                                  placeholder={t('Title')}
+                                                  placeholder="Title"
                                                   maxLength={35}
                                                   value={value.title}
                                                   onChange={(e) =>
@@ -311,9 +307,7 @@ export default function AddonAddForm({
                                                   max={99999}
                                                   minFractionDigits={0}
                                                   maxFractionDigits={0}
-                                                  placeholder={t(
-                                                    'Minimum Quantity'
-                                                  )}
+                                                  placeholder="Minimum Quantity"
                                                   showLabel={true}
                                                   value={value.quantityMinimum}
                                                   onChangeFieldValue={
@@ -339,9 +333,7 @@ export default function AddonAddForm({
                                                   max={99999}
                                                   minFractionDigits={0}
                                                   maxFractionDigits={0}
-                                                  placeholder={t(
-                                                    'Maximum Quantity'
-                                                  )}
+                                                  placeholder="Maximum Quantity"
                                                   showLabel={true}
                                                   value={value.quantityMaximum}
                                                   onChangeFieldValue={
@@ -364,7 +356,7 @@ export default function AddonAddForm({
                                               <div className="col-span-12 sm:col-span-12">
                                                 <CustomTextAreaField
                                                   name={`addons[${index}].description`}
-                                                  placeholder={t('Description')}
+                                                  placeholder="Description"
                                                   value={value.description}
                                                   onChange={handleChange}
                                                   showLabel={true}
@@ -386,7 +378,7 @@ export default function AddonAddForm({
                                               <div className="col-span-12 sm:col-span-12">
                                                 <CustomMultiSelectComponent
                                                   name={`addons[${index}].options`}
-                                                  placeholder={t('Options')}
+                                                  placeholder="Options"
                                                   options={
                                                     optionsDropdown ?? []
                                                   }
@@ -421,7 +413,7 @@ export default function AddonAddForm({
                                     className="w-full rounded border border-black bg-transparent text-black"
                                     icon={faAdd}
                                     iconStyles={{ color: 'black' }}
-                                    title={t('Add New Addon')}
+                                    title="Add New Addon"
                                     onClick={() =>
                                       push(initialFormValuesTemplate)
                                     }
@@ -435,7 +427,7 @@ export default function AddonAddForm({
                         <div className="mt-4 flex justify-end">
                           <CustomButton
                             className="h-10 w-fit border-gray-300 bg-black px-8 text-white"
-                            label={addon ? t('Edit') : t('Add')}
+                            label={addon ? 'Edit' : 'Add'}
                             type="submit"
                             loading={mutationLoading}
                           />

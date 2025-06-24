@@ -33,7 +33,6 @@ import useToast from '@/lib/hooks/useToast';
 import { GET_RESTAURANT_PROFILE } from '@/lib/api/graphql';
 import { UPDATE_TIMINGS } from '@/lib/api/graphql/mutations/timing';
 import { useMutation, useQuery } from '@apollo/client';
-import { useTranslations } from 'next-intl';
 
 const UpdateTiming = ({
   stepperProps,
@@ -49,7 +48,6 @@ const UpdateTiming = ({
     useContext(ProfileContext);
 
   // Hooks
-  const t = useTranslations();
   const { showToast } = useToast();
 
   const { data, loading } = useQuery(GET_RESTAURANT_PROFILE, {
@@ -105,8 +103,8 @@ const UpdateTiming = ({
       onCompleted: () => {
         showToast({
           type: 'success',
-          title: t('Success'),
-          message: t('Timing updated'),
+          title: 'Success!',
+          message: 'Timing updated',
           duration: 3000,
         });
 
@@ -119,11 +117,11 @@ const UpdateTiming = ({
         try {
           message = error.graphQLErrors[0]?.message;
         } catch (err) {
-          message = t('ActionFailedTryAgain');
+          message = 'ActionFailedTryAgain';
         }
         showToast({
           type: 'error',
-          title: t('Error'),
+          title: 'Error!',
           message,
           duration: 3000,
         });
@@ -134,7 +132,7 @@ const UpdateTiming = ({
   return (
     <div className="flex flex-col gap-2 rounded">
       <div className="mb-2 flex flex-col">
-        <span className="text-lg">{t('Update Timing')}</span>
+        <span className="text-lg">Update Timing</span>
       </div>
       <Formik
         initialValues={initialValues}
@@ -189,7 +187,7 @@ const UpdateTiming = ({
                                     );
                                   }}
                                   isLoading={loading}
-                                  placeholder={t('Start Time')}
+                                  placeholder="Start Time"
                                   style={{
                                     borderColor:
                                       (
@@ -228,7 +226,7 @@ const UpdateTiming = ({
                                     );
                                   }}
                                   isLoading={loading}
-                                  placeholder={t('End Time')}
+                                  placeholder="End Time"
                                   style={{
                                     borderColor:
                                       (
@@ -287,7 +285,7 @@ const UpdateTiming = ({
                   ) : (
                     <div className="flex min-h-10 flex-1 items-center justify-start">
                       <span className="select-none rounded-full bg-black px-3 py-1 text-xs text-white">
-                        {t('Closed all Day')}
+                        Closed all Day
                       </span>
                     </div>
                   )}
@@ -297,7 +295,7 @@ const UpdateTiming = ({
 
             <CustomButton
               className="mb-[2px] mr-auto mt-auto flex h-11 rounded-md border-gray-300 bg-[black] px-10 text-white"
-              label={t('Save')}
+              label={'Save'}
               rounded={false}
               disabled={loading}
               type="submit"

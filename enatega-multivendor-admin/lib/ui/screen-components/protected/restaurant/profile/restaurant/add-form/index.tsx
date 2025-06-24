@@ -16,18 +16,12 @@ import UpdateTiming from './update-timing';
 
 // Interfaces & Types
 import { IRestaurantsAddFormComponentProps } from '@/lib/utils/interfaces';
-import { useTranslations } from 'next-intl';
 
 const UpdateRestaurantsProfileForm = ({
   position = 'right',
 }: IRestaurantsAddFormComponentProps) => {
-  // Hooks
-  const t = useTranslations();
-
-  // Refs
   const stepperRef = useRef(null);
 
-  // Contexts
   const {
     isUpdateProfileVisible,
     setIsUpdateProfileVisible,
@@ -35,7 +29,6 @@ const UpdateRestaurantsProfileForm = ({
     onActiveStepChange,
   } = useContext(ProfileContext);
 
-  // Handlers
   const onHandleStepChange = (order: number) => {
     console.log('next step', order);
     onActiveStepChange(order);
@@ -55,7 +48,7 @@ const UpdateRestaurantsProfileForm = ({
     >
       <div ref={stepperRef}>
         <Stepper linear headerPosition="bottom" activeStep={activeIndex}>
-          <StepperPanel header={t('Update Details')}>
+          <StepperPanel header="Update Details">
             <UpdateRestaurantDetails
               stepperProps={{
                 onStepChange: onHandleStepChange,
@@ -63,7 +56,7 @@ const UpdateRestaurantsProfileForm = ({
               }}
             />
           </StepperPanel>
-          <StepperPanel header={t('Update Location')}>
+          <StepperPanel header="Update Location">
             <UpdateRestaurantLocation
               stepperProps={{
                 onStepChange: onHandleStepChange,
@@ -72,7 +65,7 @@ const UpdateRestaurantsProfileForm = ({
               }}
             />
           </StepperPanel>
-          <StepperPanel header={t('Update Timings')}>
+          <StepperPanel header="Update Timings">
             <UpdateTiming
               stepperProps={{
                 onStepChange: onHandleStepChange,

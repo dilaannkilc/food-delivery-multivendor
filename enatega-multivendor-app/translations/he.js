@@ -632,5 +632,6 @@ loginRequired: 'נדרש התחברות',
   'Instructions': 'التعليمات',
   Popular: 'פופולרי',
   Reloading: '...טוען מחדש',
-  OrderPriceValidation: "סכום ההזמנה שלך נמוך מהמינימום הנדרש על ידי המסעדה. אנא הוסף פריטים נוספים לעגלת הקניות שלך.",
+  "Sorry! we can't deliver to your address.": ".מצטערים! לא ניתן לבצע משלוח לכתובת שלכם",
+
 }

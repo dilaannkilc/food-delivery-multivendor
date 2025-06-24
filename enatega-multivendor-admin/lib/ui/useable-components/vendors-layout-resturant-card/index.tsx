@@ -40,7 +40,6 @@ import { VendorLayoutRestaurantContext } from '@/lib/context/vendor/restaurant.c
 import { FrameSVG } from '@/lib/utils/assets/svgs/Frame';
 import { CarSVG } from '@/lib/utils/assets/svgs/Car';
 import { ConfigurationContext } from '@/lib/context/global/configuration.context';
-import { useTranslations } from 'next-intl';
 
 export default function VendorsLayoutRestaurantCard({
   restaurant,
@@ -57,7 +56,6 @@ export default function VendorsLayoutRestaurantCard({
   } = restaurant;
 
   // Hooks
-  const t = useTranslations();
   const { showToast } = useContext(ToastContext);
 
   const { vendorId, isRestaurantModifed, setRestaurantModifed } = useContext(
@@ -67,7 +65,7 @@ export default function VendorsLayoutRestaurantCard({
   const configuration = useContext(ConfigurationContext);
 
   if (!configuration) {
-    throw new Error(t('Cannot get the value of configuration context'));
+    throw new Error('Cannot get the value of configuration context');
   }
 
   const { deliveryRate } = configuration;
@@ -89,19 +87,19 @@ export default function VendorsLayoutRestaurantCard({
       onCompleted: () => {
         showToast({
           type: 'success',
-          title: t('Store Delete'),
-          message: `${t('Store has been deleted successfully')}.`,
+          title: 'Store Delete',
+          message: `Store has been deleted successfully.`,
           duration: 2000,
         });
       },
       onError: ({ networkError, graphQLErrors }: ApolloError) => {
         showToast({
           type: 'error',
-          title: t('Store Delete'),
+          title: 'Store Delete',
           message:
             graphQLErrors[0]?.message ??
             networkError?.message ??
-            t(`Store delete failed`),
+            `Store delete failed`,
           duration: 2500,
         });
       },
@@ -119,19 +117,19 @@ export default function VendorsLayoutRestaurantCard({
     onCompleted: () => {
       showToast({
         type: 'success',
-        title: t('Store Status'),
-        message: `${t('Store has been marked as')} ${isActive ? t('active') : t('in-active')}`,
+        title: 'Store Status',
+        message: `Store has been marked as ${isActive ? 'active' : 'in-active'}`,
       });
       setRestaurantModifed(!isRestaurantModifed);
     },
     onError: ({ networkError, graphQLErrors }: ApolloError) => {
       showToast({
         type: 'error',
-        title: t('Store Status'),
+        title: 'Store Status (Un-changed)',
         message:
           graphQLErrors?.[0]?.message ??
           networkError?.message ??
-          `${t('Store marked as')} ${isActive ? t('in-active') : t('active')} failed`,
+          `Store marked as ${isActive ? 'in-active' : 'actie'} failed`,
       });
     },
   });
@@ -144,8 +142,8 @@ export default function VendorsLayoutRestaurantCard({
       console.log(err);
       showToast({
         type: 'error',
-        title: t('Store Status'),
-        message: `${t('Store marked as')} ${isActive ? t('active') : t('in-active')} failed`,
+        title: 'Store Status',
+        message: `Store marked as ${isActive ? 'active' : 'in-active'} failed`,
         duration: 2000,
       });
     }
@@ -161,7 +159,7 @@ export default function VendorsLayoutRestaurantCard({
         {image ? (
           <Image
             src={image}
-            alt={t('Store Logo')}
+            alt="Store Logo"
             className="mr-3 h-10 w-10 flex-shrink-0 rounded-full"
             width={40}
             height={40}
@@ -215,24 +213,22 @@ export default function VendorsLayoutRestaurantCard({
         {/* Delivery Time */}
         <div className="flex items-center gap-2 rounded-lg border border-gray-300 p-2 mb-2 text-sm">
           <FrameSVG width="24" height="24" />
-          <span>
-            {restaurant?.deliveryTime} {t('min')}
-          </span>
+          <span>{restaurant?.deliveryTime} min</span>
         </div>
 
         {/* Delivery Fee */}
         <div className="flex items-center gap-2 rounded-lg border border-gray-300 p-2 mb-2 text-sm">
           <CarSVG width="24" height="24" />
           <span>
-            {'₪'} {deliveryRate}
+            {'$'} {deliveryRate}
           </span>
         </div>
 
         {/* Minimum Order */}
         <div className="flex items-center gap-1 rounded-lg border border-gray-300 p-2 mb-2 text-sm">
-          <span>{t('Min Order')}</span>
+          <span>Min Order</span>
           <span>
-            {'₪'} {restaurant?.minimumOrder}
+            {'$'} {restaurant?.minimumOrder}
           </span>
         </div>
       </div>
@@ -240,7 +236,7 @@ export default function VendorsLayoutRestaurantCard({
       <div className="mb-2 px-4">
         <CustomButton
           className="h-10 w-full bg-[#EBEDE6] text-black"
-          label={t('View Details')}
+          label="View Details"
           onClick={() => {
             onUseLocalStorage('save', 'restaurantId', _id);
             // Get the existing route stack from local storage
@@ -256,7 +252,7 @@ export default function VendorsLayoutRestaurantCard({
               'routeStack',
               JSON.stringify(updatedRouteStack)
             );
-            router.push(`/admin/store/`);
+            router.push(`/admin/store`);
           }}
         />
       </div>

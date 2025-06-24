@@ -33,7 +33,6 @@ import { GET_ADDONS_BY_RESTAURANT_ID } from '@/lib/api/graphql/queries/addon';
 
 // Context
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
-import { useTranslations } from 'next-intl';
 
 export default function OptionMain({
   setIsAddAddonVisible,
@@ -44,7 +43,6 @@ export default function OptionMain({
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
 
   // Hooks
-  const t = useTranslations();
   const { showToast } = useToast();
 
   // State - Table
@@ -99,8 +97,8 @@ export default function OptionMain({
   function onErrorFetchAddonsByRestaurant() {
     showToast({
       type: 'error',
-      title: t('Addons Fetch'),
-      message: t('Addons fetch failed'),
+      title: 'Addons Fetch',
+      message: 'Addons fetch failed',
       duration: 2500,
     });
   }
@@ -108,7 +106,7 @@ export default function OptionMain({
   // Constants
   const menuItems: IActionMenuItem<IAddon>[] = [
     {
-      label: t('Edit'),
+      label: 'Edit',
       command: (data?: IAddon) => {
         if (data) {
           setIsAddAddonVisible(true);
@@ -118,7 +116,7 @@ export default function OptionMain({
       },
     },
     {
-      label: t('Delete'),
+      label: 'Delete',
       command: (data?: IAddon) => {
         if (data) {
           setDeleteId(data._id);
@@ -158,15 +156,15 @@ export default function OptionMain({
             onCompleted: () => {
               showToast({
                 type: 'success',
-                title: t('Delete Add-on'),
-                message: t('Add-on has been deleted successfully'),
+                title: 'Delete Add-on',
+                message: 'Add-on has been deleted successfully.',
                 duration: 3000,
               });
               setDeleteId('');
             },
           });
         }}
-        message={t('Are you sure you want to delete this Add-on?')}
+        message="Are you sure you want to delete this Add-on?"
       />
     </div>
   );
