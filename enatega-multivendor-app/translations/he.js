@@ -631,6 +631,5 @@ loginRequired: 'נדרש התחברות',
   'Instruction for the courier': 'تعليمات للمندوب',
   'Instructions': 'التعليمات',
   Popular: 'פופולרי',
-  Reloading: '...טוען מחדש',
-  OrderPriceValidation: "סכום ההזמנה שלך נמוך מהמינימום הנדרש על ידי המסעדה. אנא הוסף פריטים נוספים לעגלת הקניות שלך.",
+  Reloading: '...טוען מחדש'
 }

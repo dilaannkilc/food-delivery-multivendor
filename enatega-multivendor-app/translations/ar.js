@@ -642,7 +642,6 @@ loginRequired: 'مطلوب تسجيل الدخول',
   'Instruction for the courier': 'تعليمات للمندوب',
   'Instructions': 'التعليمات',
   Popular: 'شائع',
-  Reloading: '...جارٍ إعادة التحميل',
-  OrderPriceValidation:"قيمة طلبك أقل من الحد الأدنى للطلب الخاص بالمطعم. يرجى إضافة المزيد من العناصر إلى سلة التسوق."
+  Reloading: '...جارٍ إعادة التحميل'
 
 }
