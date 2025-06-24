@@ -120,7 +120,10 @@ export default function SearchModal({
           marginTop,
           borderTopLeftRadius,
           borderTopRightRadius,
-
+          // {
+          //   borderWidth: 1,
+          //   borderColor: '#DAD6D6'
+          // }
         ]}
       >
         <View style={[styles(currentTheme).flex, alignment.MTsmall]}>

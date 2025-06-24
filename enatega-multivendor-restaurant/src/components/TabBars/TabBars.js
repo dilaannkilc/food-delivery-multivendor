@@ -20,7 +20,7 @@ export default function TabBars(props) {
     return (
       <View style={[styles.barContainer, { justifyContent: 'center' }]}>
         <TextDefault center bold H4>
-          {t('Kindly Refresh your page.')}
+          {t('pullDownRefresh')}
         </TextDefault>
       </View>
     )

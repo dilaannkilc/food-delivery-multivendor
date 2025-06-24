@@ -40,7 +40,7 @@ function TopBrands(props) {
     >
       <View style={styles().brandImgContainer}>
         <Image
-          source={{ uri: item?.logo }}
+          source={{ uri: item?.image }}
           style={styles().brandImg}
           resizeMode='contain'
         />

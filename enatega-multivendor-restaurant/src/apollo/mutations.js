@@ -34,14 +34,12 @@ export const saveToken = `mutation saveRestaurantToken($token:String, $isEnabled
   }
 }`
 
-export const toggleAvailability = `
-  mutation ToggleAvailability($restaurantId:String) {
-    toggleAvailability(restaurantId: $restaurantId) {
-      _id
-      isAvailable
-    }
+export const toggleAvailability = `mutation ToggleAvailability{
+  toggleAvailability{
+    _id
+    isAvailable
   }
-`
+}`
 export const muteRingOrder = `mutation muteRing($orderId:String){
   muteRing(orderId:$orderId)
 }`

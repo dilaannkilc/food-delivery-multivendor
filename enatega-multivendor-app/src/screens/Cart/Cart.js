@@ -41,7 +41,6 @@ import { useTranslation } from 'react-i18next'
 import WouldYouLikeToAddThese from './Section'
 import { SpecialInstructions } from '../../components/Cart/SpecialInstructions'
 import { isOpen } from '../../utils/customFunctions'
-import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -576,13 +575,6 @@ function Cart(props) {
                   <TouchableOpacity
                     activeOpacity={0.7}
                     onPress={() => {
-                      if(calculateTotal() < minimumOrder )
-                      {
-                        FlashMessage({
-                          message: t("OrderPriceValidation")
-                        })
-                        return 
-                      }
                       navigation.navigate('Checkout')
                     }}
                     style={styles(currentTheme).button}

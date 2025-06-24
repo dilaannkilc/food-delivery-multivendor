@@ -54,7 +54,6 @@ import { Instructions } from '../../components/Checkout/Instructions'
 import PickUp from '../../components/Pickup'
 import { PaymentModeOption } from '../../components/Checkout/PaymentOption'
 import { isOpen } from '../../utils/customFunctions'
-import { WrongAddressModal } from '../../components/Checkout/WrongAddressModal'
 
 // Constants
 const PLACEORDER = gql`
@@ -119,7 +118,6 @@ function Checkout(props) {
     latitudeDelta: 0.4,
     longitudeDelta: 0.5
   }
-  const [isModalVisible, setisModalVisible] = useState(false)
 
   const restaurant = data?.restaurant
 
@@ -136,12 +134,6 @@ function Checkout(props) {
     }
   }
 
-
-  const handleCartNavigation = async() => {
-    setisModalVisible(false)
-    props?.navigation.navigate('CartAddress')
-  }
-  
   function onCouponCompleted(data) {
     if (data?.coupon) {
       if (data?.coupon.enabled) {
@@ -453,9 +445,10 @@ function Checkout(props) {
   function onError(error) {
     setLoadingOrder(false)
     if (error.graphQLErrors.length) {
-      if (error.graphQLErrors[0].message === "Sorry! we can't deliver to your address.") {
-        setisModalVisible(true);
-      }
+      console.log('error', JSON.stringify(error))
+      FlashMessage({
+        message: error.graphQLErrors[0].message
+      })
     } else {
       FlashMessage({
         message: error.message
@@ -827,7 +820,7 @@ function Checkout(props) {
                         locationLabel={currentTheme.newFontcolor}
                         location={currentTheme.newFontcolor}
                         navigation={props?.navigation}
-                        addresses={profile?.addresses}
+                        addresses={profile.addresses}
                         forwardIcon={true}
                         screenName={'checkout'}
                       />
@@ -1540,12 +1533,6 @@ function Checkout(props) {
           </TextDefault>
         </TouchableOpacity>
       </Modalize>
-      <WrongAddressModal
-        theme={currentTheme}
-        modalVisible={isModalVisible}
-        setModalVisible={()=> setisModalVisible(!isModalVisible)}
-        handleNavigation={handleCartNavigation}
-      />
     </>
   )
 }

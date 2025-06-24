@@ -72,7 +72,6 @@ function OrderItems({ orderData }) {
     deliveryCharges,
     taxationAmount
   } = orderData
-  console.log("items",items)
   const configuration = useContext(Configuration.Context)
   let subTotal = 0
   return (

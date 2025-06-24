@@ -24,6 +24,8 @@ const Orders = props => {
   } = useOrders()
 
   const { loading: mutateLoading } = useAcceptOrder()
+
+
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
@@ -80,8 +82,8 @@ const Orders = props => {
               <ScrollView style={styles.scrollView} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} >
                 {error ? (
                   <View style={{ margin: 20 }}>
-                    <TextError backColor={colors.transparent} text="Something went wrong!" />
-                    {/* <Spinner spinnerColor={colors.fontSecondColor} /> */}
+                    <TextError backColor={colors.transparent} text={error.message} />
+                    <Spinner spinnerColor={colors.fontSecondColor} />
                   </View>
                 ) : (
                   <>

@@ -98,11 +98,9 @@ function Menu({ route, props }) {
   const { location, setLocation } = useContext(LocationContext)
   const [filters, setFilters] = useState(FILTER_VALUES)
   const [activeCollection, setActiveCollection] = useState()
-  const [currentIndex, setCurrentIndex] = useState(0)
   const modalRef = useRef(null)
   const filtersModalRef = useRef()
-  const flatListRef = useRef(null);
-  const [itemWidth, setItemWidth] = useState(0); 
+
   const navigation = useNavigation()
   const routeData = useRoute()
   const themeContext = useContext(ThemeContext)
@@ -226,41 +224,20 @@ function Menu({ route, props }) {
     mutate({ variables: { id: address._id } })
     modalRef.current.close()
   }
- 
-  const cus = new Set()
-  const filterCusinies = () => {
-    if (restaurantData) {
-      for (let cui of restaurantData) {
-        if(cui.cuisine)
-        {
-        for (let cuisine of cui.cuisines) {
-          cus.add(cuisine)
-        }
-      }
-      }
-      let allfilter=allCuisines?.cuisines?.filter((cuisine) => {
-        return cus.has(cuisine.name)
-      })
-      return allfilter;
-    }
-  }
 
   const collectionData = useMemo(() => {
     if (routeData?.name === 'Restaurants') {
       return allCuisines?.cuisines?.filter(
-        (cuisine) => cuisine?.shopType === 'Restaurant'
+        (cuisine) => cuisine?.shopType === 'restaurant'
       )
     } else if (routeData?.name === 'Store') {
-      let rtc= allCuisines?.cuisines?.filter(
-        (cuisine) => cuisine?.shopType === 'Grocery'
+      return allCuisines?.cuisines?.filter(
+        (cuisine) => cuisine?.shopType === 'grocery'
       )
-      console.log(rtc)
-      return rtc
     } else {
-      return filterCusinies() ?? []
+      return allCuisines?.cuisines
     }
   }, [routeData, allCuisines])
-  console.log("route name : ",routeData?.name)
 
   const setCurrentLocation = async () => {
     setBusy(true)
@@ -463,73 +440,22 @@ function Menu({ route, props }) {
   //   setRestaurantData(filteredData)
   //   // setActiveCollection(null)
   // }
-// });
-// const onPressCollection = (collection) => {
-//   if (activeCollection === collection.name) {
-//     // If the same collection is clicked again, deselect it
-//     setActiveCollection(null)
-//     setRestaurantData(allData) // Reset to show all data
-//   } else {
-//     // Select the new collection
-//     setActiveCollection(collection.name)
-//     const tempData = [...allData]
-//     const filteredData = tempData?.filter((item) =>
-//       item?.cuisines?.includes(collection.name)
-//     )
-//     setRestaurantData(filteredData)
-//   }
-// }
-const onPressCollection = (collection, index) => {
-  if (activeCollection === collection.name) {
-    // If the same collection is clicked again, deselect it
-    setActiveCollection(null);
-    setRestaurantData(allData); // Reset to show all data
-  } else {
-   
-    setActiveCollection(collection.name);
-    
-    const tempData = [...allData];
-    const filteredData = tempData?.filter((item) =>
-      item?.cuisines?.includes(collection.name)
-    );
-    setRestaurantData(filteredData);
-    
-    flatListRef.current.scrollToIndex({
-      index: currentIndex,
-       animated:true,
-       viewPosition:0.5
-    });
+
+  const onPressCollection = (collection) => {
+    if (activeCollection === collection.name) {
+      // If the same collection is clicked again, deselect it
+      setActiveCollection(null)
+      setRestaurantData(allData) // Reset to show all data
+    } else {
+      // Select the new collection
+      setActiveCollection(collection.name)
+      const tempData = [...allData]
+      const filteredData = tempData?.filter((item) =>
+        item?.cuisines?.includes(collection.name)
+      )
+      setRestaurantData(filteredData)
+    }
   }
-};
-
-
-  const onItemLayout = (event) => {
-    const { width } = event.nativeEvent.layout;
-    console.log(width)
-    setItemWidth(width);
-  };
-
-
-  const getItemLayout = (data, index) => ({
-    length: 99, 
-    offset: 99 * index,
-    index:currentIndex
-  });
-  // const onPressCollection = (collection) => {
-  //   if (activeCollection === collection.name) {
-  //     // If the same collection is clicked again, deselect it
-  //     setActiveCollection(null)
-  //     setRestaurantData(allData) // Reset to show all data
-  //   } else {
-  //     // Select the new collection
-  //     setActiveCollection(collection.name)
-  //     const tempData = [...allData]
-  //     const filteredData = tempData?.filter((item) =>
-  //       item?.cuisines?.includes(collection.name)
-  //     )
-  //     setRestaurantData(filteredData)
-  //   }
-  // }
 
   const applyFilters = () => {
     let filteredData =
@@ -625,7 +551,6 @@ const onPressCollection = (collection, index) => {
                   style={styles(currentTheme).seeAllBtn}
                   activeOpacity={0.8}
                   onPress={() => {
-                    console.log("route name :", routeData?.name)
                     navigation.navigate('Collection', {
                       collectionType: routeData?.name,
                       data: collectionData
@@ -637,14 +562,13 @@ const onPressCollection = (collection, index) => {
                   </TextDefault>
                 </Ripple>
               </View>
-              <FlatList ref={flatListRef} 
+              <FlatList
                 data={collectionData ?? []}
                 renderItem={({ item, index }) => {
-                  setCurrentIndex(index)
                   return (
-                      <Ripple   
+                      <Ripple
                         activeOpacity={0.8}
-                        onPress={() => onPressCollection(item, index)}
+                        onPress={() => onPressCollection(item)}
                         style={[
                           styles(currentTheme).collectionCard,
                           activeCollection === item.name && {
@@ -652,7 +576,7 @@ const onPressCollection = (collection, index) => {
                           }
                         ]}
                       >
-                        <View style={styles().brandImgContainer} >
+                        <View style={styles().brandImgContainer}>
                           <Image
                             source={{ uri: item?.image }}
                             style={styles().collectionImage}
@@ -675,14 +599,12 @@ const onPressCollection = (collection, index) => {
                       </Ripple>
                   )
                 }}
-                initialScrollIndex={currentIndex}
                 keyExtractor={(item) => item?._id}
                 contentContainerStyle={styles().collectionContainer}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 inverted={currentTheme?.isRTL ? true : false}
-                getItemLayout={getItemLayout} 
               />
               {restaurantData?.length === 0 ? null : (
                 <ActiveOrdersAndSections
