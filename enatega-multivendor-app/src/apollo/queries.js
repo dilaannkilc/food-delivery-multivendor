@@ -8,6 +8,35 @@ query Users {
  }
 }`
 
+
+export const GET_REVIEWS_BY_RESTAURANT = gql`
+  query GetReviewsByRestaurant($restaurant: String!) {
+    reviewsByRestaurant(restaurant: $restaurant) {
+      reviews {
+        _id
+        rating
+        description
+        isActive
+        createdAt
+        updatedAt
+        order {
+          _id
+          user {
+            _id
+            name
+            email
+          }
+        }
+        restaurant {
+          _id
+          name
+        }
+      }
+      ratings
+      total
+    }
+  }
+`;
 export const restaurantFragment = gql`
   fragment RestaurantFields on Restaurant {
     _id
@@ -260,7 +289,6 @@ export const restaurantPreviewFragment = gql`
     orderPrefix
     name
     image
-    logo
     address
     username
     password
@@ -737,6 +765,7 @@ export const restaurant = `query Restaurant($id:String){
       description
       quantityMinimum
       quantityMaximum
+      
     }
     zone{
       _id
@@ -803,9 +832,6 @@ export const FavouriteRestaurant = `query UserFavourite ($latitude:Float,$longit
       deliveryTime
       minimumOrder
       tax
-      isAvailable
-      reviewCount
-      reviewAverage
       reviewData{
         total
         ratings
@@ -856,6 +882,7 @@ export const FavouriteRestaurant = `query UserFavourite ($latitude:Float,$longit
         quantityMaximum
       }
       rating
+      isAvailable
       openingTimes{
         day
         times{

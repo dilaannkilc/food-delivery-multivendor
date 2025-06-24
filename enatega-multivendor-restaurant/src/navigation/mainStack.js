@@ -29,6 +29,7 @@ const Tabs = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
 export default function MainStack() {
+  const {t} = useTranslation()
   const client = useApolloClient()
   const navigation = useNavigation()
   const lastNotificationResponse = Notifications.useLastNotificationResponse()

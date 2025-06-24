@@ -1,5 +1,5 @@
 import { View, ActivityIndicator, ScrollView, Dimensions, RefreshControl } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './styles'
 import { TextError, Spinner, TextDefault } from '../../components'
 import { useOrders, useAcceptOrder } from '../../ui/hooks'
@@ -10,6 +10,7 @@ import { HomeOrderDetails } from '../../components/HomeOrderDetails'
 import LottieView from 'lottie-react-native'
 import { useTranslation } from 'react-i18next'
 const { width, height } = Dimensions.get('window')
+import i18next from '../../../i18n'
 const Orders = props => {
   const {
     loading,
@@ -24,8 +25,6 @@ const Orders = props => {
   } = useOrders()
 
   const { loading: mutateLoading } = useAcceptOrder()
-
-
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
@@ -82,8 +81,8 @@ const Orders = props => {
               <ScrollView style={styles.scrollView} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} >
                 {error ? (
                   <View style={{ margin: 20 }}>
-                    <TextError backColor={colors.transparent} text={error.message} />
-                    <Spinner spinnerColor={colors.fontSecondColor} />
+                    <TextError backColor={colors.transparent} text="Something went wrong!" />
+                    {/* <Spinner spinnerColor={colors.fontSecondColor} /> */}
                   </View>
                 ) : (
                   <>

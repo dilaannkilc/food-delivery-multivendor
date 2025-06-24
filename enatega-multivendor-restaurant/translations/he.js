@@ -28,6 +28,8 @@ export const he = {
     specialInstructions: 'הוראות מיוחדות',
     variations:"וריאציות",
     addOns:"תוספות",
+    pickUp: 'לאסוף',
+    delivery: 'מְסִירָה',
     orderDetails: 'פרטי הזמנה',
     order: 'להזמין',
     pickUp:"לאסוף",

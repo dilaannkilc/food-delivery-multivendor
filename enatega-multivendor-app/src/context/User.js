@@ -82,7 +82,7 @@ export const UserProvider = props => {
     console.log('error context user', error.message)
   }
   async function onCompleted(data) {
-    const { _id: userId, name, email, phone } = data.profile
+    const { _id: userId, name, email, phone } = data?.profile
     await Analytics.identify(
       {
         userId,
@@ -93,7 +93,7 @@ export const UserProvider = props => {
       userId
     )
     await Analytics.track(Analytics.events.USER_RECONNECTED, {
-      userId: data.profile._id
+      userId: data?.profile?._id
     })
   }
 
@@ -110,7 +110,7 @@ export const UserProvider = props => {
         })
       }
       client.cache.evict({
-        id: `${dataProfile.profile.__typename}:${dataProfile.profile._id}`
+        id: `${dataProfile?.profile?.__typename}:${dataProfile?.profile?._id}`
       })
       await client.resetStore()
     } catch (error) {
@@ -127,34 +127,34 @@ export const UserProvider = props => {
   }
 
   const addQuantity = async (key, quantity = 1) => {
-    const cartIndex = cart.findIndex(c => c.key === key)
+    const cartIndex = cart?.findIndex(c => c.key === key)
     cart[cartIndex].quantity += quantity
     setCart([...cart])
     await AsyncStorage.setItem('cartItems', JSON.stringify([...cart]))
   }
 
   const deleteItem = async key => {
-    const cartIndex = cart.findIndex(c => c.key === key)
+    const cartIndex = cart?.findIndex(c => c.key === key)
     if (cartIndex > -1) {
-      cart.splice(cartIndex, 1)
-      const items = [...cart.filter(c => c.quantity > 0)]
+      cart?.splice(cartIndex, 1)
+      const items = [...cart?.filter(c => c.quantity > 0)]
       setCart(items)
-      if (items.length === 0) setRestaurant(null)
+      if (items?.length === 0) setRestaurant(null)
       await AsyncStorage.setItem('cartItems', JSON.stringify(items))
     }
   }
 
   const removeQuantity = async key => {
-    const cartIndex = cart.findIndex(c => c.key === key)
+    const cartIndex = cart?.findIndex(c => c.key === key)
     cart[cartIndex].quantity -= 1
-    const items = [...cart.filter(c => c.quantity > 0)]
+    const items = [...cart?.filter(c => c.quantity > 0)]
     setCart(items)
-    if (items.length === 0) setRestaurant(null)
+    if (items?.length === 0) setRestaurant(null)
     await AsyncStorage.setItem('cartItems', JSON.stringify(items))
   }
 
   const checkItemCart = itemId => {
-    const cartIndex = cart.findIndex(c => c._id === itemId)
+    const cartIndex = cart?.findIndex(c => c?._id === itemId)
     if (cartIndex < 0) {
       return {
         exist: false,
@@ -213,11 +213,11 @@ export const UserProvider = props => {
   return (
     <UserContext.Provider
       value={{
-        isLoggedIn: !!token && dataProfile && !!dataProfile.profile,
+        isLoggedIn: !!token && dataProfile && !!dataProfile?.profile,
         loadingProfile: loadingProfile && calledProfile,
         errorProfile,
         profile:
-          dataProfile && dataProfile.profile ? dataProfile.profile : null,
+          dataProfile && dataProfile?.profile ? dataProfile?.profile : null,
         logout,
         cart,
         cartCount: numberOfCartItems(),

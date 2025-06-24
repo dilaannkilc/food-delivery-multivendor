@@ -125,8 +125,6 @@ function Favourite() {
       />
     )
   if (error) return <ErrorView />
-
-
   return (
     <SafeAreaView edges={['bottom']} style={styles(currentTheme).flex}>
       <FlatList
@@ -140,17 +138,17 @@ function Favourite() {
         ListEmptyComponent={emptyView()}
         ListHeaderComponent={null}
         renderItem={({ item }) => {
+          const averageRating = item?.reviewData?.ratings;
+          const numberOfReviews = item?.reviewData?.total;
           const restaurantOpen = isOpen(item);
-         console.log(item)
           return (
             <NewRestaurantCard
               {...item}
-              reviewAverage={item.reviewAverage}
-              reviewCount={item.reviewCount}
+              reviewAverage={averageRating}
+              reviewCount={numberOfReviews}
               isCategories
               fullWidth
-              isOpen={true}
-              isAvailable={item.isAvailable ||  true}
+              isOpen={restaurantOpen}
             />
           )
         }}

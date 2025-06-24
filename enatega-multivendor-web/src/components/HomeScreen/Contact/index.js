@@ -127,16 +127,16 @@ export default function Contact() {
                 <Box className={classes.iconContainer}>
                   <WhatsAppIcon style={{ color: theme.palette.primary.main }} />
                 </Box>
-                {/* <Typography style={{ color: "#FFF" }}>
+                <Typography style={{ color: theme.palette.common.white }}>
                   (+92) 3339461270
-                </Typography> */}
+                </Typography>
               </Box>
               <Box className={[classes.margin, classes.contactIcon]}>
                 <Box className={classes.iconContainer}>
                   <EmailIcon style={{ color: theme.palette.primary.main }} />
                 </Box>
-                <Typography style={{ color: "#FFF" }}>
-                sharan@ninjascode.com
+                <Typography style={{ color: theme.palette.common.white }}>
+                  sharan@ninjascode.com
                 </Typography>
               </Box>
               <Box className={classes.contactIcon}>
@@ -145,8 +145,8 @@ export default function Contact() {
                     style={{ color: theme.palette.primary.main }}
                   />
                 </Box>
-                <Typography style={{ color: "#FFF" }}>
-                  Yarka, Israel
+                <Typography style={{ color: theme.palette.common.white }}>
+                  Islamabad, Pakistan
                 </Typography>
               </Box>
             </Box>
