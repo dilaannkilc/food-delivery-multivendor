@@ -60,7 +60,6 @@ import CustomShape from '../shapes';
 import useLocation from '@/lib/hooks/useLocation';
 import { RestaurantsContext } from '@/lib/context/super-admin/restaurants.context';
 import calculateZoom from '@/lib/utils/methods/zoom-calculator';
-import { useTranslations } from 'next-intl';
 
 const autocompleteService: {
   current: google.maps.places.AutocompleteService | null;
@@ -69,9 +68,6 @@ const autocompleteService: {
 const CustomGoogleMapsLocationBounds: React.FC<
   ICustomGoogleMapsLocationBoundsComponentProps
 > = ({ onStepChange, hideControls, height }) => {
-  // Hooks
-  const t = useTranslations();
-
   // Context
   const { restaurantsContextData, onSetRestaurantsContextData } =
     useContext(RestaurantsContext);
@@ -180,11 +176,11 @@ const CustomGoogleMapsLocationBounds: React.FC<
   }: ApolloError) {
     showToast({
       type: 'error',
-      title: t('Store Profile'),
+      title: 'Store Profile',
       message:
         graphQLErrors[0].message ??
         networkError?.message ??
-        t('Store Profile Fetch Failed'),
+        'Store Profile Fetch Failed',
       duration: 2500,
     });
   }
@@ -220,11 +216,11 @@ const CustomGoogleMapsLocationBounds: React.FC<
   }: ApolloError) {
     showToast({
       type: 'error',
-      title: t('Store Location & Zone'),
+      title: 'Store Location & Zone',
       message:
         graphQLErrors[0].message ??
         networkError?.message ??
-        t('Store Location & Zone fetch failed'),
+        'Store Location & Zone fetch failed',
       duration: 2500,
     });
   }
@@ -273,11 +269,11 @@ const CustomGoogleMapsLocationBounds: React.FC<
   }: ApolloError) {
     showToast({
       type: 'error',
-      title: t('Store Location & Zone'),
+      title: 'Store Location & Zone',
       message:
         graphQLErrors[0].message ??
         networkError?.message ??
-        t('Store Location & Zone update failed'),
+        'Store Location & Zone update failed',
       duration: 2500,
     });
   }
@@ -305,8 +301,8 @@ const CustomGoogleMapsLocationBounds: React.FC<
 
     showToast({
       type: 'success',
-      title: t('Zone Update'),
-      message: `${t('Store Zone has been updated successfully')}.`,
+      title: 'Zone Update',
+      message: 'Store Zone has been updated successfully.',
     });
 
     if (onStepChange) onStepChange(3);
@@ -498,8 +494,8 @@ const CustomGoogleMapsLocationBounds: React.FC<
       if (!restaurantsContextData?.restaurant?._id?.code) {
         showToast({
           type: 'error',
-          title: t('Location & Zone'),
-          message: t('No restaurnat is selected'),
+          title: 'Location & Zone',
+          message: 'No restaurnat is selected',
         });
 
         return;
@@ -535,8 +531,8 @@ const CustomGoogleMapsLocationBounds: React.FC<
     } catch (error) {
       showToast({
         type: 'error',
-        title: t('Location & Zone'),
-        message: t('Location & Zone update failed'),
+        title: 'Location & Zone',
+        message: 'Location & Zone update failed',
       });
     }
   };
@@ -625,7 +621,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
                     dropdown={true}
                     multiple={false}
                     loadingIcon={null}
-                    placeholder={t('Search Address')}
+                    placeholder="Search Address"
                     style={{ width: '100%' }}
                     itemTemplate={(item) => {
                       const matches =
@@ -764,7 +760,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
               <CustomRadiusInputField
                 type="number"
                 name="radius"
-                placeholder={t('Radius')}
+                placeholder="Radius"
                 maxLength={35}
                 min={0}
                 max={100}
@@ -798,7 +794,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
           <div className="mt-4 flex justify-end">
             <CustomButton
               className="h-10 w-fit border-gray-300 bg-black px-8 text-white"
-              label={t('Save')}
+              label="Save"
               type="button"
               loading={isSubmitting}
               onClick={onLocationSubmitHandler}

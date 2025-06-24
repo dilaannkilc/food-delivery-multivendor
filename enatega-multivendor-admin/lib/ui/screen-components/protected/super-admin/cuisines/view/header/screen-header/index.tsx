@@ -7,23 +7,19 @@ import { ICuisineScreenHeaderProps } from '@/lib/utils/interfaces/cuisine.interf
 
 // Icons
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
-import { useTranslations } from 'next-intl';
 
 export default function CuisineScreenHeader({
   handleButtonClick,
 }: ICuisineScreenHeaderProps) {
-  // Hooks
-  const t = useTranslations();
-
   return (
     <div className="sticky top-0 z-10 w-full flex-shrink-0 bg-white p-3 shadow-sm">
       <div className="flex w-full justify-between">
-        <HeaderText text={t('Cuisines')} />
+        <HeaderText text="Cuisines" />
         <TextIconClickable
           icon={faAdd}
           iconStyles={{ color: 'white' }}
           onClick={handleButtonClick}
-          title={t('Add Cuisines')}
+          title="Add Cuisines"
           className="rounded border-gray-300 bg-black text-white sm:w-auto"
         />
       </div>

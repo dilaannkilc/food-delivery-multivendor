@@ -60,7 +60,6 @@ import CustomRadiusInputField from '../../custom-radius-input';
 import CustomShape from '../shapes';
 import useLocation from '@/lib/hooks/useLocation';
 import calculateZoom from '@/lib/utils/methods/zoom-calculator';
-import { useTranslations } from 'next-intl';
 
 const autocompleteService: {
   current: google.maps.places.AutocompleteService | null;
@@ -69,9 +68,6 @@ const autocompleteService: {
 const CustomGoogleMapsLocationBounds: React.FC<
   ICustomGoogleMapsLocationBoundsComponentProps
 > = ({ onStepChange, hideControls, height }) => {
-  // Hooks
-  const t = useTranslations();
-
   // Context
   const { restaurantContextData, onSetRestaurantContextData } =
     useContext(RestaurantContext);
@@ -180,11 +176,11 @@ const CustomGoogleMapsLocationBounds: React.FC<
   }: ApolloError) {
     showToast({
       type: 'error',
-      title: t('Store Profile'),
+      title: 'Store Profile',
       message:
         graphQLErrors[0].message ??
         networkError?.message ??
-        t('Store Profile Fetch Failed'),
+        'Store Profile Fetch Failed',
       duration: 2500,
     });
   }
@@ -220,11 +216,11 @@ const CustomGoogleMapsLocationBounds: React.FC<
   }: ApolloError) {
     showToast({
       type: 'error',
-      title: t('Store Location & Zone'),
+      title: 'Store Location & Zone',
       message:
         graphQLErrors[0].message ??
         networkError?.message ??
-        t('Store Location & Zone fetch failed'),
+        'Store Location & Zone fetch failed',
       duration: 2500,
     });
   }
@@ -273,11 +269,11 @@ const CustomGoogleMapsLocationBounds: React.FC<
   }: ApolloError) {
     showToast({
       type: 'error',
-      title: t('Store Location & Zone'),
+      title: 'Store Location & Zone',
       message:
         graphQLErrors[0].message ??
         networkError?.message ??
-        t('Store Location & Zone update failed'),
+        'Store Location & Zone update failed',
       duration: 2500,
     });
   }
@@ -305,8 +301,8 @@ const CustomGoogleMapsLocationBounds: React.FC<
 
     showToast({
       type: 'success',
-      title: t('Zone Update'),
-      message: `${t('Store Zone has been updated successfully')}.`,
+      title: 'Zone Update',
+      message: 'Store Zone has been updated successfully.',
     });
 
     if (onStepChange) onStepChange(2);
@@ -408,7 +404,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
     }
   }
   const handleDistanceChange = (val: number) => {
-    if (val === 0 || val > 100) {
+    if (val === 0 || val < 0) {
       return;
     }
     const newDistance = val || 0;
@@ -497,8 +493,8 @@ const CustomGoogleMapsLocationBounds: React.FC<
       if (!restaurantContextData?.id) {
         showToast({
           type: 'error',
-          title: t('Location & Zone'),
-          message: t('No restaurnat is selected'),
+          title: 'Location & Zone',
+          message: 'No restaurnat is selected',
         });
 
         return;
@@ -534,8 +530,8 @@ const CustomGoogleMapsLocationBounds: React.FC<
     } catch (error) {
       showToast({
         type: 'error',
-        title: t('Location & Zone'),
-        message: t('Location & Zone update failed'),
+        title: 'Location & Zone',
+        message: 'Location & Zone update failed',
       });
     }
   };
@@ -624,7 +620,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
                     dropdown={true}
                     multiple={false}
                     loadingIcon={null}
-                    placeholder={t('Search Address')}
+                    placeholder="Search Address"
                     style={{ width: '100%' }}
                     itemTemplate={(item) => {
                       const matches =
@@ -763,9 +759,10 @@ const CustomGoogleMapsLocationBounds: React.FC<
               <CustomRadiusInputField
                 type="number"
                 name="radius"
-                placeholder={t('Radius')}
-                maxLength={35}
+                placeholder="Radius"
+                maxLength={99999}
                 min={0}
+                max={9999999999999}
                 value={distance}
                 onChange={handleDistanceChange}
                 showLabel={true}
@@ -796,7 +793,7 @@ const CustomGoogleMapsLocationBounds: React.FC<
           <div className="mt-4 flex justify-end">
             <CustomButton
               className="h-10 w-fit border-gray-300 bg-black px-8 text-white"
-              label={t('Save')}
+              label="Save"
               type="button"
               loading={isSubmitting}
               onClick={onLocationSubmitHandler}

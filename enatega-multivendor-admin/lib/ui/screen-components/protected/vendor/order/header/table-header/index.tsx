@@ -7,17 +7,12 @@ import React, { useRef, useState } from 'react';
 import classes from './order-vendor.header.module.css';
 import { IOrderVendorHeaderProps } from '@/lib/utils/interfaces/orders/order-vendor.interface';
 import { IMenuItem } from '@/lib/utils/interfaces/orders/order-vendor.interface';
-import { useTranslations } from 'next-intl';
 
 const OrderTableHeader: React.FC<IOrderVendorHeaderProps> = ({
   setSelectedActions,
   selectedActions,
   onSearch,
 }) => {
-  // Hooks
-  const t = useTranslations();
-
-  // States
   const [searchValue, setSearchValue] = useState<string>('');
   const overlayPanelRef = useRef<OverlayPanel>(null);
 
@@ -30,12 +25,12 @@ const OrderTableHeader: React.FC<IOrderVendorHeaderProps> = ({
   };
 
   const menuItems: IMenuItem[] = [
-    { label: t('PENDING'), value: 'PENDING' },
-    { label: t('ACCEPTED'), value: 'ACCEPTED' },
-    { label: t('ASSIGNED'), value: 'ASSIGNED' },
-    { label: t('PICKED'), value: 'PICKED' },
-    { label: t('DELIVERED'), value: 'DELIVERED' },
-    { label: t('CANCELLED'), value: 'CANCELLED' },
+    { label: 'PENDING', value: 'PENDING' },
+    { label: 'ACCEPTED', value: 'ACCEPTED' },
+    { label: 'ASSIGNED', value: 'ASSIGNED' },
+    { label: 'PICKED', value: 'PICKED' },
+    { label: 'DELIVERED', value: 'DELIVERED' },
+    { label: 'CANCELLED', value: 'CANCELLED' },
   ];
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +58,7 @@ const OrderTableHeader: React.FC<IOrderVendorHeaderProps> = ({
             maxLength={35}
             className="w-64"
             showLabel={false}
-            placeholder={t('Keyword Search')}
+            placeholder="Filter Orders..."
             value={searchValue}
             onChange={handleSearch}
           />
@@ -74,7 +69,7 @@ const OrderTableHeader: React.FC<IOrderVendorHeaderProps> = ({
             className="w-44 rounded border border-dotted border-[#E4E4E7] text-black"
             icon={faAdd}
             iconStyles={{ color: 'black' }}
-            title={t('Orders Status')}
+            title="Orders Status.."
             onClick={(e) => overlayPanelRef.current?.toggle(e)}
           />
         </div>
@@ -112,7 +107,7 @@ const OrderTableHeader: React.FC<IOrderVendorHeaderProps> = ({
               className="mt-3 cursor-pointer text-center text-sm"
               onClick={() => setSelectedActions([])}
             >
-              {t('Clear filters')}
+              Clear filters
             </p>
           </div>
         </OverlayPanel>

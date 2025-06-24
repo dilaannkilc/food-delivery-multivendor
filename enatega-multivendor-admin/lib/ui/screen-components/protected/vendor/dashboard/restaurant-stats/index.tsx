@@ -23,18 +23,15 @@ import {
 
 // Context
 import { VendorLayoutContext } from '@/lib/context/vendor/layout-vendor.context';
-import { useTranslations } from 'next-intl';
 
 export default function RestaurantStats({
   dateFilter,
 }: IDashboardOrderStatsComponentsProps) {
-  // Hooks
-  const t = useTranslations();
-
   // Context
   const {
     vendorLayoutContextData: { vendorId },
   } = useContext(VendorLayoutContext);
+  // COntext
   const { CURRENCY_CODE } = useConfiguration();
 
   const { data, loading } = useQueryGQL(
@@ -69,7 +66,7 @@ export default function RestaurantStats({
   return (
     <div className="grid grid-cols-1 items-center gap-6 p-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <StatsCard
-        label={t('Total Stores')}
+        label="Total Stores"
         total={dashboardStats?.totalRestaurants ?? 0}
         icon={faShop}
         route=""
@@ -78,7 +75,7 @@ export default function RestaurantStats({
       />
 
       <StatsCard
-        label={t('Total Sales')}
+        label="Total Sales"
         total={dashboardStats?.totalSales ?? 0}
         icon={faShop}
         route=""
@@ -87,7 +84,7 @@ export default function RestaurantStats({
       />
 
       <StatsCard
-        label={t('Total Orders')}
+        label="Total Orders"
         total={dashboardStats?.totalOrders ?? 0}
         icon={faShoppingCart}
         route=""
@@ -96,7 +93,7 @@ export default function RestaurantStats({
       />
 
       <StatsCard
-        label={t('Total Deliveries')}
+        label="Total Deliveries"
         total={dashboardStats?.totalDeliveries ?? 0}
         icon={faTruck}
         route=""

@@ -15,7 +15,12 @@ import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-
 import CustomNumberField from '@/lib/ui/useable-components/number-input-field';
 import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/upload-image';
 
-import { MAX_LANSDCAPE_FILE_SIZE, MAX_SQUARE_FILE_SIZE, ProfileErrors, SHOP_TYPE } from '@/lib/utils/constants';
+import {
+  MAX_LANSDCAPE_FILE_SIZE,
+  MAX_SQUARE_FILE_SIZE,
+  ProfileErrors,
+  SHOP_TYPE,
+} from '@/lib/utils/constants';
 import { RestaurantSchema } from '@/lib/utils/schema/restaurant';
 import { EDIT_RESTAURANT, GET_CUISINES } from '@/lib/api/graphql';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
@@ -33,7 +38,6 @@ import {
   ICuisine,
   IGetCuisinesData,
 } from '@/lib/utils/interfaces/cuisine.interface';
-import { useTranslations } from 'next-intl';
 
 export default function UpdateRestaurantDetails({
   stepperProps,
@@ -43,11 +47,8 @@ export default function UpdateRestaurantDetails({
     order: -1,
   };
 
-  // Hooks
-  const t = useTranslations();
-
-  // Contexts
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
+
   const { restaurantId } = restaurantLayoutContextData;
 
   const { showToast } = useContext(ToastContext);
@@ -58,19 +59,19 @@ export default function UpdateRestaurantDetails({
     onError: ({ graphQLErrors, networkError }) => {
       showToast({
         type: 'error',
-        title: t('Edit Store'),
+        title: 'Edit Store',
         message:
           graphQLErrors[0]?.message ??
           networkError?.message ??
-          t('Store Edit Failed'),
+          'Store Edit Failed',
         duration: 2500,
       });
     },
     onCompleted: async () => {
       showToast({
         type: 'success',
-        title: t('Store Details Saved'),
-        message: t('Store has been updated successfully'),
+        title: 'Store Details Saved',
+        message: 'Store has been updated successfully',
         duration: 3000,
       });
 
@@ -124,8 +125,8 @@ export default function UpdateRestaurantDetails({
     if (!restaurantId) {
       showToast({
         type: 'error',
-        title: t('Edit Store'),
-        message: t('Store Edit Failed - Please select a vendor'),
+        title: 'Edit Store',
+        message: 'Store Edit Failed - Please select a vendor.',
         duration: 2500,
       });
       return;
@@ -154,8 +155,8 @@ export default function UpdateRestaurantDetails({
     } catch (error) {
       showToast({
         type: 'error',
-        title: t('Store Details'),
-        message: t('Something went wrong'),
+        title: 'Store Details',
+        message: 'Something went wrong',
       });
     }
   };
@@ -165,7 +166,7 @@ export default function UpdateRestaurantDetails({
       <div className="h-full w-full">
         <div className="flex flex-col gap-2">
           <div className="flex flex-col mb-2">
-            <span className="text-lg">{t('Update Profile')}</span>
+            <span className="text-lg">Update Profile</span>
           </div>
 
           <Formik
@@ -191,7 +192,7 @@ export default function UpdateRestaurantDetails({
                     <CustomIconTextField
                       type="email"
                       name="username"
-                      placeholder={t('Email')}
+                      placeholder="Email"
                       maxLength={35}
                       showLabel={true}
                       iconProperties={{
@@ -213,7 +214,7 @@ export default function UpdateRestaurantDetails({
                     />
 
                     <CustomPasswordTextField
-                      placeholder={t('Password')}
+                      placeholder="Password"
                       name="password"
                       maxLength={20}
                       value={values.password}
@@ -232,7 +233,7 @@ export default function UpdateRestaurantDetails({
 
                     <div>
                       <CustomPasswordTextField
-                        placeholder={t('Confirm Password')}
+                        placeholder="Confirm Password"
                         name="confirmPassword"
                         maxLength={20}
                         showLabel={true}
@@ -254,7 +255,7 @@ export default function UpdateRestaurantDetails({
                     <CustomTextField
                       type="text"
                       name="name"
-                      placeholder={t('Name')}
+                      placeholder="Name"
                       maxLength={35}
                       value={values.name}
                       onChange={handleChange}
@@ -271,7 +272,7 @@ export default function UpdateRestaurantDetails({
                     />
 
                     <CustomTextField
-                      placeholder={t('Address')}
+                      placeholder="Address"
                       name="address"
                       type="text"
                       maxLength={100}
@@ -293,7 +294,7 @@ export default function UpdateRestaurantDetails({
                       suffix=" m"
                       min={0}
                       max={500}
-                      placeholder={t('Delivery Time')}
+                      placeholder="Delivery Time"
                       name="deliveryTime"
                       showLabel={true}
                       value={values.deliveryTime}
@@ -312,7 +313,7 @@ export default function UpdateRestaurantDetails({
                     <CustomNumberField
                       min={1}
                       max={99999}
-                      placeholder={t('Min Order')}
+                      placeholder="Min Order"
                       name="minOrder"
                       showLabel={true}
                       value={values.minOrder}
@@ -332,7 +333,7 @@ export default function UpdateRestaurantDetails({
                       suffix=" %"
                       min={0}
                       max={100}
-                      placeholder={t('Service Charges')}
+                      placeholder="Service Charges"
                       minFractionDigits={2}
                       maxFractionDigits={2}
                       name="salesTax"
@@ -351,7 +352,7 @@ export default function UpdateRestaurantDetails({
                     />
 
                     <CustomTextField
-                      placeholder={t('Order Prefix')}
+                      placeholder="Order Prefix"
                       name="orderprefix"
                       type="text"
                       maxLength={100}
@@ -371,7 +372,7 @@ export default function UpdateRestaurantDetails({
 
                     <CustomDropdownComponent
                       name="shopType"
-                      placeholder={t('Shop Category')}
+                      placeholder="Shop Category"
                       selectedItem={values.shopType}
                       setSelectedItem={setFieldValue}
                       options={SHOP_TYPE}
@@ -389,7 +390,7 @@ export default function UpdateRestaurantDetails({
 
                     <CustomMultiSelectComponent
                       name="cuisines"
-                      placeholder={t('Cuisines')}
+                      placeholder="Cuisines"
                       options={cuisinesDropdown ?? []}
                       selectedItems={values.cuisines}
                       setSelectedItems={setFieldValue}
@@ -409,7 +410,7 @@ export default function UpdateRestaurantDetails({
                       <CustomUploadImageComponent
                         key="logo"
                         name="logo"
-                        title={t('Upload Profile Image')}
+                        title="Upload Profile Image"
                         fileTypes={['image/jpg', 'image/webp', 'image/jpeg']}
                         maxFileHeight={1080}
                         maxFileWidth={1080}
@@ -431,10 +432,10 @@ export default function UpdateRestaurantDetails({
                       <CustomUploadImageComponent
                         key="image"
                         name="image"
-                        title={t('Upload Image')}
+                        title="Upload Image"
                         fileTypes={['image/jpg', 'image/webp', 'image/jpeg']}
                         maxFileHeight={841}
-                        maxFileWidth={1980}
+                        maxFileWidth={1080}
                         maxFileSize={MAX_LANSDCAPE_FILE_SIZE}
                         orientation="LANDSCAPE"
                         onSetImageUrl={setFieldValue}
@@ -455,7 +456,7 @@ export default function UpdateRestaurantDetails({
                     <div className="flex justify-end mt-4">
                       <CustomButton
                         className="w-fit h-10 bg-black text-white border-gray-300 px-8"
-                        label={t('Update')}
+                        label="Update"
                         type="submit"
                         loading={isSubmitting}
                       />

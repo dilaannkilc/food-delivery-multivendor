@@ -6,7 +6,6 @@ import { Checkbox } from 'primereact/checkbox';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import React, { useRef, useState } from 'react';
 import classes from './commission-rate.header.module.css';
-import { useTranslations } from 'next-intl';
 
 interface MenuItem {
   label: string;
@@ -18,13 +17,7 @@ const CommissionRateHeader: React.FC<ICommissionRateHeaderProps> = ({
   selectedActions,
   onSearch,
 }) => {
-  // Hooks
-  const t = useTranslations();
-
-  // States
   const [searchValue, setSearchValue] = useState<string>('');
-
-  // Refs
   const overlayPanelRef = useRef<OverlayPanel>(null);
 
   const toggleAction = (action: string) => {
@@ -36,9 +29,9 @@ const CommissionRateHeader: React.FC<ICommissionRateHeaderProps> = ({
   };
 
   const menuItems: MenuItem[] = [
-    { label: t('More than 5%'), value: 'More than 5%' },
-    { label: t('More than 10%'), value: 'More than 10%' },
-    { label: t('More than 20%'), value: 'More than 20%' },
+    { label: 'More than 5%', value: 'More than 5%' },
+    { label: 'More than 10%', value: 'More than 10%' },
+    { label: 'More than 20%', value: 'More than 20%' },
   ];
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +59,7 @@ const CommissionRateHeader: React.FC<ICommissionRateHeaderProps> = ({
             maxLength={35}
             className="w-64"
             showLabel={false}
-            placeholder={t('Filter tasks')}
+            placeholder="Filter tasks..."
             value={searchValue}
             onChange={handleSearch}
           />
@@ -77,7 +70,7 @@ const CommissionRateHeader: React.FC<ICommissionRateHeaderProps> = ({
             className="w-44 rounded border border-dotted border-[#E4E4E7] text-black"
             icon={faAdd}
             iconStyles={{ color: 'black' }}
-            title={t('Commission Rate')}
+            title="Commission Rate"
             onClick={(e) => overlayPanelRef.current?.toggle(e)}
           />
         </div>
@@ -115,7 +108,7 @@ const CommissionRateHeader: React.FC<ICommissionRateHeaderProps> = ({
               className="mt-3 cursor-pointer text-center text-sm"
               onClick={() => setSelectedActions([])}
             >
-              {t('Clear filters')}
+              Clear filters
             </p>
           </div>
         </OverlayPanel>

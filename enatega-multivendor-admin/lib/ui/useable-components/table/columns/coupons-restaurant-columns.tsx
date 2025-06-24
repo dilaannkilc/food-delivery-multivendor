@@ -16,16 +16,12 @@ import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaur
 import { useMutation } from '@apollo/client';
 import { EDIT_RESTAURANT_COUPON } from '@/lib/api/graphql/mutations/coupons-restaurant';
 import { GET_RESTAURANT_COUPONS } from '@/lib/api/graphql/queries/coupons-restaurant';
-import { useTranslations } from 'next-intl';
 
 export const COUPONS_RESTAURANT_TABLE_COLUMNS = ({
   menuItems,
 }: {
   menuItems: IActionMenuProps<ICouponRestaurantResponse>['items'];
 }) => {
-  // Hooks
-  const t = useTranslations();
-
   // Context
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
@@ -65,11 +61,11 @@ export const COUPONS_RESTAURANT_TABLE_COLUMNS = ({
   };
 
   return [
-    { headerName: t('Name'), propertyName: '__typename' },
-    { headerName: t('Code'), propertyName: 'title' },
-    { headerName: t('Discount'), propertyName: 'discount' },
+    { headerName: 'Name', propertyName: '__typename' },
+    { headerName: 'Code', propertyName: 'title' },
+    { headerName: 'Discount', propertyName: 'discount' },
     {
-      headerName: t('Enabled'),
+      headerName: 'Enabled',
       propertyName: 'enabled',
       body: (coupon: ICouponRestaurantResponse) => (
         <CustomInputSwitch

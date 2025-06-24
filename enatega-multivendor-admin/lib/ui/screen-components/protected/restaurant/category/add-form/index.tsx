@@ -48,7 +48,6 @@ import {
   GET_SUBCATEGORIES_BY_PARENT_ID,
 } from '@/lib/api/graphql/queries/sub-categories';
 import CustomLoader from '@/lib/ui/useable-components/custom-progress-indicator';
-import { useTranslations } from 'next-intl';
 
 export default function CategoryAddForm({
   onHide,
@@ -56,8 +55,6 @@ export default function CategoryAddForm({
   position = 'right',
   isAddCategoryVisible,
 }: ICategoryAddFormComponentProps) {
-  // Hooks
-  const t = useTranslations();
   // Queries
   const {
     data: subCategories,
@@ -101,19 +98,19 @@ export default function CategoryAddForm({
       onCompleted: () => {
         showToast({
           type: 'success',
-          title: t('Delete Sub-Category'),
-          message: t('Deleted the sub-category successfully'),
+          title: 'Delete Sub-Category',
+          message: 'Deleted the sub-category successfully',
         });
       },
       onError: (error) => {
         showToast({
           type: 'error',
-          title: t('Delete Sub-Category'),
+          title: 'Delete Sub-Category',
           message:
             error.message ||
             error.clientErrors[0].message ||
             error.networkError?.message ||
-            t('Failed to delete the sub-category, please try again later'),
+            'Failed to delete the sub-category, please try again later.',
         });
       },
     });
@@ -132,8 +129,8 @@ export default function CategoryAddForm({
       onCompleted: () => {
         showToast({
           type: 'success',
-          title: t('New Category'),
-          message: `${t('Category has been')} ${category ? t('edited') : t('added')} ${t('successfully')}.`,
+          title: 'New Category',
+          message: `Category has been ${category ? 'edited' : 'added'} successfully.`,
           duration: 3000,
         });
         onHide();
@@ -143,11 +140,11 @@ export default function CategoryAddForm({
         try {
           message = error.graphQLErrors[0]?.message;
         } catch (err) {
-          message = t('ActionFailedTryAgain');
+          message = 'ActionFailedTryAgain';
         }
         showToast({
           type: 'error',
-          title: t('New Category'),
+          title: 'New Category',
           message,
           duration: 3000,
         });
@@ -176,8 +173,8 @@ export default function CategoryAddForm({
       console.error({ error });
       showToast({
         type: 'error',
-        title: `${category ? t('Edit') : t('Create')} Category`,
-        message: `${t('Failed to create Category, please try again later')}.`,
+        title: `${category ? 'Edit' : 'Create'} Category`,
+        message: 'Failed to create Category, please try again later.',
       });
     }
   };
@@ -198,7 +195,7 @@ export default function CategoryAddForm({
             <div className="flex flex-col gap-2">
               <div className="mb-2 flex flex-col">
                 <span className="text-lg">
-                  {category ? t('Edit') : t('Add')} {t('Category')}
+                  {category ? 'Edit' : 'Add'} Category
                 </span>
               </div>
               <div>
@@ -222,7 +219,7 @@ export default function CategoryAddForm({
                             <CustomTextField
                               type="text"
                               name="title"
-                              placeholder={t('Title')}
+                              placeholder="Title"
                               maxLength={15}
                               value={values.title}
                               onChange={handleChange}
@@ -260,7 +257,7 @@ export default function CategoryAddForm({
                                         className=" rounded-lg shadow-sm"
                                       >
                                         <Fieldset
-                                          legend={`${t('Sub-Category')} #${index + 1} ${value.title ? `(${value.title})` : ''}`}
+                                          legend={`Sub-Category #${index + 1} ${value.title ? `(${value.title})` : ''}`}
                                           toggleable
                                           className="my-1"
                                         >
@@ -306,7 +303,7 @@ export default function CategoryAddForm({
                                           <div className="mt-4">
                                             <TextIconClickable
                                               icon={faAdd}
-                                              title={t('Add More')}
+                                              title="Add More"
                                               onClick={() =>
                                                 push({
                                                   title: '',
@@ -328,7 +325,7 @@ export default function CategoryAddForm({
                           <div className="mt-4 flex justify-end">
                             <CustomButton
                               className="h-10 w-fit border-gray-300 bg-black px-8 text-white"
-                              label={category ? t('Update') : t('Add')}
+                              label={category ? 'Update' : 'Add'}
                               type="submit"
                               loading={mutationLoading}
                             />

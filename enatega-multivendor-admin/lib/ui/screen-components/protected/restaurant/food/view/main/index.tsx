@@ -53,7 +53,6 @@ import {
   GET_SUBCATEGORIES,
   GET_SUBCATEGORY,
 } from '@/lib/api/graphql/queries/sub-categories';
-import { useTranslations } from 'next-intl';
 
 export default function FoodsMain() {
   // Context
@@ -62,7 +61,6 @@ export default function FoodsMain() {
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
 
   // Hooks
-  const t = useTranslations();
   const { showToast } = useToast();
 
   // State - Table
@@ -127,8 +125,8 @@ export default function FoodsMain() {
     onCompleted: () => {
       showToast({
         type: 'success',
-        title: t('Delete Food'),
-        message: `${t('Food has been deleted successfully')}.`,
+        title: 'Delete Food',
+        message: 'Food has been deleted successfully.',
       });
       setDeleteId({ id: '', categoryId: '' });
       refetch();
@@ -188,8 +186,8 @@ export default function FoodsMain() {
   function onErrorFetchFoodsByRestaurant() {
     showToast({
       type: 'error',
-      title: t('Foods Fetch'),
-      message: t('Foods fetch failed'),
+      title: 'Foods Fetch',
+      message: 'Foods fetch failed',
       duration: 2500,
     });
   }
@@ -197,8 +195,9 @@ export default function FoodsMain() {
   // Constants
   const menuItems: IActionMenuItem<IFoodNew>[] = [
     {
-      label: t('Edit'),
+      label: 'Edit',
       command: async (data?: IFoodNew) => {
+        console.log('Editing....');
         if (subCategoriesLoading) {
           return console.log({ subCategoriesLoading });
         }
@@ -248,7 +247,7 @@ export default function FoodsMain() {
       },
     },
     {
-      label: t('Delete'),
+      label: 'Delete',
       command: (data?: IFoodNew) => {
         if (data) {
           setDeleteId({ id: data._id, categoryId: data?.category?.code ?? '' });
@@ -289,7 +288,7 @@ export default function FoodsMain() {
             variables: { ...deleteId, restaurant: restaurantId },
           });
         }}
-        message={t('Are you sure you want to delete this option?')}
+        message="Are you sure you want to delete this option?"
       />
     </div>
   );

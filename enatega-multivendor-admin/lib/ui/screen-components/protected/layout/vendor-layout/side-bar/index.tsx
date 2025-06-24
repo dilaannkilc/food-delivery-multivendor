@@ -23,7 +23,6 @@ import {
 // Components
 import SidebarItem from './side-bar-item';
 import { onUseLocalStorage } from '@/lib/utils/methods';
-import { useTranslations } from 'next-intl';
 
 function VendorSidebar({ children }: IGlobalComponentProps) {
   // Context
@@ -47,8 +46,6 @@ function VendorSidebar({ children }: IGlobalComponentProps) {
 }
 
 export default function MakeVendorSidebar() {
-    // Hooks
-    const t = useTranslations();
   const { isVendorSidebarVisible } =
     useContext<LayoutContextProps>(LayoutContext);
   const { user } = useUserContext();
@@ -61,21 +58,21 @@ export default function MakeVendorSidebar() {
 
   const navBarItems: ISidebarMenuItem[] = [
     {
-      text: t('Dashboard'),
+      text: 'Dashboard',
       route: '/admin/vendor/dashboard',
       isParent: true,
       icon: faHome,
       isClickable: true,
     },
     {
-      text: t('Profile'),
+      text: 'Profile',
       route: '/admin/vendor/profile',
       isParent: true,
       icon: faUser,
       isClickable: true,
     },
     {
-      text: t('Stores'),
+      text: 'Stores',
       route: '/admin/vendor/stores',
       isParent: true,
       icon: faStore,
@@ -86,7 +83,7 @@ export default function MakeVendorSidebar() {
   if (user?.userType === 'ADMIN' || user?.userType === 'STAFF') {
     console.log(lastRoute);
     navBarItems.push({
-      text: lastRoute ? t(`Back to ${lastRoute}`) : 'Back',
+      text: lastRoute ? `Back to ${lastRoute}` : 'Back',
       route: '/general/vendors',
       isParent: true,
       icon: faArrowLeft,

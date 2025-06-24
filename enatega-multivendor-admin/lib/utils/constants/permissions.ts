@@ -1,7 +1,7 @@
 export const PERMISSIONS = [
   { label: 'Admin', code: 'Admin' },
   { label: 'Vendors', code: 'Vendors' },
-  { label: 'Stores', code: 'Stores' },
+  { label: 'Stores', code: 'Restaurants' },
   { label: 'Riders', code: 'Riders' },
   { label: 'Users', code: 'Users' },
   { label: 'Staff', code: 'Staff' },

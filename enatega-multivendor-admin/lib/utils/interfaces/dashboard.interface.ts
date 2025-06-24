@@ -24,22 +24,16 @@ export interface IDashboardDateFilterComponentsProps {
 }
 
 export interface IDashboardOrderStatsComponentsProps {
-  dateFilter: IDateFilter;
+  dateFilter: { startDate: string; endDate: string; dateKeyword?: string };
 }
 
 export interface IDashboardGrowthOverviewComponentsProps {
   isStoreView: boolean;
-  dateFilter: IDateFilter
-}
-
-export interface IDateFilter {
-  dateKeyword?: string;
-  startDate?: string;
-  endDate?: string;
+  dateFilter: { startDate: string; endDate: string };
 }
 
 export interface IDashboardRestaurantStatesTableComponentsProps {
-  dateFilter: IDateFilter
+  dateFilter: { startDate: string; endDate: string };
 }
 
 export interface IDashboardRestaurantStatsTableComponentsProps
@@ -127,10 +121,16 @@ export interface IDashboardOrderSalesDetailsByPaymentMethodResponseGraphQL {
 
 //  Vendor
 export interface IDashboardSubHeaderComponentsProps {
-  isStoreView?: boolean;
+  isStoreView: boolean;
   dateFilter: IDateFilter;
-  handleViewChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleViewChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleDateFilter: (dateFilter: IDateFilter) => void;
+}
+
+export interface IDateFilter {
+  dateKeyword?: string;
+  startDate: string;
+  endDate: string;
 }
 
 // Restaurant & Vendor

@@ -1,5 +1,5 @@
 // Core
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // PrimeReact
 import { FilterMatchMode } from 'primereact/api';
@@ -19,14 +19,15 @@ import {
   IBannersDataResponse,
   IBannersMainComponentsProps,
   IBannersResponse,
+  IQueryResult,
 } from '@/lib/utils/interfaces';
 
 // GraphQL
 import { DELETE_BANNER } from '@/lib/api/graphql';
 import { GET_BANNERS } from '@/lib/api/graphql/queries/banners';
+import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { generateDummyBanners } from '@/lib/utils/dummy';
-import { useMutation, useQuery } from '@apollo/client';
-import { useTranslations } from 'next-intl';
+import { useMutation } from '@apollo/client';
 
 export default function BannersMain({
   setIsAddBannerVisible,
@@ -34,7 +35,6 @@ export default function BannersMain({
 }: IBannersMainComponentsProps) {
   // Hooks
   const { showToast } = useToast();
-  const t = useTranslations();
 
   // State - Table
   const [deleteId, setDeleteId] = useState('');
@@ -43,8 +43,6 @@ export default function BannersMain({
   );
   const [globalFilterValue, setGlobalFilterValue] = useState('');
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
-  const [currentPage] = useState(1);
-  const [pageSize] = useState(10);
 
   const filters = {
     global: { value: globalFilterValue, matchMode: FilterMatchMode.CONTAINS },
@@ -55,37 +53,21 @@ export default function BannersMain({
   };
 
   //Query
-  const {
-    data,
-    loading,
-    refetch: refetchBanners,
-  } = useQuery<
-    IBannersDataResponse,
-    { page: number; rowsPerPage: number; search: string }
-  >(GET_BANNERS, {
+  const { data, loading } = useQueryGQL(GET_BANNERS, {
     fetchPolicy: 'cache-and-network',
-    variables: {
-      page: currentPage,
-      rowsPerPage: pageSize,
-      search: '',
-    },
-  });
+  }) as IQueryResult<IBannersDataResponse | undefined, undefined>;
 
   //Mutation
   const [mutateDelete, { loading: mutationLoading }] = useMutation(
     DELETE_BANNER,
     {
-      refetchQueries: [
-        {
-          query: GET_BANNERS,
-        },
-      ],
+      refetchQueries: [{ query: GET_BANNERS }],
     }
   );
 
   const menuItems: IActionMenuItem<IBannersResponse>[] = [
     {
-      label: t('Edit'),
+      label: 'Edit',
       command: (data?: IBannersResponse) => {
         if (data) {
           setIsAddBannerVisible(true);
@@ -94,7 +76,7 @@ export default function BannersMain({
       },
     },
     {
-      label: t('Delete'),
+      label: 'Delete',
       command: (data?: IBannersResponse) => {
         if (data) {
           setDeleteId(data._id);
@@ -103,20 +85,6 @@ export default function BannersMain({
     },
   ];
 
-  // Handlers
-  // const onPageChange = (page: number, size: number) => {
-  //   setCurrentPage(page);
-  //   setPageSize(size);
-  // };
-
-  // UseEffects
-  useEffect(() => {
-    refetchBanners({
-      page: currentPage,
-      rowsPerPage: pageSize,
-      search: '',
-    });
-  }, [currentPage]);
   return (
     <div className="p-3">
       <Table
@@ -147,15 +115,15 @@ export default function BannersMain({
             onCompleted: () => {
               showToast({
                 type: 'success',
-                title: t('Success'),
-                message: t(`Banner Deleted`),
+                title: 'Success!',
+                message: 'Banner Deleted',
                 duration: 3000,
               });
               setDeleteId('');
             },
           });
         }}
-        message={t('Are you sure you want to delete this item?')}
+        message="Are you sure you want to delete this item?"
       />
     </div>
   );

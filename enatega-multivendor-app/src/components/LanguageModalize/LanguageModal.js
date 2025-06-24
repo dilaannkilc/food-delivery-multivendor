@@ -1,10 +1,13 @@
 import {
   View,
   Modal,
+  Text,
   TouchableOpacity,
+  ActivityIndicator,
   Pressable
 } from 'react-native'
 import React, { useState, useEffect } from 'react'
+import { Modalize } from 'react-native-modalize'
 import styles from './styles'
 import TextDefault from '../Text/TextDefault/TextDefault'
 import { alignment } from '../../utils/alignment'
@@ -13,6 +16,7 @@ import RadioButton from '../../ui/FdRadioBtn/RadioBtn'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import i18next from 'i18next'
 import Spinner from '../Spinner/Spinner'
+import { scale } from '../../utils/scaling'
 import { Feather } from '@expo/vector-icons'
 import * as Updates from 'expo-updates'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
@@ -20,11 +24,7 @@ import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 const languageTypes = [
   { value: 'English', code: 'en', index: 0 },
   { value: 'العربية', code: 'ar', index: 1 },
-  { value: 'français', code: 'fr', index: 2 },
-  { value: 'ភាសាខ្មែរ', code: 'km', index: 3 },
-  { value: '中文', code: 'zh', index: 4 },
-  { value: 'Deutsche', code: 'de', index: 5 },
-  { value: 'עִברִית', code: 'he', index: 6 }
+  { value: 'עִברִית', code: 'he', index: 2 }
 ]
 
 const LanguageModal = ({

@@ -36,8 +36,8 @@ export const ROUTES = [
     route: '/general/vendors',
   },
   {
-    text: 'Stores',
-    route: '/general/stores',
+    text: 'Restaurants',
+    route: '/general/restaurants',
   },
   {
     text: 'Riders',
@@ -57,5 +57,5 @@ export const DEFAULT_ROUTES = {
   ADMIN: '/home',
   STAFF: '/home',
   VENDOR: '/admin/vendor/dashboard',
-  RESTAURANT: '/admin/store/dashboard',
+  RESTAURANT: '/admin/restaurant/dashboard',
 };

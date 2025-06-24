@@ -32,7 +32,6 @@ import { UPDATE_RESTAURANT_DELIVERY } from '@/lib/api/graphql';
 import { ApolloError, useMutation } from '@apollo/client';
 import CustomGoogleMapsLocationBounds from '@/lib/ui/useable-components/google-maps/location-bounds-restaurants';
 import { GoogleMapsContext } from '@/lib/context/global/google-maps.context';
-import { useTranslations } from 'next-intl';
 
 const initialValues: IRestaurantDeliveryForm = {
   minDeliveryFee: null,
@@ -49,9 +48,6 @@ export default function RestaurantDelivery({
     order: -1,
   };
 
-  // Hooks
-  const t = useTranslations();
-
   // Context
   const { isLoaded } = useContext(GoogleMapsContext);
   const { showToast } = useContext(ToastContext);
@@ -65,8 +61,8 @@ export default function RestaurantDelivery({
     onCompleted: () => {
       showToast({
         type: 'success',
-        title: t('Store Delivery Info'),
-        message: t(`Store delivery info has been added successfully`),
+        title: 'Store Delivery Info',
+        message: `Store delivery info has been added successfully`,
         duration: 3000,
       });
 
@@ -88,8 +84,8 @@ export default function RestaurantDelivery({
     } catch (error) {
       showToast({
         type: 'error',
-        title: t(`Failed to add Store delivery info`),
-        message: t(`Store Creation Failed`),
+        title: `Failed to add Store delivery info`,
+        message: `Store Create Failed`,
         duration: 2500,
       });
     }
@@ -98,11 +94,11 @@ export default function RestaurantDelivery({
   function onError({ graphQLErrors, networkError }: ApolloError) {
     showToast({
       type: 'error',
-      title: t('Store delivery info'),
+      title: 'Store delivery info',
       message:
         graphQLErrors[0]?.message ??
         networkError?.message ??
-        t(`Store Creation Failed`),
+        `Store Create Failed`,
       duration: 2500,
     });
   }
@@ -112,7 +108,7 @@ export default function RestaurantDelivery({
       <div className="h-full w-full">
         <div className="flex flex-col gap-2">
           <div className="mb-2 flex flex-col">
-            <span className="text-lg">{t('Store Delivery')}</span>
+            <span className="text-lg">Store Delivery</span>
           </div>
 
           <div>
@@ -141,7 +137,7 @@ export default function RestaurantDelivery({
                           useGrouping={false}
                           minFractionDigits={0}
                           maxFractionDigits={2}
-                          placeholder={t('Min Delivery Fee')}
+                          placeholder="Min Delivery Fee"
                           name="minDeliveryFee"
                           showLabel={true}
                           value={values.minDeliveryFee}
@@ -165,7 +161,7 @@ export default function RestaurantDelivery({
                           minFractionDigits={0}
                           maxFractionDigits={2}
                           useGrouping={false}
-                          placeholder={t("Delivery Distance (In Km's)")}
+                          placeholder="Delivery Distance (In Km's)"
                           name="deliveryDistance"
                           showLabel={true}
                           value={values.deliveryDistance}
@@ -189,9 +185,7 @@ export default function RestaurantDelivery({
                           useGrouping={false}
                           minFractionDigits={0}
                           maxFractionDigits={2}
-                          placeholder={t(
-                            "Delivery Fee (per Km's) when delivery distance exceeded"
-                          )}
+                          placeholder="Delivery Fee (per Km's) when delivery distance exceeded"
                           name="deliveryFee"
                           showLabel={true}
                           value={values.deliveryFee}
@@ -220,7 +214,7 @@ export default function RestaurantDelivery({
                       <div className="mt-4 flex justify-end">
                         <CustomButton
                           className="h-10 w-fit border-gray-300 bg-black px-8 text-white"
-                          label={t('Add')}
+                          label="Add"
                           type="submit"
                           loading={isSubmitting}
                         />

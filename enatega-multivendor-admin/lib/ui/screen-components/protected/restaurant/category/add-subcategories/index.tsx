@@ -39,15 +39,11 @@ import { CREATE_SUB_CATEGORIES } from '@/lib/api/graphql/mutations/sub-category'
 
 // Contexts
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
-import { useTranslations } from 'next-intl';
 
 export default function SubCategoriesAddForm({
   onHide,
   isAddSubCategoriesVisible,
 }: ISubCategoriesAddFormProps) {
-  // Hooks
-  const t = useTranslations();
-
   // Context
   const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
@@ -88,7 +84,7 @@ export default function SubCategoriesAddForm({
     onError: (error) => {
       return showToast({
         type: 'error',
-        title: t('Create Sub-Categories'),
+        title: 'Create Sub-Categories',
         message:
           error?.clientErrors[0].message ||
           subCategoriesError?.clientErrors[0].message ||
@@ -98,7 +94,7 @@ export default function SubCategoriesAddForm({
           subCategoriesError?.graphQLErrors[0]?.message ||
           error?.cause?.message ||
           subCategoriesError?.cause?.message ||
-          t('An error occured while adding the new sub-categories'),
+          'An error occured while adding the new sub-categories',
       });
     },
   });
@@ -112,8 +108,8 @@ export default function SubCategoriesAddForm({
       if (values.filter((subCategory) => !subCategory.title).length > 0) {
         return showToast({
           type: 'warn',
-          title: t('Create Sub-Categories'),
-          message: t('Title for each sub-category is a required field'),
+          title: 'Create Sub-Categories',
+          message: 'Title for each sub-category is a required field',
         });
       }
       const response = await createSubCategories({
@@ -134,24 +130,24 @@ export default function SubCategoriesAddForm({
         return JSON.stringify(e.message);
       });
       showToast({
-        title: t(`Create Sub-Category`),
+        title: `Create Sub-Categor${values.length > 0 ? 'ies' : 'y'}`,
         type: response.errors?.length ? 'error' : 'success',
         message: response.errors?.length
           ? JSON.stringify(errMsg)
-          : t(`Created Sub-Category Successfully`),
+          : `Created Sub-Categor${values.length > 0 ? 'ies' : 'y'} Successfully`,
       });
       formikHelpers.resetForm();
       isAddSubCategoriesVisible.bool = false;
     } catch (error) {
       return showToast({
         type: 'error',
-        title: t('Create Sub-Categories'),
+        title: 'Create Sub-Categories',
         message:
           subCategoriesError?.cause?.message ||
           subCategoriesError?.graphQLErrors[0]?.message ||
           subCategoriesError?.clientErrors[0].message ||
           subCategoriesError?.networkError?.message ||
-          t('An error occured while adding the new sub-categories'),
+          'An error occured while adding the new sub-categories',
       });
     }
   }
@@ -179,7 +175,7 @@ export default function SubCategoriesAddForm({
                     return (
                       <div key={index} className=" rounded-lg shadow-sm">
                         <Fieldset
-                          legend={`${t('Sub-Category')} #${index + 1} ${value.title ? `(${value.title})` : ''}`}
+                          legend={`Sub-Category #${index + 1} ${value.title ? `(${value.title})` : ''}`}
                           toggleable
                           className="my-1"
                         >
@@ -196,8 +192,9 @@ export default function SubCategoriesAddForm({
                                 } else {
                                   showToast({
                                     type: 'warn',
-                                    title: t('Remove Sub-Category'),
-                                    message: `${t('At least one Sub-Category is required')}.`,
+                                    title: 'Remove Sub-Category',
+                                    message:
+                                      'At least one Sub-Category is required.',
                                   });
                                 }
                               }}
@@ -207,7 +204,7 @@ export default function SubCategoriesAddForm({
                               value={value.title}
                               maxLength={15}
                               onChange={handleChange}
-                              placeholder={t('Title')}
+                              placeholder="Title"
                               showLabel={true}
                               type="text"
                             />
@@ -218,7 +215,7 @@ export default function SubCategoriesAddForm({
                           <div className="mt-4">
                             <TextIconClickable
                               icon={faAdd}
-                              title={t('Add More')}
+                              title="Add More"
                               onClick={() =>
                                 push({
                                   title: '',
@@ -239,7 +236,7 @@ export default function SubCategoriesAddForm({
               <CustomLoader />
             ) : (
               <CustomButton
-                label={t('Submit')}
+                label="Submit"
                 className="h-10 w-fit border-gray-300 bg-black px-8 text-white block m-auto my-2"
                 onClick={() => handleSubmit()}
                 type="submit"
