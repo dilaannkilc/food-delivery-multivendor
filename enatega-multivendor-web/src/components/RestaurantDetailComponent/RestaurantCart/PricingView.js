@@ -33,7 +33,6 @@ function PricingView(props) {
       );
       let costType = configuration.costType;
       let amount = calculateAmount(costType, configuration.deliveryRate, distance);
-      
       setDeliveryCharges(amount > 0 ? amount : configuration.deliveryRate);
     })();
   }, [restaurantData]);

@@ -229,21 +229,17 @@ function Profile(props) {
                       data={sortRestaurantsByOpenStatus(data?.userFavourite || [])}
                       keyExtractor={(item) => item._id}
                       renderItem={({ item }) => {
-
                         console.log("item",item)
                         const averageRating = item?.reviewData?.ratings
                         const numberOfReviews = item?.reviewData?.total
-
                         const restaurantOpen = isOpen(item);
                         return (
                           <NewRestaurantCard
                             {...item}
-                            reviewAverage={item.reviewAverage}
-                            reviewCount={item.reviewCount}
+                            reviewAverage={averageRating}
+                            reviewCount={numberOfReviews}
                             isCategories
-                            isOpen={true}
-                            isAvailable={item.isAvailable || true}
-                            
+                            isOpen={restaurantOpen}
                           />
                         )
                       }}

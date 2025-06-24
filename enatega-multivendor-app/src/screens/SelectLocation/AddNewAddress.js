@@ -27,8 +27,6 @@ import UserContext from '../../context/User'
 import { t } from 'i18n-js'
 import useGeocoding from '../../ui/hooks/useGeocoding'
 import blackmarker from '../../assets/images/user.png'
-import darkMapStyle from '../../utils/DarkMapStyles'
-
 const LATITUDE = 33.699265
 const LONGITUDE = 72.974575
 const LATITUDE_DELTA = 0.04
@@ -144,7 +142,7 @@ export default function AddNewAddress(props) {
             }}
             customMapStyle={
               themeContext.ThemeValue === 'Dark'
-                ? darkMapStyle
+                ? customMapStyle
                 : customMapStyle
             }
             onRegionChangeComplete={onRegionChangeComplete}

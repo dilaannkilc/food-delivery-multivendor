@@ -25,7 +25,6 @@ import { LocationProvider } from './src/context/location'
 import getEnvVars, { isProduction } from './environment'
 import moment from 'moment-timezone'
 import { useKeepAwake } from 'expo-keep-awake'
-import AnimatedSplashScreen from './Splash/AnimatedSplashScreen'
 
 moment.tz.setDefault('Asia/Karachi')
 LogBox.ignoreLogs([
@@ -136,7 +135,6 @@ export default function App() {
 
   if (appIsReady) {
     return (
-      <AnimatedSplashScreen>
       <ApolloProvider client={client}>
         <StatusBar
           backgroundColor={colors.headerBackground}
@@ -153,7 +151,6 @@ export default function App() {
         </ConfigurationProvider>
         <FlashMessage />
       </ApolloProvider>
-      </AnimatedSplashScreen>
     )
   }
   return (
