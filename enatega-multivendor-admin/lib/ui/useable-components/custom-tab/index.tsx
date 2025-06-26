@@ -25,11 +25,11 @@ const CustomTab = ({
             }`}
             onClick={() => setSelectedTab(option)}
           >
-            {option}
+            {t(option)}
           </div>
         ))}
       </div>
-      {selectedTab === t('Custom') || selectedTab === t('custom') && (
+      {selectedTab === 'Custom' && (
         <OrdersDashboardDateFilter
           dateFilter={
             dateFilter ?? {
