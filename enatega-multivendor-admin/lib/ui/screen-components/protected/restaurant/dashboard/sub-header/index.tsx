@@ -22,9 +22,9 @@ export default function DashboardSubHeader({
           t('Week'),
           t('Month'),
           t('Year'),
-          'Custom',
+          t('Custom'),
         ]}
-        selectedTab={dateFilter?.dateKeyword ?? 'All'}
+        selectedTab={dateFilter?.dateKeyword ?? t('All')}
         setSelectedTab={(tab: string) =>
           handleDateFilter({ ...dateFilter, dateKeyword: tab })
         }
