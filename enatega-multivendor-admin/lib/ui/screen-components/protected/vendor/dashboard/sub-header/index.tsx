@@ -38,14 +38,7 @@ export default function DashboardSubHeader({
         </div>
       </div>
       <DateFilterCustomTab
-        options={[
-          t('All'),
-          t('Today'),
-          t('Week'),
-          t('Month'),
-          t('Year'),
-          'Custom',
-        ]}
+        options={['All', 'Today', 'Week', 'Month', 'Year', 'Custom']}
         selectedTab={dateFilter?.dateKeyword ?? ''}
         setSelectedTab={(tab: string) =>
           handleDateFilter({ ...dateFilter, dateKeyword: tab })
