@@ -14,9 +14,7 @@ const STATUS_MESSAGES = {
   ASSIGNED: 'ASSIGNEDStatusMessage',
   PICKED: 'PICKEDStatusMessage',
   DELIVERED: 'DELIVEREDStatusMessage',
-  CANCELLED: "CANCELLEDStatusMessage",
-  CANCELLEDBYREST:"CANCELLEDStatusMessage"
-  
+  CANCELLED: "CANCELLEDStatusMessage"
 }
 const STATUS_ORDER = [
   'PENDING',
@@ -24,8 +22,7 @@ const STATUS_ORDER = [
   'ASSIGNED',
   'PICKED',
   'DELIVERED',
-  'CANCELLED',
-  'CANCELLEDBYREST'
+  'CANCELLED'
 ]
 
 const formatTime = date =>
@@ -70,22 +67,12 @@ export default function Status({
         </View>
       </View>
       <View style={styles.statusList(theme)}>
-        {orderStatus === 'CANCELLED'  && (
+        {orderStatus === 'CANCELLED' && (
           <StatusRow
             theme={theme}
             isEta={false}
             number={1}
             status={'Cancelled'}
-            time={formatTime(cancelledAt)}
-            showLine={false}
-          />
-        )}
-        {orderStatus ===  'CANCELLEDBYREST' && (
-          <StatusRow
-            theme={theme}
-            isEta={false}
-            number={1}
-            status={'CANCELLEDBYREST'}
             time={formatTime(cancelledAt)}
             showLine={false}
           />
@@ -171,18 +158,16 @@ const StatusRow = ({ theme, number, status, time, isEta, showLine }) => {
           <TextDefault>{number}</TextDefault>
         </Circle>
         <View style={styles.statusTimeContainer}>
-          {/* <TextDefault
+          <TextDefault
             style={styles.statusRowText}
             textColor={theme.main}
             bolder>
             {status}
-          </TextDefault> */}
-          
-          {/* <TextDefault textColor={theme.secondaryText} bold>
+          </TextDefault>
+          <TextDefault textColor={theme.secondaryText} bold>
             {isEta ? t('ETA') : ''}
             {time}
-          </TextDefault> */}
-
+          </TextDefault>
         </View>
       </View>
       {showLine && (

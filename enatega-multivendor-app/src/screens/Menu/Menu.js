@@ -260,7 +260,7 @@ function Menu({ route, props }) {
       return filterCusinies() ?? []
     }
   }, [routeData, allCuisines])
-  // console.log("collectionData",JSON.stringify(collectionData,null,2));
+  console.log("route name : ",routeData?.name)
 
   const setCurrentLocation = async () => {
     setBusy(true)
@@ -293,7 +293,7 @@ function Menu({ route, props }) {
         }
       })
       .catch((error) => {
-        // console.error('Error fetching reverse geocoding data:', error)
+        console.error('Error fetching reverse geocoding data:', error)
       })
   }
 

@@ -1,6 +1,5 @@
 export const theme = {
   Pink: {
-    statusBgColor:'#E4FFD9',
     placeholderColor:'#000000',
     placeholderColorMsg:'#000000',
     black: '#000',
@@ -130,7 +129,7 @@ export const theme = {
     radiusFill: 'rgba(0, 255, 0, 0.2)'
   },
   Dark: {
-    statusBgColor:'#E4FFD9',
+    
     placeholderColor:'#fff',
     placeholderColorMsg:'#fff',
     black: '#000',
