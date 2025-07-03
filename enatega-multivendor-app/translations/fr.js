@@ -655,6 +655,5 @@ loginRequired: 'Connexion requise',
   "Sorry! we can't deliver to your address.": "Désolé ! Nous ne pouvons pas livrer à votre adresse.",
   "Can't delivery to this address": "Impossible de livrer à cette adresse",
     "Currently Restaurant is not delivering to your selected address": "Le restaurant ne livre pas actuellement à l'adresse sélectionnée",
-  "Select another one": "Sélectionnez une autre",
-  isRTL: false,
+    "Select another one": "Sélectionnez une autre"
 }
