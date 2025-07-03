@@ -56,7 +56,6 @@ export default function CuisineForm({
     },
     image: isEditing.bool ? isEditing.data.image : '',
   };
- 
 
   // Mutations
   const [CreateCuisine, { loading: createCuisineLoading }] = useMutation(
@@ -132,7 +131,6 @@ export default function CuisineForm({
         <Formik
           initialValues={initialValues}
           validationSchema={CuisineFormSchema}
-         
           onSubmit={async (values, { setSubmitting }) => {
             setSubmitting(true);
 
@@ -191,7 +189,6 @@ export default function CuisineForm({
             values,
             isSubmitting,
             setFieldValue,
-            touched
           }) => {
             return (
               <Form onSubmit={handleSubmit}>
@@ -202,7 +199,6 @@ export default function CuisineForm({
                     onChange={handleChange}
                     value={values.name}
                     type="text"
-                    error={touched.name && errors.name ? errors.name : ''}
                     placeholder={t('Name')}
                     style={{
                       borderColor: onErrorMessageMatcher(
@@ -214,14 +210,13 @@ export default function CuisineForm({
                         : '',
                     }}
                   />
-                  
+
                   <CustomTextAreaField
                     showLabel={true}
                     label={t('Description')}
                     name="description"
                     onChange={handleChange}
                     value={values.description}
-                    error={touched.description && errors.description ? errors.description : ''}
                     placeholder={t('Description')}
                     rows={5}
                     style={{
@@ -255,7 +250,6 @@ export default function CuisineForm({
 
                   <CustomUploadImageComponent
                     name="image"
-                    error={touched.image && errors.image ? errors.image : ''}
                     onSetImageUrl={setFieldValue}
                     title={t('Upload Image')}
                     existingImageUrl={

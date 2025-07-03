@@ -48,7 +48,7 @@ function TopBrands(props) {
 
       <View
         style={{
-          alignItems: 'left',
+          alignItems: 'center',
           justifyContent: 'center'
         }}
       >
@@ -58,9 +58,9 @@ function TopBrands(props) {
           H5
           bolder
         >
-         {item?.name?.length > 11 ? item.name.substring(0, 11) + '...' : item.name}
+          {item?.name}
         </TextDefault>
-        <TextDefault textColor={currentTheme.fontFifthColor} normal >
+        <TextDefault textColor={currentTheme.fontFifthColor} normal>
           {item?.deliveryTime} mins
         </TextDefault>
       </View>

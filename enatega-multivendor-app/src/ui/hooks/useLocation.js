@@ -47,7 +47,6 @@ export default function useLocation() {
         })
         return { ...location, error: false }
       } catch (e) {
-        console.log("location error", e)
         return { error: true, message: e.message }
       }
     }

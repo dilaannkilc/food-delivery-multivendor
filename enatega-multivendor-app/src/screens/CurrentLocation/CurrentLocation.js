@@ -42,10 +42,14 @@ export default function CurrentLocation() {
   const { getCurrentLocation, getLocationPermission } = useLocation()
   const [citiesModalVisible, setCitiesModalVisible] = useState(false)
   const [currentLocation, setCurrentLocation] = useState(null)
- 
   const { getAddress } = useGeocoding()
 
   const { cities, setLocation } = useContext(LocationContext)
+
+  const filterCities = () => {
+    let newCities = cities?.filter((city) => !isNaN(city.latitude) && !isNaN(city.longitude))
+    return newCities
+  }
 
   useEffect(() => {
     async function Track() {
@@ -78,18 +82,17 @@ export default function CurrentLocation() {
 
       const { error, coords, message } = await getCurrentLocation()
       if (error) {
-        // console.log("Location error:",message, error)
+        console.log(message, error)
         setLoading(false)
         return
       }
-      // console.log("Fetched Location:", coords);
+
       const userLocation = {
         latitude: coords.latitude,
         longitude: coords.longitude
       }
 
       setCurrentLocation(userLocation)
-      // console.log("Current Location before rendering Marker:", currentLocation);
       setLoading(false)
     }
 
@@ -99,20 +102,18 @@ export default function CurrentLocation() {
   useEffect(() => {
     async function checkCityMatch() {
       if (!currentLocation || !cities.length) return
-      // console.log("Checking city match for location:", currentLocation);
-      // console.log("Cities list:", cities);
-  
+
       setIsCheckingZone(true)
 
-      const matchingCity = checkLocationInCities(currentLocation, cities)
-      // console.log("Matching City:", matchingCity);
+      const matchingCity = checkLocationInCities(currentLocation, filterCities())
+
       if (matchingCity) {
         try {
           const response = await getAddress(
             currentLocation.latitude,
             currentLocation.longitude
           )
-          // console.log("Fetched Address Data:", response);
+
           const locationData = {
             label: 'Location',
             deliveryAddress: response.formattedAddress,
@@ -127,11 +128,10 @@ export default function CurrentLocation() {
             navigation.navigate('Main')
           }, 100)
         } catch (error) {
-          // console.error('Error getting address:', error)
+          console.error('Error getting address:', error)
           setIsCheckingZone(false)
         }
       } else {
-        // console.warn("No matching city found for this location.");
         setIsCheckingZone(false)
       }
     }
@@ -166,16 +166,6 @@ export default function CurrentLocation() {
     }, 100)
   }
 
-  useEffect(() => {
-    async function checkLanguage() {
-      const lang = await AsyncStorage.getItem('enatega-language')
-      if (!lang) {
-        setModalVisible(true)
-      }
-    }
-    checkLanguage()
-  }, [])
-
   return (
     <>
       <View
@@ -201,50 +191,41 @@ export default function CurrentLocation() {
                 />
               )}
 
-            {cities.map((city) => {
-              const latitude = parseFloat(city.latitude);
-              const longitude = parseFloat(city.longitude);
-            
-              if (isNaN(latitude) || isNaN(longitude)) {
-                // console.warn(`Skipping marker for city: ${city.name} due to invalid coordinates`);
-                return null; 
-              }
-            
-              return (
-                <React.Fragment key={city.id}>
+              {filterCities()?.map((city) => (
+                <React.Fragment key={city?.id}>
                   <CustomMarkerWithLabel
                     coordinate={{
-                      latitude: latitude,
-                      longitude: longitude,
+                      latitude: city?.latitude,
+                      longitude: city?.longitude
                     }}
-                    label={city.name}
+                    label={city?.name}
                     icon={markerIcon}
                     currentTheme={currentTheme}
                     onPress={() =>
                       handleMarkerPress({
-                        latitude: latitude,
-                        longitude: longitude,
+                        latitude: city?.latitude,
+                        longitude: city?.longitude
                       })
                     }
                   />
-            
+
                   {city?.location &&
-                    city?.location.coordinates &&
-                    city.location.coordinates[0] && (
+                    city?.location?.coordinates &&
+                    city?.location?.coordinates[0] && (
                       <Polygon
-                        coordinates={city.location.coordinates[0].map((coord) => ({
-                          latitude: coord[1],
-                          longitude: coord[0],
-                        }))}
+                        coordinates={city?.location?.coordinates[0].map(
+                          (coord) => ({
+                            latitude: coord[1],
+                            longitude: coord[0]
+                          })
+                        )}
                         strokeColor={currentTheme.orderComplete}
                         fillColor={currentTheme.radiusFill}
                         strokeWidth={2}
                       />
                     )}
                 </React.Fragment>
-              );
-            })}
-            
+              ))}
             </MapView>
           </View>
 

@@ -227,8 +227,7 @@ if(!order)
             >
               {![
                 ORDER_STATUS_ENUM.PENDING,
-                ORDER_STATUS_ENUM.CANCELLED,
-                ORDER_STATUS_ENUM.CANCELLEDBYREST
+                ORDER_STATUS_ENUM.CANCELLED
               ].includes(order?.orderStatus) && (
                   <>
                     <TextDefault

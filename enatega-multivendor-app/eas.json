@@ -3,10 +3,7 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "channel": "development",
-      "android": {
-        "buildType": "apk"
-      }
+      "channel": "development"
     },
     "staging": {
       "developmentClient": false,
