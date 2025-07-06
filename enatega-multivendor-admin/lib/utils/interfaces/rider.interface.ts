@@ -16,7 +16,6 @@ export interface IRiderResponse {
   password: string;
   phone: string;
   available: boolean;
-  vehicleType: string;
   assigned: string[];
   zone: IRiderResponseZone;
 }
