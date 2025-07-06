@@ -1,5 +1,3 @@
-// Details.js
-
 import { View, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import styles from './style'
@@ -12,7 +10,6 @@ import useDetails from './useDetails'
 import { useTranslation } from 'react-i18next'
 
 const Details = ({ orderData, navigation, itemId, distance, duration }) => {
-
   const {
     active,
     order,
@@ -24,10 +21,8 @@ const Details = ({ orderData, navigation, itemId, distance, duration }) => {
     mutateAssignOrder,
     mutateOrderStatus,
     loadingAssignOrder,
-    loadingOrderStatus,dataProfile
+    loadingOrderStatus
   } = useDetails(orderData)
-
-
   const { t } = useTranslation()
   const [isOvertime, setIsOvertime] = useState(false)
 
@@ -40,7 +35,7 @@ const Details = ({ orderData, navigation, itemId, distance, duration }) => {
   }, [preparationSeconds, currentSeconds])
 
   if (!order) return null
-// console.log("order.orderStatus",order.orderStatus)
+
   return (
     <View style={styles.container}>
       {order.orderStatus !== 'DELIVERED' ? (
@@ -135,19 +130,19 @@ const Details = ({ orderData, navigation, itemId, distance, duration }) => {
               <ChatWithCustomerButton navigation={navigation} order={order} />
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => { 
-                  mutateOrderStatus({               
+                onPress={() => {
+                  mutateOrderStatus({
                     variables: { id: itemId, status: 'DELIVERED' }
                   })
                 }}
                 style={[styles.btn, { backgroundColor: colors.primary }]}>
-                {loadingOrderStatus ? (
+                <TextDefault center H5 bold textColor={colors.black}>
+                  {loadingOrderStatus ? (
                     <Spinner size="small" color="transparent" />
                   ) : (
-                <TextDefault center H5 bold textColor={colors.black}>   
-                    {t('markAsDelivered')}
+                    t('markAsDelivered')
+                  )}
                 </TextDefault>
-                 )}
               </TouchableOpacity>
             </View>
           ) : null}
