@@ -22,6 +22,7 @@ import {
 // Utilities
 import {
   calculatePolygonCentroid,
+  calculateZoomBasedOnCoordinates,
   transformPath,
   transformPolygon,
 } from '@/lib/utils/methods';
@@ -38,7 +39,7 @@ import {
 import { AutoComplete, AutoCompleteSelectEvent } from 'primereact/autocomplete';
 import { GoogleMapsContext } from '@/lib/context/global/google-maps.context';
 import CustomShape from '../shapes';
-import { DEFAULT_CENTER, DEFAULT_POLYGON } from '@/lib/utils/constants';
+import { DEFAULT_CENTER } from '@/lib/utils/constants';
 import { useTranslations } from 'next-intl';
 
 const autocompleteService: {
@@ -47,7 +48,7 @@ const autocompleteService: {
 
 const CustomGoogleMapsLocationZoneBounds: React.FC<
   IZoneCustomGoogleMapsBoundComponentProps
-> = ({ _path, onSetZoneCoordinates }) => {
+> = ({ _path, onSetZoneCoordinates, coordinates }) => {
   // Hooks
   const t = useTranslations();
 
@@ -58,7 +59,8 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
   const [isMounted, setIsMounted] = useState(false);
   const [deliveryZoneType, setDeliveryZoneType] = useState('polygon');
   const [center, setCenter] = useState(DEFAULT_CENTER);
-  const [path, setPath] = useState<ILocationPoint[]>(DEFAULT_POLYGON);
+  const [path, setPath] = useState<ILocationPoint[]>([]);
+  const [zoom, setZoom] = useState<number>(12);
 
   // Auto complete
   const [options, setOptions] = useState<IPlaceSelectedOption[]>([]);
@@ -161,10 +163,8 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
   }, [setPath, setCenter]);
 
   const onLoadPolygon = useCallback(
-    (polygon: google.maps.Polygon | null) => {
-      if (!polygon) {
-        return;
-      }
+    (polygon: google.maps.Polygon) => {
+      if (!polygon) return;
 
       polygonRef.current = polygon;
       const path = polygon?.getPath();
@@ -180,12 +180,14 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
   const onUnmount = useCallback(() => {
     listenersRef?.current?.forEach((lis) => lis?.remove());
     polygonRef.current = null;
-  }, [deliveryZoneType]);
+  }, []);
 
   // Use Effects
   useEffect(() => {
     if (!isMounted) return;
     onSetZoneCoordinates(transformPath(path ?? []));
+    const zoomVal = calculateZoomBasedOnCoordinates(coordinates);
+    setZoom(zoomVal);
   }, [path]);
 
   useEffect(() => {
@@ -316,7 +318,6 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
 
           {googleMapsContext?.isLoaded && (
             <GoogleMap
-              key={deliveryZoneType} // Forces re-render when type changes
               mapContainerStyle={{
                 height: '100%',
                 width: '100%',
@@ -324,7 +325,7 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
                 marginBottom: '20px',
               }}
               id="google-map"
-              zoom={14}
+              zoom={zoom}
               center={center}
               options={{
                 disableDefaultUI: true,
@@ -365,7 +366,8 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
         onClick={(val: string) => {
           switch (val) {
             case 'polygon':
-              setPath(DEFAULT_POLYGON);
+              // setPath(DEFAULT_POLYGON);
+              setPath([]);
               break;
             case 'point':
               setPath([]);
