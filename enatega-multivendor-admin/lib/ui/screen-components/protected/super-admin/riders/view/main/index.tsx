@@ -1,5 +1,3 @@
-'use client';
-
 // Core
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
@@ -34,7 +32,6 @@ import { IQueryResult } from '@/lib/utils/interfaces';
 // Data
 import { generateDummyRiders } from '@/lib/utils/dummy';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 
 export default function RidersMain({
   setIsAddRiderVisible,
@@ -43,7 +40,6 @@ export default function RidersMain({
   // Hooks
   const t = useTranslations();
   const { showToast } = useToast();
-  const router = useRouter();
 
   // State - Table
   const [deleteId, setDeleteId] = useState('');
@@ -79,14 +75,6 @@ export default function RidersMain({
   };
 
   const menuItems: IActionMenuItem<IRiderResponse>[] = [
-    {
-      label: t('View'),
-      command: (data?: IRiderResponse) => {
-        if (data) {
-          router.push(`/general/riders/${data._id}`);
-        }
-      },
-    },
     {
       label: t('Edit'),
       command: (data?: IRiderResponse) => {
