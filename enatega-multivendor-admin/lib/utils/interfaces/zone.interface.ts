@@ -28,6 +28,7 @@ export interface IZoneCustomGoogleMapsBoundComponentProps
   _id: string;
   _path: IPolygonLocation | number[][][];
   onSetZoneCoordinates: (path: TPolygonPoints) => void;
+  coordinates: TPolygonPoints | number[][][];
 }
 
 /* API */

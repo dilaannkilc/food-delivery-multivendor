@@ -1,3 +1,4 @@
+// Imports for Apollo Client setup and configuration
 import { useConfiguration } from '@/lib/hooks/useConfiguration';
 import {
   ApolloClient,
@@ -10,10 +11,12 @@ import {
   Operation,
   split,
 } from '@apollo/client';
-import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { getMainDefinition } from '@apollo/client/utilities';
-import { WebSocketLink } from '@apollo/client/link/ws';
-import { onError } from '@apollo/client/link/error'; // Import onError utility
+
+// GraphQL related imports
+import { DefinitionNode } from 'graphql';
+import { createClient } from 'graphql-ws';
 
 // Utility imports
 import { Subscription } from 'zen-observable-ts';
@@ -28,30 +31,25 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
     uri: `${SERVER_URL}graphql`,
   });
 
-  // WebSocketLink with error handling
-  const wsLink = new WebSocketLink(
-    new SubscriptionClient(`${WS_SERVER_URL}graphql`, {
-      reconnect: true,
-      timeout: 30000,
-      lazy: true,
+  //   const wsLink = new WebSocketLink({
+  //     uri: `${WS_SERVER_URL}graphql`,
+  //     options: {
+  //       reconnect: true,
+  //     },
+  //   });
+
+  const wsLink = new GraphQLWsLink(
+    createClient({
+      url: `${WS_SERVER_URL}graphql`,
+      connectionParams: {
+        reconnect: true,
+      },
     })
   );
 
-  // Error Handling Link using ApolloLink's onError (for network errors)
-  const errorLink = onError(({ networkError, graphQLErrors }) => {
-    if (networkError) {
-      console.error('Network Error:', networkError);
-    }
-
-    if (graphQLErrors) {
-      graphQLErrors.forEach((error) =>
-        console.error('GraphQL Error:', error.message)
-      );
-    }
-  });
-
   const request = async (operation: Operation): Promise<void> => {
     const data = localStorage.getItem(`user-${APP_NAME}`);
+
     let token = '';
     if (data) {
       token = JSON.parse(data).token;
@@ -86,9 +84,12 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
       })
   );
 
-  // Terminating Link for split between HTTP and WebSocket
+  // Terminating Link
   const terminatingLink = split(({ query }) => {
-    const definition = getMainDefinition(query);
+    const definition = getMainDefinition(query) as DefinitionNode & {
+      kind: string;
+      operation?: string;
+    };
     return (
       definition.kind === 'OperationDefinition' &&
       definition.operation === 'subscription'
@@ -96,10 +97,7 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
   }, wsLink);
 
   const client = new ApolloClient({
-    link: concat(
-      ApolloLink.from([errorLink, terminatingLink, requestLink]),
-      httpLink
-    ),
+    link: concat(ApolloLink.from([terminatingLink, requestLink]), httpLink),
     cache,
     connectToDevTools: true,
   });

@@ -9,7 +9,6 @@ export const CREATE_RIDER = gql`
       password
       phone
       available
-      vehicleType
       zone {
         _id
       }
@@ -25,7 +24,6 @@ export const EDIT_RIDER = gql`
       username
       phone
       password
-      vehicleType
       zone {
         _id
       }
@@ -49,7 +47,6 @@ export const TOGGLE_RIDER = gql`
       username
       phone
       available
-      vehicleType
       zone {
         title
       }
