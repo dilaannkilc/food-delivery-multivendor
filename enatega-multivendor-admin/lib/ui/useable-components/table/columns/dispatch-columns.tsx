@@ -1,11 +1,10 @@
+'use client';
 // Interfaces
-import {
-  IActiveOrders,
-  IAssignRider,
-} from '@/lib/utils/interfaces/dispatch.interface';
+import { IActiveOrders } from '@/lib/utils/interfaces/dispatch.interface';
 import {
   IDropdownSelectItem,
   IQueryResult,
+  IRiderDropDownSelectItem,
   IRidersDataResponse,
 } from '@/lib/utils/interfaces';
 
@@ -33,6 +32,40 @@ import { ToastContext } from '@/lib/context/global/toast.context';
 import classes from '@/lib/ui/screen-components/protected/super-admin/dispatch/view/main/index.module.css';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import { useTranslations } from 'next-intl';
+
+// Status options
+const actionStatusOptions = [
+  {
+    label: 'Pending',
+    code: 'PENDING',
+    body: () => <Tag value="Pending" severity="secondary" rounded />,
+  },
+  {
+    label: 'Assigned',
+    code: 'ASSIGNED',
+    body: () => <Tag value="Assigned" severity="warning" rounded />,
+  },
+  {
+    label: 'Accepted',
+    code: 'ACCEPTED',
+    body: () => <Tag value="Accepted" severity="info" rounded />,
+  },
+  {
+    label: 'Delivered',
+    code: 'DELIVERED',
+    body: () => <Tag value="Delivered" severity="success" rounded />,
+  },
+  {
+    label: 'Picked',
+    code: 'PICKED',
+    body: () => <Tag value="Picked" severity="contrast" rounded />,
+  },
+  {
+    label: 'Rejected',
+    code: 'CANCELLED',
+    body: () => <Tag value="Reject" severity="danger" rounded />,
+  },
+];
 
 // Status templates
 const valueTemplate = (option: IDropdownSelectItem) => (
@@ -72,47 +105,19 @@ function severityChecker(status: string | undefined) {
   }
 }
 
-export const DISPATCH_TABLE_COLUMNS = () => {
+export const DISPATCH_TABLE_COLUMNS = (
+  fetchActiveOrders: (variables?: undefined) => void
+) => {
   // Hooks
   const t = useTranslations();
+
+  // Toast
   const { showToast } = useContext(ToastContext);
 
-  // Status options
-  const actionStatusOptions = [
-    {
-      label: t('Pending'),
-      code: 'PENDING',
-      body: () => <Tag value={t('Pending')} severity="secondary" rounded />,
-    },
-    {
-      label: t('Assigned'),
-      code: 'ASSIGNED',
-      body: () => <Tag value={t('Assigned')} severity="warning" rounded />,
-    },
-    {
-      label: t('Accepted'),
-      code: 'ACCEPTED',
-      body: () => <Tag value={t('Accepted')} severity="info" rounded />,
-    },
-    {
-      label: t('Delivered'),
-      code: 'DELIVERED',
-      body: () => <Tag value={t('Delivered')} severity="success" rounded />,
-    },
-    {
-      label: t('Picked'),
-      code: 'PICKED',
-      body: () => <Tag value={t('Picked')} severity="contrast" rounded />,
-    },
-    {
-      label: t('Rejected'),
-      code: 'CANCELLED',
-      body: () => <Tag value={t('Rejected')} severity="danger" rounded />,
-    },
-  ];
-
   // States
-  const [riderOptions, setRiderOptions] = useState<IDropdownSelectItem[]>([]);
+  const [riderOptions, setRiderOptions] = useState<IRiderDropDownSelectItem[]>(
+    []
+  );
   const [isRiderLoading, setIsRiderLoading] = useState({
     _id: '',
     orderId: '',
@@ -132,11 +137,14 @@ export const DISPATCH_TABLE_COLUMNS = () => {
   // Side-Effects
   useEffect(() => {
     if (ridersData) {
-      const newRiderOptions = ridersData.riders.map((rider) => ({
-        label: rider.name,
-        code: rider.name.toUpperCase(),
-        _id: rider._id,
-      }));
+      const newRiderOptions = ridersData.riders
+        .filter((_rider) => _rider.available)
+        .map((rider) => ({
+          label: rider.name,
+          code: rider.name.toUpperCase(),
+          assignedOrders: rider.assigned,
+          _id: rider._id,
+        }));
       setRiderOptions(newRiderOptions); // Set the rider options
     }
   }, [ridersData]);
@@ -149,12 +157,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
       },
       fetchPolicy: 'network-only',
       onSubscriptionData: () => {
-        // fetchActiveOrders({
-        //   page: 1,
-        //   rowsPerPage: 10,
-        //   search: '',
-        //   actions: [],
-        // });
+        fetchActiveOrders();
       },
     });
   };
@@ -164,10 +167,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
   };
 
   // Mutations
-  const [assignRider] = useMutation<
-    IAssignRider,
-    { id: string; riderId: string }
-  >(ASSIGN_RIDER, {
+  const [assignRider] = useMutation(ASSIGN_RIDER, {
     onError: (error) => {
       showToast({
         type: 'error',
@@ -240,7 +240,8 @@ export const DISPATCH_TABLE_COLUMNS = () => {
     e: DropdownChangeEvent,
     rowData: IActiveOrders
   ) => {
-    // Set the loader to true for the specific row
+    console.log(rowData);
+    // // Set the loader to true for the specific row
     setIsStatusUpdating({
       _id: rowData._id,
       bool: true,
@@ -256,6 +257,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
       });
     } catch (error) {
       // Handle error
+      console.log(error);
       showToast({
         type: 'error',
         title: t('Order Status'),
@@ -289,14 +291,6 @@ export const DISPATCH_TABLE_COLUMNS = () => {
       headerName: t('Payment'),
     },
     {
-      propertyName: 'user.name',
-      headerName: t('Customer'),
-    },
-    {
-      propertyName: 'user.phone',
-      headerName: t('Phone'),
-    },
-    {
       propertyName: 'rider.name',
       headerName: t('Rider'),
       body: (rowData: IActiveOrders) => {
@@ -321,7 +315,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
                   handleAssignRider(e.value, rowData)
                 }
                 // filter={true}
-                className="outline outline-1 min-w-[120px] outline-gray-300"
+                className="min-w-[120px] outline outline-1 outline-gray-300"
               />
             </div>
           );
@@ -348,7 +342,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
                 //   handleAssignRider(e.value, rowData)
                 // }
                 // filter={true}
-                className="outline outline-1 min-w-[150px] outline-gray-300"
+                className="min-w-[150px] outline outline-1 outline-gray-300"
               />
             </div>
           );
@@ -366,65 +360,27 @@ export const DISPATCH_TABLE_COLUMNS = () => {
         </span>
       ),
     },
-    // {
-    //   propertyName: 'orderStatus',
-    //   headerName: t('Status'),
-
-    //   body: (rowData: IActiveOrders) => {
-    //     const currentStatus = actionStatusOptions.find(
-    //       (status: IDropdownSelectItem) => status.code === rowData?.orderStatus
-    //     );
-
-    //     return (
-    //       <>
-    //         <Dropdown
-    //           value={currentStatus}
-    //           onChange={(e) => handleStatusDropDownChange(e, rowData)}
-    //           options={actionStatusOptions}
-    //           itemTemplate={itemTemplate}
-    //           valueTemplate={valueTemplate}
-    //           loading={
-    //             isStatusUpdating.bool && isStatusUpdating._id === rowData._id
-    //           }
-    //           className="outline outline-1 outline-gray-300"
-    //         />
-    //       </>
-    //     );
-    //   },
-    // },
     {
       propertyName: 'orderStatus',
       headerName: t('Status'),
-      body: (rowData: IActiveOrders) => {
-        // CHANGE 2: Filter status options based on whether it's a pickup order
-        const availableStatuses = rowData.isPickedUp
-          ? actionStatusOptions.filter((status) =>
-              ['PENDING', 'ACCEPTED', 'DELIVERED', 'CANCELLED'].includes(
-                status.code
-              )
-            )
-          : actionStatusOptions;
 
-        const currentStatus = availableStatuses.find(
+      body: (rowData: IActiveOrders) => {
+        const currentStatus = actionStatusOptions.find(
           (status: IDropdownSelectItem) => status.code === rowData?.orderStatus
         );
-
-        // CHANGE 3: Disable status changes for delivered orders
-        const isDelivered = rowData.orderStatus === 'DELIVERED';
 
         return (
           <>
             <Dropdown
               value={currentStatus}
               onChange={(e) => handleStatusDropDownChange(e, rowData)}
-              options={availableStatuses} // CHANGE 4: Use filtered status options
+              options={actionStatusOptions}
               itemTemplate={itemTemplate}
               valueTemplate={valueTemplate}
               loading={
                 isStatusUpdating.bool && isStatusUpdating._id === rowData._id
               }
               className="outline outline-1 outline-gray-300"
-              disabled={isDelivered} // CHANGE 5: Disable dropdown if delivered
             />
           </>
         );

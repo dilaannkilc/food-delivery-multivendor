@@ -8,16 +8,8 @@ import { Sidebar } from 'primereact/sidebar';
 import { IAddonForm } from '@/lib/utils/interfaces/forms';
 
 // Components
-import CustomButton from '@/lib/ui/useable-components/button';
-import CustomMultiSelectComponent from '@/lib/ui/useable-components/custom-multi-select';
-import CustomTextAreaField from '@/lib/ui/useable-components/custom-text-area-field';
-import CustomTextField from '@/lib/ui/useable-components/input-field';
-import CustomNumberField from '@/lib/ui/useable-components/number-input-field';
-import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
-import OptionsAddForm from '@/lib/ui/screen-components/protected/restaurant/options/add-form';
 
 // Utilities and Constants
-import { AddonsErrors, OptionErrors } from '@/lib/utils/constants';
 
 //Toast
 import useToast from '@/lib/hooks/useToast';
@@ -31,6 +23,13 @@ import {
 } from '@/lib/api/graphql';
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
+import CustomButton from '@/lib/ui/useable-components/button';
+import CustomMultiSelectComponent from '@/lib/ui/useable-components/custom-multi-select';
+import CustomTextAreaField from '@/lib/ui/useable-components/custom-text-area-field';
+import CustomTextField from '@/lib/ui/useable-components/input-field';
+import CustomNumberField from '@/lib/ui/useable-components/number-input-field';
+import TextIconClickable from '@/lib/ui/useable-components/text-icon-clickable';
+import { AddonsErrors, OptionErrors } from '@/lib/utils/constants';
 import {
   IAddonAddFormComponentProps,
   IDropdownSelectItem,
@@ -73,17 +72,13 @@ export default function AddonAddForm({
   addon,
   position = 'right',
   isAddAddonVisible,
-
 }: IAddonAddFormComponentProps) {
   // Hooks
   const t = useTranslations();
   const { showToast } = useToast();
   // Context
 
-  const { restaurantLayoutContextData ,   setIsAddOptionsVisible,
-    option,
-    setOption,
-    isAddOptionsVisible,} = useContext(RestaurantLayoutContext);
+  const { restaurantLayoutContextData } = useContext(RestaurantLayoutContext);
   const restaurantId = restaurantLayoutContextData?.restaurantId || '';
 
   const [initialValues, setInitialValues] = useState({
@@ -223,14 +218,14 @@ export default function AddonAddForm({
       visible={isAddAddonVisible}
       position={position}
       onHide={onHide}
-      className="w-full sm:w-[500px]"
+      className="w-full sm:w-[450px]"
     >
       <div className="flex h-full w-full items-center justify-start">
         <div className="h-full w-full">
           <div className="flex flex-col gap-2">
             <div className="mb-2 flex flex-col">
               <span className="text-lg">
-                {addon ? t('Edit') : t('Add')} {t('Addons')}
+                {addon ? t('Edit') : t('Add')} {t('Option')}
               </span>
             </div>
 
@@ -279,7 +274,7 @@ export default function AddonAddForm({
                                             </button>
                                           )}
                                           <Fieldset
-                                            legend={`${t('Addons')} ${index + 1} ${value.title ? `(${value.title})` : ''}`}
+                                            legend={`Addon ${index + 1} ${value.title ? `(${value.title})` : ''}`}
                                             toggleable
                                           >
                                             <div className="grid grid-cols-12 gap-4">
@@ -399,14 +394,6 @@ export default function AddonAddForm({
                                                   setSelectedItems={
                                                     setFieldValue
                                                   }
-                                                  extraFooterButton={{
-                                                    onChange: () => {
-                                                      setIsAddOptionsVisible(
-                                                        true
-                                                      );
-                                                    },
-                                                    title: 'Add Options',
-                                                  }}
                                                   showLabel={true}
                                                   style={{
                                                     borderColor:
@@ -462,14 +449,6 @@ export default function AddonAddForm({
           </div>
         </div>
       </div>
-      <OptionsAddForm
-        option={option}
-        onHide={() => {
-          setIsAddOptionsVisible(false);
-          setOption(null);
-        }}
-        isAddOptionsVisible={isAddOptionsVisible}
-      />
     </Sidebar>
   );
 }

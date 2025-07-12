@@ -39,7 +39,7 @@ export interface GeolocationCoordinates {
 }
 
 export interface IGetActiveOrders {
-  getActiveOrders: { totalCount: number; orders: IActiveOrders[] };
+  getActiveOrders: IActiveOrders[];
 }
 
 export interface IRidersByZone {
@@ -76,7 +76,4 @@ export interface IDispatchTableHeaderProps {
   onGlobalFilterChange: (e: ChangeEvent<HTMLInputElement>) => void;
   selectedActions: string[];
   setSelectedActions: Dispatch<SetStateAction<string[]>>;
-  search: string;
-  setSearch: Dispatch<SetStateAction<string>>;
 }
-

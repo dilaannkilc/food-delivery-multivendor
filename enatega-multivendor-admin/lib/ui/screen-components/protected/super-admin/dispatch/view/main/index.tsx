@@ -6,92 +6,65 @@ import Table from '@/lib/ui/useable-components/table';
 import DispatchTableHeader from '../header/table-header';
 
 //Inrfaces
+import { ILazyQueryResult } from '@/lib/utils/interfaces';
 import {
   IActiveOrders,
   IGetActiveOrders,
 } from '@/lib/utils/interfaces/dispatch.interface';
 
+//Prime react
+import { FilterMatchMode } from 'primereact/api';
+
 //Hooks
+import { useLazyQueryQL } from '@/lib/hooks/useLazyQueryQL';
 import { useEffect, useState } from 'react';
 
 // Constants
 import { generateDummyDispatchOrders } from '@/lib/utils/dummy';
 import { DISPATCH_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/dispatch-columns';
-import { useLazyQuery } from '@apollo/client';
 
 export default function DispatchMain() {
   // States
   const [selectedData, setSelectedData] = useState<IActiveOrders[]>([]);
   const [globalFilterValue, setGlobalFilterValue] = useState('');
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [search, setSearch] = useState('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Filters
-  // const filters = {
-  //   global: { value: globalFilterValue, matchMode: FilterMatchMode.CONTAINS },
-  //   orderStatus: {
-  //     value: selectedActions.length > 0 ? selectedActions : null,
-  //     matchMode: FilterMatchMode.IN,
-  //   },
-  // };
+  const filters = {
+    global: { value: globalFilterValue, matchMode: FilterMatchMode.CONTAINS },
+    orderStatus: {
+      value: selectedActions.length > 0 ? selectedActions : null,
+      matchMode: FilterMatchMode.IN,
+    },
+  };
 
   // Queries
-  const [
-    fetchActiveOrders,
-    { data: active_orders_data, loading: active_orders_loading },
-  ] = useLazyQuery<
-    IGetActiveOrders | undefined,
+  const { data: active_orders_data, fetch: fetchActiveOrders } = useLazyQueryQL(
+    GET_ACTIVE_ORDERS,
     {
-      page: number;
-      rowsPerPage: number;
-      search: string;
-      actions: string[];
-      restaurantId?: string;
+      fetchPolicy: 'network-only',
+      onCompleted: () => {
+        setIsLoading(false);
+      },
     }
-  >(GET_ACTIVE_ORDERS, {
-    variables: {
-      restaurantId: '',
-      page: page,
-      rowsPerPage: rowsPerPage,
-      search: search,
-      actions: selectedActions,
-    },
-    onCompleted: () => {
-      setIsLoading(false);
-    },
-    pollInterval: 3000,
-  });
+  ) as ILazyQueryResult<IGetActiveOrders | undefined, undefined>;
 
-  // fetchPolicy: 'network-only',
-  // onCompleted: () => {
-  //   setIsLoading(false);
-  // },
   // UseEffects
   useEffect(() => {
-    fetchActiveOrders({
-      variables: {
-        page,
-        rowsPerPage,
-        search,
-        actions: selectedActions,
-        restaurantId: '',
-      },
-    });
+    fetchActiveOrders();
     setIsLoading(true);
-  }, [rowsPerPage, page, selectedActions, search]);
+  }, []);
 
   return (
     <div className="p-3">
       <Table
-        columns={DISPATCH_TABLE_COLUMNS()}
+        columns={DISPATCH_TABLE_COLUMNS(fetchActiveOrders)}
         data={
-          active_orders_data?.getActiveOrders.orders ||
+          active_orders_data?.getActiveOrders ||
           (isLoading ? generateDummyDispatchOrders() : [])
         }
-        loading={isLoading || active_orders_loading}
+        loading={isLoading}
         selectedData={selectedData}
         setSelectedData={(e) => setSelectedData(e as IActiveOrders[])}
         header={
@@ -100,18 +73,9 @@ export default function DispatchMain() {
             onGlobalFilterChange={(e) => setGlobalFilterValue(e.target.value)}
             selectedActions={selectedActions}
             setSelectedActions={setSelectedActions}
-            search={search}
-            setSearch={setSearch}
           />
         }
-        rowsPerPage={rowsPerPage}
-        totalRecords={active_orders_data?.getActiveOrders.totalCount}
-        onPageChange={(page, rowNumber) => {
-          setPage(page);
-          setRowsPerPage(rowNumber);
-        }}
-        currentPage={page}
-        // filters={filters}
+        filters={filters}
       />
     </div>
   );

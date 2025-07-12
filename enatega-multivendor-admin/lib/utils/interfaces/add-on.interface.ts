@@ -1,10 +1,8 @@
-import { Dispatch, SetStateAction } from 'react';
 import { TSideBarFormPosition } from '../types/sidebar';
 import {
   IGlobalComponentProps,
   IGlobalTableHeaderProps,
 } from './global.interface';
-import { IOptions } from './options.interface';
 
 export interface IAddonHeaderProps extends IGlobalComponentProps {
   setIsAddAddonVisible: (visible: boolean) => void;
@@ -16,10 +14,6 @@ export interface IAddonAddFormComponentProps extends IGlobalComponentProps {
   isAddAddonVisible: boolean;
   onHide: () => void;
   addon: IAddon | null;
-  isAddOptionsVisible?:boolean;
-  setIsAddOptionsVisible?:Dispatch<SetStateAction<boolean>>;
-  option?:IOptions | null;
-  setOption?:Dispatch<SetStateAction<IOptions | null>>;
 }
 
 export interface IAddonMainComponentsProps extends IGlobalComponentProps {

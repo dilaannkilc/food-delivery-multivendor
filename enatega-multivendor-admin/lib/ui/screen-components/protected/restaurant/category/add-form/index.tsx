@@ -55,7 +55,6 @@ export default function CategoryAddForm({
   category,
   position = 'right',
   isAddCategoryVisible,
-  refetchCategories
 }: ICategoryAddFormComponentProps) {
   // Hooks
   const t = useTranslations();
@@ -137,10 +136,6 @@ export default function CategoryAddForm({
           message: `${t('Category has been')} ${category ? t('edited') : t('added')} ${t('successfully')}.`,
           duration: 3000,
         });
-         // Safely call refetchCategories if it exists
-      if (typeof refetchCategories === 'function') {
-        refetchCategories();
-      }
         onHide();
       },
       onError: (error) => {

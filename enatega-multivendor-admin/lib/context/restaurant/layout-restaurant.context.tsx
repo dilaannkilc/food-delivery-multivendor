@@ -6,14 +6,11 @@ import { createContext, useState } from 'react';
 // Interface
 import {
   ICategory,
-  IOptions,
   IProvider,
   ISubCategory,
   RestaurantLayoutContextData,
   RestaurantLayoutContextProps,
 } from '@/lib/utils/interfaces';
-
-// Utils
 import { SELECTED_RESTAURANT } from '../../utils/constants';
 import { onUseLocalStorage } from '../../utils/methods';
 
@@ -24,22 +21,10 @@ export const RestaurantLayoutContext =
   );
 
 export const RestaurantLayoutProvider = ({ children }: IProvider) => {
-  // States
-  const [isAddOptionsVisible, setIsAddOptionsVisible] = useState(false);
-  const [option, setOption] = useState<IOptions | null>(null);
   const [restaurantLayoutContextData, setRestaurantLayoutContextData] =
     useState<RestaurantLayoutContextData>({
       restaurantId: onUseLocalStorage('get', SELECTED_RESTAURANT),
     } as RestaurantLayoutContextData);
-  const [isAddSubCategoriesVisible, setIsAddSubCategoriesVisible] = useState({
-    bool: false,
-    parentCategoryId: '',
-  });
-  const [category, setCategory] = useState<ICategory | null>(null);
-  const [isSubCategoryModalOpen, setIsSubCategoryModalOpen] =
-    useState<boolean>(false);
-  const [subCategories, setSubCategories] = useState<ISubCategory[]>([]);
-  const [subCategoryParentId, setSubCategoryParentId] = useState<string>('');
 
   // Handlers
   const onSetRestaurantLayoutContextData = (
@@ -50,6 +35,15 @@ export const RestaurantLayoutProvider = ({ children }: IProvider) => {
       ...data,
     }));
   };
+  const [isAddSubCategoriesVisible, setIsAddSubCategoriesVisible] = useState({
+    bool: false,
+    parentCategoryId: '',
+  });
+  const [category, setCategory] = useState<ICategory | null>(null);
+  const [isSubCategoryModalOpen, setIsSubCategoryModalOpen] =
+    useState<boolean>(false);
+  const [subCategories, setSubCategories] = useState<ISubCategory[]>([]);
+  const [subCategoryParentId, setSubCategoryParentId] = useState<string>('');
   const value: RestaurantLayoutContextProps = {
     restaurantLayoutContextData,
     onSetRestaurantLayoutContextData,
@@ -63,10 +57,6 @@ export const RestaurantLayoutProvider = ({ children }: IProvider) => {
     setIsSubCategoryModalOpen,
     subCategoryParentId,
     setSubCategoryParentId,
-    isAddOptionsVisible,
-    setIsAddOptionsVisible,
-    option,
-    setOption
   };
 
   return (
