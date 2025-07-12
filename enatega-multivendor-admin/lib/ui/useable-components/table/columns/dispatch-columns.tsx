@@ -177,6 +177,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
           t('An error occured while assigning the job to rider'),
       });
     },
+
     onCompleted: () => {
       setIsRiderLoading({
         _id: '',
@@ -239,8 +240,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
     e: DropdownChangeEvent,
     rowData: IActiveOrders
   ) => {
-    console.log(rowData);
-    // // Set the loader to true for the specific row
+    // Set the loader to true for the specific row
     setIsStatusUpdating({
       _id: rowData._id,
       bool: true,
@@ -256,7 +256,6 @@ export const DISPATCH_TABLE_COLUMNS = () => {
       });
     } catch (error) {
       // Handle error
-      console.log(error);
       showToast({
         type: 'error',
         title: t('Order Status'),
@@ -322,7 +321,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
                   handleAssignRider(e.value, rowData)
                 }
                 // filter={true}
-                className="min-w-[120px] outline outline-1 outline-gray-300"
+                className="outline outline-1 min-w-[120px] outline-gray-300"
               />
             </div>
           );
@@ -349,7 +348,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
                 //   handleAssignRider(e.value, rowData)
                 // }
                 // filter={true}
-                className="min-w-[150px] outline outline-1 outline-gray-300"
+                className="outline outline-1 min-w-[150px] outline-gray-300"
               />
             </div>
           );

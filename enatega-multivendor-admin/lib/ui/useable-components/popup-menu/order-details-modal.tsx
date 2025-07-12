@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog } from 'primereact/dialog';
-import { IExtendedOrder, Items } from '@/lib/utils/interfaces';
+import { IExtendedOrder } from '@/lib/utils/interfaces';
 import './order-detail-modal.css';
 
 interface IOrderDetailModalProps {
@@ -14,13 +14,6 @@ const OrderDetailModal: React.FC<IOrderDetailModalProps> = ({
   onHide,
   restaurantData,
 }) => {
-  const calculateSubtotal = (items: Items[]) => {
-    let subTotal = 0;
-    for (let i = 0; i < items.length; i++) {
-      subTotal += items[i].variation.price * items[i].quantity;
-    }
-    return subTotal;
-  };
   if (!restaurantData) return null;
 
   return (
@@ -42,8 +35,7 @@ const OrderDetailModal: React.FC<IOrderDetailModalProps> = ({
                     {index + 1}. {item.title}
                   </span>
                   <span className="item-price">
-                    {item.quantity} &#215; $
-                    {(item.variation?.price ?? 0).toFixed(2)}
+                    ${(item.variation?.price ?? 0).toFixed(2)}
                   </span>
                 </div>
               ))}
@@ -59,7 +51,7 @@ const OrderDetailModal: React.FC<IOrderDetailModalProps> = ({
           <div className="charges-table">
             <div className="charges-row">
               <span>Subtotal</span>
-              <span>${calculateSubtotal(restaurantData?.items)}</span>
+              <span>${restaurantData?.orderAmount?.toFixed(2)}</span>
             </div>
             <div className="charges-row">
               <span>Delivery Fee</span>
@@ -75,7 +67,15 @@ const OrderDetailModal: React.FC<IOrderDetailModalProps> = ({
             </div>
             <div className="charges-row total-row">
               <strong>Total</strong>
-              <strong>${restaurantData.orderAmount}</strong>
+              <strong>
+                $
+                {(
+                  restaurantData.orderAmount +
+                  (restaurantData.deliveryCharges ?? 0) +
+                  (restaurantData.taxationAmount ?? 0) +
+                  (restaurantData.tipping ?? 0)
+                ).toFixed(2)}
+              </strong>
             </div>
           </div>
         </div>
