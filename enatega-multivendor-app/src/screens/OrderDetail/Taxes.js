@@ -27,7 +27,7 @@ const Taxes = ({ tax, deliveryCharges, currency }) => {
         }}
       >
         <TextDefault
-          H5
+          H3
           isRTL
           style={{ ...alignment.Mmedium }}
           textColor={currentTheme.gray900}
@@ -36,7 +36,7 @@ const Taxes = ({ tax, deliveryCharges, currency }) => {
           {' '}
           {t('taxFee')}
         </TextDefault>
-        <TextDefault style={{ ...alignment.Mmedium }} bolder H5>
+        <TextDefault style={{ ...alignment.Mmedium }} bolder H4>
           {' '}
           {currency}{tax}{' '}
         </TextDefault>
@@ -49,16 +49,16 @@ const Taxes = ({ tax, deliveryCharges, currency }) => {
         }}
       >
         <TextDefault
-          H5
-          style={{ ...alignment.Mmedium, textAlign: 'center' }}
-          textColor={currentTheme.gray900}
+          H3
+          style={{ ...alignment.Mmedium, textAlign: 'white' }}
+          textColor={currentTheme.gray600}
           bold
           isRTL
         >
           {' '}
           {t('delvieryCharges')}
         </TextDefault>
-        <TextDefault H5 bolder style={{ ...alignment.Mmedium }}>
+        <TextDefault H4 bolder style={{ ...alignment.Mmedium }}>
           {' '}
           {currency}{deliveryCharges}{' '} 
         </TextDefault>

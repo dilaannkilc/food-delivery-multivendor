@@ -23,7 +23,7 @@ const OvalButton = ({
     icon,
     onSelect,
     styles }) => (<Pressable onPress={onSelect} style={[styles, {
-        backgroundColor: selected ? theme.main : null,
+        backgroundColor: selected ? theme.white : null,
     }]}>
         <View style={alignment.MxSmall}>
             {icon}

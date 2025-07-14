@@ -31,18 +31,6 @@ function PickUp(props) {
       }
     },
     textColor: props?.pickupTextColor || currentTheme.newFontcolor,
-    
-      // Android-Specific Customizations
-  positiveButton: {
-    label: 'OK',
-    textColor: props?.pickupTextColor || currentTheme.newFontcolor, // Set color for OK button
-  },
-  negativeButton: {
-    label: 'Cancel',
-    textColor: props?.pickupTextColor || currentTheme.newFontcolor, // Set color for Cancel button
-    },
-    themeVariant: themeContext.ThemeValue === 'Dark' ? 'Dark' : 'Pink',
-
   }
 
   useEffect(() => {

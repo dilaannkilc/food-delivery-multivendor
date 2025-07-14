@@ -211,8 +211,8 @@ const styles = (props = null) =>
     collectionContainer: {
       flexGrow: 1,
       gap: 8,
-      // ...alignment.PTsmall,
-      ...alignment.PBsmall
+      ...alignment.PTmedium,
+      ...alignment.PBmedium
     }
   })
 export default styles

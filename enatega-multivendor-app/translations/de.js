@@ -661,9 +661,6 @@ loginRequired: 'Anmeldung erforderlich',
   "Select another one": "Wählen Sie eine andere Adresse",
   isRTL: false,
   "noMatchingResults": "Keine passenden Ergebnisse",
-  "noMatchingResultsDesc": "Versuche, deine Filter anzupassen oder andere Optionen zu erkunden, um das zu finden, was du suchst.",
-  "Applied Filters": "Angewendete Filter",
-  "WhatsApp is not installed on the device": "WhatsApp ist auf dem Gerät nicht installiert",
-  "Install it": "Installiere es",
+  "noMatchingResultsDesc": "Versuche, deine Filter anzupassen oder andere Optionen zu erkunden, um das zu finden, was du suchst."
 
 }

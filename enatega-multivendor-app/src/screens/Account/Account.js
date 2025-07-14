@@ -234,9 +234,11 @@ function Account(props) {
 
   function toggleTheme() {
     if (themeContext.ThemeValue === 'Pink') {
-      themeContext.dispatch({ type: 'Dark' });
+      themeContext.dispatch({ type: 'Dark' })
+      setDarkTheme(!darkTheme)
     } else {
-      themeContext.dispatch({ type: 'Pink' });
+      themeContext.dispatch({ type: 'Pink' })
+      setDarkTheme(!darkTheme)
     }
   }
 
@@ -623,7 +625,7 @@ function Account(props) {
                   >
                     <View>
                       <CheckboxBtn
-                        checked={themeContext.ThemeValue === 'Dark'}
+                        checked={darkTheme}
                         onPress={() => toggleTheme()}
                       />
                     </View>

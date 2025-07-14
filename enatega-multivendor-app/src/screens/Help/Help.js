@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {
   View,
   StatusBar,
@@ -21,8 +21,6 @@ import { scale } from '../../utils/scaling'
 import { useTranslation } from 'react-i18next'
 import Accordion from '../../components/Accordion/Accordion'
 import { FontAwesome } from '@expo/vector-icons'
-import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
-import { WhatsAppNotInstalledModal } from '../../components/Help/WhatsAppNotInstalledModal'
 
 const FAQs = [
   {
@@ -66,50 +64,30 @@ const Help = (props) => {
   const { t, i18n } = useTranslation()
   const themeContext = useContext(ThemeContext)
   const currentTheme = {isRTL: i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue]}
-  const [isModalVisible, setisModalVisible] = useState(false)
 
-  const handleNavigation = () => {
-    setisModalVisible(false);
-    Linking.openURL('https://play.google.com/store/apps/details?id=com.whatsapp')
-  }
+  const openWhatsAppChat = async () => {
+    const phoneNumber = '+14232600408'
 
-const openWhatsAppChat = async () => {
-  const phoneNumber = '+14232600408';
-
-  if (Platform.OS === 'android') {
-    const androidUrl = `whatsapp://send?phone=${phoneNumber}`
-    
-    try {
-      const supported = Linking.canOpenURL(androidUrl)
-      console.log("🚀 ~ openWhatsAppChat ~ supported:", supported)
-      if (supported) {
-        await Linking.openURL(androidUrl)
-        console.log('WhatsApp opened successfully')
+    if (Platform.OS === 'android') {
+      const androidUrl = `whatsapp://send?phone=${phoneNumber}`
+      Linking.openURL(androidUrl)
+    } else if (Platform.OS === 'ios') {
+      const iosUrl = `https://wa.me/${phoneNumber.replace('+', '')}`;
+      console.log('Attempting to open URL:', iosUrl)
+      try {
+        const supported = await Linking.canOpenURL(iosUrl)
+        console.log('Can open URL:', supported)
+        if (supported) {
+          await Linking.openURL(iosUrl)
+        } else {
+          console.log('WhatsApp is not installed on the device')
+        }
+      } catch (error) {
+        console.error('Error opening URL', error)
       }
-    } catch (error) {
-      setisModalVisible(true);
-      console.error('Error opening URL', error);
-    }
-  } else if (Platform.OS === 'ios') {
-    const iosUrl = `https://wa.me/${phoneNumber.replace('+', '')}`;
-    console.log('Attempting to open URL:', iosUrl);
-
-    try {
-      const supported = await Linking.canOpenURL(iosUrl);
-      console.log('Can open URL:', supported);
-
-      if (supported) {
-        await Linking.openURL(iosUrl);
-      } else {
-        console.log('WhatsApp is not installed on the device');
-        setisModalVisible(true);
-      }
-    } catch (error) {
-      console.error('Error opening URL', error);
     }
   }
-};
-  
+
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor(currentTheme.menuBar)
@@ -220,14 +198,6 @@ const openWhatsAppChat = async () => {
             </TouchableOpacity>
           </View>
         </View>
-
-        <WhatsAppNotInstalledModal
-        theme={currentTheme}
-        modalVisible={isModalVisible}
-        setModalVisible={()=> setisModalVisible(!isModalVisible)}
-        handleNavigation={handleNavigation}
-        />
-
       </View>
     </SafeAreaView>
   )
