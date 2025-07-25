@@ -81,8 +81,6 @@ const Banner = ({ banners }) => {
       autoplay
       autoplayDelay={3}
       autoplayLoop
-      removeClippedSubviews={true}
-      windowSize={3}
       showPagination
       data={banners ?? []}
       snapToInterval={width} // Ensures only one image is visible at a time
@@ -103,7 +101,7 @@ const Banner = ({ banners }) => {
               onPressBanner(item)
             }}
           >
-            {mediaType === 'video' ? ( 
+            {mediaType === 'video' ? (
               <VideoBanner style={styles().image} source={{ uri: item?.file }}>
                 {renderBannerContent(item)}
               </VideoBanner>
