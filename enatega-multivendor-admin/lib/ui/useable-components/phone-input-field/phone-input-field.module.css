@@ -27,7 +27,3 @@
   outline: none;
   box-shadow: none;
 }
-
-.phone-error .react-international-phone-input {
-  border-color: red !important;
-}

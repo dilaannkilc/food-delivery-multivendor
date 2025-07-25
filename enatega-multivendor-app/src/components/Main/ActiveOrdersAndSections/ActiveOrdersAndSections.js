@@ -13,12 +13,10 @@ function ActiveOrdersAndSections(props) {
 
   const themeContext = useContext(ThemeContext)
   const currentTheme = theme[themeContext.ThemeValue]
-     
-  console.log(currentTheme)
 
   return (
     <View
-      style={[styles().menuPageHeading,{backgroundColor:currentTheme.themeBackground}]}
+      style={styles().menuPageHeading}
     >
       <TextDefault
         numberOfLines={1}
