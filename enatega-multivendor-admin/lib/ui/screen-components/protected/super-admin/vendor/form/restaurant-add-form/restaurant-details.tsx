@@ -62,8 +62,8 @@ const initialValues: IRestaurantForm = {
   confirmPassword: '',
   phoneNumber: "",
   address: '',
-  deliveryTime: 1,
-  minOrder: 1,
+  deliveryTime: 0,
+  minOrder: 0,
   salesTax: 0.0,
   shopType: null,
   cuisines: [],
@@ -369,7 +369,7 @@ export default function RestaurantDetails({
                       <div>
                         <CustomNumberField
                           suffix="m"
-                          min={1}
+                          min={0}
                           max={500}
                           placeholder={t('Delivery Time')}
                           name="deliveryTime"
