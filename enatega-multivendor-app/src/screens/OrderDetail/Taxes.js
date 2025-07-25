@@ -29,7 +29,6 @@ const Taxes = ({ tax, deliveryCharges, currency }) => {
         <TextDefault
           H5
           isRTL
-          bolder
           style={{ ...alignment.Mmedium }}
           textColor={currentTheme.gray900}
           bold
@@ -53,7 +52,7 @@ const Taxes = ({ tax, deliveryCharges, currency }) => {
           H5
           style={{ ...alignment.Mmedium, textAlign: 'center' }}
           textColor={currentTheme.gray900}
-          bolder
+          bold
           isRTL
         >
           {' '}

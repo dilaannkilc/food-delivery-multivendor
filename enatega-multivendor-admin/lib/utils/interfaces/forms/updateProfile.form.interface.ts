@@ -23,7 +23,6 @@ export interface IUpdateProfileForm {
   username: string;
   password: string;
   confirmPassword: string;
-  phoneNumber: string;
   address: string;
   deliveryTime: number;
   minOrder: number;

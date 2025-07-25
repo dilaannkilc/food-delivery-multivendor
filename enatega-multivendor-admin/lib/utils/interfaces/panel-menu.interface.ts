@@ -3,7 +3,6 @@ import { MouseEventHandler } from 'react';
 
 export interface ISidebarMenuItem {
   text: string;
-  label?: string;
   key?: number;
   icon?: IconDefinition;
   isExpandable?: boolean;

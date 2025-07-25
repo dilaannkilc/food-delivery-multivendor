@@ -9,9 +9,10 @@ const styles = (props = null) =>
       ...alignment.MLlarge
     },
     menuPageHeading:{
-      ...alignment.MLmedium,
-      ...alignment.MRmedium,
-      padding:8,
+      // ...alignment.MLmedium,
+      // ...alignment.MRmedium
+      backgroundColor:"white",
+      padding:8
     },
     offerScroll: {
       height: scale(230),

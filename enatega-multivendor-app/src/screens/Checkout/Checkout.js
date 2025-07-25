@@ -291,8 +291,7 @@ function Checkout(props) {
           >
             {data && data?.restaurant.name && data?.restaurant.address && (
               <>
-                {data?.restaurant.name} {' - '} 
-                {data.restaurant.address.length > 12 ? data.restaurant.address.slice(0, 12) + '...' : data.restaurant.address}
+                {data?.restaurant.name} {' - '} {data?.restaurant.address}
               </>
             )}
           </TextDefault>
@@ -1400,7 +1399,7 @@ function Checkout(props) {
               <TextInput
                 keyboardType='numeric'
                 placeholder={'25'}
-                placeholderTextColor={currentTheme.inputPlaceHolder}
+                placeholderTextColor={currentTheme.gray500}
                 value={tipAmount}
                 onChangeText={(text) => setTipAmount(text)}
                 style={styles(currentTheme).modalInput}
@@ -1479,7 +1478,6 @@ function Checkout(props) {
               <TextInput
                 label={t('inputCode')}
                 placeholder={t('inputCode')}
-                placeholderTextColor={currentTheme.inputPlaceHolder}
                 value={voucherCode}
                 onChangeText={(text) => setVoucherCode(text)}
                 style={styles(currentTheme).modalInput}

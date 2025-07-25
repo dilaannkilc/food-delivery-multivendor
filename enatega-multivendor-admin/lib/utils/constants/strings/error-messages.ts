@@ -62,7 +62,7 @@ export const RestaurantErrors: IRestaurantFormErrors = {
   password: ['Required', ...PasswordErrors],
   confirmPassword: ['Required', 'Password must match'],
   address: ['Required', 'Name cannot be only spaces'],
-  deliveryTime: ['Required','The value must be greater than or equal to 1'],
+  deliveryTime: ['Required'],
   minOrder: ['Required'],
   salesTax: ['Required'],
   shopType: ['Required'],
@@ -95,7 +95,7 @@ export const RiderErrors: IRiderErrors = {
   confirmPassword: ['Required', 'Password must match'],
   zone: ['Required'],
   phone: ['Required'],
-  // vehicleType: ['Required'],
+  vehicleType: ['Required'],
 };
 
 export const BannersErrors: IBannersErrors = {
@@ -162,11 +162,10 @@ export const CuisineErrors: ICuisineErrors = {
 };
 
 export const CouponErrors: ICouponErrors = {
-  title: ['Required', 'Name cannot be only spaces', 'You have reached the maximum limit!', 'Title is a required field'],
-  discount: ['Required', 'Discount is a required field', 'The minimum starting value is one', 'You cannot exceed from 100 as this is a %age field'],
-  enabled: ['Required', 'Please choose one'],
+  title: ['Required', 'Name cannot be only spaces'],
+  discount: ['Required'],
+  enabled: ['Required'],
 };
-
 export const NotificationErrors: INoticiationErrors = {
   title: ['Required'],
   body: ['Required'],

@@ -9,7 +9,6 @@ export const CREATE_RESTAURANT = gql`
       username
       orderPrefix
       slug
-      phone
       address
       deliveryTime
       minimumOrder
@@ -92,7 +91,6 @@ export const EDIT_RESTAURANT = gql`
       orderId
       orderPrefix
       name
-      phone
       image
       logo
       slug

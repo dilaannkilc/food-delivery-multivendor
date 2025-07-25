@@ -40,7 +40,6 @@ function HoveredSubMenuItem({ icon, text, active }: SubMenuItemProps) {
 export default function SidebarItem({
   icon,
   text,
-  label,
   expanded = false,
   subMenu = null,
   route,
@@ -109,7 +108,7 @@ export default function SidebarItem({
               expanded ? 'ml-3 w-44' : 'w-0'
             }`}
           >
-            {label}
+            {text}
           </span>
           {subMenu && (
             <div
@@ -132,7 +131,6 @@ export default function SidebarItem({
                       key={index}
                       isLastItem={subMenu.length - 1 === index}
                       text={item.text}
-                      label={item.label}
                       icon={item.icon}
                       active={isActive}
                     />
