@@ -105,7 +105,7 @@ export const RiderErrors: IRiderErrors = {
   password: ['Required', ...PasswordErrors],
   confirmPassword: ['Required', 'Password must match'],
   zone: ['Required'],
-  phone: ['Required','Minimum 5 Numbers are Required'],
+  phone: ['Required'],
   vehicleType: ['Required'],
 };
 
@@ -158,7 +158,7 @@ export const ZoneErrors: IZoneErrors = {
 export const StaffErrors: IStaffErrors = {
   name: ['Required', 'Name cannot be only spaces'],
   email: ['Required'],
-  phone: ['Required','Minimum 5 Numbers are Required'],
+  phone: ['Required'],
   password: ['Required', ...PasswordErrors],
   confirmPassword: ['Required', 'Password must match'],
   isActive: ['Required'],
