@@ -32,9 +32,6 @@ import EmptyView from '../../components/EmptyView/EmptyView'
 import NewRestaurantCard from '../../components/Main/RestaurantCard/NewRestaurantCard'
 import { isOpen, sortRestaurantsByOpenStatus } from '../../utils/customFunctions'
 
-import useNetworkStatus from '../../utils/useNetworkStatus'
-
-
 const RESTAURANTS = gql`
   ${FavouriteRestaurant}
 `
@@ -109,10 +106,6 @@ function Favourite() {
       )
     })
   }, [navigation])
-
-    
-    const { isConnected:connect,setIsConnected :setConnect} = useNetworkStatus();
-    if (!connect) return <ErrorView refetchFunctions={[refetch]} />
 
   const emptyView = () => {
     return (

@@ -11,8 +11,7 @@ const styles = (props = null) =>
     menuPageHeading:{
       ...alignment.MLmedium,
       ...alignment.MRmedium,
-      backgroundColor:props?.toggler,
-      padding:8
+      padding:8,
     },
     offerScroll: {
       height: scale(230),

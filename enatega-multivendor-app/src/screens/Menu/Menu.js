@@ -58,7 +58,6 @@ import { Modalize } from 'react-native-modalize'
 import Filters from '../../components/Filter/FilterSlider'
 import AppliedFilters from '../../components/Filter/AppliedFilters'
 import NetInfo from "@react-native-community/netinfo";
-import useNetworkStatus from '../../utils/useNetworkStatus'
 import {
   isOpen,
   sortRestaurantsByOpenStatus
@@ -114,8 +113,6 @@ function Menu({ route, props }) {
   const routeData = useRoute()
   const themeContext = useContext(ThemeContext)
 
-  
-
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
       console.log(state.isConnected);
@@ -155,8 +152,6 @@ function Menu({ route, props }) {
   })
 
   const { data: allCuisines ,refetch:refetchCuisines} = useQuery(GET_CUISINES)
-
-
 
   const {
     onScroll /* Event handler */,
@@ -515,8 +510,8 @@ function Menu({ route, props }) {
     )
   }
 
-  const { isConnected:connect,setIsConnected :setConnect} = useNetworkStatus();
-  if (!connect) return <ErrorView refetchFunctions={[refetch]} />
+  if (!isConnected) return <ErrorView />
+  if (error ) return <ErrorView />
  
 
   if (loading || mutationLoading || loadingOrders) return loadingScreen()
@@ -741,6 +736,7 @@ const onPressCollection = (collection, index) => {
                         <TextDefault
                           Normal
                           bolder
+                    
                           style={{ padding: 4 }}
                           textColor={
                             activeCollection === item.name
@@ -767,7 +763,7 @@ const onPressCollection = (collection, index) => {
           />         
               </View>
 
-              <View   style={{backgroundColor:currentTheme?.toggler}}>
+              <View style={{backgroundColor:currentTheme.themeBackground}}>
               {restaurantData?.length === 0 ? null : (
                 <ActiveOrdersAndSections
                   menuPageHeading={
