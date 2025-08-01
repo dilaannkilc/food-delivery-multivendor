@@ -33,7 +33,6 @@ export const VendorSchema = Yup.object().shape({
     .oneOf([Yup.ref('password'), null], 'Password must match')
     .required('Required'),
   image: Yup.string().url('Invalid image URL').required('Required'),
-  phoneNumber: Yup.string().required('Required').min(5,"Minimum 5 Numbers are Required"),
 });
 
 // Creating separate schema for store vendor form
@@ -67,7 +66,7 @@ export const VendorEditSchema = Yup.object().shape({
     .oneOf([Yup.ref('password'), null], 'Password must match')
     .required('Required'),
   image: Yup.string().required(),
-  phoneNumber: Yup.string().required('Required').min(5,"Minimum 5 Numbers are Required"),
+  phoneNumber: Yup.string(),
   firstName: Yup.string()
     .trim()
     .matches(/\S/, 'First Name cannot be only spaces')

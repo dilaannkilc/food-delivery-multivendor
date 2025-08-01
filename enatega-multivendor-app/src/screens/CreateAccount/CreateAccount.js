@@ -21,9 +21,6 @@ import LoginHeader from '../../assets/SVG/imageComponents/LoginHeader'
 const { height } = Dimensions.get('window')
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import useNetworkStatus from '../../utils/useNetworkStatus'
-import ErrorView from '../../components/ErrorView/ErrorView'
-
 const CreateAccount = (props) => {
   const {
     enableApple,
@@ -131,9 +128,7 @@ const CreateAccount = (props) => {
       />
     )
   }
-  const { isConnected:connect,setIsConnected :setConnect} = useNetworkStatus();
-  if (!connect) return <ErrorView refetchFunctions={[]} />
-  
+
   return (
     <SafeAreaView style={styles(currentTheme).safeAreaViewStyles}>
       <StatusBar

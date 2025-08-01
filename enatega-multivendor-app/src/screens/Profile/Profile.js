@@ -43,9 +43,6 @@ import useHomeRestaurants from '../../ui/hooks/useRestaurantOrderInfo'
 import { I18nManager } from 'react-native'
 import { isOpen, sortRestaurantsByOpenStatus } from '../../utils/customFunctions'
 
-import useNetworkStatus from '../../utils/useNetworkStatus'
-import ErrorView from '../../components/ErrorView/ErrorView'
-
 
 const RESTAURANTS = gql`
   ${FavouriteRestaurant}
@@ -125,8 +122,6 @@ function Profile(props) {
     })
   }, [props?.navigation, showPass, toggleView, themeContext.ThemeValue])
 
-  const { isConnected:connect,setIsConnected :setConnect} = useNetworkStatus();
-  if (!connect) return <ErrorView refetchFunctions={[refetch]} />
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: currentTheme.themeBackground }}

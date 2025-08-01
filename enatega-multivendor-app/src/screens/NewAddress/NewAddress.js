@@ -36,9 +36,6 @@ import { HeaderBackButton } from '@react-navigation/elements'
 import navigationService from '../../routes/navigationService'
 import { useTranslation } from 'react-i18next'
 
-import useNetworkStatus from '../../utils/useNetworkStatus'
-import ErrorView from '../../components/ErrorView/ErrorView'
-
 const CREATE_ADDRESS = gql`
   ${createAddress}
 `
@@ -205,8 +202,6 @@ function NewAddress(props) {
     setModalVisible(false)
   }
 
-  const { isConnected:connect,setIsConnected :setConnect} = useNetworkStatus();
-  if (!connect) return <ErrorView refetchFunctions={[]} />
   return (
     <>
       <KeyboardAvoidingView

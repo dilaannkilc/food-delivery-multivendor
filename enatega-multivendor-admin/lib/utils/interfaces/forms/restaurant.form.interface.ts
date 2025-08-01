@@ -14,7 +14,6 @@ export interface IRestaurantFormErrors {
   cuisines: string[];
   image: string[];
   logo: string[];
-  phoneNumber: string[];
 }
 
 export interface IRestaurantForm {

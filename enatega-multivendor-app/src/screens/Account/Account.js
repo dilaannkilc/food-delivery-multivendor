@@ -41,9 +41,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Localization from 'expo-localization'
 import { languageTypes } from '../../components/LanguageModalize/LanguageModal'
 
-import useNetworkStatus from '../../utils/useNetworkStatus'
-import ErrorView from '../../components/ErrorView/ErrorView'
-
 const PUSH_TOKEN = gql`
   ${pushToken}
 `
@@ -386,10 +383,6 @@ function Account(props) {
       />
     )
 
-    const { isConnected:connect,setIsConnected :setConnect} = useNetworkStatus();
-    if (!connect) return <ErrorView refetchFunctions={[]} />
-
-    
   return (
     <>
       <View style={styles(currentTheme).formContainer}>

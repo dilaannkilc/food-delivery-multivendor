@@ -19,9 +19,6 @@ import analytics from '../../utils/analytics'
 import navigationService from '../../routes/navigationService'
 import { useTranslation } from 'react-i18next'
 
-import useNetworkStatus from '../../utils/useNetworkStatus'
-import ErrorView from '../../components/ErrorView/ErrorView'
-
 const SELECT_ADDRESS = gql`
   ${selectAddress}
 `
@@ -118,9 +115,6 @@ function CartAddresses(props) {
     setIsAddressChanged(defaultAddress ? address._id !== defaultAddress._id : true)
   }
 
-  const { isConnected:connect,setIsConnected :setConnect} = useNetworkStatus();
-  if (!connect) return <ErrorView refetchFunctions={[]} />
-  
   return (
     <>
       <View style={[styles().flex, styles(currentTheme).cartAddress]}>
