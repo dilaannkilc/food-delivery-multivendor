@@ -28,7 +28,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import ConfigurationContext from "../../../context/Configuration";
 import UserContext from "../../../context/User";
 import HeadingView from "./HeadingView";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 import useStyles from "./styles";
 
 function VariationModal({ isVisible, toggleModal, data }) {
@@ -318,7 +318,7 @@ function VariationModal({ isVisible, toggleModal, data }) {
             }}
           >
             <Typography variant="h4" color="white" style={{ fontWeight: 600 }}>
-              {t("customize")}
+              {t('customize')}
             </Typography>
             <Button onClick={toggleModal} className={classes.closeContainer}>
               <CloseIcon style={{ color: "black" }} />
@@ -342,7 +342,6 @@ function VariationModal({ isVisible, toggleModal, data }) {
                 </Box>
                 <Divider orientation="horizontal" />
               </DialogTitle>
-
               <DialogContent>
                 {data?.food.variations.length > 1 && (
                   <>
@@ -371,7 +370,7 @@ function VariationModal({ isVisible, toggleModal, data }) {
                                 </Typography>
                               }
                             />
-
+                            
                             <Typography className={classes.priceTitle}>
                               {`${
                                 configuration.currencySymbol
@@ -381,10 +380,7 @@ function VariationModal({ isVisible, toggleModal, data }) {
                         ))}
                       </RadioGroup>
                     </FormControl>
-                    <Divider
-                      orientation="horizontal"
-                      style={{ marginBottom: "10px" }}
-                    />
+                    <Divider orientation="horizontal" style={{marginBottom: "10px"}}/>
                   </>
                 )}
                 <Box />
@@ -398,8 +394,8 @@ function VariationModal({ isVisible, toggleModal, data }) {
                           error={addon.error}
                           status={
                             addon.quantityMinimum === 0
-                              ? t("optional")
-                              : `${addon.quantityMinimum} ${t("required")}`
+                              ? t('optional')
+                              : `${addon.quantityMinimum} ${t('required')}`
                           }
                         />
                         {radioORcheckboxes(addon)}
@@ -408,9 +404,9 @@ function VariationModal({ isVisible, toggleModal, data }) {
                   </FormGroup>
                   <FormGroup>
                     <HeadingView
-                      title={t("specialInstructions")}
-                      subTitle={t("anySpecific")}
-                      status={t("optional")}
+                      title={t('specialInstructions')}
+                      subTitle={t('anySpecific')}
+                      status={t('optional')}
                       error={false}
                     />
                     <Box mt={theme.spacing(2)} />
@@ -424,7 +420,7 @@ function VariationModal({ isVisible, toggleModal, data }) {
                       onChange={(event) =>
                         setSpecialInstructions(event.target.value)
                       }
-                      placeholder={t("placeholder")}
+                      placeholder={t('placeholder')}
                       variant="filled"
                       color="primary"
                       inputProps={{
@@ -494,7 +490,7 @@ function VariationModal({ isVisible, toggleModal, data }) {
                     }}
                   >
                     <Typography className={classes.checkoutText}>
-                      {t("addToCart")}
+                      {t('addToCart')}
                     </Typography>
                   </Button>
                 </Box>
