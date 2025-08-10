@@ -425,6 +425,7 @@ export default function FoodDetails({
         }}
         isAddCategoryVisible={isAddCategoryVisible}
         subCategories={subCategories}
+        refetchCategories = {refetchCategories}
       />
     </div>
   );

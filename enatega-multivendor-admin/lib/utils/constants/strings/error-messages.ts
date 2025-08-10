@@ -121,7 +121,6 @@ export const BannersErrors: IBannersErrors = {
 export const CategoryErrors: ICategoryErrors = {
   _id: [],
   title: ['Required', 'Name cannot be only spaces'],
-  image: ['Required'],
 };
 
 export const OptionErrors: IOptionErrors = {

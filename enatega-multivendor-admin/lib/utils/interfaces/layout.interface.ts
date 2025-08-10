@@ -68,7 +68,6 @@ export interface RestaurantLayoutContextProps {
 }
 
 export interface RestaurantLayoutContextData {
-  shopType: string;
   restaurantId: string;
 }
 
