@@ -1,6 +1,6 @@
 import { ApolloProvider } from '@apollo/client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-// import 'expo-dev-client'
+import 'expo-dev-client'
 import * as Device from 'expo-device'
 import * as Font from 'expo-font'
 import * as Notifications from 'expo-notifications'
@@ -14,7 +14,6 @@ import {
   Platform,
   StatusBar,
   StyleSheet,
-  Text,
   View,
   useColorScheme
 } from 'react-native'
@@ -92,6 +91,7 @@ export default function App() {
     }
   }, [systemTheme])
 
+
   // For Fonts, etc
   useEffect(() => {
     const loadAppData = async () => {
@@ -101,7 +101,7 @@ export default function App() {
       //   console.warn(e)
       // }
       // await i18n.initAsync()
-      await Font.loadAsync({
+      await Font.loadAsync (  {
         MuseoSans300: require('./src/assets/font/MuseoSans/MuseoSans300.ttf'),
         MuseoSans500: require('./src/assets/font/MuseoSans/MuseoSans500.ttf'),
         MuseoSans700: require('./src/assets/font/MuseoSans/MuseoSans700.ttf')
