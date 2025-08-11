@@ -23,15 +23,13 @@ function TopPicks(props) {
         numberOfLines={1}
         textColor={currentTheme.fontFourthColor}
         bolder
-        H4
-      >
+        H4>
         {props?.title}
       </TextDefault>
       <TextDefault
         Normal
         textColor={currentTheme.secondaryText}
-        style={styles().ItemDescription}
-      >
+        style={styles().ItemDescription}>
         {t('mostOrderedNow')}
       </TextDefault>
       <FlatList
@@ -40,7 +38,7 @@ function TopPicks(props) {
         showsHorizontalScrollIndicator={false}
         horizontal={true}
         data={props?.mostOrderedRestaurants}
-        keyExtractor={(item) => item._id}
+        keyExtractor={item => item._id}
         renderItem={({ item }) => {
           return <NewRestaurantCard {...item} />
         }}
