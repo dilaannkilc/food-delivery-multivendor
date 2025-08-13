@@ -1,4 +1,10 @@
-import { View, Alert, StatusBar, Platform, Dimensions } from 'react-native'
+import {
+  View,
+  Alert,
+  StatusBar,
+  Platform,
+  Dimensions,
+} from 'react-native'
 import styles from './styles'
 import RadioComponent from '../../components/CustomizeComponents/RadioComponent/RadioComponent'
 import TitleComponent from '../../components/CustomizeComponents/TitleComponent/TitleComponent'
@@ -18,11 +24,25 @@ import useNetworkStatus from '../../utils/useNetworkStatus'
 import ErrorView from '../../components/ErrorView/ErrorView'
 
 // Hooks
-import React, { useState, useContext, useLayoutEffect, useEffect, useRef, useCallback } from 'react'
+import React, {
+  useState,
+  useContext,
+  useLayoutEffect,
+  useEffect,
+  useRef,
+  useCallback
+} from 'react'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import Animated, { Extrapolation, interpolate, useAnimatedScrollHandler, useAnimatedStyle, useSharedValue, useAnimatedRef } from 'react-native-reanimated'
+import Animated, {
+  Extrapolation,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  useAnimatedRef
+} from 'react-native-reanimated'
 import { IconButton } from 'react-native-paper'
 import { Text } from 'react-native'
 import { scale } from '../../utils/scaling'
@@ -30,16 +50,20 @@ import { TextField } from 'react-native-material-textfield'
 
 const { height } = Dimensions.get('window')
 const TOP_BAR_HEIGHT = height * 0.08
-const HEADER_MAX_HEIGHT = height * 0.4
-const HEADER_MIN_HEIGHT = TOP_BAR_HEIGHT
-const SCROLL_RANGE = HEADER_MAX_HEIGHT
-
+const HEADER_MAX_HEIGHT = height * 0.40
+const HEADER_MIN_HEIGHT = height * 0.05 + TOP_BAR_HEIGHT
+const SCROLL_RANGE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
 function ItemDetail(props) {
+  // Analytics
+  const Analytics = analytics()
   const { food, addons, options, restaurant } = props?.route?.params
+  const navigation = useNavigation()
+  const { t, i18n } = useTranslation()
+
 
   // States
-  const [listZindex, setListZindex] = useState(0)
-  const [isDescriptionVisible, setIsDescriptionVisible] = useState(false)
+  const [listZindex, setListZindex] = useState(0);
+  const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
   const [selectedVariation, setSelectedVariation] = useState({
     ...food?.variations[0],
     addons: food?.variations[0].addons?.map((fa) => {
@@ -53,46 +77,46 @@ function ItemDetail(props) {
       }
     })
   })
+
   const [selectedAddons, setSelectedAddons] = useState([])
   const [specialInstructions, setSpecialInstructions] = useState('')
-
-  const { t, i18n } = useTranslation()
-  const navigation = useNavigation()
-  const Analytics = analytics()
-  const { restaurant: restaurantCart, setCartRestaurant, cart, addQuantity, addCartItem } = useContext(UserContext)
+  const {
+    restaurant: restaurantCart,
+    setCartRestaurant,
+    cart,
+    addQuantity,
+    addCartItem
+  } = useContext(UserContext)
   const themeContext = useContext(ThemeContext)
+  const currentTheme = { isRTL: i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue] }
   const inset = useSafeAreaInsets()
-  const { isConnected: connect, setIsConnected: setConnect } = useNetworkStatus()
+
   const scrollViewRef = useAnimatedRef()
   const addonRefs = useRef({})
-  const scrollY = useSharedValue(0)
-  const scrollHandler = useAnimatedScrollHandler({
-    onScroll: (event) => {
-      scrollY.value = event.contentOffset.y
-    }
-  })
-  const animatedTitleStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(scrollY.value, [SCROLL_RANGE - 10, SCROLL_RANGE], [0, 1], Extrapolation.CLAMP)
-    return {
-      opacity,
-      transform: [
-        {
-          translateY: interpolate(scrollY.value, [0, SCROLL_RANGE], [HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT, 0], Extrapolation.CLAMP)
-        }
-      ]
-    }
-  })
 
-  const currentTheme = {
-    isRTL: i18n.dir() === 'rtl',
-    ...theme[themeContext.ThemeValue]
+  function scrollToError(addonId, totalAddons) {
+    // Use `setTimeout` to ensure the scroll happens after layout updates
+    setTimeout(() => {
+      if (addonRefs.current[addonId] && scrollViewRef.current && totalAddons > 0) {
+        addonRefs.current[addonId].measure(
+          (x, y, width, height, pageX, pageY) => {
+            scrollViewRef.current.scrollTo({
+              y: Math.max(0, pageY - HEADER_MAX_HEIGHT), // Adjust the offset if needed
+              animated: true
+            })
+          }
+        )
+      }
+    }, 300)
   }
 
   useFocusEffect(() => {
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor(currentTheme.menuBar)
     }
-    StatusBar.setBarStyle(themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content')
+    StatusBar.setBarStyle(
+      themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
+    )
   })
 
   useEffect(() => {
@@ -102,10 +126,10 @@ function ItemDetail(props) {
           restaurantID: restaurant,
           foodID: food?._id,
           foodName: food?.title,
-          foodRestaurantName: food?.restaurantName
-        })
+          foodRestaurantName: food?.restaurantName,
+        });
       } catch (error) {
-        console.error('Analytics tracking failed:', error)
+        console.error('Analytics tracking failed:', error);
       }
     }
     Track()
@@ -127,7 +151,11 @@ function ItemDetail(props) {
           truncatedLabel=''
           backImage={() => (
             <View style={styles(currentTheme).backBtnContainer}>
-              <MaterialIcons name='arrow-back' size={25} color={currentTheme.newIconColor} />
+              <MaterialIcons
+                name='arrow-back'
+                size={25}
+                color={currentTheme.newIconColor}
+              />
             </View>
           )}
           onPress={() => {
@@ -138,20 +166,6 @@ function ItemDetail(props) {
     })
   }, [navigation])
 
-  function scrollToError(addonId, totalAddons) {
-    // Use `setTimeout` to ensure the scroll happens after layout updates
-    setTimeout(() => {
-      if (addonRefs.current[addonId] && scrollViewRef.current && totalAddons > 0) {
-        addonRefs.current[addonId].measure((x, y, width, height, pageX, pageY) => {
-          scrollViewRef.current.scrollTo({
-            y: Math.max(0, pageY - HEADER_MAX_HEIGHT), // Adjust the offset if needed
-            animated: true
-          })
-        })
-      }
-    }, 300)
-  }
-
   function validateButton() {
     if (!selectedVariation) return false
     const validatedAddons = []
@@ -159,7 +173,11 @@ function ItemDetail(props) {
       const selected = selectedAddons?.find((ad) => ad._id === addon._id)
       if (!selected && addon?.quantityMinimum === 0) {
         validatedAddons.push(false)
-      } else if (selected && selected?.options?.length >= addon?.quantityMinimum && selected?.options?.length <= addon?.quantityMaximum) {
+      } else if (
+        selected &&
+        selected?.options?.length >= addon?.quantityMinimum &&
+        selected?.options?.length <= addon?.quantityMaximum
+      ) {
         validatedAddons.push(false)
       } else validatedAddons.push(true)
     })
@@ -167,7 +185,7 @@ function ItemDetail(props) {
   }
 
   async function onPressAddToCart(quantity) {
-    const isValidOrder = validateOrderItem()
+    const isValidOrder = validateOrderItem();
     if (isValidOrder) {
       Analytics.track(Analytics.events.ADD_TO_CART, {
         title: food?.title,
@@ -211,32 +229,46 @@ function ItemDetail(props) {
     const cartItem = clearFlag
       ? null
       : cart.find((cartItem) => {
-          if (cartItem?._id === food?._id && cartItem?.variation?._id === selectedVariation?._id) {
-            if (cartItem?.addons?.length === addons?.length) {
-              if (addons?.length === 0) return true
-              const addonsResult = addons?.every((newAddon) => {
-                const cartAddon = cartItem.addons?.find((ad) => ad._id === newAddon._id)
+        if (
+          cartItem?._id === food?._id &&
+          cartItem?.variation?._id === selectedVariation?._id
+        ) {
+          if (cartItem?.addons?.length === addons?.length) {
+            if (addons?.length === 0) return true
+            const addonsResult = addons?.every((newAddon) => {
+              const cartAddon = cartItem.addons?.find(
+                (ad) => ad._id === newAddon._id
+              )
 
-                if (!cartAddon) return false
-                const optionsResult = newAddon?.options?.every((newOption) => {
-                  const cartOption = cartAddon?.options?.find((op) => op._id === newOption._id)
+              if (!cartAddon) return false
+              const optionsResult = newAddon?.options?.every((newOption) => {
+                const cartOption = cartAddon?.options?.find(
+                  (op) => op._id === newOption._id
+                )
 
-                  if (!cartOption) return false
-                  return true
-                })
-
-                return optionsResult
+                if (!cartOption) return false
+                return true
               })
 
-              return addonsResult
-            }
+              return optionsResult
+            })
+
+            return addonsResult
           }
-          return false
-        })
+        }
+        return false
+      })
 
     if (!cartItem) {
       await setCartRestaurant(restaurant)
-      await addCartItem(food?._id, selectedVariation?._id, quantity, addons, clearFlag, specialInstructions)
+      await addCartItem(
+        food?._id,
+        selectedVariation?._id,
+        quantity,
+        addons,
+        clearFlag,
+        specialInstructions
+      )
     } else {
       await addQuantity(cartItem?.key, quantity)
     }
@@ -244,6 +276,8 @@ function ItemDetail(props) {
   }
 
   const onSelectVariation = (variation) => {
+    console.log("🚀 ~ onSelectVariation ~ variation:", variation)
+
     if (variation?._id) {
       setSelectedVariation({
         ...variation,
@@ -267,9 +301,13 @@ function ItemDetail(props) {
       if (addon?.quantityMinimum === 1 && addon?.quantityMaximum === 1) {
         selectedAddons[index].options = [option]
       } else {
-        const optionIndex = selectedAddons[index].options?.findIndex((opt) => opt._id === option._id)
+        const optionIndex = selectedAddons[index].options?.findIndex(
+          (opt) => opt._id === option._id
+        )
         if (optionIndex > -1) {
-          selectedAddons[index].options = selectedAddons[index].options?.filter((opt) => opt._id !== option._id)
+          selectedAddons[index].options = selectedAddons[index].options?.filter(
+            (opt) => opt._id !== option._id
+          )
         } else {
           selectedAddons[index].options?.push(option)
         }
@@ -301,7 +339,11 @@ function ItemDetail(props) {
 
       if (!selected && addon?.quantityMinimum === 0) {
         addon.error = false
-      } else if (selected && selected?.options?.length >= addon?.quantityMinimum && selected?.options?.length <= addon?.quantityMaximum) {
+      } else if (
+        selected &&
+        selected?.options?.length >= addon?.quantityMinimum &&
+        selected?.options?.length <= addon?.quantityMaximum
+      ) {
         addon.error = false
       } else {
         addon.error = true
@@ -316,61 +358,107 @@ function ItemDetail(props) {
     return !hasError
   }
 
+  const scrollY = useSharedValue(0)
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      scrollY.value = event.contentOffset.y;
+    }
+  })
+  const animatedHeaderStyle = useAnimatedStyle(() => {
+    const height = interpolate(
+      scrollY.value,
+      [0, SCROLL_RANGE],
+      [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+      Extrapolation.CLAMP
+    )
+    return {
+      height,
+      opacity: 1
+    }
+  })
+
+  const animatedTitleStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      scrollY.value,
+      [SCROLL_RANGE - 10, SCROLL_RANGE],
+      [0, 1],
+      Extrapolation.CLAMP
+    )
+    return {
+      opacity,
+      transform: [
+        {
+          translateY: interpolate(
+            scrollY.value,
+            [0, SCROLL_RANGE],
+            [HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT, 0],
+            Extrapolation.CLAMP
+          )
+        }
+      ]
+    }
+  })
+  console.log({ scrollY })
+
+  const { isConnected:connect,setIsConnected :setConnect} = useNetworkStatus();
   if (!connect) return <ErrorView />
   return (
     <>
       <View style={[styles().flex, styles(currentTheme).mainContainer]}>
+        {/* <Animated.View
+          style={[styles(currentTheme).headerContainer]}
+        > */}
+         
+          {/* <HeadingComponent title={food?.title} price={calculatePrice()} /> */}
+        {/* </Animated.View> */}
+
         <Animated.ScrollView
           ref={scrollViewRef}
           onScroll={scrollHandler}
           style={[styles(currentTheme).scrollViewStyle, { zIndex: listZindex }]}
           scrollEventThrottle={1}
           onScrollEndDrag={(e) => {
-            if (e?.nativeEvent?.contentOffset?.y >= 70) {
+            if (e?.nativeEvent?.contentOffset?.y >= 70) { 
               setListZindex(4)
               calculatePrice()
-            } else {
+            }
+            else {
               setListZindex(1)
               calculatePrice()
             }
           }}
           onMomentumScrollEnd={(e) => {
-            if (e?.nativeEvent?.contentOffset?.y >= 70) {
-              setListZindex(4)
+            if (e?.nativeEvent?.contentOffset?.y >= 70) { 
+              setListZindex(4) 
               calculatePrice()
-            } else {
+            }
+            else {
               setListZindex(1)
               calculatePrice()
             }
           }}
           contentContainerStyle={{
             // paddingTop: HEADER_MAX_HEIGHT,
-            paddingBottom: scale(height * 0.09)
+            paddingBottom: scale(height * 0.09),
           }}
         >
           <View>
-            {food?.image ? <ImageHeader image={food?.image} /> : <Text>No image to display</Text>}
-            {/* <Text style={{ color: 'white', width: '100%', height: 'auto', fontSize: 14 }}> */}
-            <Text
-              style={[
-                styles(currentTheme).descriptionText,
-                {
-                  width: '90%',
-                  height: 'auto',
-                  fontSize: 14,
-                  alignSelf: 'center'
-                }
-              ]}
-            >
-              {food?.description}
-            </Text>
-            <HeadingComponent title={food?.title} price={calculatePrice()} />
+          {food?.image ? <ImageHeader image={food?.image} /> : <Text>No image to display</Text>}
+          {/* <Text style={{ color: 'white', width: '100%', height: 'auto', fontSize: 14 }}> */}
+          <Text style={[styles(currentTheme).descriptionText,{ width: '90%', height: 'auto', fontSize: 14,alignSelf:"center" }]}>
+            {food?.description}
+          </Text>
+          <HeadingComponent title={food?.title} price={calculatePrice()}  /> 
           </View>
-          <View style={[styles(currentTheme).subContainer]}>
+          <View style={[styles(currentTheme).subContainer,]}>
             <View>
               {food?.variations?.length > 1 && (
                 <View>
-                  <TitleComponent title={t('SelectVariation')} subTitle={t('SelectOne')} status={t('Required')} />
+                  <TitleComponent
+                    title={t('SelectVariation')}
+                    subTitle={t('SelectOne')}
+                    status={t('Required')}
+                  />
                   <RadioComponent
                     options={food?.variations}
                     selected={selectedVariation}
@@ -384,7 +472,16 @@ function ItemDetail(props) {
               )}
               {selectedVariation?.addons?.map((addon) => (
                 <View key={addon?._id}>
-                  <TitleComponent title={addon?.title} subTitle={addon?.description} error={addon.error} status={addon?.quantityMinimum === 0 ? t('optional') : `${addon?.quantityMinimum} ${t('Required')}`} />
+                  <TitleComponent
+                    title={addon?.title}
+                    subTitle={addon?.description}
+                    error={addon.error}
+                    status={
+                      addon?.quantityMinimum === 0
+                        ? t('optional')
+                        : `${addon?.quantityMinimum} ${t('Required')}`
+                    }
+                  />
                   <Options addon={addon} onSelectOption={onSelectOption} addonRefs={addonRefs} />
                 </View>
               ))}
@@ -392,19 +489,43 @@ function ItemDetail(props) {
 
             <View style={styles(currentTheme).line}></View>
             <View style={styles(currentTheme).inputContainer}>
-              <TitleComponent title={t('specialInstructions')} subTitle={t('anySpecificPreferences')} status={t('optional')} />
-              <TextField style={styles(currentTheme).input} placeholder={t('noMayo')} textAlignVertical='center' value={specialInstructions} onChangeText={setSpecialInstructions} maxLength={144} textColor={currentTheme.fontMainColor} baseColor={currentTheme.lightHorizontalLine} errorColor={currentTheme.textErrorColor} tintColor={currentTheme.themeBackground} placeholderTextColor={currentTheme.fontGrayNew} />
+              <TitleComponent
+                title={t('specialInstructions')}
+                subTitle={t('anySpecificPreferences')}
+                status={t('optional')}
+              />
+              <TextField
+                style={styles(currentTheme).input}
+                placeholder={t('noMayo')}
+                textAlignVertical='center'
+                value={specialInstructions}
+                onChangeText={setSpecialInstructions}
+                maxLength={144}
+                textColor={currentTheme.fontMainColor}
+                baseColor={currentTheme.lightHorizontalLine}
+                errorColor={currentTheme.textErrorColor}
+                tintColor={currentTheme.themeBackground}
+                placeholderTextColor={currentTheme.fontGrayNew}
+              />
             </View>
             {/** frequently bought together */}
-            <FrequentlyBoughtTogether itemId={food?._id} restaurantId={restaurant} />
+            <FrequentlyBoughtTogether
+              itemId={food?._id}
+              restaurantId={restaurant}
+            />
           </View>
         </Animated.ScrollView>
 
-        <Animated.View style={[styles(currentTheme).titleContainer, { opacity: 1, height: 35, marginTop: -12, zIndex: 9, padding: 2 }, animatedTitleStyle]}>
+        <Animated.View
+style={[styles(currentTheme).titleContainer, { opacity: 1, height: 35, marginTop: -12, zIndex: 9, padding:2}, animatedTitleStyle]}
+        >
           <HeadingComponent title={food?.title} price={calculatePrice()} />
         </Animated.View>
         <View style={{ backgroundColor: currentTheme.themeBackground }}>
-          <CartComponent onPress={onPressAddToCart} disabled={validateButton()} />
+          <CartComponent
+            onPress={onPressAddToCart}
+            disabled={validateButton()}
+          />
         </View>
         <View
           style={{

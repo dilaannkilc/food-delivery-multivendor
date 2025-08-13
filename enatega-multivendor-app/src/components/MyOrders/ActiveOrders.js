@@ -20,10 +20,7 @@ import EmptyView from '../EmptyView/EmptyView'
 const ActiveOrders = ({ navigation, loading, error, activeOrders }) => {
   const { i18n } = useTranslation()
   const themeContext = useContext(ThemeContext)
-  const currentTheme = {
-    isRTL: i18n.dir() === 'rtl',
-    ...theme[themeContext.ThemeValue]
-  }
+  const currentTheme = {isRTL : i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue]}
   const configuration = useContext(ConfigurationContext)
 
   const emptyView = () => {
@@ -32,7 +29,6 @@ const ActiveOrders = ({ navigation, loading, error, activeOrders }) => {
         title={'titleEmptyActiveOrders'}
         description={'emptyActiveOrdersDesc'}
         buttonText={'emptyActiveOrdersBtn'}
-        navigateTo='Discovery'
       />
     )
   }
@@ -67,10 +63,10 @@ const ActiveOrders = ({ navigation, loading, error, activeOrders }) => {
   )
 }
 
-const getItems = (items) => {
+const getItems = items => {
   return items
     ?.map(
-      (item) =>
+      item =>
         `${item.quantity}x ${item.title}${
           item.variation.title ? `(${item.variation.title})` : ''
         }`
@@ -90,8 +86,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      onPress={() => navigation.navigate('OrderDetail', { _id: item?._id })}
-    >
+      onPress={() => navigation.navigate('OrderDetail', { _id: item?._id })}>
       <View style={{ flex: 1 }}>
         <View style={styles(currentTheme).subContainer}>
           <View style={styles().orderDescriptionContainer}>
@@ -100,13 +95,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
             </TextDefault>
           </View>
           <View style={styles().orderDescriptionContainer}>
-            <TextDefault
-              Regular
-              textColor={currentTheme.gray900}
-              H1
-              bolder
-              isRTL
-            >
+            <TextDefault Regular textColor={currentTheme.gray900} H1 bolder isRTL>
               {remainingTime}-{remainingTime + 5} {t('mins')}
             </TextDefault>
           </View>
@@ -124,8 +113,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
             style={{
               ...styles().orderDescriptionContainer,
               ...alignment.PTxSmall
-            }}
-          >
+            }}>
             <TextDefault h5 bold textColor={currentTheme.secondaryText} isRTL>
               {item.orderStatus === 'PENDING'
                 ? t('PenddingText')
@@ -141,11 +129,10 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
               ...alignment.Mmedium,
               ...alignment.MTlarge,
               ...alignment.PLmedium
-            }}
-          >
+            }}>
             <Image
               style={styles(currentTheme).restaurantImage1}
-              resizeMode='cover'
+              resizeMode="cover"
               source={{ uri: item?.restaurant?.image }}
             />
             <View style={styles(currentTheme).textContainer2}>
@@ -156,8 +143,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
                   bolder
                   numberOfLines={2}
                   style={styles(currentTheme).orderInfo}
-                  isRTL
-                >
+                isRTL>
                   {item?.restaurant?.name}
                 </TextDefault>
                 <TextDefault
@@ -167,8 +153,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
                   textColor={currentTheme.fontMainColor}
                   bolder
                   small
-                  isRTL
-                >
+                isRTL>
                   {getItems(item.items)}
                 </TextDefault>
               </View>
@@ -178,8 +163,7 @@ const Item = ({ item, navigation, currentTheme, configuration }) => {
                 //numberOfLines={1}
                 textColor={currentTheme.fontMainColor}
                 bolder
-                isRTL
-              >
+              isRTL>
                 {configuration.currencySymbol}
                 {parseFloat(item.orderAmount).toFixed(2)}
               </TextDefault>

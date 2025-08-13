@@ -489,9 +489,7 @@ function Restaurant(props) {
           restaurant={null}
           topaBarData={[]}
           loading={loading}
-          minimumOrder={
-            propsData?.minimumOrder ?? data?.restaurant?.minimumOrder
-          }
+          minimumOrder={propsData?.minimumOrder ?? data?.restaurant?.minimumOrder}
           tax={propsData?.tax ?? data?.restaurant?.tax}
           updatedDeals={[]}
           searchOpen={searchOpen}
@@ -575,9 +573,7 @@ function Restaurant(props) {
             topaBarData={updatedDeals}
             changeIndex={changeIndex}
             selectedLabel={selectedLabel}
-            minimumOrder={
-              propsData?.minimumOrder ?? data?.restaurant?.minimumOrder
-            }
+            minimumOrder={propsData?.minimumOrder ?? data?.restaurant?.minimumOrder}
             tax={propsData?.tax ?? data?.restaurant?.tax}
             updatedDeals={updatedDeals}
             searchOpen={searchOpen}
@@ -603,7 +599,7 @@ function Restaurant(props) {
                     style={
                       // styles(currentTheme).searchDealSection
                       (styles(currentTheme).searchDealSection,
-                      { opacity: item.isOutOfStock ? 0.5 : 1 })
+                      { opacity: item.isOutOfStock  ? 0.5 : 1 })
                     }
                     activeOpacity={0.7}
                     onPress={() => {

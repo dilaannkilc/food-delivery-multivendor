@@ -1,7 +1,7 @@
 'use client';
 
 // Core
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ApolloCache, ApolloError, useMutation } from '@apollo/client';
 
@@ -79,7 +79,13 @@ export default function RestaurantsMain() {
       debounceMs: 300,
     }
   ) as IQueryResult<IRestaurantsResponseGraphQL | undefined, undefined>;
+  
 
+  useEffect(()=>{
+    console.log("🚀 Store Screen Rendered")
+  })
+ 
+  
   // API
   const [hardDeleteRestaurant, { loading: isHardDeleting }] = useMutation(
     HARD_DELETE_RESTAURANT,

@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { View, StatusBar, Linking, TouchableOpacity, Platform } from 'react-native'
-import { AntDesign, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
+import {
+  AntDesign,
+  MaterialIcons,
+  MaterialCommunityIcons
+} from '@expo/vector-icons'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import { scale } from '../../utils/scaling'
 import ImageHeader from '../../components/About/Header'
@@ -27,15 +31,11 @@ function About(props) {
   const Analytics = analytics()
   const { t, i18n } = useTranslation()
   const { restaurantObject } = props.route.params
+  console.log("🚀 ~ About ~ restaurantObject:", restaurantObject)
   const IsOpen = restaurantObject?.IsOpen
   const themeContext = useContext(ThemeContext)
-  const { isConnected: connect } = useNetworkStatus()
+  const currentTheme = {isRTL : i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue]}
   const configuration = useContext(ConfigurationContext)
-
-  const currentTheme = {
-    isRTL: i18n.dir() === 'rtl',
-    ...theme[themeContext.ThemeValue]
-  }
   const RestAbout = {
     name: restaurantObject.name,
     id: restaurantObject.restaurantId,
@@ -48,14 +48,18 @@ function About(props) {
     phone: restaurantObject.phone,
     restaurantUrl: restaurantObject.restaurantUrl,
     map: {
-      latitude: Number(restaurantObject.latitude) || 0,
-      longitude: Number(restaurantObject.longitude) || 0,
+      latitude: Number(restaurantObject.latitude),
+      longitude: Number(restaurantObject.longitude),
       latitudeDelta: 0.5,
       longitudeDelta: 0.4
     }
   }
-  const currentDayShort = new Date().toLocaleString('en-US', { weekday: 'short' }).toUpperCase()
-  const todayOpeningTimes = restaurantObject.openingTimes.find((opening) => opening.day === currentDayShort)
+  const currentDayShort = new Date()
+    .toLocaleString('en-US', { weekday: 'short' })
+    .toUpperCase()
+  const todayOpeningTimes = restaurantObject.openingTimes.find(
+    (opening) => opening.day === currentDayShort
+  )
 
   useEffect(() => {
     async function Track() {
@@ -63,11 +67,20 @@ function About(props) {
     }
     Track()
   }, [])
-
+  
+  const { isConnected:connect,setIsConnected :setConnect} = useNetworkStatus();
   if (!connect) return <ErrorView refetchFunctions={[]} />
+ 
+
+  const inset = useSafeAreaInsets()
   return (
     <SafeAreaView style={styles(currentTheme).safeAreaViewStyles}>
-      <StatusBar backgroundColor={currentTheme.themeBackground} barStyle={themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'} />
+      <StatusBar
+        backgroundColor={currentTheme.themeBackground}
+        barStyle={
+          themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
+        }
+      />
       <ScrollView
         style={[
           // { marginTop: inset.top },
@@ -75,12 +88,39 @@ function About(props) {
           { backgroundColor: currentTheme.headerMenuBackground }
         ]}
       >
-        <ImageHeader iconColor={currentTheme.newIconColor} svgNameL='leftArrow' restaurantImage={restaurantObject.restaurantImage} restaurantName={restaurantObject.restaurantName} deliveryTime={restaurantObject.deliveryTime} total={restaurantObject.total} rating={restaurantObject?.reviews && restaurantObject?.reviews?.length === 0 ? 0 : restaurantObject.reviews && restaurantObject?.reviews[0]?.rating} />
+        <ImageHeader
+          iconColor={currentTheme.newIconColor}
+          svgNameL='leftArrow'
+          restaurantImage={restaurantObject.restaurantImage}
+          restaurantName={restaurantObject.restaurantName}
+          deliveryTime={restaurantObject.deliveryTime}
+          total={restaurantObject.total}
+          rating={
+            restaurantObject?.reviews&&restaurantObject?.reviews?.length === 0
+              ? 0
+              : restaurantObject.reviews && restaurantObject?.reviews[0]?.rating
+          }
+        />
         {/* map view */}
         <View style={styles(currentTheme).mapContainer}>
-          <MapView style={styles().flex} scrollEnabled={false} zoomEnabled={false} zoomControlEnabled={false} rotateEnabled={false} cacheEnabled={false} initialRegion={RestAbout.map} customMapStyle={customMapStyle} provider={PROVIDER_GOOGLE} />
+          <MapView
+            style={styles().flex}
+            scrollEnabled={false}
+            zoomEnabled={false}
+            zoomControlEnabled={false}
+            rotateEnabled={false}
+            cacheEnabled={false}
+            initialRegion={RestAbout.map}
+            customMapStyle={customMapStyle}
+            provider={PROVIDER_GOOGLE}
+          ></MapView>
           <View style={styles().marker}>
-            <CustomMarker width={80} height={80} transform={[{ translateY: -20 }]} translateY={-20} />
+            <CustomMarker
+              width={80}
+              height={80}
+              transform={[{ translateY: -20 }]}
+              translateY={-20}
+            />
           </View>
         </View>
 
@@ -98,7 +138,10 @@ function About(props) {
                   gap: 4
                 }}
               >
-                <FavoriteButton iconSize={scale(24)} restaurantId={RestAbout.id} />
+                <FavoriteButton
+                  iconSize={scale(24)}
+                  restaurantId={RestAbout.id}
+                />
               </View>
             </View>
 
@@ -106,7 +149,15 @@ function About(props) {
               {todayOpeningTimes && (
                 <View style={styles(currentTheme).timingRow}>
                   <View>
-                    <AntDesign name='clockcircle' size={12} color={!IsOpen ? currentTheme.red600 : currentTheme.main} />
+                    <AntDesign
+                      name='clockcircle'
+                      size={12}
+                      color={
+                        !IsOpen
+                          ? currentTheme.red600
+                          : currentTheme.main
+                      }
+                    />
                   </View>
                   <TextDefault isRTL textColor={currentTheme.fontThirdColor} H5 bold>
                     {t(todayOpeningTimes?.day)}{' '}
@@ -117,8 +168,14 @@ function About(props) {
                     </TextDefault>
                   ) : (
                     todayOpeningTimes?.times?.map((timing, index) => (
-                      <TextDefault isRTL key={index} textColor={currentTheme.fontThirdColor} H5 bold>
-                        {timing.startTime[0]}:{timing.startTime[1]} - {timing.endTime[0]}:{timing.endTime[1]}
+                      <TextDefault isRTL
+                        key={index}
+                        textColor={currentTheme.fontThirdColor}
+                        H5
+                        bold
+                      >
+                        {timing.startTime[0]}:{timing.startTime[1]} -{' '}
+                        {timing.endTime[0]}:{timing.endTime[1]}
                       </TextDefault>
                     ))
                   )}
@@ -156,7 +213,12 @@ function About(props) {
             <View style={styles().timingContainer}>
               {restaurantObject.openingTimes.map((v, index) => (
                 <View key={index} style={styles(currentTheme).timingRowMain}>
-                  <TextDefault isRTL style={styles().timingText} textColor={currentTheme.fontThirdColor} bolder large>
+                  <TextDefault isRTL
+                    style={styles().timingText}
+                    textColor={currentTheme.fontThirdColor}
+                    bolder
+                    large
+                  >
                     {t(v.day)}{' '}
                   </TextDefault>
                   {v?.times?.length < 1 ? (
@@ -165,7 +227,11 @@ function About(props) {
                     </TextDefault>
                   ) : (
                     v?.times?.map((t) => (
-                      <TextDefault isRTL key={index + 8} textColor={currentTheme.fontThirdColor} large>
+                      <TextDefault isRTL
+                        key={index + 8}
+                        textColor={currentTheme.fontThirdColor}
+                        large
+                      >
                         {t.startTime[0]}:{t.startTime[1]}
                         {' - '}
                         {t.endTime[0]}:{t.endTime[1]}
@@ -177,6 +243,7 @@ function About(props) {
             </View>
           </View>
 
+         
           <View>
             <View style={[alignment.MTlarge]}>
               <TextDefault isRTL H3 bolder textColor={currentTheme.fontThirdColor}>
@@ -184,16 +251,31 @@ function About(props) {
               </TextDefault>
             </View>
             <View style={alignment.MTsmall}>
-              <TextDefault isRTL H5 textColor={currentTheme.fontThirdColor} bold style={alignment.MTxSmall}>
+              <TextDefault isRTL
+                H5
+                textColor={currentTheme.fontThirdColor}
+                bold
+                style={alignment.MTxSmall}
+              >
                 {t('minimumOrder')} {configuration.currencySymbol}
                 {restaurantObject.restaurantMinOrder}
               </TextDefault>
 
-              <TextDefault isRTL H5 textColor={currentTheme.fontThirdColor} bold style={alignment.MTxSmall}>
+              <TextDefault isRTL
+                H5
+                textColor={currentTheme.fontThirdColor}
+                bold
+                style={alignment.MTxSmall}
+              >
                 {t('delivery')} {restaurantObject.deliveryTime} {t('Min')}
               </TextDefault>
 
-              <TextDefault isRTL H5 textColor={currentTheme.fontThirdColor} bold style={alignment.MTxSmall}>
+              <TextDefault isRTL
+                H5
+                textColor={currentTheme.fontThirdColor}
+                bold
+                style={alignment.MTxSmall}
+              >
                 {t('salesTax')} {configuration.currencySymbol}
                 {restaurantObject.restaurantTax}
               </TextDefault>
@@ -237,7 +319,7 @@ function About(props) {
             </View>
 
             <View style={styles().line} />
-
+            
             <View style={[styles(currentTheme).subContainer, alignment.MTsmall]}>
               <View>
                 <TextDefault isRTL H5 bold>
