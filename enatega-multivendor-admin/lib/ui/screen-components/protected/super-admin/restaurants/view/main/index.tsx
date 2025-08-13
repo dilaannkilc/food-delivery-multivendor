@@ -79,9 +79,7 @@ export default function RestaurantsMain() {
       debounceMs: 300,
     }
   ) as IQueryResult<IRestaurantsResponseGraphQL | undefined, undefined>;
-  
-  console.log("🚀 Store Screen Rendered")
-  
+
   // API
   const [hardDeleteRestaurant, { loading: isHardDeleting }] = useMutation(
     HARD_DELETE_RESTAURANT,
