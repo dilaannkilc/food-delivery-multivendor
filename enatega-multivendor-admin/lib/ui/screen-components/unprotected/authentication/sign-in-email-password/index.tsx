@@ -24,7 +24,6 @@ import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-
 import {
   APP_NAME,
   SELECTED_RESTAURANT,
-  SELECTED_SHOPTYPE,
   SELECTED_VENDOR,
   SELECTED_VENDOR_EMAIL,
   SignInErrors,
@@ -80,7 +79,6 @@ export default function LoginEmailPasswordMain() {
 
     if (ownerLogin?.userType === 'RESTAURANT') {
       onUseLocalStorage('save', SELECTED_RESTAURANT, ownerLogin.userTypeId);
-      onUseLocalStorage('save', SELECTED_SHOPTYPE, ownerLogin?.shopType ?? '');
     }
 
     router.replace(redirect_url);
