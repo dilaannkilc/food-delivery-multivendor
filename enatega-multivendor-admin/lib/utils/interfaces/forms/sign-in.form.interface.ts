@@ -17,7 +17,6 @@ export interface ISignInOwnerRestaurants {
 }
 
 export interface ILoginResponse {
-  shopType: string;
   userId: string;
   token: string;
   email: string;
