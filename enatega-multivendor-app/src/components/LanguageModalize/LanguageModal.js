@@ -1,5 +1,13 @@
+
 import React, { useState, useEffect } from 'react'
-import { View, Modal, TouchableOpacity, Pressable, ScrollView, Dimensions } from 'react-native'
+import {
+  View,
+  Modal,
+  TouchableOpacity,
+  Pressable,
+  ScrollView,
+  Dimensions
+} from 'react-native'
 import * as Localization from 'expo-localization'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import i18next from 'i18next'
@@ -46,7 +54,13 @@ export const languageTypes = [
   { value: 'Nederlands', code: 'nl', index: 30 }
 ]
 
-const LanguageModal = ({ modalVisible, setModalVisible, currentTheme, showCrossButton, dontClose }) => {
+const LanguageModal = ({
+  modalVisible,
+  setModalVisible,
+  currentTheme,
+  showCrossButton,
+  dontClose
+}) => {
   const { t } = useTranslation()
   const [activeRadio, activeRadioSetter] = useState(0)
   const [loadinglang, setLoadingLang] = useState(false)
@@ -55,6 +69,7 @@ const LanguageModal = ({ modalVisible, setModalVisible, currentTheme, showCrossB
   useEffect(() => {
     if (modalVisible) {
       determineInitialLanguage()
+      console.log("🚀 ~ useEffect ~ modalVisible:", modalVisible)
     }
   }, [modalVisible])
 
@@ -62,16 +77,16 @@ const LanguageModal = ({ modalVisible, setModalVisible, currentTheme, showCrossB
     try {
       // First, check for stored language
       const storedLanguageCode = await AsyncStorage.getItem('enatega-language')
-
+      
       // Get system language
       const systemLanguageCode = Localization.locale.split('-')[0]
-
+      
       // Available language codes
-      const availableLanguageCodes = languageTypes.map((lang) => lang.code)
+      const availableLanguageCodes = languageTypes.map(lang => lang.code)
 
       // Determine which language to use
       let languageToUse = 'en' // Default to English
-
+      
       if (storedLanguageCode) {
         // Use stored language if it's valid
         languageToUse = storedLanguageCode
@@ -81,8 +96,8 @@ const LanguageModal = ({ modalVisible, setModalVisible, currentTheme, showCrossB
       }
 
       // Find the index and name of the language
-      const selectedLanguage = languageTypes.find((lang) => lang.code === languageToUse)
-
+      const selectedLanguage = languageTypes.find(lang => lang.code === languageToUse)
+      
       if (selectedLanguage) {
         activeRadioSetter(selectedLanguage.index)
         languageNameSetter(selectedLanguage.value)
@@ -121,48 +136,96 @@ const LanguageModal = ({ modalVisible, setModalVisible, currentTheme, showCrossB
   }
 
   return (
-    <Modal animationType='slide' transparent={true} visible={modalVisible} onRequestClose={handleClose}>
+    <Modal
+      animationType='slide'
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={handleClose}
+    >
       <View style={styles().layout}>
         <Pressable style={styles().backdrop} onPress={handleClose} />
         <View style={styles(currentTheme).modalContainer}>
           <View style={styles(currentTheme).flexRow}>
-            <TextDefault textColor={currentTheme.fontMainColor} bolder H3 style={alignment.MBsmall}>
+            <TextDefault
+              textColor={currentTheme.fontMainColor}
+              bolder
+              H3
+              style={alignment.MBsmall}
+            >
               {t('selectLanguage')}
             </TextDefault>
-            {showCrossButton && <Feather name='x-circle' size={24} color={currentTheme.newFontcolor} onPress={handleClose} />}
+            {showCrossButton && (
+              <Feather
+                name='x-circle'
+                size={24}
+                color={currentTheme.newFontcolor}
+                onPress={handleClose}
+              />
+            )}
           </View>
 
           <View style={styles(currentTheme).flexRow}>
-            <TextDefault textColor={currentTheme.fontMainColor} style={alignment.MBsmall}>
+            <TextDefault
+              textColor={currentTheme.fontMainColor}
+              style={alignment.MBsmall}
+            >
               {t('description0')}
             </TextDefault>
           </View>
-
-          <ScrollView
-            style={{
-              flex: 1,
+          
+          <ScrollView 
+            style={{ 
+              flex: 1, 
               maxHeight: Dimensions.get('window').height * 0.5 // Limit height to 50% of screen
             }}
-            contentContainerStyle={{
-              flexGrow: 1,
-              paddingVertical: 10
+            contentContainerStyle={{ 
+              flexGrow: 1, 
+              paddingVertical: 10 
             }}
             showsVerticalScrollIndicator={false} // hide scroll indicator
-            keyboardShouldPersistTaps='handled' // Allows tapping items while keyboard is open
+            keyboardShouldPersistTaps="handled" // Allows tapping items while keyboard is open
           >
             {languageTypes.map((item, index) => (
-              <TouchableOpacity activeOpacity={0.7} key={index} onPress={() => activeRadioSetter(item.index)} style={[styles(currentTheme).radioContainer]}>
-                <RadioButton animation={'bounceIn'} size={13} outerColor={currentTheme.iconColorDark} innerColor={currentTheme.main} isSelected={activeRadio === item.index} onPress={() => activeRadioSetter(item.index)} />
-                <TextDefault numberOfLines={1} textColor={currentTheme.fontMainColor} bold>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                key={index}
+                onPress={() => activeRadioSetter(item.index)}
+                style={[styles(currentTheme).radioContainer]}
+              >
+                <RadioButton
+                  animation={'bounceIn'}
+                  size={13}
+                  outerColor={currentTheme.iconColorDark}
+                  innerColor={currentTheme.main}
+                  isSelected={activeRadio === item.index}
+                  onPress={() => activeRadioSetter(item.index)}
+                />
+                <TextDefault
+                  numberOfLines={1}
+                  textColor={currentTheme.fontMainColor}
+                  bold
+                >
                   {item.value}
                 </TextDefault>
               </TouchableOpacity>
             ))}
           </ScrollView>
-
-          <TouchableOpacity activeOpacity={0.7} style={styles(currentTheme).emptyButton} onPress={onSelectedLanguage}>
+          
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles(currentTheme).emptyButton}
+            onPress={onSelectedLanguage}
+          >
             <TextDefault textColor={currentTheme.fontMainColor} center H5>
-              {loadinglang ? <Spinner size={'small'} backColor={'transparent'} spinnerColor={currentTheme.iconColorDark} /> : t('continueBtn')}
+              {loadinglang ? (
+                <Spinner
+                  size={'small'}
+                  backColor={'transparent'}
+                  spinnerColor={currentTheme.iconColorDark}
+                />
+              ) : (
+                t('continueBtn')
+              )}
             </TextDefault>
           </TouchableOpacity>
         </View>

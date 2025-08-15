@@ -1,4 +1,1 @@
-module.exports = {
-  ...require('prettier-config-standard'),
-  printWidth: 800
-}
+module.exports = 'prettier-config-standard'
