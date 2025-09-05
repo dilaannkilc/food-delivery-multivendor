@@ -196,7 +196,7 @@ export default function CustomDrawerContent(
                 color: appTheme.buttonText,
               }}
             >
-              {t("Privacy Policy")}
+              {t("Product Page")}
             </Text>
           </View>
         </TouchableOpacity>
