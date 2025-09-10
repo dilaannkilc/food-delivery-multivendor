@@ -10,6 +10,7 @@ import {
   IUpdateProfileFormErrors,
   IVariationErrors,
   IUpdateBussinessDetailsFormErrors,
+  IShopTypeErrors,
 } from '@/lib/utils/interfaces/forms';
 
 import {
@@ -174,6 +175,19 @@ export const CuisineErrors: ICuisineErrors = {
   image: ['Required'],
 };
 
+export const ShopTypeErrors: IShopTypeErrors = {
+  title: [
+    'Required',
+    'Name cannot be only spaces',
+    'You have reached the maximum limit!',
+    'Title is a required field',
+  ],
+  image: [],
+  isActive: []
+};
+
+
+
 export const CouponErrors: ICouponErrors = {
   title: [
     'Required',
@@ -191,6 +205,8 @@ export const CouponErrors: ICouponErrors = {
   lifeTimeActive: ['Required', 'Please choose one'],
   endDate: ['Required', 'End Date is required when LifeTime is not active'],
 };
+
+
 
 export const NotificationErrors: INoticiationErrors = {
   title: ['Required'],
