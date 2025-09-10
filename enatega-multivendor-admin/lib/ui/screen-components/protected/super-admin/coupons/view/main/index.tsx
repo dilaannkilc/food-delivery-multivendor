@@ -79,12 +79,10 @@ export default function CouponsMain({
   };
 
   // Queries
-  const { data, error, loading, fetch } = useLazyQueryQL(GET_COUPONS, {
+  const { data, fetch } = useLazyQueryQL(GET_COUPONS, {
     fetchPolicy: 'network-only',
     debounceMs: 5000,
-    onCompleted: () => {
-      console.log('onCompleted called!');
-    },
+    onCompleted: () => setIsLoading(false),
   }) as ILazyQueryResult<IGetCouponsData | undefined, undefined>;
 
   // Mutations
@@ -177,17 +175,9 @@ export default function CouponsMain({
   }, [data, isEditing.bool]);
 
   useEffect(() => {
-    setIsLoading(true);
     fetch();
+    setIsLoading(true);
   }, []);
-
-  useEffect(() => {
-    if (!loading) {
-      console.log('Query done. Data:', data);
-      console.log('Query error:', error);
-      setIsLoading(false);
-    }
-  }, [loading]);
 
   return (
     <div className="p-3">
