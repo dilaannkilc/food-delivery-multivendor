@@ -1,10 +1,9 @@
 import { useApptheme } from "@/lib/context/global/theme.context";
-import type { PropsWithChildren, JSX } from "react";
+import type { PropsWithChildren } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Text, TouchableOpacity, View } from "react-native";
-import { MaterialIcons } from '@expo/vector-icons'
-
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 type AccordionItemPros = PropsWithChildren<{
   title: string;
@@ -35,12 +34,11 @@ export default function AccordionItem({
         >
           {t(title)}
         </Text>
-        <MaterialIcons
-  name={expanded ? "expand-less" : "expand-more"}
-  size={30}
-  color={appTheme.primary}
-/>
-
+        <Icon
+          name={expanded ? "expand-less" : "expand-more"}
+          size={30}
+          color={appTheme.primary}
+        />
       </TouchableOpacity>
       {expanded && children}
     </View>

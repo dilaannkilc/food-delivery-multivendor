@@ -1,28 +1,25 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Video from 'react-native-video';
+import { Video, ResizeMode } from 'expo-av';
 
 export default function VideoBanner(props) {
-  const videoRef = React.useRef(null);
+  const video = React.useRef(null);
+  
+  React.useEffect(() => {
+    if (video.current) {
+      video.current.playAsync();
+    }
+  }, []);
 
   return (
     <View style={[styles.container, props?.style]}>
       <Video
-        ref={videoRef}
-        source={props?.source}
+        ref={video}
         style={styles.video}
-        resizeMode="cover"
-        repeat={true}
-        muted={true}
-        playInBackground={false}
-        playWhenInactive={false}
-        ignoreSilentSwitch="ignore"
-        onLoad={() => {
-          // Video is ready to play
-        }}
-        onError={(error) => {
-          console.log('Video error:', error);
-        }}
+        source={props?.source}
+        resizeMode={ResizeMode.COVER}
+        isLooping
+        shouldPlay
       />
       {props?.children}
     </View>
@@ -36,6 +33,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     overflow: 'hidden',
     borderRadius: 8,
+    objectFit: 'cover'
   },
   video: {
     position: 'absolute',
