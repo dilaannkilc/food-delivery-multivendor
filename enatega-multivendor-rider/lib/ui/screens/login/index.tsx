@@ -17,8 +17,7 @@ import {
 // Components
 
 // Icon
-import { FontAwesome, FontAwesome6 } from '@expo/vector-icons';
-
+import Icon from "react-native-vector-icons/FontAwesome6";
 
 // Schemas
 import { SignInSchema } from "@/lib/utils/schema";
@@ -101,7 +100,7 @@ const LoginScreen = () => {
               return (
                 <View className="mt-24 p-5 items-center justify-between gap-y-2">
                   {/* Icon */}
-                  <FontAwesome
+                  <Icon
                     name="envelope"
                     size={30}
                     color={appTheme.fontMainColor}
@@ -168,7 +167,7 @@ const LoginScreen = () => {
                       onPress={() => setPasswordVisible(!passwordVisible)}
                       className="ml-2"
                     >
-                      <FontAwesome6
+                      <Icon
                         name={passwordVisible ? "eye-slash" : "eye"}
                         size={14}
                         color={appTheme.fontMainColor}

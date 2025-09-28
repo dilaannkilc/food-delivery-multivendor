@@ -90,8 +90,7 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
     sizeMeters = 100
   ): ILocationPoint[] => {
     const latOffset = sizeMeters * 0.0000089;
-    const lngOffset =
-      (sizeMeters * 0.0000089) / Math.cos((center.lat * Math.PI) / 180);
+    const lngOffset = (sizeMeters * 0.0000089) / Math.cos((center.lat * Math.PI) / 180);
     return [
       { lat: center.lat + latOffset, lng: center.lng - lngOffset },
       { lat: center.lat + latOffset, lng: center.lng + lngOffset },
@@ -170,6 +169,8 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
   };
 
   const onSetCenterAndPolygon = () => {
+    setIsMounted(true);
+
     if (
       Array.isArray(_path) &&
       _path.length > 0 &&
@@ -232,7 +233,7 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
   useEffect(() => {
     if (!isMounted) return;
     onSetZoneCoordinates(transformPath(path ?? []));
-  }, [path, isMounted]);
+  }, [path]);
 
   useEffect(() => {
     if (!autocompleteService.current && window.google) {
@@ -266,7 +267,6 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
 
   useEffect(() => {
     onSetCenterAndPolygon();
-    setIsMounted(true);
   }, []);
 
   return (
@@ -381,11 +381,7 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
                 fullscreenControl: false,
               }}
               onClick={onClickGoogleMaps}
-              onLoad={(map) => {
-                mapRef.current = map;
-              }}
-              
-              
+              onLoad={map => { mapRef.current = map; }}
             >
               {path.length > 0 && (
                 <Polygon
@@ -425,15 +421,7 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
               newPath = [lastSelectedLocation];
               setPath(newPath);
             }
-            setTimeout(
-              () =>
-                focusZone(
-                  val === 'polygon'
-                    ? createPolygonAroundPoint(lastSelectedLocation)
-                    : [lastSelectedLocation]
-                ),
-              200
-            );
+            setTimeout(() => focusZone(val === 'polygon' ? createPolygonAroundPoint(lastSelectedLocation) : [lastSelectedLocation]), 200);
           } else {
             switch (val) {
               case 'polygon':

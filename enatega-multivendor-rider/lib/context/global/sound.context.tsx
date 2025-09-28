@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { useContext, useEffect, useState, createContext } from "react";
-import { AudioPlayer, useAudioPlayer, AudioSource } from "expo-audio";
+import { Audio } from "expo-av";
 // Interface
 import {
   ISoundContext,
@@ -14,53 +14,42 @@ const SoundContext = createContext<ISoundContext>({} as ISoundContext);
 
 export const SoundProvider = ({ children }: ISoundContextProviderProps) => {
   // State
-  const [audioPlayer, setAudioPlayer] = useState<AudioPlayer | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  
+  const [sound, setSound] = useState<Audio.SoundObject | null>(null);
   // Context/Hooks
   const { assignedOrders } = useUserContext();
-
-  // Create audio player
-  const player = useAudioPlayer(require("@/lib/assets/sound/beep3.mp3") as AudioSource);
 
   // Handlers
   const playSound = async () => {
     try {
       await stopSound();
-      
-      // Configure audio session (iOS/Android settings)
-      // Note: expo-audio handles most audio session configuration automatically
-      
-      player.loop = true;
-      player.play();
-      setAudioPlayer(player);
-      setIsPlaying(true);
+      const { sound: newSound } = await Audio.Sound.createAsync(
+        require("@/lib/assets/sound/beep3.mp3"),
+      );
+      await newSound.setIsLoopingAsync(true);
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+        staysActiveInBackground: true,
+        interruptionModeIOS: (Audio.INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2),
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        interruptionModeAndroid:
+          (Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2),
+        playThroughEarpieceAndroid: true,
+      });
+      await newSound.playAsync();
+
+      setSound(newSound);
     } catch (err) {
-      console.log("Error playing sound:", err);
+      console.log(err);
     }
   };
 
   const stopSound = async () => {
-    if (audioPlayer && isPlaying) {
-      try {
-        audioPlayer.pause();
-        setIsPlaying(false);
-      } catch (err) {
-        console.log("Error stopping sound:", err);
-      }
+    if (sound) {
+      await sound?.unloadAsync();
+      setSound(null);
     }
   };
-
-  // Audio player event listeners
-  useEffect(() => {
-    const playingSubscription = player.addListener('playingChange', (isPlaying) => {
-      setIsPlaying(isPlaying);
-    });
-
-    return () => {
-      playingSubscription?.remove();
-    };
-  }, [player]);
 
   // Use Effect
   useEffect(() => {
@@ -72,9 +61,9 @@ export const SoundProvider = ({ children }: ISoundContextProviderProps) => {
 
       const shouldPlaySound = !!new_order;
 
-      if (shouldPlaySound && !isPlaying) {
+      if (shouldPlaySound && !sound) {
         playSound();
-      } else if (!shouldPlaySound && isPlaying) {
+      } else if (!shouldPlaySound && sound) {
         stopSound();
       }
     } else {
@@ -82,20 +71,11 @@ export const SoundProvider = ({ children }: ISoundContextProviderProps) => {
     }
 
     return () => {
-      if (isPlaying) {
+      if (sound) {
         stopSound();
       }
     };
-  }, [assignedOrders, isPlaying]);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (isPlaying) {
-        player.pause();
-      }
-    };
-  }, []);
+  }, [assignedOrders, sound]);
 
   return (
     <SoundContext.Provider value={{ playSound, stopSound }}>
@@ -103,7 +83,6 @@ export const SoundProvider = ({ children }: ISoundContextProviderProps) => {
     </SoundContext.Provider>
   );
 };
-
 export const SoundContextConsumer = SoundContext.Consumer;
 export const useSoundContext = () => useContext(SoundContext);
 export default SoundContext;

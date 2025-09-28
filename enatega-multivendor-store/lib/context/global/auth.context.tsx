@@ -28,9 +28,9 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({
   children,
 }) => {
   // States
+
   const [isSelected, setIsSelected] = useState("");
   const [token, setToken] = useState<string>("");
-  
   const setTokenAsync = async (token: string) => {
     await SecureStore.setItemAsync(STORE_TOKEN, token);
     client.clearStore();
@@ -41,40 +41,17 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({
   const handleSetCurrentLanguage = async () => {
     try {
       const lng = await AsyncStorage.getItem("lang");
-      console.log("🚀 ~ handleSetCurrentLanguage ~ lng:", lng);
-      
-      // Safe handling of Localization.locale
-      let systemLanguage = "en"; // default fallback
-      
-      if (Localization.locale && typeof Localization.locale === 'string') {
-        systemLanguage = Localization.locale.split("-")[0];
-      } else if (Localization.locales && Array.isArray(Localization.locales) && Localization.locales.length > 0) {
-        const firstLocale = Localization.locales[0];
-        if (firstLocale && typeof firstLocale === 'string') {
-          systemLanguage = firstLocale.split("-")[0];
-        }
-      }
-      
-      console.log("🚀 ~ handleSetCurrentLanguage ~ systemLanguage:", systemLanguage);
+      const systemLanguage = Localization.locale.split("-")[0];
 
-      // Use stored language preference or fall back to system language
-      const selectedLanguage = lng || systemLanguage;
-      
-      await changeLanguage(selectedLanguage);
-      setIsSelected(selectedLanguage);
-      
-    } catch (error) {
-      console.error("Language setting error:", error);
-      // Ultimate fallback
-      try {
-        await changeLanguage("en");
-        setIsSelected("en");
-      } catch (fallbackError) {
-        console.error("Fallback language setting failed:", fallbackError);
+      if (lng || systemLanguage) {
+        changeLanguage(systemLanguage ?? lng);
+        // changeLanguage(lng);
+        setIsSelected(systemLanguage ?? lng);
       }
+    } catch (error) {
+      console.error({ error });
     }
   };
-
   const logout = async () => {
     try {
       client.stop();
@@ -87,10 +64,12 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({
       setToken("");
       router.replace("/(un-protected)/login");
     } catch (e) {
+      // FlashMessageComponent({
+      //   message: `Logout failed`,
+      // });
       console.error("Logout Error: ", { e });
     }
   };
-
   async function checkAuth() {
     try {
       const token = await SecureStore.getItemAsync(STORE_TOKEN);
@@ -110,7 +89,6 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({
   useEffect(() => {
     handleSetCurrentLanguage();
   }, []);
-
   useEffect(() => {
     checkAuth();
   }, []);

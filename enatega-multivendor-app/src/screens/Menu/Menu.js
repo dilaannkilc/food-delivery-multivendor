@@ -40,8 +40,6 @@ import useNetworkStatus from '../../utils/useNetworkStatus'
 import { isOpen, sortRestaurantsByOpenStatus } from '../../utils/customFunctions'
 import Ripple from 'react-native-material-ripple'
 import useGeocoding from '../../ui/hooks/useGeocoding'
-
-
 const SELECT_ADDRESS = gql`
   ${selectAddress}
 `
@@ -618,9 +616,8 @@ function Menu({ route, props }) {
           contentInset={{ top: containerPaddingTop }}
           contentContainerStyle={{
             paddingTop: Platform.OS === 'ios' ? 0 : containerPaddingTop,
-            paddingBottom: HEIGHT*0.34,
             padding: 15,
-            gap: 16,
+            gap: 16
           }}
           contentOffset={{ y: -containerPaddingTop }}
           onScroll={onScroll}
