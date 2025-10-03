@@ -332,4 +332,3 @@ async function registerForPushNotificationsAsync() {
 //     trigger: { seconds: 10 }
 //   })
 // }
-
