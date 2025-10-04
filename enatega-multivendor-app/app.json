@@ -2,7 +2,7 @@
   "expo": {
     "name": "Enatega Multi",
     "scheme": "enategamultivendor",
-    "version": "1.0.81",
+    "version": "1.0.75",
     "description": "Enatega is a starter kit food ordering app built in React Native using Expo for IOS and Android. It's made keeping good aesthetics in mind as well keeping the best coding practices in mind. Its fully customisable to easily help you in your next food delivery project. https://market.nativebase.io/view/react-native-food-delivery-backend-app",
     "slug": "enategamultivendor",
     "owner": "ninjas_code",
@@ -61,8 +61,9 @@
       "androidCollapsedTitle": "Enatega Multivendor"
     },
     "android": {
-      "versionCode": 81,
+      "versionCode": 75,
       "package": "com.enatega.multivendor",
+      "googleServicesFile": "./google-services.json",
       "userInterfaceStyle": "automatic",
       "config": {
         "googleMaps": {
@@ -95,8 +96,7 @@
             "DEFAULT"
           ]
         }
-      ],
-      "androidClientId":"967541328677-7264tf7tkdtoufk844rck9mimrve135c.apps.googleusercontent.com"
+      ]
     },
     "hooks": {
       "postPublish": [
@@ -135,17 +135,10 @@
           "locationAlwaysAndWhenInUsePermission": "Allow $Enatega Multivendor to use your location."
         }
       ],
+      "react-native-video",
       "expo-font",
       "expo-localization",
-      "expo-web-browser",
-      [
-        "expo-video",
-        {
-          "supportsBackgroundPlayback": false,
-          "supportsPictureInPicture": true
-        }
-      ],
-      "@react-native-google-signin/google-signin"
+      "expo-web-browser"
     ],
     "extra": {
       "eas": {

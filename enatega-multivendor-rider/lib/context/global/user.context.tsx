@@ -235,7 +235,6 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     };
   }, []);
 
-
   return (
     <UserContext.Provider
       value={{
@@ -252,7 +251,6 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         assignedOrders:
           loadingAssigned || errorAssigned ? [] : dataAssigned?.riderOrders,
         refetchAssigned,
-        refetchProfile,
         networkStatusAssigned,
         requestForegroundPermissionsAsync,
       }}

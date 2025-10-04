@@ -79,7 +79,7 @@ export default function WorkScheduleMain() {
           variables: { id: dataProfile?._id },
         },
       ],
-    }
+    },
   );
 
   // Handler
@@ -170,13 +170,9 @@ export default function WorkScheduleMain() {
 
                 // Ensure proper splitting of hours and minutes
                 const [startHours = "00", startMinutes = "00"] =
-                  typeof startTimeStr === "string" && startTimeStr
-                    ? startTimeStr.split(":")
-                    : ["00", "00"];
+                  startTimeStr.split(":");
                 const [endHours = "00", endMinutes = "00"] =
-                  typeof endTimeStr === "string" && endTimeStr
-                    ? endTimeStr.split(":")
-                    : ["00", "00"];
+                  endTimeStr.split(":");
 
                 return {
                   startTime: [startHours, startMinutes],
@@ -197,7 +193,7 @@ export default function WorkScheduleMain() {
       const sortedSlots = [...times].sort(
         (a, b) =>
           timeToMinutes(a.startTime.join(":")) -
-          timeToMinutes(b.startTime.join(":"))
+          timeToMinutes(b.startTime.join(":")),
       );
 
       for (let i = 0; i < sortedSlots.length - 1; i++) {
@@ -218,7 +214,7 @@ export default function WorkScheduleMain() {
     dayIndex: number,
     slotIndex: number,
     type: "startTime" | "endTime",
-    value: string
+    value: string,
   ) => {
     let updatedSchedule;
     let slot;
@@ -259,12 +255,12 @@ export default function WorkScheduleMain() {
           const otherStart = timeToMinutes(
             Array.isArray(otherSlot.startTime)
               ? `${otherSlot.startTime[0] || "00"}:${otherSlot.startTime[1] || "00"}`
-              : otherSlot.startTime
+              : otherSlot.startTime,
           );
           const otherEnd = timeToMinutes(
             Array.isArray(otherSlot.endTime)
               ? `${otherSlot.endTime[0] || "00"}:${otherSlot.endTime[1] || "00"}`
-              : otherSlot.endTime
+              : otherSlot.endTime,
           );
 
           if (type === "startTime") {
@@ -272,7 +268,7 @@ export default function WorkScheduleMain() {
           } else {
             return newTime > otherStart && newTime <= otherEnd;
           }
-        }
+        },
       );
 
       if (isOverlapping) {
@@ -365,7 +361,7 @@ export default function WorkScheduleMain() {
               })
             : [],
           __typename: "OpeningTimes",
-        }))
+        })),
       );
     } else {
       setSchedule(
@@ -373,7 +369,7 @@ export default function WorkScheduleMain() {
           day,
           times: [],
           __typename: "OpeningTimes",
-        }))
+        })),
       );
     }
   }, [dataProfile?.openingTimes]);
@@ -448,7 +444,7 @@ export default function WorkScheduleMain() {
               style={{ maxHeight: 300 }}
               onScroll={Animated.event(
                 [{ nativeEvent: { contentOffset: { y: parallaxAnim } } }],
-                { useNativeDriver: false }
+                { useNativeDriver: false },
               )}
               scrollEventThrottle={16}
             >

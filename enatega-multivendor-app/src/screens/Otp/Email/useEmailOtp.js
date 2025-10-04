@@ -127,7 +127,6 @@ const useEmailOtp = () => {
         }
       })
     } catch (error) {
-      console.log("Error in mutateRegister:", error);
       FlashMessage({ message: t('somethingWentWrong') })
     }
   }
@@ -142,7 +141,6 @@ const useEmailOtp = () => {
 
   const resendOtp = () => {
     otpFrom.current = Math.floor(100000 + Math.random() * 900000).toString()
-    console.log(otpFrom.current, "otpFrom.current");
     mutate({
       variables: { email: user.email, otp: otpFrom.current }
     })

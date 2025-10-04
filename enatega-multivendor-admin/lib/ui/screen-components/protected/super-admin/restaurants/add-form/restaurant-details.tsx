@@ -206,7 +206,7 @@ export default function RestaurantDetailsForm({
       query: GET_RESTAURANTS,
     });
 
-    const cachedRestaurants = cachedData?.restaurants?.data ?? [];
+    const cachedRestaurants = cachedData?.restaurants ?? [];
 
     cache.writeQuery({
       query: GET_RESTAURANTS,
