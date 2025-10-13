@@ -17,14 +17,13 @@ export default function StatsCard({
   route,
   loading = false,
   amountConfig,
-  isClickable = true,
+  isClickable = false,
 }: IStatsCardProps) {
   const stats_card = () => (
-     <div
-    className={`card flex flex-col justify-between min-h-28 ${
-      isClickable ? 'cursor-pointer' : 'cursor-default'
-    }`}
-  >
+    <div
+      className="card flex flex-col justify-between min-h-28"
+      style={{ cursor: isClickable ? 'pointer' : 'default' }}
+    >
       <div className="mb-2 flex items-center justify-between">
         <span className="text-gray-600">{label}</span>
 
@@ -46,10 +45,9 @@ export default function StatsCard({
 
   return loading ? (
     <DashboardStatsCardSkeleton />
-  ) : isClickable ?
-  (
-    <Link href={route ?? ''}>{stats_card()}</Link>
-  ) : (
+  ) : isClickable ? (
     stats_card()
-  ) ;
+  ) : (
+    <Link href={route ?? ''}>{stats_card()}</Link>
+  );
 }
