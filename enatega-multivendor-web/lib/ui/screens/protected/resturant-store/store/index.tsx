@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState, useEffect, useCallback, useContext } from "react";
+import { useMemo, useRef, useState, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "next/navigation";
 import { Skeleton } from "primereact/skeleton";
@@ -56,7 +56,6 @@ import ChatSvg from "@/lib/utils/assets/svg/chat";
 import Image from "next/image";
 import Loader from "@/app/(localized)/mapview/[slug]/components/Loader";
 import { motion } from "framer-motion";
-import { ToastContext } from "@/lib/context/global/toast.context";
 
 export default function StoreDetailsScreen() {
   // Access the UserContext via our custom hook
@@ -458,14 +457,11 @@ export default function StoreDetailsScreen() {
     openingTimes: data?.restaurant?.openingTimes ?? [],
     deliveryTime: data?.restaurant?.deliveryTime,
   };
-   const { showToast } = useContext(ToastContext);
+
   const handleFavoriteClick = () => {
     if (!profile) {
-      showToast({
-                type: "error",
-                title: "Login Required",
-                message: "Please Login to add favorites",
-            });
+      // Handle case where user is not logged in
+      console.log("Please login to add favorites");
       return;
     }
 
@@ -490,9 +486,6 @@ export default function StoreDetailsScreen() {
   };
 
   const restaurantInfoModalProps = {
-    deliveryTime: data?.restaurant.deliveryTime ?? "30-45",
-    deliveryTax: data?.restaurant.tax ??  "0",
-    MinimumOrder: data?.restaurant.minimumOrder ?? "0",
     _id: data?.restaurant._id ?? "",
     name: data?.restaurant?.name ?? "...",
     username: data?.restaurant?.username ?? "N/A",

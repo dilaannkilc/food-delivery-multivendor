@@ -13,7 +13,6 @@ import { useTranslations } from "next-intl";
 
 // Next
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 // Font Awesome
 
@@ -24,8 +23,6 @@ export default function LoginWithGoogle({
   // Hooks
   const t = useTranslations();
   const { isLoading } = useAuth();
-
-  const router = useRouter();
 
   return (
     <div>
@@ -64,15 +61,15 @@ export default function LoginWithGoogle({
       <p>
         {t("By signing up, you agree to our")} &nbsp;
         <span className="font-bold ">
-          <Link href="/terms">{t("Terms")}</Link>
+          <Link href="/app/(localized)/(restaurant-store)/restaurant">
+            {t("Terms")}
+          </Link>
         </span>{" "}
         &nbsp;
         {t("and Conditions and")} &nbsp;
-        <span
-          className="font-bold cursor-pointer"
-        >
-           <Link href="/privacy">
-          {t("Privacy Policy")}
+        <span className="font-bold ">
+          <Link href="/app/(localized)/(restaurant-store)/restaurant">
+            {t("Privacy Policy")}
           </Link>
         </span>
         .
