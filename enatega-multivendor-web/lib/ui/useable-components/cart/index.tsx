@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useQuery, useApolloClient } from "@apollo/client";
@@ -32,7 +32,6 @@ export default function Cart({ onClose }: CartProps) {
 
     const router = useRouter();
     const client = useApolloClient();
-    const shopType = localStorage.getItem("currentShopType");
 
     // Format subtotal for display
     const formattedSubtotal =
@@ -252,7 +251,7 @@ export default function Cart({ onClose }: CartProps) {
                 <div className="p-4 bg-white">
                     <div className="bg-gray-50 rounded-lg p-3">
                         <h2 className="font-inter font-semibold text-base text-gray-900 mb-2">
-                            Add comment for {shopType}
+                            Add comment for Restaurant
                         </h2>
                         <textarea
                             id="instructions"
