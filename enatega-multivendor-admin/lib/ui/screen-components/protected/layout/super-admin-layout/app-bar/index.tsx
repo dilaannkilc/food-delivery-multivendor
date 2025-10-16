@@ -248,7 +248,6 @@ const AppTopbar = () => {
             icon={faBell}
             className="cursor-pointer text-gray-600 hover:text-black"
             onClick={toggleDropdown}
-            title='Notifications' // 👈 native tooltip added here
           />
           {!loading &&
             notifications?.filter((ntfn) => !ntfn.read).length > 0 && (
@@ -320,7 +319,6 @@ const AppTopbar = () => {
             onClick={(event) => languageMenuRef.current?.toggle(event)}
             aria-controls="popup_menu_right"
             aria-haspopup
-            title="Languages" // 👈 native tooltip added here
           >
             <FontAwesomeIcon icon={faGlobe} />
 

@@ -20,7 +20,6 @@ export interface IEarningTableHeaderProps {
       paymentMethod?: PaymentMethodEnum;
     }>
   >;
-  onClearFilters: () => void; 
 }
 
 export interface IEarningsRestaurantHeaderComponentProps {
