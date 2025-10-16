@@ -48,6 +48,10 @@ export const useCreateAccount = () => {
     PRIVACY_POLICY
   } = useEnvVars();
 
+  // Logging client IDs from environment variables (good for debugging, even if hardcoded below)
+  console.log("android client id (from env): ", ANDROID_CLIENT_ID_GOOGLE);
+  console.log("ios client id (from env): ", IOS_CLIENT_ID_GOOGLE);
+  console.log("expo web client id (from env): ", EXPO_CLIENT_ID);
 
   // Google Auth Request for iOS (using expo-auth-session)
   // Hardcoded client IDs as per your provided iOS code block
@@ -61,6 +65,7 @@ export const useCreateAccount = () => {
   // Effect to handle the Google authentication response
   useEffect(() => {
     if (response?.type === 'success') {
+      console.log({ response });
       const { authentication } = response;
       fetchUserInfo(authentication.accessToken);
     } else if (response?.type === 'error') {
@@ -69,6 +74,7 @@ export const useCreateAccount = () => {
       setLoading(false);
       loginButtonSetter(null);
     } else if (response?.type === 'cancel') {
+        console.log('Google sign-in cancelled by user.');
         FlashMessage({ message: 'Google sign-in cancelled.' });
         setLoading(false);
         loginButtonSetter(null);
@@ -83,6 +89,8 @@ export const useCreateAccount = () => {
       });
       const user = await response.json();
 
+      console.log({ user });
+
       const userData = {
         phone: '',
         email: user.email,
@@ -92,9 +100,10 @@ export const useCreateAccount = () => {
         type: 'google'
       };
 
- 
+      console.log("User data: ", userData);
 
       setGoogleUser(userData.name);
+      console.log('🔐 Logging in user...');
       await mutateLogin(userData);
 
     } catch (error) {
@@ -108,6 +117,7 @@ export const useCreateAccount = () => {
   // Google Sign-In Function for iOS
   const signIn = async () => {
     try {
+      console.log("LOGIN BUTTON CLICKED (iOS)");
       loginButtonSetter('Google');
       setLoading(true);
 
@@ -157,13 +167,16 @@ export const useCreateAccount = () => {
   // --- Common Login Mutation Function ---
   async function mutateLogin(user) {
     try {
- 
+      console.log('🔐 [Login Debug] Starting login mutation for:', user.email);
+      console.log('🔐 [Login Debug] User type:', user.type);
+      console.log('🔐 [Login Debug] Full user object:', user);
+
       let notificationToken = null;
 
       if (Device.isDevice) {
         try {
           const { status: existingStatus } = await Notifications.getPermissionsAsync();
-      
+          console.log('🔐 [Login Debug] Notification permission status:', existingStatus);
 
           if (existingStatus === 'granted') {
             try {
@@ -171,7 +184,7 @@ export const useCreateAccount = () => {
                 projectId: Constants.expoConfig?.extra?.eas?.projectId
               });
               notificationToken = tokenData.data;
-       
+              console.log('🔐 [Login Debug] ✅ Got notification token');
             } catch (tokenError) {
               console.warn('🔐 [Login Debug] ⚠️ Could not get push token (this is OK):', tokenError.message);
               notificationToken = null;
@@ -186,6 +199,11 @@ export const useCreateAccount = () => {
       } else {
         console.log('🔐 [Login Debug] ℹ️ Not a physical device, skipping notification token');
       }
+
+      console.log('🔐 [Login Debug] About to call GraphQL mutation with variables:', {
+        ...user,
+        notificationToken: notificationToken ? 'token_present' : 'no_token'
+      });
 
       mutate({
         variables: {
@@ -207,10 +225,19 @@ export const useCreateAccount = () => {
 
   async function checkIfSupportsAppleAuthentication() {
     try {
-
+      console.log('🍎 [Apple Debug] Checking Apple Authentication support...');
+      console.log('🍎 [Apple Debug] Platform:', Platform.OS); // Will always be 'ios' in this file
+      console.log('🍎 [Apple Debug] Device type:', Device.deviceType);
 
       const isAvailable = await AppleAuthentication.isAvailableAsync();
- 
+      console.log('🍎 [Apple Debug] Apple Authentication available:', isAvailable);
+
+      if (Platform.OS === 'ios') { // This check is redundant in .ios.js but harmless
+        console.log('🍎 [Apple Debug] Running on iOS - Apple should be available');
+      } else {
+        console.log('🍎 [Apple Debug] Not running on iOS - Apple will not be available');
+      }
+
       setEnableApple(isAvailable);
     } catch (error) {
       console.error('🍎 [Apple Debug] ❌ Error checking Apple Authentication:', error);
@@ -220,8 +247,14 @@ export const useCreateAccount = () => {
 
   // --- Common Login Success Handler ---
   async function onCompleted(data) {
+    console.log('✅ [Login Debug] Login mutation completed successfully');
+    console.log('✅ [Login Debug] Response data:', data);
+    console.log('✅ [Login Debug] User email:', data.login.email);
+    console.log('✅ [Login Debug] User active status:', data.login.isActive);
+    console.log('✅ [Login Debug] User phone:', data.login.phone);
 
     if (data.login.isActive === false) {
+      console.log('❌ [Login Debug] Account is deactivated');
       FlashMessage({ message: t('accountDeactivated') });
       setLoading(false);
       loginButtonSetter(null);
@@ -229,19 +262,22 @@ export const useCreateAccount = () => {
     }
 
     try {
-
+      console.log('✅ [Login Debug] Setting auth token...');
       setTokenAsync(data.login.token);
       FlashMessage({ message: 'Successfully logged in' });
 
       if (data?.login?.phone === '') {
+        console.log('✅ [Login Debug] No phone number - navigating to phone screen');
         navigateToPhone();
       } else {
+        console.log('✅ [Login Debug] Phone number exists - navigating to main app');
         navigateToMain();
       }
 
     } catch (error) {
       console.error('❌ [Login Debug] Error in onCompleted:', error);
     } finally {
+      console.log('✅ [Login Debug] Resetting loading states');
       setLoading(false);
       loginButtonSetter(null);
     }
