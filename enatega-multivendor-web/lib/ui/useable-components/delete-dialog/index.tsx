@@ -32,7 +32,7 @@ const CustomDialog = ({
   } = buttonConfig || {};
 
   const footer = (
-    <div className="flex space-x-2 text-center justify-center">
+    <div className="space-x-2">
       <CustomButton
         label={secondaryButtonLabel || "Cancel"}
         icon={secondaryButtonIcon || "pi pi-times"}
@@ -59,7 +59,7 @@ const CustomDialog = ({
       footer={footer}
       onHide={onHide}
     >
-      <div className="confirmation-content text-center mx-3 text-sm sm:text-lg">
+      <div className="confirmation-content text-center">
         <span>{message || "Are you sure you want to delete this item?"}</span>
       </div>
     </Dialog>

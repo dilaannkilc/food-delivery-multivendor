@@ -130,8 +130,8 @@ export default function FilterModal({
                 onClick={() => handleSortBy(item.name)}
                 className={`px-3 py-1 rounded-full text-sm border ${
                   isSelected ?
-                    "bg-primary-color border-primary-color"
-                  : "border-gray-500"
+                    "border-sky-500 text-sky-500"
+                  : " border-gray-500"
                 }`}
               >
                 {item.name}
