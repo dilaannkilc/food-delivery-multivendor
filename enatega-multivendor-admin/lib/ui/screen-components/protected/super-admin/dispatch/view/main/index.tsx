@@ -62,8 +62,7 @@ export default function DispatchMain() {
     onCompleted: () => {
       setIsLoading(false);
     },
-    // pollInterval: 3000,
-    
+    pollInterval: 3000,
   });
 
   // fetchPolicy: 'network-only',
