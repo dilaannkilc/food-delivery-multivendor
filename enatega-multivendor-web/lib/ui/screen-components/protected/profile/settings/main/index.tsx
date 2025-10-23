@@ -17,7 +17,6 @@ import { useAuth } from "@/lib/context/auth/auth.context";
 // Hooks
 import useToast from "@/lib/hooks/useToast";
 import NameUpdateModal from "./update-name";
-import { useTranslations } from "next-intl";
 
 export default function SettingsMain() {
 
@@ -33,7 +32,6 @@ export default function SettingsMain() {
   const { setAuthToken } = useAuth();
   const router = useRouter();
    const { showToast } = useToast();
-   const t = useTranslations()
 
    // Queries and Mutations
   // Get profile data by using the query
@@ -45,8 +43,8 @@ export default function SettingsMain() {
     onCompleted: () => {
         showToast({
             type: "success",
-            title: t('successToastTitle'),
-            message: t('successToastMessage'),
+            title: "Success",
+            message: "User Account Has Been Deleted Successfully",
         });
     },
     onError: (error) => {
@@ -73,8 +71,8 @@ export default function SettingsMain() {
     localStorage.clear();
     showToast({
             type: "success",
-            title: t('logoutSuccessToastTitle'),
-            message: t('logoutSuccessToastMessage'),
+            title: "Logout",
+            message: "User logged out successfully",
           });
     router.push("/");
   };
@@ -135,7 +133,7 @@ export default function SettingsMain() {
       {/* Email */}
       <div className="py-4 border-b">
         <div className="flex justify-between items-center">
-          <TextComponent text={t('emailLabel')} className="font-normal text-gray-700 text-base md:text-lg " />
+          <TextComponent text="Email" className="font-normal text-gray-700 text-base md:text-lg " />
           <TextComponent text={profileData?.profile?.email} className="font-medium text-gray-700 text-base md:text-lg " />
         </div>
       </div>
@@ -143,15 +141,15 @@ export default function SettingsMain() {
       {/* Mobile Number */}
       <div className="py-4 border-b">
         <div className="flex justify-between items-center">
-        <TextComponent text={t("mobileNumberLabel")} className="font-normal text-gray-700 text-base md:text-lg " />
+        <TextComponent text="Mobile Number" className="font-normal text-gray-700 text-base md:text-lg " />
       <div className="flex flex-col md:flex-row items-center gap-2">
          {!profileData?.profile?.phoneIsVerified && (
          <CustomButton
          onClick={handleUpdatePhoneModal} 
-         label={t('notVerifiedButton')} type='button' className='text-sm md:text-lg font-light bg-[#dd151583] px-[16px] py-[8px] text-white'/>
+         label='Not Verified' type='button' className='text-sm md:text-lg font-light bg-[#dd151583] px-[16px] py-[8px] text-white'/>
        )}
         <h1
-        title={t("updatePhoneTitle")}
+        title="Update phone number"
         onClick={handleUpdatePhoneModal}
         className="font-medium text-blue-700 text-base md:text-lg  cursor-pointer">{profileData?.profile?.phone || "N/A" }</h1>
       </div>
@@ -161,9 +159,9 @@ export default function SettingsMain() {
       {/* Name */}
       <div className="py-4 border-b">
         <div className="flex justify-between items-center">
-        <TextComponent text={t("nameLabel")} className="font-normal text-gray-700 text-base md:text-lg " />
+        <TextComponent text="Name" className="font-normal text-gray-700 text-base md:text-lg " />
         <h1
-        title={t("updateNameTitle")}
+        title="Update Name"
         onClick={handleUpdateNameModal}
         className="font-medium text-blue-700 text-base md:text-lg  cursor-pointer"
         >
@@ -175,9 +173,9 @@ export default function SettingsMain() {
       {/* Delete Account */}
       <div className="py-4 border-b">
         <div className="flex justify-between items-center">
-        <TextComponent text={t("deleteAccountLabel")} className="font-normal text-gray-700 text-base md:text-lg " />
+        <TextComponent text="Delete Account" className="font-normal text-gray-700 text-base md:text-lg " />
           <CustomButton
-           label={t("deleteButton")}
+           label="Delete"
             className="text-red-500 hover:text-red-600 font-medium text-base md:text-lg  "
             onClick={handleDeleteAccount}
           />
@@ -188,7 +186,7 @@ export default function SettingsMain() {
       {/* Send Receipts */}
       <div className="py-4 border-b">
         <div className="flex justify-between items-center">
-        <TextComponent text={t("sendReceiptsLabel")} className="font-normal text-gray-700 text-base md:text-lg " />
+        <TextComponent text="Send receipts to email" className="font-normal text-gray-700 text-base md:text-lg " />
           <CustomInputSwitch
             isActive={sendReceipts}
             onChange={handleSendReceiptsChange}
@@ -212,9 +210,9 @@ export default function SettingsMain() {
       {/* Logout */}
       <div className="py-4">
         <div className="flex justify-between items-center">
-          <TextComponent text={t("logoutLabel")} className="font-normal text-gray-700 text-base md:text-lg " />
+          <TextComponent text="Log out of app" className="font-normal text-gray-700 text-base md:text-lg " />
           <CustomButton className="font-light text-gray-700 text-base lg:text-lg" onClick={handleLogout}
-            label={t("logoutButton")}
+            label="Logout"
           />
         </div>
       </div>

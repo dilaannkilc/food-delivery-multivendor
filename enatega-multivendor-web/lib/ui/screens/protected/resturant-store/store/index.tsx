@@ -63,10 +63,8 @@ import Image from "next/image";
 import Loader from "@/app/(localized)/mapview/[slug]/components/Loader";
 import { motion } from "framer-motion";
 import { ToastContext } from "@/lib/context/global/toast.context";
-import { useTranslations } from "next-intl";
 
 export default function StoreDetailsScreen() {
-  const t = useTranslations()
   // Access the UserContext via our custom hook
   const { cart, transformCartWithFoodInfo, updateCart, profile } = useUser();
 
@@ -233,7 +231,7 @@ export default function StoreDetailsScreen() {
           if (groupedFoods["uncategorized"]?.length > 0) {
             subCategoryGroups.push({
               _id: "uncategorized",
-              title: t("StoresPage.Uncategorized"),
+              title: "Uncategorized",
               foods: groupedFoods["uncategorized"],
             });
           }
@@ -268,7 +266,7 @@ export default function StoreDetailsScreen() {
       if (popularFoods.length > 0) {
         allDealCategories.unshift({
           _id: "popular-items",
-          title: t('StoresPage.popitems'),
+          title: "Popular Items",
           foods: [],
           subCategories: [
             {
@@ -339,9 +337,8 @@ export default function StoreDetailsScreen() {
       if (matchedPopularFoods.length > 0) {
         baseItems.unshift({
           id: "popular-items",
-          label: t('StoresPage.popitems'),
-          title: t('StoresPage.popitems'),
-
+          label: "Popular Items",
+          title: "Popular Items",
           url: "#popular-items",
           template: parentItemRenderer,
           items: matchedPopularFoods,
@@ -520,7 +517,7 @@ export default function StoreDetailsScreen() {
     openingTimes: data?.restaurant?.openingTimes ?? [],
     description:
       data?.restaurant?.description ??
-      t("restaurant_modal_label"),
+      "Preservation of the authentic taste of all traditional foods is upheld here.",
   };
 
   // Handlers
@@ -707,7 +704,7 @@ export default function StoreDetailsScreen() {
                   {loading ? (
                     <Skeleton width="10rem" height="1.5rem" />
                   ) : (
-                    t('StoresPage.SeeStoreinfo')
+                    "See more information"
                   )}
                 </a>
                 {/* Review Link */}
@@ -723,7 +720,7 @@ export default function StoreDetailsScreen() {
                   {loading ? (
                     <Skeleton width="10rem" height="1.5rem" />
                   ) : (
-                    t('StoresPage.storereviews')
+                    "See reviews"
                   )}
                 </a>
               </div>
@@ -886,7 +883,7 @@ export default function StoreDetailsScreen() {
                                   </h3>
                                   {meal.isOutOfStock && (
                                     <span className="text-red-500">
-                                      {t('out_of_stock_label')}
+                                      (Out of stock)
                                     </span>
                                   )}
                                 </div>
@@ -942,12 +939,11 @@ export default function StoreDetailsScreen() {
                               >
                                 <div className="text-center pb-10 pt-10">
                                   <p className="text-lg font-bold pb-3">
-                                    {t("restaurant_is_closed")}
+                                    Restaurant is closed
                                   </p>
                                   <p className="text-sm">
-                                    {t("cannot_order_food_item_now")}
-                                   <br></br> 
-                                   {t("please_try_again_later")}
+                                    You can&apos;t order this food item right
+                                    now.<br></br> Please try again later.
                                   </p>
                                 </div>
                               </CustomDialog>

@@ -10,7 +10,6 @@ import {
   SetStateAction,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
 
@@ -67,9 +66,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [isRegistering, setIsRegistering] = useState(false);
   const [refetchProfileData, setRefetchProfileData] = useState(false);
 
-  // Refs
-  const otpFrom = useRef<string | null>(null);
-
   // Hooks
   const {
     GOOGLE_CLIENT_ID,
@@ -120,10 +116,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       console.error("Error while checking email:", error);
       showToast({
         type: "error",
-        title: t("email_check_error"),
+        title: t("Email Check Error"),
         message:
           error.cause?.message ||
-          t("error_checking_email"),
+          t("An error occurred while checking the email"),
       });
       return {} as IEmailExists;
     } finally {
@@ -140,11 +136,12 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       if (phoneResponse.data?.phoneExist?._id) {
         showToast({
           type: "error",
-          title: t("phone_check_error"),
-          message: 
+          title: t("Phone Check Error"),
+          message: t(
             t(
-              "phone_already_registered"
-            ), // put a ","m after "registered" and "." at the end of the sentence in the translation,
+              "This phone number is already registered please enter a different one"
+            ) // put a ","m after "registered" and "." at the end of the sentence in the translation
+          ),
         });
         return true;
       } else {
@@ -155,10 +152,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       console.error("Error while checking phone:", error);
       return showToast({
         type: "error",
-        title: t("phone_check_error"),
+        title: t("Phone Check Error"),
         message:
           error.cause?.message ||
-          t("error_checking_phone"),
+          t("An error occurred while checking the phone"),
       });
     } finally {
       setIsLoading(false);
@@ -176,8 +173,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       if (resetPasswordResponse?.data?.resetPassword?.result === true) {
         showToast({
           type: "success",
-          title: t("password_reset"),
-          message: t("password_reset_success"),
+          title: t("Password Reset"),
+          message: t("Your password has been reset successfully"),
         });
         setFormData({} as IAuthFormData);
         setActivePanel(0);
@@ -189,10 +186,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       console.error("Error while resetting password:", error);
       showToast({
         type: "error",
-        title: t("password_reset_error"),
+        title: t("Password Reset Error"),
         message:
           error.cause?.message ||
-          t("error_resetting_password"),
+          t("An error occurred while resetting the password"),
       });
     }
     finally {
@@ -272,7 +269,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         }));
         showToast({
           type: "success",
-          title: t("create_user_label"),
+          title: t("Create User"),
           message: t("You have successfully registered"),
         });
         localStorage.setItem("token", userData.data.createUser.token);
@@ -286,7 +283,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       console.error("An error occured while creating the user", error);
       showToast({
         type: "error",
-        title: t("create_user_label"),
+        title: t("Create User"),
         message:
           error.cause?.message || t("An error occured while creating the user"),
       });
@@ -348,11 +345,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     });
   }
 
-  // Generators
-  function generateOTP() {
-    otpFrom.current = Math.floor(100000 + Math.random() * 900000).toString();
-  }
-
   // OTP Handlers
   async function sendOtpToEmailAddress(email: string, type?: string) {
     try {
@@ -364,10 +356,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         }
         return;
       } else {
-        generateOTP();
-        setOtp(otpFrom.current);
         const otpResponse = await sendOtpToEmail({
-          variables: { email: email, otp: otpFrom.current },
+          variables: { email: email }
         });
         if (otpResponse.data?.sendOtpToEmail?.result) {
           if (type && type !== "password-recovery") {
@@ -375,8 +365,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
           }
           showToast({
             type: "info",
-            title: t("email_verification_label"),
-            message: t("please_enter_valid_otp_code_message"
+            title: t("Email Verification"),
+            message: t(
+              `An OTP is sent at ${email} please verify your email address`
             ),
           });
           return;
@@ -394,10 +385,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       console.error("Error while sending OTP to email:", error);
       showToast({
         type: "error",
-        title: t("email_otp_error"),
+        title: t("Email OTP Error"),
         message:
           error.cause?.message ||
-          t("error_sending_otp_to_email"),
+          t("An error occurred while sending the OTP to email"),
       });
     } finally {
       setIsLoading(false);
@@ -412,10 +403,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         setActivePanel(6);
         return;
       } else {
-        generateOTP();
-        setOtp(otpFrom.current);
         const otpResponse = await sendOtpToPhone({
-          variables: { phone: phone, otp: otpFrom.current },
+          variables: { phone: phone },
         });
         if (!otpResponse.data?.sendOtpToPhoneNumber?.result) {
           showToast({
@@ -427,9 +416,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         } else {
           showToast({
             type: "info",
-            title: t("phone_verification_label"),
+            title: t("Phone Verification"),
             message: t(
-              "otp_sent_phone_verify_number"
+              `An OTP is sent at ${phone} please verify your phone number`
             ),
           });
           setActivePanel(6);
@@ -440,10 +429,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       console.error("Error while sending OTP to phone:", error);
       showToast({
         type: "error",
-        title: t("phone_otp_error"),
+        title: t("Phone OTP Error"),
         message:
           error.cause?.message ||
-          t("error_sending_otp_to_phone"),
+          t("An error occurred while sending the OTP to phone"),
       });
     } finally {
       setIsLoading(false);

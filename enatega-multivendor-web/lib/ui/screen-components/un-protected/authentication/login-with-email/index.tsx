@@ -49,8 +49,8 @@ export default function LoginWithEmail({
     if (!email || !valid) {
       return showToast({
         type: "error",
-        title: t("error"),
-        message: t("please_enter_valid_email_address_message"),
+        title: t("Error"),
+        message: t("Please enter a valid email address"),
       });
     }
 
@@ -78,10 +78,10 @@ export default function LoginWithEmail({
 
       <div className="flex flex-col w-full mt-4">
         <h3 className="text-xl md:text-2xl font-semibold">
-          {t("whats_your_email_label")}?
+          {t("What's your email?")}
         </h3>
         <p className="text-sm text-gray-600 mt-1">
-          {t("well_check_if_you_have_an_account_message")}
+          {t("We'll check if you have an account")}
         </p>
       </div>
 
@@ -106,7 +106,7 @@ export default function LoginWithEmail({
         <div className="h-[20px]">
           {!isValid && (
             <p className="text-red-500 text-sm">
-              {t("please_enter_valid_email_address_message")}
+              Please enter a valid email address.
             </p>
           )}
         </div>
@@ -118,13 +118,13 @@ export default function LoginWithEmail({
           className="flex items-center justify-center gap-2 rounded-full py-2 px-4 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200 w-full md:w-auto self-center"
         >
           <FcGoogle className="text-lg" />
-          {t("continue_with_google_instead_label")}
+          {t("Continue with Google instead")}
         </button>
       </div>
 
       {/* Submit Email */}
       <CustomButton
-        label={t("Continue_with_mail")}
+        label={t("Continue with Email")}
         loading={isLoading}
         onClick={handleSubmit}
         className={`bg-[#5AC12F] flex items-center justify-center gap-x-4 px-3 rounded-full border border-gray-300 p-3 mt-6 w-full md:w-72 self-center`}

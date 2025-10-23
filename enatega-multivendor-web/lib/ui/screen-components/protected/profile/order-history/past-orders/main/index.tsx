@@ -19,15 +19,12 @@ import { useMutation } from "@apollo/client";
 import { ADD_REVIEW_ORDER } from "@/lib/api/graphql/mutations";
 // Methods
 import useDebounceFunction from "@/lib/hooks/useDebounceForFunction";
-import { useTranslations } from "next-intl";
 
 export default function PastOrders({
-
   pastOrders,
   isOrdersLoading,
 }: IPastOrdersProps) {
   // states
-  const t = useTranslations()
   const [showRatingModal, setShowRatingModal] = useState<boolean>(false);
   const [selectedOrder, setSelectedOrder] = useState<IOrder | null>(null);
 
@@ -47,8 +44,8 @@ export default function PastOrders({
   function onCompleted() {
     showToast({
       type: "success",
-      title: t("rating_label"),
-      message: t('rating_submitted_successfully_message'),
+      title: "Rating",
+      message: "Rating submitted successfully",
       duration: 3000,
     });
     setSelectedOrder(null);
@@ -56,8 +53,8 @@ export default function PastOrders({
   function onError() {
     showToast({
       type: "error",
-      title: t("rating_label"),
-      message: t("failed_to_submit_rating_message"),
+      title: "Rating",
+      message: "Failed to submit rating",
       duration: 3000,
     });
     setSelectedOrder(null);
@@ -127,9 +124,9 @@ export default function PastOrders({
     return (
       <EmptyState
         // icon="fa-solid fa-receipt"
-        title={t('past_orders_label')}
-        message={t("no_past_orders_message")}
-        actionLabel={t("browse_store_button")}
+        title="No Past Orders"
+        message="You haven't placed any orders yet."
+        actionLabel="Browse Store"
         actionLink="/store"
       />
     );
@@ -139,7 +136,7 @@ export default function PastOrders({
     <>
       <div className="space-y-4 py-4">
         <TextComponent
-          text={t('past_orders_label')}
+          text="Past Orders"
           className="text-xl md:text-2xl  font-semibold mb-6"
         />
         <div className="space-y-4">

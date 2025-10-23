@@ -33,7 +33,6 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import ChangePassword from "./change-password";
 import VerificationEmailForChangePassword  from "./change-password/email-otp";
 import { Tooltip } from "react-tooltip";
-import { useTranslations } from "next-intl";
 
 export default function AuthModal({
   isAuthModalVisible,
@@ -48,6 +47,7 @@ export default function AuthModal({
     name: "",
     phone: "",
   });
+  console.log("🚀 ~ AuthModal ~ formData:", formData)
 
   // Refs
   const authenticationPanelRef = useRef(null);
@@ -64,7 +64,6 @@ export default function AuthModal({
     
   } = useAuth();
   const { showToast } = useToast();
-  const t = useTranslations()
   const { SKIP_EMAIL_VERIFICATION, SKIP_MOBILE_VERIFICATION } = useConfig();
 
   // Login With Google
@@ -102,8 +101,8 @@ export default function AuthModal({
 
           showToast({
             type: "success",
-            title: t('login_success'),
-            message: t('login_success_message'),
+            title: "Login",
+            message: "You have logged in successfully",
           });
         }
         setIsLoading(false);
@@ -136,8 +135,8 @@ export default function AuthModal({
     // setIsAuthModalVisible(false);
     showToast({
       type: "success",
-      title: t('password_recovery_label'),
-      message: t('update_your_password_now_message'),
+      title: "Password Recovery",
+      message: "Update your password now",
     });
   };
 

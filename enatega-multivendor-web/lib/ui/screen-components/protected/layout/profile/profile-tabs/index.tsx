@@ -4,7 +4,7 @@ import { CSSProperties, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { IProfileTabsProps, ITabItem } from "@/lib/utils/interfaces";
 import { TabItem } from "@/lib/ui/useable-components/profile-tabs";
-import { useProfileDefaultTabs } from "@/lib/utils/constants";
+import { profileDefaultTabs } from "@/lib/utils/constants";
 
 export default function ProfileTabs({ className, tabs }: IProfileTabsProps & { tabs?: ITabItem[] }) {
   const router = useRouter();
@@ -12,8 +12,7 @@ export default function ProfileTabs({ className, tabs }: IProfileTabsProps & { t
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   
   // Use the passed tabs or default to profileDefaultTabs
-  const defaultTabs = useProfileDefaultTabs();
-  const tabsToRender: ITabItem[] = tabs ?? defaultTabs; // ✅ safe fallback
+  const tabsToRender = tabs || profileDefaultTabs;
 
   const scrollableStyles: CSSProperties = {
     msOverflowStyle: "none", // IE and Edge

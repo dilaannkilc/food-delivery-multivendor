@@ -6,10 +6,9 @@ import CustomButton from "../button";
 
 // Interface and Types
 import { IDialogComponentProps } from "@/lib/utils/interfaces/";
-import { useTranslations } from "next-intl";
 
 const CustomDialog = ({
-  title,
+  title = "Confirm Deletion",
   message,
   visible,
   onHide,
@@ -17,17 +16,15 @@ const CustomDialog = ({
   loading,
   buttonConfig,
 }: IDialogComponentProps) => {
-  const t = useTranslations();
-
   const {
     primaryButtonProp: {
-      label: primaryButtonLabel = t("confirm"),
+      label: primaryButtonLabel = "Confirm",
       icon: primaryButtonIcon = "pi pi-check",
       textColor: primaryButtonTextColor = "text-white",
       bgColor: primaryButtonBGColor = "bg-red-500",
     } = {},
     secondaryButtonProp: {
-      label: secondaryButtonLabel = t("cancel_label"),
+      label: secondaryButtonLabel = "Cancel",
       icon: secondaryButtonIcon = "pi pi-times",
       textColor: secondaryButtonTextColor = "text-black",
       bgColor: secondaryButtonBGColor = "bg-transparent",
@@ -37,16 +34,16 @@ const CustomDialog = ({
   const footer = (
     <div className="flex space-x-2 text-center justify-center">
       <CustomButton
-        label={secondaryButtonLabel}
-        icon={secondaryButtonIcon}
+        label={secondaryButtonLabel || "Cancel"}
+        icon={secondaryButtonIcon || "pi pi-times"}
         onClick={onHide}
         className={`h-9 rounded border border-gray-300 px-5 ${secondaryButtonBGColor} ${secondaryButtonTextColor}`}
       />
       <CustomButton
         loading={loading}
-        label={primaryButtonLabel}
+        label={primaryButtonLabel || "Confirm"}
         className={`h-9 rounded border-gray-300 px-4 ${primaryButtonBGColor} ${primaryButtonTextColor}`}
-        icon={primaryButtonIcon}
+        icon={primaryButtonIcon || "pi pi-check"}
         onClick={onConfirm}
       />
     </div>
@@ -57,13 +54,13 @@ const CustomDialog = ({
       visible={visible}
       style={{ width: "32rem", textAlign: "center" }}
       breakpoints={{ "960px": "75vw", "641px": "90vw" }}
-      header={title || t("confirm_deletion")}
+      header={title}
       modal
       footer={footer}
       onHide={onHide}
     >
       <div className="confirmation-content text-center mx-3 text-sm sm:text-lg">
-        <span>{message || t("confirm_delete")}</span>
+        <span>{message || "Are you sure you want to delete this item?"}</span>
       </div>
     </Dialog>
   );

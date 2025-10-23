@@ -5,10 +5,15 @@ import { LaptopSvg } from "@/lib/utils/assets/svg"
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown"
 import { IDeleteAccountDialogProps } from "@/lib/utils/interfaces"
 import { useEffect, useState } from "react"
-import { useTranslations } from "next-intl"
 
 
-
+const reasonOptions = [
+    { label: "Not useful for me", value: "not_useful" },
+    { label: "Too expensive", value: "too_expensive" },
+    { label: "Found a better alternative", value: "found_alternative" },
+    { label: "Just need a break", value: "temporary" },
+    { label: "Other reason", value: "other" },
+  ]
 
 export default function DeleteAccountDialog({
   visible,
@@ -20,15 +25,6 @@ export default function DeleteAccountDialog({
   loading = false,
 }: IDeleteAccountDialogProps) {
   const [screenWidth, setScreenWidth] = useState(1024); // Default to desktop size
-
-  const t = useTranslations()
-  const reasonOptions = [
-    { label: t('delete_account_reason_not_useful'), value: "not_useful" },
-    { label: t('delete_account_reason_too_expensive'), value: "too_expensive" },
-    { label: t('delete_account_reason_found_alternative'), value: "found_alternative" },
-    { label: t('delete_account_reason_temporary'), value: "temporary" },
-    { label: t('delete_account_reason_other'), value: "other" },
-  ]
 
   useEffect(() => {
     // Only run in browser environment
@@ -53,18 +49,18 @@ export default function DeleteAccountDialog({
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 self-start">{t("delete_account_title")}</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4 self-start">Delete account</h2>
 
         {/* Message */}
         <p className="text-gray-700 text-start mb-6 text-xl">
-          {userName}, {t("delete_account_message")}
+          {userName}, we&apos;re really sorry to see you go 😢 Are you sure you want to delete your account?
         </p>
          <div className="w-full mb-6">
           <Dropdown
             value={deleteReason}
             onChange={(e: DropdownChangeEvent) => setDeleteReason?.(e.value)}
             options={reasonOptions}
-            placeholder={t("choose_a_reason_placeholder")}
+            placeholder="Choose a reason"
             className="w-full p-0"
             panelClassName="rounded-md"
             pt={{
@@ -78,12 +74,12 @@ export default function DeleteAccountDialog({
         {/* Buttons */}
         <div className="flex w-full gap-4">
           <CustomButton
-            label={t("cancel_label")}
+            label="Cancel"
             onClick={onHide}
             className="flex-1 py-3 border border-gray-500 rounded-full bg-white text-gray-700 hover:bg-gray-50"
           />
           <CustomButton
-            label={t("delete_account_title")}
+            label="Delete account"
             onClick={onConfirm}
             loading={loading}
             className="flex-1 py-3 rounded-full bg-red-500 text-white hover:bg-red-600 px-4"

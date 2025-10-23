@@ -16,6 +16,7 @@ import useUser from "@/lib/hooks/useUser";
 import { ApolloError, useMutation } from "@apollo/client";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import useVerifyOtp from "@/lib/hooks/useVerifyOtp";
 
 // GQL
 import { UPDATE_USER } from "@/lib/api/graphql";
@@ -37,7 +38,6 @@ export default function EmailVerification({
   const {
     user,
     setIsAuthModalVisible,
-    otp,
     setOtp,
     sendOtpToEmailAddress,
     sendOtpToPhoneNumber,
@@ -45,6 +45,7 @@ export default function EmailVerification({
   } = useAuth();
   const { showToast } = useToast();
   const { profile } = useUser();
+  const { verifyOTP, error } = useVerifyOtp();
 
   // Mutations
   const [updateUser] = useMutation<
@@ -57,7 +58,7 @@ export default function EmailVerification({
         title: t("Error"),
         message:
           error.cause?.message ||
-          t("update_phone_name_update_error_msg"),
+          t("An error occurred while updating the user"),
       });
     },
   });
@@ -69,8 +70,8 @@ export default function EmailVerification({
         if (profile?.phoneIsVerified) {
           showToast({
             type: "success",
-            title: t("email_verification_label"),
-            message: t("your_email_verified_successfully_message"),
+            title: t("Email Verification"),
+            message: t("Your email is verified successfully"),
           });
           showToast({
             type: "success",
@@ -84,14 +85,20 @@ export default function EmailVerification({
         } else {
           showToast({
             type: "success",
-            title: t("email_verification_label"),
-            message: t("your_email_verified_successfully_message"),
+            title: t("Email Verification"),
+            message: t("Your email is verified successfully"),
           });
           setOtp(TEST_OTP);
           handleChangePanel(4);
         }
       } else {
-        if (String(emailOtp) === String(otp) && !!user?.email) {
+        const otpResponse = await verifyOTP({
+          variables: {
+            otp: emailOtp,
+            email: user?.email
+          }
+        })
+        if (otpResponse.data?.verifyOtp && !!user?.email) {
           const userData = await updateUser({
             variables: {
               name: user?.name ?? "",
@@ -104,13 +111,13 @@ export default function EmailVerification({
           if (userData?.data?.updateUser?.phoneIsVerified) {
             showToast({
               type: "success",
-              title: t("email_verification_label"),
-              message: t("your_email_verified_successfully_message"),
+              title: t("Email Verification"),
+              message: t("Your email is verified successfully"),
             });
             showToast({
               type: "success",
-              title: t("login_label"),
-              message: t("login_success_message"), // put ! at the end of the statement in the translation
+              title: t("Login"),
+              message: t("You have logged in successfully"), // put ! at the end of the statement in the translation
             });
             handleChangePanel(0);
             setIsAuthModalVisible(false);
@@ -120,25 +127,19 @@ export default function EmailVerification({
           ) {
             showToast({
               type: "success",
-              title: t("email_verification"),
-              message: t("your_email_verified_successfully_message"),
+              title: t("Email Verification"),
+              message: t("Your email is verified successfully"),
             });
             sendOtpToPhoneNumber(user.phone);
             handleChangePanel(6);
           } else {
             showToast({
               type: "success",
-              title: t("email_verification"),
-              message: t("your_email_verified_successfully_message"),
+              title: t("Email Verification"),
+              message: t("Your email is verified successfully"),
             });
             handleChangePanel(4);
           }
-        } else {
-          return showToast({
-            type: "error",
-            title: t("otp_error_label"),
-            message: t("please_enter_valid_otp_code_message"),
-          });
         }
       }
     } catch (error) {
@@ -146,7 +147,7 @@ export default function EmailVerification({
       showToast({
         type: "error",
         title: t("Error"),
-        message: t("error_occurred_while_updating_user_message"),
+        message: t("An error occurred while verifying the email"),
       });
     }
   };
@@ -160,7 +161,7 @@ export default function EmailVerification({
       showToast({
         type: "error",
         title: t("Error"),
-        message: t("please_enter_valid_email_address_message"),
+        message: t("Please enter a valid email address"),
       });
     }
   };
@@ -180,20 +181,32 @@ export default function EmailVerification({
         showToast({
           type: "success",
           title: t("Login"),
-          message: t("login_success_message"), // put ! at the end of the statement in the translation
+          message: t("You have logged in successfully"), // put ! at the end of the statement in the translation
         });
       } else {
         handleChangePanel(4);
       }
       showToast({
         type: "success",
-        title: t("email_verification_label"),
-        message: t("your_email_verified_successfully_message"),
+        title: t("Email Verification"),
+        message: t("Your email is verified successfully"),
       });
       setOtp("");
       setEmailOtp("");
     }
   }, [SKIP_EMAIL_VERIFICATION]);
+
+    // useEffect for displaying otp verification error
+    useEffect(() => {
+      if (error) {
+        showToast({
+          type: "error",
+          title: t("OTP Error"),
+          message: error.message,
+        });
+    }
+    }, [error])
+  
   return (
     <>
  <div className="flex items-center justify-center w-full min-h-screen mx-auto px-4 py-6 sm:px-6 md:px-8 bg-gray-50">
@@ -202,16 +215,16 @@ export default function EmailVerification({
     {/* Heading Section */}
     <div className="mb-6 text-left">
       <h2 className="text-3xl sm:text-xl font-semibold text-gray-800 leading-tight">
-        {t("verify_your_email_label")}
+        {t("Verify Your Email")}
       </h2>
       <p className="text-gray-600 mt-2 text-sm sm:text-base leading-snug">
-        {t("OTP_Code_Sent")}{" "}
+        {t("We have sent an OTP to")}{" "}
         <span className="font-semibold text-gray-800 break-all">
           {user?.email ?? "example@email.com"}
         </span>
       </p>
       <p className="text-xs sm:text-sm text-gray-500 mt-1">
-        {t("please_check_your_inbox_message")}
+        {t("Please check your inbox and enter the code below.")}
       </p>
     </div>
 
@@ -228,13 +241,13 @@ export default function EmailVerification({
       />
 
       <CustomButton
-        label={t("continue_label")}
+        label={t("Continue")}
         loading={isLoading}
         onClick={handleSubmit}
       />
 
       <CustomButton
-        label={t("resend_otp_label")}
+        label={t("Resend OTP")}
         loading={isResendingOtp}
         onClick={handleOtpResend}
       />

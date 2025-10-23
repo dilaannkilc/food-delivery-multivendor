@@ -1,4 +1,3 @@
-"use client"
 import {
   DirectionsRenderer,
   DirectionsService,
@@ -12,7 +11,6 @@ import HomeIcon from "../../../../../assets/home_icon.png";
 import RestIcon from "../../../../../assets/rest_icon.png";
 import Image from "next/image";
 import TrackingRider from "./trackingRider";
-import { useTranslations } from "next-intl";
 
 interface IGoogleMapTrackingComponent {
   isLoaded: boolean;
@@ -48,7 +46,6 @@ function GoogleMapTrackingComponent({
   const showRestaurantMarker = ["PENDING", "ACCEPTED", "ASSIGNED"].includes(
     orderStatus
   );
-  const t = useTranslations()
   const showRiderMarker = ["PICKED", "ASSIGNED"].includes(orderStatus);
 
   // Update map center and directions based on order status
@@ -120,7 +117,7 @@ function GoogleMapTrackingComponent({
         </GoogleMap>
       : <>
           <Image
-            alt={t("map_showing_delivery_route_alt")}
+            alt="Map showing delivery route"
             className="w-full h-64 object-cover"
             height="300"
             src="https://storage.googleapis.com/a1aa/image/jt1AynRJJVtM9j1LRb30CodA1xsK2R23pWTOmRv3nsM.jpg"

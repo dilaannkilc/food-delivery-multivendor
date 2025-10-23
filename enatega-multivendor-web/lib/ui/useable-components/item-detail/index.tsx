@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { onUseLocalStorage } from "@/lib/utils/methods/local-storage";
 import { useConfig } from "@/lib/context/configuration/configuration.context";
-import { useTranslations } from "next-intl";
 
 export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
   const { foodItem, addons, options, onClose, restaurant } = props;
@@ -70,8 +69,6 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
       [addonId]: selection,
     }));
   };
-
-  const t = useTranslations()
 
   // Validate if all required addons are selected
   const isFormValid = () => {
@@ -280,12 +277,12 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
           {foodItem?.variations && foodItem.variations.length > 1 && (
             <ItemDetailSection
               key="variations"
-              title={`${t("select_label")} ${t("select_variation")}`}
+              title="Select Variation"
               name="variation" // This is a string literal, no undefined issue
               singleSelected={selectedVariation}
               onSingleSelect={setSelectedVariation}
               options={foodItem?.variations || []}
-              requiredTag={`1  ${t("required")}`}
+              requiredTag="1 Required"
               showTag={true}
             />
           )}
@@ -301,7 +298,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
             // Determine required/optional tag text
             const requiredTagText =
               (addon.quantityMinimum ?? 0) > 0
-                ? `${addon.quantityMinimum} ${t("required")}`
+                ? `${addon.quantityMinimum} Required`
                 : "Optional";
 
             return (
@@ -384,7 +381,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
             disabled={!isFormValid()}
             type="button"
           >
-            {t("add_to_order")}
+            Add to order
             <span className="ml-2 text-gray-900 text-[500] font-[14px]">
               {CURRENCY_SYMBOL}
               {calculateTotalPrice()}

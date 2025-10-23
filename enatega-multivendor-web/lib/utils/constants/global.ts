@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { ISeverityStyles } from "../interfaces/toast.interface";
 
-
 export const ENV: "DEV" | "STAGE" | "PROD" = "STAGE";
 
 // Prices
@@ -58,12 +57,12 @@ export const TIPS = ["2", "4", "6", "8"];
 
 export const PAYMENT_METHOD_LIST = [
   {
-    label: "cash",
+    label: "Cash",
     value: "COD",
     icon: faDollar,
   },
   {
-    label: "card",
+    label: "Card",
     value: "STRIPE",
     icon: faCreditCard,
   },

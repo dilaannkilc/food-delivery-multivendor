@@ -18,7 +18,6 @@ import { saveSearchedKeyword } from "@/lib/utils/methods";
 import CustomDialog from "../custom-dialog";
 import { Button } from "primereact/button";
 import { useConfig } from "@/lib/context/configuration/configuration.context";
-import { useTranslations } from "next-intl";
 
 const Card: React.FC<ICardProps> = ({
     item,
@@ -26,7 +25,6 @@ const Card: React.FC<ICardProps> = ({
     handleUpdateIsModalOpen = () => {},
 }) => {
     const router = useRouter();
-    const t = useTranslations()
     const pathname = usePathname();
     const shouldTruncate = item.name?.length > 15;
     const { setIsSearchFocused, setFilter, isSearchFocused, filter } =
@@ -113,8 +111,8 @@ const Card: React.FC<ICardProps> = ({
                 !isWithinOpeningTime(item?.openingTimes)) && (
                 <div className="absolute rounded-md top-0 left-0 w-full h-[160px] bg-black/50 opacity-75 z-20 flex items-center justify-center">
                     <div className="text-white text-center z-30">
-                        <p className="text-lg font-bold">{t('closed_label')}</p>
-                        <p className="text-sm">{t("currently_closed_message")}</p>
+                        <p className="text-lg font-bold">Closed</p>
+                        <p className="text-sm">We are currently closed</p>
                     </div>
                 </div>
             )}
@@ -169,9 +167,9 @@ const Card: React.FC<ICardProps> = ({
                         {item.shopType === "restaurant"
                             ? "Restaurant"
                             : "Store"}{" "}
-                       {t('is_closed_label')}
+                        is closed
                     </p>
-                    <p className="text-sm">{t('see_menu_prompt')}</p>
+                    <p className="text-sm">Do you want to see menu?</p>
                     <div className="flex pt-9 px-2 pb-2 flex-row justify-center items-center gap-2 w-full">
                         <Button
                             style={{
@@ -181,7 +179,7 @@ const Card: React.FC<ICardProps> = ({
                             onClick={() =>
                                 handleUpdateIsModalOpen(false, item._id)
                             }
-                            label={t('close_label')}
+                            label="Close"
                             className="w-1/2 bg-red-300 text-base font-normal text-black rounded-md min-h-10"
                         />
                         <Button
@@ -194,7 +192,7 @@ const Card: React.FC<ICardProps> = ({
                                     `/${item.shopType === "restaurant" ? "restaurant" : "store"}/${item?.slug}/${item._id}`
                                 )
                             }
-                            label={t('see_menu_label')}
+                            label="See Menu"
                             className="w-1/2 bg-[#94e469] text-base font-normal text-black rounded-md min-h-10"
                         />
                     </div>

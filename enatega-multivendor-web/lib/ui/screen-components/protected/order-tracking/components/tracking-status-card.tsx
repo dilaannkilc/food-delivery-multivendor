@@ -1,7 +1,6 @@
-"use client"
+
 import React from "react";
 import { IOrderTrackingDetail } from "@/lib/utils/interfaces/order-tracking-detail.interface";
-import { useTranslations } from "next-intl";
 
 interface TrackingStatusCardProps {
   orderTrackingDetails: IOrderTrackingDetail;
@@ -9,7 +8,6 @@ interface TrackingStatusCardProps {
 
 
 function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
-  const t = useTranslations()
   // Helper to determine the step status
   const getStepStatus = (stepIndex: number) => {
     const STATUS_ORDER = [
@@ -129,47 +127,57 @@ const getStatusMessage = () => {
 
   switch (status) {
     case "PENDING":
-      return isRestaurant ? t("PendingRestaurant") : t("PendingStore");
+      return isRestaurant
+        ? "We're confirming your order with the restaurant."
+        : "We're confirming your order with the store.";
 
-    case "ACCEPTED":{
+    case "ACCEPTED":
       if (orderTrackingDetails.preparationTime) {
         const prepTime = new Date(orderTrackingDetails.preparationTime);
         if (prepTime > now) {
           const minLeft = Math.ceil((prepTime.getTime() - now.getTime()) / 60000);
-          const riderMessage = orderTrackingDetails.isPickedUp ? "" : t.raw("Assigned");
           return isRestaurant
-            ? t("AcceptedRestaurantPrep", { min: minLeft, riderMessage })
-            : t("AcceptedStorePrep", { min: minLeft, riderMessage });
+            ? `Restaurant is preparing your food. Ready in ${minLeft} min. ${
+                orderTrackingDetails.isPickedUp ? "" : "A rider will be assigned soon."
+              }`
+            : `Store is preparing your order. Ready in ${minLeft} min. ${
+                orderTrackingDetails.isPickedUp ? "" : "A rider will be assigned soon."
+              }`;
         }
       }
 
       if (orderTrackingDetails.acceptedAt) {
         const acceptedTime = new Date(orderTrackingDetails.acceptedAt);
         const timeElapsed = Math.floor((now.getTime() - acceptedTime.getTime()) / 60000);
-        const riderMessage = orderTrackingDetails.isPickedUp ? "" : t.raw("Assigned");
         return isRestaurant
-          ? t("AcceptedRestaurantElapsed", { min: timeElapsed, riderMessage })
-          : t("AcceptedStoreElapsed", { min: timeElapsed, riderMessage });
+          ? `Restaurant accepted your order ${timeElapsed} min ago and is preparing your food. ${
+              orderTrackingDetails.isPickedUp ? "" : "A rider will be assigned soon."
+            }`
+          : `Store accepted your order ${timeElapsed} min ago and is preparing it for dispatch. ${
+              orderTrackingDetails.isPickedUp ? "" : "A rider will be assigned soon."
+            }`;
       }
 
-      const riderMessage = orderTrackingDetails.isPickedUp ? "" : t("Assigned");
       return isRestaurant
-        ? t("AcceptedRestaurantSimple", { riderMessage })
-        : t("AcceptedStoreSimple", { riderMessage });
+        ? `Restaurant is preparing your food. ${
+            orderTrackingDetails.isPickedUp ? "" : "A rider will be assigned soon."
+          }`
+        : `Store is preparing your order. ${
+            orderTrackingDetails.isPickedUp ? "" : "A rider will be assigned soon."
+          }`;
 
-    }
-    case "ASSIGNED":{
-      return t("Assigned");
-    }
-    case "PICKED":{
+    case "ASSIGNED":
+      return "A rider has been assigned and will pick up your order soon.";
+
+    case "PICKED":
       if (orderTrackingDetails.pickedAt) {
         const pickedTime = new Date(orderTrackingDetails.pickedAt);
         const timeElapsed = Math.floor((now.getTime() - pickedTime.getTime()) / 60000);
-        return t("PickedElapsed", { min: timeElapsed });
+        return `Your rider picked up your order ${timeElapsed} min ago and is heading your way!`;
       }
-      return t("Picked");
-    }
-    case "DELIVERED": {
+      return "Your rider has picked up your order and is heading your way!";
+
+    case "DELIVERED":
       if (orderTrackingDetails.deliveredAt) {
         const deliveredTime = new Date(orderTrackingDetails.deliveredAt);
         const deliveredString = deliveredTime.toLocaleTimeString([], {
@@ -177,32 +185,34 @@ const getStatusMessage = () => {
           minute: "2-digit",
         });
         return isRestaurant
-          ? t("DeliveredRestaurant", { time: deliveredString })
-          : t("DeliveredStore", { time: deliveredString });
+          ? `Your order was delivered at ${deliveredString}. Enjoy your meal!`
+          : `Your order was delivered at ${deliveredString}. Thank you for shopping with us!`;
       }
-      return isRestaurant ? t("DeliveredSimpleRestaurant") : t("DeliveredSimpleStore");
-    }
-    case "COMPLETED":{
-      return t("Completed");
-    }
-    case "CANCELLED":{
-      return orderTrackingDetails.reason || t("Cancelled");
-    }
+      return isRestaurant
+        ? "Your order has been delivered. Enjoy your meal!"
+        : "Your order has been delivered. Thank you for shopping with us!";
+
+    case "COMPLETED":
+      return "Order completed. Thank you for ordering!";
+
+    case "CANCELLED":
+      return orderTrackingDetails.reason || "Your order has been cancelled.";
+
     default:
-      return t("Processing");
-}
+      return "Processing your order...";
+  }
   };
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-4 w-full max-w-2xl">
       <div className="flex justify-between items-center mb-3">
         <h3 className="text-sm sm:text-base font-semibold">
-           {orderTrackingDetails.orderStatus === "DELIVERED" ? "Delivered" : t("estimated_Delivery_time")}
+           {orderTrackingDetails.orderStatus === "DELIVERED" ? "Delivered" : "Estimated Delivery Time"}
         </h3>
 
         {orderTrackingDetails.orderStatus === "CANCELLED" && (
           <span className="px-2 py-0.5 bg-red-100 text-red-800 rounded-full text-xs">
-            {t("order_status_cancelled_label")}
+            Cancelled
           </span>
         )}
       </div>
@@ -343,7 +353,7 @@ const getStatusMessage = () => {
         orderTrackingDetails.orderStatus !== "CANCELLED" && (
           <div className="mt-2 flex items-center text-xs text-gray-500">
             <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-            {t("live_updates_enabled_label")}
+            Live updates enabled
           </div>
         )}
     </div>

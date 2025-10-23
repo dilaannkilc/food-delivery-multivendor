@@ -12,7 +12,6 @@ import { useRouter, usePathname } from "next/navigation";
 // ui components
 import SquareCard from "../square-card";
 import CustomButton from "../button";
-import { useTranslations } from "next-intl";
 
 const responsiveOptions = [
   { breakpoint: "1280px", numVisible: 6, numScroll: 1 },
@@ -35,8 +34,6 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
 
   const router = useRouter();
   const pathname = usePathname();
-    const t = useTranslations()
-  
 
   function getNumVisible() {
     if (typeof window === "undefined") return 6;
@@ -103,7 +100,7 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
           <div className="flex items-center justify-end gap-x-2 mb-2">
             {pathname !== "/store" && pathname !== "/restaurants" && !cuisines && (
               <CustomButton
-                label={t("see_all")}
+                label="See all"
                 onClick={onSeeAllClick}
                 className="text-[#0EA5E9] transition-colors duration-200 text-sm md:text-base "
               />
