@@ -36,7 +36,6 @@ const Card: React.FC<ICardProps> = ({
 
     console.log("isModalOpen", isModalOpen);
 
-    console.log(item._id)
     const isWithinOpeningTime = (openingTimes: IOpeningTime[]): boolean => {
         const now = new Date();
         const currentDay = now
@@ -190,18 +189,11 @@ const Card: React.FC<ICardProps> = ({
                                 fontSize: "14px",
                                 fontWeight: "normal",
                             }}
-                            onClick={() => {
-    handleUpdateIsModalOpen(false, item._id); // close modal first
-    setFilter("");
-                setIsSearchFocused(false);
-
-    setTimeout(() => {
-        router.push(
-            `/${item.shopType === "restaurant" ? "restaurant" : "store"}/${item?.slug}/${item._id}`
-        );
-    }, 100); // small delay to allow overlay to unmount
-}}
-
+                            onClick={() =>
+                                router.push(
+                                    `/${item.shopType === "restaurant" ? "restaurant" : "store"}/${item?.slug}/${item._id}`
+                                )
+                            }
                             label={t('see_menu_label')}
                             className="w-1/2 bg-[#94e469] text-base font-normal text-black rounded-md min-h-10"
                         />
