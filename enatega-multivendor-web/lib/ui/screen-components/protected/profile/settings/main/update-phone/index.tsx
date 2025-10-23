@@ -19,7 +19,6 @@ import VerificationPhone from "./verification-phone";
 import { GET_USER_PROFILE, UPDATE_USER } from "@/lib/api/graphql";
 import { ApolloError, useLazyQuery, useMutation } from "@apollo/client";
 import useDebounceFunction from "@/lib/hooks/useDebounceForFunction";
-import { useTranslations } from "next-intl";
 
 export interface IUpdatePhoneModalProps {
   isUpdatePhoneModalVisible: boolean
@@ -38,7 +37,6 @@ export default function UpdatePhoneModal({
     // Hooks
   const { sendOtpToPhoneNumber, setUser, user, otp, setOtp, checkPhoneExists } = useAuth();
   const { showToast } = useToast();
-  const t = useTranslations()
 
   // Queries and mutations 
 
@@ -57,11 +55,10 @@ export default function UpdatePhoneModal({
       onError: (error: ApolloError) => {
         showToast({
           type: "error",
-          title:             t('update_phone_name_update_error_title'),
-
+          title: "Error",
           message:
             error.cause?.message ||
-            t('update_phone_name_update_error_msg'),
+            "An error occurred while updating the user",
         });
       },
     });
@@ -80,8 +77,8 @@ export default function UpdatePhoneModal({
     if(!user?.phone || user?.phone.length < 7) {
       showToast({
         type: "error",
-        title: t("update_phone_name_update_error_title"),
-        message: t("update_phone_name_invalid_number"),
+        title: "Error",
+        message: "Please enter a valid phone number",
       });
       return;
     }
@@ -98,8 +95,8 @@ export default function UpdatePhoneModal({
   } catch (error) {
     showToast({
       type: "error",
-      title: t("update_phone_name_update_error_title"),
-      message: t("update_phone_name_send_otp_error"),
+      title: "Error",
+      message: "An error occured while saving the phone number",
     });
   }
 },
@@ -125,15 +122,15 @@ export default function UpdatePhoneModal({
           fetchProfile();
           return showToast({
             type: "success",
-            title: t("update_phone_name_verification_success_title"),
-            message: t("update_phone_name_verification_success_msg"),
+            title: "Phone Verification",
+            message: "Your phone number is verified successfully",
           });
          
         } else {
           showToast({
             type: "error",
-            title: t("update_phone_name_otp_error_title"),
-            message: t("update_phone_name_otp_error_msg"),
+            title: "OTP Error",
+            message: "Please enter a valid OTP code",
           });
         }
       } catch (error) {
@@ -152,8 +149,8 @@ export default function UpdatePhoneModal({
       } else {
         showToast({
           type: "error",
-          title: t("update_phone_name_update_error_title"),
-          message: t("update_phone_name_resend_error_msg")
+          title: "Error",
+          message: "Please re-enter your valid phone number",
         });
       }
     },

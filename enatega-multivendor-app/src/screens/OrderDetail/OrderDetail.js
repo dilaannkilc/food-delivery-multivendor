@@ -67,7 +67,6 @@ function OrderDetail(props) {
   const [cancelOrder, { loading: loadingCancel }] = useMutation(CANCEL_ORDER, {
     onError,
     onCompleted: (data) => {
-      setCancelModalVisible(false)
       navigation.navigate('Main')
     },
     variables: { abortOrderId: id }
@@ -85,7 +84,6 @@ function OrderDetail(props) {
     setCancelModalVisible(!cancelModalVisible)
   }
   function onError(error) {
-    setCancelModalVisible(false)
     FlashMessage({
       message: error.message
     })

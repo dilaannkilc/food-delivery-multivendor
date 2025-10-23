@@ -1,26 +1,25 @@
-interface Coordinates {
+ interface Coordinates {
   coordinates: [string, string];
   __typename: string;
 }
 
-interface Restaurant {
+ interface Restaurant {
   _id: string;
   name: string;
   image: string;
   slug: string;
   address: string;
   location: Coordinates;
-  shopType: string;
   __typename: string;
 }
 
-interface DeliveryAddress {
+ interface DeliveryAddress {
   location: Coordinates;
   deliveryAddress: string;
   __typename: string;
 }
 
-interface ItemOption {
+ interface ItemOption {
   _id: string;
   title: string;
   description: string;
@@ -28,7 +27,7 @@ interface ItemOption {
   __typename: string;
 }
 
-interface ItemAddon {
+ interface ItemAddon {
   _id: string;
   title: string;
   description: string;
@@ -38,7 +37,7 @@ interface ItemAddon {
   __typename: string;
 }
 
-interface ItemVariation {
+ interface ItemVariation {
   _id: string;
   title: string;
   price: number;
@@ -46,7 +45,7 @@ interface ItemVariation {
   __typename: string;
 }
 
-interface OrderItem {
+ interface OrderItem {
   image: string;
   specialInstructions: any;
   _id: string;
@@ -59,7 +58,7 @@ interface OrderItem {
   __typename: string;
 }
 
-interface User {
+ interface User {
   _id: string;
   name: string;
   phone: string;

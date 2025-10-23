@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 
 import Card from "../card";
 import CustomButton from "../button";
-import { useTranslations } from "next-intl";
 const responsiveOptions = [
   { breakpoint: "1280px", numVisible: 4, numScroll: 1 }, // If screen width is ≤ 1280px, show 4 items
   { breakpoint: "1024px", numVisible: 3, numScroll: 1 }, // If screen width is ≤ 1024px, show 3 items
@@ -25,7 +24,6 @@ const SliderCard = <T,>({
   last,
 }: ISliderCardComponentProps<T>) => {
   const [page, setPage] = useState(0);
-  const t = useTranslations()
   const [numVisible, setNumVisible] = useState(getNumVisible());
   const [isModalOpen, setIsModalOpen] = useState({value: false, id: ""});
 
@@ -103,7 +101,7 @@ const SliderCard = <T,>({
           <div className="flex items-center justify-end gap-x-2">
             {/* See All Button */}
             <CustomButton
-              label={t("see_all")}
+              label="See all"
               onClick={onSeeAllClick}
               className="text-[#0EA5E9] transition-colors duration-200 text-sm md:text-base "
             />

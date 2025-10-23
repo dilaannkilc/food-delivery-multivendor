@@ -14,7 +14,6 @@ import { LaptopSvg } from "@/lib/utils/assets/svg";
 // Hooks
 import useToast from "@/lib/hooks/useToast";
 import useDebounceFunction from "@/lib/hooks/useDebounceForFunction";
-import { useTranslations } from "next-intl";
 interface UserFormData {
   firstName: string;
   lastName: string;
@@ -51,7 +50,6 @@ export default function NameUpdateModal({
     fetchPolicy: "network-only",
   });
 
-  const t = useTranslations()
   // Update user muattion 
   const [updateUser] = useMutation(UPDATE_USER, {
     onCompleted: () => {
@@ -59,7 +57,7 @@ export default function NameUpdateModal({
       showToast({
         type: "success",
         title: "Success",
-        message: t('user_profile_updated_successfully'),
+        message: "User profile updated successfully",
       });
       handleUpdateNameModal?.();
     },
@@ -131,7 +129,7 @@ export default function NameUpdateModal({
                 onChange={handleInputChange}
                 className="w-full p-3 border-2 border-gray-300 rounded-md"
               />
-              <label htmlFor="firstName">{t("first_name_label")}</label>
+              <label htmlFor="firstName">First name</label>
             </div>
             <div className="p-float-label">
               <InputText
@@ -141,20 +139,20 @@ export default function NameUpdateModal({
                 onChange={handleInputChange}
                 className="w-full p-3 border-2 border-gray-300 rounded-md"
               />
-              <label htmlFor="lastName">{t("last_name_label")}</label>
+              <label htmlFor="lastName">Last name</label>
             </div>
           </div>
         </div>
       </div>
       <div className="flex flex-row w-full justify-between  gap-2 md:gap-0 px-4 ">
         <CustomButton
-          label={t('cancel_label')}
+          label={"Cancel"}
           className="bg-white flex items-center justify-center rounded-full border border-gray-300 p-3 w-full md:w-[268px] h-14 text-lg font-medium"
           onClick={handleCancel}
         />
 
         <CustomButton
-          label={t('save_label')}
+          label={"Save"}
           className="bg-[#5AC12F] text-white flex items-center justify-center rounded-full p-3 w-full md:w-[268px] mb-4 h-14 text-lg font-medium"
           onClick={handleSubmit}
         />

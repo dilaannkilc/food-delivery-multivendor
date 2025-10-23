@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslations } from 'next-intl';
 
-
-
-const AnimatedText = () => {
-  const t = useTranslations();
-  const texts = [
-  t('burgers'),
-  t('gifts'),
-  t('desserts'),
-  t('pizza')
+const texts = [
+  "BURGERS.",
+  "GIFTS.",
+  "PIZZA.",
+  "DESSERTS."
 ];
 
 const containerVariants = {
@@ -49,6 +44,8 @@ const letterVariants = {
     }
   }
 };
+
+const AnimatedText = () => {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
 

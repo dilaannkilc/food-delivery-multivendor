@@ -62,7 +62,6 @@ import {
 import { onUseLocalStorage } from "@/lib/utils/methods/local-storage";
 import { USER_CURRENT_LOCATION_LS_KEY } from "@/lib/utils/constants";
 import AppartmentSvg from "@/lib/utils/assets/svg/apartment";
-import { useTranslations } from "next-intl";
 
 const variants = {
   enter: (direction: number) => ({
@@ -79,7 +78,24 @@ const variants = {
   }),
 };
 
-
+const LOCATIONT_TYPE = [
+  {
+    name: "House",
+    icon: (color?: string) => <HomeSvg color={color || "#0F172A"} />,
+  },
+  {
+    name: "Office",
+    icon: (color?: string) => <OfficeSvg color={color || "#0F172A"} />,
+  },
+  {
+    name: "Apartment",
+    icon: (color?: string) => <ApartmentSvg color={color || "#0F172A"} />,
+  },
+  {
+    name: "Other",
+    icon: (color?: string) => <OtherSvg color={color || "#0F172A"} />,
+  },
+];
 
 const autocompleteService: {
   current: google.maps.places.AutocompleteService | null;
@@ -259,7 +275,7 @@ export default function UserAddressComponent(
       showToast({
         type: "error",
         title: "Error",
-        message: t('failed_to_fetch_Address')
+        message: "Failed to fetch address",
       });
       return;
     }
@@ -270,7 +286,7 @@ export default function UserAddressComponent(
       _id: "",
       deliveryAddress: formattedAddress,
       location: { coordinates: [new_center.lng, new_center.lat] },
-      label: t('label_home'),
+      label: "Home",
     });
   };
 
@@ -280,35 +296,6 @@ export default function UserAddressComponent(
       lng: e?.latLng?.lng() ?? 0,
     });
   };
-
-  const t = useTranslations();
-
-  const LOCATIONT_TYPE = [
-  {
-    name: t('loctype1'),
-    icon: (color?: string) => <HomeSvg color={color || "#0F172A"} />,
-  },
-  {
-    name: t('loctype2'),
-    icon: (color?: string) => <OfficeSvg color={color || "#0F172A"} />,
-  },
-  {
-    name: t('loctype3'),
-    icon: (color?: string) => <ApartmentSvg color={color || "#0F172A"} />,
-  },
-  {
-    name: t('loctype4'),
-    icon: (color?: string) => <OtherSvg color={color || "#0F172A"} />,
-  },
-];
-
-// Define constants
-const ADDRESS_TYPES = {
-  OFFICE: 'OFFICE',
-  HOUSE: 'HOUSE', 
-  APARTMENT: 'APARTMENT',
-  OTHER: 'OTHER'
-} as const;
 
   const onHandleCreateAddress = () => {
     const addressInput = {
@@ -372,9 +359,9 @@ const ADDRESS_TYPES = {
 
   function onError() {
     showToast({
-      title: t('new_address_label'),
+      title: "New Address",
       type: "error",
-      message: t('Address_updated_success'),
+      message: `Address update failed`,
     });
   }
 
@@ -388,7 +375,7 @@ const ADDRESS_TYPES = {
       {/* Header */}
       <div className="w-full">
         <span className="font-inter font-bold text-[25px] tracking-normal">
-         {t("where_to_address_label")}
+          Where to?
         </span>
       </div>
 
@@ -403,7 +390,7 @@ const ADDRESS_TYPES = {
           icon={isLocationFetching ? faSpinner : faCirclePlus}
           spin={isLocationFetching}
         />
-        <span>{t('LoginForSavedAddresses.currentlocation')}</span>
+        <span>Current location</span>
       </button>
 
       <div className="w-full flex flex-col items-center">
@@ -419,7 +406,7 @@ const ADDRESS_TYPES = {
               <div className="w-full flex items-center gap-x-2">
                 <div className="p-2 bg-gray-50 rounded-full">
                   {
-                    address?.label === ADDRESS_TYPES.OFFICE && <OfficeSvg
+                    address?.label === "Office" && <OfficeSvg
                     color={
                       address.selected && !hasCurrentLocation ?
                         "#0EA5E9"
@@ -428,7 +415,7 @@ const ADDRESS_TYPES = {
                   />
                   }
                   {
-                    address?.label === ADDRESS_TYPES.OFFICE && <HomeSvg
+                    address?.label === "House" && <HomeSvg
                      height={18}
                     color={
                       address.selected && !hasCurrentLocation ?
@@ -438,7 +425,7 @@ const ADDRESS_TYPES = {
                   />
                   }
                    {
-                    address?.label === ADDRESS_TYPES.OFFICE && <AppartmentSvg
+                    address?.label === "Apartment" && <AppartmentSvg
                     color={
                       address.selected && !hasCurrentLocation ?
                         "#0EA5E9"
@@ -447,7 +434,7 @@ const ADDRESS_TYPES = {
                   />
                   }
                    {
-                   address?.label === ADDRESS_TYPES.OFFICE && <OtherSvg
+                    address?.label === "Other" && <OtherSvg
                     color={
                       address.selected && !hasCurrentLocation ?
                         "#0EA5E9"
@@ -472,7 +459,7 @@ const ADDRESS_TYPES = {
               {(!address.selected || hasCurrentLocation) && (
                 <div>
                   <CustomButton
-                    label={t('choose_Address_label')}
+                    label="Choose"
                     rounded
                     loading={modifiyingId === address._id && loading}
                     className="border p-2 pl-4 pr-4 border-gray-300 text-sky-500 font-medium"
@@ -488,7 +475,7 @@ const ADDRESS_TYPES = {
           className="w-[90%] h-fit bg-[#5AC12F] text-gray-900 py-2 rounded-full text-base lg:text-[14px]"
           onClick={() => paginate(1)}
         >
-          <FontAwesomeIcon icon={faPlus} /> <span> {t('add_new_address_button')}</span>
+          <FontAwesomeIcon icon={faPlus} /> <span>Add new address</span>
         </button>
       </div>
     </div>
@@ -499,7 +486,7 @@ const ADDRESS_TYPES = {
       {/* Header */}
       <div className="w-full">
         <span className="font-inter font-semibold text-[18px] tracking-normal">
-          {t('Add_new_address')}
+          Add new address
         </span>
       </div>
       {/* Google Maps */}
@@ -535,7 +522,7 @@ const ADDRESS_TYPES = {
         <div className="w-full space-y-2">
           <CustomDropdownComponent
             name="City"
-            placeholder={t('select_city_placeholder')}
+            placeholder={"Select City"}
             selectedItem={selectedCity}
             setSelectedItem={async (key: string, item: IDropdownSelectItem) => {
               setSelectedCity(item);
@@ -553,7 +540,7 @@ const ADDRESS_TYPES = {
                 _id: "",
                 deliveryAddress: formattedAddress,
                 location: { coordinates: [coords[0], coords[1]] },
-                label: t('label_home'),
+                label: "Home",
               });
             }}
             options={cities_dropdown}
@@ -576,7 +563,7 @@ const ADDRESS_TYPES = {
             dropdown={false}
             multiple={false}
             loadingIcon={undefined}
-            placeholder={t('enter_full_Address_placeholder')}
+            placeholder="Enter full address"
             style={{ width: "100%" }}
             itemTemplate={(item) => {
               const matches =
@@ -620,7 +607,7 @@ const ADDRESS_TYPES = {
         <div className="w-full">
           <div className="w-full">
             <span className="font-inter font-semibold text-[12px] tracking-normal">
-              {t('Location_Type')}
+              Location Type
             </span>
           </div>
           <div className="w-full grid grid-cols-2 gap-4">
@@ -655,7 +642,7 @@ const ADDRESS_TYPES = {
               onHide();
             }}
           >
-            <span>{t('cancel_address')}</span>
+            <span>Cancel</span>
           </button>
           <button
             className="w-full h-fit bg-[#5AC12F] text-gray-900 py-2 rounded-full text-base lg:text-[14px]"
@@ -666,7 +653,7 @@ const ADDRESS_TYPES = {
                 icon={faSpinner}
                 spin={modifyingAddressLoading}
               />
-            : <span>{t("Save_address")}</span>}
+            : <span>Save</span>}
           </button>
         </div>
       </div>
@@ -678,7 +665,7 @@ const ADDRESS_TYPES = {
       {/* Header */}
       <div className="w-full">
         <span className="font-inter font-semibold text-[18px] tracking-normal">
-           {t('Add_new_address')}
+          Add new address
         </span>
       </div>
       {/* Google Maps */}
@@ -711,8 +698,8 @@ const ADDRESS_TYPES = {
       <div className="w-full flex flex-col items-center gap-y-2">
         <div className="w-full space-y-2">
           <CustomDropdownComponent
-            name={t('City_label')}
-            placeholder={t('select_city_placeholder')}
+            name="City"
+            placeholder={"Select City"}
             selectedItem={selectedCity}
             setSelectedItem={async (key: string, item: IDropdownSelectItem) => {
               setSelectedCity(item);
@@ -730,7 +717,7 @@ const ADDRESS_TYPES = {
                 _id: "",
                 deliveryAddress: formattedAddress,
                 location: { coordinates: [coords[0], coords[1]] },
-                label: t("home"),
+                label: "Home",
               });
             }}
             options={cities_dropdown}
@@ -753,7 +740,7 @@ const ADDRESS_TYPES = {
             dropdown={false}
             multiple={false}
             loadingIcon={undefined}
-            placeholder={t("enter_full_Address_placeholder")}
+            placeholder="Enter full address"
             style={{ width: "100%" }}
             itemTemplate={(item) => {
               const matches =
@@ -797,7 +784,7 @@ const ADDRESS_TYPES = {
         <div className="w-full">
           <div className="w-full">
             <span className="font-inter font-semibold text-[12px] tracking-normal">
-              {t("Location_Type")}
+              Location Type
             </span>
           </div>
           <div className="w-full grid grid-cols-2 gap-4">
@@ -832,7 +819,7 @@ const ADDRESS_TYPES = {
               onHide();
             }}
           >
-            <span>{t("cancel_address")}</span>
+            <span>Cancel</span>
           </button>
           <button
             className="w-full h-fit bg-[#5AC12F] text-gray-900 py-2 rounded-full text-base lg:text-[14px]"
@@ -843,7 +830,7 @@ const ADDRESS_TYPES = {
                 icon={faSpinner}
                 spin={modifyingAddressLoading}
               />
-            : <span>{t("Save_address")}</span>}
+            : <span>Save</span>}
           </button>
         </div>
       </div>

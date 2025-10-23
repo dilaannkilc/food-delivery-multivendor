@@ -13,10 +13,9 @@ import MiniCards from "../../screen-components/un-protected/Home/MiniCards";
 import TinyTiles from "../../useable-components/tinyTiles";
 import Couriers from "../../screen-components/un-protected/Home/ForCouriers";
 import { PaddingContainer } from "../../useable-components/containers";
-import { useTranslations } from "next-intl";
 
 const Main = () => {  
-  const t = useTranslations("MiniCardsHomeScreen");
+  
   return (
     <div className="w-screen">
       <Start />
@@ -32,8 +31,8 @@ const Main = () => {
               image={
                 "https://images.ctfassets.net/23u853certza/6kRVPn5kxEnlkgCYUTozhL/7846cf51b410e633a8c30a021ec00bde/Restaurant.png?w=200&q=90&fm=webp"
               }
-              heading={t('title5')}
-              buttonText={t('subText5')}
+              heading={"Reach new customers and get more orders"}
+              buttonText={"For restaurants"}
               backColor={"#eaf7fc"}
               link={"/restaurantInfo"}
             />
@@ -41,8 +40,8 @@ const Main = () => {
               image={
                 "https://images.ctfassets.net/23u853certza/4arD8VZQybXkPfyJXchLat/7457eac1b8137a76b50ed70c20cc03b4/Store.png?w=200&q=90&fm=webp"
               }
-              heading={t('title6')}
-              buttonText={t('subText6')}
+              heading={"Become a store partner"}
+              buttonText={"For stores"}
               backColor="#eaf7fc"
               link={"/restaurantInfo"}
             />

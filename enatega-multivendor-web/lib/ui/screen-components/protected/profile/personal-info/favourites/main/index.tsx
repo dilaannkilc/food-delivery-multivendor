@@ -15,11 +15,9 @@ import HeaderFavourite from "../header";
 import FavoritesEmptyState from "@/lib/ui/useable-components/favorites-empty-state";
 //Methods
 import useDebounceFunction from "@/lib/hooks/useDebounceForFunction";
-import { useTranslations } from "next-intl";
 
 const FavouriteProducts = () => {
   const router= useRouter()
-  const t = useTranslations()
   // Get Fav Restaurants by using the query
   const {
     data: FavouriteRestaurantsData,
@@ -47,7 +45,7 @@ const FavouriteProducts = () => {
   return (
     <div className="w-full py-6 flex flex-col gap-6">
       <HeaderFavourite
-        title={t('your_fav')}
+        title="Your Favourites"
         onSeeAllClick={handleSeeAllClick}
       />
       {isFavouriteRestaurantsLoading ? (
