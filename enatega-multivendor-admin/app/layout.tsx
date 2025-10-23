@@ -1,13 +1,5 @@
-import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server';
-
-// ✅ Add metadata export for favicon
-export const metadata = {
-  title: 'Enatega Admin Dashboard',
-  icons: {
-    icon: '/favicon.png',
-  },
-};
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 export default async function RootLayout({
   children,
