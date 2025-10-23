@@ -8,6 +8,15 @@ export const GET_RESTAURANTS_L = gql`
   }
 `;
 
+export const GET_RESTAURANTS_DROPDOWN = gql`
+  query restaurants {
+    restaurants {
+      _id
+      name
+    }
+  }
+`;
+
 export const GET_RESTAURANTS = gql`
   query restaurants {
     restaurants {
@@ -180,10 +189,6 @@ export const GET_RESTAURANT_PROFILE = gql`
       currentWalletAmount
       totalWalletAmount
       withdrawnWalletAmount
-      deliveryOptions {
-        pickup 
-        delivery
-      }
     }
   }
 `;

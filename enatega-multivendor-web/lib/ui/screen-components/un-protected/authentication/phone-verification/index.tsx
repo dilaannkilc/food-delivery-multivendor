@@ -56,10 +56,10 @@ export default function PhoneVerification({
     onError: (error: ApolloError) => {
       showToast({
         type: "error",
-        title: t("Error"),
+        title: t("update_phone_name_update_error_title"),
         message:
           error.cause?.message ||
-          t("An error occurred while updating the user"),
+          t("update_phone_name_update_error_msg"),
       });
     },
   });
@@ -96,14 +96,14 @@ export default function PhoneVerification({
         }
         return showToast({
           type: "success",
-          title: t("Phone Verification"),
-          message: t("Your phone number is verified successfully"),
+          title: t("update_phone_name_verification_success_title"),
+          message: t("update_phone_name_verification_success_msg"),
         });
       } else {
         showToast({
           type: "error",
-          title: t("OTP Error"),
-          message: t("Please enter a valid OTP code"),
+          title: t("update_phone_name_otp_error_title"),
+          message: t("update_phone_name_otp_error_msg"),
         });
       }
     } catch (error) {
@@ -123,15 +123,15 @@ export default function PhoneVerification({
       await sendOtpToPhoneNumber(user?.phone);
       showToast({
         type: "success",
-        title: t("OTP Resent"),
-        message: t("We have resent the OTP code to your phone"),
+        title: t("otp_resent_label"),
+        message: t("resent_otp_code_to_your_phone_message"),
       });
       setIsResendingOtp(false);
     } else {
       showToast({
         type: "error",
         title: t("Error"),
-        message: t("Please re-enter your valid phone number"),
+        message: t("update_phone_name_resend_error_msg"),
       });
       handleChangePanel(4);
     }
@@ -143,8 +143,8 @@ export default function PhoneVerification({
       setOtp(TEST_OTP);
       showToast({
         type: "success",
-        title: t("Phone Verification"),
-        message: t("Your phone number is verified successfully"),
+        title: t("phone_verification_label"),
+        message: t("your_phone_number_verified_successfully_message"),
       });
       if (!profile?.emailIsVerified) {
         handleChangePanel(5);
@@ -158,43 +158,61 @@ export default function PhoneVerification({
 
 
   return (
-    <div className=" flex flex-col justify-between item-center self-center">
-      <p>
-        {t("We have sent OTP code to")}
-        <span className="font-bold">{user?.phone}</span>
+ <div className="flex items-center justify-center w-full min-h-screen px-4 py-8 sm:px-6 md:px-8">
+  <div className="w-full max-w-md flex flex-col bg-white shadow-lg rounded-2xl p-5 sm:p-6 md:p-8">
+    {/* Heading */}
+    <div className="mb-6 text-left">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-800">
+        {t("Verify Your Phone Number")}
+      </h2>
+      <p className="text-sm sm:text-base text-gray-600 mt-2">
+        {t("We have sent an OTP to")}&nbsp;
+        <span className="font-medium text-gray-800">
+          {user?.phone ?? "example@email.com"}
+        </span>
       </p>
-      <p className="font-light text-sm mb-2">{t("Please check your inbox")}</p>
-      <InputOtp
-        value={phoneOtp}
-        onChange={(e) => setPhoneOtp(String(e.value))}
-        color="red"
-        autoFocus={true}
-        mask
-        maxLength={6}
-        length={6}
-        className=" w-full h-20 my-2"
-        onPaste={(e) =>
-          setPhoneOtp(
-            String(e.clipboardData.items[0].getAsString((data) => data)),
-          )
-        }
-
-        placeholder="12314"
-      />
-      {/* create a span and give a margin top */}
-      <span className="mt-4"></span>
-      <CustomButton
-        label={t("Continue")}
-        loading={isLoading}
-        className={`bg-[#5AC12F] flex items-center justify-center gap-x-4 px-3 rounded-full border border-gray-300 p-3 m-auto w-72 my-1`}
-        onClick={handleSubmit}
-      />
-      <CustomButton
-        label={t("Resend OTP")}
-        className={`bg-[#fff] flex items-center justify-center gap-x-4 px-3 rounded-full border border-gray-300 p-3 m-auto w-72 my-1`}
-        onClick={handleResendPhoneOtp}
-        loading={isResendingOtp}
-      />
+      <p className="text-xs sm:text-sm text-gray-400 mt-1">
+        {t("please_check_your_inbox_message_1")}
+      </p>
     </div>
+
+    {/* OTP Input */}
+    <InputOtp
+      value={phoneOtp}
+      onChange={(e) => setPhoneOtp(String(e.value))}
+      autoFocus
+      mask
+      maxLength={6}
+      length={6}
+      className="w-full h-16 sm:h-20 my-2"
+      onPaste={(e) =>
+        setPhoneOtp(
+          String(e.clipboardData.items[0].getAsString((data) => data)),
+        )
+      }
+      placeholder="123456"
+    />
+
+    {/* Button Spacer */}
+    <span className="mt-4" />
+
+    {/* Continue Button */}
+    <CustomButton
+      label={t("Continue")}
+      loading={isLoading}
+      className="bg-[#5AC12F] text-white flex items-center justify-center gap-x-3 px-4 py-3 rounded-full border border-gray-300 w-full sm:w-72 mx-auto mb-2 text-sm sm:text-base"
+      onClick={handleSubmit}
+    />
+
+    {/* Resend OTP Button */}
+    <CustomButton
+      label={t("Resend OTP")}
+      loading={isResendingOtp}
+      className="bg-white text-gray-700 flex items-center justify-center gap-x-3 px-4 py-3 rounded-full border border-gray-300 w-full sm:w-72 mx-auto mt-1 text-sm sm:text-base"
+      onClick={handleResendPhoneOtp}
+    />
+  </div>
+</div>
+
   );
 }

@@ -91,6 +91,11 @@ export const CATEGORY_TABLE_COLUMNS = ({
       propertyName: 'subcategories',
       body: (category: ICategory) => <SubcategoryCell categoryId={category._id} />
     });
+    columns.push({
+      headerName: t('Subcategories'),
+      propertyName: 'subcategories',
+      body: (category: ICategory) => <SubcategoryCell categoryId={category._id} />
+    });
   }
   
   // Add actions column
