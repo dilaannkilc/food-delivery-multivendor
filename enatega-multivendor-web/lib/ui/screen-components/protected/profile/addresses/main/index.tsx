@@ -22,11 +22,9 @@ import { IUserAddress } from "@/lib/utils/interfaces";
 //Icons
 import { GET_USER_PROFILE } from "@/lib/api/graphql";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useTranslations } from "next-intl";
 
 export default function AddressesMain() {
   // states
-  const t = useTranslations()
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [isUserAddressModalOpen, setIsUserAddressModalOpen] = useState(false);
@@ -53,8 +51,8 @@ export default function AddressesMain() {
   function onCompleted() {
     showToast({
       type: "success",
-      title: t("Deleted_successfullt_toast_title"),
-      message: t("Deleted_successfullt_toast_label"),
+      title: "Address",
+      message: "Deleted Successfully",
       duration: 3000,
     });
     setDeleteTarget(null);
@@ -100,8 +98,8 @@ export default function AddressesMain() {
     if (deleteAddressError) {
       showToast({
         type: "error",
-        title: t("Deleted_successfullt_toast_title"),
-        message: t("failed_deleted_address"),
+        title: "Address",
+        message: "Failed to delete",
         duration: 3000,
       });
     }
@@ -155,7 +153,7 @@ export default function AddressesMain() {
 
         <div className="flex justify-center mt-16">
           <CustomIconButton
-            title={t('Add_new_address_title')}
+            title="Add New Address"
             iconColor="black"
             classNames="bg-[#5AC12F] w-[content] px-4"
             Icon={faPlus}

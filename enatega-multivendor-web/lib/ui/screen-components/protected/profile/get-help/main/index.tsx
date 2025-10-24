@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react";
 import TextComponent from "@/lib/ui/useable-components/text-field";
 import CustomButton from "@/lib/ui/useable-components/button";
@@ -13,10 +11,8 @@ import { CREATE_SUPPORT_TICKET } from "@/lib/api/graphql/mutations/SupportTicket
 import useToast from "@/lib/hooks/useToast";
 import { useRouter } from "next/navigation";
 import useDebounceFunction from "@/lib/hooks/useDebounceForFunction";
-import { useTranslations } from "next-intl";
 
 export default function GetHelpMain() {
-    const t = useTranslations();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [reason, setReason] = useState<string | null>(null);
     const [orderId, setOrderId] = useState<string>("");
@@ -43,7 +39,7 @@ export default function GetHelpMain() {
             showToast({
                 type: "success",
                 title: "Success",
-                message: t("support_ticket_created_successfully"),
+                message: "Your support ticket has been created successfully",
                 duration: 3000,
             });
             handleCloseModal();
@@ -56,7 +52,7 @@ export default function GetHelpMain() {
             showToast({
                 type: "error",
                 title: "Error",
-                message: error.message || t("failed_to_create_support_ticket"),
+                message: error.message || "Failed to create support ticket",
                 duration: 3000,
             });
         },
@@ -80,7 +76,7 @@ export default function GetHelpMain() {
             showToast({
                 type: "error",
                 title: "Validation Error",
-                message: t("select_reason_for_inquiry"),
+                message: "Please select a reason for your inquiry",
                 duration: 3000,
             });
             return;
@@ -90,7 +86,7 @@ export default function GetHelpMain() {
             showToast({
                 type: "error",
                 title: "Validation Error",
-                message: t('provide_order_id'),
+                message: "Please provide an order ID",
                 duration: 3000,
             });
             return;
@@ -100,7 +96,7 @@ export default function GetHelpMain() {
             showToast({
                 type: "error",
                 title: "Validation Error",
-                message: t('provide_title_for_inquiry'),
+                message: "Please provide a title for your inquiry",
                 duration: 3000,
             });
             return;
@@ -110,7 +106,7 @@ export default function GetHelpMain() {
             showToast({
                 type: "error",
                 title: "Validation Error",
-                message: t('provide_description_of_issue'),
+                message: "Please provide a description of your issue",
                 duration: 3000,
             });
             return;
@@ -158,33 +154,35 @@ export default function GetHelpMain() {
 
     // Simplified reason options - matching exact values from API
     const reasonOptions = [
-        { label: t('order_related_label'), value: t('order_related_label') },
-        { label: t('others_label'), value: t('others_label') },
+        { label: "Order Related", value: "order related" },
+        { label: "Others", value: "others" },
     ];
 
     const faqItems = [
         {
-            header: t('faq_track_order_header'),
-            content: t('faq_track_order_content'),
-                
+            header: "Can I track my order?",
+            content:
+                "Yes, you can track your order in real-time from the moment it's confirmed to when it's out for delivery. You'll receive updates on the status of your order through notifications on the app.",
         },
         {
-            header: t('faq_delivery_time_header'),
-            content:t('faq_delivery_time_content'),
-          },
-        {
-            header: t('faq_cancel_order_header'),
-            content: t('faq_cancel_order_content'),
-          },
-        {
-            header: t('faq_feedback_header'),
+            header: "How long does delivery take?",
             content:
-             t('faq_feedback_content')
+                "Delivery times may vary depending on factors such as the restaurant's preparation time, traffic conditions, and your location. However, we strive to deliver your order within a reasonable timeframe, typically ranging from 30 to 60 minutes.",
         },
         {
-            header: t('faq_multiple_places_header'),
+            header: "Can I cancel my order after it's been placed?",
             content:
-                t('faq_multiple_places_content')
+                "Yes, you can cancel your order once it is placed. However, once the order has been prepared and sent out for delivery, you can no longer cancel the order. You may contact the restaurant directly for assistance.",
+        },
+        {
+            header: "How can I provide feedback on my experience?",
+            content:
+                "You can provide feedback through the app by rating your order and leaving comments. You can also give a rating to the restaurant and leave a review.",
+        },
+        {
+            header: "Can I order from multiple places at the same time?",
+            content:
+                "Unfortunately, you can’t choose from multiple restaurants within the same order. However, you can place separate orders from different restaurants at the same time.",
         },
     ];
 
@@ -193,11 +191,11 @@ export default function GetHelpMain() {
             <div className="bg-white p-6 rounded-lg shadow-sm mb-6">
                 <div className="mb-6">
                     <TextComponent
-                        text={` ${t("hi_label")} ${userName} 👋`}
+                        text={`Hi ${userName} 👋`}
                         className="text-xl md:text-2xl font-bold mb-2"
                     />
                     <TextComponent
-                        text={t("how_can_we_help_label")}
+                        text="How can we help?"
                         className="text-2xl md:text-3xl font-bold"
                     />
                 </div>
@@ -224,14 +222,15 @@ export default function GetHelpMain() {
 
             <div className="bg-white p-6 rounded-lg shadow-sm">
                 <TextComponent
-                    text={t('still_need_help_label')}
+                    text="Still need help?"
                     className="text-xl md:text-2xl font-semibold mb-4"
                 />
                 <p className="text-gray-600 mb-6">
-                    {t('support_team_available_message')}
+                    Our support team is available to assist you with any
+                    questions or issues you may have.
                 </p>
                 <CustomButton
-                    label={t("chat_with_person_button")}
+                    label="Chat with a person"
                     onClick={handleChatWithPerson}
                     className="bg-[#5AC12F] text-white px-6 py-3 rounded-full"
                 />
@@ -247,13 +246,13 @@ export default function GetHelpMain() {
                 <div className="flex flex-col md:h-[500px] h-[450px]">
                     {/* Modal Header */}
                     <div className="flex justify-between items-center bg-[#1a1a1a] text-white p-4">
-                        <h3 className="font-medium"> {t("support_modal_title")} </h3>
+                        <h3 className="font-medium">Support</h3>
                         <div className="flex items-center space-x-2">
                             <button
                                 onClick={handleCloseModal}
                                 className="text-white hover:text-gray-300"
                             >
-                                <span className="sr-only">{t('close_label')}</span>✕
+                                <span className="sr-only">Close</span>✕
                             </button>
                         </div>
                     </div>
@@ -262,17 +261,17 @@ export default function GetHelpMain() {
                     <div className="flex-1 p-4 overflow-y-auto">
                         <div className="mb-6">
                             <h2 className="text-lg font-semibold mb-2">
-                                {t('hi_label')}
+                                Hi, {userName}
                             </h2>
                             <p className="text-sm text-gray-600">
-                                {t('email_label')}: {userEmail}
+                                Email: {userEmail}
                             </p>
                         </div>
 
                         {/* Reason Dropdown */}
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                {t('whats_your_issue_about_label')}
+                                What&apos;s your issue about?
                             </label>
                             <Dropdown
                                 value={reason}
@@ -284,7 +283,7 @@ export default function GetHelpMain() {
                                     }
                                 }}
                                 options={reasonOptions}
-                                placeholder= {t("select_reason_placeholder")}
+                                placeholder="Select a reason"
                                 className="w-full"
                             />
                         </div>
@@ -293,12 +292,12 @@ export default function GetHelpMain() {
                         {reason === "order related" && (
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    {t('order_id_label')}
+                                    Order ID
                                 </label>
                                 <InputText
                                     value={orderId}
                                     onChange={(e) => setOrderId(e.target.value)}
-                                    placeholder={t("enter_order_id_placeholder")}
+                                    placeholder="Enter order ID"
                                     className="w-full p-3 border border-gray-300 rounded-md"
                                 />
                             </div>
@@ -307,14 +306,14 @@ export default function GetHelpMain() {
                         {reason === "others" && (
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    {t("title_label")}
+                                    Title
                                 </label>
                                 <InputText
                                     value={ticketTitle}
                                     onChange={(e) =>
                                         setTicketTitle(e.target.value)
                                     }
-                                    placeholder={t("enter_title_for_inquiry_placeholder") }
+                                    placeholder="Enter a title for your inquiry"
                                     className="w-full p-3 border border-gray-300 rounded-md"
                                 />
                             </div>
@@ -324,14 +323,14 @@ export default function GetHelpMain() {
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 {reason === "order related"
-                                    ? t("describe_issue_with_order_label")
-                                    : t("tell_us_more_about_issue_label")}
+                                    ? "Describe your issue with this order"
+                                    : "Tell us more about your issue"}
                             </label>
                             <textarea
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 rows={4}
-                                placeholder={t("describe_issue_in_detail_placeholder")}
+                                placeholder="Please describe your issue in detail..."
                                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5AC12F]"
                             />
                         </div>
@@ -363,7 +362,7 @@ export default function GetHelpMain() {
                             {isSubmitting ? (
                                 <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                             ) : (
-                                <span>{t("send_button")}</span>
+                                <span>Send</span>
                             )}
                         </button>
                     </div>

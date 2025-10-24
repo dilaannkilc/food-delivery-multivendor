@@ -6,7 +6,6 @@ import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CustomButton from "../button";
 import MapViewButton from "../mapViewButton";
-import { useTranslations } from "next-intl";
 function HomeHeadingSection({
   title = "Restaurants near me",
   onPress,
@@ -20,8 +19,6 @@ function HomeHeadingSection({
   sortByTitle?: string;
   showFilter?: boolean;
 }) {
-
-  const t = useTranslations()
   return (
     <div className="flex justify-between items-center mx-[6px] mb-8">
       <span className="font-inter font-bold text-2xl sm:text-4xl leading-8 tracking-normal text-gray-900">
@@ -32,7 +29,7 @@ function HomeHeadingSection({
         {showFilter && (
           <div className="flex items-center justify-end gap-x-2">
             <CustomButton
-              label={`${t('sort_by')} ${sortByTitle}`}
+              label={`Sorted by ${sortByTitle}`}
               onClick={onPress}
               className="text-sky-500 transition-colors duration-200 text-sm md:text-base hidden sm:block"
             />

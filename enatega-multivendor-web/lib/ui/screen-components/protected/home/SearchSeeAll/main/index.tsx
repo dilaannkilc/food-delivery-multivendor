@@ -8,7 +8,6 @@ import { useSearchUI } from "@/lib/context/search/search.context";
 import { useParams } from "next/navigation";
 // heading component
 import HomeHeadingSection from "@/lib/ui/useable-components/home-heading-section";
-import { useTranslations } from "next-intl";
 
 
 function SearchSeeAllSection() {
@@ -24,7 +23,6 @@ function SearchSeeAllSection() {
   
   // Get slug from URL params
   const params = useParams();
-  const t = useTranslations()
   const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
 
   // Generate a formatted title from the slug
@@ -40,7 +38,7 @@ function SearchSeeAllSection() {
 
   return (
     <>
-      <HomeHeadingSection title={`${t('restaurant_and_stores_title')}: ` + title} showFilter={false} />
+      <HomeHeadingSection title={'Restaurant and stores: ' + title} showFilter={false} />
       <div className="mb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-4 items-center">
           {data.map((item) => (

@@ -1,5 +1,4 @@
 export interface IEarningTableHeaderProps {
-  onClearFilters: () => void; 
   globalFilterValue: string;
   onGlobalFilterChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   dateFilters: {
@@ -21,7 +20,6 @@ export interface IEarningTableHeaderProps {
       paymentMethod?: PaymentMethodEnum;
     }>
   >;
-  
 }
 
 export interface IEarningsRestaurantHeaderComponentProps {

@@ -9,7 +9,6 @@ import { MessageBox } from "react-chat-elements";
 import { CHAT_QUERY } from "@/lib/api/graphql/queries/chatWithRider";
 import { SUBSCRIPTION_NEW_MESSAGE } from "@/lib/api/graphql/subscription/ChatWithRider";
 import { SEND_CHAT_MESSAGE } from "@/lib/api/graphql/mutations/chatWithRider";
-import { useTranslations } from "next-intl";
 
 interface Message {
   _id: string;
@@ -34,7 +33,6 @@ function ChatWithRiderModal({
   orderId,
   currentUserId,
 }: ChatWithRiderModalProps) {
-  const t = useTranslations()
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState("");
 
@@ -138,7 +136,7 @@ function ChatWithRiderModal({
     >
       <div className="flex flex-col h-full">
         <div className="flex justify-between items-center bg-[#5AC12F] text-white p-2">
-          <div>{t("chat_with_rider_button")}</div>
+          <div>Chat With Rider</div>
           <button onClick={onHide}>
             <i className="pi pi-times" style={{ fontSize: "1rem" }}></i>
           </button>
@@ -180,7 +178,7 @@ function ChatWithRiderModal({
             type="text"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder={t("type_a_message_placeholder")}
+            placeholder="Type a message"
             className="flex-1 border rounded p-2 focus:outline-none"
           />
           <button onClick={handleSend}>

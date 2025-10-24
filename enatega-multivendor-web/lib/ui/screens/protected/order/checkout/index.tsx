@@ -63,11 +63,8 @@ import {
 import HomeIcon from "../../../../../assets/home_icon.png";
 import RestIcon from "../../../../../assets/rest_icon.png";
 import { onUseLocalStorage } from "@/lib/utils/methods/local-storage";
-import Image from "next/image";
-import { useTranslations } from "next-intl";
 
 export default function OrderCheckoutScreen() {
-  const t = useTranslations()
   const [isAddressSelectedOnce, setIsAddressSelectedOnce] = useState(false);
   const [isUserAddressModalOpen, setIsUserAddressModalOpen] = useState(false);
   // const [isOpen, setIsOpen] = useState(false);
@@ -276,16 +273,16 @@ export default function OrderCheckoutScreen() {
       if (coupon.enabled) {
         showToast({
           type: "info",
-          title: t("coupon_applied_title"),
-          message: `${coupon.title} ${" "} ${t('coupon_has_been_applied_message')}`,
+          title: "Coupon Applied",
+          message: `${coupon.title} coupon has been applied`,
         });
         setIsCouponApplied(true);
         setCoupon(coupon);
       } else {
         showToast({
           type: "info",
-          title: t("coupon_not_found_title"),
-          message: `${coupon.title} ${" "} ${t('coupon_is_not_valid_message')}`,
+          title: "Coupon Not Found",
+          message: `${coupon.title} coupon is not valid.`,
         });
       }
     }
@@ -294,8 +291,8 @@ export default function OrderCheckoutScreen() {
   function couponOnError() {
     showToast({
       type: "error",
-      title: t("invalid_coupon_title"),
-      message: t("invalid_coupon_title"),
+      title: "Invalid Coupon",
+      message: "Invalid Coupon.",
     });
   }
 
@@ -412,8 +409,8 @@ export default function OrderCheckoutScreen() {
     ) {
       // toggleCloseModal();
       showToast({
-        title: t("restaurant_label"),
-        message: t("restaurant_unavailable"),
+        title: "Restaurant",
+        message: "Restaurant is not available right now.",
         type: "error",
       });
       return false;
@@ -758,12 +755,12 @@ export default function OrderCheckoutScreen() {
           </GoogleMap>
         ) : (
           <>
-            <Image
-              src="https://storage.googleapis.com/a1aa/image/jt1AynRJJVtM9j1LRb30CodA1xsK2R23pWTOmRv3nsM.jpg"
+            <img
               alt="Map showing delivery route"
-              width={1200}
-              height={300}
               className="w-full h-64 object-cover"
+              height="300"
+              src="https://storage.googleapis.com/a1aa/image/jt1AynRJJVtM9j1LRb30CodA1xsK2R23pWTOmRv3nsM.jpg"
+              width="1200"
             />
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#5AC12F] text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold">
               H
@@ -804,7 +801,7 @@ export default function OrderCheckoutScreen() {
                   className="mr-2 text-gray-900"
                 />
                 <span className="font-medium text-gray-900 font-inter text-xs md:text-sm xl:[14px]">
-                  {t("delivery_label")}
+                  Delivery
                 </span>
               </button>
 
@@ -820,14 +817,14 @@ export default function OrderCheckoutScreen() {
                   className="mr-2 text-gray-900"
                 />
                 <span className="font-medium text-gray-900 font-inter text-xs md:text-sm xl:[14px]">
-                  {t("pickup_label")}
+                  Pickup
                 </span>
               </button>
             </div>
 
             {/* <!-- Section Title --> */}
             <h2 className="font-semibold text-gray-900 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
-              {t('for_greater_hunger_title')}
+              For greater hunger
             </h2>
 
             {/* <!-- Delivery Details --> */}
@@ -839,8 +836,8 @@ export default function OrderCheckoutScreen() {
                     className="mr-2 text-gray-900"
                   />
                   <p className="text-gray-900 leading-4 sm:leading-5 tracking-normal font-inter text-xs sm:text-sm md:text-sm align-middle">
-                    <span className="font-semibold"> {t("delivery_label")} </span>
-                    <span className="font-normal">{t("in_10_20_min_label")} </span>
+                    <span className="font-semibold">Delivery </span>
+                    <span className="font-normal">in 10-20 min </span>
                     <span className="font-semibold">
                       {userAddress?.deliveryAddress}
                     </span>
@@ -863,18 +860,19 @@ export default function OrderCheckoutScreen() {
                   className="text-gray-900 leading-4 sm:leading-5 tracking-normal font-inter text-xs sm:text-sm md:text-sm align-middle"
                   htmlFor="leave-at-door"
                 >
-                  {t('leave_order_at_my_door_label')}
+                  Leave the order at my door
                 </label>
               </div>
               <p className="text-gray-300 leading-4 sm:leading-5 tracking-normal font-inter text-xs sm:text-sm md:text-sm align-middle mt-2">
-                {t('leave_at_door_info')}
+                If you are not available to receive the order, the courier will
+                leave it at your door.
               </p>
             </div>
 
             {/* <!-- Selected Items --> */}
             <div className="bg-white pt-4 pb-2 rounded-lg mb-4 w-full">
               <h2 className="font-semibold text-gray-900 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
-                {t('selected_items_label')}
+                Selected items
               </h2>
               {/* Map this below section */}
               {cart.map((item) => {
@@ -884,15 +882,12 @@ export default function OrderCheckoutScreen() {
                     className="flex items-center justify-between mb-2"
                   >
                     <div className="flex items-start">
-                      <Image
-                        src={
-                          item.image ||
-                          "https://storage.googleapis.com/a1aa/image/cPA2BWDjl26C-OR-Sz-gd7gFcDc7QbvTZ_904FkN0Y.jpg"
-                        }
+                      <img
                         alt="Big Share meal"
-                        width={50}
-                        height={50}
-                        className="w-12 h-12 rounded-full mr-2 object-cover"
+                        className="w-12 h-12 rounded-full mr-2"
+                        height="50"
+                        src="https://storage.googleapis.com/a1aa/image/cPA2BWDjlQ26C-OR-Sz-gd7gFcDc7QbvTZ_904FkN0Y.jpg"
+                        width="50"
                       />
                       <div>
                         <h3 className="font-semibold text-gray-900 text-sm sm:text-base md:text-[12px] lg:text-[14px] xl:text-[16px]">
@@ -942,14 +937,14 @@ export default function OrderCheckoutScreen() {
                   );
                 }}
               >
-                {t('add_more_items_button')}
+                + Add more items
               </button>
             </div>
 
             {orderInstructions && orderInstructions.length > 0 ? (
               <>
                 <h2 className="font-semibold text-gray-900 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
-                  {t("order_instruction_label")}
+                  Order Instruction
                 </h2>
                 <p className="text-gray-500 mb-4 leading-5 sm:leading-5 tracking-normal font-inter text-xs sm:text-sm md:text-sm align-middle mt-2">
                   {orderInstructions}
@@ -961,7 +956,7 @@ export default function OrderCheckoutScreen() {
 
             {/* <!-- Payment Details --> */}
             <h2 className="font-semibold text-gray-900 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
-              {t('payment_details_label')}
+              Payment details
             </h2>
             {filteredPaymentMethods.map((paymentMethodItem, methodIndex) => {
               return (
@@ -978,7 +973,7 @@ export default function OrderCheckoutScreen() {
                         icon={paymentMethodItem.icon}
                         className="text-gray-900 mr-2"
                       />
-                      {t(paymentMethodItem.label)}
+                      {paymentMethodItem.label}
                     </label>
                     <input
                       className="mr-2"
@@ -997,11 +992,11 @@ export default function OrderCheckoutScreen() {
             {/* <!-- Tip the Courier --> */}
             <div className="bg-white mb-6 w-full">
               <h2 className="font-semibold text-gray-900 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
-                {t('tip_the_courier_label')}
+                Tip the courier
               </h2>
               <div className="border border-gray-300 rounded-lg p-5">
                 <p className="text-gray-500 mb-4 leading-5 sm:leading-5 tracking-normal font-inter text-xs sm:text-sm md:text-sm align-middle mt-2">
-                  {t('tip_courier_info')}
+                  They&apos;ll get 100% of your tip after the delivery
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   {TIPS.map((tip: string, index: number) => (
@@ -1027,22 +1022,23 @@ export default function OrderCheckoutScreen() {
             {/* <!-- Promo Code --> */}
             <div className="bg-white  pb-2 rounded-lg mb-4 w-full">
               <h2 className="font-semibold text-gray-900 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
-                {t('promo_code_label')}
+                Promo code
               </h2>
               {isCouponApplied ? (
                 <Message
                   severity="success"
-                  text={t('coupon_applied_successfully_message')}
+                  text="Coupon has been applied successfully"
                 />
               ) : (
                 <>
                   <p className="text-gray-500 mb-4 leading-5 sm:leading-5 tracking-normal font-inter text-xs sm:text-sm md:text-sm align-middle mt-2">
-                    {t("promo_code_info")}
+                    If you have a promo code enter it below to claim your
+                    benefit!
                   </p>
                   <div className="flex items-center flex-wrap space-x-2">
                     <input
                       className="flex-grow p-2 border border-gray-300 rounded text-[12px] md:text-[14px]"
-                      placeholder={t('enter_promo_code_placeholder')}
+                      placeholder="Enter promo code..."
                       type="text"
                       value={couponText}
                       onChange={(e) => setCouponText(e.target.value)}
@@ -1055,7 +1051,7 @@ export default function OrderCheckoutScreen() {
                       {couponLoading ? (
                         <FontAwesomeIcon icon={faSpinner} spin />
                       ) : (
-                        <span>{t("submit_button")}</span>
+                        <span>Submit</span>
                       )}
                     </button>
                   </div>
@@ -1077,16 +1073,16 @@ export default function OrderCheckoutScreen() {
               id="price-summary"
             >
               <h2 className="text-sm lg:text-lg font-semibold text-left flex justify-between">
-                {t("prices_in_label")} {" "} {CURRENCY}
+                Prices in {CURRENCY}
                 <InfoSvg />
               </h2>
               <p className="text-gray-400 mb-3 text-left leading-5 tracking-normal font-inter text-xs lg:text-[16px]">
-                {t('inc_taxes_label')}
+                Inc. Taxes (if applicable)
               </p>
 
               <div className="flex justify-between mb-1 text-xs lg:text-[14px]">
                 <span className="font-inter text-gray-900 leading-5">
-                  {t("item_subtotal_label")}
+                  Item subtotal
                 </span>
                 <span className="font-inter text-gray-900 leading-5">
                   {CURRENCY_SYMBOL}
@@ -1097,7 +1093,7 @@ export default function OrderCheckoutScreen() {
               {deliveryType === "Delivery" && (
                 <div className="flex justify-between mb-1 text-xs lg:text-[14px]">
                   <span className="font-inter text-gray-900 leading-5">
-                    {t("delivery_with_distance_label")} { " "} ({distance} km)
+                    Delivery ({distance} km)
                   </span>
                   <span className="font-inter text-gray-900 leading-5">
                     {CURRENCY_SYMBOL}
@@ -1109,7 +1105,7 @@ export default function OrderCheckoutScreen() {
               {selectedTip && (
                 <div className="flex justify-between mb-1 text-xs lg:text-[14px]">
                   <span className="font-inter text-gray-900 leading-5">
-                    {t("tip_label")}
+                    Tip
                   </span>
                   <span className="font-inter text-gray-900 leading-5">
                     {`${CURRENCY_SYMBOL} ${selectedTip}`}
@@ -1142,7 +1138,7 @@ export default function OrderCheckoutScreen() {
               {isCouponApplied && (
                 <div className="flex justify-between mb-1 text-xs lg:text-[14px]">
                   <span className="font-inter text-gray-900 leading-5">
-                    {t("discount_label")}
+                    Discount
                   </span>
                   <span className="font-inter text-gray-900 leading-5">
                     {`-${CURRENCY_SYMBOL} ${(
@@ -1160,7 +1156,7 @@ export default function OrderCheckoutScreen() {
                   <Divider /> */}
 
               <div className="flex justify-between font-semibold mb-4 text-xs lg:text-[16px]">
-                <span>{t("total_sum_label")}</span>
+                <span>Total sum</span>
                 <span>{`${CURRENCY_SYMBOL} ${calculateTotal()}`}</span>
               </div>
 
@@ -1171,7 +1167,7 @@ export default function OrderCheckoutScreen() {
                 {loadingOrderMutation ? (
                   <FontAwesomeIcon icon={faSpinner} spin />
                 ) : (
-                  <span> {t("click_to_order_button")}</span>
+                  <span> Click to order</span>
                 )}
               </button>
             </div>
@@ -1184,16 +1180,16 @@ export default function OrderCheckoutScreen() {
               id="price-summary"
             >
               <h2 className="text-sm lg:text-base font-semibold text-left flex justify-between">
-                {t("prices_in_label")} {" "}{CURRENCY}
+                Prices in {CURRENCY}
                 <InfoSvg />
               </h2>
               <p className="text-gray-400 mb-3 text-left leading-5 tracking-normal font-inter text-xs lg:text-[10px]">
-                {t("inc_taxes_label")}
+                Inc. Taxes (if applicable)
               </p>
 
               <div className="flex justify-between mb-1 text-xs lg:text-[12px]">
                 <span className="font-inter text-gray-900 leading-5">
-                  {t("item_subtotal_label")}
+                  Item subtotal
                 </span>
                 <span className="font-inter text-gray-900 leading-5">
                   {CURRENCY_SYMBOL}
@@ -1204,7 +1200,7 @@ export default function OrderCheckoutScreen() {
               {deliveryType === "Delivery" && (
                 <div className="flex justify-between mb-1 text-xs lg:text-[12px]">
                   <span className="font-inter text-gray-900 leading-5">
-                    {t("delivery_with_distance_label")} { " "} ({distance} km)
+                    Delivery ({distance} km)
                   </span>
                   <span className="font-inter text-gray-900 leading-5">
                     {CURRENCY_SYMBOL}
@@ -1216,7 +1212,7 @@ export default function OrderCheckoutScreen() {
               {selectedTip && (
                 <div className="flex justify-between mb-1 text-xs lg:text-[12px]">
                   <span className="font-inter text-gray-900 leading-5">
-                    {t("tip_label")}
+                    Tip
                   </span>
                   <span className="font-inter text-gray-900 leading-5">
                     {`${CURRENCY_SYMBOL} ${selectedTip}`}
@@ -1249,7 +1245,7 @@ export default function OrderCheckoutScreen() {
               {isCouponApplied && (
                 <div className="flex justify-between mb-1 text-xs lg:text-[12px]">
                   <span className="font-inter text-gray-900 leading-5">
-                    {t("discount_label")}
+                    Discount
                   </span>
                   <span className="font-inter text-gray-900 leading-5">
                     {`-${CURRENCY_SYMBOL} ${(
@@ -1267,7 +1263,7 @@ export default function OrderCheckoutScreen() {
               {/* <Divider /> */}
 
               <div className="flex justify-between font-semibold mb-4 text-xs lg:text-[14px]">
-                <span>{t("total_sum_label")}</span>
+                <span>Total sum</span>
                 <span>{`${CURRENCY_SYMBOL} ${calculateTotal()}`}</span>
               </div>
 
@@ -1278,7 +1274,7 @@ export default function OrderCheckoutScreen() {
                 {loadingOrderMutation ? (
                   <FontAwesomeIcon icon={faSpinner} spin />
                 ) : (
-                  <span> {t("click_to_order_button")} </span>
+                  <span> Click to order</span>
                 )}
               </button>
             </div>
@@ -1297,7 +1293,7 @@ export default function OrderCheckoutScreen() {
                       className="bg-white p-2 rounded-lg shadow-md border border-gray-300 overflow-hidden"
                     >
                       <h2 className="text-base font-semibold text-left flex justify-between">
-                       
+                        Prices in {CURRENCY}
                         <InfoSvg />
                       </h2>
                       <p className="text-gray-300 mb-4 text-left  sm:leading-5 tracking-normal font-inter text-xs sm:text-sm md:text-sm align-middle ">
@@ -1306,7 +1302,7 @@ export default function OrderCheckoutScreen() {
 
                       <div className="flex justify-between mb-1 text-sm">
                         <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                          
+                          Item subtotal
                         </span>
                         <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
                           {CURRENCY_SYMBOL}
@@ -1316,7 +1312,7 @@ export default function OrderCheckoutScreen() {
 
                       <div className="flex justify-between mb-1 text-sm">
                         <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
-                          Delivery ({dstance} km)
+                          Delivery ({distance} km)
                         </span>
                         <span className="font-inter  text-gray-900 text-[14px] md:text-lg leading-6 md:leading-7">
                           {CURRENCY_SYMBOL}

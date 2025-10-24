@@ -25,9 +25,6 @@ export interface IRestaurantInfo {
   isAvailable?: boolean;
   openingTimes: IOpeningTime[];
   description: string;
-  deliveryTime: String;
-  deliveryTax: String;
-  MinimumOrder: String;
 }
 
 export interface IInfoModalProps {

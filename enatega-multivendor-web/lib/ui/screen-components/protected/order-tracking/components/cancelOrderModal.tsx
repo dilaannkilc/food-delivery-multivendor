@@ -1,11 +1,9 @@
-"use client"
 import React from "react";
 import { Dialog } from "primereact/dialog";
 import { useMutation } from "@apollo/client";
 import { ABORT_ORDER } from "@/lib/api/graphql";
 import useToast from "@/lib/hooks/useToast";
 import { useAuth } from "@/lib/context/auth/auth.context";
-import { useTranslations } from "next-intl";
 
 interface CancelOrderModalProps {
   visible: boolean;
@@ -17,15 +15,14 @@ interface CancelOrderModalProps {
 function CancelOrderModal({ visible, onHide, orderId, onSuccess }: CancelOrderModalProps) {
   const { showToast } = useToast();
   const { authToken } = useAuth(); // Get auth context for authentication
-  const t = useTranslations()
  
   const [abortOrder, { loading }] = useMutation(ABORT_ORDER, {
     onCompleted: (data) => {
       console.log("Order cancelled successfully:", data);
       showToast({
         type: "success",
-        title: t("order_cancelled_title"),
-        message: t("order_cancelled_success_message"),
+        title: "Order Cancelled",
+        message: "Your order has been cancelled successfully.",
       });
       console.log("onSuccess is called");
       onSuccess();
@@ -41,8 +38,8 @@ function CancelOrderModal({ visible, onHide, orderId, onSuccess }: CancelOrderMo
       });
       showToast({
         type: "error",
-        title: t("cancellation_failed_title"),
-        message: error.message || t('unable_to_cancel_order_message'),
+        title: "Cancellation Failed",
+        message: error.message || "Unable to cancel order at this time.",
       });
     },
     // Ensure token is sent with the request
@@ -58,8 +55,8 @@ function CancelOrderModal({ visible, onHide, orderId, onSuccess }: CancelOrderMo
       console.error("No authentication token available");
       showToast({
         type: "error",
-        title: t("authentication_required_title"),
-        message: t("login_to_cancel_order_message"),
+        title: "Authentication Required",
+        message: "Please log in to cancel your order.",
       });
       return;
     }
@@ -109,11 +106,11 @@ function CancelOrderModal({ visible, onHide, orderId, onSuccess }: CancelOrderMo
           </button>
         </div>
 
-        <h2 className="text-xl font-semibold mb-3">{t("order_cancel_warning_line2")}</h2>
+        <h2 className="text-xl font-semibold mb-3">Cancel your order</h2>
         <p className="text-gray-600 text-sm mb-6">
           {"We've got your order and may find you a rider any"}
           <br />
-          {t('order_cancel_warning_line2')}
+          second now. Cancel anyway?
         </p>
 
         <div className="space-y-3">
@@ -122,7 +119,7 @@ function CancelOrderModal({ visible, onHide, orderId, onSuccess }: CancelOrderMo
             disabled={loading}
             className="w-full py-3 px-4 bg-red-500 text-white rounded-full font-medium hover:bg-red-600 transition-colors disabled:opacity-50"
           >
-            {loading ? t("cancelling_text") : t('cancel_my_order_button')}
+            {loading ? "Cancelling..." : "Cancel my order"}
           </button>
 
           <button
@@ -130,7 +127,7 @@ function CancelOrderModal({ visible, onHide, orderId, onSuccess }: CancelOrderMo
             disabled={loading}
             className="w-full py-3 px-4 border border-gray-300 text-gray-700 rounded-full font-medium hover:bg-gray-50 transition-colors disabled:opacity-50"
           >
-            {t("ill_wait_for_my_order_button")}
+            {"I'll wait for my order"}
           </button>
         </div>
       </div>
