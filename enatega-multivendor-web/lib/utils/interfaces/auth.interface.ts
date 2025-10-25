@@ -22,7 +22,6 @@ export interface ILoginWithGoogleProps {
   handleChangePanel: (index: number) => void;
   handleFormChange: (name: string, value: string) => void;
   formData: IAuthFormData;
-  
 }
 
 export interface ILoginWithEmailProps {

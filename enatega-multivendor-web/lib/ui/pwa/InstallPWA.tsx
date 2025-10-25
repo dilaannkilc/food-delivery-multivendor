@@ -1,6 +1,5 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 export default function InstallPWA() {
@@ -8,7 +7,6 @@ export default function InstallPWA() {
   const [isInstalled, setIsInstalled] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
 
-  const t = useTranslations()
   useEffect(() => {
     const handler = (e: Event) => {
       e.preventDefault();
@@ -52,7 +50,7 @@ export default function InstallPWA() {
   return (
     <div className="fixed bottom-4 right-4 bg-white shadow-lg border px-4 py-2 rounded-md z-50 max-w-xs w-full">
       <div className="flex justify-between items-center">
-        <p className="text-sm font-medium">{t("installPWA")} </p>
+        <p className="text-sm font-medium">Install this app for a better experience!</p>
         <button onClick={handleCloseClick} className="ml-2 text-gray-500 hover:text-gray-700 text-xl leading-none">
           &times;
         </button>
@@ -61,7 +59,7 @@ export default function InstallPWA() {
         onClick={handleInstallClick}
         className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full"
       >
-        {t("install_app_label")}
+        Install App
       </button>
     </div>
   );

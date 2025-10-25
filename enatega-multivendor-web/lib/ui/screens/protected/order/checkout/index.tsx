@@ -885,10 +885,10 @@ export default function OrderCheckoutScreen() {
                   >
                     <div className="flex items-start">
                       <Image
-                        src={
-                          item.image ||
-                          "https://storage.googleapis.com/a1aa/image/cPA2BWDjl26C-OR-Sz-gd7gFcDc7QbvTZ_904FkN0Y.jpg"
-                        }
+                          src={
+                            item.image ||
+                            "https://storage.googleapis.com/a1aa/image/cPA2BWDjl26C-OR-Sz-gd7gFcDc7QbvTZ_904FkN0Y.jpg"
+                          }
                         alt="Big Share meal"
                         width={50}
                         height={50}
@@ -1121,7 +1121,7 @@ export default function OrderCheckoutScreen() {
               )}
 
               <div className="flex justify-between mb-1 text-xs lg:text-[14px]">
-                <span className="font-inter text-gray-900 leading-5"> {t("tax_label")} </span>
+                <span className="font-inter text-gray-900 leading-5">Tax</span>
                 <span className="font-inter text-gray-900 leading-5">
                   {CURRENCY_SYMBOL}
                   {taxCalculation()}
