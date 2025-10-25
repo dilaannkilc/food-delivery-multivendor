@@ -4,7 +4,6 @@ import { useAuth } from "@/lib/context/auth/auth.context";
 import { useConfig } from "@/lib/context/configuration/configuration.context";
 import { useTranslations } from "next-intl";
 import { useMutation, ApolloError } from "@apollo/client";
-import useVerifyOtp from "@/lib/hooks/useVerifyOtp";
 
 // Components and Utilities
 import CustomButton from "@/lib/ui/useable-components/button";
@@ -26,13 +25,12 @@ export default function EmailVerification({
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [isResendingOtp, setIsResendingOtp] = useState(false);
 
-  
   const t = useTranslations();
   const { SKIP_EMAIL_VERIFICATION, TEST_OTP } = useConfig();
-  const { verifyOTP, error } = useVerifyOtp();
   const {
     user,
     setIsAuthModalVisible,
+    otp: storedOtp,
     setOtp: setStoredOtp,
     sendOtpToEmailAddress,
     sendOtpToPhoneNumber,
@@ -112,14 +110,7 @@ export default function EmailVerification({
       return;
     }
 
-    const otpResponse = await verifyOTP({
-          variables: {
-            otp: emailOtp,
-            email: user?.email
-          }
-        })
-
-    if (otpResponse.data?.verifyOtp && !!user?.email) {
+    if (emailOtp === storedOtp && !!user?.email) {
       const userData = await updateUser({
         variables: {
           name: user?.name ?? "",
@@ -161,17 +152,6 @@ export default function EmailVerification({
     await sendOtpToEmailAddress(user.email);
     setIsResendingOtp(false);
   };
-
-      // useEffect for displaying otp verification error
-      useEffect(() => {
-        if (error) {
-          showToast({
-            type: "error",
-            title: t("OTP Error"),
-            message: error.message,
-          });
-      }
-      }, [error])
 
   return (
     <div className="flex flex-col items-start justify-start w-full h-full px-4 py-6 md:px-8">

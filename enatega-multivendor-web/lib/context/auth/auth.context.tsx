@@ -10,6 +10,7 @@ import {
   SetStateAction,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 
@@ -65,6 +66,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
   const [refetchProfileData, setRefetchProfileData] = useState(false);
+
+  // Refs
+  const otpFrom = useRef<string | null>(null);
 
   // Hooks
   const {
@@ -344,6 +348,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     });
   }
 
+  // Generators
+  function generateOTP() {
+    otpFrom.current = Math.floor(100000 + Math.random() * 900000).toString();
+  }
+
   // OTP Handlers
   async function sendOtpToEmailAddress(email: string, type?: string) {
     try {
@@ -355,8 +364,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         }
         return;
       } else {
+        generateOTP();
+        setOtp(otpFrom.current);
         const otpResponse = await sendOtpToEmail({
-          variables: { email: email }
+          variables: { email: email, otp: otpFrom.current },
         });
         if (otpResponse.data?.sendOtpToEmail?.result) {
           if (type && type !== "password-recovery") {
@@ -401,8 +412,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         setActivePanel(6);
         return;
       } else {
+        generateOTP();
+        setOtp(otpFrom.current);
         const otpResponse = await sendOtpToPhone({
-          variables: { phone: phone },
+          variables: { phone: phone, otp: otpFrom.current },
         });
         if (!otpResponse.data?.sendOtpToPhoneNumber?.result) {
           showToast({
