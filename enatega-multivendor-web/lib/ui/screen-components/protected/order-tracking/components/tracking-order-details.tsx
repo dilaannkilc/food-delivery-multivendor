@@ -201,7 +201,7 @@ console.log(orderTrackingDetails)
 
           {calculateTotalAddonPrice() > 0 && (
           <div className="flex justify-between">
-            <span>{t("Addons_label")}</span>
+            <span>{t("Addons")}</span>
             <span>
               {formatCurrency(calculateTotalAddonPrice() || 0)}
             </span>
