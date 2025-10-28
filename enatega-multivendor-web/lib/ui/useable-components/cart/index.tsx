@@ -68,11 +68,10 @@ export default function Cart({ onClose }: CartProps) {
       // Assuming first variation for simplicity
       const variation = food.variations[0];
       addItem(
-        food?.image,
         food._id,
         variation._id,
         restaurantId || "",
-        
+        "1" // default quantity
       );
     }
   };
@@ -108,16 +107,6 @@ export default function Cart({ onClose }: CartProps) {
     );
   }
 
-  const getshopTypeTranslated = () =>{
-    if(shopType === "store")
-    {
-      return t("store_label")
-    }
-    else{
-      return t("tab_restaurants")
-    }
-  }
-
   // Slice related items to max 3
   const slicedRelatedItems = (relatedItemsData?.relatedItems || []).slice(0, 3);
 
@@ -144,7 +133,7 @@ export default function Cart({ onClose }: CartProps) {
               className="flex sm:flex-row sm:items-center bg-white rounded-lg p-3 shadow-sm"
             >
               <div className="flex-grow">
-                 <div className="flex sm:flex-row flex-col sm:items-center gap-4">
+                <div className="flex sm:flex-row flex-col sm:items-center gap-4">
                   <Image
                     src={item.image}
                     alt="item image"
@@ -161,8 +150,8 @@ export default function Cart({ onClose }: CartProps) {
                       {item.price || 0}
                     </p>
                   </div>
-                 </div>
-                 {item.optionTitles && item.optionTitles.length > 0 && (
+                </div>
+                {item.optionTitles && item.optionTitles.length > 0 && (
                   <div className="text-xs text-gray-500 mt-1">
                     {item.optionTitles.map((title, index) => (
                       <span key={index} className="mr-2">
@@ -170,11 +159,11 @@ export default function Cart({ onClose }: CartProps) {
                       </span>
                     ))}
                   </div>
-                  )}
+                )}
               </div>
 
-               {/* Quantity Controls */}
-               <div className="flex items-center space-x-2">
+              {/* Quantity Controls */}
+              <div className="flex items-center space-x-2">
                 <button
                   onClick={(e) => {
                     e.preventDefault();
@@ -202,8 +191,8 @@ export default function Cart({ onClose }: CartProps) {
                 >
                   <FontAwesomeIcon icon={faPlus} size="xs" />
                 </button>
-                 </div>
-                </div>
+              </div>
+            </div>
           ))}
         </div>
 
@@ -259,7 +248,7 @@ export default function Cart({ onClose }: CartProps) {
         <div className="p-4 bg-white">
           <div className="bg-gray-50 rounded-lg p-3">
             <h2 className="font-inter font-semibold text-base text-gray-900 mb-2">
-               {t('add_comment_for_restaurant_label')} {" "} {getshopTypeTranslated()}
+               {t('add_comment_for_restaurant_label')} {" "} {shopType}
             </h2>
             <textarea
               id="instructions"

@@ -58,7 +58,6 @@ function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
   const [refreshing, setRefreshing] = useState(false);
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<IOrder | null>(null);
-  const [showDetails, setShowDetails] = useState<Record<string, boolean>>({});
 
   // Handlers
   const onInitOrders = () => {
@@ -87,10 +86,6 @@ function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
   const handleDismissModal = () => {
     setSelectedOrder(null);
     bottomSheetModalRef.current?.dismiss();
-  };
-
-  const toggleShowDetails = (itemId: string) => {
-    setShowDetails(prev => ({ ...prev, [itemId]: !prev[itemId] }));
   };
   // Use Effect
   useEffect(() => {
@@ -143,8 +138,6 @@ function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
                   order={item}
                   key={item._id}
                   handlePresentModalPress={handlePresentModalPress}
-                  showDetails={showDetails}
-                  onToggleDetails={toggleShowDetails}
                 />
               )}
               ListEmptyComponent={() => {

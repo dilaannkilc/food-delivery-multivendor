@@ -49,7 +49,6 @@ function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
   // States
   const [refreshing, setRefreshing] = useState(false);
   const [orders, setOrders] = useState<IOrder[]>([]);
-  const [showDetails, setShowDetails] = useState<Record<string, boolean>>({});
 
   // Handlers
   const onInitOrders = () => {
@@ -68,10 +67,6 @@ function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
     setRefreshing(true);
     refetch();
     setRefreshing(false);
-  };
-
-  const toggleShowDetails = (itemId: string) => {
-    setShowDetails((prev) => ({ ...prev, [itemId]: !prev[itemId] }));
   };
 
   // Use Effect
@@ -117,13 +112,7 @@ function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
           refreshing={refreshing}
           onRefresh={onRefresh}
           renderItem={({ item }: { item: IOrder }) => (
-            <Order
-              tab={route.key as ORDER_TYPE}
-              order={item}
-              key={item._id}
-              showDetails={showDetails}
-              onToggleDetails={toggleShowDetails}
-            />
+            <Order tab={route.key as ORDER_TYPE} order={item} key={item._id} />
           )}
           ListEmptyComponent={() => {
             return (
