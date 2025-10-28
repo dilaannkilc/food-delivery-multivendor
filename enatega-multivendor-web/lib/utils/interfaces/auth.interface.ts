@@ -39,7 +39,6 @@ export interface IEmailVerificationProps {
   emailOtp: string;
   setEmailOtp: Dispatch<SetStateAction<string>>;
   handleChangePanel: (index: number) => void;
-   formData,
 }
 export interface IPhoneVerificationProps {
   phoneOtp: string;
