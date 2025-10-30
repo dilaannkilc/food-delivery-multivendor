@@ -28,8 +28,6 @@ export default function SignUpWithEmail({
   // Hooks
   const t = useTranslations();
   const {
-    handleCreateUser,
-    setUser,
     sendOtpToEmailAddress,
     sendOtpToPhoneNumber,
     isLoading,
@@ -39,12 +37,6 @@ export default function SignUpWithEmail({
   } = useAuth();
   const { showToast } = useToast();
   const { SKIP_EMAIL_VERIFICATION, SKIP_MOBILE_VERIFICATION } = useConfig();
-
-  // Validation
-  const validatePassword = (password: string) => {
-    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-    return strongPasswordRegex.test(password);
-  };
 
   // Handlers
   const handleSubmit = async () => {
@@ -57,58 +49,16 @@ export default function SignUpWithEmail({
           title: t("create_user_label"),
           message: t("all_fields_are_required_to_be_filled_message"),
         });
-      }
-      const namePattern = /^[A-Za-z\s]+$/;
-      if (!namePattern.test(formData.name || "")) {
-        return showToast({
-          type: "error",
-          title: t("create_user_label"),
-          message: t("please_enter_a_valid_name_message"), // add this key in translations
-        });
-      }
-      if (!validatePassword(formData.password || "")) {
-        return showToast({
-          type: "error",
-          title: t("create_user_label"),
-          message: t("password_not_strong_enough_message"),
-        });
       } else {
-        const userData = await handleCreateUser({
-          email: formData.email,
-          phone: formData.phone,
-          name: formData.name,
-          password: formData.password,
-        });
-
-        if (
-          !userData.emailIsVerified &&
-          userData.email &&
-          !SKIP_EMAIL_VERIFICATION
-        ) {
-          setUser((prev) => ({
-            ...prev,
-            email: userData.email,
-          }));
-          sendOtpToEmailAddress(userData.email);
+        if (formData.email && !SKIP_EMAIL_VERIFICATION) {
+          sendOtpToEmailAddress(formData.email);
           // Verify email OTP
           handleChangePanel(3);
-        } else if (
-          !userData.phoneIsVerified &&
-          userData.phone &&
-          !SKIP_MOBILE_VERIFICATION
-        ) {
-          setUser((prev) => ({
-            ...prev,
-            phone: userData.phone,
-          }));
-          sendOtpToPhoneNumber(userData.phone);
+        } else if (formData.phone && !SKIP_MOBILE_VERIFICATION) {
+          sendOtpToPhoneNumber(formData.phone);
           // Verify Phone OTP
           handleChangePanel(6);
-        } else if (
-          userData.userId &&
-          SKIP_EMAIL_VERIFICATION &&
-          SKIP_MOBILE_VERIFICATION
-        ) {
+        } else if (SKIP_EMAIL_VERIFICATION && SKIP_MOBILE_VERIFICATION) {
           // Navigate to first modal
           handleChangePanel(0);
           setIsAuthModalVisible(false);

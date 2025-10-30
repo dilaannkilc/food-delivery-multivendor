@@ -107,9 +107,7 @@ export default function OrderCheckoutScreen() {
   } = useUser();
 
   const { userAddress } = useUserAddress();
- const restaurantFromLocalStorage = localStorage.getItem("restaurant");
-const { data: restaurantData } = useRestaurant(restaurantId || "") || { data: restaurantFromLocalStorage ? JSON.parse(restaurantFromLocalStorage) : null };
-
+  const { data: restaurantData } = useRestaurant(restaurantId || "");
 
   // Context
   const { isLoaded } = useContext(GoogleMapsContext);
@@ -191,6 +189,7 @@ const { data: restaurantData } = useRestaurant(restaurantId || "") || { data: re
 
     // Set Tax
     setTaxValue(restaurantData?.restaurant?.tax);
+
     // Delivery Charges
     onInitDeliveryCharges();
   };
@@ -404,7 +403,6 @@ const { data: restaurantData } = useRestaurant(restaurantId || "") || { data: re
     });
   };
 
-  
   function validateOrder() {
     if (
       !restaurantData?.restaurant?.isAvailable ||
@@ -1018,7 +1016,7 @@ const { data: restaurantData } = useRestaurant(restaurantId || "") || { data: re
             })}
 
             {/* <!-- Tip the Courier --> */}
-          {!isPickUp && ( <div className="bg-white mb-6 w-full">
+            <div className="bg-white mb-6 w-full">
               <h2 className="font-semibold text-gray-900 mb-2 text-base sm:text-lg md:text-[16px] lg:text-[18px]">
                 {t("tip_the_courier_label")}
               </h2>
@@ -1045,9 +1043,7 @@ const { data: restaurantData } = useRestaurant(restaurantId || "") || { data: re
                   ))}
                 </div>
               </div>
-            </div>)}
-
-
+            </div>
 
             {/* <!-- Promo Code --> */}
             <div className="bg-white  pb-2 rounded-lg mb-4 w-full">

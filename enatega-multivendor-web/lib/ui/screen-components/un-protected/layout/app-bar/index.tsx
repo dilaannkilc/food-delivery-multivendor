@@ -449,10 +449,10 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                 )}
                 {!authToken && !isSearchFocused ? (
                   <button
-                    className="w-auto min-w-[64px] h-fit py-2 md:py-3 px-4 bg-[#5AC12F] rounded text-sm lg:text-[16px] md:text-md flex items-center justify-center"
+                    className=" md:w-20 w-16 h-fit py-3 text-gray-900 md:py-3  px-3 bg-[#5AC12F] rounded text-sm lg:text-[16px] md:text-md "
                     onClick={handleModalToggle}
                   >
-                    <span className="text-white font-semibold text-xs md:text-[16px] whitespace-nowrap">
+                    <span className="text-white font-semibold  text-xs md:text-[16px]">
                       {t("login_label")}
                     </span>
                   </button>
