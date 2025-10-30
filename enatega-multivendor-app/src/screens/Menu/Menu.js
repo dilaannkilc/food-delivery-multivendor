@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useRef, useContext, useLayoutEffect, useState, useEffect } from 'react'
-import { View, TouchableOpacity, Animated, StatusBar, Platform, RefreshControl, FlatList, Image, ScrollView, Dimensions } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, SafeAreaView, TouchableOpacity, Animated, StatusBar, Platform, RefreshControl, FlatList, Image, ScrollView, Dimensions } from 'react-native'
 import { SimpleLineIcons, AntDesign } from '@expo/vector-icons'
 import { useQuery, useMutation } from '@apollo/client'
 import { useCollapsibleSubHeader } from 'react-navigation-collapsible'
@@ -547,7 +546,7 @@ function Menu({ route, props }) {
   }
 
   return (
-    <SafeAreaView edges={['left', 'right']} style={[styles().flex, { backgroundColor: currentTheme.themeBackground }]}>
+    <SafeAreaView edges={['bottom', 'left', 'right']} style={[styles().flex, { backgroundColor: currentTheme.themeBackground }]}>
       <ScrollView style={[styles(currentTheme).container]} stickyHeaderIndices={[2]} nestedScrollEnabled={true}>
         <View style={[styles(currentTheme).header, { paddingHorizontal: 10, paddingVertical: 6 }]}>
           <View>
@@ -604,7 +603,7 @@ function Menu({ route, props }) {
             initialScrollIndex={0}
             keyExtractor={(item) => item?._id}
             contentContainerStyle={styles().collectionContainer}
-            // showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             inverted={currentTheme?.isRTL ? true : false}
@@ -650,11 +649,11 @@ function Menu({ route, props }) {
           }}
         />
       </ScrollView>
-      <MainModalize modalRef={modalRef} currentTheme={currentTheme} isLoggedIn={isLoggedIn} addressIcons={addressIcons} modalHeader={modalHeader} modalFooter={modalFooter} setAddressLocation={setAddressLocation} profile={profile} location={location} />     
+      <MainModalize modalRef={modalRef} currentTheme={currentTheme} isLoggedIn={isLoggedIn} addressIcons={addressIcons} modalHeader={modalHeader} modalFooter={modalFooter} setAddressLocation={setAddressLocation} profile={profile} location={location} />
       <Modalize
         ref={filtersModalRef}
         modalStyle={styles(currentTheme).modal}
-        // modalHeight={HEIGHT * 0.72}
+        modalHeight={HEIGHT * 0.72}
         overlayStyle={styles(currentTheme).overlay}
         handleStyle={styles(currentTheme).handle}
         handlePosition='inside'
@@ -677,7 +676,6 @@ function Menu({ route, props }) {
           }}
         />
       </Modalize>
-
     </SafeAreaView>
   )
 }

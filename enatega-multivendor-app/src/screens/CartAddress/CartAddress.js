@@ -36,7 +36,6 @@ function CartAddresses(props) {
   const currentTheme = { isRTL : i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue] }
   const [mutate] = useMutation(SELECT_ADDRESS, { onError })
   const [selectedAddress, setSelectedAddress] = useState(null)
-  const [tempSelectedAddress, setTempSelectedAddress] = useState(null)
   const [defaultAddress, setDefaultAddress] = useState(null)
   const [isAddressChanged, setIsAddressChanged] = useState(false)
 
@@ -88,7 +87,6 @@ function CartAddresses(props) {
       const lastSavedAddress = profile?.addresses?.slice().reverse().find(address => address.selected)
       if (lastSavedAddress) {
         setSelectedAddress(lastSavedAddress)
-        setTempSelectedAddress(lastSavedAddress)
         setDefaultAddress(lastSavedAddress)
         setLocation({
           _id: lastSavedAddress._id,
@@ -107,7 +105,16 @@ function CartAddresses(props) {
   }
 
   const onSelectAddress = address => {
-    setTempSelectedAddress(address)
+    setLocation({
+      _id: address._id,
+      label: address.label,
+      latitude: Number(address.location.coordinates[1]),
+      longitude: Number(address.location.coordinates[0]),
+      deliveryAddress: address.deliveryAddress,
+      details: address.details
+    })
+    mutate({ variables: { id: address._id } })
+    setSelectedAddress(address)
     setIsAddressChanged(defaultAddress ? address._id !== defaultAddress._id : true)
   }
 
@@ -140,7 +147,7 @@ function CartAddresses(props) {
                         outerColor={currentTheme.darkBgFont}
                         innerColor={currentTheme.radioColor}
                         animation={'bounceIn'}
-                        isSelected={address._id === (tempSelectedAddress ? tempSelectedAddress._id : location._id)}
+                        isSelected={address._id === location._id}
                         onPress={() => {
                           onSelectAddress(address)
                         }}
@@ -226,21 +233,11 @@ function CartAddresses(props) {
                 activeOpacity={0.5}
                 style={styles(currentTheme).addButton}
                 onPress={() => {
-                  if (tempSelectedAddress) {
-                    setLocation({
-                      _id: tempSelectedAddress._id,
-                      label: tempSelectedAddress.label,
-                      latitude: Number(tempSelectedAddress.location.coordinates[1]),
-                      longitude: Number(tempSelectedAddress.location.coordinates[0]),
-                      deliveryAddress: tempSelectedAddress.deliveryAddress,
-                      details: tempSelectedAddress.details
-                    })
-                    mutate({ variables: { id: tempSelectedAddress._id } })
-                    setSelectedAddress(tempSelectedAddress)
-                  }
+                  const latitude = location.latitude
+                  const longitude = location.longitude
                   props.navigation.navigate('Checkout', {
-                    longitude: +location.longitude,
-                    latitude: +location.latitude,
+                    longitude: +longitude,
+                    latitude: +latitude,
                     prevScreen: 'CartAddress'
                   })
                 }}
