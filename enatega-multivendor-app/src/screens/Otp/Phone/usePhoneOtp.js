@@ -97,15 +97,8 @@ const usePhoneOtp = () => {
   })
 
   const onCodeFilled = async (otp_code) => {
-    if (configuration?.skipMobileVerification) {
-      mutateUser({
-        variables: {
-          name: name ?? profile?.name,
-          phone: phone ?? profile?.phone,
-          phoneIsVerified: true
-        }
-      })
-    }
+    let isVerified = configuration?.skipMobileVerification ?? false
+    console.log({ otp_code })
 
     const { data } = await verifyOTP({
       variables: {
@@ -113,8 +106,8 @@ const usePhoneOtp = () => {
         phone: phone ?? profile?.phone
       }
     })
-
-    if (data?.verifyOtp) {
+    isVerified = isVerified || data?.verifyOtp
+    if (isVerified) {
       mutateUser({
         variables: {
           name: name ?? profile?.name,
