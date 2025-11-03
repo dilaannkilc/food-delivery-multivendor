@@ -28,7 +28,6 @@ export default function SettingsMain() {
   const [deleteReason, setDeleteReason] = useState<string>("")
   const [isUpdatePhoneModalVisible, setIsUpdatePhoneModalVisible] = useState<boolean>(false)
   const [isUpdateNameModalVisible, setIsUpdateNameModalVisible] = useState<boolean>(false)
-  const [activeStep, setActiveStep] = useState<number>(0);
 
   // Hooks
   const { setAuthToken } = useAuth();
@@ -201,8 +200,6 @@ export default function SettingsMain() {
        <UpdatePhoneModal
           handleUpdatePhoneModal={handleUpdatePhoneModal}
           isUpdatePhoneModalVisible={isUpdatePhoneModalVisible}
-          ActiveStep={activeStep}
-          setActiveStep={setActiveStep}
         />
 
         {/* Upate Name MOdal */}

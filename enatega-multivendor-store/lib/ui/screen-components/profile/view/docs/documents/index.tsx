@@ -153,7 +153,7 @@ export default function DocumentsSection() {
           </Text>
           {dataProfile?.currentWalletAmount ? (
             <Text style={{ color: appTheme.fontSecondColor }}>
-              ${dataProfile?.currentWalletAmount?.toFixed(2)}
+              ${dataProfile?.currentWalletAmount}
             </Text>
           ) : (
             <Ionicons name="sad-outline" color={appTheme.iconPink} size={20} />
