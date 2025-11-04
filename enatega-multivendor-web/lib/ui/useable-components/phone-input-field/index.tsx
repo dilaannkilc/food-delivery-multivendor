@@ -78,9 +78,8 @@ export default function CustomPhoneTextField({
           style={inputStyle}
           inputStyle={{
             ...MaininputStyle,
-            borderColor: style?.borderColor || MaininputStyle.borderColor,   
-          }
-        }
+            borderColor: style?.borderColor || MaininputStyle.borderColor,
+          }}
         />
       </div>
     </div>
