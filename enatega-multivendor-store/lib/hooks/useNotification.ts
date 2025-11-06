@@ -53,17 +53,11 @@ export default function useNotification() {
 
     if (finalStatus === "granted") {
       Notifications.setNotificationHandler({
-        handleNotification: async (
-          notification: Notifications.Notification
-        ) => {
+        handleNotification: async () => {
           return {
-            shouldShowAlert: true, // ✅ show banner/alert
-            shouldPlaySound: true, // ✅ play notification sound
-            // shouldShowAlert: false, // Prevent the app from closing
-            // shouldPlaySound: false,
+            shouldShowAlert: false, // Prevent the app from closing
+            shouldPlaySound: false,
             shouldSetBadge: false,
-            shouldShowBanner: false,
-            shouldShowList: false,
           };
         },
       });
@@ -80,9 +74,6 @@ export default function useNotification() {
         response.notification.request.content.data
       ) {
         const { _id } = response.notification.request.content.data;
-
-        console.log("notification response", response);
-
         // const { data } = await client.query({
         //   query: STORE_ORDERS,
         //   fetchPolicy: "network-only",
@@ -118,7 +109,6 @@ export default function useNotification() {
     getPermission: Notifications.getPermissionsAsync,
     requestPermission: Notifications.requestPermissionsAsync,
     getExpoPushToken: Notifications.getExpoPushTokenAsync,
-    getDevicePushToken: Notifications.getDevicePushTokenAsync,
     sendTokenToBackend,
     restaurantData: data,
     savingToken: loading,

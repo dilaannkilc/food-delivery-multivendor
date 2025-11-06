@@ -32,6 +32,7 @@ const styles = (props = null) =>
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: '#000',
+      filter: 'blur(10)'
     },
     modalView: {
       width: '90%',

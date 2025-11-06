@@ -26,8 +26,7 @@ const MainModalize = ({
   return (
     <Modalize
       ref={modalRef}
-      adjustToContentHeight
-      disableScrollIfPossible={false}
+      modalHeight= {HEIGHT * 0.6}
       modalStyle={styles(currentTheme).modal}
       overlayStyle={styles(currentTheme).overlay}
       handleStyle={styles(currentTheme).handle}
