@@ -32,8 +32,6 @@ function About(props) {
   const { isConnected: connect } = useNetworkStatus()
   const configuration = useContext(ConfigurationContext)
 
-  console.log(JSON.stringify(restaurantObject, null, 2), "restaurantObject")
-
   const currentTheme = {
     isRTL: i18n.dir() === 'rtl',
     ...theme[themeContext.ThemeValue]
@@ -49,7 +47,6 @@ function About(props) {
     isOpen: restaurantObject.IsOpen,
     phone: restaurantObject.phone,
     restaurantUrl: restaurantObject.restaurantUrl,
-    tax : restaurantObject.tax,
     map: {
       latitude: Number(restaurantObject.latitude) || 0,
       longitude: Number(restaurantObject.longitude) || 0,
@@ -67,9 +64,6 @@ function About(props) {
     Track()
   }, [])
 
-  const typeName = restaurantObject.__typename;
-  console.log(RestAbout)
-
   if (!connect) return <ErrorView refetchFunctions={[]} />
   return (
     <SafeAreaView style={styles(currentTheme).safeAreaViewStyles}>
@@ -81,7 +75,7 @@ function About(props) {
           { backgroundColor: currentTheme.headerMenuBackground }
         ]}
       >
-        <ImageHeader iconColor={currentTheme.newIconColor} svgNameL='leftArrow' restaurantImage={restaurantObject.restaurantImage} restaurantName={ restaurantObject.restaurantName} deliveryTime={restaurantObject.deliveryTime} total={restaurantObject.total} rating={restaurantObject?.reviews && restaurantObject?.reviews?.length === 0 ? 0 : restaurantObject.reviews && restaurantObject?.reviews[0]?.rating} />
+        <ImageHeader iconColor={currentTheme.newIconColor} svgNameL='leftArrow' restaurantImage={restaurantObject.restaurantImage} restaurantName={restaurantObject.restaurantName} deliveryTime={restaurantObject.deliveryTime} total={restaurantObject.total} rating={restaurantObject?.reviews && restaurantObject?.reviews?.length === 0 ? 0 : restaurantObject.reviews && restaurantObject?.reviews[0]?.rating} />
         {/* map view */}
         <View style={styles(currentTheme).mapContainer}>
           <MapView style={styles().flex} scrollEnabled={false} zoomEnabled={false} zoomControlEnabled={false} rotateEnabled={false} cacheEnabled={false} initialRegion={RestAbout.map} customMapStyle={customMapStyle} provider={PROVIDER_DEFAULT} />
@@ -100,7 +94,7 @@ function About(props) {
                 bolder
                 textColor={currentTheme.fontThirdColor}
               >
-                {typeName == "RestaurantPreview" ? RestAbout.name : restaurantObject?.restaurantName}
+                {restaurantObject?.restaurantName}
               </TextDefault>
               <View
                 style={{
@@ -227,17 +221,17 @@ function About(props) {
             <View style={alignment.MTsmall}>
               <TextDefault isRTL H5 textColor={currentTheme.fontThirdColor} bold style={alignment.MTxSmall}>
                 {t('minimumOrder')} {configuration.currencySymbol}
-                {typeName == "RestaurantPreview" ? RestAbout.minimumOrder :restaurantObject.restaurantMinOrder}
+                {restaurantObject.restaurantMinOrder}
               </TextDefault>
 
               <TextDefault isRTL H5 textColor={currentTheme.fontThirdColor} bold style={alignment.MTxSmall}>
-                {t('delivery')} {typeName == "RestaurantPreview" ? RestAbout.deliveryTime : restaurantObject.deliveryTime} {t('Min')}
+                {t('delivery')} {restaurantObject.deliveryTime} {t('Min')}
               </TextDefault>
 
               <TextDefault isRTL H5 textColor={currentTheme.fontThirdColor} bold style={alignment.MTxSmall}>
 
                 {t('salesTax')} {configuration.currencySymbol}
-                {typeName == "RestaurantPreview" ? RestAbout.tax : restaurantObject.restaurantTax}
+                {restaurantObject.restaurantTax}
               </TextDefault>
             </View>
           </View>
