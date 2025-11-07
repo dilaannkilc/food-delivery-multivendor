@@ -39,13 +39,12 @@ export interface IEmailVerificationProps {
   emailOtp: string;
   setEmailOtp: Dispatch<SetStateAction<string>>;
   handleChangePanel: (index: number) => void;
-   formData:any,
+   formData,
 }
 export interface IPhoneVerificationProps {
   phoneOtp: string;
   setPhoneOtp: Dispatch<SetStateAction<string>>;
   handleChangePanel: (index: number) => void;
-  formData:any,
 }
 
 export interface IUserLoginArguments {
@@ -194,8 +193,6 @@ export interface ICreateUserArguments {
   name?: string;
   notificationToken?: string;
   appleId?: string;
-  emailIsVerified?: boolean; // optional, can be undefined
-
 }
 export interface IVerificationEmailForChangePasswordProps {
   handleSubmitAfterVerification: () => void;

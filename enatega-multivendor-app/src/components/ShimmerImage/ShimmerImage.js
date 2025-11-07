@@ -1,23 +1,22 @@
+import React, { useEffect, useState } from 'react'
+import { View, Animated, StyleSheet, Image } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import LottieView from 'lottie-react-native'
-import React, { useEffect, useState, useRef } from 'react'
-import { Animated, StyleSheet, View, Image } from 'react-native'
 import CartItemPlaceholder from '../../assets/images/CartItemPlaceholder.png'
+import LottieView from 'lottie-react-native'
 
-const ShimmerImage = ({ imageUrl, style, resizeMode = 'cover', defaultSource }) => {
+const ShimmerImage = ({ imageUrl, style }) => {
   // Check if we have a valid image URL
   const hasValidUrl = imageUrl && imageUrl.trim().length > 0
 
   const [imageLoaded, setImageLoaded] = useState(false)
-  const [imageError, setImageError] = useState(false)
-  const shimmerAnimation = useRef(new Animated.Value(0)).current
-  const fadeAnim = useRef(new Animated.Value(0)).current
-  const imagePath = require('../../assets/SVG/ShiimerImagePlaceholder.json')
+  const shimmerAnimation = new Animated.Value(0)
+  const fadeAnim = new Animated.Value(0)
+  imagePath = require('../../assets/SVG/ShiimerImagePlaceholder.json')
 
-  // Only start shimmer animation if we have a valid URL and image hasn't loaded
+  // Only start shimmer animation if we have a valid URL
   useEffect(() => {
-    if (hasValidUrl && !imageLoaded && !imageError) {
-      const shimmerLoop = Animated.loop(
+    if (hasValidUrl) {
+      Animated.loop(
         Animated.sequence([
           Animated.timing(shimmerAnimation, {
             toValue: 1,
@@ -30,73 +29,48 @@ const ShimmerImage = ({ imageUrl, style, resizeMode = 'cover', defaultSource }) 
             useNativeDriver: true
           })
         ])
-      )
-      shimmerLoop.start()
-
-      // Cleanup function to stop animation
-      return () => {
-        shimmerLoop.stop()
-      }
+      ).start()
     }
-  }, [hasValidUrl, imageLoaded, imageError, shimmerAnimation])
+  }, [hasValidUrl])
 
   // Fade in image when loaded
   useEffect(() => {
-    if (imageLoaded && !imageError) {
+    if (imageLoaded) {
       Animated.timing(fadeAnim, {
         toValue: 1,
         duration: 300,
         useNativeDriver: true
       }).start()
     }
-  }, [imageLoaded, imageError, fadeAnim])
+  }, [imageLoaded])
 
   const translateX = shimmerAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: [-200, 200]
   })
 
-  const handleImageLoad = () => {
-    setImageLoaded(true)
-    setImageError(false)
-  }
-
-  const handleImageError = () => {
-    setImageError(true)
-    setImageLoaded(false)
-  }
-
-  // If we don't have a valid URL or image failed to load, show placeholder
-  if (!hasValidUrl || imageError) {
+  // If we don't have a valid URL, just render the placeholder
+  if (!hasValidUrl) {
     return (
       <View style={[styles.container, style]}>
-        {defaultSource ? (
-          <Image
-            source={defaultSource}
-            style={[StyleSheet.absoluteFill]}
-            resizeMode={resizeMode}
-          />
-        ) : (
-          <LottieView
-            style={{
-              width: '100%',
-              height: '100%'
-            }}
-            source={imagePath}
-            autoPlay
-            loop
-            speed={0.35}
-            resizeMode="cover"
-          />
-        )}
+        <LottieView
+          style={{
+            width: '100%',
+            height: '100%'
+          }}
+          source={imagePath}
+          autoPlay
+          loop
+          speed={0.35}
+          resizeMode='cover'
+        />
       </View>
     )
   }
 
-  // If we have a valid URL, show shimmer while loading, then the image
+  // If we have a valid URL, show shimmer while loading
   return (
     <View style={[styles.container, style]}>
-      {/* Show shimmer only while loading */}
       {!imageLoaded && (
         <View style={[StyleSheet.absoluteFill, styles.shimmerContainer]}>
           <Animated.View
@@ -117,19 +91,21 @@ const ShimmerImage = ({ imageUrl, style, resizeMode = 'cover', defaultSource }) 
         </View>
       )}
 
-      {/* Main image */}
       <Animated.Image
         source={{ uri: imageUrl }}
-        onLoad={handleImageLoad}
-        onError={handleImageError}
+        onLoad={() => setImageLoaded(true)}
+        onError={() => {
+          // If image fails to load, show placeholder
+          setImageLoaded(true)
+        }}
         style={[
           StyleSheet.absoluteFill,
           {
-            opacity: imageLoaded ? fadeAnim : 0
+            opacity: fadeAnim
           }
         ]}
-        resizeMode={resizeMode}
-        // Remove defaultSource prop as it can cause flashing
+        resizeMode='cover'
+        defaultSource={CartItemPlaceholder}
       />
     </View>
   )
@@ -147,7 +123,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     position: 'absolute'
+  },
+  image: {
+    width: '100%',
+    height: '100%'
   }
 })
 
-export default ShimmerImage
+export default React.memo(ShimmerImage)

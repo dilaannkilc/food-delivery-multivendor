@@ -819,11 +819,27 @@ export const FavouriteRestaurant = `query UserFavourite ($latitude:Float,$longit
       location{coordinates}
       deliveryTime
       minimumOrder
-      shopType
       tax
       isAvailable
       reviewCount
       reviewAverage
+      reviewData{
+        total
+        ratings
+        reviews{
+          _id
+          order{
+            user{
+              _id
+              name
+              email
+            }
+          }
+          rating
+          description
+          createdAt
+        }
+      }
       categories{
         _id
         title

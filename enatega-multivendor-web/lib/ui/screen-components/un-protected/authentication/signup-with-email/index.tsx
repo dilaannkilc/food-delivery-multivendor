@@ -34,25 +34,45 @@ export default function SignUpWithEmail({
     setIsLoading,
     setIsRegistering,
     setIsAuthModalVisible,
-    handleCreateUser,
   } = useAuth();
   const { showToast } = useToast();
   const { SKIP_EMAIL_VERIFICATION, SKIP_MOBILE_VERIFICATION } = useConfig();
+
+  // Validation
+  const validatePassword = (password: string) => {
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    return strongPasswordRegex.test(password);
+  };
 
   // Handlers
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
       setIsRegistering(true);
-      if (Object.values(formData).some((val) => !val)) {
+      if (Object.values(formData).some((val) => !val)) {  
         return showToast({
           type: "error",
           title: t("create_user_label"),
           message: t("all_fields_are_required_to_be_filled_message"),
         });
+      }
+      const namePattern = /^[A-Za-z\s]+$/;
+      if (!namePattern.test(formData.name || "")) {
+        return showToast({
+          type: "error",
+          title: t("create_user_label"),
+          message: t("please_enter_a_valid_name_message"), // add this key in translations
+        });
+      }
+      if (!validatePassword(formData.password || "")) {
+        return showToast({
+          type: "error",
+          title: t("create_user_label"),
+          message: t("password_not_strong_enough_message"),
+        });
       } else {
         if (formData.email && !SKIP_EMAIL_VERIFICATION) {
-          sendOtpToEmailAddress(formData?.email);
+          sendOtpToEmailAddress(formData.email,);
           // Verify email OTP
           handleChangePanel(3);
         } else if (formData.phone && !SKIP_MOBILE_VERIFICATION) {
@@ -61,24 +81,13 @@ export default function SignUpWithEmail({
           handleChangePanel(6);
         } else if (SKIP_EMAIL_VERIFICATION && SKIP_MOBILE_VERIFICATION) {
           // Navigate to first modal
-          const userData = await handleCreateUser({
-            email: formData?.email,
-            phone: formData?.phone,
-            name: formData?.name,
-            password: formData?.password,
-            emailIsVerified:false
-          });
           handleChangePanel(0);
           setIsAuthModalVisible(false);
-          // if userData exist then show success message
-          if (userData){
-            showToast({
-              type: "success",
-              title: t("register_label"),
-              message: t("successfully_registered_your_account_message"), // put an exclamation mark at the end of this sentence in the translations
-            });
-          }
-      
+          showToast({
+            type: "success",
+            title: t("register_label"),
+            message: t("successfully_registered_your_account_message"), // put an exclamation mark at the end of this sentence in the translations
+          });
         }
       }
     } catch (err) {
