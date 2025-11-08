@@ -78,11 +78,10 @@ export default function PersonalInfoMain() {
           </div>
         </div>
         <UpdatePhoneModal
-          userPhone={profileData?.profile?.phone || ""}
           handleUpdatePhoneModal={handleUpdatePhoneModal}
           ActiveStep={activeStep}
           setActiveStep={setActiveStep}
-          
+
           isUpdatePhoneModalVisible={isUpdatePhoneModalVisible}
         />
       </div>

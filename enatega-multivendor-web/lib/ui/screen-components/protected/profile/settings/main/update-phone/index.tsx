@@ -27,16 +27,13 @@ export interface IUpdatePhoneModalProps {
   handleUpdatePhoneModal: () => void,
   ActiveStep?: number,
   setActiveStep: (step: number) => void
-  userPhone?: string
 }
 
 export default function UpdatePhoneModal({
   isUpdatePhoneModalVisible,
   handleUpdatePhoneModal,
   ActiveStep,
-  setActiveStep,
-  userPhone
-
+  setActiveStep
   
 }: IUpdatePhoneModalProps) {
   // States
@@ -195,7 +192,6 @@ export default function UpdatePhoneModal({
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 user={user}
-                userPhone={userPhone}
                 handleUpdatePhoneModal={handleUpdatePhoneModal}
             />
             ) : (
