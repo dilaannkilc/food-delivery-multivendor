@@ -359,7 +359,7 @@ const TermsConditions = () => {
           </h1>
         </div>
       </div>
-      <div className="w-[90%] mx-auto dark:text-gray-300">
+      <div className="w-[90%] mx-auto">
         {ParasData?.map((item) => {
           return <OnePara Para={item} key={item.head} />;
         })}

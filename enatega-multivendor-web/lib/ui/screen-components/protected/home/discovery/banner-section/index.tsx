@@ -9,19 +9,12 @@ import DiscoveryBannerSkeleton from "@/lib/ui/useable-components/custom-skeleton
 import { IGetBannersResponse } from "@/lib/utils/interfaces";
 // banner card
 import BannerCard from "./banner-card";
-import { useEffect, useState } from "react";
 
 export default function DiscoveryBannerSection() {
   const { data, loading, error } = useQuery<IGetBannersResponse>(GET_BANNERS, {
     fetchPolicy: "cache-and-network",
   });
 
-   // Check if RTL (client-side only)
-   const [isRTL, setIsRTL] = useState(false);
-   useEffect(() => {
-     setIsRTL(document.documentElement.dir === "rtl");
-   }, []);
-  
   if (loading) {
     return <DiscoveryBannerSkeleton />;
   }
@@ -30,9 +23,8 @@ export default function DiscoveryBannerSection() {
   }
 
   return (
-    <div dir={isRTL ? "rtl" : "ltr"}>
     <Carousel
-      className={`discovery-carousel ${isRTL ? "rtl-carousel" : ""}`} // Add RTL class
+      className="discovery-carousel flex justify-center items-center mb-[3%] md:mb-[2]"
       value={data?.banners}
       numVisible={2}
       numScroll={1}
@@ -47,6 +39,5 @@ export default function DiscoveryBannerSection() {
         { breakpoint: "1024px", numVisible: 2, numScroll: 1 }, // Tablets
       ]}
     />
-    </div>
   );
 }

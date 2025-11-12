@@ -35,7 +35,8 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
 
   const router = useRouter();
   const pathname = usePathname();
-  const t = useTranslations();
+    const t = useTranslations()
+  
 
   function getNumVisible() {
     if (typeof window === "undefined") return 6;
@@ -92,62 +93,34 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
     router.push(`/see-all/${title?.toLocaleLowerCase().replace(/\s/g, "-")}`);
   };
 
-  // Check if RTL (client-side only)
-  const [isRTL, setIsRTL] = useState(false);
-  useEffect(() => {
-    setIsRTL(document.documentElement.dir === "rtl");
-  }, []);
-
   return (
     data?.length > 0 && (
       <div className={`${last && "mb-20"}`}>
         <div className="flex justify-between mx-[6px]">
-          <span className="font-inter font-bold text-xl sm:text-2xl leading-8 tracking-normal text-gray-900 dark:text-white">
+          <span className="font-inter font-bold text-xl sm:text-2xl leading-8 tracking-normal text-gray-900">
             {title}
           </span>
           <div className="flex items-center justify-end gap-x-2 mb-2">
-            {pathname !== "/store" &&
-              pathname !== "/restaurants" &&
-              !cuisines && (
-                <CustomButton
-                  label={t("see_all")}
-                  onClick={onSeeAllClick}
-                  className="text-[#0EA5E9] transition-colors duration-200 text-sm md:text-base "
-                />
-              )}
+            {pathname !== "/store" && pathname !== "/restaurants" && !cuisines && (
+              <CustomButton
+                label={t("see_all")}
+                onClick={onSeeAllClick}
+                className="text-[#0EA5E9] transition-colors duration-200 text-sm md:text-base "
+              />
+            )}
             {data.length > numVisible && (
               <div className="gap-x-2 hidden md:flex">
                 <button
-                  className="w-8 h-8 flex items-center justify-center shadow-md rounded-full dark:bg-gray-800"
+                  className="w-8 h-8 flex items-center justify-center shadow-md rounded-full"
                   onClick={prev}
                 >
-                  {isRTL ? (
-                    <FontAwesomeIcon
-                      className="dark:text-white"
-                      icon={faAngleRight}
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      className="dark:text-white"
-                      icon={faAngleLeft}
-                    />
-                  )}
+                  <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
                 <button
-                  className="w-8 h-8 flex items-center justify-center shadow-md rounded-full dark:bg-gray-800"
+                  className="w-8 h-8 flex items-center justify-center shadow-md rounded-full"
                   onClick={next}
                 >
-                  {isRTL ? (
-                    <FontAwesomeIcon
-                      className="dark:text-white"
-                      icon={faAngleLeft}
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      className="dark:text-white"
-                      icon={faAngleRight}
-                    />
-                  )}
+                  <FontAwesomeIcon icon={faAngleRight} />
                 </button>
               </div>
             )}
@@ -162,7 +135,7 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
         >
           <Carousel
             value={data}
-            className={`discovery-carousel ${isRTL ? "rtl-carousel" : ""}`} // Add RTL class
+            className="w-[100%] h-[100%]"
             itemTemplate={(item) => (
               <SquareCard item={item} showLogo={showLogo} cuisines={cuisines} />
             )}
