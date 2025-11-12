@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@/lib/providers/ThemeProvider";
 import InstallPWA from "@/lib/ui/pwa/InstallPWA";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
@@ -26,24 +25,9 @@ export default async function RootLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale}>
       <head>
         <link rel="icon" type="image/png" href="/favsicon.png" />
-        {/* 🔥 Inline theme script to prevent flash of wrong theme */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                const theme = localStorage.getItem("theme");
-                if (theme === "dark") {
-                  document.documentElement.classList.add("dark");
-                } else {
-                  document.documentElement.classList.remove("dark");
-                }
-              })();
-            `,
-          }}
-        />
         <Script
           src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
           strategy="beforeInteractive"
@@ -63,12 +47,10 @@ export default async function RootLayout({
         {/* Add more media queries for other device sizes if needed */}
       </head>
       <body>
-      <ThemeProvider>
         <NextIntlClientProvider messages={messages}>
           {children}
           <InstallPWA/>
         </NextIntlClientProvider>
-        </ThemeProvider>
       </body>
     </html>
   );

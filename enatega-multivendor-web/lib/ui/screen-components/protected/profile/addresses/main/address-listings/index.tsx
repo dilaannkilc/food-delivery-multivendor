@@ -17,24 +17,24 @@ const AddressItem: FC<IAddressItemProps> = ({
   return (
     <div
       key={address?._id}
-      className="flex items-center justify-between p-4 border-b relative dark:border-gray-700"
+      className="flex items-center justify-between p-4 border-b relative"
     >
       <div className="flex items-center">
         <div className="mr-4">
-          <HomeSvg color="black" width={28} height={28} darkColor="#ffffff" />
+          <HomeSvg color="black" width={28} height={28} />
         </div>
         <div>
           <TextComponent
             text={address?.label || "N/A"}
-            className="font-medium md:text-lg text-base dark:text-gray-100"
+            className="font-medium md:text-lg text-base"
           />
           <TextComponent
             text={address?.deliveryAddress || "N/A"}
-            className="md:text-base text-sm dark:text-gray-300"
+            className="md:text-base text-sm"
           />
           <TextComponent
             text={address?.details || ""}
-            className="md:text-sm text-xs dark:text-gray-400"
+            className="md:text-sm text-xs"
           />
         </div>
       </div>
@@ -43,19 +43,19 @@ const AddressItem: FC<IAddressItemProps> = ({
           className="cursor-pointer"
           onClick={() => toggleDropdown(address?._id)}
         >
-          <MenuSvg width={28} height={28} darkColor="#ffffff" />
+          <MenuSvg width={28} height={28} />
         </span>
 
         {activeDropdown === address?._id && (
-          <div className="absolute right-0 top-full mt-2 w-40 bg-white dark:bg-gray-800  border dark:border-gray-700 rounded shadow-lg z-10">
+          <div className="absolute right-0 top-full mt-2 w-40 bg-white border rounded shadow-lg z-10">
             <div
-              className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer dark:text-gray-100"
+              className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => onEditAddress && onEditAddress(address)}
             >
               {t("Edit_button_Address")}
             </div>
             <div
-              className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-red-600 dark:text-red-400"
+              className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-600"
               onClick={() => handleDelete(address?._id)}
             >
               {t("Delete_button_Address")}

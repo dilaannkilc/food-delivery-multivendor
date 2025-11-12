@@ -97,7 +97,7 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
     data?.length > 0 && (
       <div className={`${last && "mb-20"}`}>
         <div className="flex justify-between mx-[6px]">
-          <span className="font-inter font-bold text-xl sm:text-2xl leading-8 tracking-normal text-gray-900 dark:text-white">
+          <span className="font-inter font-bold text-xl sm:text-2xl leading-8 tracking-normal text-gray-900">
             {title}
           </span>
           <div className="flex items-center justify-end gap-x-2 mb-2">
@@ -111,16 +111,16 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
             {data.length > numVisible && (
               <div className="gap-x-2 hidden md:flex">
                 <button
-                  className="w-8 h-8 flex items-center justify-center shadow-md rounded-full dark:bg-gray-800"
+                  className="w-8 h-8 flex items-center justify-center shadow-md rounded-full"
                   onClick={prev}
                 >
-                  <FontAwesomeIcon icon={faAngleLeft} className="dark:text-white" />
+                  <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
                 <button
-                  className="w-8 h-8 flex items-center justify-center shadow-md rounded-full dark:bg-gray-800"
+                  className="w-8 h-8 flex items-center justify-center shadow-md rounded-full"
                   onClick={next}
                 >
-                  <FontAwesomeIcon icon={faAngleRight} className="dark:text-white"/>
+                  <FontAwesomeIcon icon={faAngleRight} />
                 </button>
               </div>
             )}

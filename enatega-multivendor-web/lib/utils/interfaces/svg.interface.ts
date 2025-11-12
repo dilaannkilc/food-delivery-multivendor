@@ -5,5 +5,4 @@ export interface ISvgComponentProps {
   viewBox?: string;
   color?: string;
   isBlue?: boolean;
-  darkColor?: string;
 }

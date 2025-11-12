@@ -272,7 +272,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
       // Subcase: No search history
       if (searchedKeywords.length === 0) {
         return (
-          <div className="text-center py-4 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-4 text-gray-500">
             {t("start_typing_to_search_for_restaurants_or_stores")}
           </div>
         );
@@ -282,11 +282,11 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
       return (
         <div>
           <div className="flex flex-row justify-between">
-            <span className="text-sm font-normal mb-2 text-gray-500 dark:text-gray-400">
+            <span className="text-sm font-normal mb-2 text-gray-500">
               {t("you_recently_searched")}
             </span>
             <span
-              className="text-sm font-normal mb-2 text-sky-500 hover:cursor-pointer dark:text-[#94e469]"
+              className="text-sm font-normal mb-2 text-sky-500 hover:cursor-pointer"
               onClick={() => {
                 deleteSearchedKeywords();
                 setSearchedKeywords([]);
@@ -299,11 +299,11 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
             {searchedKeywords.map((keyword, i) => (
               <div
                 key={i}
-                className="flex items-center gap-1 p-1 hover:cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+                className="flex items-center gap-1 p-1 hover:cursor-pointer"
                 onClick={() => setFilter(keyword)}
               >
                 <ClockSvg width={18} height={18} color="gray" />
-                <span className="text-base dark:text-white">{keyword}</span>
+                <span className="text-base">{keyword}</span>
               </div>
             ))}
           </div>
@@ -326,7 +326,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
 
     // Case 3: No results found for the searched keyword
     return (
-      <div className="text-center py-6 text-gray-500 dark:text-gray-400 flex flex-col items-center justify-center">
+      <div className="text-center py-6 text-gray-500 flex flex-col items-center justify-center">
         <EmptySearch />
       </div>
     );
@@ -343,26 +343,26 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
     return "";
   }
 
+
+
   return (
     <>
       <nav
-        className={`w-screen shadow-sm z-50 bg-white dark:bg-gray-900 layout-top-bar ${isSearchFocused ? "sticky top-0" : ""}`}
+        className={`w-screen shadow-sm z-50 bg-white layout-top-bar ${isSearchFocused ? "sticky top-0" : ""}`}
       >
-        <div className="w-full">
+        <div className={`w-full`}>
           <PaddingContainer>
             <div className="flex items-center justify-between w-full h-16 gap-2 flex-wrap md:flex-nowrap">
               {/* Left Section */}
-              <div className="flex items-center gap-2 flex-shrink-0 cursor-pointer">
+              <div
+                className={`flex items-center gap-2 flex-shrink-0 cursor-pointer`}
+              >
                 {!isSearchFocused && (
                   <div
                     onClick={logoClickHandler}
-                    className="text-xl font-bold text-gray-900 dark:text-white"
+                    className="text-xl font-bold text-gray-900"
                   >
-                    <Logo
-                      className="w-32 h-auto"
-                      fillColor="#000000"
-                      darkmode="#FFFFFFFF"
-                    />
+                    <Logo className="w-32 h-auto" fillColor="#000000" />
                   </div>
                 )}
                 {!isSearchFocused && (
@@ -375,7 +375,9 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                       <LocationSvg width={22} height={22} />
                     </div>
 
+                    {/* Show on medium and up */}
                     <span className="hidden md:inline text-xs sm:text-sm md:text-base text-[#94e469] font-inter font-normal leading-6 tracking-normal mr-2 truncate">
+                      {/* {userAddress?.deliveryAddress} */}
                       {fittedAddress(userAddress?.deliveryAddress)}
                     </span>
 
@@ -396,6 +398,21 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                 className={`flex-grow transition-all duration-500 ease-in-out ${isSearchFocused ? "max-w-full" : "max-w-md"} px-2`}
               >
                 <div className="relative w-full">
+                  {/* Search Icon - visible only below sm */}
+                  {/* {!isSearchFocused && (
+                    <div className="sm:hidden flex justify-end items-center w-full">
+                      <div
+                        className="w-7 h-7 bg-gray-100 rounded-full flex items-center justify-center cursor-pointer"
+                        onClick={() => {
+                          setIsSearchFocused(true);
+                        }}
+                      >
+                        <SearchSvg width={16} height={16} />
+                      </div>
+                    </div>
+                  )} */}
+
+                  {/* Search Input - hidden on mobile unless focused */}
                   <input
                     id="search-input"
                     value={filter}
@@ -403,16 +420,18 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                     onFocus={() => setIsSearchFocused(true)}
                     placeholder={t("SearchBarPlaceholder")}
                     className={`
-                w-full px-4 py-2 pr-10 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-sky-500
-                ${!isSearchFocused ? "hidden" : "block"} sm:block
-                dark:bg-gray-800 dark:text-white
-              `}
+      w-full px-4 py-2 pr-10 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-sky-500
+      ${!isSearchFocused ? "hidden" : "block"} sm:block
+    `}
                   />
 
+                  {/* Clear Icon */}
                   {isSearchFocused && (
                     <div
-                      className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-gray-100 dark:bg-gray-700 rounded-full w-6 h-6 items-center justify-center cursor-pointer hidden sm:flex"
-                      onClick={() => setFilter("")}
+                      className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-gray-100 rounded-full w-6 h-6 items-center justify-center cursor-pointer hidden sm:flex"
+                      onClick={() => {
+                        setFilter("");
+                      }}
                     >
                       <CircleCrossSvg color="black" width={16} height={16} />
                     </div>
@@ -421,12 +440,17 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
               </div>
 
               {/* Right Section */}
-              <div className="flex items-center justify-end gap-2 flex-shrink-0">
+              <div
+                className={`flex items-center justify-end gap-2 flex-shrink-0`}
+              >
+                {/* Login Button */}
                 {!isSearchFocused && (
                   <div className="sm:hidden flex justify-end items-center w-full">
                     <div
-                      className="w-7 h-7 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center cursor-pointer"
-                      onClick={() => setIsSearchFocused(true)}
+                      className="w-7 h-7 bg-gray-100 rounded-full flex items-center justify-center cursor-pointer"
+                      onClick={() => {
+                        setIsSearchFocused(true);
+                      }}
                     >
                       <SearchSvg width={16} height={16} />
                     </div>
@@ -460,8 +484,9 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                         .join("") || "U"}
                     </div>
 
+                    {/* Show full name on large screens and up */}
                     {cartCount == 0 && (
-                      <span className="hidden xl:inline hover:cursor-pointer dark:text-white">
+                      <span className="hidden xl:inline hover:cursor-pointer">
                         {profile?.name || ""}
                       </span>
                     )}
@@ -470,25 +495,28 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                       icon={faChevronDown}
                       width={12}
                       hanging={12}
-                      color="#94e469"
                     />
                     <Menu
-                      className="
-                     dark:bg-gray-800
-                      
-                   "
                       model={[
                         {
                           label: t("ProfileSection.profile_label"),
-                          command: () => router.push("/profile"),
+                          command: () => {
+                            router.push("/profile");
+                          },
                         },
+
                         {
                           label: t("ProfileSection.gethelp"),
-                          command: () => router.push("/profile/getHelp"),
+                          command: () => {
+                            router.push("/profile/getHelp");
+                          },
                         },
                         {
                           label: t("ProfileSection.logout_appbar"),
-                          command: () => setLogoutConfirmationVisible(true),
+                          command: () => {
+                            // onLogout();
+                            setLogoutConfirmationVisible(true);
+                          },
                         },
                       ]}
                       popup
@@ -498,24 +526,22 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                     />
                   </div>
                 )}
-                {/* Language Dropdown */}{" "}
+                {/* Language Dropdown */}
                 {!isSearchFocused && (
                   <div className="relative" title="Languages">
-                    {" "}
                     <button
                       onClick={(e) => languageMenuRef.current?.toggle(e)}
                       className="flex items-center justify-center"
                     >
-                      {" "}
                       <FontAwesomeIcon
                         icon={faGlobe}
                         width={24}
                         height={24}
-                        className="text-gray-700 dark:text-gray-400"
-                      />{" "}
-                    </button>{" "}
+                        className="text-gray-700"
+                      />
+                    </button>
+
                     <Menu
-                      className="dark:bg-gray-800 dark:text-white "
                       model={[
                         {
                           label: "ENGLISH",
@@ -525,8 +551,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                                 className={`${currentLocale === "en" ? "bg-[#5AC12F]" : ""} p-2 cursor-pointer`}
                                 onClick={() => onLocaleChange("en")}
                               >
-                                {" "}
-                                {item.label}{" "}
+                                {item.label}
                               </div>
                             );
                           },
@@ -542,8 +567,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                                 className={`${currentLocale === "ar" ? "bg-[#5AC12F]" : ""} p-2 cursor-pointer`}
                                 onClick={() => onLocaleChange("ar")}
                               >
-                                {" "}
-                                {item.label}{" "}
+                                {item.label}
                               </div>
                             );
                           },
@@ -559,8 +583,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                                 className={`${currentLocale === "fr" ? "bg-[#5AC12F]" : ""} p-2 cursor-pointer`}
                                 onClick={() => onLocaleChange("fr")}
                               >
-                                {" "}
-                                {item.label}{" "}
+                                {item.label}
                               </div>
                             );
                           },
@@ -576,8 +599,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                                 className={`${currentLocale === "hr" ? "bg-[#5AC12F]" : ""} p-2 cursor-pointer`}
                                 onClick={() => onLocaleChange("hr")}
                               >
-                                {" "}
-                                {item.label}{" "}
+                                {item.label}
                               </div>
                             );
                           },
@@ -590,9 +612,10 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                       ref={languageMenuRef}
                       id="language_menu_popup"
                       popupAlignment="right"
-                    />{" "}
+                    />
                   </div>
                 )}
+
                 {/* Cart Button */}
                 <div className="p-1 cursor-pointer">
                   {cartCount > 0 && !isSearchFocused && (
@@ -619,9 +642,10 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                       </span>
                     </div>
                   )}
+
                   {isSearchFocused ? (
                     <div
-                      className="flex items-center justify-center rounded-full w-10 h-10 bg-gray-100 dark:bg-gray-700 relative cursor-pointer"
+                      className={`flex items-center justify-center rounded-full w-10 h-10 bg-gray-100 relative cursor-pointer`}
                       onClick={() => {
                         setIsSearchFocused(false);
                         setFilter("");
@@ -631,12 +655,16 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                     </div>
                   ) : (
                     <div
-                      className={`${cartCount > 0 ? "lg:hidden" : ""} flex items-center justify-center rounded-full w-8 h-8 md:w-10 md:h-10 bg-gray-100 dark:bg-gray-500 relative`}
+                      className={`${cartCount > 0 ? "lg:hidden" : ""} flex items-center justify-center rounded-full w-8 h-8 md:w-10 md:h-10 bg-gray-100 relative`}
                       onClick={() => setIsCartOpen(true)}
                     >
+                      {/* <CartSvg color="black" width={22} height={22} /> */}
+                      {/* Show on small screens only */}
                       <div className="block sm:hidden">
                         <CartSvg color="black" width={18} height={18} />
                       </div>
+
+                      {/* Show on large screens only */}
                       <div className="hidden sm:block">
                         <CartSvg color="black" width={22} height={22} />
                       </div>
@@ -651,7 +679,6 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
               </div>
             </div>
 
-            {/* Search Results */}
             <div className="flex items-center justify-center">
               <div className="w-full md:w-7/12 pr-5">
                 <AnimatePresence>
@@ -662,7 +689,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.3 }}
-                      className="w-full h-[10%] mt-2 max-h-[60vh] bg-white dark:bg-gray-800 overflow-scroll"
+                      className="w-full h-[10%] mt-2 max-h-[60vh] bg-white overflow-scroll"
                     >
                       {renderSearchResults()}
                     </motion.div>
@@ -670,7 +697,6 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                 </AnimatePresence>
               </div>
             </div>
-
             {!isSearchFocused && (
               <div
                 className="my-2 lg:hidden"
@@ -709,7 +735,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
           window.dispatchEvent(new Event("orderInstructionsUpdated"));
         }}
         position="right"
-        className={`!ml-0 !p-0 !m-0 w-full md:w-[430px] lg:w-[580px] dark:bg-gray-800`}
+        className="!p-0 !m-0 w-full md:w-[430] lg:w-[580px]"
       >
         <Cart
           onClose={() => {
@@ -724,30 +750,30 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
         />
       </Sidebar>
 
+      
       {/* Logout Confirmation Dialog */}
       <Dialog
-        contentClassName="dark:bg-gray-800"
         maskClassName="bg-black/80"
         visible={logoutConfirmationVisible}
         onHide={() => setLogoutConfirmationVisible(false)}
-        className="w-[95%] sm:w-[80%] md:w-[60%] lg:w-1/3 rounded-xl px-8 bg-white dark:bg-gray-800 dark:text-white"
+        className="w-[95%] sm:w-[80%] md:w-[60%] lg:w-1/3 rounded-xl px-8 bg-white"
         header={
           <div className="w-full flex justify-center">
-            <span className="font-inter font-bold text-lg text-gray-800  dark:text-white ">
+            <span className="font-inter font-bold text-lg text-gray-800">
               Are you sure you want to log out?
             </span>
           </div>
         }
-        headerClassName="!justify-center dark:bg-gray-800"
+        headerClassName="!justify-center"
         closable={true}
         dismissableMask
       >
-        <div className="flex flex-col items-center text-center space-y-4 dark:bg-gray-800 dark:text-white">
+        <div className="flex flex-col items-center text-center space-y-4">
           {/* Action buttons */}
-          <div className="flex justify-center gap-3 w-full ">
+          <div className="flex justify-center gap-3 w-full">
             <CustomButton
               label="Cancel"
-              className="w-1/2 h-fit bg-transparent dark:text-white text-gray-900 py-2 border border-gray-400 rounded-full text-sm font-medium"
+              className="w-1/2 h-fit bg-transparent text-gray-900 py-2 border border-gray-400 rounded-full text-sm font-medium"
               onClick={() => setLogoutConfirmationVisible(false)}
             />
 
