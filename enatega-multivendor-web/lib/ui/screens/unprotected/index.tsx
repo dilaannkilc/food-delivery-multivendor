@@ -18,7 +18,7 @@ import { useTranslations } from "next-intl";
 const Main = () => {  
   const t = useTranslations("MiniCardsHomeScreen");
   return (
-    <div className="w-screen dark:bg-gray-900">
+    <div className="w-screen">
       <Start />
       <PaddingContainer>
         <div className="w-full">

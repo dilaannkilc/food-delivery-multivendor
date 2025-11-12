@@ -22,7 +22,7 @@ const Privacy = () => {
         </div>
       </div>
 
-      <div className="w-[90%] mx-auto my-12 dark:text-gray-300">
+      <div className="w-[90%] mx-auto my-12">
         <Paragraph
           paragraph={
             t("privacy_policy_intro")

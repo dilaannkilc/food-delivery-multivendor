@@ -79,7 +79,7 @@ const AboutUs = () => {
         </div>
       </div>
 
-      <div className="w-[90%] mx-auto dark:text-gray-300">
+      <div className="w-[90%] mx-auto">
         {AboutUsData.map((item) => (
           <OnePara Para={item} key={item.head} />
         ))}
