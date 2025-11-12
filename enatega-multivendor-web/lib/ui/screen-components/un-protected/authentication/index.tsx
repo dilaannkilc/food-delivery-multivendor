@@ -49,9 +49,6 @@ export default function AuthModal({
     phone: "",
   });
 
-  // get the RTL direction
-  const direction = document.documentElement.getAttribute("dir") || "ltr";
-
   // Refs
   const authenticationPanelRef = useRef(null);
 
@@ -145,8 +142,6 @@ export default function AuthModal({
 
   return (
     <Dialog
-      contentClassName="dark:bg-gray-900 dark:text-gray-300"
-      headerClassName="dark:bg-gray-900 dark:text-gray-300"
       visible={isAuthModalVisible}
       closeIcon
       onHide={handleModalToggle}
@@ -167,7 +162,7 @@ export default function AuthModal({
       {/* close icon to close the modal */}
       <button
         onClick={handleModalToggle}
-        className={` ${direction === "rtl" ? "left-0" : "right-0"} tooltip tooltip-left absolute top-3  z-10 transition-all duration-300 rounded-full p-2 dark:text-gray-300`}
+        className="tooltip tooltip-left absolute top-3 right-3 z-10 transition-all duration-300 rounded-full p-2"
         data-tip="Close"
         data-tooltip-id="close-auth-modal"
         data-tooltip-content="Close"
@@ -175,7 +170,7 @@ export default function AuthModal({
         <FontAwesomeIcon
           size="sm"
           icon={faXmark}
-          className="text-black dark:text-gray-300"
+          className="text-black"
           width={30}
           height={30}
         />

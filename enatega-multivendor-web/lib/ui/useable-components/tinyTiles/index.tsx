@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -22,21 +22,9 @@ const TinyTiles:React.FC<TilesData> = ({image,heading,buttonText,backColor,link}
      Router.push(link)
   }
 
-  // get theme from local storage
-    const [theme, setTheme] = useState("light");
-    useEffect(() => {
-      const storedTheme = localStorage.getItem("theme");
-      if (storedTheme) {
-        setTheme(storedTheme);
-      }
-    }, []);
-  
   return (
     <div className='p-4 w-[95%] mx-auto flex justify-between items-center rounded-3xl transform hover:scale-105 cursor-pointer transition duration-300'
-    style={
-      theme === "dark" ? {backgroundColor:"#1e3a4a"} :
-      {backgroundColor:backColor}
-      }>
+    style={{backgroundColor:backColor}}>
       <div className='flex'>
         <Image src={image} width={100} height={100} alt={"Image"}/>
         </div>
