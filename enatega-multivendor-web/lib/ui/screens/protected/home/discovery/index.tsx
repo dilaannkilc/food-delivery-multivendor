@@ -16,18 +16,22 @@ import CuisinesSection from "@/lib/ui/useable-components/cuisines-section";
 // hooks
 import useGetCuisines from "@/lib/hooks/useGetCuisines";
 import { useTranslations } from "next-intl";
+import useNearByRestaurantsPreview from "@/lib/hooks/useNearByRestaurantsPreview";
 
 export default function DiscoveryScreen() {
   const t = useTranslations();
   const { restaurantCuisinesData, groceryCuisinesData, error, loading } =
     useGetCuisines();
 
-  // if restaurantCuisinesData is empty array then call coomingSoonCard
-  if (loading) {
-    return null;
-  } else if (restaurantCuisinesData.length === 0) {
-    return <CommingSoonScreen />;
-  } else return (
+  const {
+    loading: restaurantsLoading,
+    restaurantsData,
+    groceriesData,
+  } = useNearByRestaurantsPreview();
+
+  // Show loader/skeleton while fetching
+  if (loading && restaurantsLoading) {
+    return (
       <>
         <DiscoveryBannerSection />
         <OrderItAgain />
@@ -35,14 +39,14 @@ export default function DiscoveryScreen() {
         <CuisinesSection
           title={t("DiscoveryPage.restaurantcusines")}
           data={restaurantCuisinesData}
-          loading={loading}
+          loading={loading || restaurantsLoading}
           error={!!error}
         />
         <RestaurantsNearYou />
         <CuisinesSection
           title={t("DiscoveryPage.GroceryStores")}
           data={groceryCuisinesData}
-          loading={loading}
+          loading={loading || restaurantsLoading}
           error={!!error}
         />
         <GroceryList />
@@ -52,4 +56,41 @@ export default function DiscoveryScreen() {
         <PopularStores />
       </>
     );
+  }
+
+  // // Show ComingSoon only after loading is complete and data is confirmed empty
+  if (
+    restaurantsData.length === 0 &&
+    groceriesData.length === 0 &&
+    !loading &&
+    !restaurantsLoading
+  ) {
+    return <CommingSoonScreen />;
+  }
+
+  return (
+    <>
+      <DiscoveryBannerSection />
+      <OrderItAgain />
+      <MostOrderedRestaurants />
+      <CuisinesSection
+        title={t("DiscoveryPage.restaurantcusines")}
+        data={restaurantCuisinesData}
+        loading={loading}
+        error={!!error}
+      />
+      <RestaurantsNearYou />
+      <CuisinesSection
+        title={t("DiscoveryPage.GroceryStores")}
+        data={groceryCuisinesData}
+        loading={loading}
+        error={!!error}
+      />
+      <GroceryList />
+      <TopGroceryPicks />
+      <TopRatedVendors />
+      <PopularRestaurants />
+      <PopularStores />
+    </>
+  );
 }
