@@ -65,6 +65,7 @@ import { setUserLocale } from "@/lib/utils/methods/locale";
 import { Dialog } from "primereact/dialog";
 
 import CustomButton from "@/lib/ui/useable-components/button";
+import { useDirection } from "@/lib/context/direction/DirectionContext";
 
 const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
   // State for cart sidebar
@@ -81,13 +82,8 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
   const menuRef = useRef<Menu>(null);
   const languageMenuRef = useRef<Menu>(null);
 
-  const [position, setPosition] = useState<"left" | "right">("right");
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const dir = document.documentElement.getAttribute("dir") || "ltr";
-      setPosition(dir === "rtl" ? "left" : "right");
-    }
-  }, []);
+  const dir = useDirection();
+  const position: "left" | "right" = dir === "rtl" ? "left" : "right";
   // Hooks
   const router = useRouter();
   const { GOOGLE_MAPS_KEY, CURRENCY_SYMBOL } = useConfig();
@@ -705,7 +701,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
 
       {/* Cart Sidebar */}
       <Sidebar
-      position={position} // ✅ dynamic position
+        position={position}
         visible={isCartOpen}
         onHide={() => {
           setIsCartOpen(false);

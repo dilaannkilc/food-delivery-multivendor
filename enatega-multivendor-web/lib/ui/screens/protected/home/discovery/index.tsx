@@ -16,21 +16,14 @@ import CuisinesSection from "@/lib/ui/useable-components/cuisines-section";
 // hooks
 import useGetCuisines from "@/lib/hooks/useGetCuisines";
 import { useTranslations } from "next-intl";
-import useNearByRestaurantsPreview from "@/lib/hooks/useNearByRestaurantsPreview";
 
 export default function DiscoveryScreen() {
   const t = useTranslations();
   const { restaurantCuisinesData, groceryCuisinesData, error, loading } =
     useGetCuisines();
 
-  const {
-    loading: restaurantsLoading,
-    restaurantsData,
-    groceriesData,
-  } = useNearByRestaurantsPreview();
-
   // Show loader/skeleton while fetching
-  if (loading && restaurantsLoading) {
+  if (loading) {
     return (
       <>
         <DiscoveryBannerSection />
@@ -39,14 +32,14 @@ export default function DiscoveryScreen() {
         <CuisinesSection
           title={t("DiscoveryPage.restaurantcusines")}
           data={restaurantCuisinesData}
-          loading={loading || restaurantsLoading}
+          loading={loading}
           error={!!error}
         />
         <RestaurantsNearYou />
         <CuisinesSection
           title={t("DiscoveryPage.GroceryStores")}
           data={groceryCuisinesData}
-          loading={loading || restaurantsLoading}
+          loading={loading}
           error={!!error}
         />
         <GroceryList />
@@ -58,13 +51,8 @@ export default function DiscoveryScreen() {
     );
   }
 
-  // // Show ComingSoon only after loading is complete and data is confirmed empty
-  if (
-    restaurantsData.length === 0 &&
-    groceriesData.length === 0 &&
-    !loading &&
-    !restaurantsLoading
-  ) {
+  // Show ComingSoon only after loading is complete and data is confirmed empty
+  if (restaurantCuisinesData && restaurantCuisinesData.length === 0) {
     return <CommingSoonScreen />;
   }
 
