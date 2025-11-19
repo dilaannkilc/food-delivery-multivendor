@@ -197,7 +197,6 @@ export default function AuthModal({
             handleChangePanel={handleChangePanel}
             handleFormChange={handleFormChange}
             formData={formData}
-            setFormData={setFormData}
           />
         </StepperPanel>
 
@@ -206,7 +205,6 @@ export default function AuthModal({
             handleChangePanel={handleChangePanel}
             handleFormChange={handleFormChange}
             formData={formData}
-            setFormData={setFormData}
           />
         </StepperPanel>
 
@@ -216,7 +214,6 @@ export default function AuthModal({
             emailOtp={emailOtp}
             setEmailOtp={setEmailOtp}
             formData={formData}
-            setFormData={setFormData}
           />
         </StepperPanel>
         <StepperPanel>

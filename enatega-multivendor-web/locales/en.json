@@ -19,13 +19,13 @@
   },
   "MiniCardsHomeScreen": {
     "title1": "Boost your sales",
-    "subText1": "91% of Enatega orders are extra sales you wouldn’t otherwise get.",
+    "subText1": "91% of Wolt orders are extra sales you wouldn’t otherwise get.",
     "title2": "We do the heavy lifting",
     "subText2": "We handle ads, payments, delivery and support.",
     "title3": "It's 100% risk-free",
-    "subText3": "There's no fee for joining Enatega. You can quit whenever, for any reason. When you earn, we earn.",
+    "subText3": "There's no fee for joining Wolt. You can quit whenever, for any reason. When you earn, we earn.",
     "title4": "Power online sales with same-hour deliveries",
-    "subText4": "Add Enatega Drive logistics for fast, affordable express deliveries for e-commerce.",
+    "subText4": "Add Wolt Drive logistics for fast, affordable express deliveries for e-commerce.",
     "title5": "Reach new customers and get more orders",
     "subText5": "For restaurants",
     "title6": "Become a store partner",
@@ -107,7 +107,7 @@
   },
   "RestaurantPage": {
     "headingTitle": "Restaurants near you",
-    "cuisineSectionTitle": "Browse Cuisines",
+    "cuisineSectionTitle": "Browse categories",
     "mainSectionTitle": "All Restaurants"
   },
   "StoresPage": {
@@ -331,6 +331,8 @@
   "failed_deleted_address": "Failed to delete",
   "failed_deleted_title": "Address",
   "Add_new_address_title": "Add New Address",
+  "Address_Saved_toast_title": "Address Saved",
+  "Your_address_has_been_saved_successfully": "Your address has been saved successfully.",
   "Edit_button_Address": "Edit",
   "Delete_button_Address": "Delete",
   "where_to_address_label": "Where to?",
@@ -342,6 +344,8 @@
   "Add_new_address": "Add new address",
   "failed_to_fetch_Address": "Failed to fetch address",
   "Address_updated_success": "Address update failed",
+
+  "Address_updated_failed_message": "All required fields must be filled before saving the address.",
   "Location_Type": "Location Type",
   "cancel_address": "Cancel",
   "Save_address": "Save",
