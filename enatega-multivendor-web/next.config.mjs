@@ -129,6 +129,11 @@ const nextConfig = {
         hostname:"images.deliveryhero.io"
       },
       {
+        protocol: 'https',
+        hostname: '*.s3.*.amazonaws.com',
+      },
+    ], // Add placehold.co as an allowed domain
+      {
         protocol:'https',
         hostname:"enatega-backend.s3.eu-north-1.amazonaws.com"
       }    ], // Add placehold.co as an allowed domain
