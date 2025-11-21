@@ -16,7 +16,7 @@ const RatingOption = ({ value, emoji, label, selected, onSelect }: IRatingOption
       )}
     >
       <span className="text-3xl mb-2">{emoji}</span>
-      <span className={twMerge("md:text-sm text-xs text-gray-600 dark:text-white",
+      <span className={twMerge("md:text-sm text-xs text-gray-600",
         selected ? "font-semibold" : ""
       )}>{label}</span>
     </span>

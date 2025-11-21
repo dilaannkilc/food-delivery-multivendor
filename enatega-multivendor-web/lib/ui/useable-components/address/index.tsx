@@ -390,18 +390,13 @@ export default function UserAddressComponent(
     });
     setIndex([0, 0]);
     onHide();
-    showToast({
-      title: t("Address_Saved_toast_title"),
-      type: "success",
-      message: t("Your_address_has_been_saved_successfully"),
-    });
   }
 
   function onError() {
     showToast({
-      title: t("Address_updated_success"),
+      title: t("new_address_label"),
       type: "error",
-      message: t("Address_updated_failed_message"),
+      message: t("Address_updated_success"),
     });
   }
 
