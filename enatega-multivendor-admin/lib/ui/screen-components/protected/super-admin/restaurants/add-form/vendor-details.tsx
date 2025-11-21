@@ -26,10 +26,7 @@ import CustomPasswordTextField from '@/lib/ui/useable-components/password-input-
 import CustomUploadImageComponent from '@/lib/ui/useable-components/upload/upload-image';
 
 // Schema
-import {
-  RestaurantsVendorDetails,
-  VendorSchemaOnStoreCreate,
-} from '@/lib/utils/schema';
+import { RestaurantsVendorDetails, VendorSchemaOnStoreCreate } from '@/lib/utils/schema';
 
 // GraphQL
 import { CREATE_VENDOR, GET_VENDORS } from '@/lib/api/graphql';
@@ -41,7 +38,6 @@ import CustomInputSwitch from '@/lib/ui/useable-components/custom-input-switch';
 import { IRestaurantsVendorDetailsComponentProps } from '@/lib/utils/interfaces/restaurants.interface';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
-import CustomPhoneTextField from '@/lib/ui/useable-components/phone-input-field';
 
 const initialValues: IRestauransVendorDetailsForm = {
   _id: null,
@@ -50,9 +46,6 @@ const initialValues: IRestauransVendorDetailsForm = {
   password: '',
   confirmPassword: '',
   image: '',
-  firstName: '',
-  lastName: '',
-  phoneNumber: '',
 };
 export default function VendorDetails({
   stepperProps,
@@ -118,13 +111,8 @@ export default function VendorDetails({
           variables: {
             vendorInput: {
               _id: '',
-              name: formData.firstName + ' ' + formData.lastName,
               email: formData.email,
               password: formData.password,
-              firstName: formData.firstName,
-              lastName: formData.lastName,
-              image: formData.image ?? '',
-              phoneNumber: `${formData.phoneNumber?.toString()}`,
             },
           },
         });
@@ -185,13 +173,11 @@ export default function VendorDetails({
             <Formik
               initialValues={formInitialValues}
               validationSchema={
-                showAddForm
-                  ? VendorSchemaOnStoreCreate
-                  : RestaurantsVendorDetails
+                showAddForm ? VendorSchemaOnStoreCreate : RestaurantsVendorDetails
               }
               enableReinitialize={true}
               onSubmit={async (values) => {
-                console.log(values, 'values');
+                console.log(values, "values")
                 await onVendorSubmitHandler(values);
               }}
               validateOnChange={false}
@@ -246,39 +232,16 @@ export default function VendorDetails({
                           <div>
                             <CustomTextField
                               type="text"
-                              name="firstName"
-                              placeholder={t('First Name')}
+                              name="name"
+                              placeholder={t('Name')}
                               maxLength={35}
-                              value={values.firstName}
+                              value={values.name}
                               onChange={handleChange}
-                              // isLoading={loading}
                               showLabel={true}
                               style={{
                                 borderColor: onErrorMessageMatcher(
-                                  'firstName',
-                                  errors?.firstName,
-                                  VendorErrors
-                                )
-                                  ? 'red'
-                                  : '',
-                              }}
-                            />
-                            
-                          </div>
-                          <div>
-                          <CustomTextField
-                              type="text"
-                              name="lastName"
-                              placeholder={t('Last Name')}
-                              maxLength={35}
-                              value={values.lastName}
-                              onChange={handleChange}
-                              // isLoading={loading}
-                              showLabel={true}
-                              style={{
-                                borderColor: onErrorMessageMatcher(
-                                  'lastName',
-                                  errors?.lastName,
+                                  'name',
+                                  errors?.name,
                                   VendorErrors
                                 )
                                   ? 'red'
@@ -304,31 +267,6 @@ export default function VendorDetails({
                                 borderColor: onErrorMessageMatcher(
                                   'email',
                                   errors?.email,
-                                  VendorErrors
-                                )
-                                  ? 'red'
-                                  : '',
-                              }}
-                            />
-                          </div>
-
-                          <div>
-                            <CustomPhoneTextField
-                              mask="999-999-9999"
-                              name="phoneNumber"
-                              showLabel={true}
-                              // isLoading={loading}
-                              placeholder={t('Phone Number')}
-                              value={values.phoneNumber}
-                              onChange={(e) => {
-                                setFieldValue('phoneNumber', e);
-                                // setCountryCode(code);
-                              }}
-                              type="text"
-                              style={{
-                                borderColor: onErrorMessageMatcher(
-                                  'phoneNumber',
-                                  errors?.phoneNumber,
                                   VendorErrors
                                 )
                                   ? 'red'
