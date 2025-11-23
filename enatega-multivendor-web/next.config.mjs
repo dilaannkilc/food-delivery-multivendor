@@ -1,7 +1,7 @@
 import createNextIntlPlugin from "next-intl/plugin";
-import PWA from 'next-pwa';
+// import PWA from 'next-pwa';
 
-const withPWA = PWA({
+/* const withPWA = PWA({
     skipWaiting: false,
     register:false,
     dest:'public',
@@ -14,7 +14,7 @@ const withPWA = PWA({
     scope: '/',
   }
 );
-
+ */
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -128,15 +128,11 @@ const nextConfig = {
         protocol:'https',
         hostname:"images.deliveryhero.io"
       },
-       {
-        protocol: 'https',
-        hostname: 'enatega-backend.s3.eu-north-1.amazonaws.com',
-      },
       {
-        protocol: 'https',
-        hostname: '*.s3.*.amazonaws.com',
-      },
-    ], // Add placehold.co as an allowed domain
+        protocol:'https',
+        hostname:"enatega-backend.s3.eu-north-1.amazonaws.com"
+      }    ], // Add placehold.co as an allowed domain
   },
 };
-export default withPWA(withNextIntl(nextConfig));
+// export default withPWA(withNextIntl(nextConfig));
+export default withNextIntl(nextConfig);
