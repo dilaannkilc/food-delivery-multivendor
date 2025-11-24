@@ -98,10 +98,6 @@ export default function CurrentLocation() {
   }
 
   async function getCurrentLocationOnStart() {
-    if (!permission?.canAskAgain) {
-      Linking.openSettings()
-      return
-    }
     if (!permission || !permission.granted) return
     setLoading(true)
 
@@ -140,8 +136,6 @@ export default function CurrentLocation() {
   useEffect(() => {
     getCurrentLocationOnStart()
   }, [permission])
-
- 
 
   useEffect(() => {
     async function checkCityMatch() {
@@ -312,7 +306,7 @@ const allowedLocationStyles = StyleSheet.create({
     lineHeight: 24
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: "#007BFF",
     paddingHorizontal: 30,
     paddingVertical: 15,
     borderRadius: 8
