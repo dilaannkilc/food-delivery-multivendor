@@ -9,7 +9,7 @@ import {
 // Hooks
 import { useAuth } from "@/lib/context/auth/auth.context";
 import { useGoogleLogin } from "@react-oauth/google";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 // import { useTranslations } from "next-intl";
 
 //Prime React
@@ -49,16 +49,6 @@ export default function AuthModal({
     phone: "",
   });
 
-  useEffect(() => {
-    if (!isAuthModalVisible) {
-      setFormData({
-        email: "",
-        password: "",
-        name: "",
-        phone: "",
-      });
-    }
-  }, [isAuthModalVisible]);
   // get the RTL direction
   const direction = document.documentElement.getAttribute("dir") || "ltr";
 
@@ -95,7 +85,7 @@ export default function AuthModal({
         name: userData.name,
         notificationToken: "",
       });
-
+      
       if (userLoginResponse) {
         setUser(userLoginResponse.login as ILoginProfile);
         if (
