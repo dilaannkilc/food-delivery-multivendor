@@ -434,7 +434,6 @@ function AppContainer() {
         {!location ? <LocationStack /> : <MainNavigator />}
 
         {/* {<LocationStack />} */}
-
         {/* <MainNavigator /> */}
       </NavigationContainer>
     </SafeAreaProvider>

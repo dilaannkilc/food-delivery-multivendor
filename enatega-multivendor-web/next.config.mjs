@@ -52,7 +52,6 @@ const nextConfig = {
   },
   images: {
     // domains: ["storage.googleapis.com"],
-    unoptimized: true,
     dangerouslyAllowSVG: true,
     remotePatterns: [
       {
