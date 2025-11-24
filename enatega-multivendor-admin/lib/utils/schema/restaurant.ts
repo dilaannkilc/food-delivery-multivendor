@@ -19,13 +19,11 @@ export const RestaurantSchema = Yup.object().shape({
     .nullable()
     .oneOf([Yup.ref('password'), null], 'Password must match')
     .required('Required'),
-    address: Yup.string()
-    .max(100, 'Maximum 100 characters allowed')
+  address: Yup.string()
+    .max(100)
     .trim()
-    .matches(/\S/, 'Address cannot be only spaces')
-    .matches(/[a-zA-Z]/, 'Address must contain at least one letter')
+    .matches(/\S/, 'Name cannot be only spaces')
     .required('Required'),
-  
   deliveryTime: Yup.number()
     .required('Required')
     .min(1, 'The value must be greater than or equal to 1'),
