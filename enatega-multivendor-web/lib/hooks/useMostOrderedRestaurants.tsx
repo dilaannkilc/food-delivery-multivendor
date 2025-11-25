@@ -10,29 +10,27 @@ import {
 // context
 import { useUserAddress } from "../context/address/address.context";
 
-const useMostOrderedRestaurants = (enabled = true, page = 1, limit=10 ) => {
+const useMostOrderedRestaurants = (enabled = true) => {
   const { userAddress } = useUserAddress();
-  const userLongitude = userAddress?.location?.coordinates[0] || 0;
-  const userLatitude = userAddress?.location?.coordinates[1] || 0;
+  const userLongitude = userAddress?.location?.coordinates[0] || 0
+  const userLatitude = userAddress?.location?.coordinates[1] || 0
 
-  const { data, loading, error, networkStatus, fetchMore } =
+  const { data, loading, error, networkStatus } =
     useQuery<IMostOrderedRestaurantsData>(MOST_ORDER_RESTAURANTS, {
       variables: {
         latitude: userLatitude,
         longitude: userLongitude,
-        page,
-        limit,
       },
       fetchPolicy: "cache-and-network",
       skip: !enabled,
-      notifyOnNetworkStatusChange: true, // 🔑 helps track loading state when fetching more
     });
 
-  let queryData = data?.mostOrderedRestaurantsPreview || [];
+  let queryData = data?.mostOrderedRestaurantsPreview;
 
   let restaurantsData: IRestaurant[] =
-    queryData?.filter((item) => item?.shopType.toLowerCase() === "restaurant") ||
-    [];
+    queryData?.filter(
+      (item) => item?.shopType.toLowerCase() === "restaurant"
+    ) || [];
 
   let groceriesData: IRestaurant[] =
     queryData?.filter((item) => item?.shopType.toLowerCase() === "grocery") ||
@@ -45,7 +43,6 @@ const useMostOrderedRestaurants = (enabled = true, page = 1, limit=10 ) => {
     networkStatus,
     restaurantsData,
     groceriesData,
-    fetchMore, // 🔑 expose fetchMore for infinite scroll
   };
 };
 
