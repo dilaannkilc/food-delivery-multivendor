@@ -6,7 +6,7 @@ import { IBannerItemProps } from "@/lib/utils/interfaces";
 import { useRouter } from "next/navigation";
 
 const BannerCard: React.FC<IBannerItemProps> = ({ item }) => {
-  const isVideo = item?.file?.includes(".mp4") || item?.file?.includes(".webm") || item?.file?.includes("video");
+  const isVideo = item?.file.includes("video");
 
   const router = useRouter();
   const onClickHandler = () => {
@@ -39,14 +39,12 @@ const BannerCard: React.FC<IBannerItemProps> = ({ item }) => {
             muted
             playsInline
             autoPlay
-            preload="none"
+            preload="metadata"
             style={{ borderRadius: 12 }}
             className="carousel-banner"
-            // onError={(e) => console.error('Video error:', e.currentTarget.error)}
-            // onCanPlay={() => console.log('Video can play:', item?.file)}
           >
             <source src={item?.file} type="video/mp4" />
-            <source src={item?.file} type="video/webm" />
+            {item.title}
           </video>
         ) : (
           <Image
