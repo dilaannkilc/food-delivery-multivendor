@@ -27,7 +27,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: 'upgrade-insecure-requests; media-src \'self\' https://*.amazonaws.com https://*.s3.amazonaws.com data: blob:'
+            value: 'upgrade-insecure-requests'
           },
           // Optional: Add other security headers
           {
