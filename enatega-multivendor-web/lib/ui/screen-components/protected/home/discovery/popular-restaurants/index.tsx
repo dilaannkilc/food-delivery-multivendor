@@ -6,7 +6,7 @@ import useMostOrderedRestaurants from "@/lib/hooks/useMostOrderedRestaurants";
 import CuisinesSliderSkeleton from "@/lib/ui/useable-components/custom-skeletons/cuisines.slider.skeleton";
 
 function PopularRestaurants() {
-  const { error, loading, queryData } = useMostOrderedRestaurants(true,1,8,"restaurant");
+  const { error, loading, restaurantsData } = useMostOrderedRestaurants();
 
   if (loading) {
     return <CuisinesSliderSkeleton />;
@@ -20,7 +20,7 @@ function PopularRestaurants() {
   return (
     <CuisinesSliderCard
       title="Popular-restaurants"
-      data={queryData || []}
+      data={restaurantsData || []}
       showLogo={true}
       cuisines={false}
     />

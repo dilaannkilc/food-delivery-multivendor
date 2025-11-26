@@ -10,42 +10,31 @@ import {
 // context
 import { useUserAddress } from "../context/address/address.context";
 
-const useNearByRestaurantsPreview = (
-  enabled = true,
-  page = 1,
-  limit = 10,
-  shopType?: "restaurant" | "grocery" | null // <-- 🔑 allow passing
-) => {
+const useNearByRestaurantsPreview = (enabled = true) => {
   const { userAddress } = useUserAddress();
-  const userLongitude = Number(userAddress?.location?.coordinates[0]) || 0;
-  const userLatitude = Number(userAddress?.location?.coordinates[1]) || 0;
+  const userLongitude = Number(userAddress?.location?.coordinates[0]) || 0
+  const userLatitude = Number(userAddress?.location?.coordinates[1]) || 0
 
-  const { data, loading, error, networkStatus, fetchMore } =
+  const { data, loading, error, networkStatus } =
     useQuery<INearByRestaurantsPreviewData>(NEAR_BY_RESTAURANTS_PREVIEW, {
       variables: {
         latitude: userLatitude,
         longitude: userLongitude,
-        shopType: shopType ?? null, // 🔑 pass down if provided
-        page,
-        limit,
+        shopType: null,
       },
       fetchPolicy: "cache-and-network",
-      skip: !enabled,
-      notifyOnNetworkStatusChange: true,
+      skip: !enabled
     });
 
-  const queryData: IRestaurant[] =
-    data?.nearByRestaurantsPreview?.restaurants ?? [];
+  let queryData = data?.nearByRestaurantsPreview?.restaurants;
 
-  const groceriesData: IRestaurant[] =
-    queryData?.filter(
-      (item) => item?.shopType?.toLowerCase() === "grocery"
-    ) ?? [];
+  let groceriesData: IRestaurant[] =
+    queryData?.filter((item) => item.shopType.toLowerCase() === "grocery") ||
+    [];
 
-  const restaurantsData: IRestaurant[] =
-    queryData?.filter(
-      (item) => item?.shopType?.toLowerCase() === "restaurant"
-    ) ?? [];
+  let restaurantsData: IRestaurant[] =
+    queryData?.filter((item) => item.shopType.toLowerCase() === "restaurant") ||
+    [];
 
   return {
     queryData,
@@ -54,7 +43,6 @@ const useNearByRestaurantsPreview = (
     networkStatus,
     groceriesData,
     restaurantsData,
-    fetchMore, // expose for infinite scroll
   };
 };
 
