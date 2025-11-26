@@ -1,99 +1,175 @@
 import useMostOrderedRestaurants from "./useMostOrderedRestaurants";
 import useNearByRestaurantsPreview from "./useNearByRestaurantsPreview";
 import useRecentOrderRestaurants from "./useRecentOrderRestaurants";
-// import useGetCuisines from "./useGetCuisines";
+import useTopRatedVendors from "./useTopRatedVendors";
+
 import { IRestaurant } from "../utils/interfaces/restaurants.interface";
 import { ApolloError } from "@apollo/client";
 import { ICuisinesData } from "../utils/interfaces";
-import useTopRatedVendors from "./useTopRatedVendors";
-
-const SLUG_TO_DATA_KEY_MAP: Record<string, { type: 'mostOrdered' | 'nearby' | 'recent' | 'cuisines' | 'ourBrands' , key: 'queryData' | 'groceriesData' | 'restaurantsData' | 'restaurantCuisinesData' |  'groceryCuisinesData'}> = {
-  "most-ordered-restaurants": { type: 'mostOrdered', key: 'queryData' },
-  "top-grocery-picks": { type: 'mostOrdered', key: 'groceriesData' },
-  "popular-restaurants": { type: 'mostOrdered', key: 'restaurantsData' },
-  "popular-stores": { type: 'mostOrdered', key: 'groceriesData' },
-  "restaurants-near-you": { type: 'nearby', key: 'queryData' },
-  "grocery-list": { type: 'nearby', key: 'groceriesData' },
-  "order-it-again": { type: 'recent', key: 'queryData' },
-  // 'restaurant-cuisines': {type: 'cuisines', key: 'restaurantCuisinesData'},
-  // 'grocery-cuisines': { type: 'cuisines', key: 'groceryCuisinesData' },
-  'our-brands': { type: 'ourBrands', key: 'queryData' }
-};
 
 interface UseQueryBySlugResult {
   data?: IRestaurant[] | ICuisinesData[];
   loading: boolean;
   error?: ApolloError;
+  fetchMore?: (vars?: any) => Promise<IRestaurant[]>;
 }
 
-export default function useQueryBySlug(slug: string):UseQueryBySlugResult {
-  const config = SLUG_TO_DATA_KEY_MAP[slug];
+export default function useQueryBySlug(
+  slug: string,
+  page: number = 1,
+  limit: number
+): UseQueryBySlugResult {
+  if (!slug) return { data: [], loading: false, error: undefined };
 
-  const mostOrdered = useMostOrderedRestaurants(!!config && config.type === 'mostOrdered');
-  const nearby = useNearByRestaurantsPreview(!!config && config.type === 'nearby');
-  const recentOrdered = useRecentOrderRestaurants(!!config && config.type === 'recent');
-  // const cuisines = useGetCuisines(!!config && config.type === 'cuisines')
-  const ourBrands = useTopRatedVendors(!!config && config.type === 'ourBrands')
+  switch (slug) {
+    /**
+     * 🔹 Most ordered (all shop types)
+     */
+    case "most-ordered-restaurants": {
+      const mostOrdered = useMostOrderedRestaurants(true, page, limit, null); // null → no filter
+      const data = mostOrdered.queryData;
+      return {
+        data: Array.isArray(data) ? data : [],
+        loading: mostOrdered.loading,
+        error: mostOrdered.error,
+        fetchMore: async (vars) => {
+          const res = await mostOrdered.fetchMore({
+            variables: { ...vars, shopType: null },
+          });
+          return res?.data?.mostOrderedRestaurantsPreview ?? [];
+        },
+      };
+    }
 
-  if (!config) {
-    return {
-      data: [],
-      loading: false,
-      error: undefined,
-    };
+    /**
+     * 🔹 Top grocery picks
+     */
+    case "top-grocery-picks": {
+      const mostOrdered = useMostOrderedRestaurants(
+        true,
+        page,
+        limit,
+        "grocery"
+      );
+      const data = mostOrdered.queryData;
+      return {
+        data: Array.isArray(data) ? data : [],
+        loading: mostOrdered.loading,
+        error: mostOrdered.error,
+        fetchMore: async (vars) => {
+          const res = await mostOrdered.fetchMore({
+            variables: { ...vars, shopType: "grocery" },
+          });
+          return res?.data?.mostOrderedRestaurantsPreview ?? [];
+        },
+      };
+    }
+
+    /**
+     * 🔹 Popular restaurants
+     */
+    case "popular-restaurants": {
+      const mostOrdered = useMostOrderedRestaurants(
+        true,
+        page,
+        limit,
+        "restaurant"
+      );
+      const data = mostOrdered.queryData;
+      return {
+        data: Array.isArray(data) ? data : [],
+        loading: mostOrdered.loading,
+        error: mostOrdered.error,
+        fetchMore: async (vars) => {
+          const res = await mostOrdered.fetchMore({
+            variables: { ...vars, shopType: "restaurant" },
+          });
+          return res?.data?.mostOrderedRestaurantsPreview ?? [];
+        },
+      };
+    }
+
+    /**
+     * 🔹 Popular stores (alias for grocery)
+     */
+    case "popular-stores": {
+      const mostOrdered = useMostOrderedRestaurants(
+        true,
+        page,
+        limit,
+        "grocery"
+      );
+      const data = mostOrdered.queryData;
+      return {
+        data: Array.isArray(data) ? data : [],
+        loading: mostOrdered.loading,
+        error: mostOrdered.error,
+        fetchMore: async (vars) => {
+          const res = await mostOrdered.fetchMore({
+            variables: { ...vars, shopType: "grocery" },
+          });
+          return res?.data?.mostOrderedRestaurantsPreview ?? [];
+        },
+      };
+    }
+
+    /**
+     * 🔹 Nearby
+     */
+    case "restaurants-near-you": {
+      const nearby = useNearByRestaurantsPreview(true, page, limit);
+      const data = nearby.queryData;
+      return {
+        data: Array.isArray(data) ? data : [],
+        loading: nearby.loading,
+        error: nearby.error,
+        fetchMore: async (vars) => {
+          const res = await nearby.fetchMore(vars);
+          return res?.data?.nearByRestaurantsPreview?.restaurants ?? [];
+        },
+      };
+    }
+    case "grocery-list": {
+      const nearby = useNearByRestaurantsPreview(true, page, limit, "grocery");
+      const data = nearby.queryData;
+      return {
+        data: Array.isArray(data) ? data : [],
+        loading: nearby.loading,
+        error: nearby.error,
+        fetchMore: async (vars) => {
+          const res = await nearby.fetchMore(vars);
+          return res?.data?.nearByRestaurantsPreview?.restaurants ?? [];
+        },
+      };
+    }
+
+    /**
+     * 🔹 Order it again
+     */
+    case "order-it-again": {
+      const recentOrdered = useRecentOrderRestaurants(true);
+      const data = recentOrdered.queryData;
+      return {
+        data: Array.isArray(data) ? data : [],
+        loading: recentOrdered.loading,
+        error: recentOrdered.error,
+      };
+    }
+
+    /**
+     * 🔹 Our brands
+     */
+    case "our-brands": {
+      const ourBrands = useTopRatedVendors(true);
+      const data = ourBrands.queryData;
+      return {
+        data: Array.isArray(data) ? data : [],
+        loading: ourBrands.loading,
+        error: ourBrands.error,
+      };
+    }
+
+    default:
+      return { data: [], loading: false, error: undefined };
   }
-  const { type, key } = config;
-
-  if (type === "mostOrdered") {
-    const data = mostOrdered[key as keyof typeof mostOrdered];
-    return {
-      data: Array.isArray(data) ? (data as IRestaurant[]) : [],
-      loading: mostOrdered.loading,
-      error: mostOrdered.error,
-    };
-  }
-  
-  if (type === "nearby") {
-    const data = nearby[key as keyof typeof nearby];
-    return {
-      data: Array.isArray(data) ? (data as IRestaurant[]) : [],
-      loading: nearby.loading,
-      error: nearby.error,
-    };
-  }
-  
-  if (type === "recent") {
-    const data = recentOrdered.queryData;
-    return {
-      data: Array.isArray(data) ? data : [],
-      loading: recentOrdered.loading,
-      error: recentOrdered.error,
-    };
-  }
-
-  // if (type === "cuisines") {
-  //   const data = cuisines[key as keyof typeof cuisines];
-  //   return {
-  //     data: Array.isArray(data) ? (data as ICuisinesData[]) : [],
-  //     loading: cuisines.loading,
-  //     error: cuisines.error,
-  //   };
-  // }
-
-  if (type === "ourBrands") {
-    const data = ourBrands.queryData;
-    return {
-      data: Array.isArray(data) ? data : [],
-      loading: ourBrands.loading,
-      error: ourBrands.error,
-    };
-  }
-
-  return {
-    data: [],
-    loading: false,
-    error: undefined,
-  };
-  
-
 }

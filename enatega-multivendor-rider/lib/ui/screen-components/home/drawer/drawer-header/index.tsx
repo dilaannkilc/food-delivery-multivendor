@@ -19,6 +19,8 @@ const CustomDrawerHeader = () => {
   const { dataProfile, userId, loadingProfile } = useUserContext();
   const [isRiderAvailable, setIsRiderAvailable] = useState(false)
 
+  console.log({isRiderAvailable:dataProfile?.available});
+
   useEffect(()=>{
     setIsRiderAvailable(dataProfile?.available || false)
   },[dataProfile?.available])
