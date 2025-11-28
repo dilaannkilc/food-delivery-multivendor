@@ -34,8 +34,6 @@ import './i18next'
 import * as SplashScreen from 'expo-splash-screen'
 import TextDefault from './src/components/Text/TextDefault/TextDefault'
 import { ErrorBoundary } from './src/components/ErrorBoundary'
-import * as Clarity from '@microsoft/react-native-clarity';
-
 
 // LogBox.ignoreLogs([
 //   // 'Warning: ...',
@@ -43,11 +41,6 @@ import * as Clarity from '@microsoft/react-native-clarity';
 //   'Constants.deviceYearClass'
 // ]) // Ignore log notification by message
 // LogBox.ignoreAllLogs() // Ignore all log notifications
-
-
-Clarity.initialize('mcdyi6urgs', {
-  logLevel: Clarity.LogLevel.Verbose, // Note: Use "LogLevel.Verbose" value while testing to debug initialization issues.
-});
 
 Notifications.setNotificationHandler({
   handleNotification: async (notification) => {
