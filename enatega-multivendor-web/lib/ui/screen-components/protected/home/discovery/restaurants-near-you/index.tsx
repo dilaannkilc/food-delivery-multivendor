@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 function RestaurantsNearYou() {
   const t = useTranslations();
 
-  const { queryData, error, loading } = useNearByRestaurantsPreview(true,1,6);
+  const { queryData, error, loading } = useNearByRestaurantsPreview();
 
   if (loading) {
     return <SliderSkeleton/>;

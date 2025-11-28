@@ -9,7 +9,7 @@ import SliderSkeleton from "@/lib/ui/useable-components/custom-skeletons/slider.
 
 function TopGroceryPicks() {
 
-  const { error, loading, groceriesData } = useMostOrderedRestaurants(true, 1, 15);
+  const { error, loading, groceriesData } = useMostOrderedRestaurants();
 
   if (loading) {
     return <SliderSkeleton />;
