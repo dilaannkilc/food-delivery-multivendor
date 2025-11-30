@@ -55,7 +55,6 @@ import WelldoneComponent from "@/lib/ui/useable-components/well-done";
 import { CustomMapStyles } from "@/lib/utils/constants/map";
 import { map_styles } from "@/lib/utils/constants/order-details";
 import { IOrder } from "@/lib/utils/interfaces/order.interface";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const { height } = Dimensions.get("window");
 
@@ -80,7 +79,6 @@ export default function OrderDetailScreen() {
   // Context
   const configuration = useContext(ConfigurationContext);
   const retryTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const insets = useSafeAreaInsets();
 
   // Hooks
   const { appTheme, currentTheme } = useApptheme();
@@ -287,7 +285,7 @@ export default function OrderDetailScreen() {
       if (intervalId) {
         clearInterval(intervalId);
       }
-      return () => { };
+      return () => {};
     }
     // Added proper dependency array to control rerunning this effect
     // This prevents stale closures that might reference outdated data
@@ -356,7 +354,7 @@ export default function OrderDetailScreen() {
                 longitudeDelta: 0.0421,
               }}
               provider={PROVIDER_DEFAULT}
-            // customMapStyle={MapStyles}
+              // customMapStyle={MapStyles}
             >
               {deliveryAddressPin?.location && (
                 <Marker
@@ -417,37 +415,37 @@ export default function OrderDetailScreen() {
 
               {/* Added validation for rider to restaurant directions */}
               {localOrder?.orderStatus === "ACCEPTED" ||
-                localOrder?.orderStatus === "ASSIGNED"
+              localOrder?.orderStatus === "ASSIGNED"
                 ? isValidCoordinate(locationPin?.location) &&
-                isValidCoordinate(restaurantAddressPin?.location) &&
-                GOOGLE_MAPS_KEY && (
-                  <MapViewDirections
-                    origin={locationPin?.location}
-                    destination={restaurantAddressPin?.location}
-                    apikey={GOOGLE_MAPS_KEY}
-                    strokeWidth={2}
-                    strokeColor={"#f95509"}
-                    precision="low"
-                    resetOnChange={false} // Prevents unnecessary recalculations
-                    onReady={(results) => {
-                      if (results && results.distance) {
-                        setDistance(results.distance);
-                        setDuration(results.duration);
-                      }
-                    }}
-                    optimizeWaypoints={true}
-                    onError={(error) => {
-                      console.log("Detailed route error:", error);
-                      // Retry logic for NOT_FOUND errors
-                      if (
-                        error.toString().includes("NOT_FOUND") &&
-                        retryCount < 10
-                      ) {
-                        setRetryCount((prev) => prev + 1);
-                      }
-                    }}
-                  />
-                )
+                  isValidCoordinate(restaurantAddressPin?.location) &&
+                  GOOGLE_MAPS_KEY && (
+                    <MapViewDirections
+                      origin={locationPin?.location}
+                      destination={restaurantAddressPin?.location}
+                      apikey={GOOGLE_MAPS_KEY}
+                      strokeWidth={2}
+                      strokeColor={"#f95509"}
+                      precision="low"
+                      resetOnChange={false} // Prevents unnecessary recalculations
+                      onReady={(results) => {
+                        if (results && results.distance) {
+                          setDistance(results.distance);
+                          setDuration(results.duration);
+                        }
+                      }}
+                      optimizeWaypoints={true}
+                      onError={(error) => {
+                        console.log("Detailed route error:", error);
+                        // Retry logic for NOT_FOUND errors
+                        if (
+                          error.toString().includes("NOT_FOUND") &&
+                          retryCount < 10
+                        ) {
+                          setRetryCount((prev) => prev + 1);
+                        }
+                      }}
+                    />
+                  )
                 : null}
 
               {/* Added validation for rider to customer directions */}
@@ -708,23 +706,21 @@ export default function OrderDetailScreen() {
 
               {tab === "new_orders" &&
                 localOrder.orderStatus === "ACCEPTED" && (
-                  <View style={{ paddingBottom: Platform.OS === 'ios' ? insets.bottom : insets.bottom + 10 }}>
-                    <CustomContinueButton
-                      title={t("Assign me")}
-                      className="w-[55%] mx-auto"
-                      onPress={() =>
-                        mutateAssignOrder({
-                          variables: { id: localOrder?._id },
-                          refetchQueries: [
-                            {
-                              query: RIDER_ORDERS,
-                              variables: { userId: userId },
-                            },
-                          ],
-                        })
-                      }
-                    />
-                  </View>
+                  <CustomContinueButton
+                    title={t("Assign me")}
+                    className="w-[55%] mx-auto"
+                    onPress={() =>
+                      mutateAssignOrder({
+                        variables: { id: localOrder?._id },
+                        refetchQueries: [
+                          {
+                            query: RIDER_ORDERS,
+                            variables: { userId: userId },
+                          },
+                        ],
+                      })
+                    }
+                  />
                 )}
             </BottomSheetScrollView>
           </BottomSheetView>
