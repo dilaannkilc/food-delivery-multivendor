@@ -17,8 +17,7 @@ const styles = (props = null) =>
       top: 0,
       height: '100%',
       backgroundColor: 'rgba(0, 0, 0, 0)',
-      width: scale(270),
-      pointerEvents: 'box-none'
+      width: scale(270)
     },
     favouriteOverlay: {
       position: 'absolute',

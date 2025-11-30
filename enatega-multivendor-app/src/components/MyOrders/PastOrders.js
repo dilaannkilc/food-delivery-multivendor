@@ -45,7 +45,6 @@ function emptyViewPastOrders() {
         title={'titleEmptyPastOrders'}
         description={'emptyPastOrdersDesc'}
         buttonText={'emptyPastOrdersBtn'}
-        navigateTo='Discovery'
       />
     )
   }

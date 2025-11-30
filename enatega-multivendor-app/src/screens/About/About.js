@@ -94,17 +94,23 @@ function About(props) {
         <View style={[styles().flex, styles(currentTheme).mainContainer]}>
           <View>
             <View style={styles(currentTheme).subContainer}>
-              <View style={{ flex: 1, marginRight: 8 }}>
-                <TextDefault
-                  isRTL
-                  H3
-                  bolder
-                  textColor={currentTheme.fontThirdColor}
-                >
-                  {typeName == "RestaurantPreview" ? RestAbout.name : restaurantObject?.restaurantName}
-                </TextDefault>
+              <TextDefault
+                isRTL
+                H3
+                bolder
+                textColor={currentTheme.fontThirdColor}
+              >
+                {typeName == "RestaurantPreview" ? RestAbout.name : restaurantObject?.restaurantName}
+              </TextDefault>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 4
+                }}
+              >
+                <FavoriteButton iconSize={scale(24)} restaurantId={RestAbout.id} />
               </View>
-              <FavoriteButton iconSize={scale(24)} restaurantId={RestAbout.id} />
             </View>
 
             <View style={alignment.MTxSmall}>
