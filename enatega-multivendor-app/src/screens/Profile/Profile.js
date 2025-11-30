@@ -86,12 +86,7 @@ function Profile(props) {
 
   useFocusEffect(
     useCallback(() => {
-      // Only refetch if we're coming back from a screen that might have updated data
-      const timeoutId = setTimeout(() => {
-        refetch();
-      }, 100); // Small delay to prevent immediate refetch
-      
-      return () => clearTimeout(timeoutId);
+      refetch();
     }, [refetch])
   );
 

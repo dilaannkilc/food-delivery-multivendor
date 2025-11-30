@@ -64,8 +64,6 @@ function MainRestaurantCard(props) {
                 queryType: props?.queryType ?? 'restaurant'
               })
             }}
-            rippleColor={'#F5F5F5'}
-            rippleDuration={300}
           >
             <TextDefault H5 bolder textColor={currentTheme.main}>
               {t('SeeAll')}

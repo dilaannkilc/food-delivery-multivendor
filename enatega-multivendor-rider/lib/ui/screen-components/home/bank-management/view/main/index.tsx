@@ -162,7 +162,6 @@ export default function BankManagementMain() {
               style={{ color: appTheme.fontSecondColor }}
               value={formData.bankName}
               placeholder={t("Swiss Bank")}
-              placeholderTextColor={appTheme.fontSecondColor}
               onChangeText={(val) => {
                 setIsError({ field: "", message: "" });
                 handleChange("bankName", val);
@@ -180,7 +179,6 @@ export default function BankManagementMain() {
               className={`min-w-[100%] rounded-md border ${isError.field === "accountName" ? "border-red-600 border-2" : "border-2 border-gray-300"} p-3 my-2`}
               style={{ color: appTheme.fontSecondColor }}
               value={formData.accountName}
-              placeholderTextColor={appTheme.fontSecondColor}
               placeholder="Micheal Kim"
               onChangeText={(val) => {
                 setIsError({ field: "", message: "" });
@@ -199,7 +197,6 @@ export default function BankManagementMain() {
               className={`min-w-[100%] rounded-md border ${isError.field === "accountCode" ? "border-red-600 border-2" : "border-2 border-gray-300"} p-3 my-2`}
               style={{ color: appTheme.fontSecondColor }}
               value={formData.accountCode}
-              placeholderTextColor={appTheme.fontSecondColor}
               placeholder="PK33"
               onChangeText={(val) => {
                 setIsError({ field: "", message: "" });
@@ -218,7 +215,6 @@ export default function BankManagementMain() {
               className={`min-w-[100%] rounded-md border ${isError.field === "accountNumber" ? "border-red-600 border-2" : "border-2 border-gray-300"} p-3 my-2`}
               style={{ color: appTheme.fontSecondColor }}
               value={formData.accountNumber}
-              placeholderTextColor={appTheme.fontSecondColor}
               placeholder="7838246824682346"
               onChangeText={(val) => {
                 setIsError({ field: "", message: "" });
