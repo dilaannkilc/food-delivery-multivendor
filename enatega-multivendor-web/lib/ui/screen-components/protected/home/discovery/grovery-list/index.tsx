@@ -1,12 +1,12 @@
 "use client";
 import SliderCard from "@/lib/ui/useable-components/slider-card";
 // Hook
-
+import useNearByRestaurantsPreview from "@/lib/hooks/useNearByRestaurantsPreview";
 // loading skeleton
 import SliderSkeleton from "@/lib/ui/useable-components/custom-skeletons/slider.loading.skeleton";
 
-function GroceryList({data,loading,error}) {
-  // const { error, loading, groceriesData } = useNearByRestaurantsPreview();
+function GroceryList() {
+  const { error, loading, groceriesData } = useNearByRestaurantsPreview();
 
   if (loading) {
     return <SliderSkeleton />;
@@ -19,7 +19,7 @@ function GroceryList({data,loading,error}) {
   return (
     <SliderCard
       title="Grocery list"
-      data={data || []}
+      data={groceriesData || []}
       heading="grocerylist"
     />
   );
