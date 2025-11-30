@@ -137,10 +137,4 @@ const sortRestaurantsByOpenStatus = (restaurants) => {
   })
 }
 
-
-const truncateText = (limit, text) => {
-  if (typeof text !== "string") return "";
-  if (text.length <= limit) return text;
-  return text.slice(0, limit) + "...";
-}
-export { calculateDistance, calulateRemainingTime, calculateDaysAgo, groupAndCount, sortReviews, calculateAmount, isOpen, sortRestaurantsByOpenStatus, truncateText }
+export { calculateDistance, calulateRemainingTime, calculateDaysAgo, groupAndCount, sortReviews, calculateAmount, isOpen, sortRestaurantsByOpenStatus }
