@@ -305,7 +305,6 @@ function ImageTextCenterHeader(props, ref) {
                 </View>
               </Animated.View>
               <Animated.View
-                pointerEvents="box-none"
                 style={[
                   {
                     display: 'flex',
@@ -316,7 +315,7 @@ function ImageTextCenterHeader(props, ref) {
                   }
                 ]}
               >
-                <View style={[styles(currentTheme).subContainer]} pointerEvents="box-none">
+                <View style={[styles(currentTheme).subContainer]}>
                   <View style={styles(currentTheme).titleContainer}>
                     <Image
                       resizeMode='cover'
@@ -332,7 +331,6 @@ function ImageTextCenterHeader(props, ref) {
                       H3
                       bolder
                       textColor={currentTheme.fontThirdColor}
-                      style={{ flex: 1, flexShrink: 1 }}
                     >
                       {aboutObject?.restaurantName}
                     </TextDefault>
