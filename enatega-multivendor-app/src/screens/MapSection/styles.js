@@ -22,18 +22,11 @@ const styles = (props = null) =>
       borderWidth: 1
     },
     markerImage: {
-      height: 30,        // Reduced to 30
-      width: 30,         // Reduced to 30
-      borderRadius: 15,  // Half of width/height
+      height: 60,
+      width: 60,
+      borderRadius: 30,
       overflow: 'hidden',
-      borderWidth: 2,
-      borderColor: '#fff'
-    },
-    userMarkerImage: {
-      height: 25,
-      width: 25,
-      borderRadius: 12.5,
-      overflow: 'hidden'
+      borderWidth: 1
     },
     restContainer: {
       position: 'absolute',
