@@ -13,6 +13,7 @@ const GET_ZONES = gql`
 export const LocationContext = createContext()
 
 export const LocationProvider = ({ children }) => {
+  const { permission } = useWatchLocation()
 
   const [location, setLocation] = useState(null)
   const [cities, setCities] = useState([])
@@ -20,9 +21,9 @@ export const LocationProvider = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false)
   const { loading, error, data, refetch } = useQuery(GET_ZONES)
 
-  // useEffect(() => {
-  //   setPermissionState(permission)
-  // }, [permission])
+  useEffect(() => {
+    setPermissionState(permission)
+  }, [permission])
 
   useEffect(() => {
     if (location) {
