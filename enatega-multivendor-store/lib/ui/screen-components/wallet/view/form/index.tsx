@@ -78,7 +78,7 @@ export default function WithdrawModal({
             className="font-bold text-lg"
             style={{ color: appTheme.fontMainColor }}
           >
-            ${currentTotal?.toFixed(2)}
+            ${currentTotal}
           </Text>
         </View>
         <View className=" flex flex-col gap-3 w-full">
