@@ -83,7 +83,7 @@ export default function MapSection() {
         }}
       >
         <Marker coordinate={location} title='Current Address'>
-          <Image source={require('../../assets/images/user.png')} style={styles().userMarkerImage} />
+          <Image source={require('../../assets/images/user.png')} width={20} />
         </Marker>
         {restaurants &&
           restaurants?.map((rest, index) => {
@@ -96,11 +96,7 @@ export default function MapSection() {
                 coordinate={coord}
                 key={index}
                 onPress={() => {
-                  if (rest.shopType === 'grocery' || rest.shopType === 'store') {
-                    navigation.navigate('NewRestaurantDetailDesign', { ...rest })
-                  } else {
-                    navigation.navigate('Restaurant', { ...rest })
-                  }
+                  navigation.navigate('Restaurant', { ...rest })
                 }}
                 style={styles().markerContainer}
               >
@@ -127,11 +123,7 @@ export default function MapSection() {
               <TouchableOpacity
                 style={styles(currentTheme).restCard}
                 onPress={() => {
-                  if (item.shopType === 'grocery' || item.shopType === 'store') {
-                    navigation.navigate('NewRestaurantDetailDesign', { ...item })
-                  } else {
-                    navigation.navigate('Restaurant', { ...item })
-                  }
+                  navigation.navigate('Restaurant', { ...item })
                 }}
                 activeOpacity={0.8}
               >

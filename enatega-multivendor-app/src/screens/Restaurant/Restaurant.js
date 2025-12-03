@@ -88,6 +88,7 @@ function Restaurant(props) {
   const dataList =
     popularItems &&
     popularItems?.popularItems?.map((item) => {
+      console.log({ item })
       const foodDetails = fetchFoodDetails(item?.id)
       return foodDetails
     })
@@ -513,8 +514,7 @@ function Restaurant(props) {
                       style={{
                         flexDirection: currentTheme?.isRTL ? 'row-reverse' : 'row',
                         justifyContent: 'space-between',
-                        alignItems: 'center',
-                        padding: scale(10)
+                        alignItems: 'center'
                       }}
                     >
                       <View style={styles(currentTheme).deal}>

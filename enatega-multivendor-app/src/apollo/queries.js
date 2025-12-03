@@ -322,7 +322,6 @@ export const restaurantPreviewFragment = gql`
     }
   }
 `
-
 export const profile = `
         query{
           profile{
