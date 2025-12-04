@@ -1,19 +1,18 @@
 import { IExtendedOrder } from '@/lib/utils/interfaces';
 import { useTranslations } from 'next-intl';
+const dateOptions: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric',
+  hour12: true,
+};
 
 export const ORDER_SUPER_ADMIN_COLUMNS = () => {
+  // Hooks
   const t = useTranslations();
-
-  const dateOptions: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    hour12: true,
-  };
-
   return [
     {
       headerName: t('Order ID'),
@@ -21,13 +20,7 @@ export const ORDER_SUPER_ADMIN_COLUMNS = () => {
     },
     {
       headerName: t('Items'),
-      propertyName: 'items',
-      body: (rowData: IExtendedOrder) => {
-        if (rowData.items && rowData.items.length > 0) {
-          return <span>{rowData.items.length} items</span>;
-        }
-        return <span>No items</span>;
-      },
+      propertyName: 'itemsTitle',
     },
     {
       headerName: t('Payment'),
@@ -38,29 +31,32 @@ export const ORDER_SUPER_ADMIN_COLUMNS = () => {
       propertyName: 'orderStatus',
     },
     {
-      headerName: t('Created At'),
-      propertyName: 'createdAt',
+      headerName: t('Reason'),
+      propertyName: 'reason',
       body: (rowData: IExtendedOrder) => {
-        let date: Date | null = rowData?.createdAt ? new Date(rowData.createdAt) : null;
+        if (!rowData.reason) {
+          return <span>-</span>;
+        }
+        return <span>{rowData.reason}</span>;
+      },
+    },
+    {
+      headerName: t('Created At'),
+      propertyName: 'DateCreated',
+      body: (rowData: IExtendedOrder) => {
+        let date: string | number | Date = Number(rowData?.createdAt || null);
         if (date) {
-          const newDate = date.toLocaleDateString(
+          const newDate = new Date(date).toLocaleDateString(
             'en-US',
             dateOptions
           );
           return <span className="text-center">{newDate}</span>;
         }
-        return <span>-</span>;
       },
     },
     {
-      headerName: t('Restaurant'),
-      propertyName: 'restaurant.name',
-      body: (rowData: IExtendedOrder) => rowData.restaurant?.name || 'N/A',
-    },
-    {
       headerName: t('Delivery Address'),
-      propertyName: 'deliveryAddress.deliveryAddress',
-      body: (rowData: IExtendedOrder) => rowData.deliveryAddress?.deliveryAddress || 'N/A',
+      propertyName: 'OrderdeliveryAddress',
     },
   ];
 };

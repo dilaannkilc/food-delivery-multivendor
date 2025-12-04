@@ -1,11 +1,12 @@
 "use client";
 import SliderCard from "@/lib/ui/useable-components/slider-card";
 // hook
+import useMostOrderedRestaurants from "@/lib/hooks/useMostOrderedRestaurants";
 // loading skeleton
 import SliderSkeleton from "@/lib/ui/useable-components/custom-skeletons/slider.loading.skeleton";
 
-function MostOrderedRestaurants({ data, loading,error }) {
-  // const { queryData, error, loading } = useMostOrderedRestaurants(true, 1, 6);
+function MostOrderedRestaurants() {
+  const { queryData, error, loading } = useMostOrderedRestaurants(true, 1, 6);
 
   if (loading) {
     return <SliderSkeleton />;
@@ -17,7 +18,7 @@ function MostOrderedRestaurants({ data, loading,error }) {
   return (
     <SliderCard
       heading="most_ordered_restaurants"
-      data={data || []}
+      data={queryData || []}
       title="most-ordered-restaurants"
     />
   );

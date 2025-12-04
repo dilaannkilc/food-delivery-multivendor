@@ -1,4 +1,3 @@
-import { IRestaurant } from '../food.interface';
 import { IGlobalComponentProps } from '../global.interface';
 import { ReactNode } from 'react';
 
@@ -53,7 +52,6 @@ export interface IExtendedOrder extends IOrder {
   itemsTitle?: string;
   OrderdeliveryAddress?: string;
   DateCreated?: string;
-  restaurant?: IRestaurant;
 }
 
 export interface IOrdersData extends IGlobalComponentProps {

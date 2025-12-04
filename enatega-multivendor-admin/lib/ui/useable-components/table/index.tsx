@@ -39,9 +39,7 @@ const Table = <T extends ITableExtends>({
   const handleSelectionChange = (
     e: DataTableSelectionMultipleChangeEvent<T[]>
   ) => {
-    if (setSelectedData) {
-      setSelectedData(e.value);
-    }
+    setSelectedData(e.value);
   };
 
   // Hooks
@@ -76,18 +74,18 @@ const Table = <T extends ITableExtends>({
   // Prepare pagination props based on server pagination status
   const paginationProps = isServerPaginated
     ? {
-      lazy: true,
-      first: (currentPage - 1) * rowsPerPage,
-      totalRecords: totalRecords,
-      onPage: handlePageChange,
-    }
+        lazy: true,
+        first: (currentPage - 1) * rowsPerPage,
+        totalRecords: totalRecords,
+        onPage: handlePageChange,
+      }
     : {};
 
-  useEffect(() => {
-    if (data?.length === 0 && currentPage > 1 && onPageChange) {
-      onPageChange(1, rowsPerPage);
-    }
-  }, [data, currentPage, onPageChange, rowsPerPage]);
+    useEffect(() => {
+      if (data?.length === 0 && currentPage > 1 && onPageChange) {
+        onPageChange(1, rowsPerPage);
+      }
+    }, [data, currentPage, onPageChange, rowsPerPage]);
 
   return (
     <>
@@ -99,8 +97,8 @@ const Table = <T extends ITableExtends>({
         value={data}
         selectionAutoFocus={true}
         size={size}
-        selection={isSelectable ? (selectedData || []) : []}
-        onSelectionChange={isSelectable ? handleSelectionChange : undefined}
+        selection={selectedData}
+        onSelectionChange={handleSelectionChange}
         className={className}
         dataKey="_id"
         tableStyle={{

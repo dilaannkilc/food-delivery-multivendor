@@ -53,53 +53,102 @@ const debugLog = (message, type = 'info') => {
   console.log(`${prefix} [${timestamp}] ${message}`)
 }
 
-// Category Tab Skeleton Component
-const CategoryTabSkeleton = ({ currentTheme }) => {
-  const animatedOpacity = useRef(new Animated.Value(0.5)).current
+// Enhanced Loading Screen Component
+const LoadingScreen = ({ currentTheme }) => {
+  const spinValue = useRef(new Animated.Value(0)).current
+  const pulseValue = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
-    const animation = Animated.loop(
+    // Spinning animation
+    const spinAnimation = Animated.loop(
+      Animated.timing(spinValue, {
+        toValue: 1,
+        duration: 2000,
+        useNativeDriver: true,
+      })
+    )
+
+    // Pulsing animation
+    const pulseAnimation = Animated.loop(
       Animated.sequence([
-        Animated.timing(animatedOpacity, {
-          toValue: 0.8,
-          duration: 800,
-          easing: Easing.ease,
-          useNativeDriver: true
+        Animated.timing(pulseValue, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
         }),
-        Animated.timing(animatedOpacity, {
-          toValue: 0.5,
-          duration: 800,
-          easing: Easing.ease,
-          useNativeDriver: true
-        })
+        Animated.timing(pulseValue, {
+          toValue: 0,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
       ])
     )
-    animation.start()
-    return () => animation.stop()
+
+    spinAnimation.start()
+    pulseAnimation.start()
+
+    return () => {
+      spinAnimation.stop()
+      pulseAnimation.stop()
+    }
   }, [])
 
-  return (
-    <Animated.View
-      style={[
-        styles.categoryTabSkeleton,
-        {
-          backgroundColor: currentTheme?.gray || '#ddd',
-          opacity: animatedOpacity
-        }
-      ]}
-    />
-  )
-}
+  const spin = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  })
 
-// Category Tabs Skeleton
-const CategoryTabsSkeleton = ({ currentTheme }) => {
+  const pulse = pulseValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.8, 1.2],
+  })
+
   return (
-    <View style={styles.categoryTabsContainer}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {Array(4).fill(0).map((_, index) => (
-          <CategoryTabSkeleton key={`tab-skeleton-${index}`} currentTheme={currentTheme} />
+    <View style={[styles.loadingContainer, { backgroundColor: currentTheme.themeBackground }]}>
+      <Animated.View
+        style={[
+          styles.loadingSpinner,
+          {
+            transform: [{ rotate: spin }, { scale: pulse }],
+            backgroundColor: currentTheme.main || '#007AFF',
+          },
+        ]}
+      >
+        <ActivityIndicator size="large" color={currentTheme.white || '#FFFFFF'} />
+      </Animated.View>
+      
+      <View style={styles.loadingTextContainer}>
+        <TextDefault H4 textColor={currentTheme.fontMainColor} center>
+          Loading Menu...
+        </TextDefault>
+        <TextDefault textColor={currentTheme.fontSecondColor} center style={{ marginTop: 8 }}>
+          Preparing categories and food items
+        </TextDefault>
+      </View>
+      
+      {/* Loading dots animation */}
+      <View style={styles.loadingDotsContainer}>
+        {[0, 1, 2].map((index) => (
+          <Animated.View
+            key={index}
+            style={[
+              styles.loadingDot,
+              {
+                backgroundColor: currentTheme.main || '#007AFF',
+                opacity: pulseValue,
+                transform: [
+                  {
+                    translateY: pulseValue.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -10],
+                    }),
+                  },
+                ],
+              },
+            ]}
+          />
         ))}
-      </ScrollView>
+      </View>
     </View>
   )
 }
@@ -958,30 +1007,9 @@ const CategoryPage = ({ route, navigation }) => {
     }
   }, [initialRender])
 
-  // Show skeleton components until data is preloaded
+  // Show enhanced loading screen until data is preloaded
   if (!isDataLoaded || restaurantLoading || subcategoriesLoading) {
-    return (
-      <View style={[callStyles(currentTheme).container, { flex: 1 }]}>
-        <StatusBar
-          barStyle={
-            themeContext.ThemeValue === 'Dark' ? 'light-content' : 'dark-content'
-          }
-          backgroundColor='transparent'
-          translucent={true}
-        />
-        
-        <CategoryPageHeader
-          navigation={navigation}
-          restaurantName={restaurantName}
-          deliveryTime={deliveryTime}
-          currentTheme={currentTheme}
-          onOpenSearch={handleOpenSearch}
-        />
-        
-        <CategoryTabsSkeleton currentTheme={currentTheme} />
-        <FoodItemsGridSkeleton currentTheme={currentTheme} count={8} />
-      </View>
-    )
+    return <LoadingScreen currentTheme={currentTheme} />
   }
 
   return (

@@ -75,7 +75,8 @@ function Account(props) {
   const { profile, loadingProfile, errorProfile } = useContext(UserContext)
   const [mutate, { loading }] = useMutation(UPDATE_NOTIFICATION_TOKEN, {
     onCompleted,
-    onError
+    onError,
+    refetchQueries: [{ query: PROFILE }]
   })
 
   const currentTheme = {
