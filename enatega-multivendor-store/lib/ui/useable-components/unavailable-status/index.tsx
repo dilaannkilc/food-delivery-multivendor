@@ -1,7 +1,6 @@
 import { useUserContext } from "@/lib/context/global/user.context";
 import { useApptheme } from "@/lib/context/theme.context";
 import { usePathname } from "expo-router";
-import { isBoolean } from "lodash";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
@@ -19,12 +18,14 @@ export default function UnavailableStatus() {
 
   // UseEffects
   useEffect(() => {
-    if (!isBoolean(dataProfile?.isAvailable)) return;
-    setIsAvailable(dataProfile?.isAvailable);
+    if (dataProfile?.isAvailable) {
+      setIsAvailable(true);
+    } else {
+      setIsAvailable(false);
+    }
   }, [dataProfile?.isAvailable]);
 
   if (pathName === "/login") return null;
-  if (!isBoolean(isAvailable)) return null;
   if (isAvailable) return null;
 
   return (
