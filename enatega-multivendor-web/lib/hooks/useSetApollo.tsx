@@ -66,7 +66,6 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
         authorization: (token ?? "") ? `Bearer ${token ?? ""}` : "",
         userId: userId ?? "",
         isAuth: !!token,
-        "X-Client-Type": "web"
       },
     });
   };

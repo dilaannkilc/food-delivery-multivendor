@@ -69,6 +69,7 @@ function Checkout(props) {
   const configuration = useContext(ConfigurationContext)
   const { isLoggedIn, profile, clearCart, restaurant: cartRestaurant, cart, cartCount, updateCart, isPickup, setIsPickup, instructions, coupon, setCoupon } = useContext(UserContext)
 
+  console.log('rest===>', restaurant)
 
   const themeContext = useContext(ThemeContext)
   const { location } = useContext(LocationContext)
