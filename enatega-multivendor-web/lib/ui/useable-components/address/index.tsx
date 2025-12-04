@@ -328,10 +328,10 @@ export default function UserAddressComponent(
 
   // Define constants
   const ADDRESS_TYPES = {
-    OFFICE: "Office",
-    HOUSE: "House",
-    APARTMENT: "Apartment",
-    OTHER: "Other",
+    OFFICE: "OFFICE",
+    HOUSE: "HOUSE",
+    APARTMENT: "APARTMENT",
+    OTHER: "OTHER",
   } as const;
 
   const onHandleCreateAddress = () => {
@@ -450,47 +450,39 @@ export default function UserAddressComponent(
                 <div className="p-2 bg-gray-50 dark:bg-gray-900 rounded-full">
                   {address?.label === ADDRESS_TYPES.OFFICE && (
                     <OfficeSvg
-                    height={18}
-                    darkColor={
-                      address.selected && !hasCurrentLocation
-                        ? "#0EA5E9"
-                        :"#ffffff"
-                    }
-                    color={address.selected && !hasCurrentLocation ? "#0EA5E9" : undefined}
-                    />
-                  )}
-                  {address?.label === ADDRESS_TYPES.HOUSE && (
-                    <HomeSvg
-                      height={18}
-                      darkColor={
+                      color={
                         address.selected && !hasCurrentLocation
                           ? "#0EA5E9"
-                          :"#ffffff"
+                          : undefined
                       }
-                      color={address.selected && !hasCurrentLocation ? "#0EA5E9" : undefined}
-                      
                     />
                   )}
-                  {address?.label === ADDRESS_TYPES.APARTMENT && (
+                  {address?.label === ADDRESS_TYPES.OFFICE && (
+                    <HomeSvg
+                      height={18}
+                      color={
+                        address.selected && !hasCurrentLocation
+                          ? "#0EA5E9"
+                          : "black"
+                      }
+                    />
+                  )}
+                  {address?.label === ADDRESS_TYPES.OFFICE && (
                     <AppartmentSvg
-                    height={18}
-                    darkColor={
-                      address.selected && !hasCurrentLocation
-                        ? "#0EA5E9"
-                        :"#ffffff"
-                    }
-                    color={address.selected && !hasCurrentLocation ? "#0EA5E9" : undefined}
+                      color={
+                        address.selected && !hasCurrentLocation
+                          ? "#0EA5E9"
+                          : undefined
+                      }
                     />
                   )}
-                  {address?.label === ADDRESS_TYPES.OTHER && (
+                  {address?.label === ADDRESS_TYPES.OFFICE && (
                     <OtherSvg
-                    height={18}
-                    darkColor={
-                      address.selected && !hasCurrentLocation
-                        ? "#0EA5E9"
-                        :"#ffffff"
-                    }
-                    color={address.selected && !hasCurrentLocation ? "#0EA5E9" : undefined}
+                      color={
+                        address.selected && !hasCurrentLocation
+                          ? "#0EA5E9"
+                          : undefined
+                      }
                     />
                   )}
                 </div>
