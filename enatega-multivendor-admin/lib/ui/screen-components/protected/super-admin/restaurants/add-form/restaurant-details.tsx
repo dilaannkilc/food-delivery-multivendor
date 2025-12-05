@@ -155,7 +155,8 @@ export default function RestaurantDetailsForm({
 
        // check if values.name is present in restaurantData and show error toast
        const existingRestaurant = restaurantData?.restaurants.find(
-        (restaurant:IRestaurantForm) =>
+        // @ts-ignore
+        (restaurant) =>
           restaurant.name.toLowerCase() === data.name.toLowerCase()
       );
       console.log('existingRestaurant ==> ', existingRestaurant);

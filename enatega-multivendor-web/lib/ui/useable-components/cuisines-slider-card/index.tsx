@@ -28,6 +28,7 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
   last,
   showLogo,
   cuisines,
+  
 }) => {
   const [page, setPage] = useState(0);
   const [numVisible, setNumVisible] = useState(getNumVisible());
@@ -98,7 +99,7 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
     setIsRTL(document.documentElement.dir === "rtl");
   }, []);
 
-  return (
+  return ( 
     data?.length > 0 && (
       <div className={` mt-7 ${last && "mb-20"}`}>
         <div className="flex justify-between mx-[6px]">

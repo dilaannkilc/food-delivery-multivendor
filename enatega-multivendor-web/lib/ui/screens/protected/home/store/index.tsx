@@ -72,7 +72,6 @@ export default function StoreScreen() {
 
   return ( 
     <GenericListingComponent
-      queryData={queryData}
       headingTitle= {t('StoresPage.headingTitle')}
       cuisineSectionTitle={t('StoresPage.cuisineSectionTitle')}
       mainSectionTitle={t('StoresPage.mainSectionTitle')}
