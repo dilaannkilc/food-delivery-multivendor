@@ -20,7 +20,6 @@ import {
   faSliders,
   faUpRightFromSquare,
   faWallet,
-  faHistory,
 } from '@fortawesome/free-solid-svg-icons';
 
 // Constants and Utiils
@@ -180,12 +179,6 @@ export default function MakeSidebar() {
           text: 'Notification',
           label: t('Notification'),
           route: '/management/notifications',
-          isParent: false,
-        },
-        {
-          text: 'Audit Logs',
-          label: t('Audit Logs'),
-          route: '/audit-logs',
           isParent: false,
         },
       ]),
