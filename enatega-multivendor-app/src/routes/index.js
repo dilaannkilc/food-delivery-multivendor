@@ -65,7 +65,7 @@ import CategoryPage from '../components/SubCategoryPage/SubCategoryPage'
 // import HypCheckout from '../screens/Hyp/HypCheckout'
 import NewRestaurantDetailDesign from '../components/NewRestaurantDetailDesign/RestaurantDetailDesign'
 import { SLIDE_RIGHT_WITH_CURVE_ANIM, SLIDE_UP_RIGHT_ANIMATION, AIMATE_FROM_CENTER } from '../utils/constants'
-import * as LocationImport from 'expo-location'
+import useWatchLocation from '../ui/hooks/useWatchLocation'
 
 const NavigationStack = createStackNavigator()
 const Location = createStackNavigator()
@@ -276,11 +276,9 @@ function BottomTabNavigator() {
 
 function AppContainer() {
   const client = useApolloClient()
-  const { permissionState, setPermissionState, location } = useContext(LocationContext)
+  const { permissionState } = useContext(LocationContext)
+  const { location, permission } = useWatchLocation()
   const lastNotificationResponse = Notifications.useLastNotificationResponse()
-
-  const [isLoadingPermission, setIsLoadingPermission] = React.useState(true)
-
   const handleNotification = useCallback(
     async (response) => {
       const { _id } = response.notification.request.content.data
@@ -300,35 +298,12 @@ function AppContainer() {
     },
     [lastNotificationResponse]
   )
-
-  // Handlers
-  const init = async () => {
-    try {
-      const permission_state = await LocationImport.getForegroundPermissionsAsync()
-      console.log({permission_state})
-
-      setPermissionState(permission_state)
-      setIsLoadingPermission(false)
-    } finally {
-      setIsLoadingPermission(false)
-    }
-  }
-
-  useEffect(() => {
-    init()
-  }, [])
-
   useEffect(() => {
     if (lastNotificationResponse && lastNotificationResponse.notification.request.content.data?.type === 'order' && lastNotificationResponse.actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
       handleNotification(lastNotificationResponse)
     }
   }, [lastNotificationResponse])
 
-  console.log('-------------')
-  console.log('-------------')
-  console.log({ permissionState, location })
-
-  if (isLoadingPermission) return
 
   return (
     <SafeAreaProvider>
@@ -337,7 +312,7 @@ function AppContainer() {
           navigationService.setGlobalRef(ref)
         }}
       >
-        {!permissionState?.granted || !location ? <LocationStack /> : <MainNavigator />}
+        {!permissionState?.granted ? <LocationStack /> : <MainNavigator />}
 
         {/* {<LocationStack />}
         <MainNavigator /> */}

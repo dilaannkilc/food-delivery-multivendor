@@ -322,7 +322,6 @@ export const restaurantPreviewFragment = gql`
     }
   }
 `
-
 export const profile = `
         query{
           profile{
@@ -772,6 +771,7 @@ export const restaurant = `query Restaurant($id:String){
     phone
     restaurantUrl
     cuisines
+    stripeDetailsSubmitted
   }
 }`
 

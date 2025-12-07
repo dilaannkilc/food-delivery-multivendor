@@ -99,6 +99,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
     fetchProfile,
   } = useUser();
   const { userAddress, setUserAddress } = useUserAddress();
+
   const { getCurrentLocation } = useLocation();
   const { onSetUserLocation } = useSetUserCurrentLocation();
   const {
@@ -109,7 +110,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
     refetchProfileData,
     setRefetchProfileData,
   } = useAuth();
-  const { queryData = [] } = useNearByRestaurantsPreview(true, 1,100);
+  const { queryData = [] } = useNearByRestaurantsPreview();
 
   const {
     isSearchFocused,

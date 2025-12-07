@@ -31,7 +31,6 @@ import {
 } from "@gorhom/bottom-sheet";
 import { useTranslation } from "react-i18next";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import SpinnerComponent from "@/lib/ui/useable-components/spinner";
 
 const { height } = Dimensions.get("window");
 
@@ -69,7 +68,7 @@ function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
     const _orders = activeOrders?.filter((order) =>
       currentTab === ORDER_DISPATCH_TYPE[0]
         ? !order?.isPickedUp
-        : order?.isPickedUp
+        : order?.isPickedUp,
     );
     setOrders(_orders ?? []);
   };
@@ -91,7 +90,7 @@ function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
   };
 
   const toggleShowDetails = (itemId: string) => {
-    setShowDetails((prev) => ({ ...prev, [itemId]: !prev[itemId] }));
+    setShowDetails(prev => ({ ...prev, [itemId]: !prev[itemId] }));
   };
   // Use Effect
   useEffect(() => {
@@ -130,11 +129,7 @@ function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
             setSelectedTab={setCurrentTab}
           />
 
-          {loading && (!orders || orders?.length < 1) ? (
-            <View className="flex-1">
-              <SpinnerComponent />
-            </View>
-          ) : orders?.length > 0 ? (
+          {orders?.length > 0 ? (
             <FlatList
               className={`w-full h-[${height}px] mb-[${marginBottom}px]`}
               keyExtractor={(item) => item._id}
@@ -142,10 +137,6 @@ function HomeNewOrdersMain(props: IOrderTabsComponentProps) {
               showsVerticalScrollIndicator={false}
               refreshing={refreshing}
               onRefresh={onRefresh}
-              initialNumToRender={20} // render more items up front
-              maxToRenderPerBatch={20} // reduce batching delays
-              windowSize={5} // keep more items around viewport
-              removeClippedSubviews={false}
               renderItem={({ item }: { item: IOrder }) => (
                 <Order
                   tab={route.key as ORDER_TYPE}

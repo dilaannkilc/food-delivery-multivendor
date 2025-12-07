@@ -59,7 +59,7 @@ function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
     const _orders = deliveredOrders?.filter((order) =>
       currentTab === ORDER_DISPATCH_TYPE[0]
         ? !order?.isPickedUp
-        : order?.isPickedUp
+        : order?.isPickedUp,
     );
     setOrders(_orders ?? []);
   };
@@ -104,7 +104,7 @@ function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
         pickupCount={deliveredOrders?.filter((o) => !!o.isPickedUp).length ?? 0}
       />
 
-      {loading && (!orders || orders?.length < 1) ? (
+      {loading ? (
         <View className="flex-1">
           <Spinner />
         </View>
@@ -116,9 +116,6 @@ function HomeDeliveredOrdersMain(props: IOrderTabsComponentProps) {
           showsVerticalScrollIndicator={false}
           refreshing={refreshing}
           onRefresh={onRefresh}
-          initialNumToRender={20} // render more items up front
-          maxToRenderPerBatch={20} // reduce batching delays
-          windowSize={5} // keep more items around viewport
           renderItem={({ item }: { item: IOrder }) => (
             <Order
               tab={route.key as ORDER_TYPE}

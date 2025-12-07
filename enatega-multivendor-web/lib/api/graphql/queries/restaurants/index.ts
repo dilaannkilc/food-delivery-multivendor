@@ -30,14 +30,22 @@ export const RESTAURANTS_FRAGMENT = gql`
     name
     image
     logo
-    slug
-    shopType
+    address
     deliveryTime
+    minimumOrder
+    rating
+    slug
+    isActive
+    isAvailable
+    commissionRate
+    tax
+    shopType
+    cuisines
+    reviewCount
+    reviewAverage
     location {
       coordinates
     }
-    reviewAverage
-    cuisines
     openingTimes {
       day
       times {
@@ -45,8 +53,6 @@ export const RESTAURANTS_FRAGMENT = gql`
         endTime
       }
     }
-    isAvailable
-    isActive
   }
 `;
 
@@ -81,7 +87,6 @@ export const MOST_ORDER_RESTAURANTS = gql`
 `;
 
 export const NEAR_BY_RESTAURANTS_PREVIEW = gql`
-  ${RESTAURANTS_FRAGMENT}
   query Restaurants(
     $latitude: Float
     $longitude: Float
@@ -97,7 +102,38 @@ export const NEAR_BY_RESTAURANTS_PREVIEW = gql`
       shopType: $shopType
     ) {
       restaurants {
-        ...RestaurantPreviewFields
+        _id
+        name
+        slug
+        image
+        address
+        deliveryTime
+        minimumOrder
+        rating
+        isActive
+        isAvailable
+        commissionRate
+        tax
+        shopType
+        cuisines
+        reviewCount
+        reviewAverage
+        distanceWithCurrentLocation @client
+        freeDelivery @client
+        acceptVouchers @client
+        deliveryInfo {
+          deliveryFee
+        }
+        location {
+          coordinates
+        }
+        openingTimes {
+          day
+          times {
+            startTime
+            endTime
+          }
+        }
       }
     }
   }
@@ -201,7 +237,6 @@ export const GET_REVIEWS_BY_RESTAURANT = gql`
         _id
         rating
         description
-        comments
         isActive
         createdAt
         updatedAt

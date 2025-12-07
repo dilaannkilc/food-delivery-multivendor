@@ -20,9 +20,7 @@ import { FontawesomeConfig } from '@/lib/config';
 
 // Styles
 import 'primereact/resources/primereact.css';
-import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
-import 'primeicons/primeicons.css';
 import './global.css';
 
 // Apollo
