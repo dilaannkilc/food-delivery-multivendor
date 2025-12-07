@@ -33,7 +33,6 @@ export interface IRestaurantForm {
   logo: string;
 }
 
-
 export interface IRestaurantDeliveryForm {
   minDeliveryFee: number | null;
   deliveryDistance: number | null;

@@ -248,14 +248,6 @@ const Order = ({
                       >
                         {item?.description}
                       </Text>
-                      <Text
-                        style={{
-                          color: appTheme.fontSecondColor,
-                          fontSize: 12,
-                        }}
-                      >
-                        {item?.specialInstructions}
-                      </Text>
                     </View>
 
                     {/* Toggle and Collapsible Details */}
@@ -428,7 +420,7 @@ const Order = ({
         </View>
 
         {/* Delivery */}
-        {!order?.isPickedUp && <View className="flex-row justify-between">
+        <View className="flex-row justify-between">
           <Text
             style={{
               color: appTheme.fontMainColor,
@@ -448,7 +440,7 @@ const Order = ({
             {configuration?.currencySymbol}
             {order?.deliveryCharges}
           </Text>
-        </View>}
+        </View>
 
         {/* Total Amount */}
         <View className="flex-row justify-between">

@@ -11,33 +11,30 @@ import { IRiderProfile } from "@/lib/utils/interfaces";
 import { MutationTuple, useMutation } from "@apollo/client";
 // import { showMessage } from "react-native-flash-message";
 import { useEffect, useState } from "react";
-import { showMessage } from "react-native-flash-message";
-import { isBoolean } from "lodash";
 
 const CustomDrawerHeader = () => {
   // Hook
   const { appTheme } = useApptheme();
   const { t } = useTranslation();
-  const { dataProfile, loadingProfile } = useUserContext();
-  const [isRiderAvailable, setIsRiderAvailable] = useState(false);
+  const { dataProfile, userId, loadingProfile } = useUserContext();
+  const [isRiderAvailable, setIsRiderAvailable] = useState(false)
 
-  useEffect(() => {
-    setIsRiderAvailable(dataProfile?.available || false);
-  }, [dataProfile?.available]);
+  useEffect(()=>{
+    setIsRiderAvailable(dataProfile?.available || false)
+  },[dataProfile?.available])
+
 
   // Queries
   const [toggleAvailablity, { loading }] = useMutation(UPDATE_AVAILABILITY, {
-    refetchQueries: [
-      { query: RIDER_PROFILE, variables: { id: dataProfile?._id?.toString() } },
-    ],
+    refetchQueries: [{ query: RIDER_PROFILE, variables: { id: userId } }],
     awaitRefetchQueries: true,
     // onCompleted: () => {
-    // Don't manually update state - let the refetch handle it through useEffect
-    // The refetch will update dataProfile and trigger the useEffect to update isRiderAvailable
-    // showMessage({
-    //   message: t(!isRiderAvailable ? "You are now online" : "You are now offline"),
-    //   type: "success",
-    // });
+    //   // Don't manually update state - let the refetch handle it through useEffect
+    //   // The refetch will update dataProfile and trigger the useEffect to update isRiderAvailable
+    //   showMessage({
+    //     message: t(!isRiderAvailable ? "You are now online" : "You are now offline"),
+    //     type: "success",
+    //   });
     // },
     // onError: (error) => {
     //   showMessage({
@@ -55,7 +52,7 @@ const CustomDrawerHeader = () => {
       className={` w-full h-[15%] flex-row justify-between p-3 pt-6 top-0 bottom-4`}
       style={{ backgroundColor: appTheme.primary }}
     >
-      <View className="justify-between flex-1">
+      <View className="justify-between">
         <View
           className="w-[32px] h-[32px] rounded-full items-center justify-center overflow-hidden"
           style={{ backgroundColor: appTheme.white }}
@@ -77,18 +74,16 @@ const CustomDrawerHeader = () => {
                       ?.split(" ")[1]
                       ?.substring(0, 1)
                       ?.toUpperCase() ?? "")
-                  : ""
+                  : "",
               ) ?? "JS"}
           </Text>
         </View>
-        <View className="flex-1 pr-2">
+        <View>
           <Text
             className="font-semibold text-[16px]"
             style={{
               color: appTheme.black,
             }}
-            numberOfLines={1}
-            ellipsizeMode="tail"
           >
             {dataProfile?.name ?? t("rider name")}
           </Text>
@@ -97,11 +92,8 @@ const CustomDrawerHeader = () => {
             style={{
               color: appTheme.secondaryTextColor,
             }}
-            numberOfLines={2}
-            ellipsizeMode="tail"
           >
-            {dataProfile?._id.substring(0, 9).toUpperCase() ?? "rider id"}{" "}
-            aklsdjaskldjaskldsjdaklsdjaskldjas
+            {dataProfile?._id.substring(0, 9).toUpperCase() ?? "rider id"}
           </Text>
         </View>
       </View>
@@ -121,17 +113,7 @@ const CustomDrawerHeader = () => {
             isDisabled={loading}
             onToggle={async () => {
               try {
-                if (!dataProfile?._id?.toString()) {
-                  showMessage({
-                    message: t("User ID is missing"),
-                    type: "danger",
-                  });
-                  return;
-                }
-
-                await toggleAvailablity({
-                  variables: { id: dataProfile?._id?.toString() ?? "" },
-                });
+                await toggleAvailablity({ variables: { id: userId ?? "" } });
               } catch (error) {
                 // Error is already handled in the mutation's onError callback
                 console.error("Toggle availability error:", error);
@@ -139,16 +121,11 @@ const CustomDrawerHeader = () => {
             }}
           />
         )}
-
         <Text
           className="text-xs font-medium"
           style={{ color: appTheme.secondaryTextColor }}
         >
-          {isBoolean(dataProfile?.available)
-            ? dataProfile?.available
-              ? t("Available")
-              : t("Not Available")
-            : ""}
+          {dataProfile?.available ? t("Available") : t("Not Available")}
         </Text>
       </View>
     </View>

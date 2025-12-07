@@ -15,7 +15,6 @@ interface GenericListingProps {
   cuisineSectionTitle: string;
   mainSectionTitle: string;
   mainData: IRestaurant[] | undefined;
-  queryData: IRestaurant[] | undefined;
   cuisineDataFromHook: ICuisinesData[];
   loading: boolean;
   cuisinesloading: boolean;
@@ -33,7 +32,6 @@ export default function GenericListingComponent({
   cuisinesloading,
   error,
   hasMore,
-  queryData
   
 }: GenericListingProps) {
   const [cuisineData, setcuisineData] = useState<ICuisinesData[]>([]);
@@ -140,7 +138,6 @@ export default function GenericListingComponent({
         />
       )}
       <MainSection
-      queryData={queryData}
         title={mainSectionTitle}
         data={restaurantData}
         loading={loading}

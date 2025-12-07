@@ -155,7 +155,6 @@ export interface ICategoryDetailsResponse {
 export interface IMainSectionProps {
   title: string;
   data: IRestaurant[];
-  queryData?: IRestaurant[];
   loading: boolean;
   error: boolean;
   search?: boolean

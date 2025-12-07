@@ -4,6 +4,7 @@ import gql from 'graphql-tag'
 import { useQuery } from '@apollo/client'
 import { getZones } from '../apollo/queries'
 import NetInfo from '@react-native-community/netinfo'
+import useWatchLocation from '../ui/hooks/useWatchLocation'
 // import * as Network from 'expo-network';
 
 const GET_ZONES = gql`
@@ -12,12 +13,17 @@ const GET_ZONES = gql`
 export const LocationContext = createContext()
 
 export const LocationProvider = ({ children }) => {
+  const { permission } = useWatchLocation()
+
   const [location, setLocation] = useState(null)
   const [cities, setCities] = useState([])
   const [permissionState, setPermissionState] = useState(null)
   const [isConnected, setIsConnected] = useState(false)
   const { loading, error, data, refetch } = useQuery(GET_ZONES)
 
+  useEffect(() => {
+    setPermissionState(permission)
+  }, [permission])
 
   useEffect(() => {
     if (location) {
@@ -28,7 +34,7 @@ export const LocationProvider = ({ children }) => {
       saveLocation()
     }
   }, [location])
-
+  
   useEffect(() => {
     const getActiveLocation = async () => {
       try {

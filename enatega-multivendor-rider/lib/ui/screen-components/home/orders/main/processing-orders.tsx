@@ -46,7 +46,6 @@ function HomeProcessingOrdersMain(props: IOrderTabsComponentProps) {
     if (loadingAssigned || errorAssigned) return;
     if (!assignedOrders) return;
 
-
     const _orders = assignedOrders?.filter(
       (o: IOrder) =>
         ["PICKED", "ASSIGNED"].includes(o.orderStatus) && !o.isPickedUp,
@@ -69,10 +68,6 @@ function HomeProcessingOrdersMain(props: IOrderTabsComponentProps) {
   // Calculate the marginBottom dynamically
   // const marginBottom = Platform.OS === "ios" ? height * 0.5 : height * 0.01;
   // Render
-
-    // console.log({assignedOrders: JSON.stringify(orders, null, 2)});
-
-
   return (
     <View
       className="pt-14 flex-1 pb-16"
@@ -99,7 +94,7 @@ function HomeProcessingOrdersMain(props: IOrderTabsComponentProps) {
               paymentStatus={item.paymentStatus}
               acceptedAt={item.acceptedAt}
               user={item.user}
-        
+              key={item._id}
               isLast={index === orders.length - 1}
             />
           )}
