@@ -662,5 +662,6 @@ export const en = {
   "WhatsApp is not installed on the device": "WhatsApp is not installed on the device",
   "Install it": "Install it",
   "errorWhileGettingNotificationToken": "Error while getting notification token",
-  "confirmDelete" : "Are you Sure, you want to delete this address?"
+  "confirmDelete" : "Are you Sure, you want to delete this address?",
+  
 }
