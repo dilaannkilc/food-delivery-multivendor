@@ -554,7 +554,7 @@ export const es = {
   delete: 'Eliminar',
   deleteAddressesTitle: '¿Está seguro de que desea eliminar las direcciones seleccionadas?',
   notVerified: 'no verificado',
-  BrowseCuisines: 'Explorar cocinas',
+  BrowseCategories: 'Explorar categorías',
   'Popular right now': 'Popular ahora',
   'I feel like eating': 'Tengo ganas de comer',
   'I feel like eating...': 'Tengo ganas de comer...',

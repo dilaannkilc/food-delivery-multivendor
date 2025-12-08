@@ -111,8 +111,7 @@ function TopBrands(props) {
               onPress={() => {
                 navigation.navigate('Menu', {
                   selectedType: 'restaurant',
-                  queryType: 'topBrands',
-                  shopType: 'restaurant'
+                  queryType: 'topBrands'
                 })
               }}
             >
@@ -151,8 +150,7 @@ function TopBrands(props) {
               onPress={() => {
                 navigation.navigate('Menu', {
                   selectedType: 'grocery',
-                  queryType: 'topBrands',
-                  shopType: 'grocery'
+                  queryType: 'topBrands'
                 })
               }}
             >

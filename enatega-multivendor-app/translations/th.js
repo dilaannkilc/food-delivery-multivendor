@@ -557,7 +557,7 @@ export const th = {
     delete: 'ลบ',
     deleteAddressesTitle: 'คุณแน่ใจหรือไม่ที่จะลบที่อยู่ที่เลือก?',
     notVerified: 'ยังไม่ได้รับการยืนยัน',
-    BrowseCuisines: 'เรียกดูอาหาร',
+    BrowseCategories: 'เรียกดูหมวดหมู่',
     'Popular right now': 'เป็นที่นิยมในขณะนี้',
     'I feel like eating': 'อยากรับประทาน',
     'I feel like eating...': 'อยากรับประทาน...',

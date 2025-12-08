@@ -593,7 +593,7 @@ export const az = {
     delete: 'Sil',
     deleteAddressesTitle: 'Seçilmiş ünvanları silmək istədiyinizə əminsiniz?',
     notVerified: 'doğrulanmayıb',
-    BrowseCuisines: 'Mətbəxləri gözdən keçirin',
+    BrowseCategories: 'Kateqoriyalara Bax',
     'Popular right now': 'Hazırda Populyar',
     'I feel like eating': 'Yemək istəyirəm',
     'I feel like eating...': 'Yemək istəyirəm...',

@@ -558,7 +558,7 @@ export const ur = {
     delete: 'حذف کریں',
     deleteAddressesTitle: 'کیا آپ واقعی منتخب ایڈریسز حذف کرنا چاہتے ہیں؟',
     notVerified: 'تصدیق نہیں ہوئی',
-    BrowseCuisines: 'کھانوں کو براؤز کریں',
+    BrowseCategories: 'زمرے دیکھیں',
     'Popular right now': 'فی الحال مقبول',
     'I feel like eating': 'مجھے کھانے کا من ہو رہا ہے',
     'I feel like eating...': 'مجھے کھانے کا من ہو رہا ہے...',
