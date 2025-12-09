@@ -565,10 +565,9 @@ function Restaurant(props) {
                 {
                   flexGrow: 1,
                   paddingTop: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT,
-                  marginTop: HEADER_MIN_HEIGHT,
-                  zIndex: -1
-                }
-                // zIndexAnimation
+                  marginTop: HEADER_MIN_HEIGHT
+                },
+                zIndexAnimation
               ]}
               contentContainerStyle={{
                 paddingBottom: HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
