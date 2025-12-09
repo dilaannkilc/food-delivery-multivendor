@@ -597,7 +597,7 @@ export const en = {
   delete: 'Delete',
   deleteAddressesTitle: 'Are you sure you want to delete selected addresses?',
   notVerified: 'not verified',
-  BrowseCuisines: 'Browse Cuisines',
+  BrowseCategories: 'Browse Categories',
   'Popular right now': 'Popular right now',
   'I feel like eating': 'I feel like eating',
   'I feel like eating...': 'I feel like eating...',
@@ -662,5 +662,7 @@ export const en = {
   "WhatsApp is not installed on the device": "WhatsApp is not installed on the device",
   "Install it": "Install it",
   "errorWhileGettingNotificationToken": "Error while getting notification token",
-  "confirmDelete" : "Are you Sure, you want to delete this address?"
+  "confirmDelete" : "Are you Sure, you want to delete this address?",
+  "Confirm": "Confirm",
+  "AlreadyExsistsAlert":"This phone number is already associated with another account. Are you sure you want to proceed? Continuing will disassociate this phone number from the previous account.",
 }

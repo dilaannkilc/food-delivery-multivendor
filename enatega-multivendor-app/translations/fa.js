@@ -558,7 +558,7 @@ export const fa = {
     delete: 'حذف',
     deleteAddressesTitle: 'آیا مطمئن هستید که می خواهید آدرس های انتخاب شده را حذف کنید؟',
     notVerified: 'تایید نشده',
-    BrowseCuisines: 'مرور انواع غذاها',
+    BrowseCategories: 'مرور دسته بندی ها',
     'Popular right now': 'در حال حاضر محبوب',
     'I feel like eating': 'احساس می کنم که می خواهم بخورم',
     'I feel like eating...': 'احساس می کنم که می خواهم بخورم...',

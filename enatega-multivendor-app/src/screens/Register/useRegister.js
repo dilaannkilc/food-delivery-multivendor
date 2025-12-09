@@ -8,7 +8,7 @@ import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
 import { phoneExist } from '../../apollo/mutations'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
-import { useCountryFromIP } from '../../utils/useCountryFromIP'
+import { Alert } from 'react-native'
 
 const PHONE = gql`
   ${phoneExist}
@@ -29,28 +29,16 @@ const useRegister = () => {
   const [emailError, setEmailError] = useState(null)
   const [passwordError, setPasswordError] = useState(null)
   const [phoneError, setPhoneError] = useState(null)
-  // const [countryCode, setCountryCode] = useState('IL')
-  // const [country, setCountry] = useState({
-  //   callingCode: ['972'],
-  //   cca2: 'IL',
-  //   currency: ['ILS'],
-  //   flag: 'flag-il',
-  //   name: 'Israel',
-  //   region: 'Asia',
-  //   subregion: 'Western Asia'
-  // });
-
-  const {
-    country,
-    setCountry,
-    currentCountry: countryCode,
-    setCurrentCountry: setCountryCode,
-    ipAddress,
-    isLoading: isCountryLoading,
-    error: countryError,
-    refetch
-  } = useCountryFromIP()
-
+  const [countryCode, setCountryCode] = useState('IL')
+  const [country, setCountry] = useState({
+    callingCode: ['972'],
+    cca2: 'IL',
+    currency: ['ILS'],
+    flag: 'flag-il',
+    name: 'Israel',
+    region: 'Asia',
+    subregion: 'Western Asia'
+  })
 
   const [phoneExist, { loading }] = useMutation(PHONE, {
     onCompleted,
@@ -125,10 +113,38 @@ const useRegister = () => {
   }
 
   function onCompleted({ phoneExist }) {
-    if (phoneExist && phoneExist.phoneExist && phoneExist.phoneExist.phone) {
-      FlashMessage({
-        message: t('phoneNumberExist')
-      })
+    console.log('phoneExist', phoneExist)
+    if (phoneExist  && phoneExist?.phone) {
+      // FlashMessage({
+      //   message: t('phoneNumberExist')
+      // })
+
+      Alert.alert(
+        '',
+        t('AlreadyExsistsAlert'),
+        [
+          {
+            text: t('close'),
+            onPress: () => {},
+            style: 'cancel'
+          },
+          {
+            text: t('Confirm'),
+            onPress: () => {
+              navigation.navigate('EmailOtp', {
+                user: {
+                  phone: '+'.concat(country.callingCode[0]).concat(phone),
+                  email: email.toLowerCase().trim(),
+                  password: password,
+                  name: firstname + ' ' + lastname
+                },
+                isPhoneExists: true
+              })
+            }
+          }
+        ],
+        { cancelable: true }
+      )
     } else {
       navigation.navigate('EmailOtp', {
         user: {
@@ -143,9 +159,28 @@ const useRegister = () => {
 
   function onError(error) {
     try {
+      // if (error.graphQLErrors[0]?.extensions?.exception.messageCode === 'NETWORK_ERROR') {
+      //   Alert.alert(
+      //     '',
+      //     t('restaurantClosed'),
+      //     [
+      //       {
+      //         text: t('close'),
+      //         onPress: () => {},
+      //         style: 'cancel'
+      //       },
+      //       {
+      //         text: t('Confirm'),
+      //         onPress: () => {}
+      //       }
+      //     ],
+      //     { cancelable: true }
+      //   )
+      // } else {
       FlashMessage({
         message: error.graphQLErrors[0].message
       })
+      // }
     } catch (e) {
       FlashMessage({
         message: t('phoneCheckingError')
@@ -176,9 +211,7 @@ const useRegister = () => {
     registerAction,
     onCountrySelect,
     themeContext,
-    currentTheme,
-    setPhoneError,
-    isCountryLoading
+    currentTheme
   }
 }
 
