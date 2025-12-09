@@ -558,7 +558,7 @@ export const jp = {
     delete: '削除',
     deleteAddressesTitle: '選択した住所を削除してもよろしいですか？',
     notVerified: '未確認',
-    BrowseCuisines: '料理を閲覧する',
+    BrowseCategories: 'カテゴリを見る',
     'Popular right now': '今人気',
     'I feel like eating': '何か食べたい',
     'I feel like eating...': '何か食べたい...',
