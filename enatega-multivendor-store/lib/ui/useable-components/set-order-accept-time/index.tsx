@@ -1,18 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
-import {} from "react-native";
-import ThermalPrinterModule from "react-native-thermal-printer";
-
-import {
-  Button,
-  StyleSheet,
-  PermissionsAndroid,
-  Platform,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { useState } from "react";
+import { Pressable, Text, TouchableOpacity, View } from "react-native";
 
 // Hooks
 import useAcceptOrder from "@/lib/hooks/useAcceptOrder";
@@ -32,7 +20,6 @@ import { useApptheme } from "@/lib/context/theme.context";
 import { useTranslation } from "react-i18next";
 import CustomContinueButton from "../custom-continue-button";
 import { CircleCrossIcon } from "../svg";
-import usePrintOrder from "@/lib/hooks/usePrintOrder";
 
 const SetTimeScreenAndAcceptOrder = ({
   id,
@@ -48,13 +35,13 @@ const SetTimeScreenAndAcceptOrder = ({
 
   const { muteRing, loading: loadingRing } = useOrderRing();
   const { acceptOrder, loading: loadingAcceptOrder } = useAcceptOrder();
-  const { printOrder } = usePrintOrder();
+  // const { printOrder } = usePrintOrder();
 
   const onAcceptOrderHandler = async () => {
     try {
-      // await acceptOrder(id, selectedTime?.toString() || "0");
-      // await muteRing(orderId);
-      await printOrder(id);
+      await acceptOrder(id, selectedTime?.toString() || "0");
+      await muteRing(orderId);
+      // printOrder(id);
 
       handleDismissModal();
     } catch (err) {
