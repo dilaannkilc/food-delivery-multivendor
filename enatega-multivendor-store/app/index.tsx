@@ -57,9 +57,6 @@ function App() {
   }; */
   const init = async () => {
     const token = await SecureStore.getItemAsync(STORE_TOKEN);
-
-    console.log({token})
-
     if (token) {
       router.replace(ROUTES.home as Href);
     } else {
@@ -110,8 +107,6 @@ function App() {
     };
     checkToken();
   }, [restaurantData]);
-
-  console.log("Running...")
 
   return <SpinnerComponent />;
 }
