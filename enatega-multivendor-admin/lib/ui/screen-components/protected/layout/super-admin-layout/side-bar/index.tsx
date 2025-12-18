@@ -193,8 +193,7 @@ export default function MakeSidebar() {
       },
     },
     {
-      text: 'Wallet',
-      label: t('Wallet'),
+      text: t('Wallet'),
       route: '/wallet',
       isParent: true,
       icon: faWallet,
