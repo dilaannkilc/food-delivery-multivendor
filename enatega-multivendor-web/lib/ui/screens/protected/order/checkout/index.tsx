@@ -607,7 +607,7 @@ export default function OrderCheckoutScreen() {
           orderInput: items,
           instructions: localStorage.getItem("newOrderInstructions") || "",
           paymentMethod: paymentMethod,
-          couponCode: isCouponApplied? coupon? coupon.title : null : null,
+          couponCode: coupon ? coupon.title : null,
           tipping: +selectedTip,
           taxationAmount: +taxCalculation(),
           // address: {
@@ -687,7 +687,7 @@ export default function OrderCheckoutScreen() {
     cart.forEach((cartItem) => {
       itemTotal = itemTotal + Number(cartItem?.price || 0) * cartItem.quantity;
     });
-    if (withDiscount && coupon && coupon.discount && isCouponApplied) {
+    if (withDiscount && coupon && coupon.discount) {
       itemTotal = itemTotal - (coupon.discount / 100) * itemTotal;
     }
     const deliveryAmount = delivery > 0 ? deliveryCharges : 0;
@@ -1530,7 +1530,6 @@ export default function OrderCheckoutScreen() {
       </PaddingContainer>
 
       <UserAddressComponent
-        confirmYourAddress={true}
         visible={isUserAddressModalOpen}
         onHide={() => {
           setIsUserAddressModalOpen(false);
