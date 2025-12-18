@@ -193,8 +193,6 @@ export const SAVE_TWILIO_CONFIGURATION = gql`
       twilioAuthToken
       twilioPhoneNumber
       twilioEnabled
-      twilioWhatsAppNumber
-
     }
   }
 `;
@@ -206,7 +204,6 @@ export const SAVE_VERIFICATION_CONFIGURATION = gql`
     saveVerificationsToggle(configurationInput: $configurationInput) {
       skipEmailVerification
       skipMobileVerification
-      skipWhatsAppOTP
     }
   }
 `;

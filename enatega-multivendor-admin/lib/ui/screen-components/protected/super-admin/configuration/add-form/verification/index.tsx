@@ -24,18 +24,14 @@ import CustomInputSwitch from '@/lib/ui/useable-components/custom-input-switch';
 
 const VerificationAddForm = () => {
   // Hooks
-  const {
-    SKIP_EMAIL_VERIFICATION,
-    SKIP_MOBILE_VERIFICATION,
-    SKIP_WHATSAPP_OTP,
-  } = useConfiguration();
+  const { SKIP_EMAIL_VERIFICATION, SKIP_MOBILE_VERIFICATION } =
+    useConfiguration();
   const { showToast } = useToast();
 
   // Set initial values using the useConfiguration hook
   const initialValues = {
     skipEmailVerification: SKIP_EMAIL_VERIFICATION ?? false,
     skipMobileVerification: SKIP_MOBILE_VERIFICATION ?? false,
-    skipWhatsAppOTP: SKIP_WHATSAPP_OTP ?? false,
   };
 
   // Mutation for saving the app configuration
@@ -53,7 +49,6 @@ const VerificationAddForm = () => {
         configurationInput: {
           skipEmailVerification: values.skipEmailVerification,
           skipMobileVerification: values.skipMobileVerification,
-          skipWhatsAppOTP: values?.skipWhatsAppOTP
         },
       },
       onCompleted: () => {
@@ -116,17 +111,6 @@ const VerificationAddForm = () => {
                       )
                     }
                     isActive={values.skipEmailVerification}
-                    reverse
-                  />
-                  <CustomInputSwitch
-                    label={`Skip Whatsapp OTP`}
-                    onChange={() =>
-                      setFieldValue(
-                        'skipWhatsAppOTP',
-                        !values.skipWhatsAppOTP
-                      )
-                    }
-                    isActive={values.skipWhatsAppOTP}
                     reverse
                   />
                 </div>

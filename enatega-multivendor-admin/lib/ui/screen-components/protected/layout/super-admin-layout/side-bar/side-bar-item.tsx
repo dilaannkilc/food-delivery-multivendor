@@ -38,7 +38,6 @@ function HoveredSubMenuItem({ icon, text, active }: SubMenuItemProps) {
 export default function SidebarItem({
   icon,
   text,
-  label,
   expanded = false,
   subMenu = null,
   route,
@@ -87,8 +86,7 @@ export default function SidebarItem({
           onClick={() => {
             if (!isParent || isClickable) {
               if (
-                shouldOpenInNewTab &&
-                route // <-- check for shouldOpenInNewTab
+                shouldOpenInNewTab && route // <-- check for shouldOpenInNewTab
               ) {
                 window.open(route, '_blank');
               } else if (
@@ -117,8 +115,7 @@ export default function SidebarItem({
               expanded ? 'ml-3 w-44' : 'w-0'
             }`}
           >
-            {/* {text} */}
-            {label}
+            {text}
           </span>
           {subMenu && (
             <div

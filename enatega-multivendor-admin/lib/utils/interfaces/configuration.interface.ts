@@ -20,7 +20,6 @@ export interface IConfiguration {
   riderAppSentryUrl?: string;
   skipEmailVerification?: boolean;
   skipMobileVerification?: boolean;
-  skipWhatsAppOTP?: boolean;
   currency?: string;
   currencySymbol?: string;
   deliveryRate: number;
@@ -29,7 +28,6 @@ export interface IConfiguration {
   twilioAccountSid?: string;
   twilioAuthToken?: string;
   twilioPhoneNumber?: string;
-  twilioWhatsAppNumber?: string;
   firebaseKey?: string;
   appId?: string;
   authDomain?: string;

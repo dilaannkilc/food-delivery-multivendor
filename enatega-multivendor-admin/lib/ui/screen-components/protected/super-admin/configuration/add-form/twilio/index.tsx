@@ -33,7 +33,6 @@ const TwilioAddForm = () => {
     TWILIO_AUTH_TOKEN,
     TWILIO_PHONE_NUMBER,
     TWILIO_ENABLED,
-    TWILIO_WHATSAPP_NUMBER,
   } = useConfiguration();
   const { showToast } = useToast();
 
@@ -42,9 +41,6 @@ const TwilioAddForm = () => {
     twilioAuthToken: TWILIO_AUTH_TOKEN,
     twilioPhoneNumber: TWILIO_PHONE_NUMBER ? +TWILIO_PHONE_NUMBER : null,
     twilioEnabled: TWILIO_ENABLED,
-    twilioWhatsAppNumber: TWILIO_WHATSAPP_NUMBER
-      ? +TWILIO_WHATSAPP_NUMBER
-      : null,
   };
 
   const [mutate, { loading: mutationLoading }] = useMutation(
@@ -64,9 +60,6 @@ const TwilioAddForm = () => {
             ? values.twilioPhoneNumber.toString()
             : '',
           twilioEnabled: values.twilioEnabled,
-          twilioWhatsAppNumber: values.twilioWhatsAppNumber
-            ? values.twilioWhatsAppNumber?.toString()
-            : '',
         },
       },
       onCompleted: () => {
@@ -165,22 +158,6 @@ const TwilioAddForm = () => {
                     style={{
                       borderColor:
                         errors.twilioPhoneNumber && touched.twilioPhoneNumber
-                          ? 'red'
-                          : '',
-                    }}
-                  />
-                  <CustomNumberField
-                    min={0}
-                    placeholder="Whatsapp Number"
-                    name="twilioWhatsAppNumber"
-                    showLabel={true}
-                    value={values.twilioWhatsAppNumber || null}
-                    useGrouping={false}
-                    onChange={setFieldValue}
-                    style={{
-                      borderColor:
-                        errors.twilioWhatsAppNumber &&
-                        touched.twilioWhatsAppNumber
                           ? 'red'
                           : '',
                     }}
