@@ -62,6 +62,7 @@ export default function OrderSuperAdminMain() {
     undefined
   >;
   if (!loading) {
+    console.log(data, "data from orders without pagination-----------------");
   }
   const [globalFilterValue, setGlobalFilterValue] = useState('');
   const [filters, setFilters] = useState({
