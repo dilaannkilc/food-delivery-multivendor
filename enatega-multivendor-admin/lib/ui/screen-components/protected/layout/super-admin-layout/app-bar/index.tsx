@@ -106,8 +106,10 @@ const AppTopbar = () => {
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
       setNotifications(data?.webNotifications);
+
     },
   });
+
 
   // Subscriptions
   useSubscription(RIDER_UPDATED_SUBSCRIPTION, {
@@ -208,7 +210,7 @@ const AppTopbar = () => {
     template(item: any) {
       return (
         <div
-          className={`${currentLocale === lang.code ? 'bg-[#b1c748]' : ''} p-2 cursor-pointer`}
+          className={`hover:bg-[#b1c748] ${currentLocale === lang.code ? 'bg-[#b1c748]' : ''} p-2 cursor-pointer`}
           onClick={() => onLocaleChange(lang.code)}
         >
           {item.label}
@@ -408,7 +410,104 @@ const AppTopbar = () => {
           <FontAwesomeIcon icon={faGlobe} />
 
           <Menu
-            model={model}
+            model={[
+              {
+                label: 'ENGLISH',
+                template(item) {
+                  return (
+                    <div
+                      className={`${currentLocale === 'en' ? 'bg-[#b1c748]' : ''} p-2  cursor-pointer`}
+                      onClick={() => onLocaleChange('en')}
+                    >
+                      {item.label}
+                    </div>
+                  );
+                },
+                command: () => {
+                  onLocaleChange('en');
+                },
+              },
+              {
+                label: 'ARABIC',
+                template(item) {
+                  return (
+                    <div
+                      className={`${currentLocale === 'ar' ? 'bg-[#b1c748]' : ''} p-2  cursor-pointer`}
+                      onClick={() => onLocaleChange('ar')}
+                    >
+                      {item.label}
+                    </div>
+                  );
+                },
+                command: () => {
+                  onLocaleChange('ar');
+                },
+              },
+              {
+                label: 'FRENCH',
+                template(item) {
+                  return (
+                    <div
+                      className={`${currentLocale === 'fr' ? 'bg-[#b1c748]' : ''} p-2  cursor-pointer`}
+                      onClick={() => onLocaleChange('fr')}
+                    >
+                      {item.label}
+                    </div>
+                  );
+                },
+                command: () => {
+                  onLocaleChange('fr');
+                },
+              },
+              {
+                label: 'KHMER',
+                template(item) {
+                  return (
+                    <div
+                      className={`${currentLocale === 'km' ? 'bg-[#b1c748]' : ''} p-2  cursor-pointer`}
+                      onClick={() => onLocaleChange('km')}
+                    >
+                      {item.label}
+                    </div>
+                  );
+                },
+                command: () => {
+                  onLocaleChange('km');
+                },
+              },
+              {
+                label: 'CHINESE',
+                template(item) {
+                  return (
+                    <div
+                      className={`${currentLocale === 'zh' ? 'bg-[#b1c748]' : ''} p-2  cursor-pointer`}
+                      onClick={() => onLocaleChange('zh')}
+                    >
+                      {item.label}
+                    </div>
+                  );
+                },
+                command: () => {
+                  onLocaleChange('zh');
+                },
+              },
+              {
+                label: 'HEBREW',
+                template(item) {
+                  return (
+                    <div
+                      className={`${currentLocale === 'he' ? 'bg-[#b1c748]' : ''} p-2  cursor-pointer`}
+                      onClick={() => onLocaleChange('he')}
+                    >
+                      {item.label}
+                    </div>
+                  );
+                },
+                command: () => {
+                  onLocaleChange('he');
+                },
+              },
+            ]}
             popup
             ref={languageMenuRef}
             id="popup_menu_right"
