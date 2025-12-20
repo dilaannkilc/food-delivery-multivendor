@@ -1,5 +1,5 @@
 // GraphQL
-import { GET_ACTIVE_ORDERS, SUBSCRIPTION_DISPATCH_ORDER } from '@/lib/api/graphql';
+import { GET_ACTIVE_ORDERS } from '@/lib/api/graphql';
 
 //Components
 import Table from '@/lib/ui/useable-components/table';
@@ -12,12 +12,12 @@ import {
 } from '@/lib/utils/interfaces/dispatch.interface';
 
 //Hooks
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Constants
 import { generateDummyDispatchOrders } from '@/lib/utils/dummy';
 import { DISPATCH_TABLE_COLUMNS } from '@/lib/ui/useable-components/table/columns/dispatch-columns';
-import { useLazyQuery, useSubscription } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 
 export default function DispatchMain() {
   // States
@@ -29,11 +29,6 @@ export default function DispatchMain() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [search, setSearch] = useState('');
 
-  // Ref for debouncing and polling
-  const refetchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const pollingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
-    null
-  );
   // Filters
   // const filters = {
   //   global: { value: globalFilterValue, matchMode: FilterMatchMode.CONTAINS },
@@ -46,7 +41,7 @@ export default function DispatchMain() {
   // Queries
   const [
     fetchActiveOrders,
-    { data: active_orders_data, loading: active_orders_loading, refetch },
+    { data: active_orders_data, loading: active_orders_loading },
   ] = useLazyQuery<
     IGetActiveOrders | undefined,
     {
@@ -67,58 +62,15 @@ export default function DispatchMain() {
     onCompleted: () => {
       setIsLoading(false);
     },
-    fetchPolicy: 'network-only',
+    // pollInterval: 3000,
+    
   });
 
-  // 🔥 SUBSCRIPTION (will attempt to use, but has fallback)
-  const { data: subscriptionData } = useSubscription(
-    SUBSCRIPTION_DISPATCH_ORDER,
-    {
-      onError: (error) => {
-        console.error('❌ Subscription error:', error);
-        console.log('⚠️ Falling back to polling...');
-      },
-      shouldResubscribe: true,
-    }
-  );
-
-
-   // Handle subscription data
-   useEffect(() => {
-    if (subscriptionData) {
-      console.log('🔥 Real-time order update received via WebSocket!');
-
-      if (refetchTimeoutRef.current) {
-        clearTimeout(refetchTimeoutRef.current);
-      }
-
-      refetchTimeoutRef.current = setTimeout(() => {
-        if (refetch) {
-          console.log('📡 Refetching orders...');
-          refetch();
-        }
-      }, 500);
-    }
-  }, [subscriptionData, refetch]);
-
-   // 🔄 POLLING FALLBACK - Polls every 5 seconds
-   useEffect(() => {
-    // Start polling
-    pollingIntervalRef.current = setInterval(() => {
-      if (refetch && !active_orders_loading) {
-        console.log('🔄 Polling for updates...');
-        refetch();
-      }
-    }, 5000); // Poll every 5 seconds
-
-    // Cleanup
-    return () => {
-      if (pollingIntervalRef.current) {
-        clearInterval(pollingIntervalRef.current);
-      }
-    };
-  }, [refetch, active_orders_loading]);
-
+  // fetchPolicy: 'network-only',
+  // onCompleted: () => {
+  //   setIsLoading(false);
+  // },
+  // UseEffects
   useEffect(() => {
     fetchActiveOrders({
       variables: {
@@ -130,19 +82,7 @@ export default function DispatchMain() {
       },
     });
     setIsLoading(true);
-  }, [rowsPerPage, page, selectedActions, search, fetchActiveOrders]);
-
-   // Cleanup
-   useEffect(() => {
-    return () => {
-      if (refetchTimeoutRef.current) {
-        clearTimeout(refetchTimeoutRef.current);
-      }
-      if (pollingIntervalRef.current) {
-        clearInterval(pollingIntervalRef.current);
-      }
-    };
-  }, []);
+  }, [rowsPerPage, page, selectedActions, search]);
 
   return (
     <div className="p-3">
@@ -150,7 +90,7 @@ export default function DispatchMain() {
         columns={DISPATCH_TABLE_COLUMNS()}
         data={
           active_orders_data?.getActiveOrders.orders ||
-          (isLoading || active_orders_loading ? generateDummyDispatchOrders() : [])
+          (isLoading ? generateDummyDispatchOrders() : [])
         }
         loading={isLoading || active_orders_loading}
         selectedData={selectedData}
