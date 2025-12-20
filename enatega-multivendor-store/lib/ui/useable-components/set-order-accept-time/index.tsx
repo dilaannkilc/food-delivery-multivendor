@@ -52,13 +52,9 @@ const SetTimeScreenAndAcceptOrder = ({
 
   const onAcceptOrderHandler = async () => {
     try {
-      const status = await printOrder(id);
-
-      if (status !== false) {
-        // null means it's ioS so ignore printing and true mean print wa successfull
-        await acceptOrder(id, selectedTime?.toString() || "0");
-        await muteRing(orderId);
-      }
+      // await acceptOrder(id, selectedTime?.toString() || "0");
+      // await muteRing(orderId);
+      await printOrder(id);
 
       handleDismissModal();
     } catch (err) {
