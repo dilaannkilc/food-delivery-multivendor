@@ -208,7 +208,7 @@ const AppTopbar = () => {
     template(item: any) {
       return (
         <div
-          className={`hover:bg-[#b1c748] ${currentLocale === lang.code ? 'bg-[#b1c748]' : ''} p-2 cursor-pointer`}
+          className={`${currentLocale === lang.code ? 'bg-[#b1c748]' : ''} p-2 cursor-pointer`}
           onClick={() => onLocaleChange(lang.code)}
         >
           {item.label}
@@ -386,6 +386,13 @@ const AppTopbar = () => {
               id="popup_menu_right"
               popupAlignment="right"
             />
+            <Menu
+              popup
+              ref={languageMenuRef}
+              id="popup_menu_right"
+              popupAlignment="right"
+              model={model}
+            />
           </div>
         </div>
       </div>
@@ -399,12 +406,14 @@ const AppTopbar = () => {
           title="Languages"
         >
           <FontAwesomeIcon icon={faGlobe} />
+
           <Menu
             model={model}
             popup
             ref={languageMenuRef}
             id="popup_menu_right"
             popupAlignment="right"
+            // className="max-h-72 overflow-y-auto [&_.p-menu-list]:max-h-72 [&_.p-menu-list]:overflow-y-auto"
             className="
         [&_.p-menu-list]:max-h-72 
         [&_.p-menu-list]:overflow-y-auto

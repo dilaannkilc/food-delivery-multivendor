@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React from "react";
 import { IOrderTrackingDetail } from "@/lib/utils/interfaces/order-tracking-detail.interface";
 import { useTranslations } from "next-intl";
@@ -7,8 +7,9 @@ interface TrackingStatusCardProps {
   orderTrackingDetails: IOrderTrackingDetail;
 }
 
+
 function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
-  const t = useTranslations();
+  const t = useTranslations()
   // Helper to determine the step status
   const getStepStatus = (stepIndex: number) => {
     const STATUS_ORDER = [
@@ -117,104 +118,86 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
     }
   };
 
-  const StoreType = localStorage.getItem("currentShopType") || "store";
+const StoreType = localStorage.getItem("currentShopType") || "store";
 
-  const isRestaurant = StoreType.toLowerCase() === "restaurant";
+const isRestaurant = StoreType.toLowerCase() === "restaurant";
 
-  const getStatusMessage = () => {
-    const status = orderTrackingDetails?.orderStatus;
-    const now = new Date();
 
-    switch (status) {
-      case "PENDING":
-        return isRestaurant ? t("PendingRestaurant") : t("PendingStore");
+const getStatusMessage = () => {
+  const status = orderTrackingDetails?.orderStatus;
+  const now = new Date();
 
-      case "ACCEPTED": {
-        if (orderTrackingDetails.preparationTime) {
-          const prepTime = new Date(orderTrackingDetails.preparationTime);
-          if (prepTime > now) {
-            const minLeft = Math.ceil(
-              (prepTime.getTime() - now.getTime()) / 60000
-            );
-            const riderMessage = orderTrackingDetails.isPickedUp
-              ? ""
-              : t.raw("Assigned");
-            return isRestaurant
-              ? t("AcceptedRestaurantPrep", { min: minLeft, riderMessage })
-              : t("AcceptedStorePrep", { min: minLeft, riderMessage });
-          }
-        }
+  switch (status) {
+    case "PENDING":
+      return isRestaurant ? t("PendingRestaurant") : t("PendingStore");
 
-        if (orderTrackingDetails.acceptedAt) {
-          const acceptedTime = new Date(orderTrackingDetails.acceptedAt);
-          const timeElapsed = Math.floor(
-            (now.getTime() - acceptedTime.getTime()) / 60000
-          );
-          const riderMessage = orderTrackingDetails.isPickedUp
-            ? ""
-            : t.raw("Assigned");
+    case "ACCEPTED":{
+      if (orderTrackingDetails.preparationTime) {
+        const prepTime = new Date(orderTrackingDetails.preparationTime);
+        if (prepTime > now) {
+          const minLeft = Math.ceil((prepTime.getTime() - now.getTime()) / 60000);
+          const riderMessage = orderTrackingDetails.isPickedUp ? "" : t.raw("Assigned");
           return isRestaurant
-            ? t("AcceptedRestaurantElapsed", { min: timeElapsed, riderMessage })
-            : t("AcceptedStoreElapsed", { min: timeElapsed, riderMessage });
+            ? t("AcceptedRestaurantPrep", { min: minLeft, riderMessage })
+            : t("AcceptedStorePrep", { min: minLeft, riderMessage });
         }
+      }
 
-        const riderMessage = orderTrackingDetails.isPickedUp
-          ? ""
-          : t("Assigned");
+      if (orderTrackingDetails.acceptedAt) {
+        const acceptedTime = new Date(orderTrackingDetails.acceptedAt);
+        const timeElapsed = Math.floor((now.getTime() - acceptedTime.getTime()) / 60000);
+        const riderMessage = orderTrackingDetails.isPickedUp ? "" : t.raw("Assigned");
         return isRestaurant
-          ? t("AcceptedRestaurantSimple", { riderMessage })
-          : t("AcceptedStoreSimple", { riderMessage });
+          ? t("AcceptedRestaurantElapsed", { min: timeElapsed, riderMessage })
+          : t("AcceptedStoreElapsed", { min: timeElapsed, riderMessage });
       }
-      case "ASSIGNED": {
-        return t("Assigned");
-      }
-      case "PICKED": {
-        if (orderTrackingDetails.pickedAt) {
-          const pickedTime = new Date(orderTrackingDetails.pickedAt);
-          const timeElapsed = Math.floor(
-            (now.getTime() - pickedTime.getTime()) / 60000
-          );
-          if (timeElapsed === 0) {
-            return t("PickedElapsedJustNow");
-          } else {
-            return t("PickedElapsed", { min: timeElapsed });
-          }
-        }
-        return t("Picked");
-      }
-      case "DELIVERED": {
-        if (orderTrackingDetails.deliveredAt) {
-          const deliveredTime = new Date(orderTrackingDetails.deliveredAt);
-          const deliveredString = deliveredTime.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-          return isRestaurant
-            ? t("DeliveredRestaurant", { time: deliveredString })
-            : t("DeliveredStore", { time: deliveredString });
-        }
-        return isRestaurant
-          ? t("DeliveredSimpleRestaurant")
-          : t("DeliveredSimpleStore");
-      }
-      case "COMPLETED": {
-        return t("Completed");
-      }
-      case "CANCELLED": {
-        return orderTrackingDetails.reason || t("Cancelled");
-      }
-      default:
-        return t("Processing");
+
+      const riderMessage = orderTrackingDetails.isPickedUp ? "" : t("Assigned");
+      return isRestaurant
+        ? t("AcceptedRestaurantSimple", { riderMessage })
+        : t("AcceptedStoreSimple", { riderMessage });
+
     }
+    case "ASSIGNED":{
+      return t("Assigned");
+    }
+    case "PICKED":{
+      if (orderTrackingDetails.pickedAt) {
+        const pickedTime = new Date(orderTrackingDetails.pickedAt);
+        const timeElapsed = Math.floor((now.getTime() - pickedTime.getTime()) / 60000);
+        return t("PickedElapsed", { min: timeElapsed });
+      }
+      return t("Picked");
+    }
+    case "DELIVERED": {
+      if (orderTrackingDetails.deliveredAt) {
+        const deliveredTime = new Date(orderTrackingDetails.deliveredAt);
+        const deliveredString = deliveredTime.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        return isRestaurant
+          ? t("DeliveredRestaurant", { time: deliveredString })
+          : t("DeliveredStore", { time: deliveredString });
+      }
+      return isRestaurant ? t("DeliveredSimpleRestaurant") : t("DeliveredSimpleStore");
+    }
+    case "COMPLETED":{
+      return t("Completed");
+    }
+    case "CANCELLED":{
+      return orderTrackingDetails.reason || t("Cancelled");
+    }
+    default:
+      return t("Processing");
+}
   };
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 w-full max-w-2xl">
       <div className="flex justify-between items-center mb-3">
         <h3 className="text-sm sm:text-base font-semibold dark:text-white">
-          {orderTrackingDetails.orderStatus === "DELIVERED"
-            ? "Delivered"
-            : t("estimated_Delivery_time")}
+           {orderTrackingDetails.orderStatus === "DELIVERED" ? "Delivered" : t("estimated_Delivery_time")}
         </h3>
 
         {orderTrackingDetails.orderStatus === "CANCELLED" && (
@@ -336,19 +319,15 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
             >
               <div
                 className={`h-full rounded-full transition-all duration-500 ${
-                  status === "completed"
-                    ? "bg-green-500"
-                    : status === "active"
-                      ? "bg-green-500 animate-pulse"
-                      : "bg-gray-200 dark:bg-gray-700"
+                  status === "completed" ? "bg-green-500"
+                  : status === "active" ? "bg-green-500 animate-pulse"
+                  : "bg-gray-200 dark:bg-gray-700"
                 }`}
                 style={{
                   width:
-                    status === "completed"
-                      ? "100%"
-                      : status === "active"
-                        ? "75%"
-                        : "0%",
+                    status === "completed" ? "100%"
+                    : status === "active" ? "75%"
+                    : "0%",
                 }}
               />
             </div>
@@ -356,9 +335,7 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
         })}
       </div>
 
-      <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">
-        {getStatusMessage()}
-      </p>
+      <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">{getStatusMessage()}</p>
 
       {/* Real-time update indicator */}
       {orderTrackingDetails.orderStatus !== "DELIVERED" &&
