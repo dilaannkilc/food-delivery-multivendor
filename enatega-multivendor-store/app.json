@@ -48,7 +48,7 @@
       }
     },
     "android": {
-      "versionCode": 62,
+      "versionCode": 61,
       "googleServicesFile": "./google-services.json",
       "permissions": [
         "BLUETOOTH",
