@@ -64,60 +64,55 @@ export default function usePrintOrder() {
       });
       setStatus(`Printed successfully`);
     } catch (err: any) {
-      console.log(err);
       setStatus("Print failed: " + err.message);
     }
   };
 
   const printOrder = async (id: string) => {
     try {
-      if (Platform.OS === "ios") {
-        FlashMessageComponent({
-          message: "No printer available. iOS not supported",
-        });
+      if (Platform.OS === "android") {
+        if (!loading && !error) {
+          const status = await requestBluetoothPermissions();
+          if (!status) {
+            FlashMessageComponent({
+              message: "Please grant Bluetooth permission.",
+            });
+            return;
+          }
 
-        return false;
+          const devices = await ThermalPrinterModule.getBluetoothDeviceList();
+
+          if (devices?.length === 0) {
+            // alert("No printer found. Please connect to the thermal printer by pairing using Bluetooth.")
+            FlashMessageComponent({
+              message:
+                "No printer found. Please connect to the thermal printer by pairing using Bluetooth.",
+            });
+            return false;
+          }
+
+          /**
+           * Please use some kind of get-by-id API to fetch the order details
+           * Current approach is very unoptmized and will down drastically if store order exceeds certain number.
+           */
+          const order = data.restaurantOrders.find(
+            (order: IOrder) => order._id === id
+          );
+
+          await printReceipt({
+            ...order,
+            currencySymbol: configuration?.currencySymbol,
+          });
+          return true;
+        }
       }
 
-      if (!loading && !error) {
-        const status = await requestBluetoothPermissions();
-        if (!status) {
-          FlashMessageComponent({
-            message: "Please grant Bluetooth permission.",
-          });
-          return;
-        }
-
-        const devices = await ThermalPrinterModule.getBluetoothDeviceList();
-
-        if (devices?.length === 0) {
-          // alert("No printer found. Please connect to the thermal printer by pairing using Bluetooth.")
-          FlashMessageComponent({
-            message:
-              "No printer found. Please connect to the thermal printer by pairing using Bluetooth.",
-          });
-          return false;
-        }
-
-        /**
-         * Please use some kind of get-by-id API to fetch the order details
-         * Current approach is very unoptmized and will down drastically if store order exceeds certain number.
-         */
-        const order = data.restaurantOrders.find(
-          (order: IOrder) => order._id === id
-        );
-
-        await printReceipt({
-          ...order,
-          currencySymbol: configuration?.currencySymbol,
-        });
-        return true;
-      }
+      return null;
     } catch (err) {
       console.log({ err });
       FlashMessageComponent({
         message:
-          err?.message || "Something went wrong while printing the receipt.",
+          err?.message || "Something went wrong while print the receipt.",
       });
       return false;
     }
