@@ -120,7 +120,7 @@ const CartItem = (props) => {
                 </TouchableOpacity>
                 {isDropdownOpen && (
                   <View style={styles().itemsDropdown}>
-                    {props?.optionsTitle?.map((item, index) => (
+                    {props?.optionsTitle?.slice(0, 3)?.map((item, index) => (
                       <TextDefault
                         key={index}
                         textColor={currentTheme.secondaryText}
