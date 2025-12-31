@@ -19,7 +19,7 @@ export default function CouponsScreen() {
       _id: '',
       isActive: false,
       image:"",
-      name: '',
+      title: '',
     },
   });
 

@@ -75,7 +75,7 @@ export const SHOP_TYPES_TABLE_COLUMNS = ({
     });
     const updatedShopType = {
       _id: rowData?._id,
-      name: rowData?.name,
+      title: rowData?.title,
       image: rowData?.image,
       isActive: !rowData?.isActive,
     };
@@ -111,7 +111,7 @@ export const SHOP_TYPES_TABLE_COLUMNS = ({
           },
       {
         headerName: t('Title'),
-        propertyName: 'name',
+        propertyName: 'title',
       },
       {
         headerName: t('Status'),
