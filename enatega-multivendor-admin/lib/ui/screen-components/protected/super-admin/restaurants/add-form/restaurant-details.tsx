@@ -57,7 +57,6 @@ import { RestaurantSchema } from '@/lib/utils/schema/restaurant';
 import { ApolloCache, ApolloError, useMutation, useQuery } from '@apollo/client';
 import { useTranslations } from 'next-intl';
 import CustomPhoneTextField from '@/lib/ui/useable-components/phone-input-field';
-import { useShopTypes } from '@/lib/hooks/useShopType';
 
 const initialValues: IRestaurantForm = {
   name: '',
@@ -130,8 +129,6 @@ export default function RestaurantDetailsForm({
     debounceMs: 300,
   }) as IQueryResult<IGetCuisinesData | undefined, undefined>;
   cuisineResponse.data?.cuisines;
-
-  const {dropdownList,loading} =  useShopTypes({invoke_now: true, transform_to_dropdown_list: true})
 
   // Memoized Constants
   const cuisinesDropdown = useMemo(
@@ -476,13 +473,12 @@ export default function RestaurantDetailsForm({
                         />
                       </div>
                       <div>
-                      <CustomDropdownComponent
+                        <CustomDropdownComponent
                           name="shopType"
                           placeholder={t('Shop Category')}
                           selectedItem={values.shopType}
                           setSelectedItem={setFieldValue}
-                          loading={loading}
-                          options={dropdownList || []}
+                          options={SHOP_TYPE}
                           showLabel={true}
                           style={{
                             borderColor: onErrorMessageMatcher(

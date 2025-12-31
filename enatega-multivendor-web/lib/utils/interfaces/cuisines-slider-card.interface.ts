@@ -8,7 +8,6 @@ export interface ICuisinesSliderCardComponentProps<T>
   showLogo?: boolean;
   cuisines?: boolean;
   heading? : string;
-  shopTypes?: boolean;
 }
 
 export interface ICuisinesSliderCardItemProps {
@@ -25,7 +24,6 @@ export interface ICuisinesCardProps {
   item: ICuisinesSliderCardItemProps;
   cuisines?: boolean;
   showLogo?: boolean;
-  shoptype?: boolean;
 }
 
 export type CuisinesSliderCardComponent = <
