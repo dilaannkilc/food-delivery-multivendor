@@ -27,15 +27,14 @@ export const useLogin = () => {
   const Analytics = analytics()
 
   const navigation = useNavigation()
-  const [email, setEmail] = useState('')
-  const emailRef = useRef('')
+  const emailRef = useRef('demo-customer@enatega.com')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(true)
   const [emailError, setEmailError] = useState(null)
   const [passwordError, setPasswordError] = useState(null)
   const [registeredEmail, setRegisteredEmail] = useState(false)
   const themeContext = useContext(ThemeContext)
-  const currentTheme = { isRTL: i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue] }
+  const currentTheme = {isRTL : i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue]}
   const { setTokenAsync } = useContext(AuthContext)
 
   const [EmailEixst, { loading }] = useMutation(EMAIL, {
@@ -48,13 +47,9 @@ export const useLogin = () => {
     onError: onLoginError
   })
 
-  // Update both state and ref
-  const handleSetEmail = (newEmail) => {
-    setEmail(newEmail)
-    emailRef.current = newEmail
-    if (emailError) {
-      setEmailError(null)
-    }
+  // Debounce the setEmail function
+  const setEmail = (email)=>{
+    emailRef.current = email
   }
 
   // Reset password when registeredEmail becomes true
@@ -71,14 +66,12 @@ export const useLogin = () => {
     let result = true
     setEmailError(null)
     setPasswordError(null)
-
-    // Use the state value for validation
-    if (!email.trim()) {
+    if (!emailRef.current) {
       setEmailError(t('emailErr1'))
       result = false
     } else {
       const emailRegex = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/
-      if (emailRegex.test(email) !== true) {
+      if (emailRegex.test(emailRef.current) !== true) {
         setEmailError(t('emailErr2'))
         result = false
       }
@@ -200,9 +193,7 @@ export const useLogin = () => {
   }
 
   function checkEmailExist() {
-    if (validateCredentials()) {
-      EmailEixst({ variables: { email: emailRef.current } })
-    }
+    EmailEixst({ variables: { email:emailRef.current } })
   }
 
   function onBackButtonPressAndroid() {
@@ -229,7 +220,6 @@ export const useLogin = () => {
     checkEmailExist,
     onBackButtonPressAndroid,
     emailRef,
-    themeContext,
-    handleSetEmail
+    themeContext
   }
 }
