@@ -28,7 +28,6 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
   last,
   showLogo,
   cuisines,
-  shopTypes,
 }) => {
   const [page, setPage] = useState(0);
   const [numVisible, setNumVisible] = useState(getNumVisible());
@@ -109,7 +108,7 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
           <div className="flex items-center justify-end gap-x-2 mb-2">
             {pathname !== "/store" &&
               pathname !== "/restaurants" &&
-              !cuisines && !shopTypes && (
+              !cuisines && (
                 <CustomButton
                   label={t("see_all")}
                   onClick={onSeeAllClick}
@@ -158,14 +157,14 @@ const CuisinesSliderCard: CuisinesSliderCardComponent = ({
           className=""
           style={{
             width: data.length < 4 ? "max-content" : "100%",
-            minWidth: "800px",
+            minWidth: "300px",
           }}
         >
           <Carousel
             value={data}
             className={`discovery-carousel ${isRTL ? "rtl-carousel" : ""}`} // Add RTL class
             itemTemplate={(item) => (
-              <SquareCard item={item} showLogo={showLogo} cuisines={cuisines} shoptype={shopTypes} />
+              <SquareCard item={item} showLogo={showLogo} cuisines={cuisines} />
             )}
             numVisible={numVisible}
             numScroll={1}

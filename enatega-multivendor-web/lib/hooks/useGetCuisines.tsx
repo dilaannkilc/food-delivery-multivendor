@@ -10,7 +10,7 @@ import { ICuisinesResponse, ICuisinesData } from "@/lib/utils/interfaces";
 // context
 import { useUserAddress } from "../context/address/address.context";
 
-const useGetCuisines = (enabled = true, shoptype?: string) => {
+const useGetCuisines = (enabled = true) => {
   const { userAddress } = useUserAddress();
   const userLongitude = userAddress?.location?.coordinates[0] || 0
   const userLatitude = userAddress?.location?.coordinates[1] || 0
@@ -21,7 +21,7 @@ const useGetCuisines = (enabled = true, shoptype?: string) => {
       variables: {
         latitude: userLatitude,
         longitude: userLongitude,
-        shopType: shoptype ?? null,
+        shopType: null,
       },
       fetchPolicy: "cache-and-network",
       skip: !enabled,

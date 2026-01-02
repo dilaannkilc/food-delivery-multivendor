@@ -26,11 +26,7 @@ import {
 import { RestaurantSchema } from '@/lib/utils/schema/restaurant';
 import { EDIT_RESTAURANT, GET_CUISINES } from '@/lib/api/graphql';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
-import {
-  onErrorMessageMatcher,
-  onUseLocalStorage,
-  toTextCase,
-} from '@/lib/utils/methods';
+import { onErrorMessageMatcher, onUseLocalStorage, toTextCase } from '@/lib/utils/methods';
 
 import { RestaurantLayoutContext } from '@/lib/context/restaurant/layout-restaurant.context';
 
@@ -46,7 +42,6 @@ import {
 } from '@/lib/utils/interfaces/cuisine.interface';
 import { useTranslations } from 'next-intl';
 import CustomPhoneTextField from '@/lib/ui/useable-components/phone-input-field';
-import { useShopTypes } from '@/lib/hooks/useShopType';
 
 export default function UpdateRestaurantDetails({
   stepperProps,
@@ -93,11 +88,6 @@ export default function UpdateRestaurantDetails({
     },
   });
 
-  const { dropdownList, loading } = useShopTypes({
-    invoke_now: true,
-    transform_to_dropdown_list: true,
-  });
-
   const cuisineResponse = useQueryGQL(GET_CUISINES, {
     debounceMs: 300,
   }) as IQueryResult<IGetCuisinesData | undefined, undefined>;
@@ -124,7 +114,7 @@ export default function UpdateRestaurantDetails({
       minOrder: restaurantData?.minimumOrder ?? 0,
       salesTax: restaurantData?.tax ?? 0,
       shopType:
-        dropdownList?.find((type) => type.label === restaurantData?.shopType) ??
+        SHOP_TYPE.find((type) => type.code === restaurantData?.shopType) ??
         null,
       cuisines: Array.isArray(restaurantData?.cuisines)
         ? restaurantData.cuisines.map((cuisine) => ({
@@ -137,7 +127,7 @@ export default function UpdateRestaurantDetails({
       email: restaurantData?.username ?? '',
       orderprefix: restaurantData?.orderPrefix ?? '',
     };
-  }, [restaurantProfileResponse.data?.restaurant, dropdownList]);
+  }, [restaurantProfileResponse.data?.restaurant]);
 
   const onEditRestaurant = async (data: IUpdateProfileForm) => {
     if (!restaurantId) {
@@ -171,7 +161,7 @@ export default function UpdateRestaurantDetails({
           },
         },
       });
-      onUseLocalStorage('save', SELECTED_SHOPTYPE, data.shopType?.code);
+       onUseLocalStorage('save', SELECTED_SHOPTYPE, data.shopType?.code);
     } catch (error) {
       showToast({
         type: 'error',
@@ -428,8 +418,7 @@ export default function UpdateRestaurantDetails({
                       placeholder={t('Shop Category')}
                       selectedItem={values.shopType}
                       setSelectedItem={setFieldValue}
-                      options={dropdownList || []}
-                      loading={loading}
+                      options={SHOP_TYPE}
                       showLabel={true}
                       style={{
                         borderColor: onErrorMessageMatcher(

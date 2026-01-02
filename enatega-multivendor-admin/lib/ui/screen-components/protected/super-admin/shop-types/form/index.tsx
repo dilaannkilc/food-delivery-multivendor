@@ -50,7 +50,7 @@ export default function ShopTypesForm({
   // Initial values
   const initialValues = {
     _id: isEditing.bool ? isEditing?.data?._id : '',
-    name: isEditing.bool ? isEditing?.data?.name : '',
+    title: isEditing.bool ? isEditing?.data?.title : '',
     image: isEditing.bool ? isEditing?.data?.image : '',
     isActive: isEditing.bool ? isEditing?.data?.isActive : true,
   };
@@ -74,7 +74,7 @@ export default function ShopTypesForm({
             _id: '',
             isActive: false,
             image: '',
-            name: '',
+            title: '',
           },
         });
       },
@@ -94,7 +94,7 @@ export default function ShopTypesForm({
             _id: '',
             isActive: false,
             image: '',
-            name: '',
+            title: '',
           },
         });
       },
@@ -118,7 +118,7 @@ export default function ShopTypesForm({
             _id: '',
             isActive: false,
             image: '',
-            name: '',
+            title: '',
           },
         });
       },
@@ -138,7 +138,7 @@ export default function ShopTypesForm({
             _id: '',
             isActive: false,
             image: '',
-            name: '',
+            title: '',
           },
         });
       },
@@ -162,13 +162,13 @@ export default function ShopTypesForm({
           let formData;
           if (!isEditing.bool) {
             formData = {
-              name: values.name,
+              title: values.title,
               image: values.image || 'https://placehold.co/600x400',
             };
           } else {
             formData = {
               _id: values._id,
-              name: values.name,
+              title: values.title,
               image: values.image || 'https://placehold.co/600x400',
               isActive: values.isActive || false,
             };
@@ -194,7 +194,7 @@ export default function ShopTypesForm({
               _id: '',
               image: '',
               isActive: true,
-              name: '',
+              title: '',
             },
           });
           setVisible(false);
@@ -246,16 +246,16 @@ export default function ShopTypesForm({
                   }}
                 />
                 <CustomTextField
-                  value={values.name}
+                  value={values.title}
                   name="title"
                   showLabel={true}
                   placeholder={t('Title')}
                   type="text"
-                  onChange={(e) => setFieldValue('name', e.target.value)}
+                  onChange={(e) => setFieldValue('title', e.target.value)}
                   style={{
                     borderColor: onErrorMessageMatcher(
                       'title',
-                      errors?.name,
+                      errors?.title,
                       ShopTypeErrors
                     )
                       ? 'red'

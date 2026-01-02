@@ -14,7 +14,7 @@ const useNearByRestaurantsPreview = (
   enabled = true,
   page = 1,
   limit = 10,
-  shopType?: string | null 
+  shopType?: "restaurant" | "grocery" | null // <-- 🔑 allow passing
 ) => {
   const { userAddress } = useUserAddress();
   const userLongitude = Number(userAddress?.location?.coordinates[0]) || 0;
