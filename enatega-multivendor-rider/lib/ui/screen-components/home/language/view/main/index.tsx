@@ -6,7 +6,7 @@ import {
 } from "@/lib/ui/useable-components";
 import { LANGUAGES } from "@/lib/utils/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import i18next, { changeLanguage } from "i18next";
+import { changeLanguage } from "i18next";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -15,7 +15,7 @@ import { Image, ScrollView, Text, View } from "react-native";
 
 export default function LanguageMain() {
   // States
-  const [isSelected, setIsSelected] = useState(i18next.language);
+  const [isSelected, setIsSelected] = useState("");
   const [isChangingLang, setIsChangingLang] = useState(false);
 
   // Hooks
@@ -25,11 +25,16 @@ export default function LanguageMain() {
   // Handlers
   const handleLanguageSelection = async (selectedLanguage: string) => {
     setIsSelected(selectedLanguage);
-    await AsyncStorage.setItem("enatega-language", selectedLanguage);
+    await AsyncStorage.setItem("lang", selectedLanguage);
   };
   const handleSetCurrentLanguage = async () => {
     try {
-      const lng = await AsyncStorage.getItem("enatega-language");
+      const lng = await AsyncStorage.getItem("lang");
+      console.log("🚀 ~ handleSetCurrentLanguage ~ lng:", lng);
+      // if (lng) {
+      //   changeLanguage(lng);
+      //   changeLanguage(isSelected);
+      // }
       if (lng) {
         setIsSelected(lng);
       }
@@ -40,7 +45,7 @@ export default function LanguageMain() {
   const handleSubmission = async () => {
     try {
       setIsChangingLang(true);
-      await AsyncStorage.setItem("enatega-language", isSelected);
+      await AsyncStorage.setItem("lang", isSelected);
       changeLanguage(isSelected);
       setIsChangingLang(false);
     } catch (e) {
@@ -96,6 +101,49 @@ export default function LanguageMain() {
         <CustomContinueButton
           title={isChangingLang ? t("Please wait") : t("Update Language")}
           onPress={handleSubmission}
+        />
+      </View>
+    </View>
+  );
+
+  return (
+    <View
+      className="h-[85%] w-[90%] items-center justify-between mx-auto  p-4"
+      style={{ backgroundColor: appTheme.screenBackground }}
+    >
+      {LANGUAGES.map((lng, index) => {
+        return (
+          <View
+            key={`lng-${index}`}
+            className="w-full mx-auto flex flex-row items-center justify-between border-b-2 border-b-gray-300 h-12"
+            style={{ backgroundColor: appTheme.themeBackground }}
+          >
+            <View className="flex flex-row gap-3 items-center justify-center px-3">
+              <View className="overflow-hidden items-center justify-start w-8 h-6">
+                <Image
+                  source={lng.icon}
+                  width={100}
+                  height={100}
+                  className="max-w-8 max-h-8"
+                />
+              </View>
+              <Text style={{ color: appTheme.fontMainColor }}>{lng.value}</Text>
+            </View>
+            <View>
+              <CustomRadioButton
+                label={lng.code}
+                isSelected={lng.code === isSelected}
+                showLabel={false}
+                onPress={() => handleLanguageSelection(lng.code)}
+              />
+            </View>
+          </View>
+        );
+      })}
+      <View>
+        <CustomContinueButton
+          title={isChangingLang ? t("Please wait") : t("Update Language")}
+          onPress={() => handleSubmission()}
         />
       </View>
     </View>
