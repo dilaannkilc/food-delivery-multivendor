@@ -80,7 +80,6 @@ export interface IOrderTrackingDetail {
   paymentMethod: string;
   paidAmount: number;
   orderAmount: number;
-  discountAmount:number;
   orderStatus: string;
   deliveryCharges: number;
   instructions:string;

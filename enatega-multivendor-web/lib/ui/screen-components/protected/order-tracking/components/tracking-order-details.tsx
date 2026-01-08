@@ -55,18 +55,18 @@ function TrackingOrderDetails({
     }, 0);
   };
 
-  // console.log("order detail..",orderTrackingDetails);
+  console.log(orderTrackingDetails);
 
-  // // Calculate total
-  // const calculateTotal = () => {
-  //   const subtotal = calculateSubtotal();
-  //   const deliveryCharge = orderTrackingDetails?.deliveryCharges || 0;
-  //   const tax = orderTrackingDetails?.taxationAmount || 0;
-  //   const tip = orderTrackingDetails?.tipping || 0;
-  //   const addons = calculateTotalAddonPrice();
+  // Calculate total
+  const calculateTotal = () => {
+    const subtotal = calculateSubtotal();
+    const deliveryCharge = orderTrackingDetails?.deliveryCharges || 0;
+    const tax = orderTrackingDetails?.taxationAmount || 0;
+    const tip = orderTrackingDetails?.tipping || 0;
+    const addons = calculateTotalAddonPrice();
 
-  //   return subtotal + deliveryCharge + tax + tip + addons;
-  // };
+    return subtotal + deliveryCharge + tax + tip + addons;
+  };
 
   // Check if order can be cancelled (only PENDING or ACCEPTED)
   const canCancelOrder = () => {
@@ -229,17 +229,9 @@ function TrackingOrderDetails({
             </span>
           </div>
 
-          <div className="flex justify-between">
-            <span >{t("discount_label")}</span>
-            
-            <span className="text-red-500">
-             -{""} {formatCurrency(orderTrackingDetails.discountAmount || 0)}
-            </span>
-          </div>
-
           <div className="flex justify-between font-semibold pt-2 border-t dark:border-gray-700">
             <span>{t("order_details_total_label")}</span>
-            <span>{formatCurrency(orderTrackingDetails.orderAmount)}</span>
+            <span>{formatCurrency(calculateTotal())}</span>
           </div>
         </div>
       </div>
@@ -259,7 +251,7 @@ function TrackingOrderDetails({
               : orderTrackingDetails.paymentMethod}
           </span>
           <span className="ml-auto font-semibold dark:text-gray-100">
-            {formatCurrency(orderTrackingDetails.orderAmount)}
+            {formatCurrency(calculateTotal())}
           </span>
         </div>
       </div>

@@ -509,7 +509,6 @@ export default function StoreDetailsScreen() {
     _id: data?.restaurant?._id ?? "",
     name: data?.restaurant?.name ?? "...",
     image: data?.restaurant?.image ?? "",
-    logo: data?.restaurant?.logo ?? "",
     reviewData: data?.restaurant?.reviewData ?? {},
     address: data?.restaurant?.address ?? "",
     deliveryCharges: data?.restaurant?.deliveryCharges ?? "",
@@ -660,7 +659,7 @@ export default function StoreDetailsScreen() {
           >
             <div className="flex flex-col items-start">
               <Image
-                src={restaurantInfo.logo}
+                src={restaurantInfo.image}
                 alt={`${restaurantInfo.name} logo`}
                 width={50}
                 height={50}

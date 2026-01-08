@@ -9,7 +9,6 @@ import { useQuery } from "@apollo/client";
 import { ICuisinesResponse, ICuisinesData } from "@/lib/utils/interfaces";
 // context
 import { useUserAddress } from "../context/address/address.context";
-import { toFloatIfNeeded } from "../utils/methods/helpers";
 
 const useGetCuisines = (enabled = true, shoptype?: string) => {
   const { userAddress } = useUserAddress();
@@ -20,8 +19,8 @@ const useGetCuisines = (enabled = true, shoptype?: string) => {
     NEAR_BY_RESTAURANTS_CUISINES,
     {
       variables: {
-        latitude: toFloatIfNeeded(userLatitude),
-        longitude: toFloatIfNeeded(userLongitude),
+        latitude: userLatitude,
+        longitude: userLongitude,
         shopType: shoptype ?? null,
       },
       fetchPolicy: "cache-and-network",
