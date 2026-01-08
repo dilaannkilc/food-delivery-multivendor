@@ -16,9 +16,9 @@ const BannerCard: React.FC<IBannerItemProps> = ({ item }) => {
       );
     } else {
       if (item?.screen === "Top Brands") {
-        router.push("/see-all/popular-stores");
+        router.push("/our-brands");
       } else if (item?.screen === "Near By Restaurants") {
-        router.push("/see-all/restaurants-near-you");
+        router.push("/restaurants-near-you");
       } else {
         router.push("/store");
       }

@@ -8,11 +8,9 @@ export const GET_DASHBOARD_USERS = gql`
       vendorsCount
       restaurantsCount
       ridersCount
-      
     }
   }
 `;
-
 
 export const GET_DASHBOARD_USERS_BY_YEAR = gql`
   query GetDashboardUsersByYear($year: Int!) {
@@ -21,12 +19,6 @@ export const GET_DASHBOARD_USERS_BY_YEAR = gql`
       vendorsCount
       restaurantsCount
       ridersCount
-      percentageChange {
-        usersPercent
-        vendorsPercent
-        restaurantsPercent
-        ridersPercent
-      }
     }
   }
 `;

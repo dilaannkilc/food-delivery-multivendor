@@ -26,7 +26,7 @@ export default function UpdateBusinessDetails({
   stepperProps,
 }: IUpdateProfileProps) {
   const { onStepChange, order } = stepperProps ?? {
-    onStepChange: () => { },
+    onStepChange: () => {},
     order: -1,
   };
 
@@ -182,7 +182,7 @@ export default function UpdateBusinessDetails({
                     <div>
                       <CustomTextField
                         type="text"
-                        placeholder={t("bsb_iban_swift_code")}
+                        placeholder="BSB / IBAN / Swift Code"
                         name="accountCode"
                         showLabel={true}
                         value={values.accountCode ?? ''}
@@ -221,7 +221,7 @@ export default function UpdateBusinessDetails({
                     <CustomNumberField
                       min={0}
                       useGrouping={false}
-                      placeholder={t('Business Registration Number')}
+                      placeholder={t('Business Registration No')}
                       name="bussinessRegNo"
                       showLabel={true}
                       value={values.bussinessRegNo}
@@ -240,7 +240,7 @@ export default function UpdateBusinessDetails({
                     <CustomNumberField
                       min={0}
                       useGrouping={false}
-                      placeholder={t('Company Registration Number')}
+                      placeholder={t('Company Registration No')}
                       name="companyRegNo"
                       showLabel={true}
                       value={values.companyRegNo}
@@ -260,7 +260,7 @@ export default function UpdateBusinessDetails({
                       min={0}
                       suffix="%"
                       useGrouping={false}
-                      placeholder={`${t('tax_rate_%')} %`}
+                      placeholder={`${t('Tax Rate')} %`}
                       name="taxRate"
                       showLabel={true}
                       value={values.taxRate}
