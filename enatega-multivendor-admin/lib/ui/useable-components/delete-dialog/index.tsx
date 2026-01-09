@@ -7,7 +7,6 @@ import CustomButton from '../button';
 // Interface and Types
 import { IDialogComponentProps } from '@/lib/utils/interfaces/dialog.interface';
 import { useTranslations } from 'next-intl';
-import { useTheme } from 'next-themes';
 
 const CustomDialog = ({
   title = 'Confirm Deletion',
@@ -18,8 +17,8 @@ const CustomDialog = ({
   loading,
   buttonConfig,
 }: IDialogComponentProps) => {
+
   const t = useTranslations();
-  const { theme } = useTheme();
   const {
     primaryButtonProp: {
       label: primaryButtonLabel = t('Confirm'),
@@ -30,20 +29,18 @@ const CustomDialog = ({
     secondaryButtonProp: {
       label: secondaryButtonLabel = t('Cancel'),
       icon: secondaryButtonIcon = 'pi pi-times',
-      textColor: secondaryButtonTextColor = theme === 'dark'
-        ? 'text-white'
-        : 'text-black',
+      textColor: secondaryButtonTextColor = 'text-black',
       bgColor: secondaryButtonBGColor = 'bg-transparent',
     } = {},
   } = buttonConfig || {};
 
   const footer = (
-    <div className="space-x-2 dark:bg-dark-950 dark:text-white">
+    <div className="space-x-2">
       <CustomButton
         label={secondaryButtonLabel || t('Cancel')}
         icon={secondaryButtonIcon || 'pi pi-times'}
         onClick={onHide}
-        className={`h-9 rounded border border-gray-300 dark:border-dark-600 px-5 ${secondaryButtonBGColor} ${secondaryButtonTextColor}`}
+        className={`h-9 rounded border border-gray-300 px-5 ${secondaryButtonBGColor} ${secondaryButtonTextColor}`}
       />
       <CustomButton
         loading={loading}
@@ -57,9 +54,6 @@ const CustomDialog = ({
 
   return (
     <Dialog
-      className="dark:text-white dark:bg-dark-950 border dark:border-dark-600"
-      headerClassName="dark:text-white dark:bg-dark-950"
-      contentClassName="dark:text-white dark:bg-dark-950"
       visible={visible}
       style={{ width: '32rem' }}
       breakpoints={{ '960px': '75vw', '641px': '90vw' }}
@@ -68,7 +62,7 @@ const CustomDialog = ({
       footer={footer}
       onHide={onHide}
     >
-      <div className="confirmation-content dark:text-white dark:bg-dark-950">
+      <div className="confirmation-content">
         <span>{message || 'Are you sure you want to delete this item?'}</span>
       </div>
     </Dialog>

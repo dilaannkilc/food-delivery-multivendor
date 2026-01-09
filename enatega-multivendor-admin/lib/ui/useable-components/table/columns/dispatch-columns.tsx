@@ -36,7 +36,7 @@ import { useTranslations } from 'next-intl';
 
 // Status templates
 const valueTemplate = (option: IDropdownSelectItem) => (
-  <div className="flex items-center justify-start gap-2 dark:text-white">
+  <div className="flex items-center justify-start gap-2">
     <Tag
       severity={severityChecker(option?.code)}
       value={option?.label}
@@ -160,7 +160,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
   };
   const OrderSubscription = ({ rowData }: { rowData: IActiveOrders }) => {
     useOrderSubscription(rowData);
-    return <p>{rowData.deliveryAddress.deliveryAddress}</p>;
+    return <p>{rowData.isPickedUp === false ? "Not Picked" : "Picked"}</p>;
   };
 
   // Mutations

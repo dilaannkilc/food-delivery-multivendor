@@ -3,7 +3,6 @@ import { PointLineSVG } from '@/lib/utils/assets/svgs/point-line';
 import { PolygonSVG } from '@/lib/utils/assets/svgs/polygon';
 import { ICustomShapeComponentProps } from '@/lib/utils/interfaces';
 import { useTranslations } from 'next-intl';
-import { useTheme } from 'next-themes';
 
 export default function CustomShape({
   selected,
@@ -12,7 +11,6 @@ export default function CustomShape({
 }: ICustomShapeComponentProps) {
   // Hooks
   const t = useTranslations();
-  const { theme } = useTheme();
 
   const items = [
     {
@@ -20,7 +18,7 @@ export default function CustomShape({
       child: (
         <>
           <PointLineSVG
-            strokeColor={selected === 'point' ? 'white' : theme === `dark`? "white" :"black" }
+            strokeColor={selected === 'point' ? 'white' : 'black'}
           />
           <p className="mt-2 text-center">{t('Point')}</p>
         </>
@@ -30,7 +28,7 @@ export default function CustomShape({
       value: 'radius',
       child: (
         <>
-          <CircleSVG strokeColor={selected === 'radius' ? 'white' : theme === `dark`? "white" :"black"} />
+          <CircleSVG strokeColor={selected === 'radius' ? 'white' : 'black'} />
           <p className="mt-2 text-center">{t('Circle')}</p>
         </>
       ),
@@ -39,8 +37,8 @@ export default function CustomShape({
       value: 'polygon',
       child: (
         <>
-         <PolygonSVG
-            strokeColor={selected === 'polygon' ? 'white' : theme === `dark`? "white" :"black"}
+          <PolygonSVG
+            strokeColor={selected === 'polygon' ? 'white' : 'black'}
           />
           <p className="mt-2 text-center">{t('Polygon')}</p>
         </>
@@ -63,8 +61,8 @@ export default function CustomShape({
             key={`${item.value}-${index}`}
             className={`flex flex-col items-center justify-center p-3 ${
               item.value === selected
-                ? 'bg-black dark:bg-dark-900 text-white border dark:border-dark-600'
-                : 'bg-[#F4F4F5] text-black dark:bg-dark-900 dark:text-white '
+                ? 'bg-black text-white'
+                : 'bg-[#F4F4F5] text-black'
             } w-30 h-30 transform rounded-lg shadow transition duration-300 ease-in-out hover:scale-105 focus:outline-none active:bg-gray-800`}
             type="button"
             onClick={() => onClick(item.value)}

@@ -16,7 +16,7 @@ const DateFilterCustomTab = ({
           key={String(option)}
           className={`flex cursor-pointer items-center justify-center rounded px-4 ${
             selectedTab === option
-              ? 'bg-white dark:bg-dark-950 text-black shadow'
+              ? 'bg-white text-black shadow'
               : 'text-gray-500'
           }`}
           onClick={() => setSelectedTab(option)}
