@@ -84,7 +84,7 @@ export const RIDER_TABLE_COLUMNS = ({
       body: (rider: IRiderResponse) => rider.zone.title,
     },
     {
-      headerName: t('Vehicle Type'),
+      headerName: 'Vehicle Type',
       propertyName: 'vehicleType',
       body: (rider: IRiderResponse) =>
         toTextCase(rider.vehicleType.replaceAll('_', ' '), 'title'),

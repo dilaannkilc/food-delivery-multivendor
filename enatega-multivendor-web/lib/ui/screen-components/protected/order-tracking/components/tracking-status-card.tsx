@@ -274,10 +274,10 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
             </div>
           )}
           {orderTrackingDetails.orderStatus === "PICKED" && (
-            <div className="w-8 h-8 flex items-center justify-center bg-primary-light dark:bg-primary-light rounded-full">
+            <div className="w-8 h-8 flex items-center justify-center bg-green-100 dark:bg-green-900 rounded-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-primary-color"
+                className="h-5 w-5 text-green-500"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -288,10 +288,10 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
           )}
           {(orderTrackingDetails.orderStatus === "DELIVERED" ||
             orderTrackingDetails.orderStatus === "COMPLETED") && (
-            <div className="w-8 h-8 flex items-center justify-center bg-primary-color dark:bg-primary-light rounded-full">
+            <div className="w-8 h-8 flex items-center justify-center bg-green-100 dark:bg-green-900 rounded-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-white"
+                className="h-5 w-5 text-green-500"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -337,9 +337,9 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
               <div
                 className={`h-full rounded-full transition-all duration-500 ${
                   status === "completed"
-                    ? "bg-primary-color"
+                    ? "bg-green-500"
                     : status === "active"
-                      ? "bg-primary-color animate-pulse"
+                      ? "bg-green-500 animate-pulse"
                       : "bg-gray-200 dark:bg-gray-700"
                 }`}
                 style={{
@@ -365,7 +365,7 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
         orderTrackingDetails.orderStatus !== "COMPLETED" &&
         orderTrackingDetails.orderStatus !== "CANCELLED" && (
           <div className="mt-2 flex items-center text-xs text-gray-500 dark:text-gray-400">
-            <span className="w-2 h-2 bg-primary-color rounded-full mr-2 animate-pulse"></span>
+            <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
             {t("live_updates_enabled_label")}
           </div>
         )}

@@ -91,7 +91,7 @@ export default function OrderCheckoutScreen() {
   // Coupon
   const [isCouponApplied, setIsCouponApplied] = useState(false);
   const [couponText, setCouponText] = useState("");
-  const [coupon, setCoupon] = useState<ICouponData>({} as ICouponData);
+  const [coupon, setCoupon] = useState<ICouponData | null>(null);
 
   // Hooks
   const router = useRouter();
@@ -102,7 +102,7 @@ export default function OrderCheckoutScreen() {
 
   const {
     cart,
-    restaurant: restaurantId, 
+    restaurant: restaurantId,
     clearCart,
     profile,
     fetchProfile,
@@ -215,7 +215,7 @@ export default function OrderCheckoutScreen() {
     }
   );
 
- console.log("Tipps from admin:", tipData);
+  console.log("Tipps from admin:", tipData);
   // Handlers
   const onInit = () => {
     if (!finalRestaurantData) return;
@@ -239,6 +239,17 @@ export default function OrderCheckoutScreen() {
       setTaxValue(finalRestaurantData.restaurant.tax);
     }
   }, [finalRestaurantData, taxValue]);
+
+  useEffect(() => {
+    const savedCoupon = localStorage.getItem("appliedCoupon");
+
+    if (savedCoupon) {
+      const parsed = JSON.parse(savedCoupon);
+      setCoupon(parsed);
+      setIsCouponApplied(true);  // ← VERY IMPORTANT
+    }
+  }, []);
+
 
   const onInitDirectionCacheSet = () => {
     try {
@@ -289,9 +300,9 @@ export default function OrderCheckoutScreen() {
         variation: food.variation._id,
         addons: food.addons
           ? food.addons.map(({ _id, options }) => ({
-              _id,
-              options: options.map(({ _id }) => _id),
-            }))
+            _id,
+            options: options.map(({ _id }) => _id),
+          }))
           : [],
         specialInstructions: food.specialInstructions,
       };
@@ -324,11 +335,11 @@ export default function OrderCheckoutScreen() {
 
   // API Handlers
   const onApplyCoupon = () => {
-    verifyCoupon({ variables: { coupon: couponText, restaurantId:restaurantId } });
+    verifyCoupon({ variables: { coupon: couponText, restaurantId: restaurantId } });
   };
 
   function couponCompleted({ coupon }: { coupon: ICoupon }) {
-    if(!coupon.success){
+    if (!coupon.success) {
       showToast({
         type: "info",
         title: t("coupon_not_found_title"),
@@ -344,6 +355,7 @@ export default function OrderCheckoutScreen() {
         });
         setIsCouponApplied(true);
         setCoupon(coupon.coupon);
+        localStorage.setItem("coupon", JSON.stringify(coupon.coupon));
       } else {
         showToast({
           type: "info",
@@ -610,7 +622,7 @@ export default function OrderCheckoutScreen() {
           orderInput: items,
           instructions: localStorage.getItem("newOrderInstructions") || "",
           paymentMethod: paymentMethod,
-          couponCode: isCouponApplied? coupon? coupon.title : null : null,
+          couponCode: isCouponApplied ? coupon ? coupon.title : null : null,
           tipping: +selectedTip,
           taxationAmount: +taxCalculation(),
           // address: {
@@ -840,7 +852,7 @@ export default function OrderCheckoutScreen() {
               height={300}
               className="w-full h-64 object-cover"
             />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-color text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#5AC12F] text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold">
               H
             </div>{" "}
           </>
@@ -849,7 +861,7 @@ export default function OrderCheckoutScreen() {
       {/* <!-- Toggle Prices Button for Mobile --> 
           <div className="sm:hidden fixed top-14 left-0 right-0 bg-transparent z-10 p-4">
             <button
-              className="bg-white text-primary-color w-full py-2 px-4 rounded-full border border-gray-300 flex justify-between items-center"
+              className="bg-white text-[#5AC12F] w-full py-2 px-4 rounded-full border border-gray-300 flex justify-between items-center"
               onClick={togglePriceSummary}
             >
               <span className="font-inter text-[14px]">
@@ -868,11 +880,10 @@ export default function OrderCheckoutScreen() {
             {/* <!-- Delivery and Pickup Toggle --> */}
             <div className="flex justify-between bg-gray-100 dark:bg-gray-800 rounded-full p-2 mb-6">
               <button
-                className={`w-1/2 ${
-                  deliveryType === "Delivery"
-                    ? "bg-primary-color"
-                    : "bg-gray-100 dark:bg-gray-700"
-                } text-white py-2 rounded-full flex items-center justify-center`}
+                className={`w-1/2 ${deliveryType === "Delivery"
+                  ? "bg-[#5AC12F]"
+                  : "bg-gray-100 dark:bg-gray-700"
+                  } text-white py-2 rounded-full flex items-center justify-center`}
                 onClick={() => {
                   setDeliveryType("Delivery");
                   setIsPickUp(false);
@@ -888,11 +899,10 @@ export default function OrderCheckoutScreen() {
               </button>
 
               <button
-                className={`w-1/2 ${
-                  deliveryType === "Pickup"
-                    ? "bg-primary-color"
-                    : "bg-gray-100 dark:bg-gray-700"
-                } px-6 py-2 rounded-full mx-2 flex items-center justify-center`}
+                className={`w-1/2 ${deliveryType === "Pickup"
+                  ? "bg-[#5AC12F]"
+                  : "bg-gray-100 dark:bg-gray-700"
+                  } px-6 py-2 rounded-full mx-2 flex items-center justify-center`}
                 onClick={() => {
                   setDeliveryType("Pickup");
                   setIsPickUp(true);
@@ -1016,14 +1026,14 @@ export default function OrderCheckoutScreen() {
                             }
                           )}
                         </div>
-                        <p className="text-secondary-color font-semibold text-sm sm:text-base md:text-[11px] lg:text-[12px] xl:text-[14px]">
+                        <p className="text-[#0EA5E9] font-semibold text-sm sm:text-base md:text-[11px] lg:text-[12px] xl:text-[14px]">
                           {CURRENCY_SYMBOL}
                           {item.price}
                         </p>
                       </div>
                     </div>
 
-                    <div className="border border-secondary-color text-secondary-color py-1 px-3 rounded-lg text-xs sm:text-sm font-medium w-fit">
+                    <div className="border border-[#0EA5E9] text-[#0EA5E9] py-1 px-3 rounded-lg text-xs sm:text-sm font-medium w-fit">
                       {item.quantity}
                     </div>
                   </div>
@@ -1109,28 +1119,27 @@ export default function OrderCheckoutScreen() {
                     {t("tip_courier_info")}
                   </p>
                   <div className="grid grid-cols-2 gap-2">
-                  {tipData?.tips.tipVariations.map(
-                    (tip: string, index: number) => (
-                      <button
-                        key={index}
-                        className={`text-[12px] ${
-                          selectedTip === tip
-                            ? "text-white bg-secondary-color"
-                            : "text-secondary-color bg-white dark:bg-gray-800 dark:text-secondary-color"
-                        } border border-secondary-color px-4 py-2 rounded-full w-full`}
-                        onClick={() => {
-                          if (selectedTip === tip) {
-                            setSelectedTip("");
-                          } else {
-                            setSelectedTip(tip);
-                          }
-                        }}
-                      >
-                        {tip !== "Other" ? CURRENCY_SYMBOL : ""}
-                        {tip}
-                      </button>
-                    )
-                  )}
+                    {tipData?.tips.tipVariations.map(
+                      (tip: string, index: number) => (
+                        <button
+                          key={index}
+                          className={`text-[12px] ${selectedTip === tip
+                            ? "text-white bg-[#0EA5E9]"
+                            : "text-[#0EA5E9] bg-white dark:bg-gray-800 dark:text-[#0EA5E9]"
+                            } border border-[#0EA5E9] px-4 py-2 rounded-full w-full`}
+                          onClick={() => {
+                            if (selectedTip === tip) {
+                              setSelectedTip("");
+                            } else {
+                              setSelectedTip(tip);
+                            }
+                          }}
+                        >
+                          {tip !== "Other" ? CURRENCY_SYMBOL : ""}
+                          {tip}
+                        </button>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
@@ -1153,6 +1162,8 @@ export default function OrderCheckoutScreen() {
                     className="border border-red-500 text-red-500 hover:bg-red-50 dark:border-red-500 dark:hover:border-red-700 dark:hover:bg-inherit rtl:mr-3 ml-3 sm:mt-0 mt-2 sm:w-fit w-full h-10 px-8 space-x-2 font-medium   tracking-normal font-inter text-sm sm:text-base md:text-[12px] lg:text-[14px] rounded-full"
                     onClick={() => {
                       setIsCouponApplied(false);
+                      setCoupon(null);
+                      localStorage.removeItem("coupon");
                     }}
                   >
                     {couponLoading ? (
@@ -1177,7 +1188,7 @@ export default function OrderCheckoutScreen() {
                       disabled={couponLoading}
                     />
                     <button
-                      className="bg-primary-color rtl:mr-2 sm:mt-0 mt-2 sm:w-fit w-full h-10 px-8 space-x-2 font-medium text-gray-900 dark:text-gray-900  tracking-normal font-inter text-sm sm:text-base md:text-[12px] lg:text-[14px] rounded-full"
+                      className="bg-[#5AC12F] rtl:mr-2 sm:mt-0 mt-2 sm:w-fit w-full h-10 px-8 space-x-2 font-medium text-gray-900 dark:text-gray-900  tracking-normal font-inter text-sm sm:text-base md:text-[12px] lg:text-[14px] rounded-full"
                       onClick={onApplyCoupon}
                     >
                       {couponLoading ? (
@@ -1284,7 +1295,7 @@ export default function OrderCheckoutScreen() {
                 </div>
               )}
 
-              {/* <div className="text-secondary-color mb-1 text-left font-inter text-xs lg:text-[12px]">
+              {/* <div className="text-[#0EA5E9] mb-1 text-left font-inter text-xs lg:text-[12px]">
                     Choose an offer (1 available)
                   </div>
 
@@ -1296,7 +1307,7 @@ export default function OrderCheckoutScreen() {
               </div>
 
               <button
-                className="bg-primary-color text-gray-900 dark:text-gray-900 w-full py-2 rounded-full font-semibold text-xs lg:text-[16px]"
+                className="bg-[#5AC12F] text-gray-900 dark:text-gray-900 w-full py-2 rounded-full font-semibold text-xs lg:text-[16px]"
                 onClick={onPlaceOrder}
               >
                 {loadingOrderMutation ? (
@@ -1396,7 +1407,7 @@ export default function OrderCheckoutScreen() {
                 </div>
               )}
 
-              {/* <div className="text-secondary-color mb-1 text-left font-inter text-xs lg:text-[12px]">
+              {/* <div className="text-[#0EA5E9] mb-1 text-left font-inter text-xs lg:text-[12px]">
                     Choose an offer (1 available)
                   </div> */}
 
@@ -1408,7 +1419,7 @@ export default function OrderCheckoutScreen() {
               </div>
 
               <button
-                className="bg-primary-color text-gray-900 dark:text-white w-full py-2 rounded-full text-xs lg:text-[12px]"
+                className="bg-[#5AC12F] text-gray-900 dark:text-white w-full py-2 rounded-full text-xs lg:text-[12px]"
                 onClick={onPlaceOrder}
               >
                 {loadingOrderMutation ? (
@@ -1507,7 +1518,7 @@ export default function OrderCheckoutScreen() {
                         </span>
                       </div>
 
-                      <div className="text-secondary-color mb-1 text-left font-inter text-[14px] md:text-lg leading-6 md:leading-7">
+                      <div className="text-[#0EA5E9] mb-1 text-left font-inter text-[14px] md:text-lg leading-6 md:leading-7">
                         Choose an offer (1 available)
                       </div>
                       <Divider />
@@ -1520,7 +1531,7 @@ export default function OrderCheckoutScreen() {
                         </span>
                       </div>
                       <button
-                        className="bg-primary-color text-gray-900 w-full py-2 rounded-full text-sm"
+                        className="bg-[#5AC12F] text-gray-900 w-full py-2 rounded-full text-sm"
                         onClick={onPlaceOrder}
                       >
                         {loadingOrderMutation ?

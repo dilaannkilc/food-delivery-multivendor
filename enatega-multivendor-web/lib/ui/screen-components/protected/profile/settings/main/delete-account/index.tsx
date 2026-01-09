@@ -85,7 +85,7 @@ export default function DeleteAccountDialog({
         bg-white dark:bg-gray-800 
         text-gray-700 dark:text-gray-300 
         rounded-md 
-        focus:ring-2 focus:ring-primary-color focus:border-primary-color
+        focus:ring-2 focus:ring-[#5AC12F] focus:border-[#5AC12F]
       `,
     },
     input: {
@@ -111,8 +111,8 @@ export default function DeleteAccountDialog({
         hover:bg-gray-100 dark:hover:bg-gray-700 
         transition-colors duration-150
 
-        [&.p-highlight]:bg-primary-color [&.p-highlight]:text-white 
-        dark:[&.p-highlight]:bg-primary-color dark:[&.p-highlight]:text-white 
+        [&.p-highlight]:bg-[#5AC12F] [&.p-highlight]:text-white 
+        dark:[&.p-highlight]:bg-[#5AC12F] dark:[&.p-highlight]:text-white 
 
         [&.p-focus]:bg-gray-100 dark:[&.p-focus]:bg-gray-700
       `,

@@ -405,7 +405,7 @@ export default function AddonAddForm({
                                                         true
                                                       );
                                                     },
-                                                    title: t('Add Option'),
+                                                    title: 'Add Options',
                                                   }}
                                                   showLabel={true}
                                                   style={{
