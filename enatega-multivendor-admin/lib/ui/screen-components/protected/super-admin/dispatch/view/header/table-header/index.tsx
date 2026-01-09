@@ -73,7 +73,7 @@ export default function DispatchTableHeader({
   }, []);
 
   return (
-    <div className="mb-4 flex flex-col gap-6">
+    <div className="mb-4 flex flex-col gap-6 dark:bg-dark-950 dark:text-white">
       <div className="flex-colm:flex-row flex w-fit items-center gap-2">
         <div className="w-60">
           <CustomTextField
@@ -140,7 +140,7 @@ export default function DispatchTableHeader({
           </OverlayPanel>
 
           <TextIconClickable
-            className="w-20 rounded border border-dotted border-[#E4E4E7] text-black"
+            className="w-20 rounded border border-dotted dark:border-dark-600 dark:text-white border-[#E4E4E7] text-black"
             icon={faAdd}
             iconStyles={{ color: 'black' }}
             title={selectedActions.length > 0 ? t('Filter') : t('Actions')}
