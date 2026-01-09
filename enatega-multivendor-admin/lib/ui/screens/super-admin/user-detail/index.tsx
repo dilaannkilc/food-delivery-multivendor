@@ -19,7 +19,6 @@ import { useQuery } from "@apollo/client";
 import { GET_ORDERS_BY_USER } from "@/lib/api/graphql/queries/order";
 import { GET_USER_BY_ID } from "@/lib/api/graphql";
 import { IExtendedOrder } from "@/lib/utils/interfaces";
-import { useTranslations } from "next-intl";
 
 
 interface UserDetailScreenProps {
@@ -29,7 +28,7 @@ interface UserDetailScreenProps {
 const UserDetailScreen: React.FC<UserDetailScreenProps> = ({ userId }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const router = useRouter();
-    const t = useTranslations();
+
 
 
     // Fetch user data
@@ -141,14 +140,14 @@ const UserDetailScreen: React.FC<UserDetailScreenProps> = ({ userId }) => {
     );
 
     const tabs = [
-        { label: t("personal_info"), content: <PersonalInfo user={user} /> },
+        { label: "Personal Info", content: <PersonalInfo user={user} /> },
         {
-            label: t("Addresses"),
+            label: "Addresses",
             content: user.addresses && user.addresses.length > 0
                 ? <Addresses addresses={user.addresses} />
                 : <NoAddressesCard />
         },
-        { label: t("order_history"), content: <OrderHistory orders={orders} totalRecords={totalOrders} rowsPerPage={limit} currentPage={currentPage} onPageChange={setCurrentPage} onLimitChange={setLimit} /> },
+        { label: "Order History", content: <OrderHistory orders={orders} totalRecords={totalOrders} rowsPerPage={limit} currentPage={currentPage} onPageChange={setCurrentPage} onLimitChange={setLimit} /> },
     ];
 
     const tabHeaderTemplate = (options: TabPanelHeaderTemplateOptions, tab: { label: string }, index: number) => {
@@ -181,7 +180,7 @@ const UserDetailScreen: React.FC<UserDetailScreenProps> = ({ userId }) => {
                     <FontAwesomeIcon icon={faArrowLeft} scale={1.5} /> {/* Use FontAwesomeIcon here */}
                 </Button>
 
-                <HeaderText text={t("user_details")} />
+                <HeaderText text="User Details" />
             </div>
             <div className="mt-6 h-[calc(100vh-150px)] overflow-y-auto">
                 <UserCard user={user} />

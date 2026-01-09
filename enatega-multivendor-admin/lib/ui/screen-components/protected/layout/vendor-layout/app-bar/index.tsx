@@ -66,7 +66,6 @@ import { GET_VENDOR_BY_ID } from '@/lib/api/graphql';
 import { useLocale, useTranslations } from 'next-intl';
 import { setUserLocale } from '@/lib/utils/methods/locale';
 import { TLocale } from '@/lib/utils/types/locale';
-import ThemeToggle from '@/lib/ui/useable-components/theme-button';
 
 const VendorAppTopbar = () => {
   // Hooks
@@ -141,7 +140,7 @@ const VendorAppTopbar = () => {
     template(item: any) {
       return (
         <div
-          className={`hover:bg-primary-color ${currentLocale === lang.code ? 'bg-primary-color' : ''} p-2 cursor-pointer`}
+          className={`hover:bg-[#b1c748] ${currentLocale === lang.code ? 'bg-[#b1c748]' : ''} p-2 cursor-pointer`}
           onClick={() => onLocaleChange(lang.code)}
         >
           {item.label}
@@ -190,9 +189,6 @@ const VendorAppTopbar = () => {
         </div>
       </div>
       <div className="hidden items-center space-x-1 md:flex">
-        <div className="flex items-center space-x-3">
-          <ThemeToggle />
-        </div>
         <div
           className="flex items-center space-x-2 rounded-md p-2 hover:bg-[#d8d8d837]"
           onClick={(event) => languageMenuRef.current?.toggle(event)}

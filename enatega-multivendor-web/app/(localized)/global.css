@@ -13,10 +13,8 @@
 }
 
 :root {
-  --primary-color: #75d04b;
-   --primary-light: #F3FFEE;
-   --primary-dark: #5AC12F;
-  --secondary-color: #0EA5E9;
+  --primary-color: #b1c748;
+  --secondary-color: #d8e3a3;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
@@ -303,6 +301,7 @@ body {
 
 .p-multiselect-select-all > .p-checkbox > .p-checkbox-box {
   border: 1px solid lightgray;
+  /* background-color: var(--secondary-color); */
 }
 
 .p-multiselect-item > .p-multiselect-checkbox > .p-checkbox > .p-checkbox-box {
@@ -400,8 +399,8 @@ body {
 }
 
 .p-datatable-table .p-checkbox.p-highlight .p-checkbox-box {
-  background-color: var(--primary-color) !important;
-  border-color: var(--primary-color) !important;
+  background-color: #5ac12f !important;
+  border-color: #5ac12f !important;
 }
 
 .p-datatable-tbody tr td {
@@ -561,7 +560,7 @@ body {
 }
 
 .p-autocomplete-item:hover {
-  background-color: var(--primary-light);
+  background-color: var(--secondary-color);
 }
 
 .p-autocomplete-dropdown {
@@ -588,7 +587,7 @@ body {
 
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
   color: #000000;
-  background: var(--primary-light);
+  background: var(--secondary-color);
 }
 
 .p-multiselect-select-all .p-highlight .p-checkbox-box,
@@ -837,7 +836,7 @@ Discovery Caurousal
 
 .p-panelmenu .p-panelmenu-header.p-highlight .p-menuitem-text,
 .p-panelmenu .p-panelmenu-header.p-highlight .p-panelmenu-header-link {
-  color: var(--primary-color) !important;
+  color: #5ac12f !important;
 }
 
 /* Remove background color on hover for menu items */
@@ -867,8 +866,8 @@ Discovery Caurousal
 } */
 
 .p-highlight {
-  background: var(--primary-color) !important;
-  border-color: var(--primary-light) !important;
+  background: green !important;
+  border-color: rgb(224, 224, 100) !important;
 }
 .p-inputotp-input {
   border: 1px solid lightgray;
@@ -905,7 +904,7 @@ Discovery Caurousal
 }
 
  .message-left .rce-mbox-text {
-  background-color: var(--primary-color); /* Light green for current user */
+  background-color: #59c12f; /* Light green for current user */
   border-radius: 3px;
   padding: 5px;
   color:white;

@@ -154,8 +154,8 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
             ? ""
             : t.raw("Assigned");
           return isRestaurant
-            ? timeElapsed <= 0 ? t("AcceptedRestaurantJustnow",{riderMessage}) : t("AcceptedRestaurantElapsed", { min: timeElapsed, riderMessage })
-            : timeElapsed <= 0 ? t("AcceptedStoreJustnow", {riderMessage}): t("AcceptedStoreElapsed", { min: timeElapsed, riderMessage });
+            ? timeElapsed <= 0 ? t("AcceptedRestaurantJustnow", { riderMessage }) : t("AcceptedRestaurantElapsed", { min: timeElapsed, riderMessage })
+            : timeElapsed <= 0 ? t("AcceptedStoreJustnow", { riderMessage }) : t("AcceptedStoreElapsed", { min: timeElapsed, riderMessage });
         }
 
         const riderMessage = orderTrackingDetails.isPickedUp
@@ -274,10 +274,10 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
             </div>
           )}
           {orderTrackingDetails.orderStatus === "PICKED" && (
-            <div className="w-8 h-8 flex items-center justify-center bg-primary-light dark:bg-primary-light rounded-full">
+            <div className="w-8 h-8 flex items-center justify-center bg-green-100 dark:bg-green-900 rounded-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-primary-color"
+                className="h-5 w-5 text-green-500"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -288,21 +288,21 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
           )}
           {(orderTrackingDetails.orderStatus === "DELIVERED" ||
             orderTrackingDetails.orderStatus === "COMPLETED") && (
-            <div className="w-8 h-8 flex items-center justify-center bg-primary-color dark:bg-primary-light rounded-full">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-white"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-          )}
+              <div className="w-8 h-8 flex items-center justify-center bg-green-100 dark:bg-green-900 rounded-full">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-green-500"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            )}
           {orderTrackingDetails.orderStatus === "CANCELLED" && (
             <div className="w-8 h-8 flex items-center justify-center bg-red-100 dark:bg-red-900 rounded-full">
               <svg
@@ -335,13 +335,12 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
               className="h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden"
             >
               <div
-                className={`h-full rounded-full transition-all duration-500 ${
-                  status === "completed"
-                    ? "bg-primary-color"
+                className={`h-full rounded-full transition-all duration-500 ${status === "completed"
+                    ? "bg-green-500"
                     : status === "active"
-                      ? "bg-primary-color animate-pulse"
+                      ? "bg-green-500 animate-pulse"
                       : "bg-gray-200 dark:bg-gray-700"
-                }`}
+                  }`}
                 style={{
                   width:
                     status === "completed"
@@ -365,7 +364,7 @@ function TrackingStatusCard({ orderTrackingDetails }: TrackingStatusCardProps) {
         orderTrackingDetails.orderStatus !== "COMPLETED" &&
         orderTrackingDetails.orderStatus !== "CANCELLED" && (
           <div className="mt-2 flex items-center text-xs text-gray-500 dark:text-gray-400">
-            <span className="w-2 h-2 bg-primary-color rounded-full mr-2 animate-pulse"></span>
+            <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
             {t("live_updates_enabled_label")}
           </div>
         )}

@@ -70,7 +70,6 @@ import { GET_RESTAURANT_PROFILE } from '@/lib/api/graphql';
 import { useLocale, useTranslations } from 'next-intl';
 import { TLocale } from '@/lib/utils/types/locale';
 import { setUserLocale } from '@/lib/utils/methods/locale';
-import ThemeToggle from '@/lib/ui/useable-components/theme-button';
 
 const AppTopbar = () => {
   // Hooks
@@ -146,7 +145,7 @@ const AppTopbar = () => {
     template(item: any) {
       return (
         <div
-          className={`hover:bg-primary-color ${currentLocale === lang.code ? 'bg-primary-color' : ''} p-2 cursor-pointer`}
+          className={`hover:bg-[#b1c748] ${currentLocale === lang.code ? 'bg-[#b1c748]' : ''} p-2 cursor-pointer`}
           onClick={() => onLocaleChange(lang.code)}
         >
           {item.label}
@@ -195,9 +194,6 @@ const AppTopbar = () => {
         </div>
       </div>
       <div className="hidden items-center space-x-1 md:flex">
-         <div className="flex items-center space-x-3">
-          <ThemeToggle />
-        </div>
         <div
           className="flex items-center space-x-2 rounded-md p-2 hover:bg-[#d8d8d837] cursor-pointer"
           onClick={(event) => languageMenuRef.current?.toggle(event)}

@@ -11,10 +11,6 @@ export const GET_ORDERS_BY_USER = gql`
         orderStatus
         paymentMethod
         createdAt
-        deliveryCharges
-        paidAmount
-        taxationAmount
-        tipping
         restaurant {
           _id
           name

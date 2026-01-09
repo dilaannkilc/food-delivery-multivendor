@@ -75,7 +75,6 @@ import {
   GET_WEB_NOTIFICATIONS,
   MARK_WEB_NOTIFICATIONS_AS_READ,
 } from '@/lib/api/graphql';
-import ThemeToggle from '@/lib/ui/useable-components/theme-button';
 
 const AppTopbar = () => {
   // States
@@ -209,7 +208,7 @@ const AppTopbar = () => {
     template(item: any) {
       return (
         <div
-          className={`hover:bg-primary-color ${currentLocale === lang.code ? 'bg-primary-color' : ''} p-2 cursor-pointer`}
+          className={`hover:bg-[#b1c748] ${currentLocale === lang.code ? 'bg-[#b1c748]' : ''} p-2 cursor-pointer`}
           onClick={() => onLocaleChange(lang.code)}
         >
           {item.label}
@@ -222,7 +221,7 @@ const AppTopbar = () => {
   }));
 
   return (
-    <div className={` dark:bg-dark-950 dark:text-white dark:border-dark-600 ${classes['layout-topbar']}`}>
+    <div className={`${classes['layout-topbar']}`}>
       <div className="flex items-center cursor-pointer">
         <div id="sidebar-opening-icon">
           <button onClick={() => showSuperAdminSidebar()}>
@@ -282,7 +281,7 @@ const AppTopbar = () => {
               className="absolute flex select-none flex-col pb-2 top-5 right-0 mt-2 w-72 bg-white shadow-xl rounded-md border"
             >
               <p className="select-none text-center font-medium p-2 shadow-sm">
-                {t("Notifications")}
+                Notifications
               </p>
 
               <ul className="flex flex-col gap-1 pt-2 overflow-y-auto max-h-[368px]">
@@ -313,7 +312,7 @@ const AppTopbar = () => {
                       className={`p-2 mx-3 rounded-md text-sm cursor-pointer ${
                         notification.read
                           ? 'text-black'
-                          : 'text-[#484848] bg-secondary-color'
+                          : 'text-[#484848] bg-[#d8e3a369]'
                       } hover:bg-gray-300`}
                       href={`${notification.navigateTo}`}
                       onClick={() => {
@@ -334,9 +333,6 @@ const AppTopbar = () => {
         </div>
 
         <div className="hidden items-center space-x-3 md:flex">
-          <div className="flex items-center space-x-3">
-            <ThemeToggle />
-          </div>
           <div
             className="flex items-center space-x-2 rounded-md p-2 hover:bg-[#d8d8d837] cursor-pointer"
             onClick={(event) => languageMenuRef.current?.toggle(event)}

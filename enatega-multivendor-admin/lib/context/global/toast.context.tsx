@@ -28,8 +28,7 @@ export const ToastProvider: React.FC<IToastProviderProps> = ({ children }) => {
   const onShowToast = (config: IToast) => {
     toastRef.current?.show({
       severity: config.type,
-      life: config.sticky ? undefined : (config?.duration ?? 2500),
-      sticky: config.sticky ?? false,
+      life: config?.duration ?? 2500,
       contentStyle: {
         margin: 0,
         padding: 0,

@@ -40,7 +40,7 @@ export const EARNING_COLUMNS = ({
       propertyName: 'paymentMethod',
     },
     {
-      headerName: t('platform_earnings'),
+      headerName: t('Platform Earnings'),
       propertyName: 'platformEarnings.totalEarnings',
       hidden: !isSuperAdmin,
       body: (earning: IEarning) =>
