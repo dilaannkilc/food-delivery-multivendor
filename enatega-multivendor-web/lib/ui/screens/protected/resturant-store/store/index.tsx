@@ -219,7 +219,7 @@ export default function StoreDetailsScreen() {
             if (!groupedFoods[subCatId]) groupedFoods[subCatId] = [];
             groupedFoods[subCatId].push({
               ...food,
-              title: food.title,
+              title: food.title
             });
           });
 
@@ -509,6 +509,7 @@ export default function StoreDetailsScreen() {
     _id: data?.restaurant?._id ?? "",
     name: data?.restaurant?.name ?? "...",
     image: data?.restaurant?.image ?? "",
+    logo: data?.restaurant?.logo ?? "",
     reviewData: data?.restaurant?.reviewData ?? {},
     address: data?.restaurant?.address ?? "",
     deliveryCharges: data?.restaurant?.deliveryCharges ?? "",
@@ -659,7 +660,7 @@ export default function StoreDetailsScreen() {
           >
             <div className="flex flex-col items-start">
               <Image
-                src={restaurantInfo.image}
+                src={restaurantInfo.logo}
                 alt={`${restaurantInfo.name} logo`}
                 width={50}
                 height={50}
@@ -916,9 +917,7 @@ export default function StoreDetailsScreen() {
                                     </span>
                                   )}
                                 </div>
-                                <p
-                                  className={`text-gray-500 text-sm dark:text-gray-400 line-clamp-2 hover:line-clamp-none ${direction === "rtl" ? "text-right" : "text-left"}`}
-                                >
+                                <p className="text-gray-500 text-sm dark:text-gray-400 line-clamp-2 hover:line-clamp-none">
                                   {meal.description}
                                 </p>
 
