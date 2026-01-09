@@ -117,22 +117,22 @@ function TicketCard({
   return (
     <div
       onClick={onClick}
-      className="flex flex-col border-b border-gray-200 dark:border-dark-600 p-4 cursor-pointer bg-white dark:bg-dark-950 dark:text-white hover:bg-gray-50 dark:hover:bg-dark-900"
+      className="flex flex-col border-b border-gray-200 p-4 cursor-pointer hover:bg-gray-50"
     >
       <div className="flex justify-between items-center">
         {/* Ticket title */}
-        <h3 className="font-medium text-lg text-gray-900 dark:text-white">
+        <h3 className="font-medium text-lg text-gray-900">
           {getTicketDisplayText()}
         </h3>
 
         {/* Last message time */}
-        <span className="text-sm text-gray-500 dark:text-white">
+        <span className="text-sm text-gray-500">
           {formatTimeAgo(displayTime)}
         </span>
       </div>
 
       {/* Description preview */}
-      <p className="text-sm text-gray-500 dark:text-white mt-1 truncate">
+      <p className="text-sm text-gray-500 mt-1 truncate">
         {ticket.description}
       </p>
 
@@ -144,7 +144,7 @@ function TicketCard({
         </span>
 
         {/* Format date */}
-        <span className="text-xs text-gray-500 dark:text-white">
+        <span className="text-xs text-gray-500">
           {formatDate(displayTime)}
         </span>
       </div>
