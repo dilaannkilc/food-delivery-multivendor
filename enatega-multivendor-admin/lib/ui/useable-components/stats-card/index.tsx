@@ -20,18 +20,17 @@ export default function StatsCard({
   isClickable = true,
 }: IStatsCardProps) {
   const stats_card = () => (
-     <div
-    className={`card flex flex-col justify-between min-h-28 ${
-      isClickable ? 'cursor-pointer' : 'cursor-default'
-    }`}
-  >
+    <div
+      className={`card flex flex-col justify-between min-h-28 ${isClickable ? 'cursor-pointer' : 'cursor-default'
+        }`}
+    >
       <div className="mb-2 flex items-center justify-between">
         <span className="text-gray-600">{label}</span>
 
         {icon && <FontAwesomeIcon icon={icon} />}
       </div>
       <div className="text-2xl font-bold">
-        {'$'}
+        {' '}
         {amountConfig
           ? amountConfig?.format === 'currency'
             ? formatNumberWithCurrency(total, amountConfig.currency)
@@ -47,9 +46,9 @@ export default function StatsCard({
   return loading ? (
     <DashboardStatsCardSkeleton />
   ) : isClickable ?
-  (
-    <Link href={route ?? ''}>{stats_card()}</Link>
-  ) : (
-    stats_card()
-  ) ;
+    (
+      <Link href={route ?? ''}>{stats_card()}</Link>
+    ) : (
+      stats_card()
+    );
 }
