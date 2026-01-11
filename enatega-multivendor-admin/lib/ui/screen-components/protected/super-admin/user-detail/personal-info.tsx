@@ -12,7 +12,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ user }) => {
 
   return (
     <div className="p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-4 text-black dark:text-white">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-4 text-black">
         <div>
           <h4 className="text-base font-semibold">{t('First Name')}</h4>
           <p>{user.name ? user.name.split(' ')[0] : ''}</p>

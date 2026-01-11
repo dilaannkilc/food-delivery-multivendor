@@ -175,7 +175,7 @@ function CustomUploadImageComponent({
         className={
           page && page === 'vendor-profile-edit'
             ? `bg-transparnt`
-            : `mx-auto flex h-48 w-48 flex-col items-center justify-start border-2 border-dashed ${imageValidationErr.bool ? 'border-red-900' : 'border-gray-300 dark:border-dark-600'}`
+            : `mx-auto flex h-48 w-48 flex-col items-center justify-start border-2 border-dashed ${imageValidationErr.bool ? 'border-red-900' : 'border-gray-300'}`
         }
         // className="bg-transparnt"
       >
@@ -255,7 +255,7 @@ function CustomUploadImageComponent({
           chooseOptions={
             page === 'vendor-profile-edit'
               ? {
-                  className: `z-50 bg-white dark:bg-dark-950 max-[500px]:ml-[-20px] ${!imageFile ? 'text-gray-700' : imageValidationErr.bool && !imageFile ? 'text-[#E4E4E7]' : 'text-[#E4E4E7]'} border border-[#E4E4E7] rounded-md items-center justify-center relative left-[20%] translate-y-[45px] w-[173px] h-[40px] text-[14px] gap-[5px] font-medium`,
+                  className: `z-50 bg-white max-[500px]:ml-[-20px] ${!imageFile ? 'text-gray-700' : imageValidationErr.bool && !imageFile ? 'text-[#E4E4E7]' : 'text-[#E4E4E7]'} border border-[#E4E4E7] rounded-md items-center justify-center relative left-[20%] translate-y-[45px] w-[173px] h-[40px] text-[14px] gap-[5px] font-medium`,
                   label: t('Upload Image'),
                   icon: () => <FontAwesomeIcon icon={faArrowUpFromBracket} />,
                 }

@@ -373,7 +373,7 @@ export default function CategoryAddForm({
                                                     parentCategoryId: '',
                                                   })
                                                 }
-                                                className="w-full flex justify-center items-center py-2 border border-dashed border-gray-400 rounded-md text-gray-600 hover:text-black  hover:border-black transition-all"
+                                                className="w-full flex justify-center items-center py-2 border border-dashed border-gray-400 rounded-md text-gray-600 hover:text-black hover:border-black transition-all"
                                               />
                                             </div>
                                           )}

@@ -79,10 +79,8 @@ function UserTicketCard({
   return (
     <div 
       onClick={onClick} 
-      className={`flex items-center border-b border-gray-200 dark:border-dark-600 p-3 cursor-pointer ${
-        isSelected
-          ? 'bg-black text-white dark:bg-dark-900 dark:text-white'
-          : 'bg-white text-black dark:bg-dark-950 dark:text-white'
+      className={`flex items-center border-b border-gray-200 p-3 cursor-pointer ${
+        isSelected ? 'bg-black text-white' : 'bg-white text-black'
       }`}
     >
       {/* User avatar */}
@@ -99,11 +97,11 @@ function UserTicketCard({
       {/* User name and ticket info */}
       <div className="flex-1">
         <div className="flex justify-between items-center">
-          <h3 className={`font-medium text-base ${isSelected ? 'text-white' : 'text-black dark:text-white'}`}>
+          <h3 className={`font-medium text-base ${isSelected ? 'text-white' : 'text-black'}`}>
             {user.name}
           </h3>
           {latestTicket && (
-            <span className={`text-xs ${isSelected ? 'text-gray-300' : 'text-gray-500 dark:text-white'}`}>
+            <span className={`text-xs ${isSelected ? 'text-gray-300' : 'text-gray-500'}`}>
               {formatTimeAgo(latestTicket.lastMessageAt || latestTicket.updatedAt)}
             </span>
           )}
@@ -111,7 +109,7 @@ function UserTicketCard({
         
         {/* Preview of latest ticket/message */}
         {latestTicket && (
-          <p className={`text-sm truncate ${isSelected ? 'text-gray-300' : 'text-gray-500 dark:text-white'}`}>
+          <p className={`text-sm truncate ${isSelected ? 'text-gray-300' : 'text-gray-500'}`}>
             {latestTicket.title}
           </p>
         )}
@@ -121,7 +119,7 @@ function UserTicketCard({
           <div className="mt-1">
             <span className={`text-xs px-2 py-0.5 rounded-full ${
               isSelected
-                ? 'bg-gray-700  text-white'
+                ? 'bg-gray-700 text-white'
                 : latestTicket.status === 'open'
                   ? 'bg-blue-100 text-blue-800'
                   : latestTicket.status === 'inProgress'

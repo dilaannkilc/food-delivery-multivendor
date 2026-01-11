@@ -9,7 +9,6 @@ import { IDispatchTableHeaderProps } from '@/lib/utils/interfaces/dispatch.inter
 // Icons
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
-import { useTheme } from 'next-themes';
 
 // Prime react
 import { Checkbox } from 'primereact/checkbox';
@@ -24,7 +23,7 @@ export default function DispatchTableHeader({
 }: IDispatchTableHeaderProps) {
   // Hooks
   const t = useTranslations();
-  const {theme } = useTheme()
+
   // Ref
   const overlayPanelRef = useRef<OverlayPanel>(null);
 
@@ -74,7 +73,7 @@ export default function DispatchTableHeader({
   }, []);
 
   return (
-    <div className="mb-4 flex flex-col gap-6 dark:bg-dark-950 dark:text-white">
+    <div className="mb-4 flex flex-col gap-6">
       <div className="flex-colm:flex-row flex w-fit items-center gap-2">
         <div className="w-60">
           <CustomTextField
@@ -141,9 +140,9 @@ export default function DispatchTableHeader({
           </OverlayPanel>
 
           <TextIconClickable
-            className="w-20 rounded border border-dotted dark:border-dark-600 dark:text-white border-[#E4E4E7] text-black "
+            className="w-20 rounded border border-dotted border-[#E4E4E7] text-black"
             icon={faAdd}
-            iconStyles={theme === 'dark' ? { color: 'white' } : { color: 'black' }}
+            iconStyles={{ color: 'black' }}
             title={selectedActions.length > 0 ? t('Filter') : t('Actions')}
             onClick={(e) => overlayPanelRef.current?.toggle(e)}
           />

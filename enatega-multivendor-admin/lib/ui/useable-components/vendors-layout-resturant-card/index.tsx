@@ -156,7 +156,7 @@ export default function VendorsLayoutRestaurantCard({
   };
 
   return (
-    <div className="flex flex-col rounded-lg border-2 border-[#F4F4F5] bg-white dark:bg-dark-950 shadow-md">
+    <div className="flex flex-col rounded-lg border-2 border-[#F4F4F5] bg-white shadow-md">
       <div className="mb-4 flex items-center rounded-t-lg bg-gray-200 p-4">
         {image ? (
           <Image
@@ -239,7 +239,7 @@ export default function VendorsLayoutRestaurantCard({
 
       <div className="mb-2 px-4">
         <CustomButton
-          className="h-10 w-full bg-[#EBEDE6] text-black dark:text-white"
+          className="h-10 w-full bg-[#EBEDE6] text-black"
           label={t('View Details')}
           onClick={() => {
             onUseLocalStorage('save', 'shopType', shopType )

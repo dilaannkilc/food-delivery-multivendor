@@ -276,7 +276,7 @@ export default function OptionAddForm({
                               {!option && (
                                 <div className="mt-4 flex justify-end">
                                   <TextIconClickable
-                                    className="w-full rounded border border-black bg-transparent text-black dark:text-white"
+                                    className="w-full rounded border border-black bg-transparent text-black"
                                     icon={faAdd}
                                     iconStyles={{ color: 'black' }}
                                     title={t('Add New Option')}

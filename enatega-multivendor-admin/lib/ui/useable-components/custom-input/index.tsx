@@ -44,7 +44,7 @@ export default function CustomNumberTextField({
 
   return !isLoading ? (
     <div className="flex flex-col gap-2">
-      <label htmlFor={name} className="text-sm font-medium text-gray-600 dark:text-white">
+      <label htmlFor={name} className="text-sm font-medium text-gray-600">
         {placeholder}
       </label>
 
@@ -54,11 +54,11 @@ export default function CustomNumberTextField({
           className="absolute left-2 z-10 flex h-6 w-6 cursor-pointer select-none items-center justify-center rounded-full border border-[#E4E4E7] hover:bg-slate-200"
           onClick={handleDecrease}
         >
-          <span className="text-gray-500 dark:text-white">-</span>
+          <span className="text-gray-500">-</span>
         </div>
 
         <InputNumber
-          className={`${classes.inputNumber} z-0 h-11 w-full border border-inherit bg-white dark:bg-dark-950 px-10 text-center focus:shadow-none focus:outline-none ${className}`}
+          className={`${classes.inputNumber} z-0 h-11 w-full border border-inherit bg-white px-10 text-center focus:shadow-none focus:outline-none ${className}`}
           name={name}
           value={value}
           prefix="$ "
@@ -75,7 +75,7 @@ export default function CustomNumberTextField({
           className="absolute right-2 z-10 flex h-6 w-6 cursor-pointer select-none items-center justify-center rounded-full border border-[#E4E4E7] hover:bg-slate-200"
           onClick={handleIncrease}
         >
-          <span className="text-gray-500 dark:text-white">+</span>
+          <span className="text-gray-500">+</span>
         </div>
       </div>
     </div>
