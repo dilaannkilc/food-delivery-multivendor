@@ -7,7 +7,6 @@ import { Checkbox } from 'primereact/checkbox';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import classes from './ratings.header.module.css';
 import { useTranslations } from 'next-intl';
-import { useTheme } from 'next-themes';
 
 interface MenuItem {
   label: string;
@@ -21,7 +20,7 @@ const RatingsHeaderDataView: React.FC<ICommissionRateHeaderProps> = ({
 }) => {
   // Hooks
   const t = useTranslations();
-  const {theme} = useTheme()
+
   // States
   const [searchValue, setSearchValue] = useState<string>('');
 
@@ -54,9 +53,9 @@ const RatingsHeaderDataView: React.FC<ICommissionRateHeaderProps> = ({
         <div className="flex w-full flex-row items-center gap-4 sm:w-auto sm:flex-col">
           <div className="sm:hidden">
             <TextIconClickable
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-dotted dark:border-dark-600 border-[#E4E4E7]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-dotted border-[#E4E4E7]"
               icon={faAdd}
-              iconStyles={theme === 'dark' ? { color: 'white' } : { color: 'black' }  }
+              iconStyles={{ color: 'black' }}
               onClick={(e) => overlayPanelRef.current?.toggle(e)}
             />
           </div>
@@ -75,9 +74,9 @@ const RatingsHeaderDataView: React.FC<ICommissionRateHeaderProps> = ({
 
         <div className="hidden sm:block">
           <TextIconClickable
-            className="w-44 rounded border border-dotted border-[#E4E4E7] text-black dark:border-dark-600 dark:text-white bg-white dark:bg-dark-950"
+            className="w-44 rounded border border-dotted border-[#E4E4E7] text-black bg-white"
             icon={faAdd}
-              iconStyles={theme === 'dark' ? { color: 'white' } : { color: 'black' }  }
+            iconStyles={{ color: 'black' }}
             title={t('Filter Ratings')}
             onClick={(e) => overlayPanelRef.current?.toggle(e)}
           />

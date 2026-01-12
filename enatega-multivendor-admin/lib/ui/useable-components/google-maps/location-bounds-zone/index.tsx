@@ -40,8 +40,6 @@ import { GoogleMapsContext } from '@/lib/context/global/google-maps.context';
 import CustomShape from '../shapes';
 import { DEFAULT_CENTER, DEFAULT_POLYGON } from '@/lib/utils/constants';
 import { useTranslations } from 'next-intl';
-import { darkMapStyle } from '@/lib/utils/map-style/mapStyle';
-import { useTheme } from 'next-themes';
 
 const autocompleteService: {
   current: google.maps.places.AutocompleteService | null;
@@ -52,8 +50,6 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
 > = ({ _path, onSetZoneCoordinates }) => {
   // Hooks
   const t = useTranslations();
-  const { theme } = useTheme();
-
 
   // Context
   const googleMapsContext = useContext(GoogleMapsContext);
@@ -334,6 +330,7 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
                                 key={index}
                                 style={{
                                   fontWeight: part.highlight ? 700 : 400,
+                                  color: 'black',
                                   marginRight: '2px',
                                 }}
                               >
@@ -382,7 +379,6 @@ const CustomGoogleMapsLocationZoneBounds: React.FC<
                 streetViewControl: false,
                 mapTypeControl: false,
                 fullscreenControl: false,
-                 styles: theme === 'dark' ? darkMapStyle : null,
               }}
               onClick={onClickGoogleMaps}
               onLoad={(map) => {
