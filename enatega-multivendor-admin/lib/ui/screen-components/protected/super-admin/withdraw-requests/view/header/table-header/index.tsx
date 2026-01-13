@@ -14,7 +14,6 @@ import { Checkbox } from 'primereact/checkbox';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl'
-import { useTheme } from 'next-themes';
 
 interface FilterOption {
   label: string;
@@ -37,7 +36,7 @@ export default function WithdrawRequestSuperAdminTableHeader({
 
   // Translations
   const t = useTranslations();
-  const {theme} = useTheme()
+
   const filterOptions: FilterOption[] = [
     // {
     //   label: 'Transferred',
@@ -128,9 +127,9 @@ export default function WithdrawRequestSuperAdminTableHeader({
                 filterOptions.find((opt) => opt.value === action)?.type ===
                 'status'
             )
-              } rounded border border-dotted dark:border-dark-600 border-[#E4E4E7] text-black dark:text-white transition-all`}
+              } rounded border border-dotted border-[#E4E4E7] text-black transition-all`}
             icon={faAdd}
-            iconStyles={theme === 'dark' ? { color: 'white' } : { color: 'dark' }}
+            iconStyles={{ color: 'black' }}
             title={
               (() => {
                 const selected = selectedActions.find((Action) => filterOptions.find((opt) => opt.value === Action)?.type === "userType")

@@ -1,7 +1,6 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import Script from 'next/script';
-import { ThemeProvider } from 'next-themes';
 
 // ✅ Add metadata export for favicon
 export const metadata = {
@@ -24,7 +23,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <head>
+       <head>
         {/* Microsoft Clarity */}
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`
@@ -37,11 +36,9 @@ export default async function RootLayout({
         </Script>
       </head>
       <body>
-        <ThemeProvider attribute={'class'}>
-          <NextIntlClientProvider messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );
