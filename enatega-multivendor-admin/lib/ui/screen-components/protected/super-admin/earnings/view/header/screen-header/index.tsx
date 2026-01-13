@@ -14,7 +14,7 @@ const EarningsSuperAdminHeader = ({
   // Helper function to format numbers to 2 decimal places
   const formatNumber = (value: number) => Number(value.toFixed(2));
   return (
-    <div className="sticky top-0 z-10 w-full flex-shrink-0 bg-white p-3 shadow-sm">
+    <div className="sticky top-0 z-10 w-full flex-shrink-0 bg-white dark:bg-dark-950 p-3 shadow-sm">
       <div className="flex w-full justify-between">
         <HeaderText text={t('Earnings')} />
       </div>
@@ -23,16 +23,14 @@ const EarningsSuperAdminHeader = ({
           label={t('Total Platform Earning')}
           total={formatNumber(earnings?.platformTotal || 0)}
           icon={faDollarSign}
-          currencySymbol="$"
           route=""
           isClickable={false}
-        // loading= {loading}
+          // loading= {loading}
         />
         <StatsCard
           label={t('Total Stores Earning')}
           total={formatNumber(earnings?.storeTotal || 0)}
           icon={faDollarSign}
-          currencySymbol="$"
           isClickable={false}
           route="" // loading={loading}
         />
@@ -40,7 +38,6 @@ const EarningsSuperAdminHeader = ({
           label={t('Total Riders Earnings')}
           total={formatNumber(earnings?.riderTotal || 0)}
           icon={faDollarSign}
-          currencySymbol="$"
           isClickable={false}
           route="" // loading = {loading}
         />
