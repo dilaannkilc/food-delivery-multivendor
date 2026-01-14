@@ -133,15 +133,14 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       const resp = await mutatePhoneCheck({ variables: { phone } });
       const exists = Boolean(resp.data?.phoneExist?._id);
 
-      if (exists) {
-        showToast({
-          type: "error",
-          title: t("phone_check_error"),
-          message: t("phone_already_registered"), // fix punctuation in translations file
-          sticky: true,
-        });
-      }
-
+      // if (exists) {
+      // showToast({
+      //   type: "error",
+      //   title: t("phone_check_error"),
+      //   message: t("phone_already_registered"), // fix punctuation in translations file
+      //   sticky: true,
+      // });
+      //}
       return exists; // true = already registered, false = not registered
     } catch (err) {
       const error = err as ApolloError;
@@ -220,7 +219,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         type: "error",
         title: t("login_error"),
         message: t("invalid_credentials"),
-        // sticky: true,
+        sticky: true,
       });
     } finally {
       setIsLoading(false);
@@ -236,6 +235,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       const userData = await createUser({
         variables: {
           ...user,
+          isReset: user.isReset,
         },
       });
       if (userData.data?.createUser && userData.data.createUser.userId) {
@@ -314,6 +314,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
             type: "success",
             title: t("login_success"),
             message: t("login_success_message"),
+            sticky: true,
           });
         } else {
           setActivePanel(4);
@@ -327,6 +328,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         type: "error",
         title: t("login_error"),
         message: t("invalid_credentials"),
+        sticky: true,
       });
     }
   }
@@ -340,12 +342,14 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         type: "error",
         title: t("login_error"),
         message: error.message,
+        sticky: true,
       });
     } else {
       showToast({
         type: "error",
         title: t("login_error"),
         message: t("invalid_credentials"),
+        sticky: true,
       });
     }
   }
