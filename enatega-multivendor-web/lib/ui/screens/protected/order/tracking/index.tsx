@@ -32,7 +32,7 @@ export default function OrderTrackingScreen({
   //states
   const [showRatingModal, setShowRatingModal] = useState<boolean>(false);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showChat, setShowChat] = useState(false)
+  const [showChat,setShowChat] = useState(false)
 
   //Queries and Mutations
   const {
@@ -52,7 +52,7 @@ export default function OrderTrackingScreen({
     subscriptionData,
   } = useTracking({ orderId: orderId });
 
-
+ 
 
   const { showToast } = useToast();
 
@@ -73,7 +73,7 @@ export default function OrderTrackingScreen({
       duration: 3000,
     });
 
-
+    
     // Add a small delay before navigation
     // Use window.location for a hard redirect
     setTimeout(() => {
@@ -90,7 +90,7 @@ export default function OrderTrackingScreen({
     });
   }
   // Merge subscription data with order tracking details
-  let mergedOrderDetails =
+  const mergedOrderDetails =
     orderTrackingDetails && subscriptionData ?
       {
         ...orderTrackingDetails,
@@ -101,14 +101,7 @@ export default function OrderTrackingScreen({
           subscriptionData.completionTime ||
           orderTrackingDetails.completionTime,
       }
-      : orderTrackingDetails;
-
-  if (mergedOrderDetails?.orderStatus === "PICKUP") {
-    mergedOrderDetails = {
-      ...mergedOrderDetails,
-      orderStatus: "PICKED",
-    };
-  }
+    : orderTrackingDetails;
 
   // Get restaurant ID for reviews query
   const restaurantId = useMemo(
@@ -190,9 +183,10 @@ export default function OrderTrackingScreen({
 
   // useEffect to handle order status changes
   useEffect(() => {
-    if (mergedOrderDetails?.orderStatus == 'PICKED') {
-      setShowChat(true)
-    }
+     if(mergedOrderDetails?.orderStatus == 'PICKED' )
+     {
+       setShowChat(true)
+     }
 
     if (mergedOrderDetails?.orderStatus == "DELIVERED") {
       // add timer
@@ -200,13 +194,13 @@ export default function OrderTrackingScreen({
         setShowRatingModal(true);
       }, 4000); // 4 seconds delay before showing the modal
       return () => clearTimeout(timer); // Clear timeout on component unmount
-    } else if (mergedOrderDetails?.orderStatus == "ACCEPTED") {
-      setShowConfetti(true);
+    }else if (mergedOrderDetails?.orderStatus == "ACCEPTED") {
+        setShowConfetti(true);
 
-      // Reset confetti after a longer delay
-      setTimeout(() => {
-        setShowConfetti(false);
-      }, 5000);
+        // Reset confetti after a longer delay
+        setTimeout(() => {
+          setShowConfetti(false);
+        }, 5000);
     }
   }, [mergedOrderDetails?.orderStatus]);
 
@@ -221,10 +215,10 @@ export default function OrderTrackingScreen({
     onInitDirectionCacheSet();
   }, [store_user_location_cache_key]);
 
-  console.log("data ", mergedOrderDetails)
+console.log("data ",mergedOrderDetails)
   return (
     <>
-      {showConfetti && (
+       {showConfetti && (
         <>
           <div
             style={{
@@ -285,8 +279,8 @@ export default function OrderTrackingScreen({
                 {/* Help Card - positioned on the left */}
                 <div className="md:ml-0 w-full md:w-auto md:flex-none">
                   <TrackingHelpCard />
-                  {showChat &&
-                    <ChatRider orderId={orderId} customerId={profile?.profile._id} />
+                  {showChat   &&
+                  <ChatRider orderId={orderId}  customerId={profile?.profile._id}/>
 
                   }
                 </div>
@@ -296,7 +290,7 @@ export default function OrderTrackingScreen({
               <div className="flex justify-center md:justify-start">
                 {isOrderTrackingDetailsLoading ?
                   <TrackingOrderDetailsDummy />
-                  : <TrackingOrderDetails
+                : <TrackingOrderDetails
                     orderTrackingDetails={mergedOrderDetails}
                   />
                 }

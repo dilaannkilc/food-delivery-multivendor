@@ -33,7 +33,7 @@ export default function useLocation() {
 
   const getCurrentLocation = (callback?: LocationCallback): void => {
     navigator.geolocation.getCurrentPosition(
-      async (position) => {
+      async (position: GeolocationPosition) => {
         const { latitude, longitude } = position.coords;
         try {
           const location = await Geocode.fromLatLng(
@@ -53,13 +53,13 @@ export default function useLocation() {
             callback(error instanceof Error ? error.message : String(error));
         }
       },
-      (error) => {
+      (error: GeolocationPositionError) => {
         callback && callback(error.message);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 0,
+        // showToast({
+        //   type: "error",
+        //   title: "Current Location",
+        //   message: error.message,
+        // });
       }
     );
   };

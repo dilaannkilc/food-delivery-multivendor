@@ -295,39 +295,23 @@ export const generateDummyAddons = (count: number = 10): IAddon[] => {
   return addons;
 };
 
-export const generateDummyUsers = (count: number = 10): IUserResponse[] => {
+export const generateDummyUsers = (): IUserResponse[] => {
   const users: IUserResponse[] = [];
 
-  for (let i = 0; i < count; i++) {
-    users.push({
-      __typename: 'User',
-      _id: `skeleton-${i}`,
-      name: 'Loading...',
-      email: 'Loading...',
-      emailIsVerified: false,
-      phone: 'Loading...',
-      phoneIsVerified: false,
-      isActive: false,
+  // for (let i = 0; i < count; i++) {
+  //   users.push({
+  //     _id: `user_${i + 1}`,
+  //     name: `User ${i + 1}`,
+  //     email: `user${i + 1}@example.com`,
+  //     phone: `+1${Math.floor(1000000000 + Math.random() * 9000000000)}`,
+  //     addresses: [],
 
-      status: 'Loading...',
-      lastLogin: 'Loading...',
-      registrationMethod: 'Loading...', // VALID (it exists in your interface!)
-
-      isOrderNotification: false,
-      isOfferNotification: false,
-
-      createdAt: 'Loading...',
-      updatedAt: 'Loading...',
-      notificationToken: 'Loading...',
-      userType: 'Loading...',
-
-      favourite: [],
-      addresses: [],
-      notes: 'Loading...',
-
-      actions: 'Loading...', // REQUIRED in your interface
-    });
-  }
+  //     createdAt: (
+  //       Date.now() - Math.floor(Math.random() * 31536000000)
+  //     ).toString(),
+  //     __typename: 'User',
+  //   });
+  // }
 
   return users;
 };
@@ -393,11 +377,12 @@ export const generateDummyShopTypes = (count: number = 10) => {
       name: `coupon_${i + 1}`,
       isActive: Math.random() * 3 > 2,
       image: '',
-      __typename: '',
+      __typename: ''
     });
   }
   return shop_types;
 };
+
 
 export const generateDummyCuisines = (count: number = 10) => {
   const cuisines: ICuisine[] = [];
@@ -548,11 +533,13 @@ export const generateDummyCouponsRestaurant = (
       discount: i + 1,
       enabled: Math.random() > 0.5,
       __typename: 'Rider',
+
     });
   }
 
   return coupons;
 };
+
 
 export const generateDummyStaff = (count: number = 10): IStaffResponse[] => {
   const staffs: IStaffResponse[] = [];
