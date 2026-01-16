@@ -200,8 +200,9 @@ export default function VendorCard({
           {vendorId === _id && (
             <FontAwesomeIcon
               icon={faEllipsisVertical}
-              className={`p-1 ${isPopupOpen ? 'text-gray-400' : 'text-white'
-                } cursor-pointer hover:scale-105`}
+              className={`p-1 ${
+                isPopupOpen ? 'text-gray-400' : 'text-white'
+              } cursor-pointer hover:scale-105`}
               onClick={(e) => {
                 e.stopPropagation();
                 setPopupOpen(!isPopupOpen);
@@ -234,7 +235,7 @@ export default function VendorCard({
                     icon: faTrash,
                     fn: onHandlerDelete,
                     data: null,
-                    color: 'text-red-500 ',
+                    color: 'text-red-500 dark:text-white',
                   },
                 ]}
               />

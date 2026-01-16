@@ -24,7 +24,6 @@ export interface IUserResponse {
   isActive: boolean;
   status: string;
   lastLogin: string;
-  registrationMethod: string;
   isOrderNotification: boolean;
   isOfferNotification: boolean;
   createdAt: string;
@@ -34,7 +33,6 @@ export interface IUserResponse {
   favourite?: string[];
   addresses?: IAddress[];
   notes?: string;
-  actions: string;
 }
 
 export interface IUsersDataResponse {
