@@ -7,7 +7,6 @@ import CustomButton from "@/lib/ui/useable-components/button";
 import CustomTextField from "@/lib/ui/useable-components/input-field";
 import CustomPasswordTextField from "@/lib/ui/useable-components/password-input-field";
 import CustomPhoneTextField from "@/lib/ui/useable-components/phone-input-field";
-import PhoneConflictModal from "../phone-conflict-modal";
 
 // Interfaces
 import { ILoginWithEmailProps } from "@/lib/utils/interfaces";
@@ -28,7 +27,6 @@ export default function SignUpWithEmail({
   handleChangePanel,
   formData,
   handleFormChange,
-  setFormData,
 }: ILoginWithEmailProps) {
   // Hooks
   const t = useTranslations();
@@ -46,7 +44,6 @@ export default function SignUpWithEmail({
   <q> </q>;
   const { SKIP_EMAIL_VERIFICATION, SKIP_MOBILE_VERIFICATION } = useConfig();
   const [isValid, setIsValid] = useState(true);
-  const [showPhoneConflictModal, setShowPhoneConflictModal] = useState(false);
   const { fetchProfile } = useUser();
 
   useEffect(() => {
@@ -61,7 +58,7 @@ export default function SignUpWithEmail({
   };
 
   // Handlers
-  const handleSubmit = async (isReset = false) => {
+  const handleSubmit = async () => {
     try {
       setIsLoading(true);
       setIsRegistering(true);
@@ -110,17 +107,9 @@ export default function SignUpWithEmail({
       }
 
       // If phone provided, check existence first
-      // Only check if we are NOT resetting (i.e. first attempt)
-      if (formData.phone && !isReset) {
-        console.log("Checking phone existence for:", formData.phone);
+      if (formData.phone) {
         const exists = await checkPhoneExists(formData.phone);
-        console.log("Phone exists result:", exists);
-
-        if (exists) {
-          console.log("Phone exists, showing modal");
-          setShowPhoneConflictModal(true);
-          return;
-        }
+        if (exists) return; // stop if already registered (or on error fallback)
       }
 
       // Verification flow (prioritize email, then phone, then direct create)
@@ -146,7 +135,6 @@ export default function SignUpWithEmail({
           name: formData.name,
           password: formData.password,
           emailIsVerified: false,
-          isReset: isReset,
         });
 
         handleChangePanel(0);
@@ -207,7 +195,7 @@ export default function SignUpWithEmail({
         />
       </div>
       {/* Email Validation message */}
-      <div className={` ${isValid ? `hidden` : ``} h-[20px]  `}>
+      <div className={` ${isValid? `hidden`:``} h-[20px]  `}>
         {!isValid && (
           <p className="text-red-500 text-sm">
             {t("please_enter_valid_email_address_message")}
@@ -245,19 +233,9 @@ export default function SignUpWithEmail({
       <CustomButton
         label={t("continue_label")}
         className={`bg-primary-color flex items-center justify-center gap-x-4 px-3 rounded-full border border-gray-300 p-3 m-auto w-72`}
-        onClick={() => handleSubmit()}
+        onClick={handleSubmit}
         loading={isLoading}
-      />
-      <PhoneConflictModal
-        isVisible={showPhoneConflictModal}
-        onCancel={() => setShowPhoneConflictModal(false)}
-        onConfirm={() => {
-          setFormData({ ...formData, isReset: true });
-          setShowPhoneConflictModal(false);
-          handleSubmit(true);
-        }}
       />
     </div>
   );
 }
-
