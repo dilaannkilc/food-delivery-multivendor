@@ -46,7 +46,6 @@ export const GET_RESTAURANTS = gql`
 export const GET_CLONED_RESTAURANTS = gql`
   query getClonedRestaurants {
     getClonedRestaurants {
-      unique_restaurant_id
       _id
       name
       image
@@ -233,7 +232,6 @@ export const GET_CLONED_RESTAURANTS_PAGINATED = gql`
   ) {
     getClonedRestaurantsPaginated(page: $page, limit: $limit, search: $search) {
       data {
-        unique_restaurant_id
         _id
         name
         image
