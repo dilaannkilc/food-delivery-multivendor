@@ -13,7 +13,6 @@ import {
 } from 'primereact/datatable';
 import DataTableColumnSkeleton from '../custom-skeletons/datatable.column.skeleton';
 import { useTranslations } from 'next-intl';
-import { ProgressSpinner } from 'primereact/progressspinner';
 import { useEffect } from 'react';
 
 const Table = <T extends ITableExtends>({
@@ -120,21 +119,7 @@ const Table = <T extends ITableExtends>({
         removableSort
         rowClassName={rowClassName}
         onRowClick={handleRowClick}
-        emptyMessage={
-          loading ? (
-            <div className="flex justify-center items-center h-full">
-              <ProgressSpinner
-                style={{ width: '20px', height: '20px' }}
-                strokeWidth="6"
-                fill="transparent"
-                animationDuration=".5s"
-                className="text-black"
-              />
-            </div>
-          ) : (
-            t('No Data Available')
-          )
-        }
+        emptyMessage={t('No Data Available')}
         {...paginationProps}
       >
         {isSelectable && (

@@ -10,7 +10,7 @@ import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import Table from '@/lib/ui/useable-components/table';
 
 // Utility functions
-// import { generateDummyCommissionRates } from '@/lib/utils/dummy';
+import { generateDummyCommissionRates } from '@/lib/utils/dummy';
 
 // Type definitions
 import { IQueryResult, IRestaurantResponse } from '@/lib/utils/interfaces';
@@ -37,7 +37,7 @@ export default function CommissionRateMain() {
   const t = useTranslations();
 
   // States
-  const [restaurants, setRestaurants] = useState<IRestaurantResponse[] | null>(null);
+  const [restaurants, setRestaurants] = useState<IRestaurantResponse[]>([]);
   const [editingRestaurantIds, setEditingRestaurantIds] = useState<Set<string>>(
     new Set()
   );
@@ -54,20 +54,16 @@ export default function CommissionRateMain() {
   const { showToast } = useContext(ToastContext);
 
   // Query
-  const { data, error, refetch, loading } = useQueryGQL(
-    GET_RESTAURANTS,
-    { page: 1, limit: 10 },
-    {
-      fetchPolicy: 'network-only',
-    }
-  ) as IQueryResult<RestaurantsData | undefined, undefined>;
+  const { data, error, refetch, loading } = useQueryGQL(GET_RESTAURANTS, {
+    fetchPolicy: 'network-only',
+  }) as IQueryResult<RestaurantsData | undefined, undefined>;
 
   // Mutation
   const [updateCommissionMutation] = useMutation(updateCommission);
 
   // Handlers
   const handleSave = async (restaurantId: string) => {
-    const restaurant = restaurants?.find((r) => r._id === restaurantId);
+    const restaurant = restaurants.find((r) => r._id === restaurantId);
     if (!restaurant?.commissionRate) {
       return showToast({
         type: 'error',
@@ -121,13 +117,11 @@ export default function CommissionRateMain() {
 
   const handleCommissionRateChange = (restaurantId: string, value: number) => {
     setRestaurants((prevRestaurants) =>
-      prevRestaurants
-        ? prevRestaurants.map((restaurant) =>
-          restaurant._id === restaurantId
-            ? { ...restaurant, commissionRate: value }
-            : restaurant
-        )
-        : null
+      prevRestaurants.map((restaurant) =>
+        restaurant._id === restaurantId
+          ? { ...restaurant, commissionRate: value }
+          : restaurant
+      )
     );
     setEditingRestaurantIds((prev) => {
       const newSet = new Set(prev);
@@ -137,7 +131,6 @@ export default function CommissionRateMain() {
   };
 
   const getFilteredRestaurants = () => {
-    if (!restaurants) return [];
     return restaurants.filter((restaurant) => {
       const nameMatches = restaurant.name
         .toLowerCase()
@@ -201,7 +194,7 @@ export default function CommissionRateMain() {
     <div className="p-3">
       <Table
         data={
-          (loading || restaurants === null) ? [] : getFilteredRestaurants()
+          loading ? generateDummyCommissionRates() : getFilteredRestaurants()
         }
         setSelectedData={setSelectedRestaurants}
         selectedData={selectedRestaurants}
@@ -210,7 +203,7 @@ export default function CommissionRateMain() {
           handleCommissionRateChange,
           loadingRestaurant,
         })}
-        loading={loading || restaurants === null}
+        loading={loading}
         header={
           <CommissionRateHeader
             selectedActions={selectedActions}
