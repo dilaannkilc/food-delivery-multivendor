@@ -86,7 +86,7 @@ export const CREATE_USER = gql`
     $notificationToken: String
     $appleId: String
     $emailIsVerified: Boolean
-    $isPhoneExists: Boolean
+    $isReset: Boolean
   ) {
     createUser(
       userInput: {
@@ -97,7 +97,7 @@ export const CREATE_USER = gql`
         notificationToken: $notificationToken
         appleId: $appleId
         emailIsVerified: $emailIsVerified
-        isPhoneExists: $isPhoneExists
+        isReset: $isReset
       }
     ) {
       userId

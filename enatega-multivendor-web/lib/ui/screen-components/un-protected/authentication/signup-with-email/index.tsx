@@ -61,7 +61,7 @@ export default function SignUpWithEmail({
   };
 
   // Handlers
-  const handleSubmit = async (isPhoneExists = false) => {
+  const handleSubmit = async (isReset = false) => {
     try {
       setIsLoading(true);
       setIsRegistering(true);
@@ -111,7 +111,7 @@ export default function SignUpWithEmail({
 
       // If phone provided, check existence first
       // Only check if we are NOT resetting (i.e. first attempt)
-      if (formData.phone && !isPhoneExists) {
+      if (formData.phone && !isReset) {
         console.log("Checking phone existence for:", formData.phone);
         const exists = await checkPhoneExists(formData.phone);
         console.log("Phone exists result:", exists);
@@ -146,7 +146,7 @@ export default function SignUpWithEmail({
           name: formData.name,
           password: formData.password,
           emailIsVerified: false,
-          isPhoneExists: isPhoneExists,
+          isReset: isReset,
         });
 
         handleChangePanel(0);
@@ -252,7 +252,7 @@ export default function SignUpWithEmail({
         isVisible={showPhoneConflictModal}
         onCancel={() => setShowPhoneConflictModal(false)}
         onConfirm={() => {
-          setFormData({ ...formData, isPhoneExists: true });
+          setFormData({ ...formData, isReset: true });
           setShowPhoneConflictModal(false);
           handleSubmit(true);
         }}
@@ -260,3 +260,4 @@ export default function SignUpWithEmail({
     </div>
   );
 }
+
