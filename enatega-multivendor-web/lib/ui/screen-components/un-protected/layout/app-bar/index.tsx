@@ -375,7 +375,7 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
   return (
     <>
       <nav
-        className={`w-screen shadow-sm dark:shadow-gray-600 z-50 bg-white dark:bg-gray-900 layout-top-bar ${isSearchFocused ? "sticky top-0" : ""}`}
+        className={`w-screen shadow-sm z-50 bg-white dark:bg-gray-900 layout-top-bar ${isSearchFocused ? "sticky top-0" : ""}`}
       >
         <div className="w-full">
           <PaddingContainer>
@@ -387,7 +387,10 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                     onClick={logoClickHandler}
                     className="text-xl font-bold text-gray-900 dark:text-white"
                   >
-                    <Logo fillColor="#000000" darkmode="#FFFFFFFF" />
+                    <Logo
+                      fillColor="#000000"
+                      darkmode="#FFFFFFFF"
+                    />
                   </div>
                 )}
                 {!isSearchFocused && (
@@ -473,7 +476,10 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                     aria-controls="popup_menu_right"
                     aria-haspopup
                   >
-                    <div className="h-6 w-6 md:w-8 md:h-8 rounded-full bg-primary-color flex items-center justify-center text-white font-semibold select-none uppercase">
+                    <div
+                      className="h-6 w-6 md:w-8 md:h-8 rounded-full bg-primary-color flex items-center justify-center text-white font-semibold select-none uppercase"
+
+                    >
                       {profile?.name
                         ?.trim()
                         .split(" ")
@@ -552,16 +558,11 @@ const AppTopbar = ({ handleModalToggle }: IAppBarProps) => {
                 )}
                 {/* Language Dropdown */}{" "}
                 {!isSearchFocused && (
-                  <div
-                    className="relative flex items-center gap-x-2"
-                    title="Languages"
-                  >
-                    <div
-                      onClick={toggleTheme}
-                      className="cursor-pointer p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
-                    >
+                  <div className="relative flex items-center gap-x-2" title="Languages">
+                    <div onClick={toggleTheme} className="cursor-pointer p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
                       {theme === "dark" ? "🌙" : "☀️"}
-                    </div>{" "}
+                    </div>
+                    {" "}
                     <button
                       onClick={(e) => languageMenuRef.current?.toggle(e)}
                       className="flex items-center justify-center"
