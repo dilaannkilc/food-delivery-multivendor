@@ -9,7 +9,7 @@ import CustomButton from '../../button';
 // Interfaces and Types
 import {
   ICommissionColumnProps,
-  ICommissionRateRestaurantResponse,
+  IRestaurantResponse,
 } from '@/lib/utils/interfaces';
 import { useTranslations } from 'next-intl';
 
@@ -24,14 +24,14 @@ export const COMMISSION_RATE_COLUMNS = ({
     {
       headerName: t('Name'),
       propertyName: 'name',
-      body: (restaurant: ICommissionRateRestaurantResponse) => (
+      body: (restaurant: IRestaurantResponse) => (
         <span style={{ fontWeight: 'bold' }}>{restaurant.name}</span>
       ),
     },
     {
       headerName: t('Set Commission Rate'),
       propertyName: 'commissionRate',
-      body: (restaurant: ICommissionRateRestaurantResponse) => (
+      body: (restaurant: IRestaurantResponse) => (
         <Formik
           initialValues={{
             [`commissionRate-${restaurant._id}`]: restaurant.commissionRate,
@@ -68,7 +68,7 @@ export const COMMISSION_RATE_COLUMNS = ({
     {
       headerName: t('Actions'),
       propertyName: 'action',
-      body: (restaurant: ICommissionRateRestaurantResponse) => (
+      body: (restaurant: IRestaurantResponse) => (
         <Formik initialValues={{}} onSubmit={() => handleSave(restaurant._id)}>
           {({ handleSubmit, isSubmitting }) => (
             <Form onSubmit={handleSubmit}>
