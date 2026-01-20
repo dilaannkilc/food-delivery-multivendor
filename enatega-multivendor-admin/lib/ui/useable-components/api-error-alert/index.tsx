@@ -4,7 +4,8 @@ import { useTranslations } from 'next-intl';
 // Interface for component props
 export interface IApiErrorAlertProps {
     error: string | null;
-    refetch?: () => void | Promise<void>;
+    refetch?: (variables?: any) => void | Promise<any>; // Accepts variables
+    variables?: any;
     queryName?: string; // New prop for query name
     title?: string;
 }
@@ -12,8 +13,8 @@ export interface IApiErrorAlertProps {
 export default function ApiErrorAlert({
     error,
     refetch,
-    // variables,
-    // queryName,
+    variables,
+    queryName,
     title,
 }: IApiErrorAlertProps) {
     const t = useTranslations();
@@ -42,13 +43,14 @@ export default function ApiErrorAlert({
                     </h3>
                     <p className="text-sm text-red-700 dark:text-red-300">
                         {error}
+                        {/* You can display queryName here if needed, e.g. <span className="text-xs block text-red-500 mt-1">Query: {queryName}</span> */}
                     </p>
                 </div>
                 {refetch && (
                     <button
                         onClick={() => {
                             // Passing variables to refetch as requested
-                            refetch();
+                            refetch(variables);
                         }}
                         className="flex-shrink-0 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
                     >

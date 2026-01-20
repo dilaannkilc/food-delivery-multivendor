@@ -3,7 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { useQueryGQL } from '@/lib/hooks/useQueryQL';
 import useDebounce from '@/lib/hooks/useDebounce';
 // Interfaces & Types
-import { IDateFilter, IQueryResult, IPaginationVars } from '@/lib/utils/interfaces';
+import { IDateFilter, IQueryResult } from '@/lib/utils/interfaces';
 import { IOrder, IExtendedOrder } from '@/lib/utils/interfaces';
 import { TOrderRowData } from '@/lib/utils/types';
 import { getGraphQLErrorMessage } from '@/lib/utils/methods/error';
@@ -83,7 +83,7 @@ export default function OrderSuperAdminMain() {
       };
     }
     | undefined,
-    IPaginationVars
+    undefined
   >;
 
   const [filters, setFilters] = useState({
@@ -112,13 +112,6 @@ export default function OrderSuperAdminMain() {
     const selectedOrder = event?.data as IExtendedOrder;
     setSelectedRestaurant(selectedOrder);
     setIsModalOpen(true);
-  };
-
-  const handleRefetch = () => {
-    refetch({
-      page: currentPage,
-      rows: rows,
-    });
   };
 
   const tableData = useMemo(() => {
@@ -196,7 +189,8 @@ export default function OrderSuperAdminMain() {
 
       <ApiErrorAlert
         error={getGraphQLErrorMessage(error)}
-        refetch={handleRefetch}
+        refetch={refetch}
+        variables={queryVariables}
         queryName="GET_ALL_ORDERS_PAGINATED"
         title={t('Error')}
       />
