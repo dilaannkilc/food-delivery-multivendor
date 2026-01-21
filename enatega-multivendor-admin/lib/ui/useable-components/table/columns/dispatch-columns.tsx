@@ -160,7 +160,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
   };
   const OrderSubscription = ({ rowData }: { rowData: IActiveOrders }) => {
     useOrderSubscription(rowData);
-    return <p>{rowData.isPickedUp === false ? "Delivery" : "Picked"}</p>;
+    return <p>{rowData.isPickedUp === false ? 'Delivery' : 'Pick Up'}</p>;
   };
 
   // Mutations
@@ -400,10 +400,10 @@ export const DISPATCH_TABLE_COLUMNS = () => {
         // CHANGE 2: Filter status options based on whether it's a pickup order
         const availableStatuses = rowData.isPickedUp
           ? actionStatusOptions.filter((status) =>
-            ['PENDING', 'ACCEPTED', 'DELIVERED', 'CANCELLED'].includes(
-              status.code
+              ['PENDING', 'ACCEPTED', 'DELIVERED', 'CANCELLED'].includes(
+                status.code
+              )
             )
-          )
           : actionStatusOptions;
 
         const currentStatus = availableStatuses.find(
@@ -412,7 +412,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
 
         // CHANGE 3: Disable status changes for delivered orders
         const isDelivered = rowData.orderStatus === 'DELIVERED';
-
+        const isRiderMissing = !rowData.rider && !rowData.isPickedUp;
         return (
           <>
             <Dropdown
@@ -425,7 +425,7 @@ export const DISPATCH_TABLE_COLUMNS = () => {
                 isStatusUpdating.bool && isStatusUpdating._id === rowData._id
               }
               className="outline outline-1 outline-gray-300"
-              disabled={isDelivered} // CHANGE 5: Disable dropdown if delivered
+              disabled={isDelivered || isRiderMissing} // CHANGE 5: Disable dropdown if delivered
             />
           </>
         );

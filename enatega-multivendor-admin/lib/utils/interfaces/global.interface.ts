@@ -47,16 +47,6 @@ export interface IQueryResult<T, V> {
   isSuccess: boolean;
 }
 
-export interface IPaginationVars {
-  page?: number;
-  rows?: number;
-}
-
-export interface IPaginationCommissionRateVars {
-  page?: number;
-  limit?: number;
-}
-
 export interface ITableColumn<T> {
   field?: string;
   header?: string;
