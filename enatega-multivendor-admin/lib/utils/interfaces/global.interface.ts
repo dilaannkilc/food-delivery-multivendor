@@ -14,7 +14,6 @@ export interface IDropdownSelectItem {
   label?: string;
   code?: string;
   body?: () => void;
-  disabled?: boolean;
 }
 export interface IRiderDropDownSelectItem extends IDropdownSelectItem {
   assignedOrders: string[];
