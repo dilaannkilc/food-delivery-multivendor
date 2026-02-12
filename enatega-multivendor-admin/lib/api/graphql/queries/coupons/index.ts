@@ -7,9 +7,6 @@ export const GET_COUPONS = gql`
       title
       discount
       enabled
-      startDate
-      endDate
-      lifeTimeActive
     }
   }
 `;
