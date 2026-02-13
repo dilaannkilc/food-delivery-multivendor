@@ -6,8 +6,7 @@ import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 // Assets
-import { FiClock } from "react-icons/fi";
-import { CycleSvg, FaceSvg } from "@/lib/utils/assets/svg";
+import { ClockSvg, CycleSvg, FaceSvg } from "@/lib/utils/assets/svg";
 import IconWithTitle from "../icon-with-title";
 
 // Hooks
@@ -33,7 +32,7 @@ const Card: React.FC<ICardProps> = ({
   const { setIsSearchFocused, setFilter, isSearchFocused, filter } =
     useSearchUI();
 
-  const { DELIVERY_RATE, CURRENCY_SYMBOL } = useConfig();
+  const { DELIVERY_RATE } = useConfig();
 
   const isWithinOpeningTime = (openingTimes: IOpeningTime[]): boolean => {
     const now = new Date();
@@ -76,7 +75,7 @@ const Card: React.FC<ICardProps> = ({
         }
 
         router.push(
-          `/${item.shopType === "restaurant" ? "restaurant" : "store"}/${item?.slug}/${item._id}`,
+          `/${item.shopType === "restaurant" ? "restaurant" : "store"}/${item?.slug}/${item._id}`
         );
 
         setFilter("");
@@ -120,14 +119,13 @@ const Card: React.FC<ICardProps> = ({
             >
               {item?.name}
             </p>
-            <p className="text-xs xl:text-sm text-[#4B5563] font-light line-clamp-1 dark:text-gray-400 hover:line-clamp-2">
+            <p  className="text-xs xl:text-sm text-[#4B5563] font-light line-clamp-1 dark:text-gray-400 hover:line-clamp-2">
               {item?.cuisines.map((cuisine) => cuisine).join(", ")}
             </p>
           </div>
 
           {/* Delivery Time */}
-          <div className="bg-primary-light dark:bg-gray-700 rounded-md flex items-center justify-center px-2 py-2 h-[40px] gap-1">
-            <FiClock className="text-sm text-primary-color" />
+          <div className="bg-primary-light dark:bg-gray-800 rounded-md flex items-center justify-center px-2 py-2 h-[40px]">
             <p className="text-xs text-primary-color font-light lg:font-normal text-center flex justify-center items-center dark:text-primary-color">
               {`${item?.deliveryTime}`} min
             </p>
@@ -136,10 +134,11 @@ const Card: React.FC<ICardProps> = ({
 
         {/* Icons Section */}
         <div className="flex flex-row justify-between w-[80%] sm:w-[100%] lg:w-[75%] pt-1">
-          <div className="flex items-center justify-center gap-1 text-blue-400">
-            <span>{CURRENCY_SYMBOL}</span>
-            <p className="font-light text-[10px]">{item?.minimumOrder}</p>
-          </div>
+          <IconWithTitle
+            logo={() => <ClockSvg isBlue={true} />}
+            title={item?.deliveryTime + " mins"}
+            isBlue={true}
+          />
           {DELIVERY_RATE && (
             <IconWithTitle logo={CycleSvg} title={DELIVERY_RATE} />
           )}
@@ -175,7 +174,7 @@ const Card: React.FC<ICardProps> = ({
 
                 setTimeout(() => {
                   router.push(
-                    `/${item.shopType === "restaurant" ? "restaurant" : "store"}/${item?.slug}/${item._id}`,
+                    `/${item.shopType === "restaurant" ? "restaurant" : "store"}/${item?.slug}/${item._id}`
                   );
                 }, 100);
               }}

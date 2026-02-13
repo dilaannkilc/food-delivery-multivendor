@@ -21,14 +21,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 
 export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
-  const {
-    foodItem,
-    addons,
-    options,
-    onClose,
-    restaurant,
-    isRecommendedProduct,
-  } = props;
+  const { foodItem, addons, options, onClose, restaurant, isRecommendedProduct } = props;
   const { CURRENCY_SYMBOL } = useConfig();
   const { id, slug }: { id: string; slug: string } = useParams();
   const locale = useLocale();
@@ -50,7 +43,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
   const [selectedVariation, setSelectedVariation] = useState(
     foodItem?.variations && foodItem.variations.length > 0
       ? foodItem.variations[0]
-      : null,
+      : null
   );
 
   // State for quantity
@@ -83,7 +76,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
   const handleAddonSelection = (
     addonId: string,
     isMultiple: boolean,
-    selection: Option | Option[],
+    selection: Option | Option[]
   ) => {
     setSelectedAddonOptions((prev) => ({
       ...prev,
@@ -134,10 +127,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
     if (!isFormValid() || !foodItem || !selectedVariation) return;
 
     // Check if we need to clear the cart (different restaurant)
-    const needsClear =
-      cart.length > 0 &&
-      cartRestaurant &&
-      foodItem.restaurant !== cartRestaurant;
+    const needsClear = cartRestaurant && foodItem.restaurant !== cartRestaurant;
 
     if (needsClear) {
       // Show clear cart confirmation dialog
@@ -174,13 +164,13 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
         item.variation._id === selectedVariation._id &&
         // check if addons ids and their option id's of item matches formattedAddons ids and option id's
         JSON.stringify(item.addons?.map((a) => a._id)) ===
-          JSON.stringify(formattedAddons.map((a) => a._id)) &&
+        JSON.stringify(formattedAddons.map((a) => a._id)) &&
         JSON.stringify(
-          item.addons?.flatMap((a) => a.options.map((o) => o._id)),
+          item.addons?.flatMap((a) => a.options.map((o) => o._id))
         ) ===
-          JSON.stringify(
-            formattedAddons.flatMap((a) => a.options.map((o) => o._id)),
-          ),
+        JSON.stringify(
+          formattedAddons.flatMap((a) => a.options.map((o) => o._id))
+        )
     );
 
     if (isItemInCart) {
@@ -190,13 +180,13 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
           item.variation._id === selectedVariation._id &&
           // check if addons ids and their option id's of item matches formattedAddons ids and option id's
           JSON.stringify(item.addons?.map((a) => a._id)) ===
-            JSON.stringify(formattedAddons.map((a) => a._id)) &&
+          JSON.stringify(formattedAddons.map((a) => a._id)) &&
           JSON.stringify(
-            item.addons?.flatMap((a) => a.options.map((o) => o._id)),
+            item.addons?.flatMap((a) => a.options.map((o) => o._id))
           ) ===
-            JSON.stringify(
-              formattedAddons.flatMap((a) => a.options.map((o) => o._id)),
-            )
+          JSON.stringify(
+            formattedAddons.flatMap((a) => a.options.map((o) => o._id))
+          )
         ) {
           // If item is already in cart, update its quantity
           updateItemQuantity(item.key, quantity);
@@ -210,7 +200,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
         selectedVariation._id,
         foodItem.restaurant,
         quantity,
-        formattedAddons,
+        formattedAddons
         // Special instructions - could add a field for this
       );
       // save restaurant id to local storage for product recommendation
@@ -218,6 +208,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
         onUseLocalStorage("save", "cart-product-store-id", id);
         onUseLocalStorage("save", "cart-product-store-slug", slug);
       }
+
     }
 
     // UPDAT4 STORAGE
@@ -227,7 +218,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
     onUseLocalStorage(
       "save",
       "currentShopType",
-      restaurant?.shopType === "restaurant" ? "restaurant" : "store",
+      restaurant?.shopType === "restaurant" ? "restaurant" : "store"
     );
 
     // Close the modal
@@ -247,7 +238,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
     onUseLocalStorage(
       "save",
       "currentShopType",
-      restaurant?.shopType === "restaurant" ? "restaurant" : "store",
+      restaurant?.shopType === "restaurant" ? "restaurant" : "store"
     );
   };
 
@@ -284,7 +275,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
     if (foodItem?.variations && foodItem.variations.length > 0) {
       // Find the first in-stock variation
       const inStockVariation = foodItem.variations.find(
-        (variation) => !variation.isOutOfStock,
+        (variation) => !variation.isOutOfStock
       );
       // If there's an in-stock variation, select it; otherwise, explicitly set to null
       if (inStockVariation) {
@@ -317,9 +308,8 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
         )}
         <Image
           alt={foodItem?.title ?? ""}
-          className={`md:max-w-md w-100 h-[200px] object-cover object-center rounded-t-md transition-opacity duration-300 ${
-            isLoading ? "opacity-0" : "opacity-100"
-          }`}
+          className={`md:max-w-md w-100 h-[200px] object-cover object-center rounded-t-md transition-opacity duration-300 ${isLoading ? "opacity-0" : "opacity-100"
+            }`}
           src={foodItem?.image ?? ""}
           width={500}
           height={200}
@@ -383,11 +373,11 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
                 onSingleSelect={
                   isSingleSelect
                     ? (option) =>
-                        handleAddonSelection(
-                          addon._id ?? "",
-                          false,
-                          option as Option,
-                        )
+                      handleAddonSelection(
+                        addon._id ?? "",
+                        false,
+                        option as Option
+                      )
                     : undefined
                 }
                 multiSelected={
@@ -398,18 +388,18 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
                 onMultiSelect={
                   !isSingleSelect
                     ? (updateFn) => {
-                        const current =
-                          (selectedAddonOptions[addon._id ?? ""] as Option[]) ||
-                          [];
-                        if (typeof updateFn === "function") {
-                          const updated = updateFn(current);
-                          handleAddonSelection(
-                            addon._id ?? "",
-                            true,
-                            updated as Option[],
-                          );
-                        }
+                      const current =
+                        (selectedAddonOptions[addon._id ?? ""] as Option[]) ||
+                        [];
+                      if (typeof updateFn === "function") {
+                        const updated = updateFn(current);
+                        handleAddonSelection(
+                          addon._id ?? "",
+                          true,
+                          updated as Option[]
+                        );
                       }
+                    }
                     : undefined
                 }
                 options={addonOptions as Option[]}
