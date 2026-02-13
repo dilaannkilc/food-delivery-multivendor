@@ -155,7 +155,7 @@ export default function ShopTypesForm({
             __typename: '',
             _id: '',
             name: '',
-            isActive: true,
+            isActive: false,
             image: '',
           },
         });
