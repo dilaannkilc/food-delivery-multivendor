@@ -5,9 +5,6 @@ import { IFilterType } from './table.interface';
 export interface ICoupon {
   discount: number;
   enabled: boolean;
-  lifeTimeActive: boolean;
-  startDate: string;
-  endDate: string;
   title: string;
   __typename: string;
   _id: string;
