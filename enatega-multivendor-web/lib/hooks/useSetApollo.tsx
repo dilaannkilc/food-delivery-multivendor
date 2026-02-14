@@ -29,29 +29,11 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const WS_SERVER_URL = process.env.NEXT_PUBLIC_WS_SERVER_URL;
 
-  const cache = new InMemoryCache({
-    typePolicies: {
-      // Prevent Apollo from normalizing these nested types by _id
-      // This fixes the issue where addons/options with the same _id
-      // would be merged across different order items
-      ItemAddon: {
-        keyFields: false, // Treat as embedded object, don't normalize
-      },
-      ItemOption: {
-        keyFields: false,
-      },
-      ItemVariation: {
-        keyFields: false,
-      },
-      OrderItem: {
-        keyFields: false, // Each order item should be treated as unique
-      },
-    },
-  });
+  const cache = new InMemoryCache();
 
   const httpLink = createHttpLink({
     uri: `${SERVER_URL}graphql`,
-    // useGETForQueries: true,
+    // useGETForQueries: true, 
   });
 
   // WebSocketLink with error handling
@@ -60,7 +42,7 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
       reconnect: true,
       timeout: 30000,
       lazy: true,
-    }),
+    })
   );
 
   // Error Handling Link using ApolloLink's onError (for network errors)
@@ -93,7 +75,7 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
         authorization: (token ?? "") ? `Bearer ${token ?? ""}` : "",
         userId: userId ?? "",
         isAuth: !!token,
-        "X-Client-Type": "web",
+        "X-Client-Type": "web"
       },
     });
   };
@@ -117,7 +99,7 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
         return () => {
           if (handle) handle.unsubscribe();
         };
-      }),
+      })
   );
 
   // Terminating Link for split between HTTP and WebSocket
@@ -132,7 +114,7 @@ export const useSetupApollo = (): ApolloClient<NormalizedCacheObject> => {
   const client = new ApolloClient({
     link: concat(
       ApolloLink.from([errorLink, terminatingLink, requestLink]),
-      httpLink,
+      httpLink
     ),
     cache,
     connectToDevTools: true,
