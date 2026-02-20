@@ -43,7 +43,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
     restaurant: cartRestaurant,
     clearCart,
     cart,
-    addQuantity,
+    updateItemQuantity,
   } = useUser();
 
   // State for selected variation
@@ -199,7 +199,7 @@ export default function FoodItemDetail(props: IFoodItemDetalComponentProps) {
             )
         ) {
           // If item is already in cart, update its quantity
-          addQuantity(item.key, quantity);
+          updateItemQuantity(item.key, quantity);
         }
       });
     } else {

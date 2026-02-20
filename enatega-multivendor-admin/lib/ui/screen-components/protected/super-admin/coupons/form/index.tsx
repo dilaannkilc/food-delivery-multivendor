@@ -49,21 +49,11 @@ export default function CouponForm({
     lifeTimeActive: isEditing.bool ? isEditing?.data?.lifeTimeActive : false,
     startDate:
       isEditing.bool && isEditing?.data?.startDate
-        ? (() => {
-            const date = new Date(isEditing.data.startDate);
-            return !isNaN(date.getTime())
-              ? date.toISOString().split('T')[0]
-              : '';
-          })()
+        ? new Date(isEditing.data.startDate).toISOString().split('T')[0]
         : '',
     endDate:
       isEditing.bool && isEditing?.data?.endDate
-        ? (() => {
-            const date = new Date(isEditing.data.endDate);
-            return !isNaN(date.getTime())
-              ? date.toISOString().split('T')[0]
-              : '';
-          })()
+        ? new Date(isEditing.data.endDate).toISOString().split('T')[0]
         : '',
   };
 
