@@ -49,7 +49,7 @@ const OrderDetailModal: React.FC<IOrderDetailModalProps> = ({
               <div className="item-list">
                 {restaurantData.items.map((item, index) => (
                   <div key={index} className="item-row">
-                    <span className="font-bold">
+                    <span>
                       {index + 1}. {item.title}
                     </span>
                     <span className="item-price dark:text-white">
@@ -63,7 +63,7 @@ const OrderDetailModal: React.FC<IOrderDetailModalProps> = ({
                 <div key={index}>
                   {item?.addons?.map((addon) =>
                     addon.options.map((option, index) => (
-                      <div key={index} className="item-row text-sm">
+                      <div key={index} className="item-row">
                         <span>{option.title}</span>
                         <span className="item-price dark:text-white">
                           {CURRENT_SYMBOL || '$'}

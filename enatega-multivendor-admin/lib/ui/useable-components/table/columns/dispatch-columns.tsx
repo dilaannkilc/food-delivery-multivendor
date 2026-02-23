@@ -46,13 +46,10 @@ const valueTemplate = (option: IDropdownSelectItem) => (
 );
 
 // Item templates
-// Item templates
 const itemTemplate = (option: IDropdownSelectItem) => {
   return (
     <div
-      className={`flex flex-row-reverse items-center justify-start gap-2 ${
-        classes.dropDownItem
-      } ${option.disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      className={`flex flex-row-reverse items-center justify-start gap-2 ${classes.dropDownItem}`}
     >
       <span>{option.label}</span>
     </div>
@@ -407,52 +404,19 @@ export const DISPATCH_TABLE_COLUMNS = () => {
       headerName: t('Status'),
       body: (rowData: IActiveOrders) => {
         // CHANGE 2: Filter status options based on whether it's a pickup order
-        const filteredOptions = rowData.isPickedUp
-          ? actionStatusOptions.filter((status) =>
-              ['PENDING', 'ACCEPTED', 'DELIVERED', 'CANCELLED'].includes(
-                status.code
+        const availableStatuses = (
+          rowData.isPickedUp
+            ? actionStatusOptions.filter((status) =>
+                ['PENDING', 'ACCEPTED', 'DELIVERED', 'CANCELLED'].includes(
+                  status.code
+                )
               )
-            )
-          : actionStatusOptions;
-
-        // Get the list of statuses that are part of the main flow (excluding CANCELLED)
-        const flowCodes = filteredOptions
-          .filter((s) => s.code !== 'CANCELLED')
-          .map((s) => s.code);
-        const currentIndex = flowCodes.indexOf(rowData.orderStatus);
-
-        const availableStatuses = filteredOptions.map((status) => {
-          let disabled = false;
-
-          if (status.code === 'CANCELLED') {
-            // Disable cancel if already delivered or cancelled
-            if (
-              rowData.orderStatus === 'DELIVERED' ||
-              rowData.orderStatus === 'CANCELLED'
-            ) {
-              disabled = true;
-            }
-          } else {
-            const statusIndex = flowCodes.indexOf(status.code);
-
-            // If current status is not in the flow (e.g. CANCELLED), disable all main flow steps
-            // OR if it's a valid flow status:
-            if (currentIndex !== -1 && statusIndex !== -1) {
-              if (statusIndex < currentIndex) disabled = true; // Previous steps
-              if (statusIndex > currentIndex + 1) disabled = true; // Future steps beyond next one
-            } else {
-              // Fallback: if we are in a weird state, maybe disable everything except current?
-              // Or if we are in CANCELLED, everything is disabled.
-              disabled = true;
-            }
-
-            // Specific rule: Cannot assign without rider
-            if (status.code === 'ASSIGNED' && !rowData.rider) {
-              disabled = true;
-            }
+            : actionStatusOptions
+        ).map((status) => {
+          if (status.code === 'ASSIGNED' && !rowData.rider) {
+            return { ...status, disabled: true };
           }
-
-          return { ...status, disabled };
+          return status;
         });
 
         const currentStatus = availableStatuses.find(
