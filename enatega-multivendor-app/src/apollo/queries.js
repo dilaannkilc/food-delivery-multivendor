@@ -522,9 +522,6 @@ export const getConfiguration = `query Configuration{
     skipMobileVerification
     skipEmailVerification
     costType
-    password
-    publishableKey
-    secretKey
   }
 }`
 
@@ -776,7 +773,6 @@ export const restaurant = `query Restaurant($id:String){
     restaurantUrl
     cuisines
     stripeDetailsSubmitted
-    shopType
   }
 }`
 

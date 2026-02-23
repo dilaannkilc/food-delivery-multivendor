@@ -1,21 +1,18 @@
 import { useState, useContext } from 'react'
-import { emailExist, forgotPassword } from '../../apollo/mutations'
+import { forgotPassword } from '../../apollo/mutations'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
 import ThemeContext from '../../ui/ThemeContext/ThemeContext'
 import { theme } from '../../utils/themeColors'
 import { FlashMessage } from '../../ui/FlashMessage/FlashMessage'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 const FORGOT_PASSWORD = gql`
   ${forgotPassword}
 `
-const EMAIL = gql`
-  ${emailExist}
-`
 export const useForgotPassword = () => {
-  const { t, i18n } = useTranslation()
+  const {t, i18n} = useTranslation()
   const navigation = useNavigation()
   const route = useRoute()
   const [email, setEmail] = useState(route.params?.email || '')
@@ -27,25 +24,8 @@ export const useForgotPassword = () => {
     onError
   })
 
-  const [mutateEmailExistsAndForgotPassword, { loading: emailExistLoading }] = useMutation(EMAIL, {
-    onCompleted: (data) => {
-      if (data?.emailExist?.userType && data?.emailExist?._id) {
-        mutate({ variables: { email: email.toLowerCase().trim() } })
-      } else {
-        FlashMessage({
-          message: t("Account not found, Please create your account.")
-        })
-      }
-    },
-    onError: (error) => {
-      FlashMessage({
-        message: t("somethingWentWrong")
-      })
-    }
-  })
-
   const themeContext = useContext(ThemeContext)
-  const currentTheme = { isRTL: i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue] }
+  const currentTheme = {isRTL : i18n.dir() === 'rtl', ...theme[themeContext.ThemeValue]}
 
   function validateCredentials() {
     let result = true
@@ -65,7 +45,7 @@ export const useForgotPassword = () => {
 
   function forgotPassword() {
     if (validateCredentials()) {
-      mutateEmailExistsAndForgotPassword({ variables: { email: email.toLowerCase().trim() } })
+      mutate({ variables: { email: email.toLowerCase().trim() } })
     }
   }
 
@@ -97,6 +77,6 @@ export const useForgotPassword = () => {
     forgotPassword,
     themeContext,
     currentTheme,
-    loading: loading || emailExistLoading
+    loading
   }
 }

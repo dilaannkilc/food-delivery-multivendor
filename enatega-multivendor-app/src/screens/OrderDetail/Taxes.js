@@ -9,7 +9,7 @@ import { alignment } from '../../utils/alignment'
 import styles from './styles'
 import color from '../../components/Text/TextDefault/styles'
 
-const Taxes = ({ tax, deliveryCharges, currency, tip }) => {
+const Taxes = ({ tax, deliveryCharges, currency }) => {
   const themeContext = useContext(ThemeContext)
   const { t, i18n } = useTranslation()
   const currentTheme = {
@@ -62,28 +62,6 @@ const Taxes = ({ tax, deliveryCharges, currency, tip }) => {
         <TextDefault H5 bolder style={{ ...alignment.Mmedium }}>
           {' '}
           {currency}{deliveryCharges}{' '} 
-        </TextDefault>
-      </View>
-      <View
-        style={{
-          flexDirection: theme?.isRTL ? 'row-reverse' : 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}
-      >
-        <TextDefault
-          H5
-          style={{ ...alignment.Mmedium, textAlign: 'center' }}
-          textColor={currentTheme.gray900}
-          bolder
-          isRTL
-        >
-          {' '}
-          {t('tip')}
-        </TextDefault>
-        <TextDefault H5 bolder style={{ ...alignment.Mmedium }}>
-          {' '}
-          {currency}{tip}{' '} 
         </TextDefault>
       </View>
     </View>

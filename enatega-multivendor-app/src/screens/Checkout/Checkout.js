@@ -406,7 +406,7 @@ function Checkout(props) {
   function onError(error) {
     setLoadingOrder(false)
     if (error.graphQLErrors.length) {
-      if (error.graphQLErrors[0].message === "Sorry! we can't deliver to your address." || error.graphQLErrors[0].message === 'Delivery zone not found') {
+      if (error.graphQLErrors[0].message === "Sorry! we can't deliver to your address.") {
         setisModalVisible(true)
       }
     } else {
