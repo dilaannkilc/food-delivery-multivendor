@@ -91,7 +91,6 @@ export const placeOrder = `
       cancelledAt
       assignedAt
       instructions
-      discountAmount
     }
   }`
 

@@ -499,7 +499,6 @@ export const myOrders = `query Orders($offset:Int){
     cancelledAt
     assignedAt
     instructions
-    discountAmount
   }
 }
 `
