@@ -462,13 +462,17 @@ function Account(props) {
                 <View style={styles(currentTheme).mainContainerArea}>
                   <View style={[styles(currentTheme).languageContainer, styles().checkboxSettings, styles().padding]}>
                     <View>
-                      <CheckboxBtn
-                        checked={orderNotification}
-                        onPress={() => {
-                          updateNotificationStatus('order')
-                          setBtnText('order')
-                        }}
-                      />
+                      {loading && btnText === 'order'
+                        ? <Spinner size='small' backColor='transparent' spinnerColor={currentTheme.main} />
+                        : (
+                          <CheckboxBtn
+                            checked={orderNotification}
+                            onPress={() => {
+                              updateNotificationStatus('order')
+                              setBtnText('order')
+                            }}
+                          />
+                          )}
                     </View>
                     <TouchableOpacity
                       activeOpacity={0.7}
@@ -488,11 +492,6 @@ function Account(props) {
                           {t('receivePushNotification')}{' '}
                         </TextDefault>
                       </View>
-                      {loading && btnText === 'order' && (
-                        <View>
-                          <Spinner size='small' backColor='transparent' spinnerColor={currentTheme.main} />
-                        </View>
-                      )}
                     </TouchableOpacity>
                   </View>
 
